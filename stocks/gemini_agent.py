@@ -1049,14 +1049,23 @@ Core Principles of Business Valuation & Capital Allocation:
 8. Strict USD Currency Standardization:
    - Every financial number, stat card, cash flow, and valuation MUST strictly be converted to and presented in US DOLLARS ($ USD).
    - For foreign ADRs, strictly use the US-traded ADS share count so per-share valuations are in USD per ADS.
+
+9. Empirical Multibagger Compounding Law (Alta Fox 104-Company Study & Mayer 100-Baggers):
+   - Multi-bagger returns are mathematically driven by three multiplicative engines:
+     Total Return = (1 + Δ Revenue [~50%-55% gain]) * (1 + Δ Operating Margin [~25%-30% gain]) * (1 + Δ Multiple [~20%-25% gain]).
+   - Fundamental Compounding Velocity = ROIC * Reinvestment Rate. Over a 10-year holding period, shareholder returns converge to the business's return on capital.
+   - Gross Margin Moat (>50% gross margin) provides the pricing power shield required to absorb inflation and fund sustained competitive reinvestment.
+   - Skin in the Game: High insider ownership (>15%) and founder-led governance ensure relentless focus on per-share intrinsic compounding.
 """
 
 AGENT_1_GENESIS_PREMISE_AND_PATHS_PROMPT = """Target: {ticker} ({company_name})
-Current Market Price: ${current_price:.2f}
 User Focus / Research Notes: {notes}
 
 You are the Chief Equity Research Director & Institutional Buy-Side Grounded Researcher.
 Your mission is to formulate Section 1 and Section 2 of the living investment thesis for {company_name} from audited SEC statutory filings (10-K, 10-Q, 20-F, 6-K) and the last 4 quarterly earnings call transcripts.
+
+ZERO-PRICE-ANCHORING DIRECTIVE:
+You are conducting 100% blind fundamental research on the business itself. You do NOT look at or anchor to stock prices or market noise. Your mandate is to analyze historical statutory financials, operational segment dynamics, and realistic unit compounding mechanics.
 
 STRICT OPERATIONAL REALISM & ANTI-STACKED-CONSERVATISM MANDATES:
 1. NO ARTIFICIAL GROWTH CLIFFS IN CORE BASELINE (PATH 1):
@@ -1079,13 +1088,14 @@ STRICT OPERATIONAL REALISM & ANTI-STACKED-CONSERVATISM MANDATES:
    - Non-operating interest deductions.
    - Derivation of Clean Normalized Baseline Owner Earnings (OE₀) and per diluted share ($ USD).
    - Calibrated Balance Sheet Bridge: Gross Cash & Liquid Marketable Securities (at 85% after tax buffer, less 2.5%-3.5% working capital buffer) minus Total Funded Debt = Total Net Cash ($M). DIVIDE BY DILUTED SHARES to get Net Surplus Cash (+) or Net Debt (-) per share ($ USD/share). Example: $4,500M net cash / 960M shares = +$4.68/share (NEVER enter aggregate $4,500M as per share!).
+   - Fundamental Compounding Velocity: State 3-year normalized ROIC %, Reinvestment Rate %, and Compounding Velocity (ROIC * Reinvestment Rate).
 
 OUTPUT FORMAT:
 Provide pure semantic HTML containing ONLY Section 1 and Section 2:
 
 <h2>Section 1: The Premise of the Company</h2>
-<p>[Comprehensive fundamental analysis of business model, unit monetization, moat, and 4-quarter earnings reality...]</p>
-[3-Year Historical Baseline Table, Segment Breakdown Table summing to 100%, Owner Earnings Derivation Table, Balance Sheet Net Debt / Surplus Cash Bridge, Pricing Power & Predictability Audits]
+<p>[Comprehensive fundamental analysis of business model, unit monetization, moat, gross margin durability, and 4-quarter earnings reality...]</p>
+[3-Year Historical Baseline Table, Segment Breakdown Table summing to 100%, Owner Earnings Derivation Table, Balance Sheet Net Debt / Surplus Cash Bridge, Fundamental Compounding Velocity Audit, Pricing Power & Predictability Audits]
 
 <h2>Section 2: The Probable Future Paths</h2>
 <p>Based on the company's audited statutory filings, segment dynamics, and 4-quarter management commentary, here are the distinct, un-biased operational paths covering 90%–95% of the fundamental probability space over the next 3–5 years:</p>
@@ -1122,7 +1132,7 @@ Provide pure semantic HTML containing ONLY Section 1 and Section 2:
 
 
 AGENT_2_VALUATION_ENGINE_PROMPT = """Target: {ticker} ({company_name})
-Current Market Price: ${current_price:.2f}
+Benchmark Reference Price (For Margin of Safety & IRR Comparison Only): ${current_price:.2f}
 
 You are the Lead Buy-Side Valuation & Capital Allocation Director.
 You are given Section 1 (The Premise) and Section 2 (The Probable Future Paths) for {company_name}.
@@ -1133,10 +1143,14 @@ RESEARCH DOSSIER CONTEXT:
 YOUR TASK:
 Formulate Section 3: Normalized Owner Earnings Multiple & Yield Inversion Valuation and the final structured JSON block.
 
-STRICT FIRST-PRINCIPLES VALUATION & MULTIPLE JUSTIFICATION RULES:
-1. STRICT ZERO-PRICE-ANCHORING MANDATE (BLIND APPRAISAL):
-   - Derive starting OE₀, projected 5-year CAGR, and terminal multiples 100% blind to today's market price (${current_price:.2f}).
-   - Under NO circumstances back-solve or anchor intrinsic values to market prices.
+STRICT FIRST-PRINCIPLES VALUATION & ZERO-PRICE-ANCHORING RULES:
+1. STRICT 100% BLIND INTRINSIC APPRAISAL (NO BACK-SOLVING):
+   - You MUST derive starting OE₀, projected 5-year CAGR (g_OE), and terminal multiples (M₅) 100% BLIND to the benchmark reference price (${current_price:.2f}).
+   - Under NO circumstances calculate backwards, anchor multiples, or tweak growth rates to match or justify market consensus. Intrinsic value is an independent property of the business's unit economics and cash flow compounding.
+   - The benchmark reference price (${current_price:.2f}) is used ONLY after intrinsic value is established to compute:
+     * Margin of Safety % = ((Present Fair Value - Benchmark Price) / Benchmark Price) * 100%
+     * 5Y Price IRR % = ((5Y Target Price / Benchmark Price)^(1/5) - 1) * 100%
+     * Reverse DCF Implied Reality = What CAGR is the market pricing in at ${current_price:.2f}?
 2. MULTIPLE ECONOMIC JUSTIFICATION (NO HIGH MULTIPLE WITHOUT HIGH GROWTH & ROIC):
    - Terminal Multiple = (1 - g / ROIC) / (r - g), where r = 9.5% hurdle rate and g is the steady-state growth rate.
    - Economic Multiple Rules:
@@ -1245,10 +1259,12 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
 
 
 AGENT_RED_TEAM_FEEDBACK_PROMPT = """Target: {ticker} ({company_name})
-Current Market Price: ${current_price:.2f}
 
 You are the Senior Buy-Side Red-Team Auditor.
 Your task is to ruthlessly critique the draft Premise (Section 1) and Forward-Looking Storylines & Operational Assumptions (Section 2) for {company_name}.
+
+ZERO-PRICE-ANCHORING DIRECTIVE:
+You are auditing fundamental operational assumptions, unit metrics, and audited statutory filing reality completely blind to market stock price. Do NOT suggest revisions to anchor to current price or market consensus.
 
 DRAFT SECTION 1 & SECTION 2:
 ======================================================================
@@ -1268,15 +1284,20 @@ Search Google, audited 10-K/10-Q filings, recent earnings call transcripts, and 
 4. EMPIRICAL PROBABILITY WEIGHTING AUDIT:
    - Does the core compounding path receive the dominant probability mass (65%–80%) for fortress, high-ROIC compounders?
    - Are downside friction or upside paths weighted in direct proportion to real filing evidence rather than arbitrary splits?
+5. GROSS MARGIN MOAT & MULTIBAGGER RETURN ENGINES:
+   - Check if gross margin is durable (>50%) and if operating margins reflect fixed SG&A cost absorption.
+   - Audit whether long-term compounding velocity (ROIC * Reinvestment Rate) is properly credited.
 
 Deliver a crisp, actionable Buy-Side Red-Team Critique Memo with specific factual corrections and guidance for refining Section 1 and Section 2.
 """
 
 AGENT_STORYLINE_REFINEMENT_PROMPT = """Target: {ticker} ({company_name})
-Current Market Price: ${current_price:.2f}
 
 You are the Lead Equity Research Director & Institutional Buy-Side Grounded Researcher.
 You are given the Draft Section 1 & Section 2 and the Independent Red-Team Critique Memo for {company_name}.
+
+ZERO-PRICE-ANCHORING DIRECTIVE:
+Refine the operational premise and future paths based strictly on audited fundamentals and operational unit drivers, 100% blind to market stock price.
 
 DRAFT SECTION 1 & SECTION 2:
 ======================================================================
@@ -1797,18 +1818,21 @@ def parse_sec3_and_json(
             oe5_sh = safe_float(s.get("projected_oe5_per_share") or s.get("oe5_per_share"), 0.0)
             cagr_str = str(s.get("projected_5y_cagr") or "")
             
-            # If val is aggregate market cap (>10x price) or missing, compute from multiple * oe5_sh (or oe_per_sh) + net_cash_sh
-            if (val > current_price * 10 or val <= 0.0) and oe5_sh > 0:
-                val = round(mult_num * oe5_sh + net_cash_sh, 2)
-            elif (val > current_price * 10 or val <= 0.0) and oe_per_sh > 0:
-                val = round(mult_num * oe_per_sh + net_cash_sh, 2)
-            elif val > current_price * 10 or val <= 0.0:
-                val = round(current_price * (1.15 if idx == 1 else (1.45 if idx == 2 else 0.70)), 2)
+            # If val is missing or invalid, compute from multiple * oe5_sh (or compounded oe_per_sh) + net_cash_sh
+            if val <= 0.0 or val > 25000.0:
+                if oe5_sh > 0:
+                    val = round(mult_num * oe5_sh + net_cash_sh, 2)
+                elif oe_per_sh > 0:
+                    cagr_num = safe_float(cagr_str, 8.0 if idx == 1 else (14.0 if idx == 2 else -2.0))
+                    calc_oe5 = oe_per_sh * ((1.0 + cagr_num / 100.0) ** 5)
+                    val = round(mult_num * calc_oe5 + net_cash_sh, 2)
+                else:
+                    val = 0.0
                 
             prob = safe_float(s.get("probability_weight") or s.get("prob_weight"), 0.0)
             if prob <= 0.0:
                 prob = round(1.0 / num_s, 2)
-            mos = ((val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+            mos = ((val - current_price) / current_price) * 100.0 if current_price > 0 and val > 0 else 0.0
             
             title = s.get("story_title") or s.get("title") or f"Path {idx}"
             summary = s.get("short_summary") or s.get("summary") or ""
@@ -1834,7 +1858,14 @@ def parse_sec3_and_json(
                 "projected_5y_cagr": cagr_str
             })
     else:
-        # Fallback if stories JSON block was partial
+        # Fallback if stories JSON block was partial - compute strictly via Owner Earnings compounding
+        p1_oe5 = round(oe_per_sh * (1.08 ** 5), 2) if oe_per_sh > 0 else 0.0
+        p2_oe5 = round(oe_per_sh * (1.14 ** 5), 2) if oe_per_sh > 0 else 0.0
+        p3_oe5 = round(oe_per_sh * (0.98 ** 5), 2) if oe_per_sh > 0 else 0.0
+        p1_val = round(p1_oe5 * 18.0 + net_cash_sh, 2)
+        p2_val = round(p2_oe5 * 24.0 + net_cash_sh, 2)
+        p3_val = round(p3_oe5 * 13.0 + net_cash_sh, 2)
+        
         stories_metadata = [
             {
                 "story_num": 1,
@@ -1846,13 +1877,15 @@ def parse_sec3_and_json(
                 "oe_multiple": "18.0x",
                 "oe_yield": "5.5%",
                 "terminal_multiple": "18.0x",
-                "val": round(oe_per_sh * 18.0 + net_cash_sh, 2) if oe_per_sh > 0 else round(current_price * 1.10, 2),
-                "mos_pct": 10.0,
-                "target": f"${round(oe_per_sh * 18.0 + net_cash_sh, 2) if oe_per_sh > 0 else round(current_price * 1.10, 2):.2f} (+10.0%)",
-                "prob_pct": 50.0,
-                "prob_weight": 0.50,
+                "val": p1_val,
+                "mos_pct": round(((p1_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
+                "target": f"${p1_val:.2f}",
+                "prob_pct": 65.0,
+                "prob_weight": 0.65,
                 "net_cash_per_share": net_cash_sh,
-                "normalized_oe_per_share": oe_per_sh
+                "normalized_oe_per_share": oe_per_sh,
+                "projected_oe5_per_share": p1_oe5,
+                "projected_5y_cagr": "+8.0%"
             },
             {
                 "story_num": 2,
@@ -1864,13 +1897,15 @@ def parse_sec3_and_json(
                 "oe_multiple": "24.0x",
                 "oe_yield": "4.2%",
                 "terminal_multiple": "24.0x",
-                "val": round(oe_per_sh * 24.0 + net_cash_sh, 2) if oe_per_sh > 0 else round(current_price * 1.30, 2),
-                "mos_pct": 30.0,
-                "target": f"${round(oe_per_sh * 24.0 + net_cash_sh, 2) if oe_per_sh > 0 else round(current_price * 1.30, 2):.2f} (+30.0%)",
-                "prob_pct": 25.0,
-                "prob_weight": 0.25,
+                "val": p2_val,
+                "mos_pct": round(((p2_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
+                "target": f"${p2_val:.2f}",
+                "prob_pct": 20.0,
+                "prob_weight": 0.20,
                 "net_cash_per_share": net_cash_sh,
-                "normalized_oe_per_share": oe_per_sh
+                "normalized_oe_per_share": oe_per_sh,
+                "projected_oe5_per_share": p2_oe5,
+                "projected_5y_cagr": "+14.0%"
             },
             {
                 "story_num": 3,
@@ -1882,13 +1917,15 @@ def parse_sec3_and_json(
                 "oe_multiple": "13.0x",
                 "oe_yield": "7.7%",
                 "terminal_multiple": "13.0x",
-                "val": round(oe_per_sh * 13.0 + net_cash_sh, 2) if oe_per_sh > 0 else round(current_price * 0.75, 2),
-                "mos_pct": -25.0,
-                "target": f"${round(oe_per_sh * 13.0 + net_cash_sh, 2) if oe_per_sh > 0 else round(current_price * 0.75, 2):.2f} (-25.0%)",
-                "prob_pct": 25.0,
-                "prob_weight": 0.25,
+                "val": p3_val,
+                "mos_pct": round(((p3_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
+                "target": f"${p3_val:.2f}",
+                "prob_pct": 15.0,
+                "prob_weight": 0.15,
                 "net_cash_per_share": net_cash_sh,
-                "normalized_oe_per_share": oe_per_sh
+                "normalized_oe_per_share": oe_per_sh,
+                "projected_oe5_per_share": p3_oe5,
+                "projected_5y_cagr": "-2.0%"
             }
         ]
 
@@ -1924,13 +1961,12 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     fut_catalyst = bg_executor.submit(research_catalyst_intelligence, ticker_clean, company_name)
 
     # ------------------------------------------------------------------
-    # Agent 1: Search-Grounded Genesis Premise & Operational Paths
+    # Agent 1: Search-Grounded Genesis Premise & Operational Paths (100% BLIND TO MARKET PRICE)
     # ------------------------------------------------------------------
     print(f"\n🧠 [AGENT 1: SEARCH-GROUNDED RESEARCH] Researching 10-Ks, formulating Premise (Sec 1) & N Paths (Sec 2)...", flush=True)
     agent1_prompt = AGENT_1_GENESIS_PREMISE_AND_PATHS_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
-        current_price=current_price,
         notes=initial_notes or "Synthesize core business model, unit economics, 4-quarter earnings commentary, and distinct operational trajectories."
     )
     raw_agent1_output = call_gemini_with_search(agent1_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
@@ -1945,7 +1981,6 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     feedback_prompt = AGENT_RED_TEAM_FEEDBACK_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
-        current_price=current_price,
         sec1_and_sec2_draft=f"{sec1_clean}\n\n{sec2_clean}"
     )
     critique_memo = call_gemini_with_search(feedback_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
@@ -1959,7 +1994,6 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     refinement_prompt = AGENT_STORYLINE_REFINEMENT_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
-        current_price=current_price,
         sec1_and_sec2_draft=f"{sec1_clean}\n\n{sec2_clean}",
         critique_memo=critique_memo
     )

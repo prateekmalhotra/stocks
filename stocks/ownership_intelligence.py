@@ -839,12 +839,15 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
                     <span class="stat-note">{inst_float_note}</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider & Beneficial Sentiment</span>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="stat-label">Insider &amp; Beneficial Sentiment</span>
+                        <button type="button" class="btn-info-circle" onclick="openMultibaggerModal(event)" title="Empirical Multibagger Insider Alignment Research" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.72rem; padding: 0 2px;">ⓘ</button>
+                    </div>
                     <span class="stat-num" style="color: {insider_intel['color']}; font-family: var(--font-sans); font-size: 1.25rem;">{insider_intel['badge_html']}</span>
                     <span class="stat-note">{insider_intel['summary']}</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-label">Whale &amp; Superinvestor Tracking</span>
                     <span class="stat-num" style="color: var(--accent-warm);">{fund_count_display} Funds Tracked</span>
                     <span class="stat-note">{whale_flow_note}</span>
                 </div>

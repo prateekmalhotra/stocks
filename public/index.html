@@ -14,16 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- Embedded Initial Live Quotes for 100% Guaranteed Zero-Lag Data Delivery -->
-    <script id="embedded-live-quotes" type="application/json">{
-  "CPRT": {
-    "price": 34.33,
-    "prev_close": 34.33,
-    "change": 0.0,
-    "change_pct": 0.0,
-    "currency": "USD",
-    "updated_at": "2026-08-21 00:52:45 UTC"
-  }
-}</script>
+    <script id="embedded-live-quotes" type="application/json">{}</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -800,7 +791,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">1</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">0</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -843,37 +834,11 @@
                     </thead>
                     <tbody>
                         
-        <tr class="table-row" data-ticker="CPRT" data-baseline="34.33" onclick="location.href='reports/CPRT.html'">
-            <td>
-                <div class="tbl-ticker-cell">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CPRT" alt="CPRT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CP</span></div>
-                        <span class="tbl-symbol">CPRT</span>
-                    </div>
-                    <span class="tbl-company-hover">Copart, Inc</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-price-cell">
-                    <span class="tbl-price tbl-price-CPRT">$34.33</span>
-                    <span class="tbl-return tbl-ret-CPRT pos">+0.00%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-labels-cell">
-                    <span style="color: var(--accent-warm); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans);">Wide Moat</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">$53.21</span>
-                    <span class="tbl-upside">+55.0%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-date">2026-09-03</span>
-                    <span class="tbl-cat-desc">Q4 '26 ER</span>
+        <tr>
+            <td colspan="5" style="border-bottom: none !important; padding: 0 !important;">
+                <div class="empty-state-box">
+                    <div class="empty-state-title">No Stocks Tracked</div>
+                    <div class="empty-state-sub">Ready for coverage</div>
                 </div>
             </td>
         </tr>
@@ -885,36 +850,10 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div class="grid-card" data-ticker="CPRT" data-baseline="34.33" onclick="location.href='reports/CPRT.html'">
-            <div class="grid-card-top">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CPRT" alt="CPRT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CP</span></div>
-                    <span class="grid-symbol">CPRT</span>
-                </div>
-                <div class="grid-price grid-price-CPRT">$34.33</div>
-            </div>
-            <div class="grid-labels-row" style="margin: 4px 0 8px;">
-                <span style="color: var(--accent-warm); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans);">Wide Moat</span>
-            </div>
-            <div class="grid-company">Copart, Inc</div>
-            
-            <div class="grid-metrics-box">
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Return</span>
-                    <span class="grid-stat-val grid-ret-CPRT pos">+0.00%</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">$53.21</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Target</span>
-                    <span class="grid-stat-val">$53.21</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Catalyst</span>
-                    <span class="grid-stat-val">2026-09-03</span>
-                </div>
+        <div style="grid-column: 1 / -1; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px;">
+            <div class="empty-state-box">
+                <div class="empty-state-title">No Stocks Tracked</div>
+                <div class="empty-state-sub">Ready for coverage</div>
             </div>
         </div>
         
@@ -2144,6 +2083,26 @@
             renderLatexEquations();
             streamWatchlistQuotes(true);
         });
+        function openMultibaggerModal(event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            const modal = document.getElementById('multibagger-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeMultibaggerModal() {
+            const modal = document.getElementById('multibagger-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function closeMultibaggerModalOutside(event) {
+            if (event.target.id === 'multibagger-modal') {
+                closeMultibaggerModal();
+            }
+        }
+
         window.addEventListener('load', () => {
             renderLatexEquations();
             streamWatchlistQuotes(true);
@@ -2152,6 +2111,7 @@
             if (e.key === 'Escape') {
                 closeAlertModal();
                 closeLabelsLegendModal();
+                closeMultibaggerModal();
             }
             if (e.key === '/' && document.activeElement && document.activeElement.tagName !== 'INPUT') {
                 e.preventDefault();
@@ -2243,6 +2203,105 @@
 
             <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
                 <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 16px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Multibagger Intelligence Modal -->
+    <div id="multibagger-modal" class="modal-shade" onclick="closeMultibaggerModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 680px; max-height: 88vh; overflow-y: auto; padding: 24px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeMultibaggerModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
+            
+            <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px;">
+                <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); letter-spacing: -0.02em;">
+                    Empirical Multibagger Framework
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim);">
+                    Alta Fox (104 Stocks) · Mayer 100-Baggers
+                </div>
+            </div>
+
+            <!-- Section 1: The 3-Engine Return Decomposition -->
+            <div style="margin-bottom: 16px;">
+                <div style="font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    1. The 3 Return Engines (Attribution Breakdown)
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 10px 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                            <span style="font-weight: 600; font-size: 0.78rem; color: var(--text-title);">Organic Revenue Growth</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-green); font-weight: 600;">~50%–55% of Total Gain</span>
+                        </div>
+                        <p style="font-size: 0.73rem; color: var(--text-secondary); line-height: 1.45; margin: 0;">
+                            The primary foundation. The median 10-bagger compounded top-line sales at <strong>19.8% / yr</strong> over a decade, expanding its addressable volume by 5x–6x.
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 10px 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                            <span style="font-weight: 600; font-size: 0.78rem; color: var(--text-title);">Operating Leverage &amp; Margin Expansion</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-warm); font-weight: 600;">~25%–30% of Total Gain</span>
+                        </div>
+                        <p style="font-size: 0.73rem; color: var(--text-secondary); line-height: 1.45; margin: 0;">
+                            Fixed SG&amp;A cost absorption over growing volume. Median EBITDA margins expanded from <strong>10.5% to 26.8%</strong>, causing cash flow to outgrow revenue.
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 10px 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                            <span style="font-weight: 600; font-size: 0.78rem; color: var(--text-title);">Valuation Multiple Re-Rating</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #D48858; font-weight: 600;">~20%–25% of Total Gain</span>
+                        </div>
+                        <p style="font-size: 0.73rem; color: var(--text-secondary); line-height: 1.45; margin: 0;">
+                            The re-rating boost. Over 60% of multibaggers started at unloved multiples (10x–14x P/E) and re-rated to 25x–35x as business quality became undeniable.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 1px; background: var(--border-color); margin: 16px 0;"></div>
+
+            <!-- Section 2: Compounding Velocity & Capital Allocation -->
+            <div style="margin-bottom: 16px;">
+                <div style="font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    2. Internal Compounding Velocity (Buffett-Mayer Law)
+                </div>
+                <div style="background: rgba(212, 163, 115, 0.04); border: 1px solid rgba(212, 163, 115, 0.15); border-radius: 6px; padding: 10px 14px; margin-bottom: 8px;">
+                    <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent-warm); font-weight: 600; margin-bottom: 4px;">
+                        Compounding Velocity = ROIC × Reinvestment Rate
+                    </div>
+                    <p style="font-size: 0.73rem; color: var(--text-secondary); line-height: 1.45; margin: 0;">
+                        Over a 10-year holding period, stock returns mathematically converge to the business's return on capital. A company earning 25% ROIC reinvesting 70% of cash flow compounds intrinsic value at <strong>17.5% / yr</strong> without requiring multiple expansion.
+                    </p>
+                </div>
+            </div>
+
+            <div style="height: 1px; background: var(--border-color); margin: 16px 0;"></div>
+
+            <!-- Section 3: Moat & Insider Skin-in-the-Game -->
+            <div>
+                <div style="font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    3. Moats &amp; Insider Alignment
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 10px 12px;">
+                        <div style="font-weight: 600; font-size: 0.76rem; color: var(--text-title); margin-bottom: 3px;">Gross Margin Moat (&gt;50%)</div>
+                        <p style="font-size: 0.71rem; color: var(--text-secondary); line-height: 1.4; margin: 0;">
+                            High gross margins provide pricing power against inflation and fund sustained R&amp;D/CapEx advantage over rivals.
+                        </p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 10px 12px;">
+                        <div style="font-weight: 600; font-size: 0.76rem; color: var(--text-title); margin-bottom: 3px;">Skin in the Game (&gt;15%)</div>
+                        <p style="font-size: 0.71rem; color: var(--text-secondary); line-height: 1.4; margin: 0;">
+                            &gt;70% of 10-baggers were founder-led or had &gt;15% insider ownership, ensuring long-term per-share compounding focus.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+                <button onclick="closeMultibaggerModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 16px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
             </div>
         </div>
     </div>
