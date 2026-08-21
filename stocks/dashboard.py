@@ -984,7 +984,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         </div>
 
         <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between; padding: 2px 0; min-height: 20px;">
-            <span>Implied Drivers: <strong style="color: var(--text-secondary); font-weight: 500;">65% Rev · 35% Margin · 0% Multiple</strong></span>
+            <span>Implied Return Source: <strong style="color: var(--text-secondary); font-weight: 500;">100% Earnings Compounding (Constant Multiple)</strong></span>
             <button type="button" class="btn-info-circle" onclick="openMultibaggerModal(event)" title="Empirical Multibagger Return Drivers" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.68rem; padding: 0 4px;">ⓘ</button>
         </div>
         
