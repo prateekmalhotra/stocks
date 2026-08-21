@@ -858,6 +858,7 @@ def build_native_svg_chart(
                 {targets_legend_html}
             </div>
             <div class="chart-range-pills" style="margin-left: auto; flex-shrink: 0;">
+                <button class="range-pill" onclick="switchChartRange('1D')">1D</button>
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
                 <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
                 <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
@@ -906,11 +907,7 @@ def build_native_svg_chart(
             <div id="chart-badge-y" style="display:none; position:absolute; right:8px; background:var(--accent-warm); color:#161513; border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.74rem; font-weight:700; transform:translateY(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 3px 10px rgba(0,0,0,0.5); z-index:20;"></div>
         </div>
 
-        <div class="chart-labels">
-            <span id="chart-start-lbl">{first_date} (${min_p:.2f})</span>
-            <span id="chart-range-title">1-Year Historical Range</span>
-            <span id="chart-end-lbl">{last_date} (${last_price:.2f})</span>
-        </div>
+        <div class="chart-x-axis" id="chart-x-axis"></div>
     </div>
 
     <script>
@@ -941,15 +938,59 @@ def build_native_svg_chart(
         const dot = document.getElementById('hover-dot');
         const badgeX = document.getElementById('chart-badge-x');
         const badgeY = document.getElementById('chart-badge-y');
-        const startLbl = document.getElementById('chart-start-lbl');
-        const endLbl = document.getElementById('chart-end-lbl');
-        const rangeTitle = document.getElementById('chart-range-title');
 
         const heroPriceNum = document.querySelector('.price-number');
         const heroPriceSub = document.querySelector('.price-sub');
         const defaultHeroPrice = heroPriceNum ? heroPriceNum.innerText : '';
         const defaultHeroSub = heroPriceSub ? heroPriceSub.innerText : '';
         const defaultHeroSubClass = heroPriceSub ? heroPriceSub.className : '';
+
+        function updateXAxisTicks(points, rangeKey) {{
+            const axisEl = document.getElementById('chart-x-axis');
+            if (!axisEl || !points || points.length < 2) return;
+            axisEl.innerHTML = '';
+
+            const n = points.length;
+            const numTicks = 6;
+            for (let i = 0; i < numTicks; i++) {{
+                const idx = Math.min(n - 1, Math.round((i / (numTicks - 1)) * (n - 1)));
+                const pt = points[idx];
+                if (!pt) continue;
+
+                let label = pt.date;
+                if (rangeKey === '1D') {{
+                    label = pt.time || pt.date;
+                }} else if (rangeKey === '1Y') {{
+                    try {{
+                        const d = new Date(pt.date);
+                        if (!isNaN(d.getTime())) {{
+                            label = d.toLocaleDateString('en-US', {{ month: 'short', year: '2-digit' }});
+                        }}
+                    }} catch(e) {{}}
+                }} else if (rangeKey === '5Y' || rangeKey === '10Y' || rangeKey === 'MAX') {{
+                    try {{
+                        const d = new Date(pt.date);
+                        if (!isNaN(d.getTime())) {{
+                            label = d.getFullYear().toString();
+                        }}
+                    }} catch(e) {{}}
+                }}
+
+                const span = document.createElement('span');
+                span.className = 'chart-x-tick';
+                span.innerText = label;
+                const pct = (i / (numTicks - 1)) * 100;
+                span.style.left = pct + '%';
+                if (i === 0) {{
+                    span.style.transform = 'translateX(0%)';
+                }} else if (i === numTicks - 1) {{
+                    span.style.transform = 'translateX(-100%)';
+                }} else {{
+                    span.style.transform = 'translateX(-50%)';
+                }}
+                axisEl.appendChild(span);
+            }}
+        }}
 
         function recalculatePaths(points) {{
             if (!points || points.length < 2) return;
@@ -1010,15 +1051,14 @@ def build_native_svg_chart(
                 }}
             }}
 
-            if (startLbl && points.length) startLbl.innerText = points[0].date + ' ($' + points[0].price.toFixed(2) + ')';
-            if (endLbl && points.length) endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            updateXAxisTicks(points, currentRangeKey);
             
-            if (tooltipDate && points.length) tooltipDate.innerText = points[n - 1].date;
+            if (tooltipDate && points.length) {{
+                const lastPt = points[points.length - 1];
+                tooltipDate.innerText = currentRangeKey === '1D' ? (lastPt.full_date || lastPt.date) : lastPt.date;
+            }}
             if (tooltipPrice && points.length) tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
             if (tooltipDelta) tooltipDelta.innerText = '';
-
-            const titles = {{ '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' }};
-            if (rangeTitle) rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
         }}
 
         window.switchChartRange = function(rangeKey) {{
@@ -1071,7 +1111,7 @@ def build_native_svg_chart(
             // Floating X-Axis Badge (CSS coords)
             const cssX = (coord[0] / width) * rect.width;
             badgeX.style.left = cssX + 'px';
-            badgeX.innerText = pt.date;
+            badgeX.innerText = currentRangeKey === '1D' ? (pt.time || pt.date) : pt.date;
             badgeX.style.display = 'block';
 
             // Floating Y-Axis Badge (CSS coords)
@@ -1087,7 +1127,7 @@ def build_native_svg_chart(
             const deltaSign = deltaPct >= 0 ? '+' : '';
 
             // Tooltip header
-            tooltipDate.innerText = pt.date;
+            tooltipDate.innerText = currentRangeKey === '1D' ? (pt.full_date || (pt.date + ' ' + (pt.time || ''))) : pt.date;
             tooltipPrice.innerText = '$' + pt.price.toFixed(2);
             if (tooltipDelta) {{
                 tooltipDelta.className = deltaClass;
@@ -1114,8 +1154,9 @@ def build_native_svg_chart(
             if (tooltipDelta) tooltipDelta.innerText = '';
 
             if (currentPoints.length) {{
-                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
-                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+                const lastPt = currentPoints[currentPoints.length - 1];
+                tooltipDate.innerText = currentRangeKey === '1D' ? (lastPt.full_date || lastPt.date) : lastPt.date;
+                tooltipPrice.innerText = '$' + lastPt.price.toFixed(2);
             }}
 
             if (heroPriceNum && defaultHeroPrice) {{
@@ -1717,16 +1758,27 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             display: none;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             z-index: 10;
-        }}
-        .chart-labels {{
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.72rem;
-            color: var(--text-dim);
-            font-family: var(--font-sans);
+        .chart-labels, .chart-x-axis {{
+            position: relative;
+            width: 100%;
+            height: 22px;
             margin-top: 8px;
             padding-top: 6px;
             border-top: 1px solid var(--border-color);
+            box-sizing: border-box;
+        }}
+        .chart-x-tick {{
+            position: absolute;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            white-space: nowrap;
+            top: 6px;
+            user-select: none;
+            transition: color 0.15s ease;
+        }}
+        .chart-x-tick:hover {{
+            color: var(--text-title);
         }}
 
         /* Key Metrics Grid */

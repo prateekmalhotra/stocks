@@ -108,6 +108,7 @@ def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict
     """Fetches historical price series for chart plotting."""
     ticker_clean = ticker.upper().strip()
     range_map = {
+        "1d": ("2m", "1d"),
         "1m": ("1d", "1mo"),
         "1mo": ("1d", "1mo"),
         "1month": ("1d", "1mo"),
@@ -139,8 +140,15 @@ def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict
                 points = []
                 for ts, close in zip(timestamps, quotes):
                     if close is not None and close > 0:
-                        d_str = datetime.fromtimestamp(ts).strftime("%b %d, %Y")
-                        points.append({"date": d_str, "price": round(float(close), 2)})
+                        dt_obj = datetime.fromtimestamp(ts)
+                        d_str = dt_obj.strftime("%b %d, %Y")
+                        t_str = dt_obj.strftime("%I:%M %p")
+                        points.append({
+                            "date": d_str if range_str.lower() != "1d" else t_str,
+                            "price": round(float(close), 2),
+                            "time": t_str,
+                            "full_date": dt_obj.strftime("%b %d, %Y %I:%M %p")
+                        })
                 if points:
                     return points
         except Exception:
@@ -155,7 +163,14 @@ def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict
             for dt, row in hist.iterrows():
                 close = row.get("Close")
                 if close and close > 0:
-                    points.append({"date": dt.strftime("%b %d, %Y"), "price": round(float(close), 2)})
+                    d_str = dt.strftime("%b %d, %Y")
+                    t_str = dt.strftime("%I:%M %p")
+                    points.append({
+                        "date": d_str if range_str.lower() != "1d" else t_str,
+                        "price": round(float(close), 2),
+                        "time": t_str,
+                        "full_date": dt.strftime("%b %d, %Y %I:%M %p")
+                    })
             if points:
                 return points
         except Exception:
@@ -165,10 +180,10 @@ def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict
 
 
 def fetch_all_chart_ranges(ticker: str, current_price: float) -> Dict[str, List[Dict[str, Any]]]:
-    """Fetches historical chart datasets for 1Y, 5Y, 10Y, and MAX ranges concurrently."""
+    """Fetches historical chart datasets for 1D, 1Y, 5Y, 10Y, and MAX ranges concurrently."""
     import concurrent.futures
-    ranges = ["1y", "5y", "10y", "max"]
-    labels = ["1Y", "5Y", "10Y", "MAX"]
+    ranges = ["1d", "1y", "5y", "10y", "max"]
+    labels = ["1D", "1Y", "5Y", "10Y", "MAX"]
     all_data = {}
 
     def _fetch_range(r_tuple):
@@ -176,13 +191,13 @@ def fetch_all_chart_ranges(ticker: str, current_price: float) -> Dict[str, List[
         pts = fetch_historical_chart_data(ticker, r_str)
         if not pts or len(pts) < 2:
             pts = [
-                {"date": "Start", "price": round(current_price * 0.90, 2)},
-                {"date": "Mid", "price": round(current_price * 0.95, 2)},
-                {"date": "Today", "price": round(current_price, 2)}
+                {"date": "Start", "price": round(current_price * 0.90, 2), "time": "09:30 AM", "full_date": "Start"},
+                {"date": "Mid", "price": round(current_price * 0.95, 2), "time": "12:00 PM", "full_date": "Mid"},
+                {"date": "Today", "price": round(current_price, 2), "time": "04:00 PM", "full_date": "Today"}
             ]
         return lbl, pts
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
         results = executor.map(_fetch_range, zip(ranges, labels))
         for lbl, pts in results:
             all_data[lbl] = pts
@@ -204,7 +219,7 @@ def fetch_all_chart_ranges_cached(ticker: str, current_price: float, max_age_hou
             if (datetime.now() - mtime).total_seconds() < max_age_hours * 3600:
                 with open(cache_file, "r", encoding="utf-8") as f:
                     cached_data = json.load(f)
-                    if isinstance(cached_data, dict) and all(k in cached_data for k in ["1Y", "5Y", "10Y", "MAX"]):
+                    if isinstance(cached_data, dict) and all(k in cached_data for k in ["1D", "1Y", "5Y", "10Y", "MAX"]):
                         return cached_data
         except Exception:
             pass
