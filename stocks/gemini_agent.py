@@ -1123,27 +1123,33 @@ RESEARCH DOSSIER CONTEXT:
 YOUR TASK:
 Formulate Section 3: Normalized Owner Earnings Multiple & Yield Inversion Valuation and the final structured JSON block.
 
-STRICT ZERO-PRICE-ANCHORING & FIRST-PRINCIPLES VALUATION RULES:
-1. Blind Underwriting: Assign normalized P/OE multiples (e.g. 12x, 18x, 24x, 30x) to each of the N paths based strictly on that path's ROIC, competitive advantage durability, pricing power, and reinvestment runway. NEVER anchor or back-solve to today's market price (${current_price:.2f}).
-2. Net Cash / Debt Bridge Integration:
-   - Fair Value per Share = (Assigned P/OE Multiple * Clean OE₀ per share) + Net Surplus Cash per share (or - Net Debt per share).
-   - Implied Owner Cash Yield (%) = (1 / Assigned Multiple) * 100%.
-3. Market Inversion:
-   - Implied Market Multiple = Current Stock Price / Clean OE₀ per share.
-   - Implied Market Yield = Clean OE₀ per share / Current Stock Price.
-4. RIGOROUS EMPIRICAL PROBABILITY DISTRIBUTION MANDATE (NO CANNED 50/25/25 OR ARBITRARY SPLITS):
+STRICT MULTI-YEAR COMPOUNDING VALUATION & FIRST-PRINCIPLES RULES:
+1. Multi-Year Compounding Alignment (NO CONTRADICTORY BULL CASE NEGATIVE RETURNS):
+   - For each Path i, explicitly define its 5-Year Owner Earnings Compounding Rate (CAGR_OE) derived directly from Section 2's operational narrative!
+   - Compute Projected Year-5 Owner Earnings per Share (OE₅) = OE₀ * (1 + CAGR_OE)^5.
+     * Bull / Breakthrough paths MUST project accelerated earnings compounding (e.g. +15% to +25%/yr), resulting in a substantial positive 5Y expected target return (+40% to +120%, +8% to +20%/yr CAGR).
+     * Base / Compounding paths reflect normalized business execution (e.g. +8% to +14%/yr).
+     * Bear / Friction paths project margin contraction or stagnation (e.g. -2% to +4%/yr).
+2. Terminal Multiple & 5-Year Target Value:
+   - Assign terminal P/OE₅ multiple (e.g. 15x, 22x, 28x) commensurate with the steady-state ROIC and moat durability of that path at Year 5.
+   - 5-Year Target Price per Share (P₅) = (Assigned Terminal Multiple * Projected OE₅ per share) + Net Surplus Cash per share (or - Net Debt per share).
+   - 5-Year Annualized Price CAGR (%) = ((P₅ / Current Price)^(1/5) - 1) * 100%.
+   - Total 5-Year Return (%) = ((P₅ - Current Price) / Current Price) * 100%.
+3. Discounted Present Fair Value (PV at 9.5% Hurdle Rate):
+   - Present Intrinsic Fair Value (P₀) = P₅ / (1.095)^5.
+   - Margin of Safety (%) vs Current Price = ((P₀ - Current Price) / Current Price) * 100%.
+4. RIGOROUS EMPIRICAL PROBABILITY DISTRIBUTION MANDATE:
    - You MUST assign probability weights (p₁, ..., pN summing strictly to 100%) grounded directly in empirical evidence from audited statutory filings (10-K, 10-Q), contracted backlog visibility, and recent management earnings commentary.
    - NEVER default to lazy, arbitrary distributions like 50/25/25, 33/33/33, or symmetrical triads.
-   - For structural, cash-generative monopolies / fortress franchises (e.g. Google Search/GCP, Microsoft, Apple, Visa with >30% operating margins, pricing power, and massive contracted enterprise backlogs):
-     * The core compounding operating trajectory MUST carry the dominant empirical probability mass (typically 65% to 80%), reflecting verified business predictability, fortress balance sheets, and contracted enterprise demand.
-     * Friction / downside trajectories should be weighted strictly in proportion to observable negative risks in SEC filings (typically 10% to 20%), NOT an exaggerated 35%-50% collapse unless filings show active structural erosion, debt distress, or market share loss.
-     * Blue-sky / breakthrough trajectories carry appropriate minor upside tail probability (e.g. 10% to 15%).
-   - For turnaround plays, debt-laden firms, or commoditized cyclicals:
-     * Weight the drag/friction scenarios heavily in direct proportion to real cash burn, debt maturities, and margin compression in recent 10-Q filings.
-   - You MUST include a dedicated subsection explicitly explaining the empirical filing basis for each assigned probability weight!
-5. Probability-Weighted Expected Fair Value:
-   - Expected Fair Value = sum(p_i * Fair_Value_i).
-   - Expected Margin of Safety (%) = ((Expected Fair Value - Current Stock Price) / Current Stock Price) * 100%.
+   - For wide-moat compounders with massive backlogs (e.g. Alphabet, Microsoft, Visa):
+     * The primary compounding path carries the dominant empirical weight (65% to 80%).
+     * Friction paths carry realistic downside risk weight (10% to 20%).
+     * Breakthrough paths carry tail upside weight (10% to 15%).
+   - You MUST include a dedicated callout explicitly explaining the empirical filing basis for each assigned probability weight!
+5. Probability-Weighted Target & Expected Fair Value:
+   - Expected 5Y Target Price = sum(p_i * P₅_i).
+   - Expected Present Fair Value = sum(p_i * P₀_i).
+   - Expected Margin of Safety (%) = ((Expected Present Fair Value - Current Stock Price) / Current Stock Price) * 100%.
 6. NO EMOJIS ANYWHERE: Output pure semantic HTML.
 
 OUTPUT FORMAT:
@@ -1151,7 +1157,7 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
 
 <h2>Section 3: Normalized Owner Earnings Multiple &amp; Yield Inversion Valuation</h2>
 
-<p>[Methodological narrative explaining the Owner Earnings Multiple capitalization framework, ROIC-based multiple assignments, and the balance sheet bridge...]</p>
+<p>[Methodological narrative explaining the Owner Earnings Multi-Year Compounding framework, the terminal capitalization multiple, and the net cash balance sheet bridge...]</p>
 
 <table class="data-table">
   <thead>
@@ -1165,10 +1171,15 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
   </thead>
   <tbody>
     <tr><td>Starting Normalized Owner Earnings (OE₀) / share</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
-    <tr><td>Target Normalized Fair Multiple (P/OE)</td><td>XX.Xx OE</td><td>XX.Xx OE</td><td>XX.Xx OE</td></tr>
-    <tr><td>Implied Owner Earnings Cash Yield (%)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
+    <tr><td>Projected 5-Year Owner Earnings CAGR (%)</td><td>+XX.X% / yr</td><td>+X.X% / yr</td><td>+XX.X% / yr</td></tr>
+    <tr><td>Projected Year-5 Normalized Owner Earnings (OE₅) / share</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
+    <tr><td>Target Terminal Multiple (P/OE₅)</td><td>XX.Xx OE</td><td>XX.Xx OE</td><td>XX.Xx OE</td></tr>
+    <tr><td>Implied Terminal Owner Cash Yield (%)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
     <tr><td>Net Balance Sheet Cash / (Debt) per share Adjustment</td><td>+$XX.XX or -$XX.XX</td><td>+$XX.XX or -$XX.XX</td><td>+$XX.XX or -$XX.XX</td></tr>
-    <tr><td><strong>Intrinsic Fair Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
+    <tr><td><strong>5-Year Target Price / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
+    <tr><td>Expected 5-Year Annualized CAGR (vs. ${current_price:.2f})</td><td>+XX.X% / yr</td><td>-XX.X% / yr</td><td>+XX.X% / yr</td></tr>
+    <tr><td>Total 5-Year Expected Return (%)</td><td>+XX.X%</td><td>-XX.X%</td><td>+XX.X%</td></tr>
+    <tr><td>Present Intrinsic Fair Value (at 9.5% hurdle rate)</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
     <tr><td>Margin of Safety vs. Current Price (${current_price:.2f})</td><td>+XX.X% or -XX.X%</td><td>+XX.X% or -XX.X%</td><td>+XX.X% or -XX.X%</td></tr>
     <tr><td>Probability Weight &amp; Empirical Basis (%)</td><td>XX% (Contracted Backlog / Core Execution)</td><td>XX% (Observable Friction Risk)</td><td>XX% (Upside Tail Inflection)</td></tr>
   </tbody>
@@ -1182,7 +1193,8 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
 <div class="callout">
   <h3>Market Inversion &amp; Valuation Synthesis</h3>
   <p><strong>Implied Market Reality:</strong> At today's market price of <strong>${current_price:.2f}</strong>, the market is pricing {company_name} at <strong>XX.Xx Normalized Owner Earnings</strong> (an implied Owner Cash Yield of <strong>X.X%</strong>).</p>
-  <p><strong>Probability-Weighted Expected Fair Value:</strong> <strong>$XX.XX / share</strong> (Margin of Safety: <strong>~XX%</strong> vs. today's market price).</p>
+  <p><strong>Probability-Weighted 5-Year Target Price:</strong> <strong>$XX.XX / share</strong> (Expected 5-Year CAGR: <strong>+X.X% / yr</strong>).</p>
+  <p><strong>Probability-Weighted Present Fair Value (9.5% Hurdle):</strong> <strong>$XX.XX / share</strong> (Margin of Safety: <strong>~XX%</strong> vs. today's market price).</p>
   <p><strong>Capital Allocation Recommendation:</strong> [Crisp buy-side verdict based on Graham-Buffett margin of safety hurdle...]</p>
 </div>
 
@@ -1203,8 +1215,11 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
       "story_num": 1,
       "story_title": "Path 1: <Bespoke Title 1>",
       "short_summary": "<1-2 sentence executive summary>",
+      "projected_5y_cagr": "+XX.X%",
+      "projected_oe5_per_share": XX.XX,
       "oe_multiple": "XX.Xx",
       "oe_yield": "X.X%",
+      "target_price_5y": XX.XX,
       "fair_value_per_share": XX.XX,
       "mos_pct": XX.X,
       "probability_weight": 0.XX
@@ -1693,16 +1708,20 @@ def parse_sec3_and_json(
     if stories and len(stories) >= 1:
         num_s = len(stories)
         for idx, s in enumerate(stories, start=1):
-            val = safe_float(s.get("fair_value_per_share") or s.get("val"), 0.0)
+            val = safe_float(s.get("target_price_5y") or s.get("fair_value_per_share") or s.get("val"), 0.0)
             mult = str(s.get("oe_multiple") or s.get("terminal_multiple") or "18.0x")
             yield_str = str(s.get("oe_yield") or "")
             mult_num = safe_float(mult, 18.0)
+            oe5_sh = safe_float(s.get("projected_oe5_per_share") or s.get("oe5_per_share"), 0.0)
+            cagr_str = str(s.get("projected_5y_cagr") or "")
             
-            # If val is aggregate market cap (>10x price) or missing, compute from multiple * oe_per_sh + net_cash_sh
-            if (val > current_price * 10 or val <= 0.0) and oe_per_sh > 0:
+            # If val is aggregate market cap (>10x price) or missing, compute from multiple * oe5_sh (or oe_per_sh) + net_cash_sh
+            if (val > current_price * 10 or val <= 0.0) and oe5_sh > 0:
+                val = round(mult_num * oe5_sh + net_cash_sh, 2)
+            elif (val > current_price * 10 or val <= 0.0) and oe_per_sh > 0:
                 val = round(mult_num * oe_per_sh + net_cash_sh, 2)
             elif val > current_price * 10 or val <= 0.0:
-                val = round(current_price * (1.10 if idx == 1 else (1.30 if idx == 2 else 0.75)), 2)
+                val = round(current_price * (1.15 if idx == 1 else (1.45 if idx == 2 else 0.70)), 2)
                 
             prob = safe_float(s.get("probability_weight") or s.get("prob_weight"), 0.0)
             if prob <= 0.0:
@@ -1728,7 +1747,9 @@ def parse_sec3_and_json(
                 "prob_pct": round(prob * 100.0, 1),
                 "prob_weight": prob,
                 "net_cash_per_share": net_cash_sh,
-                "normalized_oe_per_share": oe_per_sh
+                "normalized_oe_per_share": oe_per_sh,
+                "projected_oe5_per_share": oe5_sh,
+                "projected_5y_cagr": cagr_str
             })
     else:
         # Fallback if stories JSON block was partial
