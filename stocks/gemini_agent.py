@@ -1047,7 +1047,12 @@ Core Principles of Business Valuation & Capital Allocation:
    - Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation.
    - Stock-Based Compensation MUST strictly be treated as a real cash charge (Buffett: "If options aren't expenses, what are they?").
    - SECTOR-SPECIFIC MAINTENANCE CAPEX RULES (NEVER use arbitrary blanket multipliers):
-     * Pure Software / Asset-Light Platforms (MSFT, GOOG, CRM): Maintenance CapEx is typically 25%–40% of CapEx.
+     * Hyperscale Big Tech & AI Datacenter Builders (META, GOOG, MSFT, AMZN, AAPL):
+       - During massive AI infrastructure supercycles (e.g. Meta CapEx surging to $72.2B in 2025 and $130B+ in 2026 for custom datacenters, HBM memory, and Meta Superintelligence Labs), 65%–75% of CapEx is DISCRETIONARY GROWTH CAPEX.
+       - True Maintenance CapEx is strictly the capital required to sustain the existing steady-state server fleet (Family of Apps ad ranking), EMPIRICALLY ANCHORED TO STATUTORY DEPRECIATION & AMORTIZATION (~$20.9B for Meta in FY25, or ~25%–30% of total CapEx).
+       - NEVER deduct 50% or 60% of an AI CapEx supercycle as maintenance CapEx!
+       - Normalized Baseline Owner Earnings (OE₀) = Operating Cash Flow ($115.8B) - Maintenance CapEx ($20.9B D&A) - 100% SBC ($20.4B) + Working Capital (~$0.8B) = ~$75.3B (~$30.22 / share). Entry multiple at $545.83 is ~18.1x P/OE₀ (5.5% initial cash yield).
+     * Pure Software / Asset-Light SaaS Platforms (CRM, ADBE, NOW, INTU): Maintenance CapEx is typically 20%–35% of CapEx.
      * Retail Store Networks, Apparel, Restaurants & Physical Fleets (LULU, NKE, SBUX, CROX, HD, CMG): Maintenance CapEx includes ongoing store remodel/refresh cycles (every 5-7 years), POS/IT upkeep, and supply chain maintenance. Maintenance CapEx is EMPIRICALLY ANCHORED TO DEPRECIATION & AMORTIZATION (typically 50%–75% of total CapEx, or ~$D&A). Growth CapEx is strictly the incremental capital spent on net new store openings.
 
 3. Economic Moat, Governance & C-Suite Key-Person Stability:
@@ -1109,12 +1114,18 @@ STRICT RESEARCH, GOVERNANCE & BUSINESS INERTIA MANDATES:
 4. SECTOR-SPECIFIC MAINTENANCE CAPEX DECOMPOSITION:
    - Decompose total CapEx in Section 1's Owner Earnings table:
      * GAAP Operating Cash Flow
-     * Less: Maintenance CapEx (For retail/store fleets, anchor to D&A / store refresh cycles, ~50%–70% of CapEx; for software, ~25%–40%)
+     * Less: Maintenance CapEx (For hyperscalers like META/GOOG, anchor to D&A ~$20.9B, ~25%–30% of CapEx; for retail/store fleets, anchor to D&A / store refresh cycles, ~50%–70% of CapEx; for software, ~20%–35%)
      * Less: 100% Stock-Based Compensation (SBC)
      * Plus/Minus: Working Capital Normalization
      * Equals: True Normalized Baseline Owner Earnings (OE₀).
 
-5. 5 OBSERVABLE OPERATIONAL VARIABLES PER STORYLINE:
+5. SECULAR WIDE-MOAT GROWTH COMPOUNDERS MANDATE (META, GOOG, MSFT, AAPL, AMZN):
+   - For wide-moat digital monopolies currently expanding top-line revenue at >15%–28% YoY with >40% operating margins:
+     * Path 1 (Central Base Trend): Model the true operational run-rate. Top-line revenue compounds at +14%–18% / yr with ~39%–42% operating margins and ~1.5% annual buybacks, compounding per-share Owner Earnings at +15%–18% CAGR (reaching $62–$68 / share in Year 5). Capitalized at a disciplined 16.0x–19.0x P/OE terminal multiple.
+     * Path 2 (Downside Friction / CapEx Overhang Case): Model deceleration and margin drag under heavy datacenter depreciation. Revenue slows to +6%–9% / yr, operating margins compress to ~33%–35%, compounding Owner Earnings at +4%–7% CAGR (reaching $38–$44 / share in Year 5). Capitalized at 14.0x–16.5x P/OE. NEVER model negative secular contraction (-7%) for an advertising monopoly with 3.5B daily active users growing top-line 22-28%!
+     * Path 3 (AI Monetization Acceleration Upside): Advantage+ automated ads, AI recommendation feeds, and enterprise AI APIs drive revenue at +20%–25% / yr with operating leverage, compounding Owner Earnings at +20%–24% CAGR (reaching $78–$88 / share in Year 5). Capitalized at 18.0x–21.0x P/OE.
+
+6. 5 OBSERVABLE OPERATIONAL VARIABLES PER STORYLINE:
    - Every storyline in Section 2 MUST explicitly state its assumptions across 5 observable variables:
      * Variable 1: Primary Segment Comparable Sales / Volume Trajectory (e.g. Americas Comps vs International)
      * Variable 2: Gross Margin Bridge (product mix, promotions, freight, tariffs)
@@ -1122,17 +1133,17 @@ STRICT RESEARCH, GOVERNANCE & BUSINESS INERTIA MANDATES:
      * Variable 4: Store Fleet Productivity & New Store Payback
      * Variable 5: Share Repurchases (funded strictly as a residual from free cash flow after maintenance CapEx).
 
-6. COMPETITIVE SHARE LOSS VS TEMPORARY PRODUCT FATIGUE:
+7. COMPETITIVE SHARE LOSS VS TEMPORARY PRODUCT FATIGUE:
    - In Section 1 and Section 2, evaluate competitive threats (e.g. Alo Yoga, Vuori, On, Skims) and specify concrete quarterly falsification signposts.
 
-7. FINTECH, DIGITAL PAYMENTS & TAKE-RATE COMPRESSION MANDATE:
+8. FINTECH, DIGITAL PAYMENTS & TAKE-RATE COMPRESSION MANDATE:
    - For digital payment platforms and fintech processors (e.g. PayPal, Block, Adyen):
      * Explicitly model take-rate and transaction margin trajectories:
        - Unbranded payment processing (Braintree) margin compression vs branded checkout buttons (PayPal / Venmo).
        - Competitive pricing and margin pressure from Adyen, Stripe, Apple Pay, Google Pay, and Shop Pay.
      * Never assume take-rates stabilize without analyzing competitive checkout button displacement.
 
-8. FOREIGN PRIVATE ISSUER & ADR PER-SHARE STANDARDIZATION MANDATE:
+9. FOREIGN PRIVATE ISSUER & ADR PER-SHARE STANDARDIZATION MANDATE:
    - For foreign companies trading via American Depositary Shares (e.g. JD, BABA, PDD, TSM, ASML, SE, BIDU):
      * Explicitly identify the ADS-to-Ordinary-Share ratio (e.g. 1 ADS = 2 Class A Ordinary Shares for JD).
      * Standardize all per-share valuation figures (Owner Earnings per share, Net Surplus Cash per share, and Price Targets) to PER ADS ($ USD) matching the US ticker quote.
