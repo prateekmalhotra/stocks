@@ -1152,13 +1152,14 @@ SECTION 1 CONTEXT EXCERPT:
 {sec1_excerpt}
 
 YOUR OPERATIONAL MANDATE FOR PATH {story_num} ({story_archetype}):
-1. THE LAW OF BUSINESS INERTIA (PHYSICAL BUSINESS REALITY):
+1. THE LAW OF BUSINESS INERTIA & HISTORICAL TREND ANCHORING (REALISTIC BUSINESS CALIBRATION):
    - This story MUST start strictly from the exact Y0 audited baseline above (${revenue_mil_y0:.1f}M revenue, {operating_margin_pct_y0:.1f}% operating margin, {diluted_shares_mil_y0:.1f}M shares, ${owner_earnings_per_share_y0:.2f}/sh OE₀).
-   - Year 1 anchors to trailing run-rate and guidance floor.
-   - Years 2–5 model gradual, realistic operational drift:
-     * If Path 1 (Central Trend): Organic continuation of trailing momentum with mature drift (50–150 bps/yr).
-     * If Path 2 (Downside Friction): Realistic macro stress, competitive pricing pressure, and cost/depreciation inflation (e.g. 30%–50% growth deceleration, 200–500 bps margin compression). Never model sudden negative collapse (< 0% growth) for an entrenched wide-moat monopoly!
-     * If Path 3 (Upside Leverage): Segment outperformance, pricing power realization, and operating leverage (20%–40% growth acceleration, 100–300 bps margin expansion).
+   - Real businesses possess immense operational inertia; assumptions must NEVER wildly deviate from historical 3–5 year base trends:
+     * If Path 1 (Central Baseline Trend): Model steady continuation of trailing 3-5Y historical CAGR ({revenue_growth_yoy:+.1f}%) adjusted for natural scale maturation (-50 to -150 bps/yr). This represents the most probable base-case compounding path.
+     * If Path 2 (Downside Friction / Macro Stress): Model realistic cyclical softening, competitor price pressure, and cost inflation (growth slowing by 30%–50% from trend, operating margins compressing by 100–300 bps). NEVER model apocalyptic collapse or negative revenue growth for profitable, entrenched wide-moat compounders!
+     * If Path 3 (Upside Acceleration / High-Margin Leverage): Model achievable operating leverage and product adoption (growth accelerating by 20%–35% above trend, operating margins expanding by 100–250 bps). NEVER model speculative 3x hockey-stick fantasy projections!
+   - CAPEX DISSECTION STANDARD (BUFFETT 1986): Do NOT subtract 100% of growth/AI data center/expansion CapEx as routine maintenance CapEx. Maintenance CapEx is approximately equal to D&A (~1.0x–1.2x D&A); the rest is discretionary growth capital that expands future cash generation.
+   - SUMMARY MANDATE: The `short_summary` must be a rich 2-sentence summary: Sentence 1 describes concrete operational/business dynamics (products, customers, pricing, competitors), and Sentence 2 states the exact pricing-in math (`Prices in +X.X% 5Y OE CAGR to $Y.YY/sh at Z.Zx exit (W.W%/yr 5Y IRR).`).
 
 2. MANDATORY PYTHON CODE EXECUTION (YEARS 1 TO 5):
    - You MUST execute Python code using your code execution tool to simulate all 6 periods (Y0 through Y5):
@@ -1235,7 +1236,8 @@ INDEPENDENT {num_stories}-STORYLINE UNDERWRITING DATA:
 
 YOUR CRITICAL SYNTHESIS MANDATE:
 1. RUTHLESS SANITY CHECK ON ASSUMPTIONS (RESPECT TREND REALISM, REJECT EXTREMES):
-   - Check if growth rates and terminal multiples respect the company's actual trailing momentum, competitive positioning, and economic moat.
+   - HISTORICAL BASE-RATE & TREND ANCHORING: Check that Path 1 strictly reflects historical 3-5 year trend trajectory. Reject extreme unearned deviations. Path 2 (Downside) should model realistic margin/growth cyclical drag (not bankruptcy), and Path 3 (Upside) should model achievable operating leverage (not hockey-stick fantasy).
+   - CAPEX DISSECTION STANDARD: For high-growth or capital-intensive companies, do not penalize Owner Earnings by subtracting 100% of growth/AI expansion CapEx as maintenance CapEx. Maintenance CapEx is approximately equal to D&A (~1.0x–1.2x D&A); the rest is growth capital.
    - MANDATORY GROWTH-TO-MULTIPLE CALIBRATION RULE (BUFFETT-GRAHAM STANDARD):
      Terminal capitalization multiples MUST strictly reflect the economic growth rate of that specific path. The market severely penalizes low growth (e.g. Chipotle, PayPal, Lululemon, Nike, Meta in 2022).
      * Contraction (< 0% OE CAGR): Terminal Multiple MUST be <= 10.5x (Yield >= 9.5%).
