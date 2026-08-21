@@ -1085,12 +1085,14 @@ STRICT RESEARCH, GOVERNANCE & BUSINESS INERTIA MANDATES:
        - Operating Margin shifts by no more than ±50 to 100 bps per year.
      * NEVER invent sudden +15% revenue accelerations or +500 bps margin leaps. Compounding happens slowly through incremental operational execution and share cannibalization.
 
-2. ELIMINATE THE LAZY 3-STORY DOGMA (DEFAULT TO N = 2 FOR FOCUSED BUSINESSES):
-   - For focused single-brand or single-segment companies (e.g. Lululemon, Crocs, Copart, Chipotle, Nike), there are naturally ONLY 2 REAL COMPETING PATHS:
-     * Path 1: Steady-State Baseline Trend / Cash Cannibal (Slow 1%–3% growth, flat margins, heavy share repurchases).
-     * Path 2: Frictional Headwinds & Competitive Share Loss (Negative comps of -2% to -4%, promotional gross margin squeeze of 100–150 bps).
-   - DO NOT invent an artificial 3rd "fantasy bull moonshot" unless the company has a verified, independent second operating segment (like AWS at Amazon or Cloud at Google)!
-   - For single-segment businesses, DEFAULT STRICTLY TO N = 2 PATHS.
+2. DYNAMIC NATURAL NUMBER OF DISTINCT STORYLINES (N ∈ [2, 5]):
+   - Determine the NATURAL number of operational trajectories N (typically 2 to 4 paths) dictated by the company's real business forks, segment divergences, and strategic debates.
+   - DO NOT artificially force exactly 2 paths, and DO NOT artificially force exactly 3 paths!
+     * If a company has a clean binary operational debate (e.g. Core Compounding vs Secular Share Erosion), formulate 2 distinct paths.
+     * If a company has a central baseline trend, a downside friction case, and a realistic operational leverage path, formulate 3 distinct paths.
+     * If a company has distinct multi-segment drivers (e.g. Core Digital + Enterprise Cloud + Autonomous / Hardware, or DTC + Wholesale + International), formulate 3 to 4 distinct paths.
+   - Let the company's actual operational structure determine N (between 2 and 4 paths).
+   - Every single path MUST be realistic, bounded by the Law of Business Inertia (no fantasy moonshots).
 
 3. TEMPORAL & EXECUTIVE GOVERNANCE GROUNDING (YEAR 2026):
    - Search specifically for latest permanent CEO appointments, C-suite changes, 8-K filings, activist stakes (Elliott Management, Starboard, 13D filings), and founder/board proxy contests.
@@ -1205,9 +1207,9 @@ Search Google, audited 10-K/10-Q filings, recent earnings call transcripts (espe
    - For turnaround or friction cases, ensure Downside Friction carries substantial weight (30%–45%).
 7. MOAT TIER & SECTOR GUARDRAILS:
    - Ensure retail/apparel/footwear brands are classified Narrow Moat or Weak Moat, NEVER Wide Moat.
-8. BUSINESS INERTIA & N=2 AUDIT FOR FOCUSED COMPANIES:
-   - For single-segment or mono-brand companies (e.g. LULU, CROX, CPRT, CMG), reject redundant 3rd fantasy bull cases and enforce N=2 paths (Steady-State Trend vs Competitive Friction).
-   - Reject any storyline where annual revenue growth or margins jump discontinuously beyond the historical trend boundary. The real world changes slowly.
+8. BUSINESS INERTIA & NATURAL NUMBER OF PATHS (N ∈ [2, 5]):
+   - Verify that N naturally reflects the company's real business forks (2 to 4 paths). DO NOT dogmatically force N=2 or N=3.
+   - Reject ungrounded fantasy moonshots or discontinuous leaps where annual revenue growth or margins violate the historical trend boundary. Compounding happens slowly.
 
 Deliver a crisp, actionable Buy-Side Red-Team Critique Memo with specific factual corrections and guidance for refining Section 1 and Section 2.
 """
@@ -1234,7 +1236,7 @@ YOUR TASK:
 Incorporate the red-team critique directives and produce the final, polished, and reality-grounded Section 1 (The Premise) and Section 2 (The Probable Future Paths).
 
 CRITICAL REQUIREMENTS:
-1. Enforce Business Inertia & Trend Bounding: Ensure top-line growth and operating margins model slow, gradual drift (Year 1 anchored to trailing 4-quarters; annual growth rate shift bounded within ±100 to 200 bps). For single-brand focused businesses, enforce N=2 paths (Steady-State Trend vs Competitive Friction) and strip out redundant fantasy moonshot paths.
+1. Enforce Business Inertia & Natural N: Ensure top-line growth and operating margins model slow, gradual drift (Year 1 anchored to trailing 4-quarters; annual growth rate shift bounded within ±100 to 200 bps). Let N naturally reflect the business structure (typically 2 to 4 distinct paths).
 2. Ensure the N storylines are truly distinct, bespoke, and grounded in concrete operational unit metrics (Americas comps, gross margin bridge, segment breakdown, store productivity, buyback residual).
 3. Ensure Downside Friction realistically integrates earnings transcript pushbacks and competitive threats (e.g. Alo Yoga, Vuori).
 4. Ensure probability weights (p₁, ..., pN summing to 100%) reflect empirical filing realities.
