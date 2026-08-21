@@ -102,29 +102,49 @@ def normalize_latex_typography(html: str) -> str:
 
 
 def format_labels_pills(labels: List[str]) -> str:
-    """Formats strictly 1 clean, beautiful text label without badge pill containers."""
+    """Formats institutional taxonomy labels cleanly and elegantly with proper color tokens."""
     if not labels:
         return ''
     
-    primary_lbl = labels[0]
-    cleaned = re.sub(r"&|/|-", " ", primary_lbl)
-    words = [w for w in cleaned.split() if w.strip()]
-    if not words:
-        return ''
-    
-    from stocks.gemini_agent import map_to_canonical_moat_label
-    moat_lbl = map_to_canonical_moat_label(" ".join(words))
-    
-    if moat_lbl == "Wide Moat":
-        color = "var(--accent-warm)"
-    elif moat_lbl == "Narrow Moat":
-        color = "var(--accent-green)"
-    elif moat_lbl == "Weak Moat":
-        color = "#D48858"
-    else:
-        color = "var(--accent-red)"
+    rendered_pills = []
+    for lbl in labels:
+        if not lbl or not isinstance(lbl, str):
+            continue
+        cleaned = lbl.strip()
+        if not cleaned:
+            continue
+            
+        cleaned_lower = cleaned.lower()
         
-    return f'<span style="color: {color}; font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans);">{moat_lbl}</span>'
+        # Color mapping based on taxonomy
+        if any(w in cleaned_lower for w in ["wide moat", "absolute power", "high predictability"]):
+            color = "var(--accent-warm)"
+            bg = "rgba(212, 163, 115, 0.08)"
+            border = "rgba(212, 163, 115, 0.22)"
+        elif any(w in cleaned_lower for w in ["narrow moat", "strong power", "inflation pass-thru", "moderate predictability", "buy", "strong buy", "conviction"]):
+            color = "var(--accent-green)"
+            bg = "rgba(130, 174, 140, 0.08)"
+            border = "rgba(130, 174, 140, 0.22)"
+        elif any(w in cleaned_lower for w in ["weak moat", "constrained power", "low predictability", "hold", "yellow", "neutral"]):
+            color = "#D48858"
+            bg = "rgba(212, 136, 88, 0.08)"
+            border = "rgba(212, 136, 88, 0.22)"
+        elif any(w in cleaned_lower for w in ["no moat", "price taker", "unpredictable", "avoid", "caution", "red"]):
+            color = "var(--accent-red)"
+            bg = "rgba(201, 122, 114, 0.08)"
+            border = "rgba(201, 122, 114, 0.22)"
+        else:
+            color = "var(--text-secondary)"
+            bg = "rgba(255, 255, 255, 0.04)"
+            border = "rgba(255, 255, 255, 0.08)"
+            
+        pill = f'<span class="taxonomy-pill" style="display: inline-flex; align-items: center; color: {color}; background: {bg}; border: 1px solid {border}; border-radius: 4px; padding: 2px 8px; font-size: 0.76rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">{cleaned}</span>'
+        rendered_pills.append(pill)
+        
+    if not rendered_pills:
+        return ''
+        
+    return f'<div class="taxonomy-labels-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">' + "".join(rendered_pills) + '</div>'
 
 
 def format_usd_target(val: Any) -> str:
