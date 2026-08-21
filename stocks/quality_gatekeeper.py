@@ -575,7 +575,6 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                 try:
                     oe_c = float(m_oe_cagr.group(1))
                     rev_c = float(m_rev_cagr.group(1))
-                    # If OE CAGR exceeds Revenue CAGR by > 25.0% without extreme turnaround proof
                     if oe_c > 0 and rev_c > 0 and (oe_c - rev_c > 25.0):
                         sched = st.get("pro_forma_schedule", {})
                         om_list = sched.get("operating_margin_pct", [])
@@ -586,6 +585,17 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                                 issues.append(f"Assumption Stacking Warning (Path {idx}): Model stacks +{oe_c:.1f}% OE CAGR on +{rev_c:.1f}% Rev CAGR with +{om_end - om_start:.1f}% margin expansion from an already mature {om_start:.1f}% starting margin.")
                 except Exception:
                     pass
+
+    # 34. Storyline Summary Richness & Pricing-In Gate (Anti-Generic-Placeholder Gate)
+    if metadata and "stories" in metadata and isinstance(metadata["stories"], list):
+        for idx, st in enumerate(metadata["stories"], start=1):
+            s_sum = str(st.get("short_summary") or st.get("summary") or "").strip()
+            if any(generic in s_sum.lower() for generic in [
+                "steady operational execution and baseline capital reinvestment.",
+                "accelerated customer adoption and high-margin operating leverage.",
+                "elevated competitive friction and margin contraction."
+            ]):
+                issues.append(f"Generic Story Summary Warning (Path {idx}): Story summary contains uncustomized generic placeholder text. Must contain bespoke business narrative and explicit pricing-in economics.")
 
     return len(issues) == 0, issues
 

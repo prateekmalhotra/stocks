@@ -954,16 +954,6 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         title = re.sub(r'\s*\((?:Central Baseline|Base Case|Upside Expansion|Bull Case|Downside Drag|Downside Risk|Bear Case)\)', '', raw_title, flags=re.IGNORECASE).strip()
         title = re.sub(r'^(?:📖\s*|Path\s*\d+\s*:\s*)', '', title).strip()
         
-        # Clean summary: 1-2 tight sentences max (under 24 words)
-        raw_summary = s.get("short_summary") or s.get("summary") or "Underwritten via disciplined first-principles cash flow compounding."
-        sentences = [sent.strip() for sent in re.split(r'(?<=[.!?])\s+', raw_summary) if sent.strip()]
-        if sentences:
-            summary = sentences[0]
-            if len(summary.split()) < 14 and len(sentences) > 1:
-                summary = f"{sentences[0]} {sentences[1]}"
-        else:
-            summary = raw_summary
-        
         # Valuation Multiple & Yield Extraction
         oe_mult = s.get("oe_multiple") or s.get("terminal_multiple") or (extracted_term[idx].get("exit_multiple") if idx < len(extracted_term) else "18.0x")
         oe_yield = s.get("oe_yield") or ""
@@ -971,11 +961,38 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         if net_cash_sh is not None and abs(float(net_cash_sh)) > 150 and cur_p < 500:
             net_cash_sh = 0.0
         oe_per_sh = s.get("normalized_oe_per_share")
+        oe_growth = s.get("projected_5y_cagr") or "+8.0%"
         
+        oe0 = float(oe_per_sh) if oe_per_sh and float(oe_per_sh) > 0 else 1.0
+        oe5 = float(s.get("projected_oe5_per_share") or (oe0 * ((1 + safe_float(oe_growth, 8.0)/100.0)**5)))
+
         mult_txt = f"{oe_mult} P/OE" if "P/OE" not in str(oe_mult) else str(oe_mult)
         yield_txt = str(oe_yield) if oe_yield else (f"{(1.0/max(safe_float(oe_mult, 18.0), 1.0))*100:.1f}%" if oe_mult else "—")
+
+        # Clean summary: Business narrative + explicit pricing-in economics
+        raw_summary = s.get("short_summary") or s.get("summary") or ""
         
-        oe_growth = s.get("projected_5y_cagr")
+        # If generic placeholder, construct a contextual business narrative
+        if not raw_summary or any(generic in raw_summary.lower() for generic in [
+            "steady operational execution", "accelerated customer adoption", 
+            "elevated competitive friction", "underwritten via disciplined"
+        ]):
+            if idx == 0:
+                narrative = "Core franchise execution with steady market share and baseline operating leverage."
+            elif idx == 1:
+                narrative = "High-margin product adoption, software cross-sell, and operating margin expansion."
+            else:
+                narrative = "Competitive pricing pressure, regulatory friction, and multiple de-rating drag."
+        else:
+            sentences = [sent.strip() for sent in re.split(r'(?<=[.!?])\s+', raw_summary) if sent.strip()]
+            narrative = sentences[0] if sentences else raw_summary
+
+        pricing_in_clause = f"Prices in {oe_growth} 5Y OE CAGR to ${oe5:.2f}/sh at {oe_mult} exit."
+        if "prices in" in narrative.lower() or "pricing in" in narrative.lower():
+            summary = narrative
+        else:
+            summary = f"{narrative.rstrip('. ')}. {pricing_in_clause}"
+        
         meta_parts = []
         if oe_growth:
             meta_parts.append(f'<span>5Y OE Growth: {oe_growth}</span>')
@@ -1135,7 +1152,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                 <div style="font-family: var(--font-sans); font-size: 0.90rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em; min-height: 42px; max-height: 42px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
                     {title}
                 </div>
-                <p style="font-family: var(--font-sans); font-size: 0.80rem; color: var(--text-secondary); line-height: 1.48; margin: 0; min-height: 58px; max-height: 58px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                <p style="font-family: var(--font-sans); font-size: 0.77rem; color: var(--text-secondary); line-height: 1.44; margin: 0; min-height: 64px; max-height: 64px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
                     {summary}
                 </p>
                 
@@ -1229,7 +1246,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
             <div style="font-family: var(--font-sans); font-size: 0.90rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em; min-height: 42px; max-height: 42px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
                 {priced_in_info['title']}
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.80rem; color: var(--text-secondary); line-height: 1.48; margin: 0; min-height: 58px; max-height: 58px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+            <p style="font-family: var(--font-sans); font-size: 0.77rem; color: var(--text-secondary); line-height: 1.44; margin: 0; min-height: 64px; max-height: 64px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
                 {priced_in_info['summary']}
             </p>
             
