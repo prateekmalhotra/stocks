@@ -413,21 +413,26 @@ def extract_stories_from_agent2(raw_text: str, clean_html: str = "") -> list:
 
 def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str = "Narrow Moat") -> str:
     """Maps any input string, moat description, or Section 1 text to one of the 4 canonical Moat ratings:
-    1. Wide Moat: Dominant structural advantage (switching costs, network effects, legal monopoly) sustaining excess returns for 20+ years.
-    2. Narrow Moat: Durable competitive advantage (scale, brand affinity) sustaining excess returns for 10+ years (Nike, Crocs, Lululemon, Starbucks, Costco, PayPal).
-    3. Weak Moat: Fragile or commoditized advantage vulnerable to fashion decay or price competition.
+    1. Wide Moat: Insurmountable structural advantage (global 3B+ user social graphs like Meta, search monopolies like Alphabet, enterprise OS/cloud lock-in like Microsoft/Apple, payment tollbridges like Visa/Mastercard, rating duopolies like S&P Global/Moody's) sustaining excess returns for 20+ years (>30-40% operating margins).
+    2. Narrow Moat: Durable competitive advantage (retail fulfillment density like JD.com, social C2M aggregation like PDD/Temu, regional casino licenses like Boyd Gaming, brand affinity like Nike/Lululemon/Costco) sustaining excess returns for 10+ years. Consumer retail and competitive e-commerce platforms are bounded at Narrow Moat due to price competition and low switching costs.
+    3. Weak Moat: Fragile or commoditized advantage vulnerable to fast-fashion decay or price wars.
     4. No Moat: Commoditized price-taker with zero structural barriers to entry.
     """
-    is_apparel_or_fashion = False
+    is_retail_or_gaming = False
     combined_lower = f"{lbl or ''} {sec1_text or ''}".lower()
-    if any(w in combined_lower for w in ["apparel", "footwear", "athleisure", "clog", "shoes", "clothing", "fashion", "crocs", "lululemon", "heydude", "retail store"]):
-        is_apparel_or_fashion = True
+    if any(w in combined_lower for w in ["apparel", "footwear", "athleisure", "clog", "shoes", "clothing", "fashion", "crocs", "lululemon", "heydude", "retail store", "casino", "gaming property", "regional casino"]):
+        is_retail_or_gaming = True
 
-    # 1. Direct explicit input label check
+    # 1. Structural Wide Moat digital graph / search / OS monopolies
+    if any(w in combined_lower for w in ["meta platforms", "facebook", "instagram", "whatsapp", "alphabet", "google search", "microsoft", "apple inc", "asml", "visa inc", "mastercard"]):
+        if not is_retail_or_gaming:
+            return "Wide Moat"
+
+    # 2. Direct explicit input label check
     if lbl and isinstance(lbl, str):
         clean_lbl = lbl.strip().upper()
         if clean_lbl in ["WIDE MOAT", "STRONG MOAT", "WIDE", "STRONG"]:
-            return "Narrow Moat" if is_apparel_or_fashion else "Wide Moat"
+            return "Narrow Moat" if is_retail_or_gaming else "Wide Moat"
         elif clean_lbl in ["NARROW MOAT", "MODERATE MOAT", "NARROW", "MODERATE"]:
             return "Narrow Moat"
         elif clean_lbl in ["WEAK MOAT", "VULNERABLE MOAT", "WEAK", "VULNERABLE", "FRAGILE"]:
@@ -436,24 +441,30 @@ def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str
             return "No Moat"
         for m in CANONICAL_MOAT_LABELS:
             if clean_lbl == m.upper():
-                return "Narrow Moat" if (m == "Wide Moat" and is_apparel_or_fashion) else m
+                return "Narrow Moat" if (m == "Wide Moat" and is_retail_or_gaming) else m
 
-    # 2. Check explicit canonical phrases in Section 1 text
+    # 3. Check explicit canonical phrases in Section 1 text
     if sec1_text:
-        # Search for exact primary moat statement
-        m_explicit = re.search(r'(?:Primary Economic Moat|Economic Moat Assessment|Moat Classification|Moat Tier|Moat Rating)[^<\n]*?:\s*(?:<strong>)?\s*([^<\n\.]+?)(?:</strong>|\.|\n|<)', sec1_text, re.IGNORECASE)
-        if m_explicit:
-            class_str = m_explicit.group(1).strip().upper()
-            if "NARROW" in class_str or "MODERATE" in class_str:
+        # Search for exact primary moat statement header
+        m_head = re.search(r'(?:Economic\s+Moat\s+Assessment|Moat\s+Assessment|Moat\s+Classification|Moat\s+Tier|Moat\s+Rating)[^\n<:]*?[:\s]*(?:<strong>)?\s*\(?([A-Za-z\s]+?Moat)\)?', sec1_text, re.IGNORECASE)
+        if m_head:
+            h_str = m_head.group(1).upper()
+            if "WIDE" in h_str and "PROHIBIT" not in h_str and "NOT" not in h_str:
+                return "Narrow Moat" if is_retail_or_gaming else "Wide Moat"
+            elif "NARROW" in h_str:
                 return "Narrow Moat"
-            if "WEAK" in class_str or "VULNERABLE" in class_str or "FRAGILE" in class_str:
+            elif "WEAK" in h_str:
                 return "Weak Moat"
-            if "NO MOAT" in class_str or "COMMODITY" in class_str or "ZERO" in class_str:
+            elif "NO MOAT" in h_str:
                 return "No Moat"
-            if "WIDE" in class_str or "STRONG" in class_str or "TOLLBRIDGE" in class_str:
-                if "PROHIBITED" in class_str or "NOT" in class_str:
-                    return "Narrow Moat"
-                return "Narrow Moat" if is_apparel_or_fashion else "Wide Moat"
+
+        # Check explicit Wide Moat phrases
+        if re.search(r'\b(?:wide-moat|wide\s+moat)\s+(?:cash\s+machine|high-margin|business|franchise|enterprise|platform|network)\b', sec1_text, re.IGNORECASE):
+            return "Narrow Moat" if is_retail_or_gaming else "Wide Moat"
+
+        if re.search(r'\b(?:Wide\s+Economic\s+Moat|Wide-Moat|Wide\s+Moat)\b', sec1_text, re.IGNORECASE):
+            if not re.search(r'(?:prohibit|prevent|fail|exclude|cannot|preclude)[^\.\n]*?Wide\s+Moat', sec1_text, re.IGNORECASE):
+                return "Narrow Moat" if is_retail_or_gaming else "Wide Moat"
 
         # Search for standalone bold/header moat declarations
         if re.search(r'\b(?:Bounded\s+Narrow\s+Moat|Narrow\s+Economic\s+Moat|Narrow\s+Moat)\b', sec1_text, re.IGNORECASE):
@@ -462,11 +473,8 @@ def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str
             return "Weak Moat"
         if re.search(r'\b(?:No\s+Economic\s+Moat|No\s+Moat|Zero\s+Moat)\b', sec1_text, re.IGNORECASE):
             return "No Moat"
-        if re.search(r'\b(?:Wide\s+Economic\s+Moat|Wide\s+Moat)\b', sec1_text, re.IGNORECASE):
-            if not re.search(r'prohibited from\s+Wide\s+Moat', sec1_text, re.IGNORECASE):
-                return "Narrow Moat" if is_apparel_or_fashion else "Wide Moat"
 
-    if is_apparel_or_fashion:
+    if is_retail_or_gaming:
         return "Narrow Moat"
         
     return default
@@ -1043,8 +1051,8 @@ Core Principles of Business Valuation & Capital Allocation:
      * Retail Store Networks, Apparel, Restaurants & Physical Fleets (LULU, NKE, SBUX, CROX, HD, CMG): Maintenance CapEx includes ongoing store remodel/refresh cycles (every 5-7 years), POS/IT upkeep, and supply chain maintenance. Maintenance CapEx is EMPIRICALLY ANCHORED TO DEPRECIATION & AMORTIZATION (typically 50%–75% of total CapEx, or ~$D&A). Growth CapEx is strictly the incremental capital spent on net new store openings.
 
 3. Economic Moat, Governance & C-Suite Key-Person Stability:
-   - WIDE MOAT (<15% of public companies): Insurmountable structural barriers (Visa/Mastercard network effects, Copart zoning land monopoly, S&P Global/Moody's rating duopoly, Microsoft enterprise lock-in).
-   - NARROW MOAT: Durable consumer/retail brands (Nike, Lululemon, Crocs, Starbucks, Costco). STRICT RULE: Consumer apparel/retail is NEVER Wide Moat due to fashion risk and competitive entry.
+   - WIDE MOAT (<15% of public companies): Insurmountable structural barriers (Meta Platforms 3.5B+ user social graph lock-in, Alphabet search monopoly, Visa/Mastercard network effects, S&P Global/Moody's rating duopoly, Microsoft/Apple ecosystem lock-in, ASML lithography).
+   - NARROW MOAT: Durable competitive scale or logistics/brand affinity (JD.com fulfillment density, PDD/Temu C2M aggregation, Boyd Gaming regional licenses, Nike, Lululemon, Crocs, Starbucks, Costco). STRICT RULE: Consumer retail, fashion apparel, regional casinos, and competitive e-commerce platforms are bounded at Narrow Moat due to low switching costs and continuous subsidy/price competition.
    - WEAK / NO MOAT: Fragile or commoditized brands vulnerable to price wars or fast-fashion decay.
    - GOVERNANCE & C-SUITE STABILITY AUDIT: Always audit active activist campaigns (Elliott Management, Starboard, 13D filings), founder/board proxy battles, and executive turnover (CEO, CFO, Chief Brand Officer). Heavy C-suite churn directly increases key-person risk and lowers predictability.
 
