@@ -4158,7 +4158,9 @@
     "status_label": "Narrow Moat",
     "moat_label": "Narrow Moat",
     "labels": [
-      "Narrow Moat"
+      "Narrow Moat",
+      "C2M Marketplace",
+      "Deep Value"
     ],
     "action_signal": "BUY",
     "fair_value_estimate": "$171.30",
@@ -4504,10 +4506,15 @@
     "lower_alert_threshold": 80.57,
     "next_catalyst_date": "2026-08-24",
     "next_catalyst_event": "Q2 FY26 Earnings Release",
-    "top_funds": [],
-    "institutional_ownership_pct": "0 Tracked",
-    "insider_signal": "Neutral (10b5-1)",
-    "insider_summary": "Routine 10b5-1 transactions across 2 Form 4 filings.",
+    "top_funds": [
+      "Li Lu - Himalaya Capital Management (22.17%)",
+      "Norbert Lou - Punch Card Management (12.37%)",
+      "Duan Yongping - H&H International Investment (9.99%)",
+      "Dodge & Cox Funds (0.18%)"
+    ],
+    "institutional_ownership_pct": "4 Whales",
+    "insider_signal": "Neutral (Founder Control)",
+    "insider_summary": "Founder Colin Huang holds majority voting control via Class B shares; offshore trust governance.",
     "pricing_power_tier": "Strong Pricing Power",
     "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
     "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
