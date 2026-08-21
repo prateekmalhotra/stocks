@@ -606,14 +606,14 @@ def build_multibagger_legend_modal_html() -> str:
 def build_card_attribution_modal_html() -> str:
     """Builds the dynamic modal explaining the exact Return / Drag Attribution statement for any card clicked."""
     return """
-    <!-- Dynamic Card Attribution Explanation Modal -->
+    <!-- Dynamic Card Attribution & Pro-Forma Modeling Modal -->
     <div id="attribution-detail-modal" class="modal-shade" onclick="closeAttributionDetailModalOutside(event)">
-        <div class="modal-body-card" style="max-width: 540px; max-height: 88vh; overflow-y: auto; padding: 26px 28px; background: rgba(18, 17, 16, 0.98); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75); font-family: var(--font-sans);">
+        <div class="modal-body-card" style="max-width: 680px; max-height: 88vh; overflow-y: auto; padding: 26px 28px; background: rgba(18, 17, 16, 0.98); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75); font-family: var(--font-sans);">
             <button class="modal-x" onclick="closeAttributionDetailModal()" style="top: 22px; right: 22px; color: var(--text-dim); font-size: 1.05rem; cursor: pointer; background: transparent; border: none; transition: color 0.15s;">✕</button>
             
             <div style="margin-bottom: 18px;">
                 <div id="attr-modal-header-tag" style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 4px;">
-                    Return Attribution Breakdown
+                    Return Attribution &amp; Pro-Forma Model
                 </div>
                 <div id="attr-modal-title" style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); letter-spacing: -0.01em; margin-bottom: 8px;">
                     Statement Explanation
@@ -762,6 +762,74 @@ def extract_priced_in_card_data(stock: Any, html: str = "", stories: Optional[Li
         "implied_terminal": mult_str,
         "hurdle_rate": hurdle_str
     }
+
+
+def format_pro_forma_schedule_table_html(sched: Optional[Dict[str, Any]]) -> str:
+    """Renders an institutional 5-year pro-forma income and cash flow statement schedule table."""
+    if not sched or not isinstance(sched, dict) or not sched.get("years"):
+        return ""
+    
+    years = sched.get("years", ["Y0", "Y1", "Y2", "Y3", "Y4", "Y5"])
+    header_th = "".join(f"<th style='text-align: right; padding: 6px 8px;'>{y}</th>" for y in years)
+    
+    def _row(label: str, vals: List[Any], fmt: str = "${:,.1f}", is_bold: bool = False):
+        if not vals:
+            return ""
+        tds = []
+        for v in vals:
+            if v is None:
+                tds.append("<td style='text-align: right; padding: 5px 8px; color: var(--text-dim);'>—</td>")
+            elif isinstance(v, (int, float)):
+                if "%" in fmt:
+                    tds.append(f"<td style='text-align: right; padding: 5px 8px; font-family: var(--font-mono);'>{v:.1f}%</td>")
+                elif "$/sh" in fmt:
+                    tds.append(f"<td style='text-align: right; padding: 5px 8px; font-family: var(--font-mono); font-weight: 600; color: var(--accent-warm);'>${v:.2f}</td>")
+                elif "sh" in fmt:
+                    tds.append(f"<td style='text-align: right; padding: 5px 8px; font-family: var(--font-mono);'>{v:.1f}M</td>")
+                elif "$" in fmt:
+                    tds.append(f"<td style='text-align: right; padding: 5px 8px; font-family: var(--font-mono);'>${v:,.1f}M</td>")
+                else:
+                    tds.append(f"<td style='text-align: right; padding: 5px 8px; font-family: var(--font-mono);'>{v}</td>")
+            else:
+                tds.append(f"<td style='text-align: right; padding: 5px 8px; font-family: var(--font-mono);'>{v}</td>")
+        
+        weight = "font-weight: 600; color: var(--text-title);" if is_bold else "color: var(--text-secondary);"
+        return f"<tr style='border-bottom: 1px solid rgba(255,255,255,0.03);'><td style='padding: 5px 8px; {weight}'>{label}</td>{''.join(tds)}</tr>"
+
+    r_rev = _row("Total Revenue ($M)", sched.get("revenue_mil", []), fmt="$", is_bold=True)
+    r_gm = _row("Gross Margin (%)", sched.get("gross_margin_pct", []), fmt="%")
+    r_ebit = _row("Operating Income ($M)", sched.get("operating_income_mil", []), fmt="$")
+    r_om = _row("Operating Margin (%)", sched.get("operating_margin_pct", []), fmt="%")
+    r_ni = _row("Normalized Net Income ($M)", sched.get("normalized_net_income_mil", []), fmt="$")
+    r_oe = _row("Buffett Owner Earnings ($M)", sched.get("owner_earnings_mil", []), fmt="$", is_bold=True)
+    r_sh = _row("Diluted Shares Outstanding", sched.get("diluted_shares_mil", []), fmt="sh")
+    r_oeps = _row("Owner Earnings / Share", sched.get("oe_per_share", []), fmt="$/sh", is_bold=True)
+    r_roic = _row("Return on Capital (ROIC)", sched.get("roic_pct", []), fmt="%")
+
+    body = f"{r_rev}{r_gm}{r_ebit}{r_om}{r_ni}{r_oe}{r_sh}{r_oeps}{r_roic}"
+    if not body.strip():
+        return ""
+
+    return f"""
+    <div style='margin-top: 14px;'>
+        <div style='font-family: var(--font-sans); font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 6px;'>
+            5-Year Pro-Forma Financial Statement Model
+        </div>
+        <div style='overflow-x: auto; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 4px;'>
+            <table style='width: 100%; border-collapse: collapse; font-size: 0.72rem;'>
+                <thead>
+                    <tr style='border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); color: var(--text-dim);'>
+                        <th style='text-align: left; padding: 6px 8px;'>Financial Line Item</th>
+                        {header_th}
+                    </tr>
+                </thead>
+                <tbody>
+                    {body}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    """
 
 
 def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict[str, Any]]] = None, full_html: str = "") -> str:
@@ -984,9 +1052,9 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
             except Exception:
                 attribution_txt = "65% Rev Growth · 35% Margin Leverage"
                 attribution_label = "Return Source"
-        else:
-            attribution_txt = "65% Rev Growth · 35% Margin Leverage"
-            attribution_label = "Return Source"
+        sched_table_html = format_pro_forma_schedule_table_html(s.get("pro_forma_schedule"))
+        if sched_table_html:
+            attr_modal_body += sched_table_html
 
         data_tag_esc = html.escape(attr_tag, quote=True)
         data_title_esc = html.escape(attr_modal_title, quote=True)

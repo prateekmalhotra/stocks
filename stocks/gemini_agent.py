@@ -67,6 +67,40 @@ def safe_float(val: Any, default: float = 0.0) -> float:
         return default
 
 
+def parse_json_robust(text: str) -> Optional[Dict[str, Any]]:
+    """Safely extracts and parses JSON objects even if surrounded by markdown, trailing commas, or minor syntax hiccups."""
+    if not text or not isinstance(text, str):
+        return None
+    
+    # 1. Match ```json ... ``` or ``` ... ``` block
+    m = re.search(r'```(?:json)?\s*(\{[\s\S]*?\})\s*```', text)
+    candidate_str = m.group(1) if m else None
+    if not candidate_str:
+        # Fallback to outermost { ... }
+        m2 = re.search(r'(\{[\s\S]*\})', text)
+        if m2:
+            candidate_str = m2.group(1)
+            
+    if not candidate_str:
+        return None
+        
+    try:
+        return json.loads(candidate_str)
+    except Exception:
+        pass
+        
+    # Attempt cleanup for trailing commas, broken empty values, etc.
+    cleaned = re.sub(r',\s*([\}\]])', r'\1', candidate_str)
+    cleaned = re.sub(r':\s*,', r': null,', cleaned)
+    cleaned = re.sub(r':\s*\n\s*\}', r': null\n}', cleaned)
+    try:
+        return json.loads(cleaned)
+    except Exception:
+        pass
+        
+    return None
+
+
 def normalize_catalyst_date(raw_date: Any) -> str:
     """Deterministically normalizes any raw date string to strict YYYY-MM-DD format."""
     if not raw_date or not isinstance(raw_date, str):
@@ -545,10 +579,13 @@ def call_gemini_with_search(
             "maxOutputTokens": 32768
         }
     }
+    tools_list = []
     if use_search:
-        payload["tools"] = [{"google_search": {}}]
-    elif use_code_execution:
-        payload["tools"] = [{"code_execution": {}}]
+        tools_list.append({"google_search": {}})
+    if use_code_execution:
+        tools_list.append({"code_execution": {}})
+    if tools_list:
+        payload["tools"] = tools_list
     
     if system_instruction:
         payload["systemInstruction"] = {
@@ -1232,33 +1269,32 @@ STORY OPERATIONAL NARRATIVE & UNIT DRIVERS (Path {story_num}):
 {story_text}
 ======================================================================
 
-STRICT VALUATION RULES:
-1. RESPECT THE TREND & DERIVE COMPOUNDING FROM UNIT DRIVERS (REALISTIC BOUNDS):
-   - Derive the 5-year compounding rate (CAGR_OE) directly from the story's operational unit drivers, volume, pricing, and margin shifts.
+STRICT VALUATION & LINE-BY-LINE BUFFETT MODELING RULES:
+1. SEARCH STATUTORY FILINGS & RESPECT THE TREND (REALISTIC BOUNDS):
+   - Use your search tool if needed to confirm historical 10-K / 10-Q line items (segment revenues, gross margin, SG&A, SBC, maintenance CapEx, and share count).
    - RESPECT THE TREND:
      * Ground compounding in the observable business trend, guidance corridors, and realistic capacity limits.
      * Downside paths model realistic operational friction (e.g. -2% to -6% comp drag, 100-200 bps margin compression), NOT an artificial total collapse.
      * Upside paths model realistic execution outperformance (e.g. +2% to +5% above trend, 100-150 bps operating leverage), NOT an impossible moonshot.
-2. MANDATORY PYTHON CODE EXECUTION:
-   - You MUST write and execute Python code using your code execution tool to calculate every equation with exact mathematical precision:
-     * Year-5 Projected Owner Earnings (OE₅) = OE₀ * (1 + CAGR_OE)^5
-     * 5-Year Target Price / Share (P₅) = (M₅ * OE₅) + Net Surplus Cash per share (or - Net Debt per share)
-     * Present Intrinsic Fair Value (P₀ at 9.5% Hurdle) = P₅ / (1.095)^5
-3. Terminal Valuation Multiple (M₅ = P/OE₅):
-   - Terminal multiples MUST reflect fundamental economic capitalization rules: M₅ = (1 - g/ROIC) / (r - g) with r = 9.5%.
-   - MANDATORY SECTOR MULTIPLE CAPS:
-     * Consumer Brands / Retail / Apparel / Footwear (Crocs, Lululemon, Nike, etc.):
-       - Core Baseline: 12.0x – 15.0x
-       - Downside Friction: 8.5x – 10.5x
-       - Acceleration / Upside: 15.0x – 17.0x
-       - NEVER assign a 17.5x+ multiple to a consumer retail/footwear stock!
-     * Secular Monopolies / High-Switching Platforms (Visa, Microsoft, Google):
-       - Core Baseline: 18.0x – 22.0x
-       - Downside Friction: 12.0x – 15.0x
-       - Acceleration / Upside: 22.0x – 25.0x
+2. MANDATORY LINE-BY-LINE PYTHON CODE EXECUTION (YEARS 1 TO 5):
+   - You MUST write and execute Python code using your code execution tool to simulate every row across Years 1 through 5:
+     * Year 0 (Trailing Baseline), Year 1, Year 2, Year 3, Year 4, Year 5.
+     * Line 1: Segment Revenues & Volume/Pricing Drivers -> Total Revenue ($M).
+     * Line 2: Cost of Goods Sold (COGS) & Gross Margin % (accounting for tariffs and product mix).
+     * Line 3: SG&A & Operating Expenses -> Operating Income (EBIT) & Operating Margin %.
+     * Line 4: Effective Taxes (20%-22%) & Net Interest -> Normalized Net Income.
+     * Line 5: Warren Buffett True Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation.
+     * Line 6: Capital Allocation & Share Count Roll-Forward: Retained free cash used for buybacks -> Diluted Shares Outstanding (Mil) from Y0 to Y5.
+     * Line 7: Per-Share Owner Earnings = Total Owner Earnings / Diluted Shares.
+     * Line 8: Invested Capital & Year-5 ROIC (NOPAT / Invested Capital).
+3. DERIVE JUSTIFIED EXIT MULTIPLE (M₅ = P/OE₅):
+   - Terminal capitalization multiple MUST be justified by Year-5 ROIC and terminal growth rate g: M₅ = (1 - g/ROIC_5) / (r - g) with r = 9.5%, bounded by sector multiple caps (12.0x - 15.0x for consumer retail/footwear; 18.0x - 22.0x for tech/platforms).
+4. 5-YEAR TARGET PRICE & PRESENT FAIR VALUE:
+   - 5-Year Target Price / Share (P₅) = (M₅ * OE₅_per_share) + Net Surplus Cash per share (or - Net Debt per share).
+   - Present Intrinsic Fair Value (P₀ at 9.5% Hurdle) = P₅ / (1.095)^5.
 
 OUTPUT FORMAT:
-Provide ONLY a valid JSON object matching this exact schema:
+Provide ONLY a valid JSON object matching this exact schema (replace placeholder numbers with your actual simulated row values across all 6 time periods Y0 through Y5):
 ```json
 {{
   "story_num": {story_num},
@@ -1271,7 +1307,19 @@ Provide ONLY a valid JSON object matching this exact schema:
   "net_cash_per_share": {net_cash_num},
   "target_price_5y": XX.XX,
   "present_fair_value": XX.XX,
-  "valuation_rationale": "<2-3 sentence economic rationale for the chosen growth rate and terminal multiple>"
+  "valuation_rationale": "<2-3 sentence economic rationale for the chosen growth rate, ROIC, and terminal multiple>",
+  "pro_forma_schedule": {{
+    "years": ["Trailing (Y0)", "Year 1", "Year 2", "Year 3", "Year 4", "Year 5"],
+    "revenue_mil": [4100.0, 4320.0, 4560.0, 4820.0, 5100.0, 5400.0],
+    "gross_margin_pct": [58.8, 59.0, 59.2, 59.3, 59.5, 59.5],
+    "operating_income_mil": [1050.0, 1123.0, 1200.0, 1282.0, 1372.0, 1470.0],
+    "operating_margin_pct": [25.6, 26.0, 26.3, 26.6, 26.9, 27.2],
+    "normalized_net_income_mil": [780.0, 842.0, 905.0, 973.0, 1048.0, 1128.0],
+    "owner_earnings_mil": [750.0, 810.0, 875.0, 945.0, 1020.0, 1100.0],
+    "diluted_shares_mil": [60.5, 59.0, 57.5, 56.0, 54.8, 54.0],
+    "oe_per_share": [12.40, 13.73, 15.22, 16.88, 18.61, 20.37],
+    "roic_pct": [22.5, 22.8, 23.0, 23.2, 23.4, 23.5]
+  }}
 }}
 ```
 """
@@ -1934,7 +1982,8 @@ def parse_sec3_and_json(
                 "net_cash_per_share": net_cash_sh,
                 "normalized_oe_per_share": oe_per_sh,
                 "projected_oe5_per_share": oe5_sh,
-                "projected_5y_cagr": cagr_str
+                "projected_5y_cagr": cagr_str,
+                "pro_forma_schedule": s.get("pro_forma_schedule") or {}
             })
     else:
         # Fallback if stories JSON block was partial - compute strictly via Owner Earnings compounding
@@ -2175,15 +2224,12 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         resp = call_gemini_with_search(
             prompt,
             system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY,
-            use_search=False,
+            use_search=True,
             use_code_execution=True
         )
-        m_json = re.search(r'```json\s*(\{[\s\S]*?\})\s*```', resp)
-        if m_json:
-            try:
-                return json.loads(m_json.group(1))
-            except:
-                pass
+        parsed = parse_json_robust(resp)
+        if parsed and isinstance(parsed, dict):
+            return parsed
         return {
             "story_num": s_info["num"],
             "story_title": s_info["title"],
@@ -2223,6 +2269,16 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         sec1_text=sec1_clean,
         sec2_text=sec2_clean
     )
+    
+    # Merge pro_forma_schedule from parallel story valuation agents into stories_metadata
+    for sm in stories_metadata:
+        s_num = sm.get("story_num") or sm.get("id")
+        for svr in story_val_results:
+            if isinstance(svr, dict) and (svr.get("story_num") == s_num or svr.get("id") == s_num):
+                if svr.get("pro_forma_schedule") and not sm.get("pro_forma_schedule"):
+                    sm["pro_forma_schedule"] = svr.get("pro_forma_schedule")
+                break
+
     words_agent2 = len(sec3_clean.split())
     print(f"   │ Status: Section 3 and Audited JSON generated ({words_agent2} words, {len(stories_metadata)} paths)", flush=True)
     print("   └" + "─" * 50, flush=True)
