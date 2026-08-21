@@ -1284,10 +1284,13 @@ def build_native_svg_chart(
             const prices = points.map(p => p.price);
             const evalPrices = [...prices];
             
-            // Show valuation target reference lines across all timelines (1D, 1M, 1Y, 5Y, MAX)
-            const showTargetLines = true;
+            // Timeframe-Aware Organic Scaling:
+            // On short-term views (1D, 1M), scale Y-axis strictly to the price range of that period
+            // so intraday and monthly curves have full organic detail and never get flattened into a line.
+            // On long-term views (1Y, 5Y, MAX), include valuation targets in the scale.
+            const isShortTerm = (currentRangeKey === '1D' || currentRangeKey === '1M');
             
-            if (showTargetLines) {{
+            if (!isShortTerm) {{
                 for (const t of targets) {{
                     if (t.val !== null && !isNaN(t.val) && t.val > 0) evalPrices.push(t.val);
                 }}
@@ -1320,28 +1323,36 @@ def build_native_svg_chart(
             linePath.setAttribute('d', lineD);
             areaPath.setAttribute('d', areaD);
 
-            // Update Target Reference Dotted Lines
+            // Update Target Reference Dotted Lines (Render whenever within visible chart canvas)
+            let anyVisibleTarget = false;
             for (const t of targets) {{
                 const lineEl = document.getElementById('target-s' + t.id + '-line');
                 const labelEl = document.getElementById('target-s' + t.id + '-label');
-                if (showTargetLines && t.val !== null && !isNaN(t.val) && lineEl && labelEl) {{
+                if (t.val !== null && !isNaN(t.val) && lineEl && labelEl) {{
                     const y = getSvgY(t.val);
-                    lineEl.setAttribute('y1', y);
-                    lineEl.setAttribute('y2', y);
-                    lineEl.style.display = 'block';
-                    labelEl.setAttribute('y', y - 4);
-                    labelEl.textContent = 'Path ' + t.id + ' · $' + t.val.toFixed(2);
-                    labelEl.style.display = 'block';
+                    // Only show if the target line falls inside the visible chart viewport
+                    if (y >= padY - 2 && y <= height - padY + 2) {{
+                        lineEl.setAttribute('y1', y);
+                        lineEl.setAttribute('y2', y);
+                        lineEl.style.display = 'block';
+                        labelEl.setAttribute('y', y - 4);
+                        labelEl.textContent = 'Path ' + t.id + ' · $' + t.val.toFixed(2);
+                        labelEl.style.display = 'block';
+                        anyVisibleTarget = true;
+                    }} else {{
+                        lineEl.style.display = 'none';
+                        labelEl.style.display = 'none';
+                    }}
                 }} else if (lineEl) {{
                     lineEl.style.display = 'none';
                     if (labelEl) labelEl.style.display = 'none';
                 }}
             }}
 
-            // Target legend display: show on all timeline ranges
+            // Target legend display: show on 1Y/5Y/MAX by default, or whenever targets are in view
             const targetsLegendEl = document.querySelector('.chart-targets-legend');
             if (targetsLegendEl) {{
-                targetsLegendEl.style.display = 'flex';
+                targetsLegendEl.style.display = (!isShortTerm || anyVisibleTarget) ? 'flex' : 'none';
             }}
 
             updateXAxisTicks(points, currentRangeKey);
