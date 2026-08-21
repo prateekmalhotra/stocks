@@ -2,6 +2,7 @@
 
 import json
 import re
+import html
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any, Optional
@@ -602,6 +603,38 @@ def build_multibagger_legend_modal_html() -> str:
     """
 
 
+def build_card_attribution_modal_html() -> str:
+    """Builds the dynamic modal explaining the exact Return / Drag Attribution statement for any card clicked."""
+    return """
+    <!-- Dynamic Card Attribution Explanation Modal -->
+    <div id="attribution-detail-modal" class="modal-shade" onclick="closeAttributionDetailModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 540px; max-height: 88vh; overflow-y: auto; padding: 26px 28px; background: rgba(18, 17, 16, 0.98); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeAttributionDetailModal()" style="top: 22px; right: 22px; color: var(--text-dim); font-size: 1.05rem; cursor: pointer; background: transparent; border: none; transition: color 0.15s;">✕</button>
+            
+            <div style="margin-bottom: 18px;">
+                <div id="attr-modal-header-tag" style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 4px;">
+                    Return Attribution Breakdown
+                </div>
+                <div id="attr-modal-title" style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); letter-spacing: -0.01em; margin-bottom: 8px;">
+                    Statement Explanation
+                </div>
+                <div id="attr-modal-statement" style="font-family: var(--font-mono); font-size: 0.80rem; color: var(--text-title); background: rgba(255, 255, 255, 0.03); padding: 9px 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.06); line-height: 1.35;">
+                    <!-- Statement text -->
+                </div>
+            </div>
+
+            <div id="attr-modal-body" style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.55; display: flex; flex-direction: column; gap: 12px;">
+                <!-- Dynamically populated explanation -->
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                <button onclick="closeAttributionDetailModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 7px 18px; cursor: pointer; transition: all 0.15s ease;">Dismiss</button>
+            </div>
+        </div>
+    </div>
+    """
+
+
 def safe_float(val: Any, default: float = 0.0) -> float:
     """Safely parses any numeric string, percentage, multiple, or currency into a float."""
     if val is None:
@@ -833,6 +866,11 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         # Compute 3-Engine Return Attribution (Alta Fox Multibagger Decomposition)
         attribution_txt = ""
         attribution_label = "Return Source"
+        attr_tag = "5-Year Return Attribution"
+        attr_modal_title = f"Path {idx+1}: {title}"
+        attr_modal_statement = ""
+        attr_modal_body = ""
+
         if cur_p > 0 and oe_per_sh and float(oe_per_sh) > 0:
             try:
                 oe0 = float(oe_per_sh)
@@ -845,6 +883,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                 
                 import math
                 if val >= cur_p:
+                    ret_gain_pct = ((val - cur_p) / cur_p * 100.0)
                     l_mult = max(0.0, math.log(mult_ratio)) if mult_ratio > 1.0 else 0.0
                     l_oe = max(0.0, math.log(oe_ratio)) if oe_ratio > 1.0 else 0.0
                     l_tot = l_mult + l_oe
@@ -853,8 +892,14 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                         p_mult = (l_mult / l_tot) * 100.0
                         if p_mult >= 99.0:
                             attribution_txt = "100% Multiple Expansion (Earnings Steady/Drag)"
+                            p_rev = 0
+                            p_mrg = 0
+                            p_mult = 100
                         elif p_oe >= 99.0:
                             attribution_txt = "65% Rev Growth · 35% Margin Expansion"
+                            p_rev = 65
+                            p_mrg = 35
+                            p_mult = 0
                         else:
                             p_rev = round(p_oe * 0.65)
                             p_mrg = round(p_oe * 0.35)
@@ -862,8 +907,34 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                             attribution_txt = f"{p_rev}% Rev · {p_mrg}% Margin · {p_mult}% Multiple"
                     else:
                         attribution_txt = "Steady State Capitalization"
+                        p_rev, p_mrg, p_mult = 50, 25, 25
                     attribution_label = "Return Source"
+                    attr_tag = "5-Year Return Attribution"
+                    attr_modal_statement = f"<strong style='color: var(--accent-green);'>Return Source:</strong> {attribution_txt}"
+                    attr_modal_body = f"""
+                    <p style='margin: 0; color: var(--text-secondary);'>
+                        Of the total expected stock price gain of <strong style='color: var(--text-title);'>+{ret_gain_pct:.1f}%</strong> (${cur_p:.2f} &rarr; ${val:.2f} over 5 years), this deconstructs exactly what drives that value creation:
+                    </p>
+                    <div style='display: flex; flex-direction: column; gap: 8px;'>
+                        <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
+                            <div style='font-weight: 600; color: var(--accent-green); margin-bottom: 2px;'>{p_rev}% &middot; Revenue Compounding</div>
+                            <div style='font-size: 0.76rem; color: var(--text-secondary);'>Top-line business expansion compounding owner cash flow at {oe_growth} per year.</div>
+                        </div>
+                        <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
+                            <div style='font-weight: 600; color: var(--accent-warm); margin-bottom: 2px;'>{p_mrg}% &middot; Margin Expansion</div>
+                            <div style='font-size: 0.76rem; color: var(--text-secondary);'>Operating leverage and profitability recovery over fixed overhead.</div>
+                        </div>
+                        <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
+                            <div style='font-weight: 600; color: #D48858; margin-bottom: 2px;'>{p_mult}% &middot; Multiple Re-Rating</div>
+                            <div style='font-size: 0.76rem; color: var(--text-secondary);'>Valuation multiple expanding from today's {m0:.1f}x to {m5:.1f}x P/OE.</div>
+                        </div>
+                    </div>
+                    <div style='font-size: 0.74rem; color: var(--text-dim); line-height: 1.4; padding-top: 2px;'>
+                        &bull; High fundamental share ({p_rev + p_mrg}%) indicates returns are powered by business cash generation rather than relying on speculative multiple inflation.
+                    </div>
+                    """
                 else:
+                    ret_loss_pct = ((val - cur_p) / cur_p * 100.0)
                     l_mult_down = max(0.0, -math.log(mult_ratio)) if mult_ratio < 1.0 else 0.0
                     l_oe_down = max(0.0, -math.log(oe_ratio)) if oe_ratio < 1.0 else 0.0
                     l_tot_down = l_mult_down + l_oe_down
@@ -872,8 +943,14 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                         p_mult_down = (l_mult_down / l_tot_down) * 100.0
                         if p_mult_down >= 99.0:
                             attribution_txt = "100% Multiple Contraction"
+                            p_rev_down = 0
+                            p_mrg_down = 0
+                            p_mult_down = 100
                         elif p_oe_down >= 99.0:
                             attribution_txt = "65% Rev Contraction · 35% Margin Deleveraging"
+                            p_rev_down = 65
+                            p_mrg_down = 35
+                            p_mult_down = 0
                         else:
                             p_rev_down = round(p_oe_down * 0.65)
                             p_mrg_down = round(p_oe_down * 0.35)
@@ -881,13 +958,40 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                             attribution_txt = f"{p_rev_down}% Rev · {p_mrg_down}% Margin · {p_mult_down}% Multiple"
                     else:
                         attribution_txt = "Steady State Capitalization"
+                        p_rev_down, p_mrg_down, p_mult_down = 50, 25, 25
                     attribution_label = "Drag Source"
+                    attr_tag = "5-Year Downside Drag Breakdown"
+                    attr_modal_statement = f"<strong style='color: #F87171;'>Drag Source:</strong> {attribution_txt}"
+                    attr_modal_body = f"""
+                    <p style='margin: 0; color: var(--text-secondary);'>
+                        Of the total expected stock price decline of <strong style='color: #F87171;'>{ret_loss_pct:.1f}%</strong> (${cur_p:.2f} &rarr; ${val:.2f} over 5 years), this identifies the primary causes of capital impairment:
+                    </p>
+                    <div style='display: flex; flex-direction: column; gap: 8px;'>
+                        <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
+                            <div style='font-weight: 600; color: #F87171; margin-bottom: 2px;'>{p_rev_down}% &middot; Sales Deceleration / Drag</div>
+                            <div style='font-size: 0.76rem; color: var(--text-secondary);'>Slowing top-line revenue / negative comps compounding owner earnings at {oe_growth} accounts for {p_rev_down}% of the price drop.</div>
+                        </div>
+                        <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
+                            <div style='font-weight: 600; color: var(--accent-warm); margin-bottom: 2px;'>{p_mrg_down}% &middot; Margin Compression</div>
+                            <div style='font-size: 0.76rem; color: var(--text-secondary);'>Operating margin degradation (promotions, markdowns, tariffs) accounts for {p_mrg_down}% of the price drop.</div>
+                        </div>
+                        <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
+                            <div style='font-weight: 600; color: #D48858; margin-bottom: 2px;'>{p_mult_down}% &middot; Multiple Contraction</div>
+                            <div style='font-size: 0.76rem; color: var(--text-secondary);'>Valuation multiple contracting from {m0:.1f}x down to {m5:.1f}x P/OE accounts for {p_mult_down}% of the price drop.</div>
+                        </div>
+                    </div>
+                    """
             except Exception:
                 attribution_txt = "65% Rev Growth · 35% Margin Leverage"
                 attribution_label = "Return Source"
         else:
             attribution_txt = "65% Rev Growth · 35% Margin Leverage"
             attribution_label = "Return Source"
+
+        data_tag_esc = html.escape(attr_tag, quote=True)
+        data_title_esc = html.escape(attr_modal_title, quote=True)
+        data_stmt_esc = html.escape(attr_modal_statement or f"<strong>{attribution_label}:</strong> {attribution_txt}", quote=True)
+        data_body_esc = html.escape(attr_modal_body or f"<p style='color: var(--text-secondary);'>Decomposition of 5-year compounding drivers for {ticker}.</p>", quote=True)
         
         card = f"""
         <div class="storyline-summary-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box; min-width: 0;">
@@ -930,7 +1034,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
 
                 <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between; padding: 2px 0; min-height: 20px;">
                     <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{attribution_label}: <strong style="color: var(--text-secondary); font-weight: 500;">{attribution_txt}</strong></span>
-                    <button type="button" class="btn-info-circle" onclick="openMultibaggerModal(event)" title="Empirical Multibagger Return Drivers" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.68rem; padding: 0 4px; flex-shrink: 0;">ⓘ</button>
+                    <button type="button" class="btn-info-circle" onclick="openAttributionFromData(this, event)" data-tag="{data_tag_esc}" data-title="{data_title_esc}" data-statement="{data_stmt_esc}" data-body="{data_body_esc}" title="Click for statement breakdown" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.68rem; padding: 0 4px; flex-shrink: 0;">ⓘ</button>
                 </div>
             </div>
             
@@ -953,6 +1057,35 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
     elif oe_per_sh and float(oe_per_sh) > 0.01:
         priced_in_footer_parts.append(f'<span>Baseline OE: ${float(oe_per_sh):.2f}/sh</span>')
     priced_in_footer_text = ' <span style="color: var(--text-dim); opacity: 0.5;">·</span> '.join(priced_in_footer_parts)
+
+    req_oe5_val = (cur_p * (1.095**5) - (net_cash_sh or 0.0)) / (cur_p / float(oe_per_sh)) if oe_per_sh and float(oe_per_sh) > 0 else 0.0
+    market_attr_tag = "Market-Implied Reverse DCF"
+    market_attr_title = "What Is Priced Into Today's Stock Price"
+    market_attr_statement = "<strong style='color: var(--accent-warm);'>Implied Return Source:</strong> 100% Earnings Compounding (Constant Multiple)"
+    market_attr_body = f"""
+    <p style='margin: 0; color: var(--text-secondary);'>
+        At today's market price of <strong style='color: var(--text-title);'>${cur_p:.2f}</strong> ({m_mult}), this breaks down the hurdle rate requirements:
+    </p>
+    <div style='display: flex; flex-direction: column; gap: 8px;'>
+        <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
+            <div style='font-weight: 600; color: var(--text-title); margin-bottom: 2px;'>Constant Multiple Assumption ({m_mult})</div>
+            <div style='font-size: 0.76rem; color: var(--text-secondary);'>The reverse DCF model assumes zero speculative multiple expansion over 5 years. The multiple remains anchored at today's {m_mult}.</div>
+        </div>
+        <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
+            <div style='font-weight: 600; color: var(--accent-warm); margin-bottom: 2px;'>Required Business Growth ({priced_in_info['implied_growth']})</div>
+            <div style='font-size: 0.76rem; color: var(--text-secondary);'>To achieve the {priced_in_info['hurdle_rate']} annual hurdle rate with zero multiple expansion, the company must organically compound Owner Earnings from ${float(oe_per_sh):.2f} to ${req_oe5_val:.2f} per share.</div>
+        </div>
+        <div style='background: rgba(204, 120, 92, 0.05); border: 1px solid rgba(204, 120, 92, 0.15); border-radius: 8px; padding: 10px 12px;'>
+            <div style='font-weight: 600; color: var(--accent-warm); margin-bottom: 2px;'>Investor Takeaway</div>
+            <div style='font-size: 0.76rem; color: var(--text-secondary);'>100% of your required return depends strictly on underlying business execution &mdash; no speculative valuation multiple inflation is assumed.</div>
+        </div>
+    </div>
+    """
+
+    m_data_tag_esc = html.escape(market_attr_tag, quote=True)
+    m_data_title_esc = html.escape(market_attr_title, quote=True)
+    m_data_stmt_esc = html.escape(market_attr_statement, quote=True)
+    m_data_body_esc = html.escape(market_attr_body, quote=True)
 
     priced_in_card = f"""
     <div class="storyline-summary-card storyline-priced-in-card" style="background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box; min-width: 0;">
@@ -995,7 +1128,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
 
             <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between; padding: 2px 0; min-height: 20px;">
                 <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Implied Return Source: <strong style="color: var(--text-secondary); font-weight: 500;">100% Earnings Compounding (Constant Multiple)</strong></span>
-                <button type="button" class="btn-info-circle" onclick="openMultibaggerModal(event)" title="Empirical Multibagger Return Drivers" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.68rem; padding: 0 4px; flex-shrink: 0;">ⓘ</button>
+                <button type="button" class="btn-info-circle" onclick="openAttributionFromData(this, event)" data-tag="{m_data_tag_esc}" data-title="{m_data_title_esc}" data-statement="{m_data_stmt_esc}" data-body="{m_data_body_esc}" title="Click for statement breakdown" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.68rem; padding: 0 4px; flex-shrink: 0;">ⓘ</button>
             </div>
         </div>
         
@@ -3051,6 +3184,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
     {build_labels_legend_modal_html(include_pricing_power=True)}
     {build_multibagger_legend_modal_html()}
+    {build_card_attribution_modal_html()}
 
     <script>
         function showTab(id) {{
@@ -3114,6 +3248,40 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             }}
         }}
 
+        function openAttributionFromData(el, event) {{
+            if (event) {{
+                event.stopPropagation();
+                event.preventDefault();
+            }}
+            const tag = el.getAttribute('data-tag') || 'Return Attribution';
+            const title = el.getAttribute('data-title') || 'Statement Breakdown';
+            const statement = el.getAttribute('data-statement') || '';
+            const body = el.getAttribute('data-body') || '';
+            
+            const modal = document.getElementById('attribution-detail-modal');
+            const headerTag = document.getElementById('attr-modal-header-tag');
+            const titleEl = document.getElementById('attr-modal-title');
+            const stmtEl = document.getElementById('attr-modal-statement');
+            const bodyEl = document.getElementById('attr-modal-body');
+            
+            if (headerTag) headerTag.textContent = tag;
+            if (titleEl) titleEl.textContent = title;
+            if (stmtEl) stmtEl.innerHTML = statement;
+            if (bodyEl) bodyEl.innerHTML = body;
+            if (modal) modal.style.display = 'flex';
+        }}
+
+        function closeAttributionDetailModal() {{
+            const modal = document.getElementById('attribution-detail-modal');
+            if (modal) modal.style.display = 'none';
+        }}
+
+        function closeAttributionDetailModalOutside(event) {{
+            if (event.target.id === 'attribution-detail-modal') {{
+                closeAttributionDetailModal();
+            }}
+        }}
+
         function renderLatexEquations() {{
             if (typeof renderMathInElement === 'function') {{
                 renderMathInElement(document.body, {{
@@ -3158,6 +3326,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 closeEvolutionModal();
                 closeLabelsLegendModal();
                 closeMultibaggerModal();
+                closeAttributionDetailModal();
             }}
         }});
     </script>
