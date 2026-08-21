@@ -1243,6 +1243,16 @@ YOUR CRITICAL SYNTHESIS MANDATE:
      * Moderate Growth (+5% to +10% OE CAGR): Terminal Multiple between 13.5x and 16.5x.
      * High Growth (+10% to +15% OE CAGR): Terminal Multiple between 17.0x and 20.5x.
      * Hyper-Scale (> +15% OE CAGR): Terminal Multiple capped at 21.0x - 24.0x.
+   - MANDATORY MOAT FALSIFICATION AUDIT (PRICING POWER VS. REGULATORY LICENSE):
+     Accreditations, certifications, and government regulatory compliance are barriers to entry, NOT economic moats. Do NOT award "Narrow Moat" unless the enterprise demonstrates demonstrable pricing power over substitutes or local alternatives. If pricing power is absent or demand is elastic, classify strictly as "Weak Moat".
+   - REVENUE DECOMPOSITION MANDATE (PRICE VS. VOLUME & DOMESTIC VS. INTERNATIONAL):
+     Deconstruct top-line growth into its fundamental components: Ad Price (eCPM) vs. Volume (Impressions), or Unit Price vs. Volume, and Domestic vs. International ARPU convergence. If revenue growth is driven by pricing leverage rather than volume dilution, reflect this high-quality conversion in the terminal margin.
+   - ANTI-STACKING ASSUMPTION PROTOCOL:
+     Do NOT stack aggressive revenue growth + significant operating margin expansion (+150-200 bps) + share buyback accretion simultaneously on businesses already near peak historical margins. If operating leverage has already been realized, margin expansion MUST be capped at conservative levels (0 to +50 bps).
+   - THE 10% CORE REVENUE RULE (CORE VS. UNFUNDED CALL OPTION):
+     Any revenue segment or theme accounting for < 10% of total revenue (e.g. AI data licensing at ~5% of sales) MUST NOT be modeled as a central thesis driver. Treat it strictly as an unfunded upside call option.
+   - SEQUENTIAL TRAJECTORY & DECELERATION AUDIT:
+     Examine trailing 4-quarter YoY growth rates (Q1, Q2, Q3, Q4). If recent quarters exhibit sequential deceleration (e.g. 40% slowing to 15%), ground multi-year CAGRs around the decelerated run-rate rather than trailing peak comps.
    - Ensure all paths represent realistic, grounded deviations around the central trend rather than unearned moonshots or fictitious collapses.
    - Enforce sector terminal multiple caps (e.g. <=15x for apparel/retail, <=24x for tech).
 2. EMPIRICAL PROBABILITY DISTRIBUTION ACROSS ALL N STORIES:

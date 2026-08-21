@@ -12,6 +12,18 @@ from typing import Dict, List, Any, Tuple, Optional
 THESES_DIR = Path(__file__).resolve().parent.parent / "data" / "theses"
 
 
+def safe_float(val: Any, default: float = 0.0) -> float:
+    if val is None:
+        return default
+    try:
+        if isinstance(val, (int, float)):
+            return float(val)
+        cleaned = re.sub(r"[^\d.-]", "", str(val))
+        return float(cleaned) if cleaned else default
+    except (ValueError, TypeError):
+        return default
+
+
 def auto_heal_dossier_and_metadata(ticker: str, html: str, metadata: Optional[Dict[str, Any]] = None) -> Tuple[str, Dict[str, Any]]:
     """Deterministically auto-heals HTML formatting, table cell closures, LaTeX syntax, and metadata consistency in-place."""
     if not html:
@@ -542,6 +554,38 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                         issues.append(f"Multiple Consistency Failure (Path {idx}): Terminal multiple of {mult_f:.1f}x exceeds institutional absolute maximum bound of 25.0x P/OE.")
             except Exception:
                 pass
+
+    # 32. Scale-Aware Per-Share OE Integrity Gate (Anti-Unit Confusion Gate)
+    if metadata and "stories" in metadata and isinstance(metadata["stories"], list):
+        cur_price = safe_float(metadata.get("price_at_version") or metadata.get("current_price") or 1.0, 1.0)
+        for idx, st in enumerate(metadata["stories"], start=1):
+            oe0_val = safe_float(st.get("normalized_oe_per_share") or 0.0, 0.0)
+            if cur_price > 0 and oe0_val > 0 and cur_price < 100.0:
+                implied_p_oe = cur_price / oe0_val
+                if implied_p_oe < 2.0:
+                    issues.append(f"Scale Ingestion Failure (Path {idx}): Implied starting P/OE of {implied_p_oe:.2f}x indicates total enterprise cash flow ($M) was mistakenly ingested instead of per-share Owner Earnings ($/sh).")
+
+    # 33. Anti-Assumption-Stacking Operating Leverage Gate
+    if metadata and "stories" in metadata and isinstance(metadata["stories"], list):
+        for idx, st in enumerate(metadata["stories"], start=1):
+            cagr_raw = str(st.get("projected_5y_cagr") or "")
+            m_oe_cagr = re.search(r"([+-]?\d+(?:\.\d+)?)%", cagr_raw)
+            m_rev_cagr = re.search(r"\(([+-]?\d+(?:\.\d+)?)%\s*Rev\)", cagr_raw, re.IGNORECASE)
+            if m_oe_cagr and m_rev_cagr:
+                try:
+                    oe_c = float(m_oe_cagr.group(1))
+                    rev_c = float(m_rev_cagr.group(1))
+                    # If OE CAGR exceeds Revenue CAGR by > 25.0% without extreme turnaround proof
+                    if oe_c > 0 and rev_c > 0 and (oe_c - rev_c > 25.0):
+                        sched = st.get("pro_forma_schedule", {})
+                        om_list = sched.get("operating_margin_pct", [])
+                        if om_list and len(om_list) >= 2:
+                            om_start = om_list[0]
+                            om_end = om_list[-1]
+                            if om_start > 15.0 and (om_end - om_start > 5.0):
+                                issues.append(f"Assumption Stacking Warning (Path {idx}): Model stacks +{oe_c:.1f}% OE CAGR on +{rev_c:.1f}% Rev CAGR with +{om_end - om_start:.1f}% margin expansion from an already mature {om_start:.1f}% starting margin.")
+                except Exception:
+                    pass
 
     return len(issues) == 0, issues
 
