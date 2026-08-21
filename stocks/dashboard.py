@@ -280,19 +280,29 @@ def format_top_funds_card_html(stock: WatchlistStock) -> str:
     """Renders a clean, minimalist Superinvestor Whales / Institutional card with zero N/A."""
     funds = getattr(stock, "top_funds", None) or []
     raw_inst = getattr(stock, "institutional_ownership_pct", None) or ""
+    
+    if not funds:
+        try:
+            cached = load_cached_ownership(stock.ticker)
+            dr_holders = cached.get("dataroma_holders", [])
+            if dr_holders:
+                funds = [f"{h.get('manager')} ({h.get('pct_of_portfolio', '')})" for h in dr_holders[:10]]
+        except Exception:
+            pass
+
     clean_names = [clean_fund_name(f) for f in funds if clean_fund_name(f)]
-    subtext = " · ".join(clean_names[:2]) if clean_names else ("13F Superinvestors" if funds else "Zero 13F Whales")
+    subtext = " · ".join(clean_names[:2]) if clean_names else ("13F Superinvestors" if funds else "13F Institutional Registry")
 
     # Format value: if valid pct exists and is not N/A, use it; otherwise show superinvestor whale count
-    if raw_inst and str(raw_inst).strip() not in ("N/A", "None", "", "TBD") and "%" in str(raw_inst):
+    if raw_inst and str(raw_inst).strip() not in ("N/A", "None", "", "TBD", "0 Tracked") and ("%" in str(raw_inst) or "Whale" in str(raw_inst)):
         display_val = str(raw_inst).strip()
     elif len(funds) > 0:
         display_val = f"{len(funds)} Whales" if len(funds) > 1 else f"{len(funds)} Whale"
     else:
-        display_val = "0 Tracked"
+        display_val = "13F Registry"
 
     return f"""
-    <div class="metric-cell">
+    <div class="metric-cell" title="13F Institutional & Superinvestor Whale File">
         <div class="metric-label">Whales</div>
         <div class="metric-value" style="font-size: 0.95rem; font-family: var(--font-sans); font-weight: 600; color: var(--text-title);">{display_val}</div>
         {f'<div class="metric-subtext">{subtext}</div>' if subtext else ''}

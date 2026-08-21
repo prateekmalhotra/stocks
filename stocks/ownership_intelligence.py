@@ -420,37 +420,25 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
         badge_html = "Net Buying"
         color = "var(--accent-green)"
         summary = f"+${net_flow/1e6:.1f}M Net Open Market Buys (12M)" if net_flow >= 1e6 else f"+${net_flow/1e3:.0f}K Net Buys"
-    elif total_sell >= 3.0 * max(total_buy, 1.0) and total_sell >= 2000000:
-        sig = "Net Executive Selling"
-        badge_html = "Executive Net Selling"
-        color = "#D48858"
-        if total_buy > 0:
+    elif total_buy > 0 and total_sell > 0:
+        if total_sell >= 3.0 * total_buy and total_sell >= 2000000:
+            sig = "Net Executive Selling"
+            badge_html = "Executive Net Selling"
+            color = "#D48858"
             summary = f"C-Suite sales (-${total_sell/1e6:.1f}M across {len(sellers)} officers) outweigh director dip-buying (+${total_buy/1e3:.0f}K)"
         else:
-            summary = f"Heavy C-Suite sales (-${total_sell/1e6:.1f}M across {len(sellers)} officers via Rule 10b5-1 plans)"
-    elif total_buy > 0 and total_sell > 0:
-        sig = "Mixed Insider Flow"
-        badge_html = "Mixed Flow"
-        color = "var(--accent-warm)"
-        if has_csuite_buyer:
-            summary = f"C-Suite purchases (+${total_buy/1e6:.1f}M) alongside executive sales (-${total_sell/1e6:.1f}M across {len(sellers)} officers)" if total_sell >= 1e6 else f"Key purchases (+${total_buy/1e3:.0f}K) vs sales (-${total_sell/1e3:.0f}K)"
-        else:
-            summary = f"Director purchases (+${total_buy/1e3:.0f}K) alongside executive sales (-${total_sell/1e6:.1f}M)" if total_sell >= 1e6 else f"Purchases (+${total_buy/1e3:.0f}K) vs sales (-${total_sell/1e3:.0f}K)"
-    elif total_sell >= 3000000 and total_buy == 0:
-        sig = "Routine Sales (10b5-1)"
-        badge_html = "10b5-1 Sales"
-        color = "var(--accent-warm)"
-        summary = f"Pre-scheduled Rule 10b5-1 executive sales (-${total_sell/1e6:.1f}M across {len(sellers)} officers)" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
-    elif total_sell >= 500000 and total_buy == 0:
-        sig = "Routine Sales (10b5-1)"
-        badge_html = "10b5-1 Sales"
-        color = "var(--accent-warm)"
-        summary = f"Pre-scheduled Rule 10b5-1 executive plans (-${total_sell/1e6:.1f}M)" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
+            sig = "Mixed Insider Flow"
+            badge_html = "Mixed Flow"
+            color = "var(--accent-warm)"
+            if has_csuite_buyer:
+                summary = f"C-Suite purchases (+${total_buy/1e6:.1f}M) alongside executive sales (-${total_sell/1e6:.1f}M across {len(sellers)} officers)" if total_sell >= 1e6 else f"Key purchases (+${total_buy/1e3:.0f}K) vs sales (-${total_sell/1e3:.0f}K)"
+            else:
+                summary = f"Director purchases (+${total_buy/1e3:.0f}K) alongside executive sales (-${total_sell/1e6:.1f}M)" if total_sell >= 1e6 else f"Purchases (+${total_buy/1e3:.0f}K) vs sales (-${total_sell/1e3:.0f}K)"
     elif total_sell > 0 and total_buy == 0:
         sig = "Routine Sales (10b5-1)"
-        badge_html = "10b5-1 Sales"
+        badge_html = "Routine 10b5-1"
         color = "var(--accent-warm)"
-        summary = f"Executive sales -${total_sell/1e6:.1f}M" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
+        summary = f"Pre-scheduled Rule 10b5-1 executive plans (-${total_sell/1e6:.1f}M across {len(sellers)} officers)" if total_sell >= 1e6 else f"Routine executive sales -${total_sell/1e3:.0f}K"
     elif is_fpi_initial_filing and total_buy == 0 and total_sell == 0:
         sig = "20-F FPI Ledger"
         badge_html = "20-F FPI Ledger"

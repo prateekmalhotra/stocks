@@ -111,29 +111,21 @@ def _handle_genesis_task(ticker: str, notes: str):
         top_funds = [f if isinstance(f, str) else str(f) for f in raw_funds]
         
     raw_inst = meta.get("institutional_ownership_pct")
-    if raw_inst and str(raw_inst).strip() not in ("N/A", "None", "", "TBD") and "%" in str(raw_inst):
+    if raw_inst and str(raw_inst).strip() not in ("N/A", "None", "", "TBD", "0 Tracked") and "%" in str(raw_inst):
         inst_pct = str(raw_inst).strip()
     elif dr_holders:
         inst_pct = f"{len(dr_holders)} Whales" if len(dr_holders) > 1 else f"{len(dr_holders)} Whale"
+    elif top_funds:
+        inst_pct = f"{len(top_funds)} Whales" if len(top_funds) > 1 else f"{len(top_funds)} Whale"
     else:
-        inst_pct = "0 Tracked"
+        inst_pct = "13F Registry"
     
     # Derive insider signal and summary strictly from Form 4 trades mathematically
+    from stocks.ownership_intelligence import calculate_insider_sentiment_and_flow
     oi_trades = ownership_data.get("openinsider_trades", [])
-    insider_signal = meta.get("insider_signal") or "Neutral (10b5-1)"
-    insider_summary = meta.get("insider_summary") or "Audited SEC Form 3 / 20-F / Form 4 filings."
-    if oi_trades:
-        buy_val = sum([parse_trade_value(t.get("value", "")) for t in oi_trades if "Buy" in t.get("trade_type", "") or "P - Purchase" in t.get("trade_type", "")])
-        sell_val = sum([parse_trade_value(t.get("value", "")) for t in oi_trades if "Sale" in t.get("trade_type", "") or "S - Sale" in t.get("trade_type", "")])
-        if sell_val > buy_val and sell_val >= 500_000:
-            insider_signal = "Heavy Net Executive Selling" if sell_val >= 10_000_000 else "Net Selling"
-            insider_summary = f"-${sell_val/1e6:.1f}M net sales across {len(oi_trades)} Form 4 transactions"
-        elif buy_val > sell_val and buy_val >= 500_000:
-            insider_signal = "Cluster Buying" if len([t for t in oi_trades if "Buy" in t.get("trade_type", "")]) >= 3 else "Net Buying"
-            insider_summary = f"+${buy_val/1e6:.1f}M net purchases across {len(oi_trades)} Form 4 transactions"
-        else:
-            insider_signal = "Neutral (10b5-1)"
-            insider_summary = f"Routine 10b5-1 transactions across {len(oi_trades)} Form 4 filings."
+    insider_intel = calculate_insider_sentiment_and_flow(oi_trades, meta.get("insider_signal") or "")
+    insider_signal = insider_intel.get("signal", meta.get("insider_signal") or "Routine (10b5-1)")
+    insider_summary = insider_intel.get("summary", meta.get("insider_summary") or "Audited SEC Form 3 / 20-F / Form 4 filings.")
 
     version_1 = ThesisVersion(
         version=1,
@@ -272,14 +264,17 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         top_funds = [f if isinstance(f, str) else str(f) for f in raw_funds]
 
     raw_inst = meta.get("institutional_ownership_pct") or stock.institutional_ownership_pct or ""
-    if raw_inst and str(raw_inst).strip() not in ("N/A", "None", "", "TBD") and "%" in str(raw_inst):
+    if raw_inst and str(raw_inst).strip() not in ("N/A", "None", "", "TBD", "0 Tracked") and "%" in str(raw_inst):
         inst_pct = str(raw_inst).strip()
     elif top_funds:
         inst_pct = f"{len(top_funds)} Whales" if len(top_funds) > 1 else f"{len(top_funds)} Whale"
     else:
-        inst_pct = "0 Tracked"
-    insider_signal = meta.get("insider_signal") or stock.insider_signal or "Neutral (10b5-1)"
-    insider_summary = meta.get("insider_summary") or stock.insider_summary or ""
+        inst_pct = "13F Registry"
+    from stocks.ownership_intelligence import calculate_insider_sentiment_and_flow
+    oi_trades = ownership_data.get("openinsider_trades", [])
+    insider_intel = calculate_insider_sentiment_and_flow(oi_trades, meta.get("insider_signal") or stock.insider_signal or "")
+    insider_signal = insider_intel.get("signal", meta.get("insider_signal") or stock.insider_signal or "Routine (10b5-1)")
+    insider_summary = insider_intel.get("summary", meta.get("insider_summary") or stock.insider_summary or "")
 
     new_version = ThesisVersion(
         version=new_version_num,
