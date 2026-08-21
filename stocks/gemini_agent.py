@@ -1215,10 +1215,12 @@ CRITICAL REQUIREMENTS:
 
 STORY_VALUATION_PROMPT = """Target: {ticker} ({company_name})
 Story Number: Path {story_num} - {story_title}
-Benchmark Reference Price (For Margin of Safety & IRR Comparison Only): ${current_price:.2f}
 
 You are the Lead Quantitative Valuation Analyst underwriting Path {story_num} for {company_name}.
-You must evaluate this specific operational trajectory in complete isolation, 100% blind to market noise or consensus.
+You must evaluate this specific operational trajectory in complete isolation, 100% blind to market stock prices, consensus targets, or trading noise.
+
+ZERO-PRICE-ANCHORING DIRECTIVE:
+You are calculating the pure intrinsic fair value and 5-year target price of the business based strictly on fundamental owner earnings compounding and economic capitalization multiples. You do NOT know, care about, or anchor to the stock's market price.
 
 COMPANY BASELINE CONTEXT (From Section 1):
 ======================================================================
@@ -1248,9 +1250,6 @@ STRICT VALUATION RULES:
      * Year-5 Projected Owner Earnings (OE₅) = OE₀ * (1 + CAGR_OE)^5
      * 5-Year Target Price / Share (P₅) = (M₅ * OE₅) + Net Surplus Cash per share (or - Net Debt per share)
      * Present Intrinsic Fair Value (P₀ at 9.5% Hurdle) = P₅ / (1.095)^5
-     * Margin of Safety % vs. Benchmark Price (${current_price:.2f}) = ((P₀ - ${current_price:.2f}) / ${current_price:.2f}) * 100%
-     * 5-Year Annualized Price CAGR % = ((P₅ / ${current_price:.2f})**(0.2) - 1) * 100%
-     * Total 5-Year Expected Return % = ((P₅ - ${current_price:.2f}) / ${current_price:.2f}) * 100%
 3. Terminal Valuation Multiple (M₅ = P/OE₅):
    - Terminal multiples MUST reflect fundamental economic capitalization rules: M₅ = (1 - g/ROIC) / (r - g) with r = 9.5%.
    - MANDATORY SECTOR MULTIPLE CAPS:
@@ -1278,9 +1277,6 @@ Provide ONLY a valid JSON object matching this exact schema:
   "net_cash_per_share": {net_cash_num},
   "target_price_5y": XX.XX,
   "present_fair_value": XX.XX,
-  "mos_pct": XX.X,
-  "target_5y_cagr_pct": XX.X,
-  "target_5y_return_pct": XX.X,
   "valuation_rationale": "<2-3 sentence economic rationale for the chosen growth rate and terminal multiple>"
 }}
 ```
@@ -1427,73 +1423,6 @@ Provide pure semantic HTML containing Section 3 (with the complete 3-Path Valuat
 }}
 ```
 """
-
-
-AGENT_RED_TEAM_FEEDBACK_PROMPT = """Target: {ticker} ({company_name})
-
-You are the Senior Buy-Side Red-Team Auditor.
-Your task is to ruthlessly critique the draft Premise (Section 1) and Forward-Looking Storylines & Operational Assumptions (Section 2) for {company_name}.
-
-ZERO-PRICE-ANCHORING DIRECTIVE:
-You are auditing fundamental operational assumptions, unit metrics, and audited statutory filing reality completely blind to market stock price. Do NOT suggest revisions to anchor to current price or market consensus.
-
-DRAFT SECTION 1 & SECTION 2:
-======================================================================
-{sec1_and_sec2_draft}
-======================================================================
-
-Search Google, audited 10-K/10-Q filings, recent earnings call transcripts, and contracted customer backlogs to audit:
-1. BALANCE SHEET PER-SHARE AUDIT (NO AGGREGATE MILLIONS IN PER-SHARE FIELDS):
-   - Check that Net Surplus Cash / Net Debt is strictly PER SHARE (e.g. +$4.68/sh) and was correctly divided by the diluted share count (e.g. $4,500M net cash / 960M shares = +$4.68/sh, NOT $4500.00/sh).
-2. STACKED HYPER-CONSERVATISM & GROWTH REALISM:
-   - Does Path 1 (Core Execution) assume an artificial growth cliff (e.g. 4%–6% growth when the company is actively compounding 15%–25% with record enterprise backlog)?
-   - Are Maintenance CapEx and SBC deductions realistic, or is growth/expansion CapEx being double-counted as maintenance?
-   - Are balance sheet marketable assets unfairly discounted?
-3. UNIT OPERATIONAL DRIVERS & MARGINS:
-   - Are revenue growth numbers backed by concrete operational unit metrics (volume * pricing, backlog conversion, seat pricing, unit cost declines)?
-   - Are margin shifts realistic given fixed-cost absorption or genuine cost headwinds?
-4. EMPIRICAL PROBABILITY WEIGHTING AUDIT:
-   - Does the core compounding path receive the dominant probability mass (65%–80%) for fortress, high-ROIC compounders?
-   - Are downside friction or upside paths weighted in direct proportion to real filing evidence rather than arbitrary splits?
-5. MOAT TIER & SECTOR GUARDRAIL AUDIT (NO UNJUSTIFIED WIDE MOATS):
-   - Check if an apparel, footwear, athleisure, or retail brand (e.g. Crocs, Lululemon, Nike, Gap) was erroneously classified as 'Wide Moat'.
-   - Demands immediate correction to 'Narrow Moat' (or 'Weak Moat') based on fashion obsolescence, substitute competition, and wholesale volatility.
-   - Only structural monopolies/duopolies with high switching costs or regulatory tollbridges (Visa, Microsoft, Google, Copart) may hold 'Wide Moat'.
-6. GROSS MARGIN MOAT & MULTIBAGGER RETURN ENGINES:
-   - Check if gross margin is durable (>50%) and if operating margins reflect fixed SG&A cost absorption.
-   - Audit whether long-term compounding velocity (ROIC * Reinvestment Rate) is properly credited.
-
-Deliver a crisp, actionable Buy-Side Red-Team Critique Memo with specific factual corrections and guidance for refining Section 1 and Section 2.
-"""
-
-AGENT_STORYLINE_REFINEMENT_PROMPT = """Target: {ticker} ({company_name})
-
-You are the Lead Equity Research Director & Institutional Buy-Side Grounded Researcher.
-You are given the Draft Section 1 & Section 2 and the Independent Red-Team Critique Memo for {company_name}.
-
-ZERO-PRICE-ANCHORING DIRECTIVE:
-Refine the operational premise and future paths based strictly on audited fundamentals and operational unit drivers, 100% blind to market stock price.
-
-DRAFT SECTION 1 & SECTION 2:
-======================================================================
-{sec1_and_sec2_draft}
-======================================================================
-
-RED-TEAM CRITIQUE MEMO:
-======================================================================
-{critique_memo}
-======================================================================
-
-YOUR TASK:
-Incorporate the red-team critique directives and produce the final, polished, and reality-grounded Section 1 (The Premise) and Section 2 (The Probable Future Paths).
-
-CRITICAL REQUIREMENTS:
-1. Ground every storyline strictly in concrete bottom-up operational unit metrics (volume * pricing, backlog conversion, cost leverage).
-2. Eliminate any stacked hyper-conservatism or artificial growth cliffs in the Core Base Case (Path 1).
-3. Ensure probability weights (p₁, ..., pN summing to 100%) are empirically grounded in contracted backlogs and 10-K disclosures.
-4. Output pure semantic HTML containing ONLY Section 1 and Section 2 starting with <h2>Section 1: The Premise of the Company</h2>.
-"""
-
 
 AGENT_5_ADJUDICATION_PROMPT = """Target: {ticker} ({company_name})
 Current Market Price: ${current_price:.2f}
@@ -2268,7 +2197,6 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
             company_name=company_name,
             story_num=s_info["num"],
             story_title=s_info["title"],
-            current_price=current_price,
             moat_tier=moat_tier,
             oe0_per_share=oe0,
             net_cash_str=f"{net_cash_sh:+.2f} USD/share",
