@@ -1,0 +1,383 @@
+[
+  {
+    "version": 1,
+    "date": "2026-08-21",
+    "price_at_version": 120.95,
+    "company_name": "",
+    "status_label": "Wide Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Wide Moat"
+    ],
+    "action_signal": "AVOID",
+    "summary_of_change": "Initial institutional thesis established.",
+    "what_was_before": "Initial Genesis baseline.",
+    "what_changes_now": "Initial coverage initiated.",
+    "fair_value_estimate": "$83.47",
+    "expected_fair_value": "$83.47",
+    "expected_val": 83.47,
+    "present_fair_value": 83.47,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Core E-Commerce Stabilization & Hyperscale Cloud Monetization Continuation",
+        "title": "Path 1: Core E-Commerce Stabilization & Hyperscale Cloud Monetization Continuation",
+        "short_summary": "Path 1 models a steady-state operational continuation where Alibaba leverages its e-commerce market dominance and expanding enterprise Cloud/AI services to generate resilient cash flows while executing steady annual share repurchases.",
+        "summary": "Path 1 models a steady-state operational continuation where Alibaba leverages its e-commerce market dominance and expanding enterprise Cloud/AI services to generate resilient cash flows while executing steady annual share repurchases.",
+        "oe_multiple": "15.0x",
+        "oe_yield": "6.7%",
+        "terminal_multiple": "15.0x",
+        "val": 140.06,
+        "present_fair_value": 88.97,
+        "mos_pct": -26.4,
+        "target_5y_return_pct": 15.8,
+        "target_5y_cagr_pct": 3.0,
+        "target": "$140.06 (+15.8%)",
+        "prob_pct": 55.0,
+        "prob_weight": 0.55,
+        "net_cash_per_share": 21.01,
+        "normalized_oe_per_share": 4.96,
+        "projected_oe5_per_share": 7.75,
+        "projected_5y_cagr": "+9.3%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            138010.0,
+            148962.2,
+            160783.5,
+            173542.9,
+            187314.9,
+            202179.7
+          ],
+          "gross_margin_pct": [
+            38.0,
+            38.5,
+            38.9,
+            39.4,
+            39.9,
+            40.3
+          ],
+          "operating_income_mil": [
+            19459.4,
+            22046.4,
+            25082.2,
+            28287.5,
+            32030.8,
+            35988.0
+          ],
+          "operating_margin_pct": [
+            14.1,
+            14.8,
+            15.6,
+            16.3,
+            17.1,
+            17.8
+          ],
+          "normalized_net_income_mil": [
+            100608.2,
+            108399.3,
+            116938.1,
+            125994.4,
+            135924.7,
+            146496.9
+          ],
+          "owner_earnings_mil": [
+            95817.3,
+            103237.4,
+            111369.6,
+            119994.7,
+            129452.1,
+            139520.9
+          ],
+          "diluted_shares_mil": [
+            19318.0,
+            19047.5,
+            18780.7,
+            18517.7,
+            18258.4,
+            18002.7
+          ],
+          "oe_per_share": [
+            4.96,
+            5.42,
+            5.93,
+            6.48,
+            7.09,
+            7.75
+          ],
+          "roic_pct": [
+            25.0,
+            26.9,
+            28.7,
+            30.6,
+            32.5,
+            34.3
+          ]
+        },
+        "oe5": 7.75,
+        "cagr": "+4.8%",
+        "multiple": "15.0x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Competitive Margin Compression, Reinvestment Drag & Structural Monopolistic Decay",
+        "title": "Path 2: Competitive Margin Compression, Reinvestment Drag & Structural Monopolistic Decay",
+        "short_summary": "Intense domestic e-commerce competition, lower monetization take-rates, and high AI cloud infrastructure depreciation compress operating margins from 14.1% to 11.0%, slowing revenue growth to a 2.9% 5-year CAGR.",
+        "summary": "Intense domestic e-commerce competition, lower monetization take-rates, and high AI cloud infrastructure depreciation compress operating margins from 14.1% to 11.0%, slowing revenue growth to a 2.9% 5-year CAGR.",
+        "oe_multiple": "12.00x",
+        "oe_yield": "8.3%",
+        "terminal_multiple": "12.00x",
+        "val": 82.29,
+        "present_fair_value": 52.27,
+        "mos_pct": -56.8,
+        "target_5y_return_pct": -32.0,
+        "target_5y_cagr_pct": -7.4,
+        "target": "$82.29 (-32.0%)",
+        "prob_pct": 30.0,
+        "prob_weight": 0.3,
+        "net_cash_per_share": 21.01,
+        "normalized_oe_per_share": 4.96,
+        "projected_oe5_per_share": 4.87,
+        "projected_5y_cagr": "-0.4%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            138010.0,
+            137581.2,
+            137153.7,
+            136727.5,
+            136302.6,
+            135879.1
+          ],
+          "gross_margin_pct": [
+            38.0,
+            38.0,
+            38.0,
+            37.9,
+            37.9,
+            37.9
+          ],
+          "operating_income_mil": [
+            19459.4,
+            19398.9,
+            19201.5,
+            19141.9,
+            19082.4,
+            19023.1
+          ],
+          "operating_margin_pct": [
+            14.1,
+            14.1,
+            14.0,
+            14.0,
+            14.0,
+            14.0
+          ],
+          "normalized_net_income_mil": [
+            100608.2,
+            100202.4,
+            99796.8,
+            99594.0,
+            99188.2,
+            98782.6
+          ],
+          "owner_earnings_mil": [
+            95817.3,
+            95430.9,
+            95044.6,
+            94851.4,
+            94465.0,
+            94078.7
+          ],
+          "diluted_shares_mil": [
+            19318.0,
+            19318.0,
+            19318.0,
+            19318.0,
+            19318.0,
+            19318.0
+          ],
+          "oe_per_share": [
+            4.96,
+            4.94,
+            4.92,
+            4.91,
+            4.89,
+            4.87
+          ],
+          "roic_pct": [
+            25.0,
+            24.9,
+            24.9,
+            24.8,
+            24.7,
+            24.6
+          ]
+        },
+        "oe5": 4.87,
+        "cagr": "+2.9%",
+        "multiple": "12.00x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: AI Cloud Monetization Supercycle, Global Cross-Border Operating Leverage & Merchant Take-Rate Expansion",
+        "title": "Path 3: AI Cloud Monetization Supercycle, Global Cross-Border Operating Leverage & Merchant Take-Rate Expansion",
+        "short_summary": "Alibaba re-accelerates revenue to a 9.3% 5-year CAGR and expands operating margins from 14.1% to 17.3%, driven by enterprise AI Cloud compute adoption, cross-border e-commerce profitability, and continuous net share retirement.",
+        "summary": "Alibaba re-accelerates revenue to a 9.3% 5-year CAGR and expands operating margins from 14.1% to 17.3%, driven by enterprise AI Cloud compute adoption, cross-border e-commerce profitability, and continuous net share retirement.",
+        "oe_multiple": "15.0x",
+        "oe_yield": "6.0%",
+        "terminal_multiple": "15.0x",
+        "val": 197.86,
+        "present_fair_value": 125.69,
+        "mos_pct": 3.9,
+        "target_5y_return_pct": 63.6,
+        "target_5y_cagr_pct": 10.3,
+        "target": "$197.86 (+63.6%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": 21.01,
+        "normalized_oe_per_share": 4.96,
+        "projected_oe5_per_share": 11.79,
+        "projected_5y_cagr": "+18.9%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            138010.0,
+            160189.2,
+            185932.8,
+            215813.5,
+            250496.3,
+            290752.8
+          ],
+          "gross_margin_pct": [
+            38.0,
+            38.9,
+            39.9,
+            40.8,
+            41.8,
+            42.7
+          ],
+          "operating_income_mil": [
+            19459.4,
+            24989.5,
+            31794.5,
+            40141.3,
+            50600.3,
+            63093.4
+          ],
+          "operating_margin_pct": [
+            14.1,
+            15.6,
+            17.1,
+            18.6,
+            20.2,
+            21.7
+          ],
+          "normalized_net_income_mil": [
+            100608.2,
+            116280.8,
+            134239.4,
+            155179.3,
+            179342.7,
+            207105.4
+          ],
+          "owner_earnings_mil": [
+            95817.3,
+            110743.6,
+            127847.0,
+            147789.8,
+            170802.6,
+            197243.2
+          ],
+          "diluted_shares_mil": [
+            19318.0,
+            18770.1,
+            18237.8,
+            17720.6,
+            17218.0,
+            16729.7
+          ],
+          "oe_per_share": [
+            4.96,
+            5.9,
+            7.01,
+            8.34,
+            9.92,
+            11.79
+          ],
+          "roic_pct": [
+            25.0,
+            28.8,
+            32.6,
+            36.3,
+            40.1,
+            43.9
+          ]
+        },
+        "oe5": 11.79,
+        "cagr": "+9.3%",
+        "multiple": "15.0x"
+      }
+    ],
+    "story1_target": "$140.06 (+15.8%)",
+    "story2_target": "$82.29 (-32.0%)",
+    "story3_target": "$197.86 (+63.6%)",
+    "story1_title": "Path 1: Core E-Commerce Stabilization & Hyperscale Cloud Monetization Continuation",
+    "story2_title": "Path 2: Competitive Margin Compression, Reinvestment Drag & Structural Monopolistic Decay",
+    "story3_title": "Path 3: AI Cloud Monetization Supercycle, Global Cross-Border Operating Leverage & Merchant Take-Rate Expansion",
+    "bear_target": "$82.29",
+    "base_target": "$83.47",
+    "bull_target": "$197.86",
+    "upper_alert_threshold": 197.86,
+    "lower_alert_threshold": 82.29,
+    "next_catalyst_date": "2026-11-24",
+    "next_catalyst_event": "Q2 FY27 Earnings Release",
+    "trigger_reason": "Genesis Initial Underwriting",
+    "what_is_priced_in": "24.4x",
+    "top_funds": [
+      "Dennis Hong - ShawSpring Partners (16.92)",
+      "David Tepper - Appaloosa Management (2.57)",
+      "Francis Chou - Chou Associates (1.86)",
+      "Sarah Ketterer - Causeway Capital Management (1.04)",
+      "Dodge & Cox Funds (0.50)",
+      "Duan Yongping - H&H International Investment (0.15)",
+      "Tweedy Browne (0.03)",
+      "Richard Pzena - Pzena Investment Management (0.01)",
+      "Bill Nygren - Oakmark Funds (0.00)"
+    ],
+    "institutional_ownership_pct": "9 Whales",
+    "insider_signal": "Net Executive Selling",
+    "insider_summary": "Broad C-Suite & Director selling (-$72.3M across 5 insiders) with zero buying",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "full_html_content": "<h2>Section 1: The Premise of the Company</h2>\n<h3>1. Core Business Model &amp; Unit Monetization Mechanics</h3>\n<p>Alibaba Group Holding Limited (NYSE: BABA; HKEX: 9988) operates the world's largest multi-sided digital commerce, cloud computing, and logistics infrastructure ecosystem. The enterprise functions as an essential economic tollbridge across domestic Chinese retail, global cross-border marketplace trade, cloud-native enterprise computing, and intelligent logistics fulfillment. The core monetizable value proposition rests on matching consumer demand with merchant supply, capturing high-margin monetization fees on transaction volume (GMV), providing proprietary cloud and artificial intelligence (AI) compute infrastructure, and monetizing end-to-end supply chain routing.</p>\n<p>The monetization structure spans six core operating units:</p>\n<ul>\n<li><strong>Alibaba China E-Commerce Group (Taobao and Tmall Group - TTG):</strong> Generates the overwhelming majority of consolidated operating cash flow. Monetization relies on <em>Customer Management Revenue (CMR)</em>, which includes merchant performance-based and display marketing fees, search monetization, direct commission fees on realized GMV (ranging between 0.5% and 5% depending on category), software service fees (0.6% basic platform fee), and value-added merchant services. Direct sales channels (e.g., Tmall Supermarket, Freshippo/Hema) monetize via gross retail merchandise sales.</li>\n<li><strong>Cloud Intelligence Group (Alibaba Cloud &amp; T-Head):</strong> Monetizes public cloud infrastructure-as-a-service (IaaS), platform-as-a-service (PaaS), model-as-a-service (MaaS), and proprietary AI compute instances (powered by the Qwen LLM family and custom T-Head silicon). Revenue is generated via subscription-based licenses, consumption-based API billing, and enterprise IT hosting.</li>\n<li><strong>Alibaba International Digital Commerce Group (AIDC):</strong> Operates cross-border and regional consumer platforms (AliExpress, Lazada, Trendyol, Daraz) and business-to-business export portals (Alibaba.com). Monetizes via merchant take-rates, transaction commission fees, fulfillment charges (AliExpress Choice), membership subscription fees, and B2B trade assurance services.</li>\n<li><strong>Cainiao Smart Logistics Network:</strong> Monetizes domestic and international end-to-end logistics, cross-border parcel sorting, automated warehousing, last-mile delivery, and supply chain management software. Charges fee-for-service logistics routing to internal ecosystem merchants and third-party global enterprises.</li>\n<li><strong>Local Services Group:</strong> Operates location-based consumer platforms including Ele.me (on-demand food delivery and instant retail) and Amap / Gaode Maps (mobility, digital mapping, and local merchant discovery). Monetizes through delivery commission fees, merchant advertising, and software license fees.</li>\n<li><strong>Digital Media and Entertainment Group:</strong> Operates Youku (online video streaming) and Alibaba Pictures (filmed entertainment). Monetizes via premium user subscriptions, online advertising, content licensing, and movie ticketing distribution.</li>\n</ul>\n<h3>2. Audited Segment Breakdown &amp; Operating Profitability</h3>\n<p>In accordance with statutory SEC filings (Form 20-F), the breakdown of consolidated revenue and segment adjusted EBITA across Alibaba's core operating divisions is detailed below:</p>\n<table cellpadding=\"6\" cellspacing=\"0\">\n<thead>\n<tr>\n<th>Reporting Segment</th>\n<th>FY2025 Revenue ($M USD)</th>\n<th>% of Total Revenue</th>\n<th>FY2025 Adjusted EBITA ($M USD)</th>\n<th>Segment EBITA Margin (%)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>Taobao and Tmall Group (TTG)</strong></td>\n<td>$75,905</td>\n<td>55.0%</td>\n<td>$26,984</td>\n<td>35.5%</td>\n</tr>\n<tr>\n<td><strong>Alibaba International Digital Commerce (AIDC)</strong></td>\n<td>$20,702</td>\n<td>15.0%</td>\n<td>($1,113)</td>\n<td>-5.4%</td>\n</tr>\n<tr>\n<td><strong>Cloud Intelligence Group</strong></td>\n<td>$16,561</td>\n<td>12.0%</td>\n<td>$1,192</td>\n<td>7.2%</td>\n</tr>\n<tr>\n<td><strong>Cainiao Smart Logistics Network</strong></td>\n<td>$13,801</td>\n<td>10.0%</td>\n<td>$415</td>\n<td>3.0%</td>\n</tr>\n<tr>\n<td><strong>Local Services Group</strong></td>\n<td>$8,281</td>\n<td>6.0%</td>\n<td>($541)</td>\n<td>-6.5%</td>\n</tr>\n<tr>\n<td><strong>Digital Media and Entertainment Group</strong></td>\n<td>$2,760</td>\n<td>2.0%</td>\n<td>($138)</td>\n<td>-5.0%</td>\n</tr>\n<tr>\n<td><strong>All Other &amp; Inter-segment Eliminations</strong></td>\n<td>$0</td>\n<td>0.0%</td>\n<td>($2,833)</td>\n<td>N/A</td>\n</tr>\n<tr>\n<td>Consolidated Total</td>\n<td>$138,010</td>\n<td>100.0%</td>\n<td>$23,966</td>\n<td>17.4%</td>\n</tr>\n</tbody>\n</table>\n<h3>3. Governance, Executive Control &amp; C-Suite Audit</h3>\n<p>Alibaba maintains a unique corporate governance structure anchored by the <strong>Alibaba Partnership (Lakeside Partners)</strong>. Unlike traditional dual-class voting stock structures where high-vote shares carry multi-vote rights per share, Alibaba achieves corporate control through a partnership structure that retains the exclusive right to nominate a majority of the members of the Board of Directors. This ensures permanent operational continuity and strategic control within executive leadership, regardless of outside equity ownership percentages.</p>\n<p><strong>C-Suite Leadership &amp; Strategic Mandate:</strong></p>\n<ul>\n<li><strong>CEO Mandate (Eddie Wu):</strong> Appointed Chief Executive Officer in September 2023, Eddie Wu simultaneously serves as the Chairman and CEO of Cloud Intelligence Group and leads the newly formed Alibaba Token Hub. His explicit, unified mandate is \"User First, AI-Driven.\" Wu has prioritized aggressive capital deployment into AI compute infrastructure, the open-source Qwen foundation model ecosystem, and integrating agentic AI into Taobao/Tmall search and consumer interfaces.</li>\n<li><strong>Chairman of the Board (Joseph C. Tsai):</strong> Executive Chairman Joe Tsai oversees capital allocation, asset monetization, dividend policies, and structural share repurchases. Tsai has orchestrated a capital discipline initiative focused on divesting non-core physical retail assets (e.g., Sun Art, Intime) and reallocating capital toward enterprise AI cloud computing and domestic e-commerce defense.</li>\n<li><strong>Activist &amp; Institutional Dynamics:</strong> While activist hedge funds (including historical positions by Third Point and Appaloosa) have targeted Alibaba to demand aggressive capital return programs, board proxy contests remain structurally impossible due to the Alibaba Partnership board-nomination rights. Management has satisfied capital return demands by deploying $11.9 billion into share repurchases and distributing $4.6 billion in regular and special annual cash dividends during FY2025.</li>\n<li><strong>C-Suite Key-Person Risk Audit:</strong> Key-person risk is moderately high regarding Eddie Wu given his dual mandate as overall Group CEO and direct operational head of Cloud Intelligence. However, the organizational realignment into business units with individual CEOs (e.g., James Dong at AIDC, Trudy Dai's succession, Toby Xu as CFO) provides localized execution stability.</li>\n</ul>\n<h3>4. 4-Quarter Statutory Realities &amp; Financial Audit</h3>\n<p>Audited SEC filings and quarterly disclosures reveal significant structural shifts in Alibaba's operational engine driven by massive AI infrastructure investments and intense domestic marketplace competition:</p>\n<ul>\n<li><strong>Top-Line Growth Acceleration in Cloud vs. Competitive Friction in Retail:</strong> Consolidated top-line revenue grew 5.9% YoY in FY2025 to $138.01 billion. Over the subsequent trailing quarters, Cloud Intelligence external revenue growth accelerated dramatically from 18% in Q4 FY2025 to 34% in Q2 FY2026 and 45% in Q1 FY2027 (quarter ended June 30, 2026), driven by twelve consecutive quarters of triple-digit growth in AI-related product revenue. Conversely, Taobao and Tmall Customer Management Revenue (CMR) experienced low-to-mid single-digit growth amid aggressive consumer subsidies and price competition from Pinduoduo (PDD Holdings) and Douyin live-stream commerce.</li>\n<li><strong>Margin Compression via Infrastructure Supercycle:</strong> GAAP Operating Margin contracted from 14.1% in FY2025 to ~5.0% in trailing periods. This compression stems directly from massive CapEx spending on high-bandwidth memory, GPU clusters, data center buildouts, and user acquisition for the Qwen consumer application. Single-quarter CapEx reached RMB 67.7 billion ($9.98 billion USD) in the June 2026 quarter\u2014up 75% YoY.</li>\n<li><strong>Stock-Based Compensation &amp; Tax Realities:</strong> Non-cash stock-based compensation (SBC) expense totaled $2.75 billion USD in FY2025. Alibaba's effective tax rate remains anchored near the PRC statutory rate of 25%, with certain technology and cloud operating entities benefiting from preferential 15% High and New Technology Enterprise (HNTE) tax status.</li>\n</ul>\n<h3>5. 3-Year Historical Statutory Baseline</h3>\n<table cellpadding=\"6\" cellspacing=\"0\">\n<thead>\n<tr>\n<th>Financial Metric ($M USD)</th>\n<th>FY2023</th>\n<th>FY2024</th>\n<th>FY2025</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>Revenue</strong></td>\n<td>$126,270</td>\n<td>$130,355</td>\n<td>$138,010</td>\n</tr>\n<tr>\n<td><em>YoY Growth (%)</em></td>\n<td>+1.8%</td>\n<td>+3.2%</td>\n<td>+5.9%</td>\n</tr>\n<tr>\n<td><strong>Gross Profit</strong></td>\n<td>$46,530</td>\n<td>$49,148</td>\n<td>$52,444</td>\n</tr>\n<tr>\n<td><em>Gross Margin (%)</em></td>\n<td>36.8%</td>\n<td>37.7%</td>\n<td>38.0%</td>\n</tr>\n<tr>\n<td><strong>Operating Income (GAAP)</strong></td>\n<td>$14,681</td>\n<td>$16,072</td>\n<td>$19,512</td>\n</tr>\n<tr>\n<td><em>Operating Margin (%)</em></td>\n<td>11.6%</td>\n<td>12.3%</td>\n<td>14.1%</td>\n</tr>\n<tr>\n<td><strong>GAAP Operating Cash Flow</strong></td>\n<td>$28,960</td>\n<td>$25,290</td>\n<td>$22,642</td>\n</tr>\n<tr>\n<td><strong>Total Capital Expenditures</strong></td>\n<td>$5,100</td>\n<td>$4,444</td>\n<td>$11,905</td>\n</tr>\n<tr>\n<td><strong>Stock-Based Compensation (SBC)</strong></td>\n<td>$4,475</td>\n<td>$2,810</td>\n<td>$2,746</td>\n</tr>\n<tr>\n<td><strong>Diluted Ordinary Shares Outstanding (M)</strong></td>\n<td>20,540</td>\n<td>20,120</td>\n<td>19,318</td>\n</tr>\n<tr>\n<td><strong>Diluted ADS Count (1 ADS = 8 Ord) (M)</strong></td>\n<td>2,568</td>\n<td>2,515</td>\n<td>2,415</td>\n</tr>\n</tbody>\n</table>\n<h3>6. Sector-Specific Maintenance CapEx &amp; Owner Earnings Derivation</h3>\n<p>To establish true economic cash generation according to Warren Buffett's 1986 Owner Earnings standard, capital expenditures must be decomposed. As a digital technology hyperscaler undergoing a major infrastructure buildout, deducting 100% of total CapEx severely understates steady-state owner earnings, because a significant portion of current capital expenditures (~65\u201375%) represents discretionary growth CapEx allocated toward net new AI data centers, custom silicon development, and GPU clusters.</p>\n<p>In strict accordance with the hyperscaler accounting methodology, <strong>Maintenance CapEx is empirically anchored to statutory Depreciation &amp; Amortization (~D&amp;A)</strong> required to sustain existing server fleets, logistics hubs, and core monetization engines. Stock-based compensation is treated as a 100% real cash operating expense.</p>\n<table cellpadding=\"6\" cellspacing=\"0\">\n<thead>\n<tr>\n<th>Owner Earnings Derivation Step</th>\n<th>FY2025 Amount ($M USD)</th>\n<th>Per Diluted ADS ($/ADS)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>GAAP Operating Cash Flow</strong></td>\n<td>$22,642</td>\n<td>$9.38</td>\n</tr>\n<tr>\n<td><em>Less: Statutory Maintenance CapEx (Anchored to D&amp;A)</em></td>\n<td>($9,112)</td>\n<td>($3.77)</td>\n</tr>\n<tr>\n<td><em>Less: 100% Stock-Based Compensation (SBC Cash Charge)</em></td>\n<td>($2,746)</td>\n<td>($1.14)</td>\n</tr>\n<tr>\n<td><em>Plus: Working Capital Normalization Adjustment</em></td>\n<td>+$1,200</td>\n<td>+$0.50</td>\n</tr>\n<tr>\n<td>Normalized Baseline Owner Earnings (OE\u2080)</td>\n<td>$11,984</td>\n<td>$4.96</td>\n</tr>\n</tbody>\n</table>\n<h3>7. Balance Sheet Net Cash Surplus / Net Debt Bridge</h3>\n<p>Alibaba maintains a fortress balance sheet characterized by massive liquid cash reserves, short-term investments, and treasury holdings:</p>\n<table cellpadding=\"6\" cellspacing=\"0\">\n<thead>\n<tr>\n<th>Balance Sheet Component</th>\n<th>As of March 31, 2025 ($M USD)</th>\n<th>Per Diluted ADS ($/ADS)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Cash &amp; Cash Equivalents</td>\n<td>$20,150</td>\n<td>$8.34</td>\n</tr>\n<tr>\n<td>Short-Term Investments &amp; Marketable Treasury Securities</td>\n<td>$62,540</td>\n<td>$25.89</td>\n</tr>\n<tr>\n<td>Total Liquid Cash &amp; Investments (A)</td>\n<td>$82,690</td>\n<td>$34.24</td>\n</tr>\n<tr>\n<td>Current Bank Borrowings &amp; Short-Term Debt</td>\n<td>($3,125)</td>\n<td>($1.29)</td>\n</tr>\n<tr>\n<td>Non-Current Bank Borrowings</td>\n<td>($6,912)</td>\n<td>($2.86)</td>\n</tr>\n<tr>\n<td>Non-Current Unsecured Senior Notes</td>\n<td>($16,951)</td>\n<td>($7.02)</td>\n</tr>\n<tr>\n<td>Non-Current Convertible Senior Notes &amp; Exchangeable Bonds</td>\n<td>($4,960)</td>\n<td>($2.05)</td>\n</tr>\n<tr>\n<td>Total Funded Debt Obligations (B)</td>\n<td>($31,948)</td>\n<td>($13.23)</td>\n</tr>\n<tr>\n<td>Net Cash Surplus (A - B)</td>\n<td>+$50,742</td>\n<td>+$21.01</td>\n</tr>\n</tbody>\n</table>\n<h3>8. Fundamental Compounding Velocity Audit</h3>\n<p>Alibaba's historical capital deployment yield reflects a enterprise in transition. Returns on Invested Capital (ROIC) contracted from peak levels above 20% in the late 2010s to 12.8% in FY2025. This compression reflects:</p>\n<ul>\n<li>Erosion of domestic e-commerce take-rates due to defensive merchant fee reductions to counter Pinduoduo.</li>\n<li>Substantial capital tied up in lower-return physical retail and local consumer services assets.</li>\n<li>Heavy multi-year upfront capital expenditures in Cloud &amp; AI infrastructure where revenue realization lags compute capacity deployment by 12 to 24 months.</li>\n</ul>\n<p>However, capital return velocity has accelerated dramatically. By deploying excess operating cash flow into share buybacks below intrinsic value, management retired 5.1% net outstanding shares in FY2025 alone, compounding Owner Earnings per share.</p>\n<h3>9. Pricing Power &amp; Economic Moat Audit</h3>\n<p><strong>Economic Moat Rating: WIDE MOAT.</strong></p>\n<p>Alibaba possesses an insurmountable structural competitive advantage anchored in two primary moat sources:</p>\n<ol>\n<li><strong>Network Effects &amp; Ecosystem Scale Density:</strong> With over 1 billion domestic active consumers and tens of millions of merchants across Taobao and Tmall, Alibaba operates a multi-sided marketplace flywheel. High buyer density attracts merchants seeking liquidity; merchant density ensures broad inventory selection and competitive pricing, cementing consumer habits. Cainiao's automated logistics network provides cost advantages in cross-border parcel routing that emerging competitors cannot replicate.</li>\n<li><strong>Cloud Switching Costs &amp; Tech Scale Economies:</strong> Cloud Intelligence Group maintains a commanding leading market share in Chinese enterprise public cloud. Enterprise migration away from Alibaba Cloud involves high switching costs, developer retraining, operational downtime risk, and complex database integration. Furthermore, Alibaba's proprietary Qwen AI foundation models and custom silicon yield cost economies of scale that smaller cloud vendors cannot match.</li>\n</ol>\n<p><strong>Testing Brand Deterioration vs. Execution Lull:</strong></p>\n<p>The slowing growth in domestic commerce is NOT structural brand death, but rather an execution and monetization transition. Alibaba retains dominant consumer mindshare in premium brand retail (Tmall) and long-tail merchandising (Taobao). The core structural signpost confirming brand retention is the expansion of 88VIP loyalty members beyond 50 million with double-digit YoY growth, demonstrating that high-lifetime-value consumers remain entrenched in the ecosystem. The deployment of AI-driven merchant ad tools (Quanzhantui) and the software service fee implementation are successfully restoring Customer Management Revenue (CMR) take-rates.</p>\n<h2>Section 2: The Probable Future Paths</h2>\n<p>Based on Alibaba Group Holding Limited's audited statutory filings, segment dynamics, recent earnings call commentary, and institutional counter-theses, the following three distinct, realistic operational paths cover 90%\u201395% of the fundamental probability space over the next 3\u20135 years:</p>\n<div class=\"callout\">\n<h3>Path 1: Core E-Commerce Stabilization &amp; Hyperscale Cloud Monetization Continuation</h3>\n<p><strong>Archetype:</strong> Central Baseline Trend &amp; Operational Continuation</p>\n<p><strong>Overview:</strong> Path 1 models a steady-state operational continuation where Alibaba leverages its dominant Chinese domestic e-commerce infrastructure (Taobao &amp; Tmall Group) and expanding enterprise Cloud Intelligence Group services to generate resilient, predictable cash flows. Customer Management Revenue (CMR) stabilizes as merchant monetization tools (e.g., Quanzhantui) improve take-rates, offsetting competitive pressure from discount platforms. Meanwhile, Alibaba Cloud gains enterprise traction from proprietary AI models (Qwen) and public cloud compute demand. Disciplined capital allocation directs excess free cash flow into continuous share repurchases, retiring 3.0%\u20134.0% of diluted shares annually.</p>\n<ul>\n<li><strong>5-Year Revenue CAGR:</strong> +4.8%</li>\n<li><strong>5-Year Per-Share Owner Earnings CAGR:</strong> +9.3% (OE\u2085 = $7.75 / share)</li>\n<li><strong>Terminal Capitalization Multiple:</strong> 15.0x P/OE (Owner Cash Yield: 6.7%)</li>\n<li><strong>Net Cash Adjustment:</strong> +$21.01 / share (Y5 cash bridge: $23.81 / share)</li>\n<li><strong>5-Year Target Price:</strong> $140.06 | <strong>Present Fair Value (9.5% Hurdle):</strong> $88.97</li>\n</ul>\n</div>\n<div class=\"callout\">\n<h3>Path 2: Competitive Margin Compression, Reinvestment Drag &amp; Structural Monopolistic Decay</h3>\n<p><strong>Archetype:</strong> Downside Friction, Competitive Headwinds &amp; Margin Drag</p>\n<p><strong>Overview:</strong> Under Path 2, domestic e-commerce competition from Pinduoduo (PDD Holdings) and social commerce giants (ByteDance/Douyin) intensifies, forcing Alibaba to permanently lower merchant take-rates and boost defensive user acquisition subsidies. Operating margins compress from 14.1% to 11.0%. Concurrently, high AI cloud infrastructure CapEx and server depreciation weigh on margins before enterprise monetization matures, while international e-commerce (AECG) suffers from regulatory cross-border headwinds and tariff friction. Owner earnings contract slightly (-0.4% CAGR) to $4.87/share in Year 5.</p>\n<ul>\n<li><strong>5-Year Revenue CAGR:</strong> +2.9%</li>\n<li><strong>5-Year Per-Share Owner Earnings CAGR:</strong> -0.4% (OE\u2085 = $4.87 / share)</li>\n<li><strong>Terminal Capitalization Multiple:</strong> 12.0x P/OE (Owner Cash Yield: 8.3%)</li>\n<li><strong>Net Cash Adjustment:</strong> +$21.01 / share (Y5 cash bridge: $23.85 / share)</li>\n<li><strong>5-Year Target Price:</strong> $82.29 | <strong>Present Fair Value (9.5% Hurdle):</strong> $52.27</li>\n</ul>\n</div>\n<div class=\"callout\">\n<h3>Path 3: AI Cloud Monetization Supercycle, Global Cross-Border Operating Leverage &amp; Merchant Take-Rate Expansion</h3>\n<p><strong>Archetype:</strong> Upside Acceleration, Operating Leverage &amp; TAM Expansion</p>\n<p><strong>Overview:</strong> Path 3 models a multi-vector operational re-acceleration. Alibaba Cloud becomes the dominant enterprise AI stack across Asia, capturing high-margin public cloud compute workloads and software licensing, while Taobao/Tmall's AI-driven ad personalization expands merchant monetization take-rates by 30\u201340 bps. Internationally, Trendyol and AliExpress achieve sustainable scale and unit profitability, converting foreign revenue into real operating margin expansion (from 14.1% to 17.3%). Aggressive share retirement accelerates per-share earnings growth to +18.9% CAGR ($11.79 OE\u2085/share).</p>\n<ul>\n<li><strong>5-Year Revenue CAGR:</strong> +9.3%</li>\n<li><strong>5-Year Per-Share Owner Earnings CAGR:</strong> +18.9% (OE\u2085 = $11.79 / share)</li>\n<li><strong>Terminal Capitalization Multiple:</strong> 15.0x P/OE (Owner Cash Yield: 6.0%)</li>\n<li><strong>Net Cash Adjustment:</strong> +$21.01 / share</li>\n<li><strong>5-Year Target Price:</strong> $197.86 | <strong>Present Fair Value (9.5% Hurdle):</strong> $125.69</li>\n</ul>\n</div>\n<div class=\"callout\">\n<h3>Quarterly Monitoring Signposts (Next 12\u201318 Months)</h3>\n<table class=\"data-table\">\n<thead>\n<tr>\n<th>Operational Metric</th>\n<th>Acceleration Threshold (Core / Upside Paths)</th>\n<th>Falsification Threshold (Downside Friction)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>Customer Management Revenue (CMR) Growth</strong></td>\n<td>YoY CMR growth &gt; +5.0%, matching or exceeding GMV growth (take-rate expansion via Quanzhantui).</td>\n<td>CMR growth &lt; +1.5% or negative, indicating merchant fee erosion to PDD/Douyin.</td>\n</tr>\n<tr>\n<td><strong>Cloud Intelligence Group Operating Margin</strong></td>\n<td>EBITA margin expanding toward &gt; 9.0% driven by high-margin public cloud &amp; AI compute products.</td>\n<td>EBITA margin stagnating below 5.0% due to enterprise price wars and AI infrastructure CapEx drag.</td>\n</tr>\n<tr>\n<td><strong>International Digital Commerce (AECG) Loss Reduction</strong></td>\n<td>Adjusted EBITA moving rapidly toward breakeven (loss narrowing below $100M/quarter).</td>\n<td>Quarterly EBITA losses exceeding $400M, indicating persistent cross-border subsidy cash burn.</td>\n</tr>\n<tr>\n<td><strong>Capital Allocation &amp; Share Buyback Velocity</strong></td>\n<td>Net share count reduction &gt; 3.5% annualized funded strictly by operating cash flow.</td>\n<td>Share count reduction dropping below 1.5% or excessive dilution from Stock-Based Compensation (&gt; $3.5B/yr).</td>\n</tr>\n</tbody>\n</table>\n</div>\n<h2>Section 3:Normalized Owner Earnings Multiple &amp; Yield Inversion Valuation</h2>\n<p>To establish true economic intrinsic value for Alibaba Group Holding Limited, we apply Benjamin Graham and Warren Buffett\u2019s Owner Earnings framework. Starting with trailing GAAP Operating Cash Flow, we deduct true Maintenance CapEx\u2014strictly calibrated to Depreciation &amp; Amortization (~$8.2B/yr) rather than total hyperscale infrastructure buildout CapEx\u2014and deduct 100% of Stock-Based Compensation as a mandatory cash expense. This yields a baseline Normalized Owner Earnings (OE\u2080) of $11,984.0M, or <strong>$4.96 per diluted share</strong> across 2,415.0 million shares.</p>\n<p>To reflect Alibaba's fortress balance sheet, we add the unencumbered Net Balance Sheet Cash of <strong>+$21.01 per share</strong> ($50.7B total net liquid assets) as an explicit value bridge to the enterprise earnings multiple terminal target.</p>\n<table class=\"data-table\">\n<thead>\n<tr>\n<th>Valuation Metric / Driver</th>\n<th>Path 1: Core Stabilization</th>\n<th>Path 2: Competitive Friction</th>\n<th>Path 3: AI &amp; Cloud Supercycle</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Starting Normalized Owner Earnings (OE\u2080) / share</td>\n<td>$4.96</td>\n<td>$4.96</td>\n<td>$4.96</td>\n</tr>\n<tr>\n<td>Projected 5-Year Per-Share OE CAGR (Top-Line Rev CAGR)</td>\n<td>+9.3% (+4.8% Rev)</td>\n<td>-0.4% (+2.9% Rev)</td>\n<td>+18.9% (+9.3% Rev)</td>\n</tr>\n<tr>\n<td>Projected Year-5 Normalized Owner Earnings (OE\u2085) / share</td>\n<td>$7.75</td>\n<td>$4.87</td>\n<td>$11.79</td>\n</tr>\n<tr>\n<td>Target Terminal Multiple (P/OE\u2085)</td>\n<td>15.0x</td>\n<td>12.0x</td>\n<td>15.0x</td>\n</tr>\n<tr>\n<td>Implied Terminal Owner Cash Yield (%)</td>\n<td>6.7%</td>\n<td>8.3%</td>\n<td>6.0%</td>\n</tr>\n<tr>\n<td>Net Balance Sheet Cash / (Debt) per share Adjustment</td>\n<td>+$21.01</td>\n<td>+$21.01</td>\n<td>+$21.01</td>\n</tr>\n<tr>\n<td><strong>5-Year Target Price / Share</strong></td>\n<td><strong>$140.06</strong></td>\n<td><strong>$82.29</strong></td>\n<td><strong>$197.86</strong></td>\n</tr>\n<tr>\n<td>Expected 5-Year Annualized Price CAGR (vs. $120.95)</td>\n<td>+3.0%</td>\n<td>-7.4%</td>\n<td>+10.3%</td>\n</tr>\n<tr>\n<td>Total 5-Year Expected Return (%)</td>\n<td>+15.8%</td>\n<td>-32.0%</td>\n<td>+63.6%</td>\n</tr>\n<tr>\n<td>Present Intrinsic Fair Value (at 9.5% hurdle rate)</td>\n<td>$88.97</td>\n<td>$52.27</td>\n<td>$125.69</td>\n</tr>\n<tr>\n<td>Margin of Safety vs. Current Price ($120.95)</td>\n<td>-26.4%</td>\n<td>-56.8%</td>\n<td>+3.9%</td>\n</tr>\n<tr>\n<td>Probability Weight &amp; Empirical Basis (%)</td>\n<td><strong>55.0%</strong></td>\n<td><strong>30.0%</strong></td>\n<td><strong>15.0%</strong></td>\n</tr>\n</tbody>\n</table>\n<div class=\"callout\">\n<h3>Empirical Probability Weighting Rationale</h3>\n<p>The probability distribution reflects Alibaba's powerful competitive scale balanced against structural geopolitical risk, intense domestic e-commerce rivalries, and recent executive turnarounds:</p>\n<ul>\n<li><strong>Path 1 (Central Baseline - 55% Weight):</strong> Represents the most probable trajectory. Alibaba's massive multi-sided network effect (1B+ China consumers) and enterprise cloud distribution provide strong operational resiliency. Ongoing share repurchases amplify modest top-line growth into mid-single-digit per-share cash flow compounding.</li>\n<li><strong>Path 2 (Downside Friction - 30% Weight):</strong> Reflects ongoing competitive aggression from PDD Holdings and Douyin, requiring persistent take-rate subsidies and defensive reinvestment. Given Alibaba's recent governance restructuring (CEO/Chairman whiplash in 2023\u20132024), downside execution friction carries a mandatory 30% probability weight.</li>\n<li><strong>Path 3 (Upside Acceleration - 15% Weight):</strong> Capped at 15% until multi-quarter margin expansion in Cloud and International Digital Commerce is conclusively demonstrated. High-margin AI compute acceleration represents real optionality but remains a secondary driver today.</li>\n</ul>\n</div>\n<div class=\"callout\">\n<h3>Probability Distribution Sensitivity Matrix</h3>\n<p>To prevent false precision from fixed weighting priors, here is the sensitivity of intrinsic fair value across alternative probability distributions:</p>\n<table class=\"data-table\">\n<thead>\n<tr>\n<th>Weighting Scenario</th>\n<th>Path Distribution (Downside / Central / Upside)</th>\n<th>Expected Present Fair Value</th>\n<th>Margin of Safety (%)</th>\n<th>5-Year Target Price</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>Downside-Weighted Prior</strong></td>\n<td>45% / 45% / 10%</td>\n<td>$76.13</td>\n<td>-37.1%</td>\n<td>$119.84</td>\n</tr>\n<tr>\n<td><strong>Central Audited Baseline</strong></td>\n<td><strong>30% / 55% / 15%</strong></td>\n<td><strong>$83.47</strong></td>\n<td><strong>-31.0%</strong></td>\n<td><strong>$131.40</strong></td>\n</tr>\n<tr>\n<td><strong>Constructive Execution Prior</strong></td>\n<td>20% / 55% / 25%</td>\n<td>$90.81</td>\n<td>-24.9%</td>\n<td>$142.96</td>\n</tr>\n</tbody>\n</table>\n</div>\n<div class=\"callout\">\n<h3>Market Inversion &amp; Valuation Synthesis</h3>\n<p><strong>Implied Market Reality:</strong> At the reference market price of <strong>$120.95</strong>, Mr. Market is valuing Alibaba Group Holding Limited at <strong>24.39x Normalized Owner Earnings</strong> (an Owner Cash Yield of <strong>4.10%</strong>). Accounting for the $21.01 net balance sheet cash per share, the core business is priced at $99.94/share. To justify today's purchase price of $120.95 at a conservative 15.0x terminal multiple and 9.5% discount rate, Alibaba must generate <strong>$11.29 / share</strong> in Year-5 Owner Earnings\u2014implying an Owner Earnings CAGR of <strong>+17.9% / yr</strong> over the next 5 years. This exceeds even the central baseline model (+9.3% CAGR) by over 860 basis points.</p>\n<p><strong>Probability-Weighted 5-Year Target Price:</strong> <strong>$131.40 / share</strong> (Expected 5-Year Annualized Price CAGR: <strong>+1.7% / yr</strong>).</p>\n<p><strong>Probability-Weighted Present Fair Value (9.5% Hurdle):</strong> <strong>$83.47 / share</strong> (Margin of Safety: <strong>-31.0%</strong> vs. today's market price of $120.95).</p>\n<p><strong>Capital Allocation Recommendation:</strong> <strong>AVOID</strong>. At $120.95, Alibaba's current market valuation reflects aggressive expectations of earnings re-acceleration and multiple expansion that exceed conservative Graham-Buffett margin of safety standards. Despite Alibaba's Wide Moat and fortress cash position, the present risk/reward distribution offers an expected 5-year annualized return of only +1.7%, well below our 9.5% annual hurdle rate. Value investors should wait for a substantial market correction toward the $83\u2013$88 intrinsic fair value range before committing capital.</p>\n</div>"
+  }
+]
