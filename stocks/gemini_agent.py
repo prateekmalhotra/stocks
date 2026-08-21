@@ -1854,24 +1854,32 @@ def synthesize_pro_forma_schedule(
                     cells = [c.get_text(strip=True) for c in r.find_all(['th', 'td'])]
                     if len(cells) >= 2:
                         lbl = cells[0].lower()
-                        val_str = cells[-1]
-                        clean_val = re.sub(r'[\$,%\s]', '', val_str)
-                        try:
-                            num = float(clean_val.replace('(', '-').replace(')', ''))
-                            if 'total revenue' in lbl or 'net revenue' in lbl or lbl == 'revenue':
-                                if num > 10.0:
-                                    rev_base = num
-                            elif 'gross margin' in lbl:
-                                if 1.0 < num <= 100.0:
-                                    gm_base = num
+                        row_nums = []
+                        for val_str in cells[1:]:
+                            clean_val = re.sub(r'[\$,\s]', '', val_str)
+                            is_pct = '%' in val_str
+                            try:
+                                n = float(clean_val.replace('%', '').replace('(', '-').replace(')', ''))
+                                row_nums.append((n, is_pct, val_str))
+                            except Exception:
+                                pass
+                        
+                        if row_nums:
+                            non_pct_nums = [n for n, is_pct, raw in row_nums if not is_pct or '$' in raw]
+                            pct_nums = [n for n, is_pct, raw in row_nums if is_pct and '$' not in raw]
+                            
+                            if any(k in lbl for k in ['revenue', 'sales', 'turnover']) and 'growth' not in lbl:
+                                if non_pct_nums and non_pct_nums[-1] > 10.0:
+                                    rev_base = non_pct_nums[-1]
+                            elif 'gross margin' in lbl or 'transaction margin %' in lbl:
+                                if pct_nums and 1.0 < pct_nums[-1] <= 100.0:
+                                    gm_base = pct_nums[-1]
                             elif 'operating margin' in lbl:
-                                if 1.0 < num <= 100.0:
-                                    op_margin_base = num
+                                if pct_nums and 1.0 < pct_nums[-1] <= 100.0:
+                                    op_margin_base = pct_nums[-1]
                             elif any(k in lbl for k in ['diluted weighted share', 'diluted share', 'shares outstanding', 'ordinary share', 'adss']):
-                                if 5.0 <= num <= 35000.0:
-                                    sh_base = num
-                        except Exception:
-                            pass
+                                if non_pct_nums and 5.0 <= non_pct_nums[-1] <= 35000.0:
+                                    sh_base = non_pct_nums[-1]
                             
             if sh_base == 100.0:
                 # Match explicit share count basis in tables or text
