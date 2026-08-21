@@ -536,67 +536,18 @@ def verify_and_sanitize_url(raw_url: str, ticker: str, company_name: str, fund_n
 
 
 def get_curated_writeups(ticker: str, stock: Any, cached_writeups: Optional[List[Dict[str, Any]]] = None) -> List[Dict[str, Any]]:
-    """Retrieves high-quality researched memos from cache, curated repository, or deep value research links."""
+    """Retrieves verified high-signal researched memos and authentic hedge fund dossiers from the verified registry."""
+    from stocks.link_checker import get_verified_curated_writeups
     clean_t = ticker.upper().strip()
     company_name = getattr(stock, "company_name", clean_t)
     
-    raw_list = []
     if cached_writeups and isinstance(cached_writeups, list) and len(cached_writeups) > 0:
-        raw_list = cached_writeups
-    elif clean_t in CURATED_MEMOS:
-        raw_list = CURATED_MEMOS[clean_t]
-    else:
-        raw_list = [
-            {
-                "title": f"Dataroma 13F Superinvestor Whale File: {clean_t}",
-                "fund": "Dataroma Superinvestors",
-                "date": "13F Whale Audit",
-                "summary": f"Historical accumulation patterns, portfolio concentration, and recent buy/sell activity across premier value hedge funds for {company_name}.",
-                "url": f"https://www.dataroma.com/m/stock.php?sym={clean_t}",
-                "btn_label": "Dataroma 13F ↗"
-            },
-            {
-                "title": f"SEC EDGAR Official Filings & Regulatory File: {clean_t}",
-                "fund": "SEC EDGAR Official Registry",
-                "date": "Regulatory Archive",
-                "summary": f"Official regulatory depository of 10-K/20-F annual reports, 10-Q/6-K quarterlies, and beneficial ownership filings for {company_name}.",
-                "url": f"https://www.sec.gov/edgar/browse/?CIK={clean_t}",
-                "btn_label": "SEC EDGAR ↗"
-            },
-            {
-                "title": f"Substack Investment Research & Deep Dives: {clean_t}",
-                "fund": "Substack Deep Value",
-                "date": "Independent Research",
-                "summary": f"Independent research publications, subscriber letters, and thesis breakdowns covering {company_name}.",
-                "url": f"https://substack.com/search/{clean_t}%20investment%20thesis",
-                "btn_label": "Substack Search ↗"
-            },
-            {
-                "title": f"OpenInsider Real-Time Form 4 & Insider Ledger: {clean_t}",
-                "fund": "OpenInsider Real-Time",
-                "date": "Insider Audit",
-                "summary": f"Live stream of officer, director, and 10% beneficial owner purchases, sales, and option grants for {company_name}.",
-                "url": f"http://openinsider.com/search?q={clean_t}",
-                "btn_label": "OpenInsider ↗"
-            }
-        ]
-
-    # Verify and sanitize all URLs in the list
-    sanitized = []
-    for w in raw_list:
-        link_info = verify_and_sanitize_url(
-            w.get("url", ""),
-            clean_t,
-            company_name,
-            w.get("fund", ""),
-            w.get("title", "")
-        )
-        sanitized.append({
-            **w,
-            "url": link_info["url"],
-            "btn_label": link_info["label"]
-        })
-    return sanitized
+        # Check if cached writeups are just old generic placeholders
+        is_generic = any("Dataroma 13F Superinvestor Whale File:" in w.get("title", "") for w in cached_writeups)
+        if not is_generic:
+            return cached_writeups
+            
+    return get_verified_curated_writeups(clean_t, company_name)
 
 
 def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> str:
@@ -701,6 +652,9 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
 
     is_fpi_issuer = clean_t in ["JD", "BABA", "PDD", "BIDU", "NTES", "TCOM", "SE", "ASML", "TSM", "NVO", "AZN", "BTI", "FMX"] or any("20-f" in str(t.get("trade_type", "")).lower() or "form 3" in str(t.get("trade_type", "")).lower() for t in oi_trades)
 
+    from stocks.link_checker import get_sec_cik
+    sec_cik = get_sec_cik(clean_t)
+
     # 2. Build OpenInsider Form 4 / FPI Ownership Rows
     insider_rows = ""
     if oi_trades:
@@ -742,7 +696,7 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
                 <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">{t.get('owned', '')} ({t.get('delta_own', '')})</td>
                 <td style="font-family: var(--font-mono); color: {val_color}; font-weight: 500; white-space: nowrap;">{val}</td>
                 <td style="white-space: nowrap;">
-                    <a href="https://www.sec.gov/edgar/browse/?CIK={clean_t}" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK={sec_cik}" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
                         {link_text}
                     </a>
                 </td>
@@ -761,7 +715,7 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{insider_intel['summary']}</td>
             <td>
-                <a href="https://www.sec.gov/edgar/browse/?CIK={clean_t}" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.sec.gov/edgar/browse/?CIK={sec_cik}" target="_blank" rel="noopener noreferrer" class="link-out">
                     SEC EDGAR ↗
                 </a>
             </td>
@@ -772,21 +726,7 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
     writeups = get_curated_writeups(clean_t, stock, researched_writeups)
     writeup_cards = ""
     for w in writeups:
-        btn_lbl = w.get("btn_label")
-        if not btn_lbl:
-            fund_lower = (w.get("fund", "") + " " + w.get("title", "")).lower()
-            if "reddit" in fund_lower:
-                btn_lbl = "Reddit DD ↗"
-            elif "substack" in fund_lower:
-                btn_lbl = "Substack Memo ↗"
-            elif "vic" in fund_lower or "value investors club" in fund_lower:
-                btn_lbl = "VIC Pitch ↗"
-            elif "letter" in fund_lower or "pershing" in fund_lower:
-                btn_lbl = "Investor Letter ↗"
-            elif "presentation" in fund_lower or "activist" in fund_lower:
-                btn_lbl = "Activist Deck ↗"
-            else:
-                btn_lbl = "Read Source ↗"
+        btn_lbl = w.get("btn_label") or "Read Source ↗"
 
         writeup_cards += f"""
         <div class="writeup-card">
@@ -860,8 +800,7 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
                     <a href="http://openinsider.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">OpenInsider Form 4s ↗</a>
                     <a href="https://www.dataroma.com/m/stock.php?sym={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">Dataroma Superinvestors ↗</a>
                     <a href="https://whalewisdom.com/stock/{clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">WhaleWisdom 13F ↗</a>
-                    <a href="https://valueinvestorsclub.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">Value Investors Club (VIC) ↗</a>
-                    <a href="https://www.sec.gov/edgar/browse/?CIK={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">SEC EDGAR Filings ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK={sec_cik}" target="_blank" rel="noopener noreferrer" class="portal-link">SEC EDGAR Official ↗</a>
                 </div>
             </div>
         </div>
