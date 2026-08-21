@@ -7,6 +7,7 @@ import concurrent.futures
 from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, Any, Tuple, Optional, List
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 load_dotenv()
