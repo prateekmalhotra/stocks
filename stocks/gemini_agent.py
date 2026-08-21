@@ -2135,6 +2135,18 @@ def parse_sec3_and_json(raw_text: str, company_name: str, current_price: float, 
         m_oe = re.search(r'(?:Owner\s*Earnings|OE₀)[^$\n]*?\$?\s*([\d,]+(?:\.\d+)?)\s*(?:/\s*sh|per\s*share|per\s*ADS)?', sec1_text or sec3_clean, re.IGNORECASE)
         if m_oe:
             oe_per_sh = safe_float(m_oe.group(1), 0.0)
+
+    # Scale check for oe_per_sh (Anti-Unit Confusion: check if aggregate $M was parsed instead of per-share)
+    if current_price > 0 and oe_per_sh > 0:
+        implied_p_oe = current_price / oe_per_sh
+        if implied_p_oe < 2.0 and current_price < 200.0:
+            m_sh = re.search(r'([\d,]+(?:\.\d+)?)\s*(?:million|M)?\s*(?:diluted shares|shares outstanding)', f"{sec1_text} {sec3_clean}", re.IGNORECASE)
+            if m_sh:
+                sh_count = safe_float(m_sh.group(1), 1.0)
+                if sh_count > 10.0:
+                    oe_per_sh = round(oe_per_sh / sh_count, 2)
+            elif oe_per_sh > current_price:
+                oe_per_sh = round(oe_per_sh / 70.0, 2) # default plausible denominator if shares not found
             
     # Build stories metadata
     stories_metadata = []
