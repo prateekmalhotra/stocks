@@ -2892,88 +2892,97 @@
     
     <!-- Multibagger Intelligence Modal -->
     <div id="multibagger-modal" class="modal-shade" onclick="closeMultibaggerModalOutside(event)">
-        <div class="modal-body-card" style="max-width: 620px; max-height: 88vh; overflow-y: auto; padding: 22px 26px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
-            <button class="modal-x" onclick="closeMultibaggerModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
+        <div class="modal-body-card" style="max-width: 560px; max-height: 88vh; overflow-y: auto; padding: 28px 30px; background: rgba(18, 17, 16, 0.98); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeMultibaggerModal()" style="top: 24px; right: 24px; color: var(--text-dim); font-size: 1.05rem; cursor: pointer; background: transparent; border: none; transition: color 0.15s;">✕</button>
             
-            <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); margin-bottom: 16px; letter-spacing: -0.02em;">
-                Multibagger Framework &amp; Compounding Drivers
-            </div>
-
-            <!-- Section 1: The 3 Return Engines -->
-            <div style="margin-bottom: 14px;">
-                <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 9px;">
-                    <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm);">
-                        The 3 Return Engines (Alta Fox 104-Stock Study)
-                    </div>
-                    <div style="font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-dim);">
-                        Median 10-Yr Attribution
-                    </div>
+            <div style="margin-bottom: 22px;">
+                <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); letter-spacing: -0.02em; margin-bottom: 4px;">
+                    Multibagger Return Attribution
                 </div>
-                <div style="display: grid; grid-template-columns: 160px 1fr; row-gap: 8px; column-gap: 14px; font-size: 0.74rem; align-items: baseline;">
-                    <div>
-                        <div style="font-weight: 600; color: var(--text-title); line-height: 1.3;">Revenue Growth</div>
-                        <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-green);">~50%–55% of Total Gain</div>
-                    </div>
-                    <div style="color: var(--text-secondary); line-height: 1.45;">
-                        Primary compounding engine. Median 10-bagger compounded top-line sales at <strong>+19.8% / yr</strong>, expanding revenue ~6x over a decade.
-                    </div>
-
-                    <div>
-                        <div style="font-weight: 600; color: var(--text-title); line-height: 1.3;">Operating Leverage</div>
-                        <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-warm);">~25%–30% of Total Gain</div>
-                    </div>
-                    <div style="color: var(--text-secondary); line-height: 1.45;">
-                        Fixed-cost absorption over volume. Median EBITDA margins expanded from <strong>10.5% to 26.8%</strong>, causing cash flow to outgrow sales.
-                    </div>
-
-                    <div>
-                        <div style="font-weight: 600; color: var(--text-title); line-height: 1.3;">Multiple Re-Rating</div>
-                        <div style="font-family: var(--font-mono); font-size: 0.65rem; color: #D48858;">~20%–25% of Total Gain</div>
-                    </div>
-                    <div style="color: var(--text-secondary); line-height: 1.45;">
-                        Valuation multiple expansion. &gt;60% of multibaggers started unloved at <strong>10x–14x P/E</strong> and re-rated to <strong>25x–35x</strong>.
-                    </div>
+                <div style="font-family: var(--font-sans); font-size: 0.78rem; color: var(--text-dim); line-height: 1.4;">
+                    10-year empirical drivers from the Alta Fox 104-stock study &amp; Mayer compounding laws.
                 </div>
             </div>
 
-            <div style="height: 1px; background: var(--border-color); margin: 14px 0;"></div>
+            <!-- Section 1: The 3 Return Engines Grid -->
+            <div style="margin-bottom: 20px;">
+                <div style="font-family: var(--font-mono); font-size: 0.64rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); margin-bottom: 10px;">
+                    Empirical 10-Year Return Engines
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 600; color: var(--accent-green); line-height: 1.1; margin-bottom: 4px;">
+                                ~54%
+                            </div>
+                            <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-title); margin-bottom: 4px;">
+                                Revenue Growth
+                            </div>
+                        </div>
+                        <div style="font-size: 0.68rem; color: var(--text-secondary); line-height: 1.35;">
+                            Organic volume &amp; pricing scale (+19.8%/yr median).
+                        </div>
+                    </div>
 
-            <!-- Section 2: Compounding Velocity -->
-            <div style="margin-bottom: 14px;">
-                <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 9px;">
-                    <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm);">
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 600; color: var(--accent-warm); line-height: 1.1; margin-bottom: 4px;">
+                                ~27%
+                            </div>
+                            <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-title); margin-bottom: 4px;">
+                                Margin Expansion
+                            </div>
+                        </div>
+                        <div style="font-size: 0.68rem; color: var(--text-secondary); line-height: 1.35;">
+                            Fixed-cost absorption (10.5% → 26.8% EBITDA).
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 600; color: #D48858; line-height: 1.1; margin-bottom: 4px;">
+                                ~19%
+                            </div>
+                            <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-title); margin-bottom: 4px;">
+                                Multiple Re-Rating
+                            </div>
+                        </div>
+                        <div style="font-size: 0.68rem; color: var(--text-secondary); line-height: 1.35;">
+                            Valuation multiple re-rating from unloved troughs.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Compounding Velocity Banner -->
+            <div style="background: rgba(204, 120, 92, 0.05); border: 1px solid rgba(204, 120, 92, 0.15); border-radius: 10px; padding: 14px 16px; margin-bottom: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                    <span style="font-family: var(--font-mono); font-size: 0.64rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm);">
                         Compounding Velocity (Buffett-Mayer Law)
-                    </div>
-                    <div style="font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-dim);">
+                    </span>
+                    <span style="font-family: var(--font-mono); font-size: 0.64rem; color: var(--accent-warm);">
                         ROIC × Reinvestment Rate
-                    </div>
-                </div>
-                <div style="display: grid; grid-template-columns: 160px 1fr; row-gap: 6px; column-gap: 14px; font-size: 0.74rem; align-items: baseline;">
-                    <span style="font-family: var(--font-mono); font-weight: 600; color: var(--text-title);">Internal Compounding</span>
-                    <span style="color: var(--text-secondary); line-height: 1.45;">
-                        Over a 10-year holding period, shareholder returns mathematically converge to the business's return on capital. A 25% ROIC firm reinvesting 70% of cash flow compounds intrinsic value at <strong>17.5% / yr</strong> without multiple expansion.
                     </span>
                 </div>
-            </div>
-
-            <div style="height: 1px; background: var(--border-color); margin: 14px 0;"></div>
-
-            <!-- Section 3: Moat & Insider Alignment -->
-            <div>
-                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 9px;">
-                    Moat Durability &amp; Alignment
-                </div>
-                <div style="display: grid; grid-template-columns: 160px 1fr; row-gap: 8px; column-gap: 14px; font-size: 0.74rem; align-items: baseline;">
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Gross Margin Moat (&gt;50%)</span>
-                    <span style="color: var(--text-secondary); line-height: 1.45;">Pricing power shield that absorbs inflation spikes and funds sustained organic R&amp;D/CapEx advantage over peers.</span>
-
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Skin in the Game (&gt;15%)</span>
-                    <span style="color: var(--text-secondary); line-height: 1.45;">&gt;70% of 10-baggers featured founder leadership or &gt;15% insider ownership, aligning capital allocation with long-term per-share value.</span>
+                <div style="font-family: var(--font-sans); font-size: 0.76rem; color: var(--text-secondary); line-height: 1.45;">
+                    Over 10 years, shareholder returns mathematically converge to return on capital. A 25% ROIC firm reinvesting 70% of cash flow compounds intrinsic value at <strong style="color: var(--text-title); font-weight: 600;">17.5% / yr</strong> without multiple expansion.
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
-                <button onclick="closeMultibaggerModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 16px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            <!-- Section 3: Moat & Alignment Rules -->
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px;">
+                <div style="display: flex; align-items: baseline; gap: 10px; padding: 8px 12px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 8px;">
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; color: var(--text-title); white-space: nowrap; min-width: 140px;">Gross Margin >50%</span>
+                    <span style="font-size: 0.72rem; color: var(--text-secondary); line-height: 1.35;">Pricing power shield to absorb inflation and sustain organic R&amp;D/CapEx advantage.</span>
+                </div>
+                <div style="display: flex; align-items: baseline; gap: 10px; padding: 8px 12px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 8px;">
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; color: var(--text-title); white-space: nowrap; min-width: 140px;">Skin in Game >15%</span>
+                    <span style="font-size: 0.72rem; color: var(--text-secondary); line-height: 1.35;">Founder leadership or high insider ownership aligning capital allocation with per-share value.</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end;">
+                <button onclick="closeMultibaggerModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 7px 18px; cursor: pointer; transition: all 0.15s ease;">Dismiss</button>
             </div>
         </div>
     </div>
