@@ -11,6 +11,7 @@ class ThesisVersion(BaseModel):
     version: int
     date: str
     price_at_version: float
+    company_name: Optional[str] = ""
     status_label: str = "Narrow Moat"
     moat_label: Optional[str] = "Narrow Moat"
     labels: List[str] = Field(default_factory=list)  # Slot 1: Moat archetype, Slots 2-3: Drivers

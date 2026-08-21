@@ -4638,7 +4638,7 @@ def render_all():
         
         if history:
             current_v = history[-1]
-            comp_name = stock.company_name if stock else ticker
+            comp_name = current_v.company_name or (stock.company_name if stock else "") or ticker
             cur_price = current_v.price_at_version or (stock.current_price if stock else 0.0)
             base_price = (stock.baseline_price if stock else cur_price) or cur_price
             ret_pct = ((cur_price - base_price) / base_price * 100.0) if base_price > 0 else 0.0

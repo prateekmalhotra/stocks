@@ -150,10 +150,12 @@ def load_thesis_history(ticker: str) -> List[ThesisVersion]:
                 if "metadata" in item and isinstance(item["metadata"], dict):
                     meta = item["metadata"]
                     cur_p = item.get("current_price") or meta.get("price_at_version") or meta.get("baseline_price") or 0.0
+                    c_name = str(item.get("company_name") or meta.get("company_name") or "")
                     tv = ThesisVersion(
                         version=int(meta.get("version", 1)),
                         date=str(meta.get("date") or meta.get("last_updated") or datetime.now().strftime("%Y-%m-%d")),
                         price_at_version=float(cur_p),
+                        company_name=c_name,
                         status_label=str(meta.get("status_label") or meta.get("moat") or "Narrow Moat"),
                         moat_label=str(meta.get("moat_label") or meta.get("moat") or "Narrow Moat"),
                         labels=list(meta.get("labels") or [meta.get("status_label", "Narrow Moat")]),
