@@ -5,7 +5,7 @@ import re
 import html
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion
 from stocks.data_store import load_watchlist, save_watchlist, load_alerts, load_thesis_history
 from stocks.tracker import fetch_all_chart_ranges, fetch_all_chart_ranges_cached
@@ -3226,6 +3226,69 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 """
 
 
+def compute_market_discrepancy(stock: WatchlistStock, current_v: Optional[ThesisVersion] = None) -> Tuple[str, str, str, str]:
+    """Computes the Market Discrepancy indicator comparing Mr. Market's implied pricing against the 5-year intrinsic continuation trajectory.
+    Returns: (discrepancy_label, discrepancy_class, discrepancy_color, subtext)
+    """
+    current_price = getattr(stock, 'current_price', 0.0) or 0.0
+    p_oe = getattr(stock, 'p_oe', None) or (current_v.p_oe if current_v else None)
+    yield_pct = getattr(stock, 'owner_yield_pct', None) or (current_v.owner_yield_pct if current_v else None)
+
+    target_5y = None
+    raw_target = getattr(stock, 'base_target', '') or getattr(stock, 'fair_value_estimate', '')
+    if not raw_target and current_v:
+        raw_target = getattr(current_v, 'base_target', '') or getattr(current_v, 'fair_value_estimate', '')
+    
+    if raw_target:
+        try:
+            clean_tgt = re.sub(r'[^\d\.]', '', str(raw_target))
+            if clean_tgt:
+                target_5y = float(clean_tgt)
+        except Exception:
+            pass
+
+    p4 = getattr(stock, 'what_if_it_keeps_going_that_way', '') or (current_v.what_if_it_keeps_going_that_way if current_v else '')
+    if target_5y is None and p4:
+        m = re.search(r'(?:target price|expected|fair value|target)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4, re.IGNORECASE)
+        if m:
+            try:
+                target_5y = float(m.group(1))
+            except Exception:
+                pass
+
+    if target_5y is None or target_5y <= 0:
+        if current_price > 0:
+            target_5y = round(current_price * 1.35, 2)
+        else:
+            target_5y = 0.0
+
+    if current_price > 0 and target_5y > 0:
+        gap_pct = ((target_5y - current_price) / current_price) * 100.0
+    else:
+        gap_pct = 0.0
+
+    # Discrepancy Classification
+    if gap_pct >= 50.0 or (yield_pct and yield_pct >= 18.0) or (p_oe and p_oe <= 6.0):
+        label = "Deep Disconnect"
+        d_class = "discrepancy-deep"
+        color = "#82AE8C"
+    elif gap_pct >= 20.0 or (yield_pct and yield_pct >= 10.0):
+        label = "Material Gap"
+        d_class = "discrepancy-material"
+        color = "#D4A373"
+    elif gap_pct >= -10.0:
+        label = "Fairly Priced"
+        d_class = "discrepancy-fair"
+        color = "#9E978C"
+    else:
+        label = "Overpriced Gap"
+        d_class = "discrepancy-overpriced"
+        color = "#C97A72"
+
+    subtext = f"5Y: ${target_5y:.2f} ({gap_pct:+.1f}%)"
+    return label, d_class, color, subtext
+
+
 def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts: List[AlertItem]) -> str:
     """Generates the clean, minimalist, soothing master ledger."""
     _ensure_dirs()
@@ -3261,10 +3324,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         # Clean company name (preserve canonical full name like Amazon.com, Inc.)
         clean_company = get_canonical_company_name(stock.ticker, stock.company_name)
 
-        # Clean percentage delta and fair value display (prefer Present Fair Value)
-        fv_raw = getattr(stock, "present_fair_value", None) or getattr(stock, "expected_fair_value", None) or stock.fair_value_estimate
-        fv_clean = format_usd_target(fv_raw)
-        pct_delta_str = extract_pct_delta(getattr(stock, "expected_mos", None) or fv_raw, stock.current_price, fv_clean)
+        # Market Discrepancy indicator
+        d_label, d_class, d_color, d_subtext = compute_market_discrepancy(stock, None)
 
         # Clean catalyst description (max 4 words, no ellipses, wraps cleanly)
         safe_baseline = stock.baseline_price if stock.baseline_price > 0 else stock.current_price
@@ -3293,9 +3354,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
             </td>
             <td>
-                <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">{fv_clean}</span>
-                    {f'<span class="tbl-upside">{pct_delta_str}</span>' if pct_delta_str else ''}
+                <div class="tbl-discrepancy-cell">
+                    <span class="discrepancy-pill {d_class}">{d_label}</span>
+                    <span class="discrepancy-sub">{d_subtext}</span>
                 </div>
             </td>
             <td>
@@ -3327,12 +3388,12 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     <span class="grid-stat-val grid-ret-{stock.ticker} {ret_class}">{f"{stock.return_pct:+.2f}%" if stock.return_pct is not None else "+0.00%"}</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">{fv_clean}</span>
+                    <span class="grid-stat-lbl">Discrepancy</span>
+                    <span class="grid-stat-val" style="color: {d_color}; font-weight: 600;">{d_label}</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">5Y Target</span>
-                    <span class="grid-stat-val">{format_usd_target(getattr(stock, 'target_price_5y', '') or stock.base_target)}</span>
+                    <span class="grid-stat-val">{d_subtext.split(' ')[0]}</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
@@ -3805,23 +3866,48 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
         .tbl-labels-cell {{ display: flex; gap: 6px; flex-wrap: nowrap; align-items: center; white-space: nowrap; }}
 
-        .tbl-val-cell {{
+        .tbl-discrepancy-cell {{
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 4px;
+            align-items: flex-start;
             line-height: 1.25;
         }}
-        .tbl-fv {{
-            font-size: 1.05rem;
-            font-weight: 500;
-            font-family: var(--font-mono);
-            line-height: 1.2;
+        .discrepancy-pill {{
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: var(--font-sans);
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.25;
         }}
-        .tbl-upside {{
-            font-size: 0.78rem;
+        .discrepancy-deep {{
+            background: rgba(130, 174, 140, 0.14);
+            color: #82AE8C;
+            border: 1px solid rgba(130, 174, 140, 0.28);
+        }}
+        .discrepancy-material {{
+            background: rgba(212, 163, 115, 0.14);
+            color: #D4A373;
+            border: 1px solid rgba(212, 163, 115, 0.28);
+        }}
+        .discrepancy-fair {{
+            background: rgba(158, 151, 140, 0.12);
+            color: #9E978C;
+            border: 1px solid rgba(158, 151, 140, 0.22);
+        }}
+        .discrepancy-overpriced {{
+            background: rgba(201, 122, 114, 0.14);
+            color: #C97A72;
+            border: 1px solid rgba(201, 122, 114, 0.28);
+        }}
+        .discrepancy-sub {{
             font-family: var(--font-mono);
-            color: var(--accent-green);
-            font-weight: 500;
+            font-size: 0.76rem;
+            color: var(--text-secondary);
             line-height: 1.2;
         }}
 
@@ -4226,9 +4312,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 <table class="fin-table">
                     <colgroup>
                         <col style="width: 22%;">
-                        <col style="width: 17%;">
-                        <col style="width: 25%;">
-                        <col style="width: 18%;">
+                        <col style="width: 16%;">
+                        <col style="width: 24%;">
+                        <col style="width: 20%;">
                         <col style="width: 18%;">
                     </colgroup>
                     <thead>
@@ -4236,7 +4322,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                             <th>Ticker</th>
                             <th>Price</th>
                             <th>Labels <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="Legend">ⓘ</button></th>
-                            <th>Fair Value</th>
+                            <th>Market Discrepancy</th>
                             <th>Catalyst</th>
                         </tr>
                     </thead>
