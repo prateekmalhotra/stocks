@@ -636,6 +636,16 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         
         mos_color = "var(--accent-green)" if mos_pct >= 0 else "var(--accent-red)"
         
+        # 5-Year CAGR (IRR) calculation
+        if cur_p > 0 and val > 0:
+            cagr_val = ((val / cur_p) ** (1.0 / 5.0) - 1.0) * 100.0
+            cagr_sign = "+" if cagr_val >= 0 else ""
+            cagr_color = "var(--accent-green)" if cagr_val >= 0 else "var(--accent-red)"
+            cagr_txt = f"{cagr_sign}{cagr_val:.1f}% / yr"
+        else:
+            cagr_txt = "—"
+            cagr_color = "var(--text-secondary)"
+        
         # Clean title
         raw_title = s.get("story_title") or s.get("title") or f"Path {idx+1}"
         title = re.sub(r'\s*\((?:Central Baseline|Base Case|Upside Expansion|Bull Case|Downside Drag|Downside Risk|Bear Case)\)', '', raw_title, flags=re.IGNORECASE).strip()
@@ -652,18 +662,21 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
             summary = raw_summary
         
         # Valuation Multiple & Yield Extraction
-        oe_mult = s.get("oe_multiple") or s.get("terminal_multiple") or (extracted_term[idx].get("exit_multiple") if idx < len(extracted_term) else "")
+        oe_mult = s.get("oe_multiple") or s.get("terminal_multiple") or (extracted_term[idx].get("exit_multiple") if idx < len(extracted_term) else "18.0x")
         oe_yield = s.get("oe_yield") or ""
         net_cash_sh = s.get("net_cash_per_share")
+        if net_cash_sh is not None and abs(float(net_cash_sh)) > 150 and cur_p < 500:
+            net_cash_sh = 0.0
+        oe_per_sh = s.get("normalized_oe_per_share")
+        
+        mult_txt = f"{oe_mult} P/OE" if "P/OE" not in str(oe_mult) else str(oe_mult)
+        yield_txt = str(oe_yield) if oe_yield else (f"{(1.0/max(safe_float(oe_mult, 18.0), 1.0))*100:.1f}%" if oe_mult else "—")
         
         meta_parts = []
-        if oe_mult:
-            mult_txt = f"{oe_mult} P/OE" if "P/OE" not in str(oe_mult) else str(oe_mult)
-            meta_parts.append(f'<span style="color:var(--text-title); font-weight:600;">{mult_txt}</span>')
-        if oe_yield:
-            meta_parts.append(f'<span>{oe_yield} yield</span>')
         if net_cash_sh is not None and abs(net_cash_sh) > 0.01:
             meta_parts.append(f'<span>Net Cash: {net_cash_sh:+.2f}/sh</span>')
+        if oe_per_sh and float(oe_per_sh) > 0.01:
+            meta_parts.append(f'<span>Baseline OE: ${float(oe_per_sh):.2f}/sh</span>')
             
         footer_text = ' <span style="color: var(--text-dim); opacity: 0.5;">·</span> '.join(meta_parts) if meta_parts else ""
         
@@ -688,7 +701,24 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
             <p style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin: 0; flex-grow: 1;">
                 {summary}
             </p>
-            {f'<div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">{footer_text}</div>' if footer_text else ''}
+            
+            <!-- Key Financial Metrics Strip -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 10px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 6px; font-family: var(--font-mono); margin: 4px 0;">
+                <div>
+                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">5Y Exp. CAGR</div>
+                    <div style="font-size: 0.80rem; font-weight: 600; color: {cagr_color};">{cagr_txt}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Target Multiple</div>
+                    <div style="font-size: 0.80rem; font-weight: 600; color: var(--text-title);">{mult_txt}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Owner Cash Yield</div>
+                    <div style="font-size: 0.80rem; font-weight: 600; color: var(--accent-warm);">{yield_txt}</div>
+                </div>
+            </div>
+            
+            {f'<div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">{footer_text}</div>' if footer_text else ''}
         </div>
         """
         cards_html.append(card)
@@ -716,12 +746,21 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         <p style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin: 0; flex-grow: 1;">
             {priced_in_info['summary']}
         </p>
-        <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-            <span style="color: var(--text-title); font-weight: 600;">{priced_in_info['implied_terminal']}</span>
-            <span style="color: var(--text-dim); opacity: 0.5;">·</span>
-            <span>{priced_in_info['implied_growth']} req. 5Y CAGR</span>
-            <span style="color: var(--text-dim); opacity: 0.5;">·</span>
-            <span>{priced_in_info['hurdle_rate']}</span>
+        
+        <!-- Key Market-Implied Metrics Strip -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 10px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 6px; font-family: var(--font-mono); margin: 4px 0;">
+            <div>
+                <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Req. 5Y CAGR</div>
+                <div style="font-size: 0.80rem; font-weight: 600; color: var(--text-title);">{priced_in_info['implied_growth']}</div>
+            </div>
+            <div>
+                <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Market Multiple</div>
+                <div style="font-size: 0.80rem; font-weight: 600; color: var(--text-title);">{priced_in_info['implied_terminal']}</div>
+            </div>
+            <div>
+                <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Hurdle Rate</div>
+                <div style="font-size: 0.80rem; font-weight: 600; color: var(--accent-warm);">{priced_in_info['hurdle_rate']}</div>
+            </div>
         </div>
     </div>
     """
