@@ -994,7 +994,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                         </div>
                         <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
                             <div style='font-weight: 600; color: #D48858; margin-bottom: 2px;'>{p_mult}% &middot; Multiple Re-Rating</div>
-                            <div style='font-size: 0.76rem; color: var(--text-secondary);'>Valuation multiple expanding from today's {m0:.1f}x to {m5:.1f}x P/OE.</div>
+                            <div style='font-size: 0.76rem; color: var(--text-secondary);'>Valuation multiple {'expanding' if m5 > m0 else ('contracting' if m5 < m0 else 'anchored')} from today's {m0:.1f}x to {m5:.1f}x P/OE.</div>
                         </div>
                     </div>
                     <div style='font-size: 0.74rem; color: var(--text-dim); line-height: 1.4; padding-top: 2px;'>
