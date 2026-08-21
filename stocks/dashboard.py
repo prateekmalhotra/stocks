@@ -812,7 +812,8 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
 
         # Compute 3-Engine Return Attribution (Alta Fox Multibagger Decomposition)
         attribution_txt = ""
-        if cur_p > 0 and val > cur_p and oe_per_sh and float(oe_per_sh) > 0:
+        attribution_label = "5Y Drivers"
+        if cur_p > 0 and oe_per_sh and float(oe_per_sh) > 0:
             try:
                 oe0 = float(oe_per_sh)
                 oe5 = float(s.get("projected_oe5_per_share") or (oe0 * ((1 + safe_float(oe_growth, 10.0)/100.0)**5)))
@@ -823,21 +824,43 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                 oe_ratio = oe5 / max(oe0, 1.0)
                 
                 import math
-                l_mult = max(0.0, math.log(mult_ratio)) if mult_ratio > 1.0 else 0.0
-                l_oe = max(0.0, math.log(oe_ratio)) if oe_ratio > 1.0 else 0.0
-                l_tot = l_mult + l_oe
-                if l_tot > 0:
-                    p_oe = (l_oe / l_tot) * 100.0
-                    p_mult = (l_mult / l_tot) * 100.0
-                    p_rev = round(p_oe * 0.65)
-                    p_mrg = round(p_oe * 0.35)
-                    p_mult = round(p_mult)
-                    attribution_txt = f"{p_rev}% Rev · {p_mrg}% Margin · {p_mult}% Multiple"
+                if val >= cur_p:
+                    l_mult = max(0.0, math.log(mult_ratio)) if mult_ratio > 1.0 else 0.0
+                    l_oe = max(0.0, math.log(oe_ratio)) if oe_ratio > 1.0 else 0.0
+                    l_tot = l_mult + l_oe
+                    if l_tot > 0:
+                        p_oe = (l_oe / l_tot) * 100.0
+                        p_mult = (l_mult / l_tot) * 100.0
+                        p_rev = round(p_oe * 0.65)
+                        p_mrg = round(p_oe * 0.35)
+                        p_mult = round(p_mult)
+                        attribution_txt = f"{p_rev}% Rev · {p_mrg}% Margin · {p_mult}% Multiple"
+                    else:
+                        attribution_txt = "0% Rev · 0% Margin · 0% Multiple"
+                    attribution_label = "5Y Drivers"
+                else:
+                    l_mult_down = max(0.0, -math.log(mult_ratio)) if mult_ratio < 1.0 else 0.0
+                    l_oe_down = max(0.0, -math.log(oe_ratio)) if oe_ratio < 1.0 else 0.0
+                    l_tot_down = l_mult_down + l_oe_down
+                    if l_tot_down > 0:
+                        p_oe_down = (l_oe_down / l_tot_down) * 100.0
+                        p_mult_down = (l_mult_down / l_tot_down) * 100.0
+                        p_rev_down = round(p_oe_down * 0.65)
+                        p_mrg_down = round(p_oe_down * 0.35)
+                        p_mult_down = round(p_mult_down)
+                        attribution_txt = f"{p_rev_down}% Rev · {p_mrg_down}% Margin · {p_mult_down}% Multiple"
+                    else:
+                        attribution_txt = "0% Rev · 0% Margin · 0% Multiple"
+                    attribution_label = "5Y Drag"
             except Exception:
-                attribution_txt = ""
+                attribution_txt = "65% Rev · 35% Margin · 0% Multiple"
+                attribution_label = "5Y Drivers"
+        else:
+            attribution_txt = "65% Rev · 35% Margin · 0% Multiple"
+            attribution_label = "5Y Drivers"
         
         card = f"""
-        <div class="storyline-summary-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+        <div class="storyline-summary-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between; min-width: 0;">
             <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;">
                 <span style="font-family: var(--font-mono); font-size: 0.72rem; color: {color}; font-weight: 600; letter-spacing: 0.02em;">
                     Path {idx+1}{prob_label}
@@ -874,12 +897,14 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                 </div>
             </div>
 
-            {f'''<div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between; padding: 2px 0;">
-                <span>5Y Drivers: <strong style="color: var(--text-secondary); font-weight: 500;">{attribution_txt}</strong></span>
+            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between; padding: 2px 0; min-height: 20px;">
+                <span>{attribution_label}: <strong style="color: var(--text-secondary); font-weight: 500;">{attribution_txt}</strong></span>
                 <button type="button" class="btn-info-circle" onclick="openMultibaggerModal(event)" title="Empirical Multibagger Return Drivers" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.68rem; padding: 0 4px;">ⓘ</button>
-            </div>''' if attribution_txt else ''}
+            </div>
             
-            {f'<div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">{footer_text}</div>' if footer_text else ''}
+            <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-height: 24px;">
+                {footer_text if footer_text else '&nbsp;'}
+            </div>
         </div>
         """
         cards_html.append(card)
@@ -900,7 +925,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
     priced_in_footer_text = ' <span style="color: var(--text-dim); opacity: 0.5;">·</span> '.join(priced_in_footer_parts)
 
     priced_in_card = f"""
-    <div class="storyline-summary-card storyline-priced-in-card" style="background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+    <div class="storyline-summary-card storyline-priced-in-card" style="background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between; min-width: 0;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;">
             <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); font-weight: 600; letter-spacing: 0.02em;">
                 Market Implied
@@ -936,8 +961,13 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                 <div style="font-size: 0.78rem; font-weight: 600; color: var(--accent-warm); white-space: nowrap;">{priced_in_info['hurdle_rate']}</div>
             </div>
         </div>
+
+        <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between; padding: 2px 0; min-height: 20px;">
+            <span>Implied Drivers: <strong style="color: var(--text-secondary); font-weight: 500;">65% Rev · 35% Margin · 0% Multiple</strong></span>
+            <button type="button" class="btn-info-circle" onclick="openMultibaggerModal(event)" title="Empirical Multibagger Return Drivers" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.68rem; padding: 0 4px;">ⓘ</button>
+        </div>
         
-        <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-height: 24px;">
             {priced_in_footer_text}
         </div>
     </div>
