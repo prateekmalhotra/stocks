@@ -21,7 +21,15 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-21 00:29:38 UTC"
+    "updated_at": "2026-08-21 00:37:48 UTC"
+  },
+  "CPRT": {
+    "price": 34.33,
+    "prev_close": 34.33,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-21 00:37:48 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -800,7 +808,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">1</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">2</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -843,6 +851,41 @@
                     </thead>
                     <tbody>
                         
+        <tr class="table-row" data-ticker="CPRT" data-baseline="34.33" onclick="location.href='reports/CPRT.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CPRT" alt="CPRT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CP</span></div>
+                        <span class="tbl-symbol">CPRT</span>
+                    </div>
+                    <span class="tbl-company-hover">Copart, Inc</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-CPRT">$34.33</span>
+                    <span class="tbl-return tbl-ret-CPRT pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span style="color: var(--accent-warm); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans);">Wide Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$47.76</span>
+                    <span class="tbl-upside">+39.1%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-09-03</span>
+                    <span class="tbl-cat-desc">Q4 '26 ER</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" data-ticker="GOOG" data-baseline="338.2" onclick="location.href='reports/GOOG.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -885,6 +928,39 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
+        <div class="grid-card" data-ticker="CPRT" data-baseline="34.33" onclick="location.href='reports/CPRT.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CPRT" alt="CPRT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CP</span></div>
+                    <span class="grid-symbol">CPRT</span>
+                </div>
+                <div class="grid-price grid-price-CPRT">$34.33</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span style="color: var(--accent-warm); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans);">Wide Moat</span>
+            </div>
+            <div class="grid-company">Copart, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-CPRT pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$47.76</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$47.76</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-09-03</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="grid-card" data-ticker="GOOG" data-baseline="338.2" onclick="location.href='reports/GOOG.html'">
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -1088,7 +1164,7 @@
     <!-- Chart & Real-Time Sync Script -->
     <script>
         (function() {
-            const pData = {"dates": ["2026-08-20"], "portfolio": [200000.0], "spy": [200000.0]};
+            const pData = {"dates": ["2026-08-20", "2026-08-21"], "portfolio": [200000.0, 200000.0], "spy": [200000.0, 200000.0]};
             const ctx = document.getElementById('chart-defensive');
             if (ctx) {
                 const dates = pData.dates || ['Day 1'];
@@ -1549,7 +1625,7 @@
     <!-- Chart & Real-Time Sync Script -->
     <script>
         (function() {
-            const pData = {"dates": ["2026-08-20"], "portfolio": [200000.0], "spy": [200000.0]};
+            const pData = {"dates": ["2026-08-20", "2026-08-21"], "portfolio": [200000.0, 200000.0], "spy": [200000.0, 200000.0]};
             const ctx = document.getElementById('chart-aggressive');
             if (ctx) {
                 const dates = pData.dates || ['Day 1'];
