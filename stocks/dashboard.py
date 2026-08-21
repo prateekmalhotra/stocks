@@ -118,9 +118,9 @@ def format_labels_pills(labels: Any) -> str:
     moat_lbl = map_to_canonical_moat_label(raw_str)
     
     if moat_lbl == "Wide Moat":
-        color = "var(--accent-warm)"
-    elif moat_lbl == "Narrow Moat":
         color = "var(--accent-green)"
+    elif moat_lbl == "Narrow Moat":
+        color = "var(--text-secondary)"
     elif moat_lbl == "Weak Moat":
         color = "#D48858"
     else:
@@ -2801,8 +2801,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             letter-spacing: 0.01em;
             white-space: nowrap;
         }}
-        .pill-moat, .pill-moat-wide {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; font-size: 0.82rem; }}
-        .pill-moat-narrow {{ background: transparent; color: var(--accent-green); border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-moat, .pill-moat-wide {{ background: transparent; color: var(--accent-green); border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-moat-narrow {{ background: transparent; color: var(--text-secondary); border: none; font-weight: 500; font-size: 0.82rem; }}
         .pill-moat-weak {{ background: transparent; color: #D48858; border: none; font-weight: 500; font-size: 0.82rem; }}
         .pill-moat-none {{ background: transparent; color: var(--accent-red); border: none; font-weight: 500; font-size: 0.82rem; }}
         .pill-active {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; }}
@@ -3911,8 +3911,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             letter-spacing: 0.01em;
             white-space: nowrap;
         }}
-        .pill-moat, .pill-moat-wide {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; font-size: 0.82rem; }}
-        .pill-moat-narrow {{ background: transparent; color: var(--accent-green); border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-moat, .pill-moat-wide {{ background: transparent; color: var(--accent-green); border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-moat-narrow {{ background: transparent; color: var(--text-secondary); border: none; font-weight: 500; font-size: 0.82rem; }}
         .pill-moat-weak {{ background: transparent; color: #D48858; border: none; font-weight: 500; font-size: 0.82rem; }}
         .pill-moat-none {{ background: transparent; color: var(--accent-red); border: none; font-weight: 500; font-size: 0.82rem; }}
         .pill-conviction, .pill-active {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; }}
