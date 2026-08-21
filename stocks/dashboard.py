@@ -2913,31 +2913,34 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <!-- TAB 4: Ownership & Regulatory Portals -->
         <div id="tab-ownership" class="tab-pane">
             <div class="ownership-wrap">
-                <div class="memo-container" style="padding: 32px 36px;">
-                    <h3 class="memo-title" style="font-size: 1.15rem; margin-bottom: 12px;">Institutional 13F Superinvestors & Whales</h3>
-                    <div style="font-size: 0.90rem; color: var(--text-secondary); margin-bottom: 14px;">
-                        Institutional Ownership: <strong style="color: var(--text-title);">{inst_pct or '75%+'}</strong> &bull; Insider Signal: <strong style="color: var(--accent-warm);">{insider_sig}</strong>
-                    </div>
-                    <div class="whale-chips-row">
-                        {funds_chips_html}
-                    </div>
-                    {f'<div style="margin-top: 14px; font-size: 0.86rem; color: var(--text-dim); line-height: 1.5;">{insider_sum}</div>' if insider_sum else ''}
-                </div>
-
                 <div class="portals-grid">
                     <a href="http://openinsider.com/search?q={ticker_clean}" target="_blank" rel="noopener noreferrer" class="portal-card">
                         <div class="portal-header">
                             <span class="portal-name">OpenInsider SEC Form 4 Tracker</span>
                             <span class="portal-arrow">↗</span>
                         </div>
-                        <div class="portal-desc">Direct statutory database of all insider cluster buys, C-suite sales, and 10b5-1 executive plans filed for {ticker_clean}.</div>
+                        <div class="portal-desc">Direct statutory database of insider cluster buys, C-suite open market sales, and 10b5-1 executive plans for {ticker_clean}.</div>
                     </a>
                     <a href="https://www.dataroma.com/m/stock.php?sym={ticker_clean}" target="_blank" rel="noopener noreferrer" class="portal-card">
                         <div class="portal-header">
                             <span class="portal-name">Dataroma Superinvestor Registry</span>
                             <span class="portal-arrow">↗</span>
                         </div>
-                        <div class="portal-desc">Live 13F whale tracker showing top institutional value funds, Berkshire Hathaway, and superinvestor portfolio weightings for {ticker_clean}.</div>
+                        <div class="portal-desc">Live 13F superinvestor tracking showing top institutional value funds, Berkshire Hathaway, and hedge fund portfolio weightings.</div>
+                    </a>
+                    <a href="https://whalewisdom.com/stock/{ticker_clean.lower()}" target="_blank" rel="noopener noreferrer" class="portal-card">
+                        <div class="portal-header">
+                            <span class="portal-name">WhaleWisdom 13F Ownership</span>
+                            <span class="portal-arrow">↗</span>
+                        </div>
+                        <div class="portal-desc">Comprehensive institutional holders, top 100 hedge fund concentration, and quarterly portfolio positioning changes for {ticker_clean}.</div>
+                    </a>
+                    <a href="https://www.sec.gov/edgar/searchedgar/companysearch?company={ticker_clean}" target="_blank" rel="noopener noreferrer" class="portal-card">
+                        <div class="portal-header">
+                            <span class="portal-name">SEC EDGAR Official Filings</span>
+                            <span class="portal-arrow">↗</span>
+                        </div>
+                        <div class="portal-desc">Direct SEC repository for statutory 10-K/20-F annual reports, quarterly 10-Q disclosures, and 8-K material event filings.</div>
                     </a>
                 </div>
             </div>
