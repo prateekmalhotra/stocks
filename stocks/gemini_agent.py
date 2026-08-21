@@ -1066,13 +1066,29 @@ Your mission is to formulate Section 1 (The Premise) and Section 2 (The Probable
 ZERO-PRICE-ANCHORING DIRECTIVE:
 You are conducting 100% blind fundamental research on the business itself. You do NOT look at or anchor to stock prices, target prices, or market consensus. Your mandate is to analyze historical statutory financials, operational segment dynamics, and realistic unit compounding mechanics.
 
-STRICT RESEARCH, GOVERNANCE & 5-VARIABLE MODELING MANDATES:
+STRICT RESEARCH, GOVERNANCE & BUSINESS INERTIA MANDATES:
 
-1. TEMPORAL & EXECUTIVE GOVERNANCE GROUNDING (YEAR 2026):
+1. THE LAW OF BUSINESS INERTIA & SLOW TREND EVOLUTION (REAL WORLD CHANGES SLOWLY):
+   - Large enterprises possess enormous operational inertia. Top-line revenue and operating margins DO NOT experience violent, discontinuous leaps in normal conditions.
+   - REAL-WORLD TREND BOUNDARY:
+     * Year 1 (Y1) MUST strictly anchor to the trailing 4-quarter run-rate and management guidance floor.
+     * Years 2 through 5 must model SLOW, GRADUAL DRIFT within observable trend boundaries:
+       - Annual Revenue Growth rate shifts by no more than ±100 to 200 bps per year.
+       - Operating Margin shifts by no more than ±50 to 100 bps per year.
+     * NEVER invent sudden +15% revenue accelerations or +500 bps margin leaps. Compounding happens slowly through incremental operational execution and share cannibalization.
+
+2. ELIMINATE THE LAZY 3-STORY DOGMA (DEFAULT TO N = 2 FOR FOCUSED BUSINESSES):
+   - For focused single-brand or single-segment companies (e.g. Lululemon, Crocs, Copart, Chipotle, Nike), there are naturally ONLY 2 REAL COMPETING PATHS:
+     * Path 1: Steady-State Baseline Trend / Cash Cannibal (Slow 1%–3% growth, flat margins, heavy share repurchases).
+     * Path 2: Frictional Headwinds & Competitive Share Loss (Negative comps of -2% to -4%, promotional gross margin squeeze of 100–150 bps).
+   - DO NOT invent an artificial 3rd "fantasy bull moonshot" unless the company has a verified, independent second operating segment (like AWS at Amazon or Cloud at Google)!
+   - For single-segment businesses, DEFAULT STRICTLY TO N = 2 PATHS.
+
+3. TEMPORAL & EXECUTIVE GOVERNANCE GROUNDING (YEAR 2026):
    - Search specifically for latest permanent CEO appointments, C-suite changes, 8-K filings, activist stakes (Elliott Management, Starboard, 13D filings), and founder/board proxy contests.
    - If a new permanent CEO is appointed (e.g. Heidi O'Neill at Lululemon starting Sep 2026), frame the central investment thesis around their specific background, executive mandate, and operational turnaround levers.
 
-2. SECTOR-SPECIFIC MAINTENANCE CAPEX DECOMPOSITION:
+4. SECTOR-SPECIFIC MAINTENANCE CAPEX DECOMPOSITION:
    - Decompose total CapEx in Section 1's Owner Earnings table:
      * GAAP Operating Cash Flow
      * Less: Maintenance CapEx (For retail/store fleets, anchor to D&A / store refresh cycles, ~50%–70% of CapEx; for software, ~25%–40%)
@@ -1080,7 +1096,7 @@ STRICT RESEARCH, GOVERNANCE & 5-VARIABLE MODELING MANDATES:
      * Plus/Minus: Working Capital Normalization
      * Equals: True Normalized Baseline Owner Earnings (OE₀).
 
-3. 5 OBSERVABLE OPERATIONAL VARIABLES PER STORYLINE:
+5. 5 OBSERVABLE OPERATIONAL VARIABLES PER STORYLINE:
    - Every storyline in Section 2 MUST explicitly state its assumptions across 5 observable variables:
      * Variable 1: Primary Segment Comparable Sales / Volume Trajectory (e.g. Americas Comps vs International)
      * Variable 2: Gross Margin Bridge (product mix, promotions, freight, tariffs)
@@ -1088,22 +1104,8 @@ STRICT RESEARCH, GOVERNANCE & 5-VARIABLE MODELING MANDATES:
      * Variable 4: Store Fleet Productivity & New Store Payback
      * Variable 5: Share Repurchases (funded strictly as a residual from free cash flow after maintenance CapEx).
 
-4. MANDATORY "MATURE STEADY-STATE / LOW-GROWTH CASH COW" REALITY:
-   - For mature consumer franchises, decelerating retail brands, and large-caps (e.g. Lululemon, Crocs, Nike, Starbucks), DO NOT invent elaborate turnaround miracles or explosive expansion leaps as the base case!
-   - The central baseline MUST evaluate the obvious, unsexy reality staring investors in the face:
-     * Flat to low-single-digit top-line revenue growth (0% to +3% CAGR) driven by North American comp saturation (-2% to +1%) balanced by modest international mid-single-digit expansion (4%–7%).
-     * Operating margins holding steady at ~19%–22% without heroic multiple or margin expansion.
-     * Pure cash-cow capital return: Deploying $1B+ of annual Owner Earnings into disciplined share repurchases (retiring 2.5%–4.0% of float per year).
-     * Value the business as a steady-state cash generator compounding per-share intrinsic value strictly through buybacks, without needing heroic product miracles.
-
-5. CONSTRAIN UPSIDE PATHS (NO MULTI-VARIABLE FANTASY MOONSHOTS):
-   - The Upside/Leverage Path must isolate 1–2 specific observable outperformance levers (e.g. Americas comps normalize to +2% while Mainland China sustains 15% growth) rather than assuming simultaneous perfection across every single business variable.
-
 6. COMPETITIVE SHARE LOSS VS TEMPORARY PRODUCT FATIGUE:
    - In Section 1 and Section 2, evaluate competitive threats (e.g. Alo Yoga, Vuori, On, Skims) and specify concrete quarterly falsification signposts.
-
-7. NATURAL NUMBER OF DISTINCT STORYLINES (N ∈ [2, 5]):
-   - Determine N naturally from the business structure (2 to 4 paths).
 
 OUTPUT FORMAT:
 Provide pure semantic HTML containing ONLY Section 1 and Section 2:
@@ -1188,6 +1190,9 @@ Search Google, audited 10-K/10-Q filings, recent earnings call transcripts (espe
    - For turnaround or friction cases, ensure Downside Friction carries substantial weight (30%–45%).
 7. MOAT TIER & SECTOR GUARDRAILS:
    - Ensure retail/apparel/footwear brands are classified Narrow Moat or Weak Moat, NEVER Wide Moat.
+8. BUSINESS INERTIA & N=2 AUDIT FOR FOCUSED COMPANIES:
+   - For single-segment or mono-brand companies (e.g. LULU, CROX, CPRT, CMG), reject redundant 3rd fantasy bull cases and enforce N=2 paths (Steady-State Trend vs Competitive Friction).
+   - Reject any storyline where annual revenue growth or margins jump discontinuously beyond the historical trend boundary. The real world changes slowly.
 
 Deliver a crisp, actionable Buy-Side Red-Team Critique Memo with specific factual corrections and guidance for refining Section 1 and Section 2.
 """
