@@ -1760,7 +1760,7 @@ def build_native_svg_chart(
 
 
 def markdown_to_memo_html(text: str) -> str:
-    """Converts markdown paragraphs and lists into clean editorial HTML with 100% theme typography."""
+    """Converts markdown paragraphs and lists into clean editorial HTML with structured math cards."""
     if not text:
         return "<p>—</p>"
     
@@ -1781,13 +1781,28 @@ def markdown_to_memo_html(text: str) -> str:
         is_bullet = bool(lines[0].startswith("- ") or lines[0].startswith("• ") or lines[0].startswith("* "))
         
         if is_numbered:
-            items = []
-            for line in lines:
+            cards = []
+            for idx, line in enumerate(lines, start=1):
                 cleaned_line = re.sub(r"^(?:\d+[\.\)]|step\s+\d+:?|•|-|\*)\s*", "", line, flags=re.IGNORECASE).strip()
-                if cleaned_line:
-                    items.append(f"<li>{cleaned_line}</li>")
-            if items:
-                html_parts.append(f"<ol>{''.join(items)}</ol>")
+                if not cleaned_line:
+                    continue
+                if ":" in cleaned_line:
+                    lbl, val = cleaned_line.split(":", 1)
+                    lbl = lbl.strip()
+                    val = val.strip()
+                else:
+                    lbl = f"Step {idx}"
+                    val = cleaned_line
+                cards.append(f"""
+                <div class="math-step-item">
+                    <div class="math-step-badge">{idx}</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">{lbl}</div>
+                        <div class="math-step-body">{val}</div>
+                    </div>
+                </div>""")
+            if cards:
+                html_parts.append(f'<div class="math-steps-ledger">{"".join(cards)}</div>')
         elif is_bullet:
             items = []
             for line in lines:
@@ -2363,36 +2378,42 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         /* Editorial Sections & Clean Typography */
         .memo-container {{
-            background: var(--bg-panel);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.015) 0%, var(--bg-panel) 100%);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 44px 48px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
         }}
         .memo-section {{
-            margin-bottom: 40px;
+            margin-bottom: 44px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }}
         .memo-section:last-child {{
             margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }}
+        .section-header {{
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 20px;
+        }}
+        .section-index {{
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: 0.06em;
         }}
         .memo-title {{
-            font-family: var(--font-sans);
+            font-family: var(--font-display);
             font-size: 1.32rem;
             font-weight: 700;
             color: var(--text-title);
-            letter-spacing: -0.02em;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }}
-        .memo-title::before {{
-            content: "";
-            display: inline-block;
-            width: 4px;
-            height: 16px;
-            background: var(--accent-warm);
-            border-radius: 2px;
+            letter-spacing: -0.025em;
+            margin: 0;
         }}
         .memo-body {{
             font-size: 0.98rem;
@@ -2406,30 +2427,66 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             margin-bottom: 0;
         }}
         .memo-body strong {{
-            color: #EAE4DA;
+            color: #F0ECE4;
             font-weight: 600;
         }}
-        .memo-body ol, .memo-body ul {{
-            margin: 12px 0 18px 24px;
+
+        /* Valuation Math Steps Ledger */
+        .math-steps-ledger {{
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 14px;
         }}
-        .memo-body li {{
-            margin-bottom: 10px;
-            padding-left: 4px;
+        .math-step-item {{
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: border-color 0.15s ease, background 0.15s ease;
         }}
-        .memo-body ol {{
-            list-style: decimal;
+        .math-step-item:hover {{
+            border-color: rgba(212, 163, 115, 0.25);
+            background: var(--bg-hover);
         }}
-        .memo-body ol li::marker {{
-            color: var(--accent-warm);
+        .math-step-badge {{
             font-family: var(--font-mono);
-            font-size: 0.90em;
+            font-size: 0.78rem;
             font-weight: 600;
-        }}
-        .memo-body ul {{
-            list-style: disc;
-        }}
-        .memo-body ul li::marker {{
             color: var(--accent-warm);
+            background: var(--accent-warm-subtle);
+            border: 1px solid rgba(212, 163, 115, 0.25);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }}
+        .math-step-main {{
+            flex: 1;
+            min-width: 0;
+        }}
+        .math-step-label {{
+            font-family: var(--font-sans);
+            font-size: 0.94rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-bottom: 3px;
+        }}
+        .math-step-body {{
+            font-size: 0.92rem;
+            color: var(--text-body);
+            line-height: 1.65;
+        }}
+        .math-step-body strong {{
+            color: var(--accent-warm-hover);
+            font-weight: 600;
         }}
 
         /* Thesis Evolution Timeline */
@@ -2852,19 +2909,31 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <div id="tab-thesis" class="tab-pane active">
             <main class="memo-container">
                 <section class="memo-section">
-                    <h2 class="memo-title">What the Market is Pricing In</h2>
+                    <div class="section-header">
+                        <span class="section-index">01</span>
+                        <h2 class="memo-title">What the Market is Pricing In</h2>
+                    </div>
                     <div class="memo-body">{p1_html}</div>
                 </section>
                 <section class="memo-section">
-                    <h2 class="memo-title">Why the Market Might Be Right</h2>
+                    <div class="section-header">
+                        <span class="section-index">02</span>
+                        <h2 class="memo-title">Why the Market Might Be Right</h2>
+                    </div>
                     <div class="memo-body">{p2_html}</div>
                 </section>
                 <section class="memo-section">
-                    <h2 class="memo-title">How Things Are Going Now</h2>
+                    <div class="section-header">
+                        <span class="section-index">03</span>
+                        <h2 class="memo-title">How Things Are Going Now</h2>
+                    </div>
                     <div class="memo-body">{p3_html}</div>
                 </section>
                 <section class="memo-section">
-                    <h2 class="memo-title">What If It Keeps Going That Way</h2>
+                    <div class="section-header">
+                        <span class="section-index">04</span>
+                        <h2 class="memo-title">What If It Keeps Going That Way</h2>
+                    </div>
                     <div class="memo-body">{p4_html}</div>
                 </section>
             </main>
