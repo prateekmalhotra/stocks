@@ -1,1 +1,364 @@
-{}
+{
+  "BYD": {
+    "ticker": "BYD",
+    "company_name": "Boyd Gaming Corporation",
+    "baseline_price": 80.95,
+    "current_price": 80.95,
+    "return_pct": 0.0,
+    "status_label": "Narrow Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$96.11",
+    "expected_fair_value": "$96.11",
+    "expected_val": 96.11,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Baseline Steady Regional Compounding & Growth Pipeline Execution (Probability Weight: 50%)",
+        "title": "Path 1: Baseline Steady Regional Compounding & Growth Pipeline Execution (Probability Weight: 50%)",
+        "short_summary": "Boyd Gaming delivers steady 1.5%-2.5% regional comp growth while expanding high-ROIC growth projects including the $750M Norfolk resort and Suncoast renovation, driving OE per share from $8.85 to $14.23.",
+        "summary": "Boyd Gaming delivers steady 1.5%-2.5% regional comp growth while expanding high-ROIC growth projects including the $750M Norfolk resort and Suncoast renovation, driving OE per share from $8.85 to $14.23.",
+        "oe_multiple": "12.15x",
+        "oe_yield": "8.2%",
+        "terminal_multiple": "12.15x",
+        "val": 174.34,
+        "present_fair_value": 110.75,
+        "mos_pct": 36.8,
+        "target_5y_return_pct": 115.4,
+        "target_5y_cagr_pct": 16.6,
+        "target": "$174.34 (+115.4%)",
+        "prob_pct": 50.0,
+        "prob_weight": 0.5,
+        "net_cash_per_share": 1.4,
+        "normalized_oe_per_share": 8.85,
+        "projected_oe5_per_share": 14.23,
+        "projected_5y_cagr": "+10.0%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            4092.0,
+            4438.6,
+            4814.5,
+            5222.3,
+            5664.6,
+            6144.4
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.5,
+            51.0,
+            51.5,
+            52.0,
+            52.5
+          ],
+          "operating_income_mil": [
+            1023.0,
+            1145.2,
+            1280.7,
+            1430.9,
+            1597.4,
+            1781.9
+          ],
+          "operating_margin_pct": [
+            25.0,
+            25.8,
+            26.6,
+            27.4,
+            28.2,
+            29.0
+          ],
+          "normalized_net_income_mil": [
+            699.7,
+            758.1,
+            821.3,
+            889.8,
+            963.3,
+            1043.0
+          ],
+          "owner_earnings_mil": [
+            666.4,
+            722.0,
+            782.2,
+            847.4,
+            917.4,
+            993.3
+          ],
+          "diluted_shares_mil": [
+            75.3,
+            74.2,
+            73.1,
+            72.0,
+            70.9,
+            69.8
+          ],
+          "oe_per_share": [
+            8.85,
+            9.73,
+            10.7,
+            11.77,
+            12.94,
+            14.23
+          ],
+          "roic_pct": [
+            25.0,
+            27.0,
+            29.0,
+            31.0,
+            33.0,
+            35.0
+          ]
+        }
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Downside Friction: Macro Discretionary Fatigue, Destination Softness & Inflation Drag (Probability Weight: 35%)",
+        "title": "Path 2: Downside Friction: Macro Discretionary Fatigue, Destination Softness & Inflation Drag (Probability Weight: 35%)",
+        "short_summary": "Macro headwinds and unrated slot softness compress property margins to 35.5%, while Norfolk resort delays stall top-line expansion through Year 3. Lower cash flow slows annual buybacks to $200M, though modest late-period recovery stabilizes Year 5 Owner Earnings per share at $7.47.",
+        "summary": "Macro headwinds and unrated slot softness compress property margins to 35.5%, while Norfolk resort delays stall top-line expansion through Year 3. Lower cash flow slows annual buybacks to $200M, though modest late-period recovery stabilizes Year 5 Owner Earnings per share at $7.47.",
+        "oe_multiple": "11.10x",
+        "oe_yield": "9.0%",
+        "terminal_multiple": "11.10x",
+        "val": 84.48,
+        "present_fair_value": 53.66,
+        "mos_pct": -33.7,
+        "target_5y_return_pct": 4.4,
+        "target_5y_cagr_pct": 0.9,
+        "target": "$84.48 (+4.4%)",
+        "prob_pct": 35.0,
+        "prob_weight": 0.35,
+        "net_cash_per_share": 1.4,
+        "normalized_oe_per_share": 8.85,
+        "projected_oe5_per_share": 7.47,
+        "projected_5y_cagr": "+1.5%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            4092.0,
+            3976.1,
+            3863.4,
+            3753.9,
+            3647.5,
+            3544.2
+          ],
+          "gross_margin_pct": [
+            50.0,
+            49.8,
+            49.7,
+            49.5,
+            49.3,
+            49.2
+          ],
+          "operating_income_mil": [
+            1023.0,
+            982.1,
+            946.5,
+            908.4,
+            871.8,
+            840.0
+          ],
+          "operating_margin_pct": [
+            25.0,
+            24.7,
+            24.5,
+            24.2,
+            23.9,
+            23.7
+          ],
+          "normalized_net_income_mil": [
+            699.7,
+            676.0,
+            653.8,
+            631.7,
+            611.2,
+            590.6
+          ],
+          "owner_earnings_mil": [
+            666.4,
+            643.8,
+            622.7,
+            601.6,
+            582.1,
+            562.5
+          ],
+          "diluted_shares_mil": [
+            75.3,
+            75.3,
+            75.3,
+            75.3,
+            75.3,
+            75.3
+          ],
+          "oe_per_share": [
+            8.85,
+            8.55,
+            8.27,
+            7.99,
+            7.73,
+            7.47
+          ],
+          "roic_pct": [
+            25.0,
+            24.3,
+            23.7,
+            23.0,
+            22.3,
+            21.7
+          ]
+        }
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Growth Pipeline Outperformance & Digital Re-Acceleration (Probability Weight: 15%)",
+        "title": "Path 3: Growth Pipeline Outperformance & Digital Re-Acceleration (Probability Weight: 15%)",
+        "short_summary": "Boyd Gaming outperforms across its growth pipeline\u2014led by Sky River Phase 2, Suncoast, Cadence Crossing, and Norfolk\u2014while expanding property EBITDAR margins to 41.2% through cashless automation, driving Owner Earnings per share to $17.89 by Year 5.",
+        "summary": "Boyd Gaming outperforms across its growth pipeline\u2014led by Sky River Phase 2, Suncoast, Cadence Crossing, and Norfolk\u2014while expanding property EBITDAR margins to 41.2% through cashless automation, driving Owner Earnings per share to $17.89 by Year 5.",
+        "oe_multiple": "12.80x",
+        "oe_yield": "7.8%",
+        "terminal_multiple": "12.80x",
+        "val": 230.39,
+        "present_fair_value": 146.35,
+        "mos_pct": 80.8,
+        "target_5y_return_pct": 184.6,
+        "target_5y_cagr_pct": 23.3,
+        "target": "$230.39 (+184.6%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": 1.4,
+        "normalized_oe_per_share": 8.85,
+        "projected_oe5_per_share": 17.89,
+        "projected_5y_cagr": "+15.5%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            4092.0,
+            4617.7,
+            5211.0,
+            5880.6,
+            6636.1,
+            7488.7
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.8,
+            51.5,
+            52.3,
+            53.0,
+            53.8
+          ],
+          "operating_income_mil": [
+            1023.0,
+            1209.8,
+            1427.8,
+            1681.9,
+            1977.6,
+            2321.5
+          ],
+          "operating_margin_pct": [
+            25.0,
+            26.2,
+            27.4,
+            28.6,
+            29.8,
+            31.0
+          ],
+          "normalized_net_income_mil": [
+            699.7,
+            787.5,
+            885.6,
+            996.5,
+            1121.0,
+            1260.4
+          ],
+          "owner_earnings_mil": [
+            666.4,
+            750.0,
+            843.4,
+            949.0,
+            1067.6,
+            1200.4
+          ],
+          "diluted_shares_mil": [
+            75.3,
+            73.6,
+            71.9,
+            70.3,
+            68.7,
+            67.1
+          ],
+          "oe_per_share": [
+            8.85,
+            10.19,
+            11.73,
+            13.5,
+            15.54,
+            17.89
+          ],
+          "roic_pct": [
+            25.0,
+            28.0,
+            31.0,
+            34.1,
+            37.1,
+            40.1
+          ]
+        }
+      }
+    ],
+    "story1_target": "$174.34 (+115.4%)",
+    "story2_target": "$84.48 (+4.4%)",
+    "story3_target": "$230.39 (+184.6%)",
+    "story1_title": "Path 1: Baseline Steady Regional Compounding & Growth Pipeline Execution (Probability Weight: 50%)",
+    "story2_title": "Path 2: Downside Friction: Macro Discretionary Fatigue, Destination Softness & Inflation Drag (Probability Weight: 35%)",
+    "story3_title": "Path 3: Growth Pipeline Outperformance & Digital Re-Acceleration (Probability Weight: 15%)",
+    "bear_target": "$84.48",
+    "base_target": "$96.11",
+    "bull_target": "$230.39",
+    "what_is_priced_in": "9.1x",
+    "upper_alert_threshold": 230.39,
+    "lower_alert_threshold": 72.86,
+    "next_catalyst_date": "2026-10-22",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [
+      "John Rogers - Ariel Investments (1.92)"
+    ],
+    "institutional_ownership_pct": "1 Whale",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 36 Form 4 filings.",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/BYD.html"
+  }
+}
