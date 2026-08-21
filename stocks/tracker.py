@@ -180,10 +180,10 @@ def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict
 
 
 def fetch_all_chart_ranges(ticker: str, current_price: float) -> Dict[str, List[Dict[str, Any]]]:
-    """Fetches historical chart datasets for 1D, 1Y, 5Y, 10Y, and MAX ranges concurrently."""
+    """Fetches historical chart datasets for 1D, 1M, 1Y, 5Y, and MAX ranges concurrently."""
     import concurrent.futures
-    ranges = ["1d", "1y", "5y", "10y", "max"]
-    labels = ["1D", "1Y", "5Y", "10Y", "MAX"]
+    ranges = ["1d", "1mo", "1y", "5y", "max"]
+    labels = ["1D", "1M", "1Y", "5Y", "MAX"]
     all_data = {}
 
     def _fetch_range(r_tuple):
@@ -219,7 +219,7 @@ def fetch_all_chart_ranges_cached(ticker: str, current_price: float, max_age_hou
             if (datetime.now() - mtime).total_seconds() < max_age_hours * 3600:
                 with open(cache_file, "r", encoding="utf-8") as f:
                     cached_data = json.load(f)
-                    if isinstance(cached_data, dict) and all(k in cached_data for k in ["1D", "1Y", "5Y", "10Y", "MAX"]):
+                    if isinstance(cached_data, dict) and all(k in cached_data for k in ["1D", "1M", "1Y", "5Y", "MAX"]):
                         return cached_data
         except Exception:
             pass

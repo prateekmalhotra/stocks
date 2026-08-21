@@ -1118,9 +1118,9 @@ def build_native_svg_chart(
             </div>
             <div class="chart-range-pills" style="margin-left: auto; flex-shrink: 0;">
                 <button class="range-pill" onclick="switchChartRange('1D')">1D</button>
+                <button class="range-pill" onclick="switchChartRange('1M')">1M</button>
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
                 <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
-                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
                 <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
             </div>
         </div>
@@ -1219,6 +1219,13 @@ def build_native_svg_chart(
                 let label = pt.date;
                 if (rangeKey === '1D') {{
                     label = pt.time || pt.date;
+                }} else if (rangeKey === '1M') {{
+                    try {{
+                        const d = new Date(pt.date);
+                        if (!isNaN(d.getTime())) {{
+                            label = d.toLocaleDateString('en-US', {{ month: 'short', day: 'numeric' }});
+                        }}
+                    }} catch(e) {{}}
                 }} else if (rangeKey === '1Y') {{
                     try {{
                         const d = new Date(pt.date);
@@ -1226,7 +1233,7 @@ def build_native_svg_chart(
                             label = d.toLocaleDateString('en-US', {{ month: 'short', year: '2-digit' }});
                         }}
                     }} catch(e) {{}}
-                }} else if (rangeKey === '5Y' || rangeKey === '10Y' || rangeKey === 'MAX') {{
+                }} else if (rangeKey === '5Y' || rangeKey === 'MAX') {{
                     try {{
                         const d = new Date(pt.date);
                         if (!isNaN(d.getTime())) {{
@@ -1255,13 +1262,20 @@ def build_native_svg_chart(
             if (!points || points.length < 2) return;
             const prices = points.map(p => p.price);
             const evalPrices = [...prices];
-            for (const t of targets) {{
-                if (t.val !== null && !isNaN(t.val) && t.val > 0) evalPrices.push(t.val);
+            
+            // Only scale Y-axis to 5Y valuation target lines on multi-year timeframes (5Y, MAX)
+            // On short/medium timeframes (1D, 1M, 1Y), scale Y-axis to actual price action so the chart is dynamic and never flattened!
+            const showTargetLines = (currentRangeKey === '5Y' || currentRangeKey === 'MAX');
+            
+            if (showTargetLines) {{
+                for (const t of targets) {{
+                    if (t.val !== null && !isNaN(t.val) && t.val > 0) evalPrices.push(t.val);
+                }}
             }}
 
             const rawMin = Math.min(...evalPrices);
             const rawMax = Math.max(...evalPrices);
-            const padSpan = Math.max((rawMax - rawMin) * 0.05, 0.5);
+            const padSpan = (rawMax === rawMin || rawMax - rawMin < 0.20) ? Math.max(rawMin * 0.008, 0.30) : Math.max((rawMax - rawMin) * 0.08, 0.40);
             const minP = rawMin - padSpan;
             const maxP = rawMax + padSpan;
             const pRange = Math.max(maxP - minP, 0.01);
@@ -1286,13 +1300,11 @@ def build_native_svg_chart(
             linePath.setAttribute('d', lineD);
             areaPath.setAttribute('d', areaD);
 
-            const liveTodayPrice = {current_price};
-
-            // Update Target Reference Dotted Lines for all N storylines
+            // Update Target Reference Dotted Lines
             for (const t of targets) {{
                 const lineEl = document.getElementById('target-s' + t.id + '-line');
                 const labelEl = document.getElementById('target-s' + t.id + '-label');
-                if (t.val !== null && !isNaN(t.val) && lineEl && labelEl) {{
+                if (showTargetLines && t.val !== null && !isNaN(t.val) && lineEl && labelEl) {{
                     const y = getSvgY(t.val);
                     lineEl.setAttribute('y1', y);
                     lineEl.setAttribute('y2', y);
@@ -1304,6 +1316,12 @@ def build_native_svg_chart(
                     lineEl.style.display = 'none';
                     if (labelEl) labelEl.style.display = 'none';
                 }}
+            }}
+
+            // Target legend display: show on 1Y/5Y/MAX, hide on 1D/1M
+            const targetsLegendEl = document.querySelector('.chart-targets-legend');
+            if (targetsLegendEl) {{
+                targetsLegendEl.style.display = (currentRangeKey === '1D' || currentRangeKey === '1M') ? 'none' : 'flex';
             }}
 
             updateXAxisTicks(points, currentRangeKey);
