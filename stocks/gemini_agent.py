@@ -1065,111 +1065,202 @@ Core Principles of Business Valuation & Capital Allocation:
    - All financial numbers MUST strictly be in US DOLLARS ($ USD).
 """
 
-AGENT_1_GENESIS_PREMISE_AND_PATHS_PROMPT = """Target: {ticker} ({company_name})
+AGENT_1_GENESIS_PREMISE_PROMPT = """Target: {ticker} ({company_name})
 User Focus / Research Notes: {notes}
 
 You are the Chief Equity Research Director & Institutional Buy-Side Grounded Researcher.
-Your mission is to formulate Section 1 (The Premise) and Section 2 (The Probable Future Paths) of the living investment thesis for {company_name} from audited SEC statutory filings (10-K, 10-Q, 20-F, 8-K) and the last 4 quarterly earnings call transcripts.
+Your mission is to formulate Section 1 (The Premise of the Company) of the living investment thesis for {company_name} from audited SEC statutory filings (10-K, 10-Q, 20-F, 8-K) and the last 4 quarterly earnings call transcripts.
 
 ZERO-PRICE-ANCHORING DIRECTIVE:
 You are conducting 100% blind fundamental research on the business itself. You do NOT look at or anchor to stock prices, target prices, or market consensus. Your mandate is to analyze historical statutory financials, operational segment dynamics, and realistic unit compounding mechanics.
 
-STRICT RESEARCH, GOVERNANCE & BUSINESS INERTIA MANDATES:
+STRICT RESEARCH, GOVERNANCE & ACCOUNTING MANDATES:
 
-1. THE LAW OF BUSINESS INERTIA & SLOW TREND EVOLUTION (REAL WORLD CHANGES SLOWLY):
-   - Large enterprises possess enormous operational inertia. Top-line revenue and operating margins DO NOT experience violent, discontinuous leaps in normal conditions.
-   - REAL-WORLD TREND BOUNDARY:
-     * Year 1 (Y1) MUST strictly anchor to the trailing 4-quarter run-rate and management guidance floor.
-     * Years 2 through 5 must model SLOW, GRADUAL DRIFT within observable trend boundaries:
-       - Annual Revenue Growth rate shifts by no more than ±100 to 200 bps per year.
-       - Operating Margin shifts by no more than ±50 to 100 bps per year.
-     * NEVER invent sudden +15% revenue accelerations or +500 bps margin leaps. Compounding happens slowly through incremental operational execution and share cannibalization.
+1. COMPREHENSIVE SECTION 1 ANALYSIS:
+   - Core Business Model & Unit Monetization: How the company makes money, customer value proposition, pricing power, and volume drivers.
+   - Audited Segment Breakdown & Operating Margins (FY trailing): Every reporting segment's revenue, share of total, and operating profitability.
+   - Governance, Executive Control & C-Suite Audit: Dual-class voting structures, permanent CEO background/mandate, activist campaigns (Elliott, Starboard, 13D filings), and C-suite stability.
+   - Economic Moat Classification: Wide Moat, Narrow Moat, Weak Moat, or No Moat based on structural barriers (network effects, switching costs, regulatory licensing, scale density).
+   - 4-Quarter Statutory Realities & Financial Audit: Trailing top-line growth, gross margins, operating margin progression, and one-off tax/non-operating charges.
 
-2. DYNAMIC NATURAL NUMBER OF DISTINCT STORYLINES (N ∈ [2, 5]):
-   - Determine the NATURAL number of operational trajectories N (typically 2 to 4 paths) dictated by the company's real business forks, segment divergences, and strategic debates.
-   - DO NOT artificially force exactly 2 paths, and DO NOT artificially force exactly 3 paths!
-     * If a company has a clean binary operational debate (e.g. Core Compounding vs Secular Share Erosion), formulate 2 distinct paths.
-     * If a company has a central baseline trend, a downside friction case, and a realistic operational leverage path, formulate 3 distinct paths.
-     * If a company has distinct multi-segment drivers (e.g. Core Digital + Enterprise Cloud + Autonomous / Hardware, or DTC + Wholesale + International), formulate 3 to 4 distinct paths.
-   - Let the company's actual operational structure determine N (between 2 and 4 paths).
-   - Every single path MUST be realistic, bounded by the Law of Business Inertia (no fantasy moonshots).
+2. SECTOR-SPECIFIC MAINTENANCE CAPEX DECOMPOSITION (Buffett 1986 Standard):
+   - GAAP Operating Cash Flow
+   - Less: Maintenance CapEx (For hyperscalers/tech platforms undergoing infrastructure buildouts, strictly anchor to statutory D&A ~25%–35% of CapEx; for retail/store fleets, anchor to D&A / store remodel cycles ~50%–70% of CapEx; for software, ~20%–35%)
+   - Less: 100% Stock-Based Compensation (SBC) as a real cash charge
+   - Plus/Minus: Working Capital Normalization
+   - Equals: True Normalized Baseline Owner Earnings (OE₀).
 
-3. TEMPORAL & EXECUTIVE GOVERNANCE GROUNDING (YEAR 2026):
-   - Search specifically for latest permanent CEO appointments, C-suite changes, 8-K filings, activist stakes (Elliott Management, Starboard, 13D filings), and founder/board proxy contests.
-   - If a new permanent CEO is appointed (e.g. Heidi O'Neill at Lululemon starting Sep 2026), frame the central investment thesis around their specific background, executive mandate, and operational turnaround levers.
-
-4. SECTOR-SPECIFIC MAINTENANCE CAPEX DECOMPOSITION:
-   - Decompose total CapEx in Section 1's Owner Earnings table:
-     * GAAP Operating Cash Flow
-     * Less: Maintenance CapEx (For hyperscale tech platforms, anchor to statutory D&A, ~25%–35% of CapEx; for retail/store fleets, anchor to D&A / store refresh cycles, ~50%–70% of CapEx; for software, ~20%–35%)
-     * Less: 100% Stock-Based Compensation (SBC)
-     * Plus/Minus: Working Capital Normalization
-     * Equals: True Normalized Baseline Owner Earnings (OE₀).
-
-5. FIRST-PRINCIPLES OPERATIONAL COMPOUNDING & SCENARIO DYNAMICS:
-   - Growth rates across all storylines MUST be dynamically derived from the company's audited historical baseline, trailing 3-year run-rate, segment pipeline, and reinvestment economics (ROIC × Reinvestment Rate):
-     * Year 1 (Y1): Strictly grounded in the company's verified trailing run-rate and management guidance floor.
-     * Path 1 (Central Baseline Trend): Models organic operational continuation of current momentum, incorporating realistic economic drift (gradual convergence or mature deceleration of 50–150 bps/year). Earnings growth = (Revenue Growth ± Operating Margin Drift + Net Buyback Accretion).
-     * Path 2 (Downside Friction & Margin Drag): Models macro stress, competitive pricing pressure, or cost/depreciation inflation. Top-line growth decelerates proportionally (e.g. 30%–50% below trailing run-rate) and operating margins compress. Never model sudden secular collapse (< 0% growth) for an entrenched wide-moat business with stable volume unless facing verified technological obsolescence or structural loss of monopoly power.
-     * Path 3 (Upside Acceleration & Operating Leverage): Models high-margin segment outperformance, pricing power realization, and operating leverage (top-line accelerates 20%–40% above baseline with expanding margins).
-   - Terminal Multiples (M₅) MUST mathematically reflect the business's terminal return on capital (ROIC), moat durability, and long-term reinvestment runway.
-
-6. 5 OBSERVABLE OPERATIONAL VARIABLES PER STORYLINE:
-   - Every storyline in Section 2 MUST explicitly state its assumptions across 5 observable variables:
-     * Variable 1: Primary Segment Comparable Sales / Volume Trajectory (e.g. Americas Comps vs International)
-     * Variable 2: Gross Margin Bridge (product mix, promotions, freight, tariffs)
-     * Variable 3: Geographic / Business Unit Segment Breakdown
-     * Variable 4: Store Fleet Productivity & New Store Payback
-     * Variable 5: Share Repurchases (funded strictly as a residual from free cash flow after maintenance CapEx).
-
-7. COMPETITIVE SHARE LOSS VS TEMPORARY PRODUCT FATIGUE:
-   - In Section 1 and Section 2, evaluate competitive threats (e.g. Alo Yoga, Vuori, On, Skims) and specify concrete quarterly falsification signposts.
-
-8. FINTECH, DIGITAL PAYMENTS & TAKE-RATE COMPRESSION MANDATE:
-   - For digital payment platforms and fintech processors (e.g. PayPal, Block, Adyen):
-     * Explicitly model take-rate and transaction margin trajectories:
-       - Unbranded payment processing (Braintree) margin compression vs branded checkout buttons (PayPal / Venmo).
-       - Competitive pricing and margin pressure from Adyen, Stripe, Apple Pay, Google Pay, and Shop Pay.
-     * Never assume take-rates stabilize without analyzing competitive checkout button displacement.
-
-9. FOREIGN PRIVATE ISSUER & ADR PER-SHARE STANDARDIZATION MANDATE:
-   - For foreign companies trading via American Depositary Shares (e.g. JD, BABA, PDD, TSM, ASML, SE, BIDU):
-     * Explicitly identify the ADS-to-Ordinary-Share ratio (e.g. 1 ADS = 2 Class A Ordinary Shares for JD).
-     * Standardize all per-share valuation figures (Owner Earnings per share, Net Surplus Cash per share, and Price Targets) to PER ADS ($ USD) matching the US ticker quote.
-     * In the Balance Sheet table, explicitly show columns for Total ($M), Per Ordinary Share ($), and Per ADS ($ USD).
+3. BALANCE SHEET NET SURPLUS CASH / NET DEBT BRIDGE:
+   - Total Liquid Cash & Marketable Securities
+   - Less: Short-Term Debt & Current Lease Liabilities
+   - Less: Long-Term Debt
+   - Equals: Net Surplus Cash (+) or Net Debt (-) in $M and Per Diluted Share ($/share).
 
 OUTPUT FORMAT:
-Provide pure semantic HTML containing ONLY Section 1 and Section 2:
+Provide pure semantic HTML for Section 1 starting with <h2>Section 1: The Premise of the Company</h2>, followed by a structured JSON baseline block at the very end enclosed in ```json ```:
 
 <h2>Section 1: The Premise of the Company</h2>
-<p>[Comprehensive fundamental analysis of business model, unit monetization, moat, executive leadership, activist/governance reality, gross margin durability, and 4-quarter earnings reality...]</p>
-[3-Year Historical Baseline Table, Segment Breakdown Table summing to 100%, Owner Earnings Derivation Table with CapEx Decomposition, Balance Sheet Net Debt / Surplus Cash Bridge, Fundamental Compounding Velocity Audit, Pricing Power & Predictability Audits]
+<p>[Comprehensive fundamental analysis...]</p>
+[3-Year Historical Baseline Table, Segment Breakdown Table summing to 100%, Owner Earnings Derivation Table with CapEx Decomposition, Balance Sheet Net Debt / Surplus Cash Bridge, Fundamental Compounding Velocity Audit, Pricing Power & Moat Audits]
+
+```json
+{{
+  "financial_baseline": {{
+    "currency": "USD",
+    "trailing_period": "FY2025",
+    "revenue_mil_y0": 200966.0,
+    "revenue_growth_yoy_pct": 22.2,
+    "gross_margin_pct_y0": 82.0,
+    "operating_income_mil_y0": 83276.0,
+    "operating_margin_pct_y0": 41.4,
+    "operating_cash_flow_mil_y0": 115800.0,
+    "statutory_maintenance_capex_mil_y0": 20900.0,
+    "sbc_mil_y0": 20400.0,
+    "owner_earnings_total_mil_y0": 75300.0,
+    "diluted_shares_mil_y0": 2492.0,
+    "owner_earnings_per_share_y0": 30.22,
+    "liquid_cash_and_investments_mil_y0": 81600.0,
+    "total_funded_debt_mil_y0": 58700.0,
+    "net_cash_total_mil_y0": 22900.0,
+    "net_cash_per_share_y0": 9.19,
+    "economic_moat": "Wide Moat",
+    "roic_pct": 28.5
+  }}
+}}
+```
+"""
+
+
+PARALLEL_STORY_AND_VALUATION_PROMPT = """Target: {ticker} ({company_name})
+Story Archetype: Path {story_num} - {story_archetype}
+
+You are the Lead Equity Research Analyst & Valuation Modeler underwriting Path {story_num} for {company_name}.
+You must formulate this specific operational scenario narrative AND construct its 5-year pro-forma DCF model in complete isolation, 100% blind to market stock price.
+
+AUDITED COMPANY BASELINE (From Section 1 Ground Truth):
+======================================================================
+- Primary Economic Moat: {economic_moat}
+- Trailing Revenue (Y0): ${revenue_mil_y0:.1f}M (YoY Growth: {revenue_growth_yoy:+.1f}%)
+- Trailing Gross Margin (Y0): {gross_margin_pct_y0:.1f}%
+- Trailing Operating Income (Y0): ${operating_income_mil_y0:.1f}M ({operating_margin_pct_y0:.1f}% margin)
+- Trailing Owner Earnings (OE₀): ${owner_earnings_total_mil_y0:.1f}M on {diluted_shares_mil_y0:.1f}M shares -> ${owner_earnings_per_share_y0:.2f} / share
+- Net Balance Sheet Cash / (Debt): ${net_cash_total_mil_y0:+.1f}M -> {net_cash_per_share_y0:+.2f} USD/share
+- Trailing Normalized ROIC: {roic_pct:.1f}%
+======================================================================
+
+SECTION 1 CONTEXT EXCERPT:
+{sec1_excerpt}
+
+YOUR OPERATIONAL MANDATE FOR PATH {story_num} ({story_archetype}):
+1. THE LAW OF BUSINESS INERTIA (PHYSICAL BUSINESS REALITY):
+   - This story MUST start strictly from the exact Y0 audited baseline above (${revenue_mil_y0:.1f}M revenue, {operating_margin_pct_y0:.1f}% operating margin, {diluted_shares_mil_y0:.1f}M shares, ${owner_earnings_per_share_y0:.2f}/sh OE₀).
+   - Year 1 anchors to trailing run-rate and guidance floor.
+   - Years 2–5 model gradual, realistic operational drift:
+     * If Path 1 (Central Trend): Organic continuation of trailing momentum with mature drift (50–150 bps/yr).
+     * If Path 2 (Downside Friction): Realistic macro stress, competitive pricing pressure, and cost/depreciation inflation (e.g. 30%–50% growth deceleration, 200–500 bps margin compression). Never model sudden negative collapse (< 0% growth) for an entrenched wide-moat monopoly!
+     * If Path 3 (Upside Leverage): Segment outperformance, pricing power realization, and operating leverage (20%–40% growth acceleration, 100–300 bps margin expansion).
+
+2. MANDATORY PYTHON CODE EXECUTION (YEARS 1 TO 5):
+   - You MUST execute Python code using your code execution tool to simulate all 6 periods (Y0 through Y5):
+     * Line 1: Revenue ($M) = Revenue_{{t-1}} * (1 + g_t)
+     * Line 2: Gross Profit ($M) & Gross Margin %
+     * Line 3: Operating Income (EBIT $M) & Operating Margin %
+     * Line 4: Normalized Net Income ($M)
+     * Line 5: True Owner Earnings ($M) = OCF - Maintenance CapEx - SBC
+     * Line 6: Diluted Common Shares (M) reflecting net buyback retirement pace
+     * Line 7: Per-Share Owner Earnings ($/share) = Owner Earnings_t / Shares_t
+     * Line 8: Year-5 ROIC (%) and Justified Terminal Multiple (M₅ = P/OE₅)
+     * Line 9: 5-Year Target Price / Share (P₅) = (OE₅ * M₅) + Net Cash (or - Net Debt)
+     * Line 10: Present Intrinsic Fair Value (P₀ at 9.5% Hurdle) = P₅ / (1.095)^5
+
+OUTPUT FORMAT:
+Output:
+1. Semantic HTML callout box for Path {story_num}:
+<div class="callout">
+  <h3>Path {story_num}: [Bespoke Operational Title]</h3>
+  <p>[1-2 sentence executive summary...]</p>
+  <p>[Full narrative detailing operational mechanism...]</p>
+  <p><strong>5-Variable Operational Unit Bridge:</strong> [Volume/comps, gross margin bridge, segment mix, unit productivity, share buyback residual...]</p>
+  <p><strong>Cost Structure, CapEx &amp; Owner Earnings:</strong> [Margin dynamics and Year-5 Owner Earnings in $ USD...]</p>
+  <p><strong>Adversarial Red-Team Stress-Test:</strong> [What specific assumptions could fail...]</p>
+  <p><strong>Quarterly Milestones:</strong> [Observable KPI signposts in quarterly filings...]</p>
+</div>
+
+2. Followed by a structured JSON block at the very end enclosed in ```json ```:
+```json
+{{
+  "story_num": {story_num},
+  "story_title": "<Bespoke Title>",
+  "short_summary": "<1-2 sentence summary>",
+  "projected_5y_cagr": "+XX.X%",
+  "projected_oe5_per_share": XX.XX,
+  "oe_multiple": "XX.Xx",
+  "oe_yield": "X.X%",
+  "net_cash_per_share": {net_cash_per_share_y0},
+  "target_price_5y": XX.XX,
+  "present_fair_value": XX.XX,
+  "valuation_rationale": "<2-3 sentence rationale>",
+  "pro_forma_schedule": {{
+    "years": ["Trailing (Y0)", "Year 1", "Year 2", "Year 3", "Year 4", "Year 5"],
+    "revenue_mil": [XX, XX, XX, XX, XX, XX],
+    "gross_margin_pct": [XX, XX, XX, XX, XX, XX],
+    "operating_income_mil": [XX, XX, XX, XX, XX, XX],
+    "operating_margin_pct": [XX, XX, XX, XX, XX, XX],
+    "normalized_net_income_mil": [XX, XX, XX, XX, XX, XX],
+    "owner_earnings_mil": [XX, XX, XX, XX, XX, XX],
+    "diluted_shares_mil": [XX, XX, XX, XX, XX, XX],
+    "oe_per_share": [XX, XX, XX, XX, XX, XX],
+    "roic_pct": [XX, XX, XX, XX, XX, XX]
+  }}
+}}
+```
+"""
+
+
+VALUATION_FEEDBACK_AND_SYNTHESIS_PROMPT = """Target: {ticker} ({company_name})
+Benchmark Reference Price: ${current_price:.2f}
+
+You are the Chief Risk Officer & Buy-Side Senior Audit Partner.
+You are given the Section 1 Premise, the Audited Financial Baseline, and the {num_stories} independently underwritten storylines (Narrative HTML + Pro-Forma JSON schedules) for {company_name}.
+
+AUDITED FINANCIAL BASELINE:
+======================================================================
+{financial_baseline_json}
+======================================================================
+
+INDEPENDENT {num_stories}-STORYLINE UNDERWRITING DATA:
+======================================================================
+{stories_json_text}
+======================================================================
+
+YOUR CRITICAL SYNTHESIS MANDATE:
+1. RUTHLESS SANITY CHECK ON ASSUMPTIONS (RESPECT TREND REALISM, REJECT EXTREMES):
+   - Check if growth rates and terminal multiples respect the company's actual trailing momentum, competitive positioning, and economic moat.
+   - Ensure all paths represent realistic, grounded deviations around the central trend rather than unearned moonshots or fictitious collapses.
+   - Enforce sector terminal multiple caps (e.g. <=15x for apparel/retail, <=24x for tech).
+2. EMPIRICAL PROBABILITY DISTRIBUTION ACROSS ALL N STORIES:
+   - Assign probability weights (p₁, ..., pN summing STRICTLY to 1.0 / 100%):
+     * For companies facing active friction or brand turnaround risks, ensure Downside Friction paths carry substantial weight (e.g. 30%–45%).
+     * GOVERNANCE & CEO WHIPLASH PENALTY: If a company has experienced >= 2 CEO changes in the past 3 years or ongoing C-suite instability, unproven turnaround execution paths CANNOT be assigned >40%–45% probability. Downside friction & competitive erosion MUST carry >= 55%–60% of the probability mass until multi-quarter execution is proven.
+     * INSIDER FLOW SKEPTICISM: If Form 4 filings detail persistent net insider selling (> $10M net sales with zero open-market purchases), factor this executive skepticism directly into the capital allocation commentary and demand a higher Margin of Safety hurdle (>= 25%) before recommending BUY.
+     * For secular monopolies with deep moats and stable management, Core Execution carries 50%–65%.
+3. MANDATORY PYTHON CODE EXECUTION FOR VERIFICATION & REVERSE DCF:
+   - You MUST write and execute Python code using your code execution tool to compute all final synthesis numbers:
+     * BALANCE SHEET ADJUSTMENT MANDATE: You MUST include the exact Net Balance Sheet Cash / (Debt) per share ({net_cash_str}) in the 'Net Balance Sheet Cash / (Debt) per share Adjustment' row for every path. 5-Year Target Price / Share MUST mathematically equal: (OE₅ * Multiple) + Net_Cash_per_share (or - Net_Debt_per_share).
+     * Probability-Weighted Expected 5Y Target (P₅_expected) = ∑ (p_i * P₅_i)
+     * Probability-Weighted Present Fair Value (P₀_expected) = ∑ (p_i * P₀_i)
+     * Probability-Weighted Expected Margin of Safety % = ((P₀_expected - ${current_price:.2f}) / ${current_price:.2f}) * 100%
+     * Probability-Weighted Expected 5Y Price CAGR % = ((P₅_expected / ${current_price:.2f})**(0.2) - 1) * 100%
+     * Reverse DCF: Exact implied 5Y Owner Earnings CAGR priced in at ${current_price:.2f} under market multiple (M₀ = ${current_price:.2f} / ${oe0_per_share:.2f}) and baseline multiple (M_base).
+4. CAPITAL ALLOCATION RECOMMENDATION:
+   - BUY (if Expected MoS >= +20%, or >= +25% if heavy insider selling/CEO churn is present), HOLD (if MoS 0% to +20%), CAUTION (if MoS -15% to 0%), AVOID (if MoS < -15%).
+
+OUTPUT FORMAT:
+Provide pure semantic HTML containing Section 2 (the combined storyline callouts + Quarterly Monitoring Signposts) and Section 3 (with the complete {num_stories}-Path Valuation Table, Probability Weighting Rationale, Sensitivity Matrix, and Market Inversion & Valuation Synthesis), followed by the complete structured JSON block:
 
 <h2>Section 2: The Probable Future Paths</h2>
 <p>Based on the company's audited statutory filings, segment dynamics, 4-quarter earnings call commentary, and institutional counter-theses, here are the distinct, realistic operational paths covering 90%–95% of the fundamental probability space over the next 3–5 years:</p>
-
-<!-- Repeat callout box for each of the N natural paths (Path 1 through Path N) with bespoke operational titles -->
-<!-- IMPORTANT: DO NOT hardcode probability percentages in Section 2 titles or narrative text (the Chief Risk Officer sets and audits unified probability weights in Section 3) -->
-<div class="callout">
-  <h3>Path 1: [Bespoke Operational Title - Central Trend Execution]</h3>
-  <p>[1-2 sentence executive summary of this path's operational mechanism...]</p>
-  <p>[Full narrative explanation of this operating trajectory...]</p>
-  <p><strong>5-Variable Operational Unit Bridge:</strong> [Explicit Americas comps %, International growth %, Gross margin %, Store productivity, and residual share buyback assumptions in $ USD...]</p>
-  <p><strong>Cost Structure, CapEx &amp; Owner Earnings:</strong> [Margin dynamics, CapEx, and resulting Owner Earnings in $ USD...]</p>
-  <p><strong>Adversarial Red-Team Stress-Test:</strong> [What specific assumptions could fail and what quantitative metric falsifies this path...]</p>
-  <p><strong>Quarterly Milestones:</strong> [Observable KPI signposts in quarterly filings...]</p>
-</div>
-
-<!-- Add Path 2, Path 3, ..., Path N as naturally determined by the business structure -->
-<div class="callout">
-  <h3>Path 2: [Bespoke Operational Title - Downside Friction &amp; Headwinds]</h3>
-  <p>[1-2 sentence executive summary of this downside operational mechanism...]</p>
-  <p>[Full narrative explanation of this downside operating trajectory...]</p>
-  <p><strong>Operational Unit Drivers &amp; Revenue:</strong> [Explicit unit volume * pricing calculations in $ USD...]</p>
-  <p><strong>Cost Structure, CapEx &amp; Owner Earnings:</strong> [Margin compression dynamics, CapEx, and resulting Owner Earnings in $ USD...]</p>
-  <p><strong>Adversarial Red-Team Stress-Test:</strong> [What would cause performance to stabilize or recover...]</p>
-  <p><strong>Quarterly Milestones:</strong> [Observable KPI signposts in quarterly filings...]</p>
-</div>
+[Assembled callout boxes for Path 1 through Path N]
 
 <div class="callout">
   <h3>Quarterly Monitoring Signposts (Next 12–18 Months)</h3>
@@ -1188,198 +1279,6 @@ Provide pure semantic HTML containing ONLY Section 1 and Section 2:
     </tbody>
   </table>
 </div>
-"""
-
-
-AGENT_RED_TEAM_FEEDBACK_PROMPT = """Target: {ticker} ({company_name})
-
-You are the Senior Buy-Side Red-Team Auditor & Short-Thesis Forensic Specialist.
-Your task is to ruthlessly critique the draft Premise (Section 1) and Forward-Looking Storylines & Operational Assumptions (Section 2) for {company_name}.
-
-ZERO-PRICE-ANCHORING DIRECTIVE:
-You are auditing fundamental operational assumptions, unit metrics, and audited statutory filing reality completely blind to market stock price. Do NOT suggest revisions to anchor to current price or market consensus.
-
-DRAFT SECTION 1 & SECTION 2:
-======================================================================
-{sec1_and_sec2_draft}
-======================================================================
-
-Search Google, audited 10-K/10-Q filings, recent earnings call transcripts (especially analyst Q&A friction), short-seller reports, and industry critiques to audit:
-1. DISTINCT OPERATIONAL MECHANISMS & NATURAL NUMBER OF PATHS (N ∈ [2, 5]):
-   - Ensure the N storylines are truly distinct, non-overlapping operational mechanisms, NOT generic "Bull/Bear/Base" labels or superficial numerical variations.
-   - Verify that the number of paths N naturally matches the company's business model (e.g. 2 paths for simple single-product businesses, 3-4 paths for multi-segment compounders).
-2. TREND REALISM & SENSIBLE DEVIATIONS (REJECT EXTREME MOONSHOTS / DOOMSDAY CLIFFS):
-   - Reject ungrounded extreme projections (e.g. arbitrary 3x revenue explosions or unrealistic catastrophic bankruptcies).
-   - Ensure scenarios model realistic operational deviations around the trailing business trend (e.g. 150-350 bps comp deceleration, 50-200 bps gross margin shift, modest operating leverage).
-3. SKEPTICAL EARNINGS CALL & SHORT-THESIS AUDIT:
-   - Audit customer churn, negative comps, wholesale destocking, tariff exposure, brand fatigue, and unabsorbed fixed SG&A.
-   - Ensure Downside Friction incorporates real-world headwinds from quarterly transcripts and sell-side critiques.
-4. BALANCE SHEET PER-SHARE AUDIT:
-   - Verify that Net Surplus Cash / Net Debt is strictly PER SHARE (e.g. +$4.68/sh) and correctly divided by diluted shares.
-5. UNIT OPERATIONAL DRIVERS & MARGINS:
-   - Verify that every growth rate is derived from concrete bottom-up unit metrics (volume, ASP, gross margin, fixed cost leverage, CapEx).
-6. EMPIRICAL PROBABILITY WEIGHTING AUDIT:
-   - For turnaround or friction cases, ensure Downside Friction carries substantial weight (30%–45%).
-7. MOAT TIER & SECTOR GUARDRAILS:
-   - Ensure retail/apparel/footwear brands are classified Narrow Moat or Weak Moat, NEVER Wide Moat.
-8. BUSINESS INERTIA & NATURAL NUMBER OF PATHS (N ∈ [2, 5]):
-   - Verify that N naturally reflects the company's real business forks (2 to 4 paths). DO NOT dogmatically force N=2 or N=3.
-   - Reject ungrounded fantasy moonshots or discontinuous leaps where annual revenue growth or margins violate the historical trend boundary. Compounding happens slowly.
-
-Deliver a crisp, actionable Buy-Side Red-Team Critique Memo with specific factual corrections and guidance for refining Section 1 and Section 2.
-"""
-
-AGENT_STORYLINE_REFINEMENT_PROMPT = """Target: {ticker} ({company_name})
-
-You are the Lead Equity Research Director & Institutional Buy-Side Grounded Researcher.
-You are given the Draft Section 1 & Section 2 and the Independent Red-Team Critique Memo for {company_name}.
-
-ZERO-PRICE-ANCHORING DIRECTIVE:
-Refine the operational premise and future paths based strictly on audited fundamentals and operational unit drivers, 100% blind to market stock price.
-
-DRAFT SECTION 1 & SECTION 2:
-======================================================================
-{sec1_and_sec2_draft}
-======================================================================
-
-RED-TEAM CRITIQUE MEMO:
-======================================================================
-{critique_memo}
-======================================================================
-
-YOUR TASK:
-Incorporate the red-team critique directives and produce the final, polished, and reality-grounded Section 1 (The Premise) and Section 2 (The Probable Future Paths).
-
-CRITICAL REQUIREMENTS:
-1. Enforce Business Inertia & Natural N: Ensure top-line growth and operating margins model slow, gradual drift (Year 1 anchored to trailing 4-quarters; annual growth rate shift bounded within ±100 to 200 bps). Let N naturally reflect the business structure (typically 2 to 4 distinct paths).
-2. Ensure the N storylines are truly distinct, bespoke, and grounded in concrete operational unit metrics (Americas comps, gross margin bridge, segment breakdown, store productivity, buyback residual).
-3. Ensure Downside Friction realistically integrates earnings transcript pushbacks and competitive threats (e.g. Alo Yoga, Vuori).
-4. Ensure probability weights (p₁, ..., pN summing to 100%) reflect empirical filing realities.
-5. Output pure semantic HTML containing ONLY Section 1 and Section 2 starting with <h2>Section 1: The Premise of the Company</h2>.
-"""
-
-
-STORY_VALUATION_PROMPT = """Target: {ticker} ({company_name})
-Story Number: Path {story_num} - {story_title}
-
-You are the Lead Quantitative Valuation Analyst underwriting Path {story_num} for {company_name}.
-You must evaluate this specific operational trajectory in complete isolation, 100% blind to market stock prices, consensus targets, or trading noise.
-
-ZERO-PRICE-ANCHORING DIRECTIVE:
-You are calculating the pure intrinsic fair value and 5-year target price of the business based strictly on fundamental owner earnings compounding and economic capitalization multiples. You do NOT know, care about, or anchor to the stock's market price.
-
-COMPANY BASELINE CONTEXT (From Section 1):
-======================================================================
-- Primary Economic Moat: {moat_tier}
-- Clean Normalized Baseline Owner Earnings (OE₀): ${oe0_per_share:.2f} / share
-- Net Balance Sheet Cash (+) or Debt (-) per share: {net_cash_str}
-- 3-Year Historical ROIC: {roic_str}
-======================================================================
-
-STORY OPERATIONAL NARRATIVE & UNIT DRIVERS (Path {story_num}):
-======================================================================
-{story_text}
-======================================================================
-
-STRICT VALUATION & LINE-BY-LINE BUFFETT MODELING RULES:
-1. SEARCH STATUTORY FILINGS & RESPECT THE TREND (REALISTIC BOUNDS):
-   - Use your search tool if needed to confirm historical 10-K / 10-Q line items (segment revenues, gross margin, SG&A, SBC, maintenance CapEx, and share count).
-   - RESPECT THE TREND:
-     * Ground compounding in the observable business trend, guidance corridors, and realistic capacity limits.
-     * Downside paths model realistic operational friction (e.g. -2% to -6% comp drag, 100-200 bps margin compression), NOT an artificial total collapse.
-     * Upside paths model realistic execution outperformance (e.g. +2% to +5% above trend, 100-150 bps operating leverage), NOT an impossible moonshot.
-2. MANDATORY BOTTOM-UP PYTHON CODE EXECUTION (YEARS 1 TO 5):
-   - You MUST write and execute Python code using your code execution tool to simulate every row from bottom-up operational unit drivers:
-     * Year 0 (Trailing Baseline), Year 1, Year 2, Year 3, Year 4, Year 5.
-     * Line 1: Explicit Unit Drivers to Segment Revenue: Define comps %, store count rollout, unit volume, and ASP to derive Segment Revenues -> Consolidated Revenue ($M).
-     * Line 2: COGS & Gross Margin % (accounting for tariffs, freight, and product mix) -> Gross Profit ($M).
-     * Line 3: SG&A & Operating Expenses (modeling fixed overhead absorption/deleverage) -> Operating Income (EBIT) & Operating Margin %.
-     * Line 4: Effective Taxes (20%-22%) & Net Interest -> Normalized Net Income ($M).
-     * Line 5: Warren Buffett True Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation. (For retail store fleets, restaurants, and apparel, Maintenance CapEx MUST cover periodic store remodels and IT upkeep, empirically anchored to D&A at ~50%–70% of total CapEx; for pure software/platforms, ~25%–40% of CapEx).
-     * Line 6: Capital Allocation & Share Cannibalization: Retained Owner Earnings deployed into share buybacks at projected fair value -> Diluted Shares Outstanding (Mil) from Y0 to Y5.
-     * Line 7: Per-Share Owner Earnings = Total Owner Earnings_t / Diluted Shares_t ($ USD/share).
-     * Line 8: Invested Capital & Year-5 ROIC = NOPAT_5 / Invested Capital_5 (%).
-3. DERIVE JUSTIFIED EXIT MULTIPLE (M₅ = P/OE₅):
-   - Terminal capitalization multiple MUST be mathematically justified by Year-5 ROIC and terminal growth rate g: M₅ = (1 - g/ROIC_5) / (r - g) with r = 9.5% equity hurdle rate, bounded by sector multiple caps (12.0x - 15.0x for consumer retail/footwear; 18.0x - 22.0x for tech/platforms).
-4. 5-YEAR TARGET PRICE & PRESENT FAIR VALUE:
-   - 5-Year Target Price / Share (P₅) = (M₅ * OE₅_per_share) + Net Surplus Cash per share (or - Net Debt per share).
-   - Present Intrinsic Fair Value (P₀ at 9.5% Hurdle) = P₅ / (1.095)^5.
-
-OUTPUT FORMAT:
-Provide ONLY a valid JSON object matching this exact schema (replace placeholder numbers with your actual simulated row values across all 6 time periods Y0 through Y5):
-```json
-{{
-  "story_num": {story_num},
-  "story_title": "{story_title}",
-  "short_summary": "<1-2 sentence crisp operational summary>",
-  "projected_5y_cagr": "+XX.X%",
-  "projected_oe5_per_share": XX.XX,
-  "oe_multiple": "XX.Xx",
-  "oe_yield": "X.X%",
-  "net_cash_per_share": {net_cash_num},
-  "target_price_5y": XX.XX,
-  "present_fair_value": XX.XX,
-  "valuation_rationale": "<2-3 sentence economic rationale for the chosen growth rate, ROIC, and terminal multiple>",
-  "pro_forma_schedule": {{
-    "years": ["Trailing (Y0)", "Year 1", "Year 2", "Year 3", "Year 4", "Year 5"],
-    "revenue_mil": [4100.0, 4320.0, 4560.0, 4820.0, 5100.0, 5400.0],
-    "gross_margin_pct": [58.8, 59.0, 59.2, 59.3, 59.5, 59.5],
-    "operating_income_mil": [1050.0, 1123.0, 1200.0, 1282.0, 1372.0, 1470.0],
-    "operating_margin_pct": [25.6, 26.0, 26.3, 26.6, 26.9, 27.2],
-    "normalized_net_income_mil": [780.0, 842.0, 905.0, 973.0, 1048.0, 1128.0],
-    "owner_earnings_mil": [750.0, 810.0, 875.0, 945.0, 1020.0, 1100.0],
-    "diluted_shares_mil": [60.5, 59.0, 57.5, 56.0, 54.8, 54.0],
-    "oe_per_share": [12.40, 13.73, 15.22, 16.88, 18.61, 20.37],
-    "roic_pct": [22.5, 22.8, 23.0, 23.2, 23.4, 23.5]
-  }}
-}}
-```
-"""
-
-
-VALUATION_FEEDBACK_AND_SYNTHESIS_PROMPT = """Target: {ticker} ({company_name})
-Benchmark Reference Price: ${current_price:.2f}
-
-You are the Chief Risk Officer & Buy-Side Senior Audit Partner.
-You are conducting an independent sanity check on the {num_stories} independent valuation models underwritten for {company_name}.
-
-COMPANY FINANCIAL BASELINE (From Section 1):
-======================================================================
-- Primary Economic Moat: {moat_tier}
-- Clean Baseline Owner Earnings (OE₀): ${oe0_per_share:.2f} / share
-- Net Balance Sheet Cash (+) or Debt (-) per share: {net_cash_str}
-- 3-Year Historical Growth & ROIC Profile: {historical_summary}
-======================================================================
-
-INDEPENDENT {num_stories}-STORY VALUATION MODELS:
-======================================================================
-{stories_json_text}
-======================================================================
-
-YOUR CRITICAL AUDIT MANDATE:
-1. RUTHLESS SANITY CHECK ON ASSUMPTIONS (RESPECT TREND REALISM, REJECT EXTREMES):
-   - Check if growth rates and terminal multiples respect the company's actual trailing momentum, competitive positioning, and economic moat.
-   - Ensure all paths represent realistic, grounded deviations around the central trend rather than unearned moonshots or fictitious collapses.
-   - Enforce sector terminal multiple caps (e.g. <=15x for apparel/retail, <=24x for tech).
-2. EMPIRICAL PROBABILITY DISTRIBUTION ACROSS ALL N STORIES:
-   - Assign probability weights (p₁, ..., pN summing STRICTLY to 1.0 / 100%):
-     * For companies facing active friction or brand turnaround risks, ensure Downside Friction paths carry substantial weight (e.g. 30%–45%).
-     * GOVERNANCE & CEO WHIPLASH PENALTY: If a company has experienced >= 2 CEO changes in the past 3 years or ongoing C-suite instability (e.g. PayPal, Starbucks), unproven turnaround execution paths CANNOT be assigned >40%–45% probability. Downside friction & competitive erosion MUST carry >= 55%–60% of the probability mass until multi-quarter execution is proven.
-     * INSIDER FLOW SKEPTICISM: If Form 4 filings detail persistent net insider selling (> $10M net sales with zero open-market purchases), factor this executive skepticism directly into the capital allocation commentary and demand a higher Margin of Safety hurdle (>= 25%) before recommending BUY.
-     * For secular monopolies with deep moats and stable management, Core Execution carries 50%–65%.
-3. MANDATORY PYTHON CODE EXECUTION FOR VERIFICATION & REVERSE DCF:
-   - You MUST write and execute Python code using your code execution tool to compute all final synthesis numbers:
-     * BALANCE SHEET ADJUSTMENT MANDATE: You MUST include the exact Net Balance Sheet Cash / (Debt) per share ({net_cash_str}) in the 'Net Balance Sheet Cash / (Debt) per share Adjustment' row for every path. 5-Year Target Price / Share MUST mathematically equal: (OE₅ * Multiple) + Net_Cash_per_share (or - Net_Debt_per_share). NEVER write $0.00 if net cash/debt is non-zero!
-     * Probability-Weighted Expected 5Y Target (P₅_expected) = ∑ (p_i * P₅_i)
-     * Probability-Weighted Present Fair Value (P₀_expected) = ∑ (p_i * P₀_i)
-     * Probability-Weighted Expected Margin of Safety % = ((P₀_expected - ${current_price:.2f}) / ${current_price:.2f}) * 100%
-     * Probability-Weighted Expected 5Y Price CAGR % = ((P₅_expected / ${current_price:.2f})**(0.2) - 1) * 100%
-     * Reverse DCF: Exact implied 5Y Owner Earnings CAGR priced in at ${current_price:.2f} under market multiple (M₀ = ${current_price:.2f} / ${oe0_per_share:.2f}) and baseline multiple (M_base).
-4. CAPITAL ALLOCATION RECOMMENDATION:
-   - BUY (if Expected MoS >= +20%, or >= +25% if heavy insider selling/CEO churn is present), HOLD (if MoS 0% to +20%), CAUTION (if MoS -15% to 0%), AVOID (if MoS < -15%).
-
-OUTPUT FORMAT:
-Provide pure semantic HTML containing Section 3 (with the complete {num_stories}-Path Valuation Table, Probability Weighting Rationale, and Market Inversion & Valuation Synthesis), followed by the complete structured JSON block:
 
 <h2>Section 3: Normalized Owner Earnings Multiple &amp; Yield Inversion Valuation</h2>
 
@@ -1389,10 +1288,10 @@ Provide pure semantic HTML containing Section 3 (with the complete {num_stories}
   <thead>
     <tr>
       <th>Valuation Metric / Driver</th>
-      <!-- Generate a column for each of the {num_stories} paths (Path 1 to Path N) -->
+      <!-- Columns for each path -->
       <th>Path 1: [Title 1]</th>
       <th>Path 2: [Title 2]</th>
-      ...
+      <th>Path 3: [Title 3]</th>
     </tr>
   </thead>
   <tbody>
@@ -1413,7 +1312,7 @@ Provide pure semantic HTML containing Section 3 (with the complete {num_stories}
 
 <div class="callout">
   <h3>Empirical Probability Weighting Rationale</h3>
-  <p>[Detailed justification of the assigned probability weights across all {num_stories} paths based on audited statutory data...]</p>
+  <p>[Detailed justification of the assigned probability weights...]</p>
 </div>
 
 <div class="callout">
@@ -2349,90 +2248,80 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     fut_catalyst = bg_executor.submit(research_catalyst_intelligence, ticker_clean, company_name)
 
     # ------------------------------------------------------------------
-    # Agent 1: Search-Grounded Genesis Premise & Operational Paths (100% BLIND TO MARKET PRICE)
+    # Stage 1: Search-Grounded Forensic Baseline Specialist (Agent 1)
     # ------------------------------------------------------------------
-    print(f"\n🧠 [AGENT 1: SEARCH-GROUNDED RESEARCH] Researching 10-Ks, formulating Premise (Sec 1) & N Paths (Sec 2)...", flush=True)
-    agent1_prompt = AGENT_1_GENESIS_PREMISE_AND_PATHS_PROMPT.format(
+    print(f"\n🧠 [STAGE 1: FORENSIC BASELINE RESEARCH] Auditing 10-Ks, normalizing Owner Earnings & formulating Premise (Sec 1)...", flush=True)
+    agent1_prompt = AGENT_1_GENESIS_PREMISE_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
-        notes=initial_notes or "Synthesize core business model, unit economics, 4-quarter earnings commentary, and distinct operational trajectories."
+        notes=initial_notes or "Synthesize core business model, unit monetization, 4-quarter earnings commentary, and audited statutory baseline."
     )
     raw_agent1_output = call_gemini_with_search(agent1_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
-    sec1_clean, sec2_clean = split_sec1_and_sec2(raw_agent1_output, company_name)
-    words_agent1 = len(sec1_clean.split()) + len(sec2_clean.split())
-    print(f"   │ Status: Section 1 & Section 2 drafted ({words_agent1} words)", flush=True)
-
-    # ------------------------------------------------------------------
-    # Agent 1.5: Search-Grounded Red-Team Feedback (Storylines & Assumptions)
-    # ------------------------------------------------------------------
-    print(f"\n🧐 [RED-TEAM FEEDBACK AGENT] Stress-testing storylines, unit assumptions & probability weights...", flush=True)
-    feedback_prompt = AGENT_RED_TEAM_FEEDBACK_PROMPT.format(
-        ticker=ticker_clean,
-        company_name=company_name,
-        sec1_and_sec2_draft=f"{sec1_clean}\n\n{sec2_clean}"
-    )
-    critique_memo = call_gemini_with_search(feedback_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
-    words_critique = len(critique_memo.split())
-    print(f"   │ Status: Red-Team Critique Memo generated ({words_critique} words)", flush=True)
-
-    # ------------------------------------------------------------------
-    # Agent 1.8: Search-Grounded Storyline Refinement & Improvement
-    # ------------------------------------------------------------------
-    print(f"\n🔧 [STORYLINE IMPROVEMENT AGENT] Refining Section 1 & Section 2 against Red-Team feedback...", flush=True)
-    refinement_prompt = AGENT_STORYLINE_REFINEMENT_PROMPT.format(
-        ticker=ticker_clean,
-        company_name=company_name,
-        sec1_and_sec2_draft=f"{sec1_clean}\n\n{sec2_clean}",
-        critique_memo=critique_memo
-    )
-    raw_refined_output = call_gemini_with_search(refinement_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
-    ref_sec1, ref_sec2 = split_sec1_and_sec2(raw_refined_output, company_name)
-    if len(ref_sec1.split()) >= 300 and len(ref_sec2.split()) >= 250:
-        sec1_clean, sec2_clean = ref_sec1, ref_sec2
-        words_refined = len(sec1_clean.split()) + len(sec2_clean.split())
-        print(f"   │ Status: Section 1 & Section 2 perfected ({words_refined} words)", flush=True)
-    else:
-        print(f"   │ Status: Preserved robust Agent 1 draft ({words_agent1} words)", flush=True)
-
-    # ------------------------------------------------------------------
-    # Parallel Independent Story Valuation Engine (3 Independent Parallel Calls)
-    # ------------------------------------------------------------------
-    oe0, net_cash_sh, roic_str = extract_financial_baseline(sec1_clean)
-    moat_tier = map_to_canonical_moat_label("", sec1_text=sec1_clean)
     
-    # Extract Individual Stories from Section 2
-    story_blocks = []
-    for m in re.finditer(r'<div class="callout">\s*<h3>Path\s*(\d+)[:\s]*([^<]+)</h3>([\s\S]*?)</div>', sec2_clean, re.IGNORECASE):
-        num = int(m.group(1))
-        title = m.group(2).strip()
-        body = m.group(3).strip()
-        story_blocks.append({
-            "num": num,
-            "title": f"Path {num}: {title}",
-            "text": f"<h3>Path {num}: {title}</h3>\n{body}"
-        })
+    # Extract Section 1 HTML and Structured JSON Baseline Contract
+    sec1_clean = raw_agent1_output
+    if "```json" in raw_agent1_output:
+        sec1_clean = raw_agent1_output.split("```json")[0].strip()
+    elif "```" in raw_agent1_output:
+        sec1_clean = raw_agent1_output.split("```")[0].strip()
         
-    if not story_blocks:
-        story_blocks = [
-            {"num": 1, "title": "Path 1: Core Execution", "text": "Core operational baseline compounding"},
-            {"num": 2, "title": "Path 2: Downside Friction", "text": "Competitive friction & tariff margin drag"},
-            {"num": 3, "title": "Path 3: Operating Leverage", "text": "Accelerated global category expansion"}
-        ]
-        
-    print(f"\n⚡ [PARALLEL VALUATION ENGINE] Spawning {len(story_blocks)} Independent Valuation Analysts (Zero Cross-Bias)...", flush=True)
+    parsed_json_agent1 = parse_json_robust(raw_agent1_output) or {}
+    fb = parsed_json_agent1.get("financial_baseline", {})
     
-    def _value_single_story(s_info):
-        prompt = STORY_VALUATION_PROMPT.format(
+    # Fallback to HTML table extractor if JSON missing fields
+    oe0_sh_fallback, net_cash_sh_fallback, roic_str_fallback = extract_financial_baseline(sec1_clean)
+    
+    revenue_mil_y0 = float(fb.get("revenue_mil_y0") or 0.0)
+    rev_growth_y0 = float(fb.get("revenue_growth_yoy_pct") or 0.0)
+    gm_y0 = float(fb.get("gross_margin_pct_y0") or 0.0)
+    op_inc_y0 = float(fb.get("operating_income_mil_y0") or 0.0)
+    op_margin_y0 = float(fb.get("operating_margin_pct_y0") or 0.0)
+    oe0_total = float(fb.get("owner_earnings_total_mil_y0") or 0.0)
+    diluted_shares = float(fb.get("diluted_shares_mil_y0") or 1.0)
+    oe0_sh = float(fb.get("owner_earnings_per_share_y0") or oe0_sh_fallback or 1.0)
+    net_cash_total = float(fb.get("net_cash_total_mil_y0") or 0.0)
+    net_cash_sh = float(fb.get("net_cash_per_share_y0") if "net_cash_per_share_y0" in fb else net_cash_sh_fallback)
+    moat_tier = fb.get("economic_moat") or map_to_canonical_moat_label("", sec1_text=sec1_clean)
+    roic_pct = float(fb.get("roic_pct") or 20.0)
+    
+    words_agent1 = len(sec1_clean.split())
+    print(f"   │ Status: Section 1 Baseline audited ({words_agent1} words) | OE₀: ${oe0_sh:.2f}/sh | Net Cash: {net_cash_sh:+.2f}/sh | Moat: {moat_tier}", flush=True)
+
+    # ------------------------------------------------------------------
+    # Stage 2: Parallel Storyline & Valuation Specialists (3 Independent Concurrent Analysts)
+    # ------------------------------------------------------------------
+    story_archetypes = [
+        {"num": 1, "archetype": "Central Baseline Trend & Operational Continuation"},
+        {"num": 2, "archetype": "Downside Friction, Competitive Headwinds & Margin Drag"},
+        {"num": 3, "archetype": "Upside Acceleration, Operating Leverage & TAM Expansion"}
+    ]
+    
+    print(f"\n⚡ [STAGE 2: PARALLEL STORYLINE & VALUATION ENGINE] Spawning 3 Independent Analysts (Zero Cross-Bias)...", flush=True)
+    
+    # Prepare excerpt of Section 1 for storyline analysts
+    sec1_soup = BeautifulSoup(sec1_clean, 'html.parser')
+    sec1_p_texts = [p.get_text() for p in sec1_soup.find_all('p')[:5]]
+    sec1_excerpt = "\n\n".join(sec1_p_texts)[:3000]
+    
+    def _underwrite_story_and_valuation(s_item):
+        prompt = PARALLEL_STORY_AND_VALUATION_PROMPT.format(
             ticker=ticker_clean,
             company_name=company_name,
-            story_num=s_info["num"],
-            story_title=s_info["title"],
-            moat_tier=moat_tier,
-            oe0_per_share=oe0,
-            net_cash_str=f"{net_cash_sh:+.2f} USD/share",
-            net_cash_num=net_cash_sh,
-            roic_str=roic_str,
-            story_text=s_info["text"]
+            story_num=s_item["num"],
+            story_archetype=s_item["archetype"],
+            economic_moat=moat_tier,
+            revenue_mil_y0=revenue_mil_y0,
+            revenue_growth_yoy=rev_growth_y0,
+            gross_margin_pct_y0=gm_y0,
+            operating_income_mil_y0=op_inc_y0,
+            operating_margin_pct_y0=op_margin_y0,
+            owner_earnings_total_mil_y0=oe0_total,
+            diluted_shares_mil_y0=diluted_shares,
+            owner_earnings_per_share_y0=oe0_sh,
+            net_cash_total_mil_y0=net_cash_total,
+            net_cash_per_share_y0=net_cash_sh,
+            roic_pct=roic_pct,
+            sec1_excerpt=sec1_excerpt
         )
         resp = call_gemini_with_search(
             prompt,
@@ -2440,34 +2329,69 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
             use_search=True,
             use_code_execution=True
         )
-        parsed = parse_json_robust(resp)
-        if parsed and isinstance(parsed, dict):
-            return parsed
+        
+        # Parse HTML callout box and JSON
+        story_html = ""
+        m_callout = re.search(r'(<div class="callout">[\s\S]*?</div>)', resp, re.IGNORECASE)
+        if m_callout:
+            story_html = m_callout.group(1).strip()
+        else:
+            if "```json" in resp:
+                story_html = resp.split("```json")[0].strip()
+            elif "```" in resp:
+                story_html = resp.split("```")[0].strip()
+            else:
+                story_html = resp.strip()
+                
+        parsed_val = parse_json_robust(resp) or {}
         return {
-            "story_num": s_info["num"],
-            "story_title": s_info["title"],
-            "raw": resp
+            "story_num": s_item["num"],
+            "archetype": s_item["archetype"],
+            "story_html": story_html,
+            "val_data": parsed_val
         }
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=len(story_blocks)) as executor:
-        story_val_results = list(executor.map(_value_single_story, story_blocks))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        story_results = list(executor.map(_underwrite_story_and_valuation, story_archetypes))
 
-    print(f"   │ Status: {len(story_val_results)} stories independently underwritten in parallel (Code Execution Verified)", flush=True)
+    print(f"   │ Status: 3 Storylines & Pro-Forma Valuations independently underwritten in parallel (Python Verified)", flush=True)
 
     # ------------------------------------------------------------------
-    # Chief Risk Officer & Valuation Feedback Audit Agent
+    # Stage 3: Chief Risk Officer & Synthesis Agent
     # ------------------------------------------------------------------
-    print(f"\n🧐 [CHIEF RISK OFFICER & VALUATION AUDIT] Stress-testing multiples, growth realism & probability weights...", flush=True)
+    print(f"\n🧐 [STAGE 3: CHIEF RISK OFFICER & VALUATION SYNTHESIS] Stress-testing multiples, weighting probability mass & Reverse DCF...", flush=True)
+    
+    # Format stories json for CRO
+    stories_val_list = []
+    for sr in story_results:
+        vd = sr["val_data"]
+        vd["story_num"] = sr["story_num"]
+        vd["archetype"] = sr["archetype"]
+        stories_val_list.append(vd)
+        
+    fb_dict = {
+        "revenue_mil_y0": revenue_mil_y0,
+        "revenue_growth_yoy_pct": rev_growth_y0,
+        "gross_margin_pct_y0": gm_y0,
+        "operating_income_mil_y0": op_inc_y0,
+        "operating_margin_pct_y0": op_margin_y0,
+        "owner_earnings_total_mil_y0": oe0_total,
+        "diluted_shares_mil_y0": diluted_shares,
+        "owner_earnings_per_share_y0": oe0_sh,
+        "net_cash_per_share_y0": net_cash_sh,
+        "economic_moat": moat_tier,
+        "roic_pct": roic_pct
+    }
+    
     feedback_audit_prompt = VALUATION_FEEDBACK_AND_SYNTHESIS_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
         current_price=current_price,
-        moat_tier=moat_tier,
-        oe0_per_share=oe0,
+        oe0_per_share=oe0_sh,
         net_cash_str=f"{net_cash_sh:+.2f} USD/share",
-        historical_summary=f"Normalized ROIC ~{roic_str}, Baseline OE₀=${oe0:.2f}/sh",
-        num_stories=len(story_blocks),
-        stories_json_text=json.dumps(story_val_results, indent=2)
+        num_stories=len(story_results),
+        financial_baseline_json=json.dumps(fb_dict, indent=2),
+        stories_json_text=json.dumps(stories_val_list, indent=2)
     )
     raw_audit_output = call_gemini_with_search(
         feedback_audit_prompt,
@@ -2475,7 +2399,28 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         use_search=False,
         use_code_execution=True
     )
-    sec3_clean, val_json, stories_metadata = parse_sec3_and_json(
+    
+    # Extract Section 2 and Section 3 HTML
+    sec2_clean = ""
+    sec3_clean = ""
+    if "<h2>Section 2:" in raw_audit_output and "<h2>Section 3:" in raw_audit_output:
+        p2 = raw_audit_output.split("<h2>Section 3:")[0].strip()
+        sec2_clean = p2
+        sec3_clean = "<h2>Section 3:" + raw_audit_output.split("<h2>Section 3:")[1].split("```json")[0].split("```")[0].strip()
+    elif "<h2>Section 3:" in raw_audit_output:
+        sec2_assembled = ["<h2>Section 2: The Probable Future Paths</h2>", "<p>Based on the company's audited statutory filings, segment dynamics, and 4-quarter earnings commentary, here are the distinct, realistic operational paths over the next 3–5 years:</p>"]
+        for sr in story_results:
+            sec2_assembled.append(sr["story_html"])
+        sec2_clean = "\n\n".join(sec2_assembled)
+        sec3_clean = "<h2>Section 3:" + raw_audit_output.split("<h2>Section 3:")[1].split("```json")[0].split("```")[0].strip()
+    else:
+        sec2_assembled = ["<h2>Section 2: The Probable Future Paths</h2>"]
+        for sr in story_results:
+            sec2_assembled.append(sr["story_html"])
+        sec2_clean = "\n\n".join(sec2_assembled)
+        sec3_clean = raw_audit_output.split("```json")[0].split("```")[0].strip()
+
+    _, val_json, stories_metadata = parse_sec3_and_json(
         raw_audit_output,
         company_name,
         current_price,
@@ -2483,13 +2428,20 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         sec2_text=sec2_clean
     )
     
-    # Merge pro_forma_schedule from parallel story valuation agents into stories_metadata
+    # Merge pro_forma_schedule and core underwritten parameters from parallel story valuation agents
     for sm in stories_metadata:
         s_num = sm.get("story_num") or sm.get("id")
-        for svr in story_val_results:
-            if isinstance(svr, dict) and (svr.get("story_num") == s_num or svr.get("id") == s_num):
-                if svr.get("pro_forma_schedule") and not sm.get("pro_forma_schedule"):
-                    sm["pro_forma_schedule"] = svr.get("pro_forma_schedule")
+        for sr in story_results:
+            vd = sr.get("val_data", {})
+            if vd.get("story_num") == s_num or vd.get("id") == s_num:
+                if vd.get("pro_forma_schedule") and not sm.get("pro_forma_schedule"):
+                    sm["pro_forma_schedule"] = vd.get("pro_forma_schedule")
+                if vd.get("projected_oe5_per_share") and (not sm.get("oe5") or sm.get("oe5") == 0.0):
+                    sm["oe5"] = vd.get("projected_oe5_per_share")
+                if vd.get("projected_5y_cagr") and (not sm.get("cagr") or sm.get("cagr") == "0.0%"):
+                    sm["cagr"] = vd.get("projected_5y_cagr")
+                if vd.get("oe_multiple") and not sm.get("multiple"):
+                    sm["multiple"] = vd.get("oe_multiple")
                 break
 
     words_agent2 = len(sec3_clean.split())
