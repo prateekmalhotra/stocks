@@ -4815,14 +4815,9 @@ def render_all():
     watchlist = load_watchlist()
     alerts = load_alerts()
     
-    tickers = set(watchlist.keys())
-    data_theses_dir = Path(__file__).resolve().parent.parent / "data" / "theses"
-    if data_theses_dir.exists():
-        for p in data_theses_dir.glob("*.json"):
-            tickers.add(p.stem.upper())
-            
+    tickers = sorted(list(watchlist.keys()))
     synced_watchlist = {}
-    for ticker in sorted(tickers):
+    for ticker in tickers:
         history = load_thesis_history(ticker)
         stock = watchlist.get(ticker)
         
