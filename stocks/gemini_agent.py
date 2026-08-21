@@ -2095,43 +2095,71 @@ def split_full_genesis_dossier(raw_output: str, company_name: str, current_price
 
 def extract_financial_baseline(sec1_html: str) -> Tuple[float, float, str]:
     """Extracts starting Normalized Owner Earnings (OE₀), Net Cash/Debt per share, and ROIC from Section 1 HTML."""
+    if not sec1_html:
+        return 0.0, 0.0, "20.0% - 25.0%"
+
+    soup = BeautifulSoup(sec1_html, 'html.parser')
+
+    # 1. Parse Starting Normalized Owner Earnings (OE₀) per share
     oe_per_sh = 0.0
-    m_oe_row = re.search(r'<tr>[\s\S]*?Owner Earnings Per (?:Diluted )?Share[\s\S]*?</tr>', sec1_html, re.IGNORECASE)
-    if m_oe_row:
-        td_vals = re.findall(r'<td[^>]*>([\s\S]*?)</td>', m_oe_row.group(0))
-        for td in reversed(td_vals):
-            m_val = re.search(r'\$?\s*([\d,]+(?:\.\d+)?)', td)
-            if m_val:
-                val = float(m_val.group(1).replace(',', ''))
-                if val > 0:
-                    oe_per_sh = val
-                    break
+    for tr in soup.find_all('tr'):
+        tr_text = tr.get_text()
+        if 'Owner Earnings' in tr_text and ('OE_0' in tr_text or 'OE₀' in tr_text or 'Per Share' in tr_text or 'Per Diluted' in tr_text):
+            for td in tr.find_all('td'):
+                m = re.search(r'\$\s*([\d,]+(?:\.\d+)?)\s*(?:/sh|/share|/ADS|per\s*share)?', td.get_text())
+                if m:
+                    v = float(m.group(1).replace(',', ''))
+                    if 0.20 <= v <= 100.0:
+                        oe_per_sh = v
+                        break
+            if oe_per_sh > 0:
+                break
 
+    if oe_per_sh == 0.0:
+        m_txt = re.search(r'(?:Starting\s*Normalized\s*Owner\s*Earnings|\(OE[₀0]\))\s*(?:is|at|of|\/ share)?\s*\$?\s*([\d,]+(?:\.\d+)?)\s*(?:/share|/ADS|per\s*share|per\s*ADS)', sec1_html, re.I)
+        if m_txt:
+            oe_per_sh = float(m_txt.group(1).replace(',', ''))
+        else:
+            m_txt2 = re.search(r'Normalized\s*Owner\s*Earnings\s*\(OE₀\)\s*.*?\$([\d,]+(?:\.\d+)?)', sec1_html, re.I)
+            if m_txt2:
+                oe_per_sh = float(m_txt2.group(1).replace(',', ''))
+
+    # 2. Parse Net Surplus Cash / Net Debt per share
     net_cash_sh = 0.0
-    m_nc_row = re.search(r'<tr>[\s\S]*?Total\s*Net\s*(?:Surplus\s*Cash\s*Bridge|Debt\s*Surplus)[\s\S]*?</tr>', sec1_html, re.IGNORECASE)
-    if not m_nc_row:
-        m_nc_row = re.search(r'<tr>[\s\S]*?(?:Unencumbered\s*Liquid\s*Surplus\s*Cash|Funded\s*Net\s*Debt\s*Position)[\s\S]*?</tr>', sec1_html, re.IGNORECASE)
-    if m_nc_row:
-        td_vals = re.findall(r'<td[^>]*>([\s\S]*?)</td>', m_nc_row.group(0))
-        if td_vals:
-            last_td = td_vals[-1]
-            m_val = re.search(r'([+-]?\(?\$?\s*[\d,]+(?:\.\d+)?\)?)', last_td)
-            if m_val:
-                raw_val = m_val.group(1).replace('$', '').replace(' ', '').replace(',', '').strip()
-                try:
-                    if raw_val.startswith('(') and raw_val.endswith(')'):
-                        net_cash_sh = -float(raw_val[1:-1])
-                    else:
-                        net_cash_sh = float(raw_val)
-                except:
-                    pass
+    for tr in soup.find_all('tr'):
+        tr_text = tr.get_text()
+        if any(k in tr_text.lower() for k in ['net surplus cash', 'net cash position', 'net debt position', 'funded net debt', 'unencumbered liquid', 'total net cash']):
+            extracted = []
+            for td in tr.find_all('td')[1:]:
+                t_txt = td.get_text()
+                if any(w in t_txt.lower() for w in ['based on', 'million', 'billion', 'rmb', 'notes', 'audited']):
+                    continue
+                m = re.search(r'([+-]?\(?\$?\s*[\d,]+(?:\.\d+)?\)?)', t_txt)
+                if m:
+                    s_clean = m.group(1).replace('$', '').replace(' ', '').replace(',', '').strip()
+                    try:
+                        if s_clean.startswith('(') and s_clean.endswith(')'):
+                            val_f = -float(s_clean[1:-1])
+                        else:
+                            val_f = float(s_clean)
+                        if abs(val_f) <= 150.0:
+                            extracted.append(val_f)
+                    except Exception:
+                        pass
+            if extracted:
+                # If both ordinary share and ADS exist, take the per-ADS representation
+                net_cash_sh = extracted[-1]
+                break
 
-    roic_str = "25.0% - 30.0%"
-    m_roic = re.search(r'<tr>[\s\S]*?(?:3-Year\s*Normalized\s*ROIC|ROIC)[\s\S]*?</tr>', sec1_html, re.IGNORECASE)
-    if m_roic:
-        m_pct = re.search(r'([\d\.]+\s*%)', m_roic.group(0))
-        if m_pct:
-            roic_str = m_pct.group(1)
+    # 3. Parse ROIC
+    roic_str = "20.0% - 25.0%"
+    for tr in soup.find_all('tr'):
+        tr_text = tr.get_text()
+        if 'ROIC' in tr_text or 'Return on Invested Capital' in tr_text:
+            m_pct = re.search(r'([\d\.]+\s*%)', tr_text)
+            if m_pct:
+                roic_str = m_pct.group(1)
+                break
 
     return oe_per_sh, net_cash_sh, roic_str
 
