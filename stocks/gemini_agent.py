@@ -1236,6 +1236,13 @@ INDEPENDENT {num_stories}-STORYLINE UNDERWRITING DATA:
 YOUR CRITICAL SYNTHESIS MANDATE:
 1. RUTHLESS SANITY CHECK ON ASSUMPTIONS (RESPECT TREND REALISM, REJECT EXTREMES):
    - Check if growth rates and terminal multiples respect the company's actual trailing momentum, competitive positioning, and economic moat.
+   - MANDATORY GROWTH-TO-MULTIPLE CALIBRATION RULE (BUFFETT-GRAHAM STANDARD):
+     Terminal capitalization multiples MUST strictly reflect the economic growth rate of that specific path. The market severely penalizes low growth (e.g. Chipotle, PayPal, Lululemon, Nike, Meta in 2022).
+     * Contraction (< 0% OE CAGR): Terminal Multiple MUST be <= 10.5x (Yield >= 9.5%).
+     * Low Growth (0% to +5% OE CAGR): Terminal Multiple MUST be <= 13.5x (Yield >= 7.4%). Never award a 15x-20x multiple to a business growing at 2%-4%!
+     * Moderate Growth (+5% to +10% OE CAGR): Terminal Multiple between 13.5x and 16.5x.
+     * High Growth (+10% to +15% OE CAGR): Terminal Multiple between 17.0x and 20.5x.
+     * Hyper-Scale (> +15% OE CAGR): Terminal Multiple capped at 21.0x - 24.0x.
    - Ensure all paths represent realistic, grounded deviations around the central trend rather than unearned moonshots or fictitious collapses.
    - Enforce sector terminal multiple caps (e.g. <=15x for apparel/retail, <=24x for tech).
 2. EMPIRICAL PROBABILITY DISTRIBUTION ACROSS ALL N STORIES:

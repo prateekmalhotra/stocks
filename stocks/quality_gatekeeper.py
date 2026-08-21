@@ -522,6 +522,27 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             if is_net_debt_co and bridge_td.startswith("+") and not bridge_td.startswith("-$") and not bridge_td.startswith("-"):
                 issues.append("Balance Sheet Bridge Error: Company has net debt on balance sheet, but Section 3 DCF table applied a positive (+$XX.XX) cash addition instead of deducting net debt (-$XX.XX).")
 
+    # 31. Economic Growth-to-Multiple Consistency Gate (Anti-Inflated Exit Multiple Gate)
+    if metadata and "stories" in metadata and isinstance(metadata["stories"], list):
+        for idx, st in enumerate(metadata["stories"], start=1):
+            mult_raw = st.get("terminal_multiple") or st.get("oe_multiple") or ""
+            cagr_raw = st.get("projected_5y_cagr") or ""
+            try:
+                mult_f = float(str(mult_raw).replace("x", "").replace("X", "").strip())
+                m_cagr = re.search(r"([+-]?\d+(?:\.\d+)?)%", str(cagr_raw))
+                if m_cagr:
+                    cagr_f = float(m_cagr.group(1))
+                    if cagr_f < 0 and mult_f > 10.5:
+                        issues.append(f"Multiple Consistency Failure (Path {idx}): Contraction scenario ({cagr_f:+.1f}% 5Y OE CAGR) is assigned an excessive terminal multiple of {mult_f:.1f}x (maximum allowed: 10.5x P/OE).")
+                    elif 0 <= cagr_f <= 5.0 and mult_f > 13.5:
+                        issues.append(f"Multiple Consistency Failure (Path {idx}): Low-growth scenario ({cagr_f:+.1f}% 5Y OE CAGR) is assigned an excessive terminal multiple of {mult_f:.1f}x (maximum allowed: 13.5x P/OE).")
+                    elif 5.0 < cagr_f <= 10.0 and mult_f > 17.0:
+                        issues.append(f"Multiple Consistency Failure (Path {idx}): Moderate-growth scenario ({cagr_f:+.1f}% 5Y OE CAGR) is assigned an excessive terminal multiple of {mult_f:.1f}x (maximum allowed: 17.0x P/OE).")
+                    elif mult_f > 25.0:
+                        issues.append(f"Multiple Consistency Failure (Path {idx}): Terminal multiple of {mult_f:.1f}x exceeds institutional absolute maximum bound of 25.0x P/OE.")
+            except Exception:
+                pass
+
     return len(issues) == 0, issues
 
 
