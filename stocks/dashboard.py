@@ -2170,17 +2170,25 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 36px 40px;
-            margin-bottom: 28px;
+            padding: 26px 30px 28px;
+            margin-bottom: 24px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }}
 
-        .hero-title-area {{ display: flex; align-items: center; gap: 16px; }}
-        .hero-title-text {{ display: flex; flex-direction: column; gap: 3px; }}
-        .ticker-header-line {{ display: flex; align-items: baseline; gap: 12px; }}
+        .hero-top-row {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }}
+        .hero-title-area {{ display: flex; align-items: center; gap: 14px; }}
+        .hero-title-text {{ display: flex; flex-direction: column; gap: 2px; }}
+        .ticker-header-line {{ display: flex; align-items: baseline; gap: 10px; }}
         .ticker-symbol {{
             font-family: var(--font-display);
-            font-size: 2.45rem;
+            font-size: 2.35rem;
             font-weight: 700;
             letter-spacing: -0.035em;
             color: #F0ECE4;
@@ -2188,7 +2196,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .company-name-meta {{
             color: #9E978C;
-            font-size: 0.95rem;
+            font-size: 0.94rem;
             font-family: var(--font-sans);
             font-weight: 400;
             letter-spacing: -0.01em;
@@ -2240,16 +2248,16 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
 
         .price-callout {{ text-align: right; }}
-        .price-number {{ font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
-        .price-sub {{ font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; color: var(--text-secondary); }}
+        .price-number {{ font-size: 2.35rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); line-height: 1.05; }}
+        .price-sub {{ font-size: 0.78rem; font-family: var(--font-mono); margin-top: 3px; color: var(--text-secondary); }}
 
         /* Native SVG Area Chart */
         .native-chart-wrap {{
-            margin-top: 28px;
-            background: var(--bg-panel);
+            margin-top: 0;
+            background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px 18px 12px;
             position: relative;
         }}
         .chart-top-bar {{
