@@ -460,8 +460,8 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
 
     # 28. Share Count Cross-Section Consistency Check
     if s1_match and s3_match:
-        s1_t = s1_match.group(1)
-        s3_t = s3_match.group(1)
+        s1_t = re.sub(r'\(?FY\s*\d{4}\)?', '', s1_match.group(1), flags=re.IGNORECASE)
+        s3_t = re.sub(r'\(?FY\s*\d{4}\)?', '', s3_match.group(1), flags=re.IGNORECASE)
         m_s1_sh_before = re.search(r'([0-9,]+(?:\.[0-9]+)?)\s*(million|billion|M|B)?\s*(?:diluted ADSs|diluted shares|ADSs/shares outstanding|shares/ADSs outstanding|ADSs outstanding|shares outstanding)', s1_t, re.IGNORECASE)
         m_s1_sh_after = re.search(r'(?:diluted share count|diluted shares|diluted ADSs|shares outstanding)[^0-9\n\r$]*?([0-9,]+(?:\.[0-9]+)?)\s*(million|billion|M|B)?', s1_t, re.IGNORECASE)
         m_s1_sh = m_s1_sh_before or m_s1_sh_after

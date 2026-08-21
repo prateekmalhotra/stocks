@@ -34,6 +34,7 @@ env:
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
   NODE_TLS_REJECT_UNAUTHORIZED: "0"
   GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
   PYTHONUNBUFFERED: "1"
 
 jobs:
@@ -62,6 +63,7 @@ jobs:
       - name: Run Surveillance Engine
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PYTHONUNBUFFERED: "1"
         run: |
           if [ "${{ github.event.inputs.action }}" = "add_stock" ] && [ -n "${{ github.event.inputs.ticker }}" ]; then
@@ -75,6 +77,7 @@ jobs:
       - name: Quality Gatekeeper Audit
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PYTHONUNBUFFERED: "1"
         run: |
           poetry run python -m stocks.quality_gatekeeper
