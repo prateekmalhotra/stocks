@@ -1,58 +1,11 @@
 {
-  "portfolio_name": "Wealthsimple",
-  "portfolio_type": "aggressive",
-  "target_audience": "Aggressive Alpha, High-Velocity Cannibal Compounders (No Value Traps)",
-  "inception_date": "2026-08-20",
-  "last_rebalance_date": "2026-08-20",
-  "base_capital_usd": 200000.0,
-  "holdings": [
-    {
-      "ticker": "USD_CASH",
-      "company_name": "USD Cash Strike Reserve",
-      "sector": "Cash & Cash Equivalents",
-      "industry": "3-Month US Treasury Bills",
-      "quality_score": 100.0,
-      "target_weight": 1.0,
-      "pillar": "CASH",
-      "cost_basis": 1.0,
-      "current_price": 1.0,
-      "fair_value": 1.0,
-      "margin_of_safety_pct": 0.0,
-      "allocated_dollars": 200000.0,
-      "shares_to_buy": 200000.0,
-      "look_through_fcf_yield": 5.0,
-      "annual_owner_earnings": 10000.0,
-      "cannibal_rate_pct": 0.0,
-      "thesis_core": "3-Month US Treasury Yield (5.00% risk-free). 100% Cash Strike Reserve ($200,000 USD).",
-      "report_url": "#"
-    }
-  ],
-  "rebalance_log": [
-    {
-      "date": "2026-08-20",
-      "action": "PORTFOLIO INCEPTION (100% CASH)",
-      "reason": "Portfolio initiated on August 20, 2026 with $200,000.00 USD Cash Strike Reserve awaiting high-conviction margin of safety deployment.",
-      "verification_status": "Audited & Synchronized"
-    }
-  ],
   "historical_performance": [
     {
       "date": "2026-08-20",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-21",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-20",
-      "portfolio_value": 200000.0,
+      "portfolio_value": 0.0,
       "owner_earnings_runrate": 15000.0,
       "spy_benchmark": 200000.0
     }
-  ]
+  ],
+  "last_rebalance_date": "2026-08-20"
 }
