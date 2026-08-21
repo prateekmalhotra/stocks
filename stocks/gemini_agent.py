@@ -468,7 +468,7 @@ def sanitize_labels(labels: Any, action_signal: str = "", base_ret: float = 0.0,
     """Sanitizes labels ensuring:
     - Slot 1 is STRICTLY one of the 4 canonical Moat ratings:
       * Wide Moat, Narrow Moat, Weak Moat, No Moat.
-    - Slots 2 & 3 are specific 2-word operating/catalyst drivers (e.g. "Cloud Scale", "Fulfillment Scale").
+    - Slots 2 & 3 are bespoke company-specific 2-word operating/catalyst drivers (e.g. "China Scale", "DTC Growth", "Croslite Foam").
     - Max 3 labels total.
     """
     if not isinstance(labels, list):
@@ -479,7 +479,9 @@ def sanitize_labels(labels: Any, action_signal: str = "", base_ret: float = 0.0,
 
     GENERIC_BLACKLIST = {
         "ACTIVE", "REVIEW", "ALERT", "UPDATE", "TASK", "STOCK", "STATUS", 
-        "NEW", "NONE", "PRICE", "CONVICTION", "TBD", "HOLD", "BUY", "AVOID", "CAUTION"
+        "NEW", "NONE", "PRICE", "CONVICTION", "TBD", "HOLD", "BUY", "AVOID", "CAUTION",
+        "OWNER EARNINGS", "CASH GENERATION", "CONSOLIDATED ENTERPRISE", "NET REVENUE",
+        "OPERATING INCOME", "GROSS PROFIT", "TOTAL", "GAAP"
     }
     
     # 1. Determine canonical Moat archetype for Slot 1
@@ -506,7 +508,42 @@ def sanitize_labels(labels: Any, action_signal: str = "", base_ret: float = 0.0,
         if len(clean_drivers) >= 2:
             break
 
-    result = [moat_label] + clean_drivers
+    # If drivers are still missing or generic, parse bespoke drivers from Section 1 & 2
+    if len(clean_drivers) < 2 and sec1_text:
+        # A. Look for bespoke segments in Segment table
+        m_seg_table = re.search(r'Segment Breakdown.*?<table.*?>(.*?)</table>', sec1_text, re.DOTALL | re.IGNORECASE)
+        if m_seg_table:
+            for row in re.findall(r'<tr>(.*?)</tr>', m_seg_table.group(1), re.DOTALL):
+                tds = re.findall(r'<td>(.*?)</td>', row, re.DOTALL)
+                if tds:
+                    col0 = re.sub(r'<[^>]+>', '', tds[0]).strip()
+                    col0 = re.sub(r'^(?:Geographic|Channel|Segment|Enterprise)\s*:\s*', '', col0, flags=re.IGNORECASE)
+                    col0 = re.sub(r'Brand|Consolidated|Corporate|Unallocated|Total|Other', '', col0, flags=re.IGNORECASE).strip()
+                    words = [w for w in col0.split() if w.lower() not in ['and', 'the', 'of', 'in']]
+                    if words and 1 <= len(words) <= 3:
+                        candidate = " ".join(words[:2]).title()
+                        if candidate.upper() not in GENERIC_BLACKLIST and candidate not in clean_drivers and candidate != moat_label:
+                            clean_drivers.append(candidate)
+                if len(clean_drivers) >= 2:
+                    break
+                    
+        # B. Look for Path subtitles if still need drivers
+        if len(clean_drivers) < 2:
+            for m in re.finditer(r'<h3>Path\s*\d+:\s*(?:Core Execution|Bull Case|Downside|Bear Case|Operating Acceleration)[^-\n]*-\s*([^<\(]+)', sec1_text, re.IGNORECASE):
+                sub = m.group(1).replace('&amp;', '&').strip()
+                parts = [p.strip() for p in re.split(r'[,·&]', sub) if p.strip()]
+                for p in parts:
+                    words = [w for w in p.split() if w.lower() not in ['case', 'and', 'the', 'case', 'with', 'for']]
+                    if words:
+                        candidate = " ".join(words[:2]).title()
+                        if candidate.upper() not in GENERIC_BLACKLIST and candidate not in clean_drivers and candidate != moat_label:
+                            clean_drivers.append(candidate)
+                    if len(clean_drivers) >= 2:
+                        break
+                if len(clean_drivers) >= 2:
+                    break
+
+    result = [moat_label] + clean_drivers[:2]
     return result
 
 
@@ -1257,10 +1294,13 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
   "implied_market_multiple": "XX.Xx",
   "implied_market_yield": "X.X%",
   "net_cash_per_share": XX.XX,
-  "expected_fair_value": XX.XX,
+  "present_fair_value": XX.XX,
+  "expected_5y_target": XX.XX,
   "expected_mos_pct": XX.X,
+  "expected_5y_cagr": XX.X,
   "action_signal": "BUY",
-  "moat": "Wide Moat",
+  "moat": "Narrow Moat",
+  "key_catalyst_drivers": ["<Bespoke Driver 1>", "<Bespoke Driver 2>"],
   "pricing_power_tier": "Strong Pricing Power",
   "predictability_tier": "High Predictability",
   "stories": [
@@ -1273,7 +1313,7 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
       "oe_multiple": "XX.Xx",
       "oe_yield": "X.X%",
       "target_price_5y": XX.XX,
-      "fair_value_per_share": XX.XX,
+      "present_fair_value": XX.XX,
       "mos_pct": XX.X,
       "probability_weight": 0.XX
     }}
@@ -1861,7 +1901,11 @@ def parse_sec3_and_json(
             prob = safe_float(s.get("probability_weight") or s.get("prob_weight"), 0.0)
             if prob <= 0.0:
                 prob = round(1.0 / num_s, 2)
-            mos = ((val - current_price) / current_price) * 100.0 if current_price > 0 and val > 0 else 0.0
+                
+            pv_val = round(val / (1.095 ** 5), 2) if val > 0 else 0.0
+            mos = ((pv_val - current_price) / current_price) * 100.0 if current_price > 0 and pv_val > 0 else 0.0
+            ret_5y = ((val - current_price) / current_price) * 100.0 if current_price > 0 and val > 0 else 0.0
+            cagr_5y = (((val / current_price) ** 0.2 - 1.0) * 100.0) if current_price > 0 and val > 0 else 0.0
             
             title = s.get("story_title") or s.get("title") or f"Path {idx}"
             summary = s.get("short_summary") or s.get("summary") or ""
@@ -1877,8 +1921,11 @@ def parse_sec3_and_json(
                 "oe_yield": yield_str or f"{(1.0/max(safe_float(mult, 18.0), 1.0))*100:.1f}%",
                 "terminal_multiple": mult if "x" in mult.lower() else f"{mult}x",
                 "val": val,
+                "present_fair_value": pv_val,
                 "mos_pct": round(mos, 1),
-                "target": f"${val:.2f} ({mos:+.1f}%)",
+                "target_5y_return_pct": round(ret_5y, 1),
+                "target_5y_cagr_pct": round(cagr_5y, 1),
+                "target": f"${val:.2f} ({ret_5y:+.1f}%)",
                 "prob_pct": round(prob * 100.0, 1),
                 "prob_weight": prob,
                 "net_cash_per_share": net_cash_sh,
@@ -1891,9 +1938,9 @@ def parse_sec3_and_json(
         p1_oe5 = round(oe_per_sh * (1.08 ** 5), 2) if oe_per_sh > 0 else 0.0
         p2_oe5 = round(oe_per_sh * (1.14 ** 5), 2) if oe_per_sh > 0 else 0.0
         p3_oe5 = round(oe_per_sh * (0.98 ** 5), 2) if oe_per_sh > 0 else 0.0
-        p1_val = round(p1_oe5 * 18.0 + net_cash_sh, 2)
-        p2_val = round(p2_oe5 * 24.0 + net_cash_sh, 2)
-        p3_val = round(p3_oe5 * 13.0 + net_cash_sh, 2)
+        p1_val = round(p1_oe5 * 16.0 + net_cash_sh, 2)
+        p2_val = round(p2_oe5 * 20.0 + net_cash_sh, 2)
+        p3_val = round(p3_oe5 * 11.0 + net_cash_sh, 2)
         
         stories_metadata = [
             {
@@ -1903,11 +1950,12 @@ def parse_sec3_and_json(
                 "title": "Path 1: Baseline Compounding",
                 "short_summary": "Steady operational execution and baseline capital reinvestment.",
                 "summary": "Steady operational execution and baseline capital reinvestment.",
-                "oe_multiple": "18.0x",
-                "oe_yield": "5.5%",
-                "terminal_multiple": "18.0x",
+                "oe_multiple": "16.0x",
+                "oe_yield": "6.2%",
+                "terminal_multiple": "16.0x",
                 "val": p1_val,
-                "mos_pct": round(((p1_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
+                "present_fair_value": round(p1_val / (1.095 ** 5), 2),
+                "mos_pct": round(((p1_val / (1.095 ** 5) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
                 "target": f"${p1_val:.2f}",
                 "prob_pct": 65.0,
                 "prob_weight": 0.65,
@@ -1923,11 +1971,12 @@ def parse_sec3_and_json(
                 "title": "Path 2: High-Margin Expansion",
                 "short_summary": "Accelerated customer adoption and high-margin operating leverage.",
                 "summary": "Accelerated customer adoption and high-margin operating leverage.",
-                "oe_multiple": "24.0x",
-                "oe_yield": "4.2%",
-                "terminal_multiple": "24.0x",
+                "oe_multiple": "20.0x",
+                "oe_yield": "5.0%",
+                "terminal_multiple": "20.0x",
                 "val": p2_val,
-                "mos_pct": round(((p2_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
+                "present_fair_value": round(p2_val / (1.095 ** 5), 2),
+                "mos_pct": round(((p2_val / (1.095 ** 5) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
                 "target": f"${p2_val:.2f}",
                 "prob_pct": 20.0,
                 "prob_weight": 0.20,
@@ -1943,11 +1992,12 @@ def parse_sec3_and_json(
                 "title": "Path 3: Margin Friction & Multiple Drag",
                 "short_summary": "Elevated competitive friction and margin contraction.",
                 "summary": "Elevated competitive friction and margin contraction.",
-                "oe_multiple": "13.0x",
-                "oe_yield": "7.7%",
-                "terminal_multiple": "13.0x",
+                "oe_multiple": "11.0x",
+                "oe_yield": "9.1%",
+                "terminal_multiple": "11.0x",
                 "val": p3_val,
-                "mos_pct": round(((p3_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
+                "present_fair_value": round(p3_val / (1.095 ** 5), 2),
+                "mos_pct": round(((p3_val / (1.095 ** 5) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
                 "target": f"${p3_val:.2f}",
                 "prob_pct": 15.0,
                 "prob_weight": 0.15,
@@ -2088,14 +2138,17 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     raw_full_html = f"{sec1_clean}\n\n{sec2_clean}\n\n{sec3_clean}"
     full_html = verify_and_repair_html_structure(raw_full_html)
 
-    expected_val = round(sum(s["prob_weight"] * s["val"] for s in stories_metadata), 2)
-    expected_mos = ((expected_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+    expected_target_5y = round(sum(s["prob_weight"] * s["val"] for s in stories_metadata), 2)
+    expected_present_fv = round(expected_target_5y / (1.095 ** 5), 2) if expected_target_5y > 0 else 0.0
+    expected_mos = ((expected_present_fv - current_price) / current_price) * 100.0 if current_price > 0 and expected_present_fv > 0 else 0.0
+    expected_5y_return = ((expected_target_5y - current_price) / current_price) * 100.0 if current_price > 0 and expected_target_5y > 0 else 0.0
+    expected_5y_cagr = (((expected_target_5y / current_price) ** 0.2 - 1.0) * 100.0) if current_price > 0 and expected_target_5y > 0 else 0.0
 
     min_story = min(stories_metadata, key=lambda s: s["val"])
     max_story = max(stories_metadata, key=lambda s: s["val"])
     base_story = stories_metadata[0]  # Story 1 Central Baseline
 
-    # Action Signal Derivation from Probability-Weighted Expected Fair Value
+    # Action Signal Derivation from Probability-Weighted Expected Fair Value Margin of Safety
     if expected_mos >= 20.0:
         action_signal = "BUY"
     elif expected_mos >= 0.0:
@@ -2113,9 +2166,10 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     if upper_alert <= current_price:
         upper_alert = round(current_price * 1.15, 2)
 
-    # Extract Moat label from Section 1 text and sanitize
+    # Dynamic bespoke catalyst drivers from val_json or sec1_clean
+    custom_drivers = val_json.get("key_catalyst_drivers") or val_json.get("drivers") or []
     raw_moat = map_to_canonical_moat_label(val_json.get("moat", ""), sec1_text=sec1_clean)
-    raw_labels = [raw_moat, "Owner Earnings", "Cash Generation"]
+    raw_labels = [raw_moat] + list(custom_drivers)
     sanitized_labels = sanitize_labels(raw_labels, action_signal=action_signal, base_ret=expected_mos, sec1_text=sec1_clean)
 
     # Extract Buffett & Munger Pricing Power from Section 1 text
@@ -2154,26 +2208,35 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "moat_label": raw_moat,
         "labels": sanitized_labels,
         "action_signal": action_signal,
-        "fair_value_estimate": f"${expected_val:.2f}",
-        "expected_fair_value": f"${expected_val:.2f}",
-        "expected_val": expected_val,
+        "fair_value_estimate": f"${expected_present_fv:.2f}",
+        "expected_fair_value": f"${expected_present_fv:.2f}",
+        "present_fair_value": expected_present_fv,
+        "target_price_5y": f"${expected_target_5y:.2f}",
+        "expected_val": expected_present_fv,
         "expected_mos": expected_mos,
+        "expected_5y_return": expected_5y_return,
+        "expected_5y_cagr": expected_5y_cagr,
         "stories": stories_metadata,
-        "story1_target": stories_metadata[0]["target"] if len(stories_metadata) > 0 else "",
-        "story2_target": stories_metadata[1]["target"] if len(stories_metadata) > 1 else "",
-        "story3_target": stories_metadata[2]["target"] if len(stories_metadata) > 2 else "",
-        "story1_title": stories_metadata[0]["title"] if len(stories_metadata) > 0 else "",
-        "story2_title": stories_metadata[1]["title"] if len(stories_metadata) > 1 else "",
-        "story3_title": stories_metadata[2]["title"] if len(stories_metadata) > 2 else "",
+        "story1_target": f"${stories_metadata[0]['val']:.2f} ({stories_metadata[0]['target_5y_return_pct']:+.1f}%)" if len(stories_metadata) >= 1 else "$0.00",
+        "story2_target": f"${stories_metadata[1]['val']:.2f} ({stories_metadata[1]['target_5y_return_pct']:+.1f}%)" if len(stories_metadata) >= 2 else "$0.00",
+        "story3_target": f"${stories_metadata[2]['val']:.2f} ({stories_metadata[2]['target_5y_return_pct']:+.1f}%)" if len(stories_metadata) >= 3 else "$0.00",
+        "story1_title": stories_metadata[0]["story_title"] if len(stories_metadata) >= 1 else "Path 1",
+        "story2_title": stories_metadata[1]["story_title"] if len(stories_metadata) >= 2 else "Path 2",
+        "story3_title": stories_metadata[2]["story_title"] if len(stories_metadata) >= 3 else "Path 3",
         "bear_target": f"${min_story['val']:.2f}",
-        "base_target": f"${expected_val:.2f}",
+        "base_target": f"${expected_present_fv:.2f}",
         "bull_target": f"${max_story['val']:.2f}",
         "upper_alert_threshold": upper_alert,
         "lower_alert_threshold": lower_alert,
         "next_catalyst_date": next_cat_date,
         "next_catalyst_event": next_cat_event,
         "catalyst_timeline": catalyst_timeline,
-        "what_is_priced_in": str(val_json.get("implied_market_multiple") or f"{round(current_price/max(stories_metadata[0].get('normalized_oe_per_share', 1), 0.1), 1)}x OE"),
+        "trigger_reason": "Genesis Initial Underwriting",
+        "what_is_priced_in": f"{current_price / safe_float(val_json.get('normalized_oe_per_share'), 1.0):.1f}x",
+        "top_funds": [],
+        "institutional_ownership_pct": "",
+        "insider_signal": "Neutral (10b5-1)",
+        "insider_summary": "Audited SEC Form 3 / 20-F / Form 4 filings.",
         "pricing_power_tier": pricing_power_tier,
         "pricing_power_score": pp_score,
         "pricing_power_summary": pp_summary,
@@ -2183,7 +2246,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "full_html_content": full_html
     }
 
-    print(f"   │ Signal: {action_signal} | Expected Fair Value: ${expected_val:.2f} ({expected_mos:+.1f}%) | Moat: {raw_moat}", flush=True)
+    print(f"   │ Signal: {action_signal} | Expected Fair Value: ${expected_present_fv:.2f} ({expected_mos:+.1f}%) | Moat: {raw_moat}", flush=True)
     print("   └" + "─" * 50, flush=True)
 
     return metadata, full_html

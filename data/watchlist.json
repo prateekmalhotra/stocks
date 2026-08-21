@@ -8,14 +8,14 @@
     "status_label": "Narrow Moat",
     "moat_label": "Narrow Moat",
     "labels": [
-      "Wide Moat",
-      "Owner Earnings",
-      "Cash Generation"
+      "Narrow Moat",
+      "China Mainland",
+      "Company-Operated Stores"
     ],
     "action_signal": "BUY",
-    "fair_value_estimate": "$364.21",
-    "expected_fair_value": "$364.21",
-    "expected_val": null,
+    "fair_value_estimate": "$231.36",
+    "expected_fair_value": "$231.36",
+    "expected_val": 231.36,
     "stories": [
       {
         "story_num": 1,
@@ -28,14 +28,17 @@
         "oe_yield": "5.41%",
         "terminal_multiple": "18.5x",
         "val": 374.98,
-        "mos_pct": 224.1,
+        "mos_pct": 105.9,
         "target": "$374.98 (+224.1%)",
         "prob_pct": 70.0,
         "prob_weight": 0.7,
         "net_cash_per_share": 12.38,
         "normalized_oe_per_share": 11.22,
         "projected_oe5_per_share": 19.6,
-        "projected_5y_cagr": "+11.8%"
+        "projected_5y_cagr": "+11.8%",
+        "present_fair_value": 238.2,
+        "target_5y_return_pct": 224.1,
+        "target_5y_cagr_pct": 26.5
       },
       {
         "story_num": 2,
@@ -48,14 +51,17 @@
         "oe_yield": "4.55%",
         "terminal_multiple": "22.0x",
         "val": 542.14,
-        "mos_pct": 368.6,
+        "mos_pct": 197.7,
         "target": "$542.14 (+368.6%)",
         "prob_pct": 15.0,
         "prob_weight": 0.15,
         "net_cash_per_share": 12.38,
         "normalized_oe_per_share": 11.22,
         "projected_oe5_per_share": 24.08,
-        "projected_5y_cagr": "+16.5%"
+        "projected_5y_cagr": "+16.5%",
+        "present_fair_value": 344.38,
+        "target_5y_return_pct": 368.6,
+        "target_5y_cagr_pct": 36.2
       },
       {
         "story_num": 3,
@@ -68,14 +74,17 @@
         "oe_yield": "8.00%",
         "terminal_multiple": "12.5x",
         "val": 136.01,
-        "mos_pct": 17.6,
+        "mos_pct": -25.3,
         "target": "$136.01 (+17.6%)",
         "prob_pct": 15.0,
         "prob_weight": 0.15,
         "net_cash_per_share": 12.38,
         "normalized_oe_per_share": 11.22,
         "projected_oe5_per_share": 9.89,
-        "projected_5y_cagr": "-2.5%"
+        "projected_5y_cagr": "-2.5%",
+        "present_fair_value": 86.4,
+        "target_5y_return_pct": 17.6,
+        "target_5y_cagr_pct": 3.3
       }
     ],
     "story1_target": "$374.98 (+224.1%)",
@@ -85,7 +94,7 @@
     "story2_title": "Path 2: Bull Case - Accelerated Global Scale & Category Innovation",
     "story3_title": "Path 3: Bear Case - Domestic Saturation, Promotional Drag & Tariff Friction",
     "bear_target": "$136.01",
-    "base_target": "$364.21",
+    "base_target": "$231.36",
     "bull_target": "$542.14",
     "what_is_priced_in": "10.31x",
     "upper_alert_threshold": 542.14,
@@ -109,7 +118,12 @@
     "predictability_summary": "High Predictability: Underwritten via 10-year visibility framework.",
     "last_updated": "2026-08-21",
     "total_versions": 1,
-    "report_path": "reports/LULU.html"
+    "report_path": "reports/LULU.html",
+    "present_fair_value": 231.36,
+    "target_price_5y": "$364.21",
+    "expected_mos": 100.0,
+    "expected_5y_return": 214.8,
+    "expected_5y_cagr": 25.8
   },
   "CROX": {
     "ticker": "CROX",
@@ -120,14 +134,14 @@
     "status_label": "Narrow Moat",
     "moat_label": "Narrow Moat",
     "labels": [
-      "Wide Moat",
-      "Owner Earnings",
-      "Cash Generation"
+      "Narrow Moat",
+      "Crocs",
+      "Heydude"
     ],
     "action_signal": "BUY",
-    "fair_value_estimate": "$339.55",
-    "expected_fair_value": "$339.55",
-    "expected_val": null,
+    "fair_value_estimate": "$215.69",
+    "expected_fair_value": "$215.69",
+    "expected_val": 215.69,
     "stories": [
       {
         "story_num": 1,
@@ -140,14 +154,17 @@
         "oe_yield": "5.9%",
         "terminal_multiple": "17.0x",
         "val": 328.54,
-        "mos_pct": 166.9,
+        "mos_pct": 69.6,
         "target": "$328.54 (+166.9%)",
         "prob_pct": 70.0,
         "prob_weight": 0.7,
         "net_cash_per_share": -20.3,
         "normalized_oe_per_share": 11.68,
         "projected_oe5_per_share": 20.52,
-        "projected_5y_cagr": "+11.9%"
+        "projected_5y_cagr": "+11.9%",
+        "present_fair_value": 208.7,
+        "target_5y_return_pct": 166.9,
+        "target_5y_cagr_pct": 21.7
       },
       {
         "story_num": 2,
@@ -160,14 +177,17 @@
         "oe_yield": "8.3%",
         "terminal_multiple": "12.0x",
         "val": 100.9,
-        "mos_pct": -18.0,
+        "mos_pct": -47.9,
         "target": "$100.90 (-18.0%)",
         "prob_pct": 15.0,
         "prob_weight": 0.15,
         "net_cash_per_share": -20.3,
         "normalized_oe_per_share": 11.68,
         "projected_oe5_per_share": 10.1,
-        "projected_5y_cagr": "-2.9%"
+        "projected_5y_cagr": "-2.9%",
+        "present_fair_value": 64.09,
+        "target_5y_return_pct": -18.0,
+        "target_5y_cagr_pct": -3.9
       },
       {
         "story_num": 3,
@@ -180,14 +200,17 @@
         "oe_yield": "4.5%",
         "terminal_multiple": "22.0x",
         "val": 629.58,
-        "mos_pct": 411.5,
+        "mos_pct": 224.9,
         "target": "$629.58 (+411.5%)",
         "prob_pct": 15.0,
         "prob_weight": 0.15,
         "net_cash_per_share": -20.3,
         "normalized_oe_per_share": 11.68,
         "projected_oe5_per_share": 29.54,
-        "projected_5y_cagr": "+20.4%"
+        "projected_5y_cagr": "+20.4%",
+        "present_fair_value": 399.93,
+        "target_5y_return_pct": 411.5,
+        "target_5y_cagr_pct": 38.6
       }
     ],
     "story1_target": "$328.54 (+166.9%)",
@@ -197,7 +220,7 @@
     "story2_title": "Path 2: Downside Friction - North American Wholesale Stagnation & HEYDUDE Drag",
     "story3_title": "Path 3: Operating Acceleration - High-Velocity International Scaling & HEYDUDE Turnaround",
     "bear_target": "$100.90",
-    "base_target": "$339.55",
+    "base_target": "$215.69",
     "bull_target": "$629.58",
     "what_is_priced_in": "10.5x",
     "upper_alert_threshold": 629.58,
@@ -223,6 +246,11 @@
     "predictability_summary": "High Predictability: Underwritten via 10-year visibility framework.",
     "last_updated": "2026-08-21",
     "total_versions": 1,
-    "report_path": "reports/CROX.html"
+    "report_path": "reports/CROX.html",
+    "present_fair_value": 215.69,
+    "target_price_5y": "$339.55",
+    "expected_mos": 75.2,
+    "expected_5y_return": 175.9,
+    "expected_5y_cagr": 22.5
   }
 }

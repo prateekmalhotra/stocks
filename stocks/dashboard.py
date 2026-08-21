@@ -166,13 +166,21 @@ def format_usd_target(val: Any) -> str:
     return val_str.replace("C$", "$").replace("CAD", "").replace("USD", "").strip()
 
 
-def extract_pct_delta(base_target: str, current_price: float, fair_value_str: str) -> str:
+def extract_pct_delta(base_target: Any, current_price: float, fair_value_str: str) -> str:
     """Extracts clean percentage difference without repeating the dollar value."""
-    match = re.search(r"\(([-+]?\d+(?:\.\d+)?%)\)", base_target)
+    if isinstance(base_target, (int, float)):
+        return f"{base_target:+.1f}%"
+        
+    base_str = str(base_target or "")
+    match = re.search(r"\(([-+]?\d+(?:\.\d+)?%)\)", base_str)
     if match:
         return match.group(1)
+        
+    pct_match = re.search(r"[-+]?\d+(?:\.\d+)?%", base_str)
+    if pct_match:
+        return pct_match.group(0)
     
-    fv_match = re.search(r"[-+]?\d+(?:\.\d+)?", fair_value_str.replace(",", ""))
+    fv_match = re.search(r"[-+]?\d+(?:\.\d+)?", str(fair_value_str).replace(",", ""))
     if fv_match and current_price > 0:
         fv = float(fv_match.group(0))
         diff_pct = ((fv - current_price) / current_price) * 100
@@ -2971,9 +2979,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             <!-- Key Quality & Catalyst Strip -->
             <div class="metrics-grid">
                 <div class="metric-cell">
-                    <div class="metric-label">Expected Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">{format_usd_target(getattr(stock, 'expected_fair_value', '') or stock.fair_value_estimate)}</div>
-                    <div class="metric-subtext" style="color: var(--text-secondary);">Probability-Weighted DCF</div>
+                    <div class="metric-label">Present Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">{format_usd_target(getattr(stock, 'present_fair_value', '') or getattr(stock, 'expected_fair_value', '') or stock.fair_value_estimate)}</div>
+                    <div class="metric-subtext" style="color: var(--text-secondary);">{f"{stock.expected_mos:+.1f}% Margin of Safety" if getattr(stock, 'expected_mos', None) is not None else "9.5% Hurdle Rate PV"}</div>
                 </div>
                 {format_pricing_power_card_html(stock)}
                 {format_cash_flow_predictability_card_html(stock)}
@@ -3162,10 +3170,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         # Clean company name (preserve full name like JD.com, Inc. without cutting ticker prefix)
         clean_company = (stock.company_name or stock.ticker).strip().rstrip(".")
 
-        # Clean percentage delta and fair value display (prefer Probability-Weighted Expected Fair Value)
-        fv_raw = getattr(stock, "expected_fair_value", None) or stock.fair_value_estimate
+        # Clean percentage delta and fair value display (prefer Present Fair Value)
+        fv_raw = getattr(stock, "present_fair_value", None) or getattr(stock, "expected_fair_value", None) or stock.fair_value_estimate
         fv_clean = format_usd_target(fv_raw)
-        pct_delta_str = extract_pct_delta(fv_raw, stock.current_price, fv_clean)
+        pct_delta_str = extract_pct_delta(getattr(stock, "expected_mos", None) or fv_raw, stock.current_price, fv_clean)
 
         # Clean catalyst description (max 4 words, no ellipses, wraps cleanly)
         safe_baseline = stock.baseline_price if stock.baseline_price > 0 else stock.current_price
@@ -3232,8 +3240,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     <span class="grid-stat-val" style="color: var(--accent-warm);">{fv_clean}</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">Target</span>
-                    <span class="grid-stat-val">{stock.base_target}</span>
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val">{format_usd_target(getattr(stock, 'target_price_5y', '') or stock.base_target)}</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
