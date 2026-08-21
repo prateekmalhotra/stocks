@@ -465,86 +465,17 @@ def map_to_canonical_conviction_tier(lbl: str, action_signal: str = "", base_ret
 
 
 def sanitize_labels(labels: Any, action_signal: str = "", base_ret: float = 0.0, sec1_text: str = "") -> List[str]:
-    """Sanitizes labels ensuring:
-    - Slot 1 is STRICTLY one of the 4 canonical Moat ratings:
-      * Wide Moat, Narrow Moat, Weak Moat, No Moat.
-    - Slots 2 & 3 are bespoke company-specific 2-word operating/catalyst drivers (e.g. "China Scale", "DTC Growth", "Croslite Foam").
-    - Max 3 labels total.
+    """Sanitizes labels to strictly return the canonical Moat rating:
+    - Wide Moat, Narrow Moat, Weak Moat, or No Moat.
     """
-    if not isinstance(labels, list):
-        if isinstance(labels, str) and labels:
-            labels = [labels]
-        else:
-            labels = []
-
-    GENERIC_BLACKLIST = {
-        "ACTIVE", "REVIEW", "ALERT", "UPDATE", "TASK", "STOCK", "STATUS", 
-        "NEW", "NONE", "PRICE", "CONVICTION", "TBD", "HOLD", "BUY", "AVOID", "CAUTION",
-        "OWNER EARNINGS", "CASH GENERATION", "CONSOLIDATED ENTERPRISE", "NET REVENUE",
-        "OPERATING INCOME", "GROSS PROFIT", "TOTAL", "GAAP"
-    }
-    
-    # 1. Determine canonical Moat archetype for Slot 1
-    raw_slot1 = labels[0] if labels and isinstance(labels[0], str) else ""
+    raw_slot1 = ""
+    if isinstance(labels, list) and labels:
+        raw_slot1 = str(labels[0])
+    elif isinstance(labels, str):
+        raw_slot1 = labels
+        
     moat_label = map_to_canonical_moat_label(raw_slot1, sec1_text=sec1_text)
-
-    clean_drivers = []
-    candidates = labels[1:] if len(labels) > 1 else []
-    if raw_slot1 and raw_slot1.upper() not in [m.upper() for m in CANONICAL_MOAT_LABELS] and raw_slot1.upper() not in GENERIC_BLACKLIST:
-        candidates = [raw_slot1] + candidates
-
-    for item in candidates:
-        if not isinstance(item, str):
-            continue
-        words = [w for w in item.replace("/", " ").replace("-", " ").replace("&", " ").split() if w.strip()]
-        if words:
-            short_lbl = " ".join(words[:2]).title()
-            if (
-                short_lbl.upper() not in GENERIC_BLACKLIST 
-                and short_lbl != moat_label 
-                and short_lbl not in clean_drivers
-            ):
-                clean_drivers.append(short_lbl)
-        if len(clean_drivers) >= 2:
-            break
-
-    # If drivers are still missing or generic, parse bespoke drivers from Section 1 & 2
-    if len(clean_drivers) < 2 and sec1_text:
-        # A. Look for bespoke segments in Segment table
-        m_seg_table = re.search(r'Segment Breakdown.*?<table.*?>(.*?)</table>', sec1_text, re.DOTALL | re.IGNORECASE)
-        if m_seg_table:
-            for row in re.findall(r'<tr>(.*?)</tr>', m_seg_table.group(1), re.DOTALL):
-                tds = re.findall(r'<td>(.*?)</td>', row, re.DOTALL)
-                if tds:
-                    col0 = re.sub(r'<[^>]+>', '', tds[0]).strip()
-                    col0 = re.sub(r'^(?:Geographic|Channel|Segment|Enterprise)\s*:\s*', '', col0, flags=re.IGNORECASE)
-                    col0 = re.sub(r'Brand|Consolidated|Corporate|Unallocated|Total|Other', '', col0, flags=re.IGNORECASE).strip()
-                    words = [w for w in col0.split() if w.lower() not in ['and', 'the', 'of', 'in']]
-                    if words and 1 <= len(words) <= 3:
-                        candidate = " ".join(words[:2]).title()
-                        if candidate.upper() not in GENERIC_BLACKLIST and candidate not in clean_drivers and candidate != moat_label:
-                            clean_drivers.append(candidate)
-                if len(clean_drivers) >= 2:
-                    break
-                    
-        # B. Look for Path subtitles if still need drivers
-        if len(clean_drivers) < 2:
-            for m in re.finditer(r'<h3>Path\s*\d+:\s*(?:Core Execution|Bull Case|Downside|Bear Case|Operating Acceleration)[^-\n]*-\s*([^<\(]+)', sec1_text, re.IGNORECASE):
-                sub = m.group(1).replace('&amp;', '&').strip()
-                parts = [p.strip() for p in re.split(r'[,·&]', sub) if p.strip()]
-                for p in parts:
-                    words = [w for w in p.split() if w.lower() not in ['case', 'and', 'the', 'case', 'with', 'for']]
-                    if words:
-                        candidate = " ".join(words[:2]).title()
-                        if candidate.upper() not in GENERIC_BLACKLIST and candidate not in clean_drivers and candidate != moat_label:
-                            clean_drivers.append(candidate)
-                    if len(clean_drivers) >= 2:
-                        break
-                if len(clean_drivers) >= 2:
-                    break
-
-    result = [moat_label] + clean_drivers[:2]
-    return result
+    return [moat_label]
 
 
 def normalize_action_signal(signal: Any, default: str = "BUY") -> str:
