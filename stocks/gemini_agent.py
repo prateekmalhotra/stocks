@@ -1059,8 +1059,10 @@ Your mission is to formulate Section 1 and Section 2 of the living investment th
 
 STRICT MANDATES:
 1. NO PRESET TROPES OR CANNED TEMPLATES: Let the company's actual business segments, customer adoption, competitive friction, and 10-K disclosures organically dictate the number (2 to 5) and causal mechanisms of the probable future paths.
-2. NO EMOJIS ANYWHERE: Output pure, clean semantic HTML.
-3. STRICT CASH FLOW EXTRACTION:
+2. EMPIRICALLY GROUNDED PROBABILITY DISTRIBUTION (NO LAZY 50/25/25 SPLITS):
+   - For wide-moat compounders with massive contracted backlogs and high ROIC (e.g. Alphabet, Microsoft, Visa), the core execution compounding trajectory MUST carry the dominant empirical probability mass (typically 65% to 80%), with friction or tail scenarios weighted strictly in proportion to observable negative triggers in filings (10% to 20%).
+3. NO EMOJIS ANYWHERE: Output pure, clean semantic HTML.
+4. STRICT CASH FLOW EXTRACTION:
    - GAAP Operating Cash Flow (OCF) ($ Millions USD). NEVER use Financing Cash Flows or Net Income as OCF.
    - Maintenance CapEx vs. Growth CapEx.
    - Stock-Based Compensation (SBC) as a 100% real cash charge.
@@ -1129,16 +1131,27 @@ STRICT ZERO-PRICE-ANCHORING & FIRST-PRINCIPLES VALUATION RULES:
 3. Market Inversion:
    - Implied Market Multiple = Current Stock Price / Clean OE₀ per share.
    - Implied Market Yield = Clean OE₀ per share / Current Stock Price.
-4. Probability-Weighted Expected Fair Value:
-   - Assign objective probability weights (p₁, ..., pN summing to 100%).
+4. RIGOROUS EMPIRICAL PROBABILITY DISTRIBUTION MANDATE (NO CANNED 50/25/25 OR ARBITRARY SPLITS):
+   - You MUST assign probability weights (p₁, ..., pN summing strictly to 100%) grounded directly in empirical evidence from audited statutory filings (10-K, 10-Q), contracted backlog visibility, and recent management earnings commentary.
+   - NEVER default to lazy, arbitrary distributions like 50/25/25, 33/33/33, or symmetrical triads.
+   - For structural, cash-generative monopolies / fortress franchises (e.g. Google Search/GCP, Microsoft, Apple, Visa with >30% operating margins, pricing power, and massive contracted enterprise backlogs):
+     * The core compounding operating trajectory MUST carry the dominant empirical probability mass (typically 65% to 80%), reflecting verified business predictability, fortress balance sheets, and contracted enterprise demand.
+     * Friction / downside trajectories should be weighted strictly in proportion to observable negative risks in SEC filings (typically 10% to 20%), NOT an exaggerated 35%-50% collapse unless filings show active structural erosion, debt distress, or market share loss.
+     * Blue-sky / breakthrough trajectories carry appropriate minor upside tail probability (e.g. 10% to 15%).
+   - For turnaround plays, debt-laden firms, or commoditized cyclicals:
+     * Weight the drag/friction scenarios heavily in direct proportion to real cash burn, debt maturities, and margin compression in recent 10-Q filings.
+   - You MUST include a dedicated subsection explicitly explaining the empirical filing basis for each assigned probability weight!
+5. Probability-Weighted Expected Fair Value:
    - Expected Fair Value = sum(p_i * Fair_Value_i).
    - Expected Margin of Safety (%) = ((Expected Fair Value - Current Stock Price) / Current Stock Price) * 100%.
-5. NO EMOJIS ANYWHERE: Output pure semantic HTML.
+6. NO EMOJIS ANYWHERE: Output pure semantic HTML.
 
 OUTPUT FORMAT:
 Provide pure semantic HTML containing Section 3, followed by the complete structured JSON block:
 
 <h2>Section 3: Normalized Owner Earnings Multiple &amp; Yield Inversion Valuation</h2>
+
+<p>[Methodological narrative explaining the Owner Earnings Multiple capitalization framework, ROIC-based multiple assignments, and the balance sheet bridge...]</p>
 
 <table class="data-table">
   <thead>
@@ -1157,14 +1170,20 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
     <tr><td>Net Balance Sheet Cash / (Debt) per share Adjustment</td><td>+$XX.XX or -$XX.XX</td><td>+$XX.XX or -$XX.XX</td><td>+$XX.XX or -$XX.XX</td></tr>
     <tr><td><strong>Intrinsic Fair Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
     <tr><td>Margin of Safety vs. Current Price (${current_price:.2f})</td><td>+XX.X% or -XX.X%</td><td>+XX.X% or -XX.X%</td><td>+XX.X% or -XX.X%</td></tr>
-    <tr><td>Probability Weight (%)</td><td>XX%</td><td>XX%</td><td>XX%</td></tr>
+    <tr><td>Probability Weight &amp; Empirical Basis (%)</td><td>XX% (Contracted Backlog / Core Execution)</td><td>XX% (Observable Friction Risk)</td><td>XX% (Upside Tail Inflection)</td></tr>
   </tbody>
 </table>
+
+<div class="callout">
+  <h3>Empirical Probability Weighting Rationale</h3>
+  <p>[Detailed explanation of why each probability weight was assigned based on audited filing backlog, historical ROIC stability, and management commentary...]</p>
+</div>
 
 <div class="callout">
   <h3>Market Inversion &amp; Valuation Synthesis</h3>
   <p><strong>Implied Market Reality:</strong> At today's market price of <strong>${current_price:.2f}</strong>, the market is pricing {company_name} at <strong>XX.Xx Normalized Owner Earnings</strong> (an implied Owner Cash Yield of <strong>X.X%</strong>).</p>
   <p><strong>Probability-Weighted Expected Fair Value:</strong> <strong>$XX.XX / share</strong> (Margin of Safety: <strong>~XX%</strong> vs. today's market price).</p>
+  <p><strong>Capital Allocation Recommendation:</strong> [Crisp buy-side verdict based on Graham-Buffett margin of safety hurdle...]</p>
 </div>
 
 ```json

@@ -1797,6 +1797,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             display: none;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             z-index: 10;
+        }}
         .chart-labels, .chart-x-axis {{
             position: relative;
             width: 100%;
