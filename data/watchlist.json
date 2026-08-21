@@ -1,4 +1,373 @@
 {
+  "AMZN": {
+    "ticker": "AMZN",
+    "company_name": "Amazon.com, Inc.",
+    "baseline_price": 260.11,
+    "current_price": 260.11,
+    "return_pct": 0.0,
+    "status_label": "Wide Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Wide Moat"
+    ],
+    "action_signal": "AVOID",
+    "fair_value_estimate": "$169.15",
+    "expected_fair_value": "$169.15",
+    "expected_val": 169.15,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Steady AWS-Driven Cloud Expansion, Advertising Monetization, and Regional Fulfillment Efficiency",
+        "title": "Path 1: Steady AWS-Driven Cloud Expansion, Advertising Monetization, and Regional Fulfillment Efficiency",
+        "short_summary": "Amazon compounds top-line revenue at a 9.85% CAGR to $1,147,014.4M over 5 years while operating margins expand from 11.2% to 14.0%, driven by AWS re-acceleration, high-margin advertising growth, and fulfillment regionalization. True Owner Earnings expand to $11.50 per share, delivering a 16.7% per-share CAGR.",
+        "summary": "Amazon compounds top-line revenue at a 9.85% CAGR to $1,147,014.4M over 5 years while operating margins expand from 11.2% to 14.0%, driven by AWS re-acceleration, high-margin advertising growth, and fulfillment regionalization. True Owner Earnings expand to $11.50 per share, delivering a 16.7% per-share CAGR.",
+        "oe_multiple": "24.0x",
+        "oe_yield": "4.2%",
+        "terminal_multiple": "24.0x",
+        "val": 281.3,
+        "present_fair_value": 178.69,
+        "mos_pct": -31.3,
+        "target_5y_return_pct": 8.1,
+        "target_5y_cagr_pct": 1.6,
+        "target": "$281.30 (+8.1%)",
+        "prob_pct": 55.0,
+        "prob_weight": 0.55,
+        "net_cash_per_share": 5.3,
+        "normalized_oe_per_share": 5.31,
+        "projected_oe5_per_share": 11.5,
+        "projected_5y_cagr": "+16.7%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            716924.0,
+            818772.9,
+            935090.9,
+            1067933.4,
+            1219648.1,
+            1392915.9
+          ],
+          "gross_margin_pct": [
+            50.3,
+            51.1,
+            52.0,
+            52.8,
+            53.6,
+            54.5
+          ],
+          "operating_income_mil": [
+            80295.5,
+            102346.6,
+            129042.5,
+            162325.9,
+            201241.9,
+            247939.0
+          ],
+          "operating_margin_pct": [
+            11.2,
+            12.5,
+            13.8,
+            15.2,
+            16.5,
+            17.8
+          ],
+          "normalized_net_income_mil": [
+            71407.7,
+            81285.9,
+            92413.7,
+            105175.1,
+            119668.9,
+            136212.1
+          ],
+          "owner_earnings_mil": [
+            68007.3,
+            77415.1,
+            88013.0,
+            100166.8,
+            113970.4,
+            129725.8
+          ],
+          "diluted_shares_mil": [
+            12807.4,
+            12486.3,
+            12173.3,
+            11868.1,
+            11570.6,
+            11280.5
+          ],
+          "oe_per_share": [
+            5.31,
+            6.2,
+            7.23,
+            8.44,
+            9.85,
+            11.5
+          ],
+          "roic_pct": [
+            25.0,
+            28.3,
+            31.7,
+            35.0,
+            38.4,
+            41.7
+          ]
+        },
+        "oe5": 11.5,
+        "cagr": "+9.85%",
+        "multiple": "24.0x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Cloud Price Wars, Hyper-CapEx Depreciation Drag & Retail Fulfillment Inflation",
+        "title": "Path 2: Cloud Price Wars, Hyper-CapEx Depreciation Drag & Retail Fulfillment Inflation",
+        "short_summary": "Path 2 models operational deceleration driven by cloud pricing wars, heavy datacenter depreciation drag, and ongoing fulfillment labor inflation, compressing operating margins to 8.5% and 5-year revenue CAGR to +6.4%.",
+        "summary": "Path 2 models operational deceleration driven by cloud pricing wars, heavy datacenter depreciation drag, and ongoing fulfillment labor inflation, compressing operating margins to 8.5% and 5-year revenue CAGR to +6.4%.",
+        "oe_multiple": "18.0x",
+        "oe_yield": "5.6%",
+        "terminal_multiple": "18.0x",
+        "val": 100.29,
+        "present_fair_value": 63.71,
+        "mos_pct": -75.5,
+        "target_5y_return_pct": -61.4,
+        "target_5y_cagr_pct": -17.4,
+        "target": "$100.29 (-61.4%)",
+        "prob_pct": 25.0,
+        "prob_weight": 0.25,
+        "net_cash_per_share": 5.3,
+        "normalized_oe_per_share": 5.31,
+        "projected_oe5_per_share": 5.27,
+        "projected_5y_cagr": "-0.2%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            716924.0,
+            716003.1,
+            715083.4,
+            714164.9,
+            713247.6,
+            712331.4
+          ],
+          "gross_margin_pct": [
+            50.3,
+            50.3,
+            50.3,
+            50.3,
+            50.3,
+            50.3
+          ],
+          "operating_income_mil": [
+            80295.5,
+            79476.3,
+            79374.3,
+            79272.3,
+            79170.5,
+            79068.8
+          ],
+          "operating_margin_pct": [
+            11.2,
+            11.1,
+            11.1,
+            11.1,
+            11.1,
+            11.1
+          ],
+          "normalized_net_income_mil": [
+            71407.7,
+            71273.2,
+            71138.7,
+            71138.7,
+            71004.3,
+            70869.8
+          ],
+          "owner_earnings_mil": [
+            68007.3,
+            67879.2,
+            67751.1,
+            67751.1,
+            67623.1,
+            67495.0
+          ],
+          "diluted_shares_mil": [
+            12807.4,
+            12807.4,
+            12807.4,
+            12807.4,
+            12807.4,
+            12807.4
+          ],
+          "oe_per_share": [
+            5.31,
+            5.3,
+            5.29,
+            5.29,
+            5.28,
+            5.27
+          ],
+          "roic_pct": [
+            25.0,
+            25.0,
+            24.9,
+            24.9,
+            24.9,
+            24.8
+          ]
+        },
+        "oe5": 5.27,
+        "cagr": "+6.4%",
+        "multiple": "18.0x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Generative AI Infrastructure Monetization & Advertising Network Leverage Supercycle",
+        "title": "Path 3: Generative AI Infrastructure Monetization & Advertising Network Leverage Supercycle",
+        "short_summary": "AWS enterprise cloud migration re-accelerates behind custom AI silicon (Trainium/Inferentia) and agentic workflow dominance, while high-margin Sponsored Products and Prime Video ads expand consolidated operating margins to 16.8%. Structural retail cost-to-serve reductions through fulfillment regionalization generate $173.5B in Year-5 Owner Earnings.",
+        "summary": "AWS enterprise cloud migration re-accelerates behind custom AI silicon (Trainium/Inferentia) and agentic workflow dominance, while high-margin Sponsored Products and Prime Video ads expand consolidated operating margins to 16.8%. Structural retail cost-to-serve reductions through fulfillment regionalization generate $173.5B in Year-5 Owner Earnings.",
+        "oe_multiple": "25.0x",
+        "oe_yield": "4.0%",
+        "terminal_multiple": "25.0x",
+        "val": 432.52,
+        "present_fair_value": 274.75,
+        "mos_pct": 5.6,
+        "target_5y_return_pct": 66.3,
+        "target_5y_cagr_pct": 10.7,
+        "target": "$432.52 (+66.3%)",
+        "prob_pct": 20.0,
+        "prob_weight": 0.2,
+        "net_cash_per_share": 5.3,
+        "normalized_oe_per_share": 5.31,
+        "projected_oe5_per_share": 17.09,
+        "projected_5y_cagr": "+26.3%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            716924.0,
+            877416.0,
+            1073836.0,
+            1314226.9,
+            1608432.3,
+            1968499.0
+          ],
+          "gross_margin_pct": [
+            50.3,
+            51.6,
+            52.9,
+            54.2,
+            55.6,
+            56.9
+          ],
+          "operating_income_mil": [
+            80295.5,
+            116696.3,
+            165370.7,
+            229989.7,
+            315252.7,
+            427164.3
+          ],
+          "operating_margin_pct": [
+            11.2,
+            13.3,
+            15.4,
+            17.5,
+            19.6,
+            21.7
+          ],
+          "normalized_net_income_mil": [
+            71407.7,
+            86669.5,
+            105205.2,
+            127621.8,
+            154856.5,
+            187875.3
+          ],
+          "owner_earnings_mil": [
+            68007.3,
+            82542.4,
+            100195.4,
+            121544.6,
+            147482.4,
+            178928.9
+          ],
+          "diluted_shares_mil": [
+            12807.4,
+            12301.4,
+            11815.5,
+            11348.7,
+            10900.4,
+            10469.8
+          ],
+          "oe_per_share": [
+            5.31,
+            6.71,
+            8.48,
+            10.71,
+            13.53,
+            17.09
+          ],
+          "roic_pct": [
+            25.0,
+            30.3,
+            35.5,
+            40.8,
+            46.1,
+            50.0
+          ]
+        },
+        "oe5": 17.09,
+        "cagr": "+14.5%",
+        "multiple": "25.0x"
+      }
+    ],
+    "story1_target": "$281.30 (+8.1%)",
+    "story2_target": "$100.29 (-61.4%)",
+    "story3_target": "$432.52 (+66.3%)",
+    "story1_title": "Path 1: Steady AWS-Driven Cloud Expansion, Advertising Monetization, and Regional Fulfillment Efficiency",
+    "story2_title": "Path 2: Cloud Price Wars, Hyper-CapEx Depreciation Drag & Retail Fulfillment Inflation",
+    "story3_title": "Path 3: Generative AI Infrastructure Monetization & Advertising Network Leverage Supercycle",
+    "bear_target": "$100.29",
+    "base_target": "$169.15",
+    "bull_target": "$432.52",
+    "what_is_priced_in": "49.0x",
+    "upper_alert_threshold": 432.52,
+    "lower_alert_threshold": 100.29,
+    "next_catalyst_date": "2026-10-29",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [],
+    "institutional_ownership_pct": "0 Tracked",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 100 Form 4 filings.",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/AMZN.html"
+  },
   "APP": {
     "ticker": "APP",
     "company_name": "Applovin Corporation",
@@ -372,6 +741,1851 @@
     "last_updated": "2026-08-21",
     "total_versions": 1,
     "report_path": "reports/APP.html"
+  },
+  "BMBL": {
+    "ticker": "BMBL",
+    "company_name": "Bumble Inc.",
+    "baseline_price": 2.8,
+    "current_price": 2.8,
+    "return_pct": 0.0,
+    "status_label": "Weak Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Weak Moat"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$11.98",
+    "expected_fair_value": "$11.98",
+    "expected_val": 11.98,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Product Reset Stabilization & Baseline Operational Continuation",
+        "title": "Path 1: Product Reset Stabilization & Baseline Operational Continuation",
+        "short_summary": "Bumble stabilizes paying user contraction following its product overhaul, achieving modest 1.8% top-line CAGR and expanding normalized operating margins to 25.5%, expanding Owner Earnings to $2.02 per share by Year 5.",
+        "summary": "Bumble stabilizes paying user contraction following its product overhaul, achieving modest 1.8% top-line CAGR and expanding normalized operating margins to 25.5%, expanding Owner Earnings to $2.02 per share by Year 5.",
+        "oe_multiple": "12.0x",
+        "oe_yield": "9.8%",
+        "terminal_multiple": "12.0x",
+        "val": 20.71,
+        "present_fair_value": 13.16,
+        "mos_pct": 370.0,
+        "target_5y_return_pct": 639.6,
+        "target_5y_cagr_pct": 49.2,
+        "target": "$20.71 (+639.6%)",
+        "prob_pct": 45.0,
+        "prob_weight": 0.45,
+        "net_cash_per_share": -3.27,
+        "normalized_oe_per_share": 207.6,
+        "projected_oe5_per_share": 2.02,
+        "projected_5y_cagr": "+4.8%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            965.7,
+            917.4,
+            871.5,
+            828.0,
+            786.6,
+            747.2
+          ],
+          "gross_margin_pct": [
+            70.8,
+            67.8,
+            64.8,
+            61.7,
+            58.7,
+            55.7
+          ],
+          "operating_income_mil": [
+            241.4,
+            185.3,
+            133.3,
+            86.9,
+            62.9,
+            59.8
+          ],
+          "operating_margin_pct": [
+            25.0,
+            20.2,
+            15.3,
+            10.5,
+            8.0,
+            8.0
+          ],
+          "normalized_net_income_mil": [
+            218.0,
+            86.3,
+            34.1,
+            13.5,
+            5.4,
+            2.1
+          ],
+          "owner_earnings_mil": [
+            207.6,
+            82.2,
+            32.5,
+            12.9,
+            5.1,
+            2.0
+          ],
+          "diluted_shares_mil": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "oe_per_share": [
+            207.6,
+            82.2,
+            32.54,
+            12.89,
+            5.1,
+            2.02
+          ],
+          "roic_pct": [
+            25.0,
+            12.9,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ]
+        },
+        "oe5": 2.02,
+        "cagr": "+1.8%",
+        "multiple": "12.0x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Subscription Churn, Competitive Disintermediation & Margin Drag",
+        "title": "Path 2: Subscription Churn, Competitive Disintermediation & Margin Drag",
+        "short_summary": "Bumble suffers structural paying user erosion and brand dilution as product redesigns fail to stop market share loss to Hinge, driving revenue down to $810.5M and compressing Owner Earnings to $0.79 per share.",
+        "summary": "Bumble suffers structural paying user erosion and brand dilution as product redesigns fail to stop market share loss to Hinge, driving revenue down to $810.5M and compressing Owner Earnings to $0.79 per share.",
+        "oe_multiple": "10.0x",
+        "oe_yield": "10.0%",
+        "terminal_multiple": "10.0x",
+        "val": 4.74,
+        "present_fair_value": 3.01,
+        "mos_pct": 7.5,
+        "target_5y_return_pct": 69.3,
+        "target_5y_cagr_pct": 11.1,
+        "target": "$4.74 (+69.3%)",
+        "prob_pct": 40.0,
+        "prob_weight": 0.4,
+        "net_cash_per_share": -3.27,
+        "normalized_oe_per_share": 207.6,
+        "projected_oe5_per_share": 0.79,
+        "projected_5y_cagr": "-13.2%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            965.7,
+            917.4,
+            871.5,
+            828.0,
+            786.6,
+            747.2
+          ],
+          "gross_margin_pct": [
+            70.8,
+            67.4,
+            64.1,
+            60.7,
+            57.4,
+            54.0
+          ],
+          "operating_income_mil": [
+            241.4,
+            179.8,
+            124.6,
+            73.7,
+            62.9,
+            59.8
+          ],
+          "operating_margin_pct": [
+            25.0,
+            19.6,
+            14.3,
+            8.9,
+            8.0,
+            8.0
+          ],
+          "normalized_net_income_mil": [
+            218.0,
+            71.5,
+            23.5,
+            7.7,
+            2.5,
+            0.8
+          ],
+          "owner_earnings_mil": [
+            207.6,
+            68.1,
+            22.4,
+            7.3,
+            2.4,
+            0.8
+          ],
+          "diluted_shares_mil": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "oe_per_share": [
+            207.6,
+            68.13,
+            22.36,
+            7.34,
+            2.41,
+            0.79
+          ],
+          "roic_pct": [
+            25.0,
+            11.6,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ]
+        },
+        "oe5": 0.79,
+        "cagr": "-3.4%",
+        "multiple": "10.0x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Product Relaunch Catalyst, AI-Powered Monetization & Global Market Expansion",
+        "title": "Path 3: Product Relaunch Catalyst, AI-Powered Monetization & Global Market Expansion",
+        "short_summary": "Bumble successfully executes its product reset and AI matchmaking features, reversing paying user churn and unlocking operating leverage to achieve a 9.5% revenue CAGR and $3.52 per share in Owner Earnings by Year 5.",
+        "summary": "Bumble successfully executes its product reset and AI matchmaking features, reversing paying user churn and unlocking operating leverage to achieve a 9.5% revenue CAGR and $3.52 per share in Owner Earnings by Year 5.",
+        "oe_multiple": "15.5x",
+        "oe_yield": "6.5%",
+        "terminal_multiple": "15.5x",
+        "val": 50.94,
+        "present_fair_value": 32.36,
+        "mos_pct": 1055.7,
+        "target_5y_return_pct": 1719.3,
+        "target_5y_cagr_pct": 78.6,
+        "target": "$50.94 (+1719.3%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": -3.27,
+        "normalized_oe_per_share": 207.6,
+        "projected_oe5_per_share": 3.52,
+        "projected_5y_cagr": "+17.1%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            965.7,
+            917.4,
+            871.5,
+            828.0,
+            786.6,
+            747.2
+          ],
+          "gross_margin_pct": [
+            70.8,
+            68.0,
+            65.2,
+            62.4,
+            59.6,
+            56.9
+          ],
+          "operating_income_mil": [
+            241.4,
+            188.1,
+            140.3,
+            96.0,
+            62.9,
+            59.8
+          ],
+          "operating_margin_pct": [
+            25.0,
+            20.5,
+            16.1,
+            11.6,
+            8.0,
+            8.0
+          ],
+          "normalized_net_income_mil": [
+            218.0,
+            96.4,
+            42.6,
+            18.9,
+            8.4,
+            3.7
+          ],
+          "owner_earnings_mil": [
+            207.6,
+            91.8,
+            40.6,
+            18.0,
+            8.0,
+            3.5
+          ],
+          "diluted_shares_mil": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "oe_per_share": [
+            207.6,
+            91.85,
+            40.64,
+            17.98,
+            7.96,
+            3.52
+          ],
+          "roic_pct": [
+            25.0,
+            13.8,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ]
+        },
+        "oe5": 3.52,
+        "cagr": "+9.5%",
+        "multiple": "15.5x"
+      }
+    ],
+    "story1_target": "$20.71 (+639.6%)",
+    "story2_target": "$4.74 (+69.3%)",
+    "story3_target": "$50.94 (+1719.3%)",
+    "story1_title": "Path 1: Product Reset Stabilization & Baseline Operational Continuation",
+    "story2_title": "Path 2: Subscription Churn, Competitive Disintermediation & Margin Drag",
+    "story3_title": "Path 3: Product Relaunch Catalyst, AI-Powered Monetization & Global Market Expansion",
+    "bear_target": "$4.74",
+    "base_target": "$11.98",
+    "bull_target": "$50.94",
+    "what_is_priced_in": "1.7x",
+    "upper_alert_threshold": 50.94,
+    "lower_alert_threshold": 2.52,
+    "next_catalyst_date": "2026-11-04",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [],
+    "institutional_ownership_pct": "0 Tracked",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 22 Form 4 filings.",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/BMBL.html"
+  },
+  "BYD": {
+    "ticker": "BYD",
+    "company_name": "Boyd Gaming Corporation",
+    "baseline_price": 80.95,
+    "current_price": 80.95,
+    "return_pct": 0.0,
+    "status_label": "Narrow Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "AVOID",
+    "fair_value_estimate": "$63.48",
+    "expected_fair_value": "$63.48",
+    "expected_val": 63.48,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Steady Regional Gaming Cash Engine: High Hold Stability, Local Monopoly Protection, and Disciplined Share Retirement",
+        "title": "Path 1: Steady Regional Gaming Cash Engine: High Hold Stability, Local Monopoly Protection, and Disciplined Share Retirement",
+        "short_summary": "Boyd Gaming capitalizes on its statutory regional monopolies and Las Vegas Locals scale to deliver a steady 2.6% top-line CAGR, normalizing EBIT margins at 21.5% post-impairment, and retiring ~3% of shares annually to compound Owner Earnings per share to $11.53.",
+        "summary": "Boyd Gaming capitalizes on its statutory regional monopolies and Las Vegas Locals scale to deliver a steady 2.6% top-line CAGR, normalizing EBIT margins at 21.5% post-impairment, and retiring ~3% of shares annually to compound Owner Earnings per share to $11.53.",
+        "oe_multiple": "11.5x",
+        "oe_yield": "8.7%",
+        "terminal_multiple": "11.5x",
+        "val": 112.54,
+        "present_fair_value": 71.49,
+        "mos_pct": -11.7,
+        "target_5y_return_pct": 39.0,
+        "target_5y_cagr_pct": 6.8,
+        "target": "$112.54 (+39.0%)",
+        "prob_pct": 55.0,
+        "prob_weight": 0.55,
+        "net_cash_per_share": -21.25,
+        "normalized_oe_per_share": 8.57,
+        "projected_oe5_per_share": 11.53,
+        "projected_5y_cagr": "+6.1%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            4092.0,
+            4304.6,
+            4528.3,
+            4763.6,
+            5011.1,
+            5271.5
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.3,
+            50.6,
+            50.9,
+            51.2,
+            51.5
+          ],
+          "operating_income_mil": [
+            748.8,
+            809.3,
+            874.0,
+            943.2,
+            1017.3,
+            1091.2
+          ],
+          "operating_margin_pct": [
+            18.3,
+            18.8,
+            19.3,
+            19.8,
+            20.3,
+            20.7
+          ],
+          "normalized_net_income_mil": [
+            733.4,
+            771.2,
+            810.6,
+            852.6,
+            897.1,
+            941.9
+          ],
+          "owner_earnings_mil": [
+            698.5,
+            734.5,
+            772.0,
+            812.0,
+            854.4,
+            897.0
+          ],
+          "diluted_shares_mil": [
+            81.5,
+            80.8,
+            80.0,
+            79.3,
+            78.6,
+            77.8
+          ],
+          "oe_per_share": [
+            8.57,
+            9.09,
+            9.65,
+            10.24,
+            10.87,
+            11.53
+          ],
+          "roic_pct": [
+            25.0,
+            26.2,
+            27.4,
+            28.7,
+            29.9,
+            31.1
+          ]
+        },
+        "oe5": 11.53,
+        "cagr": "+2.6%",
+        "multiple": "11.5x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Regional Promotional Drift, Cost Inflation & Margin Compression",
+        "title": "Path 2: Regional Promotional Drift, Cost Inflation & Margin Compression",
+        "short_summary": "Macro discretionary drag and promotional slot escalation squeeze regional margins, slowing revenue CAGR to +0.8% and compressing operating margin to 15.3%.",
+        "summary": "Macro discretionary drag and promotional slot escalation squeeze regional margins, slowing revenue CAGR to +0.8% and compressing operating margin to 15.3%.",
+        "oe_multiple": "8.5x",
+        "oe_yield": "11.8%",
+        "terminal_multiple": "8.5x",
+        "val": 45.57,
+        "present_fair_value": 28.95,
+        "mos_pct": -64.2,
+        "target_5y_return_pct": -43.7,
+        "target_5y_cagr_pct": -10.9,
+        "target": "$45.57 (-43.7%)",
+        "prob_pct": 30.0,
+        "prob_weight": 0.3,
+        "net_cash_per_share": -21.25,
+        "normalized_oe_per_share": 8.57,
+        "projected_oe5_per_share": 7.42,
+        "projected_5y_cagr": "-2.8%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            4092.0,
+            3993.2,
+            3896.8,
+            3802.7,
+            3710.9,
+            3621.3
+          ],
+          "gross_margin_pct": [
+            50.0,
+            49.9,
+            49.7,
+            49.6,
+            49.4,
+            49.3
+          ],
+          "operating_income_mil": [
+            748.8,
+            722.8,
+            693.6,
+            669.3,
+            645.7,
+            622.9
+          ],
+          "operating_margin_pct": [
+            18.3,
+            18.1,
+            17.8,
+            17.6,
+            17.4,
+            17.2
+          ],
+          "normalized_net_income_mil": [
+            733.4,
+            712.8,
+            692.3,
+            672.6,
+            653.8,
+            634.9
+          ],
+          "owner_earnings_mil": [
+            698.5,
+            678.9,
+            659.3,
+            640.6,
+            622.7,
+            604.7
+          ],
+          "diluted_shares_mil": [
+            81.5,
+            81.5,
+            81.5,
+            81.5,
+            81.5,
+            81.5
+          ],
+          "oe_per_share": [
+            8.57,
+            8.33,
+            8.09,
+            7.86,
+            7.64,
+            7.42
+          ],
+          "roic_pct": [
+            25.0,
+            24.4,
+            23.9,
+            23.3,
+            22.7,
+            22.2
+          ]
+        },
+        "oe5": 7.42,
+        "cagr": "+0.8%",
+        "multiple": "8.5x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Las Vegas Suburban In-Migration, Sky River Expansion & High-Margin Digital Operating Leverage",
+        "title": "Path 3: Las Vegas Suburban In-Migration, Sky River Expansion & High-Margin Digital Operating Leverage",
+        "short_summary": "Boyd Gaming capitalizes on structural population inflows into Las Vegas Locals markets, management fee scaling from Northern California's Sky River Casino, and digital access expansion, driving revenue acceleration to $5.38B and expanding operating margins to 23.0%. Aggressive share repurchases reduce diluted shares to 67.5M, expanding Owner Earnings to $15.15 per share.",
+        "summary": "Boyd Gaming capitalizes on structural population inflows into Las Vegas Locals markets, management fee scaling from Northern California's Sky River Casino, and digital access expansion, driving revenue acceleration to $5.38B and expanding operating margins to 23.0%. Aggressive share repurchases reduce diluted shares to 67.5M, expanding Owner Earnings to $15.15 per share.",
+        "oe_multiple": "11.5x",
+        "oe_yield": "9.3%",
+        "terminal_multiple": "11.5x",
+        "val": 162.42,
+        "present_fair_value": 103.17,
+        "mos_pct": 27.4,
+        "target_5y_return_pct": 100.6,
+        "target_5y_cagr_pct": 14.9,
+        "target": "$162.42 (+100.6%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": -21.25,
+        "normalized_oe_per_share": 8.57,
+        "projected_oe5_per_share": 15.15,
+        "projected_5y_cagr": "+12.1%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            4092.0,
+            4511.8,
+            4974.6,
+            5485.0,
+            6047.7,
+            6668.1
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.6,
+            51.2,
+            51.8,
+            52.4,
+            53.0
+          ],
+          "operating_income_mil": [
+            748.8,
+            870.8,
+            1004.9,
+            1162.8,
+            1342.6,
+            1540.3
+          ],
+          "operating_margin_pct": [
+            18.3,
+            19.3,
+            20.2,
+            21.2,
+            22.2,
+            23.1
+          ],
+          "normalized_net_income_mil": [
+            733.4,
+            806.4,
+            888.0,
+            977.6,
+            1076.0,
+            1183.6
+          ],
+          "owner_earnings_mil": [
+            698.5,
+            768.0,
+            845.7,
+            931.0,
+            1024.8,
+            1127.2
+          ],
+          "diluted_shares_mil": [
+            81.5,
+            80.0,
+            78.6,
+            77.2,
+            75.8,
+            74.4
+          ],
+          "oe_per_share": [
+            8.57,
+            9.6,
+            10.76,
+            12.06,
+            13.52,
+            15.15
+          ],
+          "roic_pct": [
+            25.0,
+            27.4,
+            29.8,
+            32.2,
+            34.7,
+            37.1
+          ]
+        },
+        "oe5": 15.15,
+        "cagr": "+12.1%",
+        "multiple": "11.5x"
+      }
+    ],
+    "story1_target": "$112.54 (+39.0%)",
+    "story2_target": "$45.57 (-43.7%)",
+    "story3_target": "$162.42 (+100.6%)",
+    "story1_title": "Path 1: Steady Regional Gaming Cash Engine: High Hold Stability, Local Monopoly Protection, and Disciplined Share Retirement",
+    "story2_title": "Path 2: Regional Promotional Drift, Cost Inflation & Margin Compression",
+    "story3_title": "Path 3: Las Vegas Suburban In-Migration, Sky River Expansion & High-Margin Digital Operating Leverage",
+    "bear_target": "$45.57",
+    "base_target": "$63.48",
+    "bull_target": "$162.42",
+    "what_is_priced_in": "9.4x",
+    "upper_alert_threshold": 162.42,
+    "lower_alert_threshold": 45.57,
+    "next_catalyst_date": "2026-10-22",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [],
+    "institutional_ownership_pct": "0 Tracked",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 36 Form 4 filings.",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/BYD.html"
+  },
+  "CROX": {
+    "ticker": "CROX",
+    "company_name": "Crocs, Inc.",
+    "baseline_price": 123.09,
+    "current_price": 123.09,
+    "return_pct": 0.0,
+    "status_label": "Narrow Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "CAUTION",
+    "fair_value_estimate": "$115.20",
+    "expected_fair_value": "$115.20",
+    "expected_val": 115.2,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Flagship Resin Stability & HEYDUDE Impairment Normalization",
+        "title": "Path 1: Flagship Resin Stability & HEYDUDE Impairment Normalization",
+        "short_summary": "Crocs stabilizes core operations with low-single-digit revenue growth and normalized ~22.5% EBIT margins as impairment non-recurring items clear. Strong free cash flow reduces balance sheet debt and supports ongoing annual share buybacks.",
+        "summary": "Crocs stabilizes core operations with low-single-digit revenue growth and normalized ~22.5% EBIT margins as impairment non-recurring items clear. Strong free cash flow reduces balance sheet debt and supports ongoing annual share buybacks.",
+        "oe_multiple": "12.0x",
+        "oe_yield": "8.3%",
+        "terminal_multiple": "12.0x",
+        "val": 208.59,
+        "present_fair_value": 132.5,
+        "mos_pct": 7.6,
+        "target_5y_return_pct": 69.5,
+        "target_5y_cagr_pct": 11.1,
+        "target": "$208.59 (+69.5%)",
+        "prob_pct": 50.0,
+        "prob_weight": 0.5,
+        "net_cash_per_share": -20.3,
+        "normalized_oe_per_share": 12.17,
+        "projected_oe5_per_share": 17.82,
+        "projected_5y_cagr": "+7.9%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            4041.0,
+            4313.2,
+            4603.8,
+            4913.9,
+            5244.9,
+            5598.3
+          ],
+          "gross_margin_pct": [
+            58.3,
+            58.7,
+            59.1,
+            59.5,
+            59.9,
+            60.3
+          ],
+          "operating_income_mil": [
+            889.0,
+            974.8,
+            1072.7,
+            1174.4,
+            1285.0,
+            1410.8
+          ],
+          "operating_margin_pct": [
+            22.0,
+            22.6,
+            23.3,
+            23.9,
+            24.5,
+            25.2
+          ],
+          "normalized_net_income_mil": [
+            83.1,
+            88.2,
+            93.8,
+            101.2,
+            107.5,
+            114.1
+          ],
+          "owner_earnings_mil": [
+            79.1,
+            84.0,
+            89.3,
+            96.4,
+            102.4,
+            108.7
+          ],
+          "diluted_shares_mil": [
+            6.5,
+            6.4,
+            6.3,
+            6.3,
+            6.2,
+            6.1
+          ],
+          "oe_per_share": [
+            12.17,
+            13.13,
+            14.18,
+            15.3,
+            16.51,
+            17.82
+          ],
+          "roic_pct": [
+            25.0,
+            26.6,
+            28.2,
+            29.8,
+            31.3,
+            32.9
+          ]
+        },
+        "oe5": 17.82,
+        "cagr": "+7.9%",
+        "multiple": "12.0x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: HEYDUDE Wholesale De-stocking, Core Clog Saturation & Margin Compression",
+        "title": "Path 2: HEYDUDE Wholesale De-stocking, Core Clog Saturation & Margin Compression",
+        "short_summary": "Crocs faces extended revenue stagnation and margin compression as HEYDUDE wholesale channels undergo prolonged de-stocking, core Crocs clog demand reaches saturation in North America, and promotional pricing degrades consolidated gross margins to 55.5%.",
+        "summary": "Crocs faces extended revenue stagnation and margin compression as HEYDUDE wholesale channels undergo prolonged de-stocking, core Crocs clog demand reaches saturation in North America, and promotional pricing degrades consolidated gross margins to 55.5%.",
+        "oe_multiple": "10.5x",
+        "oe_yield": "10.9%",
+        "terminal_multiple": "10.5x",
+        "val": 89.87,
+        "present_fair_value": 57.09,
+        "mos_pct": -53.6,
+        "target_5y_return_pct": -27.0,
+        "target_5y_cagr_pct": -6.1,
+        "target": "$89.87 (-27.0%)",
+        "prob_pct": 35.0,
+        "prob_weight": 0.35,
+        "net_cash_per_share": -20.3,
+        "normalized_oe_per_share": 12.17,
+        "projected_oe5_per_share": 9.8,
+        "projected_5y_cagr": "-4.2%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            4041.0,
+            3895.4,
+            3755.0,
+            3619.7,
+            3489.3,
+            3363.5
+          ],
+          "gross_margin_pct": [
+            58.3,
+            58.1,
+            57.9,
+            57.7,
+            57.5,
+            57.2
+          ],
+          "operating_income_mil": [
+            889.0,
+            845.3,
+            799.8,
+            760.1,
+            718.8,
+            682.8
+          ],
+          "operating_margin_pct": [
+            22.0,
+            21.7,
+            21.3,
+            21.0,
+            20.6,
+            20.3
+          ],
+          "normalized_net_income_mil": [
+            83.1,
+            79.5,
+            76.1,
+            73.0,
+            69.8,
+            66.9
+          ],
+          "owner_earnings_mil": [
+            79.1,
+            75.7,
+            72.5,
+            69.5,
+            66.5,
+            63.7
+          ],
+          "diluted_shares_mil": [
+            6.5,
+            6.5,
+            6.5,
+            6.5,
+            6.5,
+            6.5
+          ],
+          "oe_per_share": [
+            12.17,
+            11.65,
+            11.16,
+            10.69,
+            10.23,
+            9.8
+          ],
+          "roic_pct": [
+            25.0,
+            24.2,
+            23.3,
+            22.5,
+            21.6,
+            20.8
+          ]
+        },
+        "oe5": 9.8,
+        "cagr": "+0.1%",
+        "multiple": "10.5x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Global Footprint Expansion, HEYDUDE Turnaround & High-Margin Operating Leverage",
+        "title": "Path 3: Global Footprint Expansion, HEYDUDE Turnaround & High-Margin Operating Leverage",
+        "short_summary": "Crocs accelerates revenue growth via Asian expansion and HEYDUDE stabilization, expanding gross margins to 60.4% and generating $23.89 in Owner Earnings per share by Year 5.",
+        "summary": "Crocs accelerates revenue growth via Asian expansion and HEYDUDE stabilization, expanding gross margins to 60.4% and generating $23.89 in Owner Earnings per share by Year 5.",
+        "oe_multiple": "13.0x",
+        "oe_yield": "7.7%",
+        "terminal_multiple": "13.0x",
+        "val": 304.0,
+        "present_fair_value": 193.11,
+        "mos_pct": 56.9,
+        "target_5y_return_pct": 147.0,
+        "target_5y_cagr_pct": 19.8,
+        "target": "$304.00 (+147.0%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": -20.3,
+        "normalized_oe_per_share": 12.17,
+        "projected_oe5_per_share": 23.89,
+        "projected_5y_cagr": "+14.4%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            4041.0,
+            4537.1,
+            5094.0,
+            5719.3,
+            6421.4,
+            7209.7
+          ],
+          "gross_margin_pct": [
+            58.3,
+            59.0,
+            59.7,
+            60.5,
+            61.2,
+            61.9
+          ],
+          "operating_income_mil": [
+            889.0,
+            1052.6,
+            1237.8,
+            1458.4,
+            1708.1,
+            2004.3
+          ],
+          "operating_margin_pct": [
+            22.0,
+            23.2,
+            24.3,
+            25.5,
+            26.6,
+            27.8
+          ],
+          "normalized_net_income_mil": [
+            83.1,
+            93.7,
+            103.7,
+            116.9,
+            131.6,
+            145.5
+          ],
+          "owner_earnings_mil": [
+            79.1,
+            89.2,
+            98.8,
+            111.3,
+            125.3,
+            138.6
+          ],
+          "diluted_shares_mil": [
+            6.5,
+            6.4,
+            6.2,
+            6.1,
+            6.0,
+            5.8
+          ],
+          "oe_per_share": [
+            12.17,
+            13.93,
+            15.94,
+            18.24,
+            20.88,
+            23.89
+          ],
+          "roic_pct": [
+            25.0,
+            27.9,
+            30.8,
+            33.7,
+            36.6,
+            39.4
+          ]
+        },
+        "oe5": 23.89,
+        "cagr": "+14.4%",
+        "multiple": "13.0x"
+      }
+    ],
+    "story1_target": "$208.59 (+69.5%)",
+    "story2_target": "$89.87 (-27.0%)",
+    "story3_target": "$304.00 (+147.0%)",
+    "story1_title": "Path 1: Flagship Resin Stability & HEYDUDE Impairment Normalization",
+    "story2_title": "Path 2: HEYDUDE Wholesale De-stocking, Core Clog Saturation & Margin Compression",
+    "story3_title": "Path 3: Global Footprint Expansion, HEYDUDE Turnaround & High-Margin Operating Leverage",
+    "bear_target": "$89.87",
+    "base_target": "$115.20",
+    "bull_target": "$304.00",
+    "what_is_priced_in": "10.1x",
+    "upper_alert_threshold": 304.0,
+    "lower_alert_threshold": 89.87,
+    "next_catalyst_date": "2026-10-29",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [],
+    "institutional_ownership_pct": "0 Tracked",
+    "insider_signal": "Net Buying",
+    "insider_summary": "+$1.0M net purchases across 14 Form 4 transactions",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/CROX.html"
+  },
+  "GOOG": {
+    "ticker": "GOOG",
+    "company_name": "Alphabet Inc.",
+    "baseline_price": 338.2,
+    "current_price": 338.2,
+    "return_pct": 0.0,
+    "status_label": "Wide Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Wide Moat"
+    ],
+    "action_signal": "AVOID",
+    "fair_value_estimate": "$265.04",
+    "expected_fair_value": "$265.04",
+    "expected_val": 265.04,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Core Search Resiliency & Enterprise Cloud Scaling Compounder",
+        "title": "Path 1: Core Search Resiliency & Enterprise Cloud Scaling Compounder",
+        "short_summary": "Alphabet maintains its dominant market share in global search monetization while Google Cloud delivers steady margin expansion and generative AI features drive steady mid-teens ARPU growth across core digital platforms.",
+        "summary": "Alphabet maintains its dominant market share in global search monetization while Google Cloud delivers steady margin expansion and generative AI features drive steady mid-teens ARPU growth across core digital platforms.",
+        "oe_multiple": "22.0x",
+        "oe_yield": "4.5%",
+        "terminal_multiple": "22.0x",
+        "val": 410.05,
+        "present_fair_value": 260.48,
+        "mos_pct": -23.0,
+        "target_5y_return_pct": 21.2,
+        "target_5y_cagr_pct": 3.9,
+        "target": "$410.05 (+21.2%)",
+        "prob_pct": 55.0,
+        "prob_weight": 0.55,
+        "net_cash_per_share": 5.25,
+        "normalized_oe_per_share": 9.7,
+        "projected_oe5_per_share": 18.4,
+        "projected_5y_cagr": "+13.7%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            402836.0,
+            449610.7,
+            501816.6,
+            560084.2,
+            625117.6,
+            697702.1
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.7,
+            51.4,
+            52.0,
+            52.7,
+            53.4
+          ],
+          "operating_income_mil": [
+            100709.0,
+            117348.4,
+            136494.1,
+            158503.8,
+            183784.6,
+            212799.1
+          ],
+          "operating_margin_pct": [
+            25.0,
+            26.1,
+            27.2,
+            28.3,
+            29.4,
+            30.5
+          ],
+          "normalized_net_income_mil": [
+            124562.6,
+            138739.4,
+            154377.1,
+            171850.8,
+            191380.4,
+            213047.4
+          ],
+          "owner_earnings_mil": [
+            118631.0,
+            132132.8,
+            147025.8,
+            163667.4,
+            182267.0,
+            202902.3
+          ],
+          "diluted_shares_mil": [
+            12230.0,
+            11979.4,
+            11733.9,
+            11493.5,
+            11258.0,
+            11027.3
+          ],
+          "oe_per_share": [
+            9.7,
+            11.03,
+            12.53,
+            14.24,
+            16.19,
+            18.4
+          ],
+          "roic_pct": [
+            25.0,
+            27.7,
+            30.5,
+            33.2,
+            35.9,
+            38.7
+          ]
+        },
+        "oe5": 18.4,
+        "cagr": "+10.6%",
+        "multiple": "22.0x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Downside Friction, Competitive Headwinds & Margin Drag",
+        "title": "Path 2: Downside Friction, Competitive Headwinds & Margin Drag",
+        "short_summary": "Generative search displacement, rising compute cost per query, and fierce cloud pricing wars decelerate revenue growth to 6.6% CAGR and compress operating margins to 27.0%, limiting Owner Earnings per share growth to 3.98% CAGR.",
+        "summary": "Generative search displacement, rising compute cost per query, and fierce cloud pricing wars decelerate revenue growth to 6.6% CAGR and compress operating margins to 27.0%, limiting Owner Earnings per share growth to 3.98% CAGR.",
+        "oe_multiple": "17.50x",
+        "oe_yield": "5.7%",
+        "terminal_multiple": "17.50x",
+        "val": 212.33,
+        "present_fair_value": 134.88,
+        "mos_pct": -60.1,
+        "target_5y_return_pct": -37.2,
+        "target_5y_cagr_pct": -8.9,
+        "target": "$212.33 (-37.2%)",
+        "prob_pct": 25.0,
+        "prob_weight": 0.25,
+        "net_cash_per_share": 5.25,
+        "normalized_oe_per_share": 9.7,
+        "projected_oe5_per_share": 11.79,
+        "projected_5y_cagr": "+4.0%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            402836.0,
+            416462.8,
+            430550.5,
+            445114.8,
+            460171.8,
+            475738.1
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.2,
+            50.4,
+            50.6,
+            50.8,
+            51.0
+          ],
+          "operating_income_mil": [
+            100709.0,
+            105365.1,
+            110220.9,
+            115729.8,
+            121025.2,
+            126546.3
+          ],
+          "operating_margin_pct": [
+            25.0,
+            25.3,
+            25.6,
+            26.0,
+            26.3,
+            26.6
+          ],
+          "normalized_net_income_mil": [
+            124562.6,
+            128797.3,
+            133103.7,
+            137480.8,
+            142176.7,
+            146936.0
+          ],
+          "owner_earnings_mil": [
+            118631.0,
+            122664.1,
+            126765.4,
+            130934.1,
+            135406.4,
+            139939.0
+          ],
+          "diluted_shares_mil": [
+            12230.0,
+            12157.0,
+            12084.4,
+            12012.3,
+            11940.6,
+            11869.3
+          ],
+          "oe_per_share": [
+            9.7,
+            10.09,
+            10.49,
+            10.9,
+            11.34,
+            11.79
+          ],
+          "roic_pct": [
+            25.0,
+            25.8,
+            26.6,
+            27.4,
+            28.2,
+            29.0
+          ]
+        },
+        "oe5": 11.79,
+        "cagr": "+6.6%",
+        "multiple": "17.50x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Enterprise AI Monetization Acceleration, Custom Silicon Operating Leverage & TAM Expansion",
+        "title": "Path 3: Enterprise AI Monetization Acceleration, Custom Silicon Operating Leverage & TAM Expansion",
+        "short_summary": "Alphabet accelerates top-line growth to a 16.0% CAGR while expanding operating margins to 36.8% through enterprise GenAI adoption on Google Cloud, higher monetization yield on multi-modal Search queries, and massive inference cost efficiencies realized via custom TPU silicon deployment.",
+        "summary": "Alphabet accelerates top-line growth to a 16.0% CAGR while expanding operating margins to 36.8% through enterprise GenAI adoption on Google Cloud, higher monetization yield on multi-modal Search queries, and massive inference cost efficiencies realized via custom TPU silicon deployment.",
+        "oe_multiple": "26.0x",
+        "oe_yield": "3.8%",
+        "terminal_multiple": "26.0x",
+        "val": 693.12,
+        "present_fair_value": 440.29,
+        "mos_pct": 30.2,
+        "target_5y_return_pct": 104.9,
+        "target_5y_cagr_pct": 15.4,
+        "target": "$693.12 (+104.9%)",
+        "prob_pct": 20.0,
+        "prob_weight": 0.2,
+        "net_cash_per_share": 5.25,
+        "normalized_oe_per_share": 9.7,
+        "projected_oe5_per_share": 26.46,
+        "projected_5y_cagr": "+22.2%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            402836.0,
+            478940.2,
+            569422.1,
+            676997.9,
+            804897.1,
+            956959.1
+          ],
+          "gross_margin_pct": [
+            50.0,
+            51.1,
+            52.2,
+            53.3,
+            54.4,
+            55.6
+          ],
+          "operating_income_mil": [
+            100709.0,
+            128356.0,
+            162854.7,
+            205130.4,
+            258372.0,
+            324409.1
+          ],
+          "operating_margin_pct": [
+            25.0,
+            26.8,
+            28.6,
+            30.3,
+            32.1,
+            33.9
+          ],
+          "normalized_net_income_mil": [
+            124562.6,
+            147223.1,
+            173872.9,
+            205426.3,
+            242755.8,
+            286798.4
+          ],
+          "owner_earnings_mil": [
+            118631.0,
+            140212.5,
+            165593.2,
+            195644.1,
+            231196.0,
+            273141.3
+          ],
+          "diluted_shares_mil": [
+            12230.0,
+            11822.3,
+            11428.1,
+            11047.1,
+            10678.8,
+            10322.8
+          ],
+          "oe_per_share": [
+            9.7,
+            11.86,
+            14.49,
+            17.71,
+            21.65,
+            26.46
+          ],
+          "roic_pct": [
+            25.0,
+            29.4,
+            33.9,
+            38.3,
+            42.8,
+            47.2
+          ]
+        },
+        "oe5": 26.46,
+        "cagr": "+16.0%",
+        "multiple": "26.0x"
+      }
+    ],
+    "story1_target": "$410.05 (+21.2%)",
+    "story2_target": "$212.33 (-37.2%)",
+    "story3_target": "$693.12 (+104.9%)",
+    "story1_title": "Path 1: Core Search Resiliency & Enterprise Cloud Scaling Compounder",
+    "story2_title": "Path 2: Downside Friction, Competitive Headwinds & Margin Drag",
+    "story3_title": "Path 3: Enterprise AI Monetization Acceleration, Custom Silicon Operating Leverage & TAM Expansion",
+    "bear_target": "$212.33",
+    "base_target": "$265.04",
+    "bull_target": "$693.12",
+    "what_is_priced_in": "34.9x",
+    "upper_alert_threshold": 693.12,
+    "lower_alert_threshold": 212.33,
+    "next_catalyst_date": "2026-10-28",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [],
+    "institutional_ownership_pct": "0 Tracked",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 100 Form 4 filings.",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/GOOG.html"
+  },
+  "JD": {
+    "ticker": "JD",
+    "company_name": "JD.com, Inc.",
+    "baseline_price": 29.41,
+    "current_price": 29.41,
+    "return_pct": 0.0,
+    "status_label": "Narrow Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$58.18",
+    "expected_fair_value": "$58.18",
+    "expected_val": 58.18,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Core Retail Optimization & New Business Loss Rationalization",
+        "title": "Path 1: Core Retail Optimization & New Business Loss Rationalization",
+        "short_summary": "JD.com maintains steady single-digit revenue growth while narrowing New Business cash burn, allowing group operating margins to recover from 0.2% to 3.3% over 5 years.",
+        "summary": "JD.com maintains steady single-digit revenue growth while narrowing New Business cash burn, allowing group operating margins to recover from 0.2% to 3.3% over 5 years.",
+        "oe_multiple": "12.0x",
+        "oe_yield": "8.3%",
+        "terminal_multiple": "12.0x",
+        "val": 85.21,
+        "present_fair_value": 54.13,
+        "mos_pct": 84.1,
+        "target_5y_return_pct": 189.7,
+        "target_5y_cagr_pct": 23.7,
+        "target": "$85.21 (+189.7%)",
+        "prob_pct": 55.0,
+        "prob_weight": 0.55,
+        "net_cash_per_share": 14.58,
+        "normalized_oe_per_share": 0.62,
+        "projected_oe5_per_share": 5.76,
+        "projected_5y_cagr": "+6.3%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            187197.0,
+            243356.1,
+            316362.9,
+            411271.8,
+            534653.4,
+            695049.4
+          ],
+          "gross_margin_pct": [
+            16.0,
+            18.8,
+            21.6,
+            24.4,
+            27.2,
+            30.0
+          ],
+          "operating_income_mil": [
+            46799.2,
+            71790.0,
+            107563.4,
+            158339.6,
+            229901.0,
+            330148.5
+          ],
+          "operating_margin_pct": [
+            25.0,
+            29.5,
+            34.0,
+            38.5,
+            43.0,
+            47.5
+          ],
+          "normalized_net_income_mil": [
+            988.9,
+            1485.2,
+            2219.5,
+            3330.2,
+            4998.8,
+            7491.0
+          ],
+          "owner_earnings_mil": [
+            941.8,
+            1414.5,
+            2113.8,
+            3171.6,
+            4760.8,
+            7134.3
+          ],
+          "diluted_shares_mil": [
+            1519.0,
+            1458.2,
+            1399.9,
+            1343.9,
+            1290.2,
+            1238.6
+          ],
+          "oe_per_share": [
+            0.62,
+            0.97,
+            1.51,
+            2.36,
+            3.69,
+            5.76
+          ],
+          "roic_pct": [
+            25.0,
+            36.2,
+            47.5,
+            50.0,
+            50.0,
+            50.0
+          ]
+        },
+        "oe5": 5.76,
+        "cagr": "+6.3%",
+        "multiple": "12.0x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Structural Price War Pressure, On-Demand Delivery Drag & Margin Compression",
+        "title": "Path 2: Structural Price War Pressure, On-Demand Delivery Drag & Margin Compression",
+        "short_summary": "JD.com faces structural revenue deceleration to +4.9% 5-year CAGR as intense marketplace competition and persistent operating losses in New Businesses (JD Food Delivery) cap group operating margins at 0.7% by Year 5.",
+        "summary": "JD.com faces structural revenue deceleration to +4.9% 5-year CAGR as intense marketplace competition and persistent operating losses in New Businesses (JD Food Delivery) cap group operating margins at 0.7% by Year 5.",
+        "oe_multiple": "10.0x",
+        "oe_yield": "10.0%",
+        "terminal_multiple": "10.0x",
+        "val": 30.3,
+        "present_fair_value": 19.25,
+        "mos_pct": -34.5,
+        "target_5y_return_pct": 3.0,
+        "target_5y_cagr_pct": 0.6,
+        "target": "$30.30 (+3.0%)",
+        "prob_pct": 30.0,
+        "prob_weight": 0.3,
+        "net_cash_per_share": 14.58,
+        "normalized_oe_per_share": 0.62,
+        "projected_oe5_per_share": 1.51,
+        "projected_5y_cagr": "+4.9%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            187197.0,
+            218202.6,
+            254343.8,
+            296471.0,
+            345575.8,
+            402813.9
+          ],
+          "gross_margin_pct": [
+            16.0,
+            17.0,
+            17.9,
+            18.9,
+            19.9,
+            20.9
+          ],
+          "operating_income_mil": [
+            46799.2,
+            58041.9,
+            71470.6,
+            88051.9,
+            107819.6,
+            132123.0
+          ],
+          "operating_margin_pct": [
+            25.0,
+            26.6,
+            28.1,
+            29.7,
+            31.2,
+            32.8
+          ],
+          "normalized_net_income_mil": [
+            988.9,
+            1145.8,
+            1337.7,
+            1546.8,
+            1784.7,
+            2076.4
+          ],
+          "owner_earnings_mil": [
+            941.8,
+            1091.2,
+            1274.0,
+            1473.1,
+            1699.7,
+            1977.5
+          ],
+          "diluted_shares_mil": [
+            1519.0,
+            1474.6,
+            1431.5,
+            1389.7,
+            1349.0,
+            1309.6
+          ],
+          "oe_per_share": [
+            0.62,
+            0.74,
+            0.89,
+            1.06,
+            1.26,
+            1.51
+          ],
+          "roic_pct": [
+            25.0,
+            28.9,
+            32.8,
+            36.7,
+            40.6,
+            44.5
+          ]
+        },
+        "oe5": 1.51,
+        "cagr": "+4.9%",
+        "multiple": "10.0x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: New Businesses Inflection, 3P Monetization Expansion & Enterprise Operating Leverage",
+        "title": "Path 3: New Businesses Inflection, 3P Monetization Expansion & Enterprise Operating Leverage",
+        "short_summary": "JD.com leverages its supply-chain infrastructure to curtail New Businesses cash burn while scaling high-margin 3P marketplace and logistics services. Statutory operating margin expands from 0.2% to 4.8%, driving Owner Earnings to $12.64/share by Year 5.",
+        "summary": "JD.com leverages its supply-chain infrastructure to curtail New Businesses cash burn while scaling high-margin 3P marketplace and logistics services. Statutory operating margin expands from 0.2% to 4.8%, driving Owner Earnings to $12.64/share by Year 5.",
+        "oe_multiple": "15.0x",
+        "oe_yield": "6.7%",
+        "terminal_multiple": "15.0x",
+        "val": 237.59,
+        "present_fair_value": 150.92,
+        "mos_pct": 413.2,
+        "target_5y_return_pct": 707.9,
+        "target_5y_cagr_pct": 51.9,
+        "target": "$237.59 (+707.9%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": 14.58,
+        "normalized_oe_per_share": 0.62,
+        "projected_oe5_per_share": 12.64,
+        "projected_5y_cagr": "+16.3%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            187197.0,
+            243356.1,
+            316362.9,
+            411271.8,
+            534653.4,
+            695049.4
+          ],
+          "gross_margin_pct": [
+            16.0,
+            20.1,
+            24.3,
+            28.4,
+            32.6,
+            36.7
+          ],
+          "operating_income_mil": [
+            46799.2,
+            76900.5,
+            120850.6,
+            184661.0,
+            275346.5,
+            403823.7
+          ],
+          "operating_margin_pct": [
+            25.0,
+            31.6,
+            38.2,
+            44.9,
+            51.5,
+            58.1
+          ],
+          "normalized_net_income_mil": [
+            988.9,
+            1730.2,
+            3042.7,
+            5333.9,
+            9374.6,
+            16438.7
+          ],
+          "owner_earnings_mil": [
+            941.8,
+            1647.8,
+            2897.8,
+            5079.9,
+            8928.2,
+            15655.9
+          ],
+          "diluted_shares_mil": [
+            1519.0,
+            1458.2,
+            1399.9,
+            1343.9,
+            1290.2,
+            1238.6
+          ],
+          "oe_per_share": [
+            0.62,
+            1.13,
+            2.07,
+            3.78,
+            6.92,
+            12.64
+          ],
+          "roic_pct": [
+            25.0,
+            41.6,
+            50.0,
+            50.0,
+            50.0,
+            50.0
+          ]
+        },
+        "oe5": 12.64,
+        "cagr": "+16.3%",
+        "multiple": "15.0x"
+      }
+    ],
+    "story1_target": "$85.21 (+189.7%)",
+    "story2_target": "$30.30 (+3.0%)",
+    "story3_target": "$237.59 (+707.9%)",
+    "story1_title": "Path 1: Core Retail Optimization & New Business Loss Rationalization",
+    "story2_title": "Path 2: Structural Price War Pressure, On-Demand Delivery Drag & Margin Compression",
+    "story3_title": "Path 3: New Businesses Inflection, 3P Monetization Expansion & Enterprise Operating Leverage",
+    "bear_target": "$30.30",
+    "base_target": "$58.18",
+    "bull_target": "$237.59",
+    "what_is_priced_in": "47.4x",
+    "upper_alert_threshold": 237.59,
+    "lower_alert_threshold": 26.47,
+    "next_catalyst_date": "2026-11-12",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [],
+    "institutional_ownership_pct": "0 Tracked",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 7 Form 4 filings.",
+    "pricing_power_tier": "Price Taker",
+    "pricing_power_score": "Inflation Pass-Through",
+    "pricing_power_summary": "Price Taker: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/JD.html"
   },
   "LULU": {
     "ticker": "LULU",
@@ -747,6 +2961,1482 @@
     "total_versions": 1,
     "report_path": "reports/LULU.html"
   },
+  "META": {
+    "ticker": "META",
+    "company_name": "Meta Platforms, Inc.",
+    "baseline_price": 545.83,
+    "current_price": 545.83,
+    "return_pct": 0.0,
+    "status_label": "Wide Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Wide Moat"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$780.24",
+    "expected_fair_value": "$780.24",
+    "expected_val": 780.24,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: The Continuous AI Monetization Engine & Enterprise Scaling Trajectory",
+        "title": "Path 1: The Continuous AI Monetization Engine & Enterprise Scaling Trajectory",
+        "short_summary": "Meta sustains steady compounding through AI-driven ad ranking gains, Reels and WhatsApp monetization expansion, and disciplined capital allocation, delivering a 12.3% revenue CAGR and $57.71 Owner Earnings per share by Year 5.",
+        "summary": "Meta sustains steady compounding through AI-driven ad ranking gains, Reels and WhatsApp monetization expansion, and disciplined capital allocation, delivering a 12.3% revenue CAGR and $57.71 Owner Earnings per share by Year 5.",
+        "oe_multiple": "21.0x",
+        "oe_yield": "4.8%",
+        "terminal_multiple": "21.0x",
+        "val": 1224.41,
+        "present_fair_value": 777.78,
+        "mos_pct": 42.5,
+        "target_5y_return_pct": 124.3,
+        "target_5y_cagr_pct": 17.5,
+        "target": "$1224.41 (+124.3%)",
+        "prob_pct": 55.0,
+        "prob_weight": 0.55,
+        "net_cash_per_share": 9.19,
+        "normalized_oe_per_share": 30.22,
+        "projected_oe5_per_share": 57.71,
+        "projected_5y_cagr": "+13.8%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            200966.0,
+            224561.3,
+            250926.9,
+            280388.0,
+            313308.1,
+            350093.4
+          ],
+          "gross_margin_pct": [
+            82.0,
+            82.7,
+            83.4,
+            84.1,
+            84.8,
+            85.5
+          ],
+          "operating_income_mil": [
+            83199.9,
+            95438.6,
+            109404.1,
+            125333.4,
+            143495.1,
+            164193.8
+          ],
+          "operating_margin_pct": [
+            41.4,
+            42.5,
+            43.6,
+            44.7,
+            45.8,
+            46.9
+          ],
+          "normalized_net_income_mil": [
+            79073.6,
+            88121.7,
+            98238.7,
+            109473.4,
+            122028.1,
+            135994.5
+          ],
+          "owner_earnings_mil": [
+            75308.2,
+            83925.4,
+            93560.7,
+            104260.4,
+            116217.2,
+            129518.6
+          ],
+          "diluted_shares_mil": [
+            2492.0,
+            2440.4,
+            2389.8,
+            2340.3,
+            2291.8,
+            2244.3
+          ],
+          "oe_per_share": [
+            30.22,
+            34.39,
+            39.15,
+            44.55,
+            50.71,
+            57.71
+          ],
+          "roic_pct": [
+            25.0,
+            27.8,
+            30.5,
+            33.3,
+            36.1,
+            38.8
+          ]
+        },
+        "oe5": 57.71,
+        "cagr": "+12.3%",
+        "multiple": "21.0x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: AI Infrastructure Depreciation Drag, Ad Pricing Saturation & Reality Labs Capital Drain",
+        "title": "Path 2: AI Infrastructure Depreciation Drag, Ad Pricing Saturation & Reality Labs Capital Drain",
+        "short_summary": "Decelerating revenue growth (+6.7% CAGR) and margin compression (operating margin down to 35.0%) driven by massive datacenter depreciation and ongoing Reality Labs losses, offset by steady share repurchases.",
+        "summary": "Decelerating revenue growth (+6.7% CAGR) and margin compression (operating margin down to 35.0%) driven by massive datacenter depreciation and ongoing Reality Labs losses, offset by steady share repurchases.",
+        "oe_multiple": "16.5x",
+        "oe_yield": "6.1%",
+        "terminal_multiple": "16.5x",
+        "val": 626.07,
+        "present_fair_value": 397.7,
+        "mos_pct": -27.1,
+        "target_5y_return_pct": 14.7,
+        "target_5y_cagr_pct": 2.8,
+        "target": "$626.07 (+14.7%)",
+        "prob_pct": 25.0,
+        "prob_weight": 0.25,
+        "net_cash_per_share": 9.19,
+        "normalized_oe_per_share": 30.22,
+        "projected_oe5_per_share": 37.39,
+        "projected_5y_cagr": "+4.4%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            200966.0,
+            208396.6,
+            216102.0,
+            224092.2,
+            232377.9,
+            240970.0
+          ],
+          "gross_margin_pct": [
+            82.0,
+            82.2,
+            82.4,
+            82.7,
+            82.9,
+            83.1
+          ],
+          "operating_income_mil": [
+            83199.9,
+            86901.4,
+            90978.9,
+            95015.1,
+            99457.7,
+            103858.1
+          ],
+          "operating_margin_pct": [
+            41.4,
+            41.7,
+            42.1,
+            42.4,
+            42.8,
+            43.1
+          ],
+          "normalized_net_income_mil": [
+            79073.6,
+            81961.7,
+            84992.7,
+            88105.3,
+            91329.9,
+            94686.1
+          ],
+          "owner_earnings_mil": [
+            75308.2,
+            78058.8,
+            80945.4,
+            83909.8,
+            86980.9,
+            90177.2
+          ],
+          "diluted_shares_mil": [
+            2492.0,
+            2475.7,
+            2459.6,
+            2443.5,
+            2427.6,
+            2411.8
+          ],
+          "oe_per_share": [
+            30.22,
+            31.53,
+            32.91,
+            34.34,
+            35.83,
+            37.39
+          ],
+          "roic_pct": [
+            25.0,
+            25.9,
+            26.7,
+            27.6,
+            28.5,
+            29.3
+          ]
+        },
+        "oe5": 37.39,
+        "cagr": "+6.7%",
+        "multiple": "16.5x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: GenAI Monetization Engine, WhatsApp B2C Scale & Hyperscale Infrastructure Operating Leverage",
+        "title": "Path 3: GenAI Monetization Engine, WhatsApp B2C Scale & Hyperscale Infrastructure Operating Leverage",
+        "short_summary": "Meta accelerates revenue growth to a 16.0% 5-year CAGR driven by Advantage+ AI ad conversion optimization, enterprise WhatsApp messaging scale, and commercial Llama API adoption, while expanding operating margin to 45.0% as massive compute investments yield structural operating leverage.",
+        "summary": "Meta accelerates revenue growth to a 16.0% 5-year CAGR driven by Advantage+ AI ad conversion optimization, enterprise WhatsApp messaging scale, and commercial Llama API adoption, while expanding operating margin to 45.0% as massive compute investments yield structural operating leverage.",
+        "oe_multiple": "26.0x",
+        "oe_yield": "3.8%",
+        "terminal_multiple": "26.0x",
+        "val": 1991.69,
+        "present_fair_value": 1265.18,
+        "mos_pct": 131.8,
+        "target_5y_return_pct": 264.9,
+        "target_5y_cagr_pct": 29.5,
+        "target": "$1991.69 (+264.9%)",
+        "prob_pct": 20.0,
+        "prob_weight": 0.2,
+        "net_cash_per_share": 9.19,
+        "normalized_oe_per_share": 30.22,
+        "projected_oe5_per_share": 76.25,
+        "projected_5y_cagr": "+20.3%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            200966.0,
+            235701.1,
+            276439.9,
+            324219.9,
+            380258.3,
+            445982.4
+          ],
+          "gross_margin_pct": [
+            82.0,
+            83.0,
+            84.0,
+            85.1,
+            86.1,
+            87.1
+          ],
+          "operating_income_mil": [
+            83199.9,
+            101351.5,
+            123568.6,
+            150113.8,
+            182143.7,
+            220761.3
+          ],
+          "operating_margin_pct": [
+            41.4,
+            43.0,
+            44.7,
+            46.3,
+            47.9,
+            49.5
+          ],
+          "normalized_net_income_mil": [
+            79073.6,
+            92238.1,
+            107624.0,
+            125564.9,
+            146491.2,
+            170885.4
+          ],
+          "owner_earnings_mil": [
+            75308.2,
+            87845.8,
+            102499.0,
+            119585.6,
+            139515.4,
+            162748.0
+          ],
+          "diluted_shares_mil": [
+            2492.0,
+            2416.0,
+            2342.3,
+            2270.9,
+            2201.6,
+            2134.4
+          ],
+          "oe_per_share": [
+            30.22,
+            36.36,
+            43.76,
+            52.66,
+            63.37,
+            76.25
+          ],
+          "roic_pct": [
+            25.0,
+            29.1,
+            33.1,
+            37.2,
+            41.3,
+            45.3
+          ]
+        },
+        "oe5": 76.25,
+        "cagr": "+16.0%",
+        "multiple": "26.0x"
+      }
+    ],
+    "story1_target": "$1224.41 (+124.3%)",
+    "story2_target": "$626.07 (+14.7%)",
+    "story3_target": "$1991.69 (+264.9%)",
+    "story1_title": "Path 1: The Continuous AI Monetization Engine & Enterprise Scaling Trajectory",
+    "story2_title": "Path 2: AI Infrastructure Depreciation Drag, Ad Pricing Saturation & Reality Labs Capital Drain",
+    "story3_title": "Path 3: GenAI Monetization Engine, WhatsApp B2C Scale & Hyperscale Infrastructure Operating Leverage",
+    "bear_target": "$626.07",
+    "base_target": "$780.24",
+    "bull_target": "$1991.69",
+    "what_is_priced_in": "18.1x",
+    "upper_alert_threshold": 1991.69,
+    "lower_alert_threshold": 491.25,
+    "next_catalyst_date": "2026-10-28",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [],
+    "institutional_ownership_pct": "0 Tracked",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 100 Form 4 filings.",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/META.html"
+  },
+  "MSFT": {
+    "ticker": "MSFT",
+    "company_name": "Microsoft Corporation",
+    "baseline_price": 481.15,
+    "current_price": 481.15,
+    "return_pct": 0.0,
+    "status_label": "Wide Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Wide Moat"
+    ],
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$557.77",
+    "expected_fair_value": "$557.77",
+    "expected_val": 557.77,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Enterprise AI Compounding & Cloud Infrastructure Dominance",
+        "title": "Path 1: Enterprise AI Compounding & Cloud Infrastructure Dominance",
+        "short_summary": "Microsoft continues its steady baseline operational compounding, driven by sustained Azure cloud workload expansion, commercial enterprise M365 Copilot seat monetization, and disciplined cost leverage offsetting AI infrastructure capital expenditures.",
+        "summary": "Microsoft continues its steady baseline operational compounding, driven by sustained Azure cloud workload expansion, commercial enterprise M365 Copilot seat monetization, and disciplined cost leverage offsetting AI infrastructure capital expenditures.",
+        "oe_multiple": "27.0x",
+        "oe_yield": "3.7%",
+        "terminal_multiple": "27.0x",
+        "val": 914.73,
+        "present_fair_value": 581.06,
+        "mos_pct": 20.8,
+        "target_5y_return_pct": 90.1,
+        "target_5y_cagr_pct": 13.7,
+        "target": "$914.73 (+90.1%)",
+        "prob_pct": 60.0,
+        "prob_weight": 0.6,
+        "net_cash_per_share": 4.9,
+        "normalized_oe_per_share": 17.6,
+        "projected_oe5_per_share": 33.69,
+        "projected_5y_cagr": "+12.5%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            10000.0,
+            11178.7,
+            12496.3,
+            13969.2,
+            15615.8,
+            17456.4
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.7,
+            51.4,
+            52.1,
+            52.8,
+            53.5
+          ],
+          "operating_income_mil": [
+            2500.0,
+            2917.6,
+            3399.0,
+            3953.3,
+            4591.0,
+            5324.2
+          ],
+          "operating_margin_pct": [
+            25.0,
+            26.1,
+            27.2,
+            28.3,
+            29.4,
+            30.5
+          ],
+          "normalized_net_income_mil": [
+            137731.4,
+            153564.5,
+            171230.1,
+            190884.9,
+            212888.2,
+            237345.3
+          ],
+          "owner_earnings_mil": [
+            131172.8,
+            146251.9,
+            163076.3,
+            181795.1,
+            202750.7,
+            226043.1
+          ],
+          "diluted_shares_mil": [
+            7453.0,
+            7298.0,
+            7146.2,
+            6997.5,
+            6852.0,
+            6709.5
+          ],
+          "oe_per_share": [
+            17.6,
+            20.04,
+            22.82,
+            25.98,
+            29.59,
+            33.69
+          ],
+          "roic_pct": [
+            25.0,
+            27.8,
+            30.5,
+            33.3,
+            36.1,
+            38.9
+          ]
+        },
+        "oe5": 33.69,
+        "cagr": "+12.5%",
+        "multiple": "27.0x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Hyperscale Monetization Friction, Infrastructure Depreciation Overhang & Enterprise Software Price Fatigue",
+        "title": "Path 2: Hyperscale Monetization Friction, Infrastructure Depreciation Overhang & Enterprise Software Price Fatigue",
+        "short_summary": "Microsoft experiences revenue deceleration to a 7.8% 5-year CAGR and 380 bps of operating margin compression as AI infrastructure depreciation charges weigh on margins and enterprise cloud optimization slows Azure consumption.",
+        "summary": "Microsoft experiences revenue deceleration to a 7.8% 5-year CAGR and 380 bps of operating margin compression as AI infrastructure depreciation charges weigh on margins and enterprise cloud optimization slows Azure consumption.",
+        "oe_multiple": "23.0x",
+        "oe_yield": "4.3%",
+        "terminal_multiple": "23.0x",
+        "val": 552.0,
+        "present_fair_value": 350.65,
+        "mos_pct": -27.1,
+        "target_5y_return_pct": 14.7,
+        "target_5y_cagr_pct": 2.8,
+        "target": "$552.00 (+14.7%)",
+        "prob_pct": 25.0,
+        "prob_weight": 0.25,
+        "net_cash_per_share": 4.9,
+        "normalized_oe_per_share": 17.6,
+        "projected_oe5_per_share": 23.78,
+        "projected_5y_cagr": "+7.8%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            10000.0,
+            10527.3,
+            11082.4,
+            11666.8,
+            12282.1,
+            12929.7
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.3,
+            50.6,
+            50.9,
+            51.2,
+            51.6
+          ],
+          "operating_income_mil": [
+            2500.0,
+            2684.5,
+            2881.4,
+            3091.7,
+            3316.2,
+            3555.7
+          ],
+          "operating_margin_pct": [
+            25.0,
+            25.5,
+            26.0,
+            26.5,
+            27.0,
+            27.5
+          ],
+          "normalized_net_income_mil": [
+            137731.4,
+            144899.5,
+            152460.8,
+            160402.9,
+            168784.1,
+            177594.5
+          ],
+          "owner_earnings_mil": [
+            131172.8,
+            137999.5,
+            145200.8,
+            152764.7,
+            160746.8,
+            169137.6
+          ],
+          "diluted_shares_mil": [
+            7453.0,
+            7383.6,
+            7314.9,
+            7246.9,
+            7179.4,
+            7112.6
+          ],
+          "oe_per_share": [
+            17.6,
+            18.69,
+            19.85,
+            21.08,
+            22.39,
+            23.78
+          ],
+          "roic_pct": [
+            25.0,
+            26.2,
+            27.5,
+            28.7,
+            30.0,
+            31.2
+          ]
+        },
+        "oe5": 23.78,
+        "cagr": "+7.8%",
+        "multiple": "23.0x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: The Enterprise AI Monopolist & Infrastructure Tollbooth: Unlocking Platform Operating Leverage and Commercial Cloud Acceleration",
+        "title": "Path 3: The Enterprise AI Monopolist & Infrastructure Tollbooth: Unlocking Platform Operating Leverage and Commercial Cloud Acceleration",
+        "short_summary": "Microsoft leverages its insurmountable enterprise software distribution and Azure hyperscale footprint to dominate commercial AI adoption, expanding operating margins to 49.5% and growing Year-5 Owner Earnings to $44.55 per share.",
+        "summary": "Microsoft leverages its insurmountable enterprise software distribution and Azure hyperscale footprint to dominate commercial AI adoption, expanding operating margins to 49.5% and growing Year-5 Owner Earnings to $44.55 per share.",
+        "oe_multiple": "28.5x",
+        "oe_yield": "3.5%",
+        "terminal_multiple": "28.5x",
+        "val": 1274.8,
+        "present_fair_value": 809.79,
+        "mos_pct": 68.3,
+        "target_5y_return_pct": 164.9,
+        "target_5y_cagr_pct": 21.5,
+        "target": "$1274.80 (+164.9%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": 4.9,
+        "normalized_oe_per_share": 17.6,
+        "projected_oe5_per_share": 44.55,
+        "projected_5y_cagr": "+17.8%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            10000.0,
+            11735.0,
+            13770.9,
+            16160.1,
+            18963.8,
+            22254.0
+          ],
+          "gross_margin_pct": [
+            50.0,
+            51.0,
+            52.0,
+            53.1,
+            54.1,
+            55.1
+          ],
+          "operating_income_mil": [
+            2500.0,
+            3121.5,
+            3897.2,
+            4831.9,
+            5973.6,
+            7388.3
+          ],
+          "operating_margin_pct": [
+            25.0,
+            26.6,
+            28.3,
+            29.9,
+            31.5,
+            33.2
+          ],
+          "normalized_net_income_mil": [
+            137731.4,
+            160748.2,
+            187668.5,
+            219063.7,
+            255683.5,
+            298431.1
+          ],
+          "owner_earnings_mil": [
+            131172.8,
+            153093.5,
+            178731.9,
+            208632.1,
+            243508.1,
+            284220.1
+          ],
+          "diluted_shares_mil": [
+            7453.0,
+            7224.8,
+            7003.6,
+            6789.2,
+            6581.3,
+            6379.8
+          ],
+          "oe_per_share": [
+            17.6,
+            21.19,
+            25.52,
+            30.73,
+            37.0,
+            44.55
+          ],
+          "roic_pct": [
+            25.0,
+            29.1,
+            33.2,
+            37.2,
+            41.3,
+            45.4
+          ]
+        },
+        "oe5": 44.55,
+        "cagr": "+17.8%",
+        "multiple": "28.50x"
+      }
+    ],
+    "story1_target": "$914.73 (+90.1%)",
+    "story2_target": "$552.00 (+14.7%)",
+    "story3_target": "$1274.80 (+164.9%)",
+    "story1_title": "Path 1: Enterprise AI Compounding & Cloud Infrastructure Dominance",
+    "story2_title": "Path 2: Hyperscale Monetization Friction, Infrastructure Depreciation Overhang & Enterprise Software Price Fatigue",
+    "story3_title": "Path 3: The Enterprise AI Monopolist & Infrastructure Tollbooth: Unlocking Platform Operating Leverage and Commercial Cloud Acceleration",
+    "bear_target": "$552.00",
+    "base_target": "$557.77",
+    "bull_target": "$1274.80",
+    "what_is_priced_in": "27.3x",
+    "upper_alert_threshold": 1274.8,
+    "lower_alert_threshold": 433.03,
+    "next_catalyst_date": "2026-10-28",
+    "next_catalyst_event": "Q1 FY27 Earnings Release",
+    "top_funds": [],
+    "institutional_ownership_pct": "0 Tracked",
+    "insider_signal": "Net Buying",
+    "insider_summary": "+$3.4M net purchases across 33 Form 4 transactions",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/MSFT.html"
+  },
+  "MTCH": {
+    "ticker": "MTCH",
+    "company_name": "Match Group, Inc.",
+    "baseline_price": 40.35,
+    "current_price": 40.35,
+    "return_pct": 0.0,
+    "status_label": "Narrow Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "CAUTION",
+    "fair_value_estimate": "$35.22",
+    "expected_fair_value": "$35.22",
+    "expected_val": 35.22,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Hinge International Scaling & Tinder Optimization (Baseline Continuation)",
+        "title": "Path 1: Hinge International Scaling & Tinder Optimization (Baseline Continuation)",
+        "short_summary": "Match Group stabilizes Tinder monetization while scaling Hinge globally, generating modest top-line growth and disciplined margin expansion supported by steady share buybacks.",
+        "summary": "Match Group stabilizes Tinder monetization while scaling Hinge globally, generating modest top-line growth and disciplined margin expansion supported by steady share buybacks.",
+        "oe_multiple": "15.0x",
+        "oe_yield": "6.7%",
+        "terminal_multiple": "15.0x",
+        "val": 61.59,
+        "present_fair_value": 39.12,
+        "mos_pct": -3.0,
+        "target_5y_return_pct": 52.6,
+        "target_5y_cagr_pct": 8.8,
+        "target": "$61.59 (+52.6%)",
+        "prob_pct": 50.0,
+        "prob_weight": 0.5,
+        "net_cash_per_share": -11.7,
+        "normalized_oe_per_share": 3.33,
+        "projected_oe5_per_share": 4.75,
+        "projected_5y_cagr": "+7.4% (+2.6% Rev)",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            3487.2,
+            3705.4,
+            3937.3,
+            4183.7,
+            4445.5,
+            4723.6
+          ],
+          "gross_margin_pct": [
+            72.8,
+            73.2,
+            73.5,
+            73.9,
+            74.3,
+            74.6
+          ],
+          "operating_income_mil": [
+            871.8,
+            948.6,
+            1031.6,
+            1121.2,
+            1218.1,
+            1317.9
+          ],
+          "operating_margin_pct": [
+            25.0,
+            25.6,
+            26.2,
+            26.8,
+            27.4,
+            27.9
+          ],
+          "normalized_net_income_mil": [
+            842.6,
+            895.8,
+            950.4,
+            1008.4,
+            1069.7,
+            1137.2
+          ],
+          "owner_earnings_mil": [
+            802.5,
+            853.1,
+            905.1,
+            960.4,
+            1018.8,
+            1083.0
+          ],
+          "diluted_shares_mil": [
+            241.0,
+            238.3,
+            235.7,
+            233.1,
+            230.5,
+            228.0
+          ],
+          "oe_per_share": [
+            3.33,
+            3.58,
+            3.84,
+            4.12,
+            4.42,
+            4.75
+          ],
+          "roic_pct": [
+            25.0,
+            26.5,
+            27.9,
+            29.4,
+            30.9,
+            32.4
+          ]
+        },
+        "oe5": 4.75,
+        "cagr": "+2.6%",
+        "multiple": "15.0x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Gen-Z Dating Fatigue, Escalating Paywall Friction & Competitive Margin Drag",
+        "title": "Path 2: Gen-Z Dating Fatigue, Escalating Paywall Friction & Competitive Margin Drag",
+        "short_summary": "Under Path 2, persistent fatigue with paywalled dating mechanics and intensifying competition drag Tinder Payer volumes downward. Elevated user acquisition costs compress operating margins to 22.0%, leaving Year-5 Owner Earnings at $3.27 per share.",
+        "summary": "Under Path 2, persistent fatigue with paywalled dating mechanics and intensifying competition drag Tinder Payer volumes downward. Elevated user acquisition costs compress operating margins to 22.0%, leaving Year-5 Owner Earnings at $3.27 per share.",
+        "oe_multiple": "13.5x",
+        "oe_yield": "7.4%",
+        "terminal_multiple": "13.5x",
+        "val": 31.33,
+        "present_fair_value": 19.9,
+        "mos_pct": -50.7,
+        "target_5y_return_pct": -22.4,
+        "target_5y_cagr_pct": -4.9,
+        "target": "$31.33 (-22.4%)",
+        "prob_pct": 35.0,
+        "prob_weight": 0.35,
+        "net_cash_per_share": -11.7,
+        "normalized_oe_per_share": 3.33,
+        "projected_oe5_per_share": 3.27,
+        "projected_5y_cagr": "-0.4% (+0.6% Rev)",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            3487.2,
+            3476.4,
+            3465.7,
+            3455.0,
+            3444.4,
+            3433.7
+          ],
+          "gross_margin_pct": [
+            72.8,
+            72.8,
+            72.8,
+            72.7,
+            72.7,
+            72.7
+          ],
+          "operating_income_mil": [
+            871.8,
+            869.1,
+            863.0,
+            860.3,
+            857.7,
+            855.0
+          ],
+          "operating_margin_pct": [
+            25.0,
+            25.0,
+            24.9,
+            24.9,
+            24.9,
+            24.9
+          ],
+          "normalized_net_income_mil": [
+            842.6,
+            840.1,
+            837.6,
+            832.5,
+            830.0,
+            827.5
+          ],
+          "owner_earnings_mil": [
+            802.5,
+            800.1,
+            797.7,
+            792.9,
+            790.5,
+            788.1
+          ],
+          "diluted_shares_mil": [
+            241.0,
+            241.0,
+            241.0,
+            241.0,
+            241.0,
+            241.0
+          ],
+          "oe_per_share": [
+            3.33,
+            3.32,
+            3.31,
+            3.29,
+            3.28,
+            3.27
+          ],
+          "roic_pct": [
+            25.0,
+            24.9,
+            24.9,
+            24.8,
+            24.7,
+            24.6
+          ]
+        },
+        "oe5": 3.27,
+        "cagr": "+0.6%",
+        "multiple": "13.5x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Global Hinge Acceleration, Tinder AI Turnaround & Direct-Pay Operating Leverage",
+        "title": "Path 3: Global Hinge Acceleration, Tinder AI Turnaround & Direct-Pay Operating Leverage",
+        "short_summary": "Match Group executes a multi-year growth re-acceleration through Hinge international expansion, Tinder AI engagement features, and direct web-pay margin expansion, driving Year-5 Owner Earnings to $6.17 per share.",
+        "summary": "Match Group executes a multi-year growth re-acceleration through Hinge international expansion, Tinder AI engagement features, and direct web-pay margin expansion, driving Year-5 Owner Earnings to $6.17 per share.",
+        "oe_multiple": "17.0x",
+        "oe_yield": "5.9%",
+        "terminal_multiple": "17.0x",
+        "val": 91.28,
+        "present_fair_value": 57.98,
+        "mos_pct": 43.7,
+        "target_5y_return_pct": 126.2,
+        "target_5y_cagr_pct": 17.7,
+        "target": "$91.28 (+126.2%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": -11.7,
+        "normalized_oe_per_share": 3.33,
+        "projected_oe5_per_share": 6.17,
+        "projected_5y_cagr": "+13.1% (+13.1% Rev)",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            3487.2,
+            3876.3,
+            4308.8,
+            4789.6,
+            5324.1,
+            5918.2
+          ],
+          "gross_margin_pct": [
+            72.8,
+            73.5,
+            74.1,
+            74.8,
+            75.4,
+            76.1
+          ],
+          "operating_income_mil": [
+            871.8,
+            1011.7,
+            1167.7,
+            1350.7,
+            1554.6,
+            1793.2
+          ],
+          "operating_margin_pct": [
+            25.0,
+            26.1,
+            27.1,
+            28.2,
+            29.2,
+            30.3
+          ],
+          "normalized_net_income_mil": [
+            842.6,
+            935.4,
+            1035.9,
+            1148.8,
+            1273.9,
+            1413.6
+          ],
+          "owner_earnings_mil": [
+            802.5,
+            890.9,
+            986.6,
+            1094.1,
+            1213.2,
+            1346.3
+          ],
+          "diluted_shares_mil": [
+            241.0,
+            236.3,
+            231.6,
+            227.0,
+            222.6,
+            218.2
+          ],
+          "oe_per_share": [
+            3.33,
+            3.77,
+            4.26,
+            4.82,
+            5.45,
+            6.17
+          ],
+          "roic_pct": [
+            25.0,
+            27.6,
+            30.3,
+            32.9,
+            35.5,
+            38.1
+          ]
+        },
+        "oe5": 6.17,
+        "cagr": "+13.1%",
+        "multiple": "17.0x"
+      }
+    ],
+    "story1_target": "$61.59 (+52.6%)",
+    "story2_target": "$31.33 (-22.4%)",
+    "story3_target": "$91.28 (+126.2%)",
+    "story1_title": "Path 1: Hinge International Scaling & Tinder Optimization (Baseline Continuation)",
+    "story2_title": "Path 2: Gen-Z Dating Fatigue, Escalating Paywall Friction & Competitive Margin Drag",
+    "story3_title": "Path 3: Global Hinge Acceleration, Tinder AI Turnaround & Direct-Pay Operating Leverage",
+    "bear_target": "$31.33",
+    "base_target": "$35.22",
+    "bull_target": "$91.28",
+    "what_is_priced_in": "12.1x",
+    "upper_alert_threshold": 91.28,
+    "lower_alert_threshold": 31.33,
+    "next_catalyst_date": "2026-11-03",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [],
+    "institutional_ownership_pct": "0 Tracked",
+    "insider_signal": "Net Buying",
+    "insider_summary": "+$5.2M net purchases across 13 Form 4 transactions",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/MTCH.html"
+  },
+  "PDD": {
+    "ticker": "PDD",
+    "company_name": "PDD Holdings Inc.",
+    "baseline_price": 89.52,
+    "current_price": 89.52,
+    "return_pct": 0.0,
+    "status_label": "Narrow Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$171.30",
+    "expected_fair_value": "$171.30",
+    "expected_val": 171.3,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Steady C2M Monetization & Cross-Border Efficiency Drift",
+        "title": "Path 1: Steady C2M Monetization & Cross-Border Efficiency Drift",
+        "short_summary": "PDD Holdings sustains steady operational growth, leveraging its C2M marketplace network to drive an 8.1% revenue CAGR while expanding operating margins to 22.6% as international unit economics optimize.",
+        "summary": "PDD Holdings sustains steady operational growth, leveraging its C2M marketplace network to drive an 8.1% revenue CAGR while expanding operating margins to 22.6% as international unit economics optimize.",
+        "oe_multiple": "14.0x",
+        "oe_yield": "7.1%",
+        "terminal_multiple": "14.0x",
+        "val": 257.12,
+        "present_fair_value": 163.33,
+        "mos_pct": 82.5,
+        "target_5y_return_pct": 187.2,
+        "target_5y_cagr_pct": 23.5,
+        "target": "$257.12 (+187.2%)",
+        "prob_pct": 50.0,
+        "prob_weight": 0.5,
+        "net_cash_per_share": 41.38,
+        "normalized_oe_per_share": 9.71,
+        "projected_oe5_per_share": 15.41,
+        "projected_5y_cagr": "+9.7%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            60823.0,
+            65826.1,
+            71240.8,
+            77100.8,
+            83442.9,
+            90306.6
+          ],
+          "gross_margin_pct": [
+            56.3,
+            56.8,
+            57.3,
+            57.8,
+            58.2,
+            58.7
+          ],
+          "operating_income_mil": [
+            13320.2,
+            14942.5,
+            16670.3,
+            18658.4,
+            20860.7,
+            23299.1
+          ],
+          "operating_margin_pct": [
+            21.9,
+            22.7,
+            23.4,
+            24.2,
+            25.0,
+            25.8
+          ],
+          "normalized_net_income_mil": [
+            11888.0,
+            12849.8,
+            13887.7,
+            15010.8,
+            16224.8,
+            17536.5
+          ],
+          "owner_earnings_mil": [
+            11321.9,
+            12237.9,
+            13226.4,
+            14296.0,
+            15452.2,
+            16701.4
+          ],
+          "diluted_shares_mil": [
+            1166.0,
+            1149.1,
+            1132.4,
+            1116.0,
+            1099.8,
+            1083.8
+          ],
+          "oe_per_share": [
+            9.71,
+            10.65,
+            11.68,
+            12.81,
+            14.05,
+            15.41
+          ],
+          "roic_pct": [
+            25.0,
+            26.9,
+            28.9,
+            30.8,
+            32.7,
+            34.7
+          ]
+        },
+        "oe5": 15.41,
+        "cagr": "+8.1%",
+        "multiple": "14.0x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Downside Friction \u2014 Domestic Saturation, Cross-Border Regulatory Tariffs & Merchant Subsidies",
+        "title": "Path 2: Downside Friction \u2014 Domestic Saturation, Cross-Border Regulatory Tariffs & Merchant Subsidies",
+        "short_summary": "PDD faces growth deceleration in domestic Pinduoduo alongside cross-border tariff headwinds and rising merchant retention subsidies on Temu, compressing operating margins from 21.9% to 15.8%.",
+        "summary": "PDD faces growth deceleration in domestic Pinduoduo alongside cross-border tariff headwinds and rising merchant retention subsidies on Temu, compressing operating margins from 21.9% to 15.8%.",
+        "oe_multiple": "11.5x",
+        "oe_yield": "8.7%",
+        "terminal_multiple": "11.5x",
+        "val": 138.3,
+        "present_fair_value": 87.85,
+        "mos_pct": -1.9,
+        "target_5y_return_pct": 54.5,
+        "target_5y_cagr_pct": 9.1,
+        "target": "$138.30 (+54.5%)",
+        "prob_pct": 35.0,
+        "prob_weight": 0.35,
+        "net_cash_per_share": 41.38,
+        "normalized_oe_per_share": 9.71,
+        "projected_oe5_per_share": 8.34,
+        "projected_5y_cagr": "-3.0%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            60823.0,
+            59274.0,
+            57764.5,
+            56293.5,
+            54859.9,
+            53462.8
+          ],
+          "gross_margin_pct": [
+            56.3,
+            56.2,
+            56.0,
+            55.9,
+            55.7,
+            55.6
+          ],
+          "operating_income_mil": [
+            13320.2,
+            12862.5,
+            12361.6,
+            11934.2,
+            11465.7,
+            11066.8
+          ],
+          "operating_margin_pct": [
+            21.9,
+            21.7,
+            21.4,
+            21.2,
+            20.9,
+            20.7
+          ],
+          "normalized_net_income_mil": [
+            11888.0,
+            11532.9,
+            11190.1,
+            10847.3,
+            10529.0,
+            10210.6
+          ],
+          "owner_earnings_mil": [
+            11321.9,
+            10983.7,
+            10657.2,
+            10330.8,
+            10027.6,
+            9724.4
+          ],
+          "diluted_shares_mil": [
+            1166.0,
+            1166.0,
+            1166.0,
+            1166.0,
+            1166.0,
+            1166.0
+          ],
+          "oe_per_share": [
+            9.71,
+            9.42,
+            9.14,
+            8.86,
+            8.6,
+            8.34
+          ],
+          "roic_pct": [
+            25.0,
+            24.4,
+            23.8,
+            23.2,
+            22.6,
+            22.0
+          ]
+        },
+        "oe5": 8.34,
+        "cagr": "+3.2%",
+        "multiple": "11.5x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Cross-Border Scale Monopolization & High-Margin Monetization Acceleration",
+        "title": "Path 3: Cross-Border Scale Monopolization & High-Margin Monetization Acceleration",
+        "short_summary": "Temu turns breakeven and accelerates monetization alongside domestic take-rate expansion, driving consolidated operating margins to 30.0% and revenue to $136.5B by Year 5.",
+        "summary": "Temu turns breakeven and accelerates monetization alongside domestic take-rate expansion, driving consolidated operating margins to 30.0% and revenue to $136.5B by Year 5.",
+        "oe_multiple": "18.0x",
+        "oe_yield": "5.6%",
+        "terminal_multiple": "18.0x",
+        "val": 618.05,
+        "present_fair_value": 392.6,
+        "mos_pct": 338.6,
+        "target_5y_return_pct": 590.4,
+        "target_5y_cagr_pct": 47.2,
+        "target": "$618.05 (+590.4%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": 41.38,
+        "normalized_oe_per_share": 9.71,
+        "projected_oe5_per_share": 32.04,
+        "projected_5y_cagr": "+27.0%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            60823.0,
+            74765.4,
+            91903.8,
+            112970.8,
+            138867.0,
+            170699.3
+          ],
+          "gross_margin_pct": [
+            56.3,
+            57.6,
+            59.0,
+            60.3,
+            61.7,
+            63.0
+          ],
+          "operating_income_mil": [
+            13320.2,
+            18018.5,
+            24078.8,
+            32083.7,
+            42354.4,
+            55818.7
+          ],
+          "operating_margin_pct": [
+            21.9,
+            24.1,
+            26.2,
+            28.4,
+            30.5,
+            32.7
+          ],
+          "normalized_net_income_mil": [
+            11888.0,
+            14492.3,
+            17658.4,
+            21522.8,
+            26234.6,
+            31983.4
+          ],
+          "owner_earnings_mil": [
+            11321.9,
+            13802.2,
+            16817.5,
+            20497.9,
+            24985.3,
+            30460.4
+          ],
+          "diluted_shares_mil": [
+            1166.0,
+            1119.4,
+            1074.6,
+            1031.6,
+            990.3,
+            950.7
+          ],
+          "oe_per_share": [
+            9.71,
+            12.33,
+            15.65,
+            19.87,
+            25.23,
+            32.04
+          ],
+          "roic_pct": [
+            25.0,
+            30.4,
+            35.8,
+            41.2,
+            46.6,
+            50.0
+          ]
+        },
+        "oe5": 32.04,
+        "cagr": "+17.5%",
+        "multiple": "18.0x"
+      }
+    ],
+    "story1_target": "$257.12 (+187.2%)",
+    "story2_target": "$138.30 (+54.5%)",
+    "story3_target": "$618.05 (+590.4%)",
+    "story1_title": "Path 1: Steady C2M Monetization & Cross-Border Efficiency Drift",
+    "story2_title": "Path 2: Downside Friction \u2014 Domestic Saturation, Cross-Border Regulatory Tariffs & Merchant Subsidies",
+    "story3_title": "Path 3: Cross-Border Scale Monopolization & High-Margin Monetization Acceleration",
+    "bear_target": "$138.30",
+    "base_target": "$171.30",
+    "bull_target": "$618.05",
+    "what_is_priced_in": "9.2x",
+    "upper_alert_threshold": 618.05,
+    "lower_alert_threshold": 80.57,
+    "next_catalyst_date": "2026-08-24",
+    "next_catalyst_event": "Q2 FY26 Earnings Release",
+    "top_funds": [],
+    "institutional_ownership_pct": "0 Tracked",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 2 Form 4 filings.",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/PDD.html"
+  },
   "PYPL": {
     "ticker": "PYPL",
     "company_name": "PayPal Holdings, Inc.",
@@ -795,12 +4485,12 @@
             "Year 5"
           ],
           "revenue_mil": [
-            33172.0,
-            35147.0,
-            37239.6,
-            39456.7,
-            41805.9,
-            44294.9
+            10000.0,
+            10595.4,
+            11226.2,
+            11894.6,
+            12602.8,
+            13353.1
           ],
           "gross_margin_pct": [
             50.0,
@@ -811,20 +4501,20 @@
             51.8
           ],
           "operating_income_mil": [
-            6070.5,
-            6607.6,
-            7224.5,
-            7891.3,
-            8570.2,
-            9346.2
+            2500.0,
+            2712.4,
+            2930.0,
+            3175.9,
+            3428.0,
+            3712.2
           ],
           "operating_margin_pct": [
-            18.3,
-            18.8,
-            19.4,
-            20.0,
-            20.5,
-            21.1
+            25.0,
+            25.6,
+            26.1,
+            26.7,
+            27.2,
+            27.8
           ],
           "normalized_net_income_mil": [
             381.0,
@@ -900,12 +4590,12 @@
             "Year 5"
           ],
           "revenue_mil": [
-            33172.0,
-            33050.7,
-            32929.8,
-            32809.4,
-            32689.4,
-            32569.9
+            10000.0,
+            9963.4,
+            9927.0,
+            9890.7,
+            9854.5,
+            9818.5
           ],
           "gross_margin_pct": [
             50.0,
@@ -916,20 +4606,20 @@
             49.9
           ],
           "operating_income_mil": [
-            6070.5,
-            6015.2,
-            5993.2,
-            5971.3,
-            5916.8,
-            5895.2
+            2500.0,
+            2490.8,
+            2471.8,
+            2462.8,
+            2453.8,
+            2435.0
           ],
           "operating_margin_pct": [
-            18.3,
-            18.2,
-            18.2,
-            18.2,
-            18.1,
-            18.1
+            25.0,
+            25.0,
+            24.9,
+            24.9,
+            24.9,
+            24.8
           ],
           "normalized_net_income_mil": [
             381.0,
@@ -1008,12 +4698,12 @@
             "Year 5"
           ],
           "revenue_mil": [
-            33172.0,
-            37027.8,
-            41331.7,
-            46135.9,
-            51498.5,
-            57484.5
+            10000.0,
+            11162.4,
+            12459.8,
+            13908.1,
+            15524.7,
+            17329.2
           ],
           "gross_margin_pct": [
             50.0,
@@ -1024,20 +4714,20 @@
             53.4
           ],
           "operating_income_mil": [
-            6070.5,
-            7183.4,
-            8473.0,
-            9965.4,
-            11690.2,
-            13623.8
+            2500.0,
+            2913.4,
+            3389.1,
+            3936.0,
+            4564.3,
+            5285.4
           ],
           "operating_margin_pct": [
-            18.3,
-            19.4,
-            20.5,
-            21.6,
-            22.7,
-            23.7
+            25.0,
+            26.1,
+            27.2,
+            28.3,
+            29.4,
+            30.5
           ],
           "normalized_net_income_mil": [
             381.0,
@@ -1121,5 +4811,374 @@
     "last_updated": "2026-08-21",
     "total_versions": 1,
     "report_path": "reports/PYPL.html"
+  },
+  "STNE": {
+    "ticker": "STNE",
+    "company_name": "StoneCo Ltd.",
+    "baseline_price": 9.16,
+    "current_price": 9.16,
+    "return_pct": 0.0,
+    "status_label": "Narrow Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$37.00",
+    "expected_fair_value": "$37.00",
+    "expected_val": 37.0,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Disciplined MSMB Hub Penetration & Monetization Engine Expansion",
+        "title": "Path 1: Disciplined MSMB Hub Penetration & Monetization Engine Expansion",
+        "short_summary": "StoneCo delivers baseline operational continuation across Brazilian merchant hubs, sustaining 11.9% revenue CAGR and expanding EBIT margins to 21.4%, driving Year-5 Owner Earnings to $3.94 per share.",
+        "summary": "StoneCo delivers baseline operational continuation across Brazilian merchant hubs, sustaining 11.9% revenue CAGR and expanding EBIT margins to 21.4%, driving Year-5 Owner Earnings to $3.94 per share.",
+        "oe_multiple": "14.00x",
+        "oe_yield": "7.1%",
+        "terminal_multiple": "14.00x",
+        "val": 56.96,
+        "present_fair_value": 36.18,
+        "mos_pct": 295.0,
+        "target_5y_return_pct": 521.8,
+        "target_5y_cagr_pct": 44.1,
+        "target": "$56.96 (+521.8%)",
+        "prob_pct": 50.0,
+        "prob_weight": 0.5,
+        "net_cash_per_share": 1.81,
+        "normalized_oe_per_share": 1.79,
+        "projected_oe5_per_share": 3.94,
+        "projected_5y_cagr": "+17.1% (+11.9% Rev)",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            2572.3,
+            2946.0,
+            3374.0,
+            3864.2,
+            4425.6,
+            5068.6
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.9,
+            51.7,
+            52.6,
+            53.4,
+            54.3
+          ],
+          "operating_income_mil": [
+            643.1,
+            777.7,
+            934.6,
+            1124.5,
+            1349.8,
+            1611.8
+          ],
+          "operating_margin_pct": [
+            25.0,
+            26.4,
+            27.7,
+            29.1,
+            30.5,
+            31.8
+          ],
+          "normalized_net_income_mil": [
+            437.3,
+            499.9,
+            568.3,
+            648.8,
+            739.8,
+            845.6
+          ],
+          "owner_earnings_mil": [
+            416.5,
+            476.1,
+            541.2,
+            617.9,
+            704.6,
+            805.3
+          ],
+          "diluted_shares_mil": [
+            232.7,
+            226.7,
+            220.9,
+            215.3,
+            209.7,
+            204.4
+          ],
+          "oe_per_share": [
+            1.79,
+            2.1,
+            2.45,
+            2.87,
+            3.36,
+            3.94
+          ],
+          "roic_pct": [
+            25.0,
+            28.4,
+            31.8,
+            35.3,
+            38.7,
+            42.1
+          ]
+        },
+        "oe5": 3.94,
+        "cagr": "+17.1%",
+        "multiple": "14.00x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Downside Friction, Competitive Headwinds & Margin Drag",
+        "title": "Path 2: Downside Friction, Competitive Headwinds & Margin Drag",
+        "short_summary": "Intense merchant acquiring price competition, PIX-driven card take-rate erosion, and persistent Brazilian credit loss provisions decelerate revenue growth to a +6.9% CAGR and compress operating margins to 14.5%.",
+        "summary": "Intense merchant acquiring price competition, PIX-driven card take-rate erosion, and persistent Brazilian credit loss provisions decelerate revenue growth to a +6.9% CAGR and compress operating margins to 14.5%.",
+        "oe_multiple": "11.00x",
+        "oe_yield": "9.1%",
+        "terminal_multiple": "11.00x",
+        "val": 23.99,
+        "present_fair_value": 15.24,
+        "mos_pct": 66.4,
+        "target_5y_return_pct": 161.9,
+        "target_5y_cagr_pct": 21.2,
+        "target": "$23.99 (+161.9%)",
+        "prob_pct": 30.0,
+        "prob_weight": 0.3,
+        "net_cash_per_share": 1.81,
+        "normalized_oe_per_share": 1.79,
+        "projected_oe5_per_share": 2.0,
+        "projected_5y_cagr": "+2.2% (+6.9% Rev)",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            2572.3,
+            2621.4,
+            2671.3,
+            2722.3,
+            2774.2,
+            2827.1
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.1,
+            50.2,
+            50.3,
+            50.4,
+            50.6
+          ],
+          "operating_income_mil": [
+            643.1,
+            660.6,
+            678.5,
+            694.2,
+            713.0,
+            732.2
+          ],
+          "operating_margin_pct": [
+            25.0,
+            25.2,
+            25.4,
+            25.5,
+            25.7,
+            25.9
+          ],
+          "normalized_net_income_mil": [
+            437.3,
+            445.6,
+            453.8,
+            462.1,
+            472.5,
+            480.5
+          ],
+          "owner_earnings_mil": [
+            416.5,
+            424.4,
+            432.2,
+            440.1,
+            450.0,
+            457.6
+          ],
+          "diluted_shares_mil": [
+            232.7,
+            231.9,
+            231.1,
+            230.4,
+            229.6,
+            228.8
+          ],
+          "oe_per_share": [
+            1.79,
+            1.83,
+            1.87,
+            1.91,
+            1.96,
+            2.0
+          ],
+          "roic_pct": [
+            25.0,
+            25.4,
+            25.9,
+            26.3,
+            26.8,
+            27.2
+          ]
+        },
+        "oe5": 2.0,
+        "cagr": "+6.9%",
+        "multiple": "11.0x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Hyper-Local Ecosystem Dominance, Credit Scale & Banking Engine Monetization Supercharge",
+        "title": "Path 3: Hyper-Local Ecosystem Dominance, Credit Scale & Banking Engine Monetization Supercharge",
+        "short_summary": "StoneCo leverages hub-based distribution and integrated payments, banking, and credit solutions to drive a 19.6% revenue CAGR and 580 bps operating margin expansion, delivering $6.73 in Year-5 Owner Earnings per share.",
+        "summary": "StoneCo leverages hub-based distribution and integrated payments, banking, and credit solutions to drive a 19.6% revenue CAGR and 580 bps operating margin expansion, delivering $6.73 in Year-5 Owner Earnings per share.",
+        "oe_multiple": "16.50x",
+        "oe_yield": "6.1%",
+        "terminal_multiple": "16.50x",
+        "val": 112.86,
+        "present_fair_value": 71.69,
+        "mos_pct": 682.6,
+        "target_5y_return_pct": 1132.1,
+        "target_5y_cagr_pct": 65.2,
+        "target": "$112.86 (+1132.1%)",
+        "prob_pct": 20.0,
+        "prob_weight": 0.2,
+        "net_cash_per_share": 1.81,
+        "normalized_oe_per_share": 1.79,
+        "projected_oe5_per_share": 6.73,
+        "projected_5y_cagr": "+30.3% (+19.6% Rev)",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            2572.3,
+            3235.4,
+            4069.4,
+            5118.3,
+            6437.7,
+            8097.2
+          ],
+          "gross_margin_pct": [
+            50.0,
+            51.5,
+            53.0,
+            54.5,
+            56.1,
+            57.6
+          ],
+          "operating_income_mil": [
+            643.1,
+            886.5,
+            1216.8,
+            1653.2,
+            2233.9,
+            3004.1
+          ],
+          "operating_margin_pct": [
+            25.0,
+            27.4,
+            29.9,
+            32.3,
+            34.7,
+            37.1
+          ],
+          "normalized_net_income_mil": [
+            437.3,
+            546.5,
+            684.7,
+            856.2,
+            1070.6,
+            1340.5
+          ],
+          "owner_earnings_mil": [
+            416.5,
+            520.5,
+            652.1,
+            815.4,
+            1019.6,
+            1276.7
+          ],
+          "diluted_shares_mil": [
+            232.7,
+            223.4,
+            214.5,
+            205.9,
+            197.6,
+            189.7
+          ],
+          "oe_per_share": [
+            1.79,
+            2.33,
+            3.04,
+            3.96,
+            5.16,
+            6.73
+          ],
+          "roic_pct": [
+            25.0,
+            31.1,
+            37.1,
+            43.2,
+            49.3,
+            50.0
+          ]
+        },
+        "oe5": 6.73,
+        "cagr": "+19.6%",
+        "multiple": "16.5x"
+      }
+    ],
+    "story1_target": "$56.96 (+521.8%)",
+    "story2_target": "$23.99 (+161.9%)",
+    "story3_target": "$112.86 (+1132.1%)",
+    "story1_title": "Path 1: Disciplined MSMB Hub Penetration & Monetization Engine Expansion",
+    "story2_title": "Path 2: Downside Friction, Competitive Headwinds & Margin Drag",
+    "story3_title": "Path 3: Hyper-Local Ecosystem Dominance, Credit Scale & Banking Engine Monetization Supercharge",
+    "bear_target": "$23.99",
+    "base_target": "$37.00",
+    "bull_target": "$112.86",
+    "what_is_priced_in": "5.1x",
+    "upper_alert_threshold": 112.86,
+    "lower_alert_threshold": 8.24,
+    "next_catalyst_date": "2026-11-05",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [],
+    "institutional_ownership_pct": "0 Tracked",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 3 Form 4 filings.",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/STNE.html"
   }
 }
