@@ -2042,12 +2042,13 @@ def parse_sec3_and_json(raw_text: str, company_name: str, current_price: float, 
         
     sec3_clean = verify_and_repair_html_structure(clean_html)
     
-    # Net cash per share extraction from json_block, Section 1 baseline, or text
+    # Net cash per share extraction from Section 1 baseline or json_block
     oe_base, nc_base, _ = extract_financial_baseline(sec1_text or sec3_clean)
-    net_cash_sh = safe_float(json_block.get("net_cash_per_share"), 0.0)
-    if net_cash_sh == 0.0 and nc_base != 0.0:
+    if nc_base != 0.0:
         net_cash_sh = nc_base
-    elif net_cash_sh == 0.0:
+    else:
+        net_cash_sh = safe_float(json_block.get("net_cash_per_share"), 0.0)
+    if net_cash_sh == 0.0:
         m_nc = re.search(r'(?:Net\s*(?:Surplus\s*)?Cash|Net\s*Debt)[^$\n]*?([+-]?\$\s*[\d,]+(?:\.\d+)?)\s*(?:/\s*sh|per\s*share|per\s*ADS)?', sec1_text or sec3_clean, re.IGNORECASE)
         if m_nc:
             net_cash_sh = safe_float(m_nc.group(1), 0.0)
@@ -2066,10 +2067,11 @@ def parse_sec3_and_json(raw_text: str, company_name: str, current_price: float, 
             net_cash_sh = 0.0
             
     # Normalized OE per share
-    oe_per_sh = safe_float(json_block.get("normalized_oe_per_share"), 0.0)
-    if oe_per_sh <= 0.0 and oe_base > 0.0:
+    if oe_base > 0.0:
         oe_per_sh = oe_base
-    elif oe_per_sh <= 0.0:
+    else:
+        oe_per_sh = safe_float(json_block.get("normalized_oe_per_share"), 0.0)
+    if oe_per_sh <= 0.0:
         m_oe = re.search(r'(?:Owner\s*Earnings|OE₀)[^$\n]*?\$?\s*([\d,]+(?:\.\d+)?)\s*(?:/\s*sh|per\s*share|per\s*ADS)?', sec1_text or sec3_clean, re.IGNORECASE)
         if m_oe:
             oe_per_sh = safe_float(m_oe.group(1), 0.0)
@@ -2281,27 +2283,28 @@ def extract_financial_baseline(sec1_html: str) -> Tuple[float, float, str]:
     for tr in soup.find_all('tr'):
         tr_text = tr.get_text()
         if any(k in tr_text.lower() for k in ['net surplus cash', 'net cash position', 'net debt position', 'funded net debt', 'unencumbered liquid', 'total net cash']):
-            extracted = []
-            for td in tr.find_all('td')[1:]:
-                t_txt = td.get_text()
-                if any(w in t_txt.lower() for w in ['based on', 'million', 'billion', 'rmb', 'notes', 'audited']):
-                    continue
-                m = re.search(r'([+-]?\(?\$?\s*[\d,]+(?:\.\d+)?\)?)', t_txt)
-                if m:
-                    s_clean = m.group(1).replace('$', '').replace(' ', '').replace(',', '').strip()
-                    try:
-                        if s_clean.startswith('(') and s_clean.endswith(')'):
-                            val_f = -float(s_clean[1:-1])
-                        else:
-                            val_f = float(s_clean)
-                        if abs(val_f) <= 150.0:
-                            extracted.append(val_f)
-                    except Exception:
-                        pass
-            if extracted:
-                # If both ordinary share and ADS exist, take the per-ADS representation
-                net_cash_sh = extracted[-1]
-                break
+            tds = tr.find_all('td')
+            if len(tds) >= 2:
+                extracted = []
+                for td in tds[1:]:
+                    t_txt = td.get_text().strip()
+                    if len(t_txt) > 30 or any(w in t_txt.lower() for w in ['based on', 'million', 'billion', 'rmb', 'notes', 'audited', 'proceeds', 'proceed', 'b ']):
+                        continue
+                    m = re.search(r'([+-]?\(?\$?\s*[\d,]+(?:\.\d+)?\)?)', t_txt)
+                    if m:
+                        s_clean = m.group(1).replace('$', '').replace(' ', '').replace(',', '').strip()
+                        try:
+                            if s_clean.startswith('(') and s_clean.endswith(')'):
+                                val_f = -float(s_clean[1:-1])
+                            else:
+                                val_f = float(s_clean)
+                            if abs(val_f) <= 150.0:
+                                extracted.append(val_f)
+                        except Exception:
+                            pass
+                if extracted:
+                    net_cash_sh = extracted[-1]
+                    break
 
     # 3. Parse ROIC
     roic_str = "20.0% - 25.0%"
