@@ -21,6 +21,8 @@ class ThesisVersion(BaseModel):
     what_changes_now: Optional[str] = ""
     fair_value_estimate: Optional[str] = ""
     expected_fair_value: Optional[str] = ""
+    expected_val: Optional[float] = None
+    present_fair_value: Optional[float] = None
     stories: List[Dict[str, Any]] = Field(default_factory=list)
     story1_target: Optional[str] = ""
     story2_target: Optional[str] = ""

@@ -35,11 +35,21 @@ def auto_heal_dossier_and_metadata(ticker: str, html: str, metadata: Optional[Di
     meta = dict(metadata) if metadata else {}
     if meta:
         exp_v = meta.get("expected_val")
+        if exp_v is None:
+            m_exp = re.search(r"\$?\s*([\d,]+(?:\.\d+)?)", str(meta.get("expected_fair_value") or meta.get("present_fair_value") or meta.get("fair_value_estimate") or ""))
+            if m_exp:
+                try:
+                    exp_v = float(m_exp.group(1).replace(",", ""))
+                except Exception:
+                    pass
         if exp_v is not None:
             try:
                 exp_f = float(exp_v)
+                meta["expected_val"] = exp_f
                 if not meta.get("fair_value_estimate") or meta.get("fair_value_estimate") == "$0.00":
                     meta["fair_value_estimate"] = f"${exp_f:.2f}"
+                if not meta.get("expected_fair_value"):
+                    meta["expected_fair_value"] = f"${exp_f:.2f}"
             except (ValueError, TypeError):
                 pass
                 
@@ -358,6 +368,8 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         fv_str = metadata.get("fair_value_estimate", "")
         s1_str = metadata.get("story1_target", "")
         exp_v = metadata.get("expected_val")
+        if exp_v is None:
+            exp_v = _parse_p(metadata.get("expected_fair_value") or metadata.get("present_fair_value") or metadata.get("fair_value_estimate"))
         if fv_str:
             fv_num = _parse_p(fv_str)
             s1_num = _parse_p(s1_str) if s1_str else None

@@ -118,16 +118,22 @@ def _handle_genesis_task(ticker: str, notes: str):
     else:
         inst_pct = "0 Tracked"
     
-    # Derive insider signal from Form 4 trades
+    # Derive insider signal and summary strictly from Form 4 trades mathematically
     oi_trades = ownership_data.get("openinsider_trades", [])
     insider_signal = meta.get("insider_signal") or "Neutral (10b5-1)"
-    insider_summary = meta.get("insider_summary") or ""
+    insider_summary = meta.get("insider_summary") or "Audited SEC Form 3 / 20-F / Form 4 filings."
     if oi_trades:
         buy_val = sum([parse_trade_value(t.get("value", "")) for t in oi_trades if "Buy" in t.get("trade_type", "") or "P - Purchase" in t.get("trade_type", "")])
         sell_val = sum([parse_trade_value(t.get("value", "")) for t in oi_trades if "Sale" in t.get("trade_type", "") or "S - Sale" in t.get("trade_type", "")])
-        sentiment = ownership_data.get("sentiment", {})
-        insider_signal = sentiment.get("signal", "Neutral (10b5-1)")
-        insider_summary = sentiment.get("summary", "Audited SEC Form 3 / 20-F / Form 4 filings.")
+        if sell_val > buy_val and sell_val >= 500_000:
+            insider_signal = "Heavy Net Executive Selling" if sell_val >= 10_000_000 else "Net Selling"
+            insider_summary = f"-${sell_val/1e6:.1f}M net sales across {len(oi_trades)} Form 4 transactions"
+        elif buy_val > sell_val and buy_val >= 500_000:
+            insider_signal = "Cluster Buying" if len([t for t in oi_trades if "Buy" in t.get("trade_type", "")]) >= 3 else "Net Buying"
+            insider_summary = f"+${buy_val/1e6:.1f}M net purchases across {len(oi_trades)} Form 4 transactions"
+        else:
+            insider_signal = "Neutral (10b5-1)"
+            insider_summary = f"Routine 10b5-1 transactions across {len(oi_trades)} Form 4 filings."
 
     version_1 = ThesisVersion(
         version=1,
@@ -141,6 +147,8 @@ def _handle_genesis_task(ticker: str, notes: str):
         what_changes_now=meta.get("executive_summary", "Initial coverage initiated."),
         fair_value_estimate=meta.get("fair_value_estimate", f"${current_price:.2f}"),
         expected_fair_value=meta.get("expected_fair_value", ""),
+        expected_val=safe_float(meta.get("expected_val"), None),
+        present_fair_value=safe_float(meta.get("present_fair_value"), None),
         stories=meta.get("stories", []),
         story1_target=meta.get("story1_target", ""),
         story2_target=meta.get("story2_target", ""),
