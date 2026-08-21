@@ -823,7 +823,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
 
         # Compute 3-Engine Return Attribution (Alta Fox Multibagger Decomposition)
         attribution_txt = ""
-        attribution_label = "5Y Drivers"
+        attribution_label = "Return Source"
         if cur_p > 0 and oe_per_sh and float(oe_per_sh) > 0:
             try:
                 oe0 = float(oe_per_sh)
@@ -842,13 +842,18 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                     if l_tot > 0:
                         p_oe = (l_oe / l_tot) * 100.0
                         p_mult = (l_mult / l_tot) * 100.0
-                        p_rev = round(p_oe * 0.65)
-                        p_mrg = round(p_oe * 0.35)
-                        p_mult = round(p_mult)
-                        attribution_txt = f"{p_rev}% Rev · {p_mrg}% Margin · {p_mult}% Multiple"
+                        if p_mult >= 99.0:
+                            attribution_txt = "100% Multiple Expansion (Earnings Steady/Drag)"
+                        elif p_oe >= 99.0:
+                            attribution_txt = "65% Rev Growth · 35% Margin Expansion"
+                        else:
+                            p_rev = round(p_oe * 0.65)
+                            p_mrg = round(p_oe * 0.35)
+                            p_mult = round(p_mult)
+                            attribution_txt = f"{p_rev}% Rev · {p_mrg}% Margin · {p_mult}% Multiple"
                     else:
-                        attribution_txt = "0% Rev · 0% Margin · 0% Multiple"
-                    attribution_label = "5Y Drivers"
+                        attribution_txt = "Steady State Capitalization"
+                    attribution_label = "Return Source"
                 else:
                     l_mult_down = max(0.0, -math.log(mult_ratio)) if mult_ratio < 1.0 else 0.0
                     l_oe_down = max(0.0, -math.log(oe_ratio)) if oe_ratio < 1.0 else 0.0
@@ -856,19 +861,24 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                     if l_tot_down > 0:
                         p_oe_down = (l_oe_down / l_tot_down) * 100.0
                         p_mult_down = (l_mult_down / l_tot_down) * 100.0
-                        p_rev_down = round(p_oe_down * 0.65)
-                        p_mrg_down = round(p_oe_down * 0.35)
-                        p_mult_down = round(p_mult_down)
-                        attribution_txt = f"{p_rev_down}% Rev · {p_mrg_down}% Margin · {p_mult_down}% Multiple"
+                        if p_mult_down >= 99.0:
+                            attribution_txt = "100% Multiple Contraction"
+                        elif p_oe_down >= 99.0:
+                            attribution_txt = "65% Rev Contraction · 35% Margin Deleveraging"
+                        else:
+                            p_rev_down = round(p_oe_down * 0.65)
+                            p_mrg_down = round(p_oe_down * 0.35)
+                            p_mult_down = round(p_mult_down)
+                            attribution_txt = f"{p_rev_down}% Rev · {p_mrg_down}% Margin · {p_mult_down}% Multiple"
                     else:
-                        attribution_txt = "0% Rev · 0% Margin · 0% Multiple"
-                    attribution_label = "5Y Drag"
+                        attribution_txt = "Steady State Capitalization"
+                    attribution_label = "Drag Source"
             except Exception:
-                attribution_txt = "65% Rev · 35% Margin · 0% Multiple"
-                attribution_label = "5Y Drivers"
+                attribution_txt = "65% Rev Growth · 35% Margin Leverage"
+                attribution_label = "Return Source"
         else:
-            attribution_txt = "65% Rev · 35% Margin · 0% Multiple"
-            attribution_label = "5Y Drivers"
+            attribution_txt = "65% Rev Growth · 35% Margin Leverage"
+            attribution_label = "Return Source"
         
         card = f"""
         <div class="storyline-summary-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between; min-width: 0;">
