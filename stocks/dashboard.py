@@ -1898,90 +1898,100 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     # Thesis Evolution & Version History (Chronological)
     # ---------------------------------------------------------
     sorted_history = sorted(history, key=lambda v: getattr(v, 'version', 1), reverse=True) if history else []
+    evolution_count = max(0, len(sorted_history) - 1)
+    
     evolution_cards_html = ""
-    for idx, v in enumerate(sorted_history):
-        v_num = getattr(v, 'version', 1)
-        v_date = getattr(v, 'date', '') or "2026-08-21"
-        v_price = getattr(v, 'price_at_version', current_price) or current_price
-        v_reason = getattr(v, 'trigger_reason', '') or getattr(v, 'reason', '') or ("Genesis Thesis Creation" if v_num == 1 else "Forensic Review")
-        is_current = (idx == 0)
-        
-        # Metrics at that version
-        v_oe = getattr(v, 'owner_earnings_per_share', None) or oe_sh
-        v_poe = getattr(v, 'p_oe', None) or (v_price / v_oe if v_oe and v_oe > 0 else p_oe)
-        v_roic = getattr(v, 'owner_roic_pct', None) or owner_roic
-        v_moat = getattr(v, 'moat_label', None) or getattr(v, 'status_label', None) or moat_label
-        
-        v_change_summary = getattr(v, 'summary_of_change', '') or getattr(v, 'what_changes_now', '') or ''
-        if not v_change_summary and is_current:
-            v_change_summary = "Current live thesis based on single-agent Buffett & Munger owner earnings framework and audited statutory 10-K balance sheet."
-        elif not v_change_summary and v_num == 1:
-            v_change_summary = "Genesis baseline audit established. Ingested statutory balance sheet and derived baseline normalized Owner Earnings."
-            
-        # Archived content preview
-        v_p1 = getattr(v, 'market_pricing_in', '')
-        v_p2 = getattr(v, 'why_it_might_be_right', '')
-        v_p3 = getattr(v, 'how_things_are_going_now', '')
-        v_p4 = getattr(v, 'what_if_it_keeps_going_that_way', '')
-        v_legacy = getattr(v, 'full_html_content', '')
-        
-        if v_p1 or v_p2 or v_p3 or v_p4:
-            v_memo_html = f"""
-            <div class="archived-memo-section">
-                <div class="archived-memo-sub">1. What the Market is Pricing In</div>
-                <div>{markdown_to_memo_html(v_p1)}</div>
-            </div>
-            <div class="archived-memo-section">
-                <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
-                <div>{markdown_to_memo_html(v_p2)}</div>
-            </div>
-            <div class="archived-memo-section">
-                <div class="archived-memo-sub">3. How Things Are Going Now</div>
-                <div>{markdown_to_memo_html(v_p3)}</div>
-            </div>
-            <div class="archived-memo-section">
-                <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
-                <div>{markdown_to_memo_html(v_p4)}</div>
-            </div>
-            """
-        elif v_legacy:
-            v_memo_html = f"""<div class="archived-memo-legacy">{v_legacy}</div>"""
-        else:
-            v_memo_html = "<p class='archived-memo-sub'>Baseline version record archived.</p>"
-            
-        status_text = '<span class="evolution-status-text status-active">Live Active</span>' if is_current else '<span class="evolution-status-text status-archived">Archived</span>'
-        
-        evolution_cards_html += f"""
-        <div class="evolution-card {'active-version-card' if is_current else ''}">
-            <div class="evolution-header">
-                <div class="evolution-title-row">
-                    <span class="evolution-vnum">Version {v_num}</span>
-                    {status_text}
-                    <span class="evolution-date">· {v_date}</span>
-                </div>
-                <div class="evolution-price">Snapshot Price: <strong>${v_price:.2f}</strong></div>
-            </div>
-            <div class="evolution-reason">
-                <span class="reason-label">Trigger / Reason:</span> {v_reason}
-            </div>
-            <div class="evolution-metrics-text-row">
-                <span>OE: <strong>${v_oe:.2f}/sh</strong></span>
-                <span class="meta-sep">·</span>
-                <span>P/OE: <strong>{v_poe:.1f}x</strong></span>
-                <span class="meta-sep">·</span>
-                <span>ROIC: <strong>{v_roic:.1f}%</strong></span>
-                <span class="meta-sep">·</span>
-                <span>Moat: <strong>{v_moat}</strong></span>
-            </div>
-            {f'<div class="evolution-change-text">{v_change_summary}</div>' if v_change_summary else ''}
-            <details class="archived-accordion">
-                <summary class="archived-summary">Inspect Thesis Memo (v{v_num})</summary>
-                <div class="archived-content-body">
-                    {v_memo_html}
-                </div>
-            </details>
+    if len(sorted_history) <= 1:
+        evolution_cards_html = """
+        <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px 36px; text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text-title); margin-bottom: 6px;">Genesis Baseline Thesis Active (Version 1)</div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; max-width: 580px; margin: 0 auto;">No historical evolution revisions yet. When earnings results, guidance shifts, or major fundamental events trigger a model update, the previous baseline will be archived here with full metric diffs.</div>
         </div>
         """
+    else:
+        for idx, v in enumerate(sorted_history):
+            v_num = getattr(v, 'version', 1)
+            v_date = getattr(v, 'date', '') or "2026-08-21"
+            v_price = getattr(v, 'price_at_version', current_price) or current_price
+            v_reason = getattr(v, 'trigger_reason', '') or getattr(v, 'reason', '') or ("Genesis Thesis Creation" if v_num == 1 else "Forensic Review")
+            is_current = (idx == 0)
+            
+            # Metrics at that version
+            v_oe = getattr(v, 'owner_earnings_per_share', None) or oe_sh
+            v_poe = getattr(v, 'p_oe', None) or (v_price / v_oe if v_oe and v_oe > 0 else p_oe)
+            v_roic = getattr(v, 'owner_roic_pct', None) or owner_roic
+            v_moat = getattr(v, 'moat_label', None) or getattr(v, 'status_label', None) or moat_label
+            
+            v_change_summary = getattr(v, 'summary_of_change', '') or getattr(v, 'what_changes_now', '') or ''
+            if not v_change_summary and is_current:
+                v_change_summary = "Current live thesis based on single-agent Buffett & Munger owner earnings framework and audited statutory 10-K balance sheet."
+            elif not v_change_summary and v_num == 1:
+                v_change_summary = "Genesis baseline audit established. Ingested statutory balance sheet and derived baseline normalized Owner Earnings."
+                
+            # Archived content preview
+            v_p1 = getattr(v, 'market_pricing_in', '')
+            v_p2 = getattr(v, 'why_it_might_be_right', '')
+            v_p3 = getattr(v, 'how_things_are_going_now', '')
+            v_p4 = getattr(v, 'what_if_it_keeps_going_that_way', '')
+            v_legacy = getattr(v, 'full_html_content', '')
+            
+            if v_p1 or v_p2 or v_p3 or v_p4:
+                v_memo_html = f"""
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">1. What the Market is Pricing In</div>
+                    <div>{markdown_to_memo_html(v_p1)}</div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
+                    <div>{markdown_to_memo_html(v_p2)}</div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">3. How Things Are Going Now</div>
+                    <div>{markdown_to_memo_html(v_p3)}</div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
+                    <div>{markdown_to_memo_html(v_p4)}</div>
+                </div>
+                """
+            elif v_legacy:
+                v_memo_html = f"""<div class="archived-memo-legacy">{v_legacy}</div>"""
+            else:
+                v_memo_html = "<p class='archived-memo-sub'>Baseline version record archived.</p>"
+                
+            status_text = '<span class="evolution-status-text status-active">Live Active</span>' if is_current else '<span class="evolution-status-text status-archived">Archived</span>'
+            
+            evolution_cards_html += f"""
+            <div class="evolution-card {'active-version-card' if is_current else ''}">
+                <div class="evolution-header">
+                    <div class="evolution-title-row">
+                        <span class="evolution-vnum">Version {v_num}</span>
+                        {status_text}
+                        <span class="evolution-date">· {v_date}</span>
+                    </div>
+                    <div class="evolution-price">Snapshot Price: <strong>${v_price:.2f}</strong></div>
+                </div>
+                <div class="evolution-reason">
+                    <span class="reason-label">Trigger / Reason:</span> {v_reason}
+                </div>
+                <div class="evolution-metrics-text-row">
+                    <span>OE: <strong>${v_oe:.2f}/sh</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>P/OE: <strong>{v_poe:.1f}x</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>ROIC: <strong>{v_roic:.1f}%</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>Moat: <strong>{v_moat}</strong></span>
+                </div>
+                {f'<div class="evolution-change-text">{v_change_summary}</div>' if v_change_summary else ''}
+                <details class="archived-accordion">
+                    <summary class="archived-summary">Inspect Thesis Memo (v{v_num})</summary>
+                    <div class="archived-content-body">
+                        {v_memo_html}
+                    </div>
+                </details>
+            </div>
+            """
 
     # ---------------------------------------------------------
     # Alerts, Catalysts & Surveillance Data
@@ -2802,7 +2812,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <!-- Top Nav -->
     <nav class="nav-bar">
         <div class="container nav-inner">
-            <a href="/" class="nav-back">← Back to Watchlist</a>
+            <a href="../" class="nav-back">← Back to Watchlist</a>
         </div>
     </nav>
 
@@ -2900,7 +2910,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('thesis', this)">Investment Thesis</button>
-            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">{len(sorted_history)}</span></button>
+            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">{evolution_count}</span></button>
             <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">{len(ticker_alerts)}</span></button>
             <button class="nav-tab" onclick="switchTab('ownership', this)">Ownership & Fund Intel</button>
         </div>
@@ -2982,7 +2992,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <!-- TAB 4: Ownership & Regulatory Portals -->
         <div id="tab-ownership" class="tab-pane">
             <div class="ownership-wrap">
-                <div class="portals-grid">
+                <div class="portals-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
                     <a href="http://openinsider.com/search?q={ticker_clean}" target="_blank" rel="noopener noreferrer" class="portal-card">
                         <div class="portal-header">
                             <span class="portal-name">OpenInsider SEC Form 4 Tracker</span>
@@ -2995,21 +3005,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                             <span class="portal-name">Dataroma Superinvestor Registry</span>
                             <span class="portal-arrow">↗</span>
                         </div>
-                        <div class="portal-desc">Live 13F superinvestor tracking showing top institutional value funds, Berkshire Hathaway, and hedge fund portfolio weightings.</div>
-                    </a>
-                    <a href="https://whalewisdom.com/stock/{ticker_clean.lower()}" target="_blank" rel="noopener noreferrer" class="portal-card">
-                        <div class="portal-header">
-                            <span class="portal-name">WhaleWisdom 13F Ownership</span>
-                            <span class="portal-arrow">↗</span>
-                        </div>
-                        <div class="portal-desc">Comprehensive institutional holders, top 100 hedge fund concentration, and quarterly portfolio positioning changes for {ticker_clean}.</div>
-                    </a>
-                    <a href="https://www.sec.gov/edgar/searchedgar/companysearch?company={ticker_clean}" target="_blank" rel="noopener noreferrer" class="portal-card">
-                        <div class="portal-header">
-                            <span class="portal-name">SEC EDGAR Official Filings</span>
-                            <span class="portal-arrow">↗</span>
-                        </div>
-                        <div class="portal-desc">Direct SEC repository for statutory 10-K/20-F annual reports, quarterly 10-Q disclosures, and 8-K material event filings.</div>
+                        <div class="portal-desc">Live 13F superinvestor tracking showing top institutional value funds, Berkshire Hathaway, and hedge fund portfolio weightings for {ticker_clean}.</div>
                     </a>
                 </div>
             </div>
