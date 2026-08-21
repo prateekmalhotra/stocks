@@ -547,7 +547,7 @@ def extract_priced_in_card_data(stock: Any, html: str = "") -> Dict[str, Any]:
         "title": "Implied Market Expectations",
         "summary": f"Current price of ${cur_p:.2f} implies baseline cash flow compounding.",
         "implied_growth": "7.7% / yr",
-        "implied_terminal": "18.0x–20.0x OE₅",
+        "implied_terminal": "18x–20x OE",
         "hurdle_rate": "9.50% hurdle"
     }
     
@@ -569,11 +569,11 @@ def extract_priced_in_card_data(stock: Any, html: str = "") -> Dict[str, Any]:
     if m_rev_table:
         th_matches = re.findall(r'(\d+\.?\d*x)', m_rev_table.group(1), re.IGNORECASE)
         if th_matches:
-            unique_th = list(dict.fromkeys(th_matches))
+            unique_th = [m.replace('.0x', 'x') for m in list(dict.fromkeys(th_matches))]
             if len(unique_th) >= 2:
-                res["implied_terminal"] = f"{unique_th[1]}–{unique_th[0]} OE₅"
+                res["implied_terminal"] = f"{unique_th[1]}–{unique_th[0]} OE"
             elif len(unique_th) == 1:
-                res["implied_terminal"] = f"{unique_th[0]} OE₅"
+                res["implied_terminal"] = f"{unique_th[0]} OE"
 
     # 3. Clean and minimal 1-sentence synthesis
     g_str = res["implied_growth"].replace("/ yr", "").replace("/yr", "").strip()
@@ -767,15 +767,15 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 10px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 6px; font-family: var(--font-mono); margin: 4px 0;">
             <div>
                 <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Req. 5Y CAGR</div>
-                <div style="font-size: 0.80rem; font-weight: 600; color: var(--text-title);">{priced_in_info['implied_growth']}</div>
+                <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-title); white-space: nowrap;">{priced_in_info['implied_growth']}</div>
             </div>
             <div>
                 <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Market Multiple</div>
-                <div style="font-size: 0.80rem; font-weight: 600; color: var(--text-title);">{priced_in_info['implied_terminal']}</div>
+                <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-title); white-space: nowrap;">{priced_in_info['implied_terminal']}</div>
             </div>
             <div>
                 <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Hurdle Rate</div>
-                <div style="font-size: 0.80rem; font-weight: 600; color: var(--accent-warm);">{priced_in_info['hurdle_rate']}</div>
+                <div style="font-size: 0.78rem; font-weight: 600; color: var(--accent-warm); white-space: nowrap;">{priced_in_info['hurdle_rate']}</div>
             </div>
         </div>
         
