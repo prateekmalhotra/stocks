@@ -3398,7 +3398,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                         
                         <!-- 5Y Target Dotted Line & Tag -->
                         <line id="target-line" x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
-                        <text id="target-label" x="{width - padding_x - 6}" y="{padding_y - 4}" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">5Y Target: ${target_price:.2f}</text>
+                        <text id="target-label" x="{width - padding_x - 6}" y="{padding_y - 4}" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: ${target_price:.2f}</text>
 
                         <!-- Dynamic Area & Stroke -->
                         <polygon id="chart-area" fill="url(#area-grad)" points="" />
