@@ -2689,11 +2689,13 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 
 CORE PHILOSOPHY & MANDATE:
 You are an elite Institutional Value Investor (in the tradition of Warren Buffett, Charlie Munger, and Howard Marks).
-RULE #1: ZERO BASELESS TOP-DOWN NUMBERS. NEVER assume arbitrary growth rates (e.g. never say 'assume earnings grow at 8% CAGR' or 'multiple is 12x').
+RULE #1: ZERO PRICE ANCHORING & ZERO TOP-DOWN ASSUMPTIONS:
+- Calculate Year 5 Target Share Price PURELY bottom-up: (Year 5 Per-Share OE × Terminal Multiple) + Net Cash/Debt per share.
+- NEVER anchor the target price to today's price of ${current_price:.2f}.
 RULE #2: THE TRAJECTORY INERTIA LAW (PURE UNVARNISHED CONTINUATION):
 - Section 4 is strictly titled "What If It Keeps Going That Way".
 - You MUST directly extrapolate the REAL current trajectory established in Section 3:
-  * If the business is currently shrinking / bleeding users / contracting: ASSUME IT CONTINUES CONTRACTING. Model the ongoing customer attrition and revenue decline over 5 years. Calculate the resulting lower cash flows and output the honest (low) resulting intrinsic value. NEVER assume a magical turnaround, reversal, or that 'churn halts due to new product features'!
+  * If the business is currently shrinking / bleeding users / contracting: ASSUME IT CONTINUES CONTRACTING. Model ongoing customer attrition and revenue decline over 5 years. Factor in the real-world operational costs of decay: elevated marketing spend to fight churn, rising SBC to retain talent, and compressed margins. Calculate the resulting lower cash flows and output the honest (low) resulting intrinsic value. NEVER assume a magical turnaround, reversal, or that 'churn halts due to new product features'!
   * If the business is currently growing / compounding: Model a conservative continuation of that current pace.
   * If mixed: Model each segment exactly as it is currently performing without assuming the decaying part miraculously recovers.
 RULE #3: PROHIBITION OF MANAGEMENT SPIN:
@@ -2701,7 +2703,11 @@ RULE #3: PROHIBITION OF MANAGEMENT SPIN:
 RULE #4: BALANCE SHEET & CAPITAL ALLOCATION REALITY:
 - If the company has NET DEBT (Debt > Cash, Net Cash < $0): You are STRICTLY FORBIDDEN from assuming share buybacks. Indebted, declining companies must use cash to service debt and survive. Share count must remain flat or dilute.
 - Only model share buybacks if the company has NET CASH (Cash > Debt) and an audited track record of share retirement.
-RULE #5: VALUATION ARCHITECTURE:
+RULE #5: STRICT BAN ON VALUE SUMMING / CASH FLOW DOUBLE-COUNTING:
+- In Step 7, the Expected 5-Year Annualized Return (IRR) is STRICTLY calculated as:
+  IRR = (Expected Year 5 Target Share Price / ${current_price:.2f})^(1/5) - 1
+- STRICTLY FORBIDDEN: NEVER add intermediate 5-year cumulative cash flows (e.g. do NOT sum $1.39 + $1.20 + ... to the terminal share price to manufacture a phantom '$8.44 total value'). The terminal share price ALREADY represents the full equity value. Indebted, declining companies do NOT pay out intermediate cash flow as dividends—that cash is consumed by debt interest, defensive marketing, defensive R&D, and SBC. If terminal price is $3.04 from entry $2.80, the return is (+1.6% annualized). State it honestly.
+RULE #6: VALUATION ARCHITECTURE:
 - For CONGLOMERATES & MULTI-SEGMENT PLATFORMS (e.g. Alphabet, Amazon, Meta, Apple, Microsoft, Alibaba): Use SUM-OF-THE-PARTS (SOTP) & SEGMENT UNIT ECONOMICS. Model the core divisions individually based on their current trajectory, apply appropriate segment multiples, sum the parts, add Net Cash, and divide by retired shares.
 - For SINGLE-SEGMENT BUSINESSES: Use BOTTOM-UP UNIT ECONOMICS: (Current Unit Trajectory × Monetization Yield) ➔ Projected Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings ➔ Per-Share Owner Earnings ➔ Terminal Multiple + Net Cash/Debt.
 
@@ -2732,8 +2738,8 @@ Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps w
      3. Projected Year 5 Revenue & Owner Cash Margin: Calculate resulting Year 5 Revenue = $[Rev_5]M and Total Owner Earnings = $[OE_Total_5]M.
      4. Share Count & Balance Sheet Reality: If Net Debt > 0, assume shares remain flat at {shares:.1f}M (zero buybacks). Only factor in buybacks if company has Net Cash and an audited buyback history.
      5. Year 5 Owner Earnings Per Share: ($[OE_Total_5]M / [S_5]M) = $[OE_sh_5]/share.
-     6. Prudent Terminal Multiple & Expected Share Price: Apply a realistic multiple based on business quality + net cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Expected Year 5 Share Price $[Target_Price]/share.
-     7. Expected 5-Year Annualized Return (IRR): Show the annualized compounding return from today's real entry price of ${current_price:.2f} + the {owner_yield:.1f}% Owner Cash Yield.
+     6. Prudent Terminal Multiple & Expected Share Price: Apply a realistic multiple based on business quality + net cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Expected Year 5 Target Share Price $[Target_Price]/share.
+     7. Expected 5-Year Annualized Return (IRR): Calculate IRR = ($[Target_Price] / ${current_price:.2f})^(1/5) - 1. Show the pure capital appreciation compounding return. NEVER sum intermediate annual cash flows into a phantom combined share price.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
@@ -2792,9 +2798,11 @@ CIO AUDIT & MANDATORY CORRECTION RULES:
    - Purge any promotional buzzwords ('intentional reset', 'turnaround taking hold', 'poised for growth'). Enforce cold forensic prose.
 3. BALANCE SHEET & BUYBACK SANITY:
    - If Net Debt > 0 (${net_cash_total:+,.0f}M), verify that Section 4 does NOT assume share buybacks. Share count must remain flat or dilute.
-4. ADVERSARIAL BEAR CHECK (SECTION 2):
+4. STRICT BAN ON CASH FLOW SUMMING / VALUE DOUBLE-COUNTING:
+   - In Step 7 of Section 4, verify that IRR is strictly (Target Share Price / ${current_price:.2f})^(1/5) - 1. REJECT any attempts to add 5-year cumulative cash flows to the terminal price to create a fake combined value.
+5. ADVERSARIAL BEAR CHECK (SECTION 2):
    - Ensure Section 2 accurately reverse-engineers the real sell-side and short-seller concerns without unrealistic double-counting.
-5. MATHEMATICAL EXACTNESS:
+6. MATHEMATICAL EXACTNESS:
    - Ensure starting Owner Earnings (${oe_per_share:.2f}/sh), share count adjustments, and 5-year IRR are 100% mathematically exact and logical.
 
 Produce the FINAL, FULLY REFINED, AND PERFECTED 4 SECTIONS incorporating all live audit corrections.

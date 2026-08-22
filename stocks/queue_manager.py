@@ -96,7 +96,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         for issue in quality_issues:
             print(f"   └─ {issue}", flush=True)
 
-    labels = sanitize_labels(meta.get("labels") or meta.get("status_label"), action_signal=meta.get("action_signal"))
+    labels = sanitize_labels(meta.get("moat_label") or meta.get("labels") or meta.get("status_label"), action_signal=meta.get("action_signal"))
     action_signal = normalize_action_signal(meta.get("action_signal", "BUY"))
 
     # 1. Create Initial Thesis Version

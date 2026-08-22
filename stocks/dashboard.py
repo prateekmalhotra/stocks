@@ -1961,18 +1961,15 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     net_cash_tot = net_cash_sh * (oe_tot / oe_sh if oe_sh > 0 else 100.0)
 
     # Moat text label with harmonious semantic color
-    raw_moat = str(moat or "").strip()
-    if "wide" in raw_moat.lower():
-        moat_label = "Wide Moat"
+    from stocks.gemini_agent import map_to_canonical_moat_label
+    moat_label = map_to_canonical_moat_label(str(moat or ""))
+    if moat_label == "Wide Moat":
         moat_color = "var(--accent-green)"
-    elif "narrow" in raw_moat.lower():
-        moat_label = "Narrow Moat"
+    elif moat_label == "Narrow Moat":
         moat_color = "var(--accent-warm)"
-    elif "weak" in raw_moat.lower():
-        moat_label = "Weak Moat"
+    elif moat_label == "Weak Moat":
         moat_color = "#D48858"
     else:
-        moat_label = "No Moat"
         moat_color = "var(--accent-red)"
 
     # Section prose
