@@ -2601,6 +2601,8 @@ LATEST STATUTORY FILINGS MANDATE: You MUST retrieve numbers from the company's L
 Use Google Search to retrieve the statutory 10-K / 20-F / 10-Q filings, latest quarterly reports, and TTM financial numbers for {ticker}.
 IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, convert to USD at ~5.6 BRL/USD. Return purely numerical floats without symbols or commas.
 
+- Market Capitalization ($M USD)
+- Diluted Shares Outstanding (Millions)
 - Trailing 12-Month Revenue ($M USD)
 - Latest Reported Quarter Revenue ($M USD)
 - Latest Quarter Gross Margin (%)
@@ -2615,7 +2617,6 @@ IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, 
 - Liquid Cash & Short-Term Investments ($M USD)
 - Total Debt ($M USD)
 - Total Stockholders' Equity ($M USD)
-- Diluted Shares Outstanding (Millions)
 - Revenue Growth YoY (%)
 - Economic Moat classification:
   * Strict Buffett & Munger Moat Standard:
@@ -2630,6 +2631,8 @@ IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, 
 Return ONLY a valid JSON object matching this schema:
 ```json
 {{
+  "market_cap_mil": float,
+  "diluted_shares_mil": float,
   "trailing_revenue_ttm_mil": float,
   "latest_quarter_revenue_mil": float,
   "latest_quarter_gross_margin_pct": float,
@@ -2644,7 +2647,6 @@ Return ONLY a valid JSON object matching this schema:
   "cash_mil": float,
   "debt_mil": float,
   "equity_mil": float,
-  "diluted_shares_mil": float,
   "revenue_growth_pct": float,
   "economic_moat": string,
   "moat_type": string,
@@ -2658,27 +2660,46 @@ Return ONLY a valid JSON object matching this schema:
         use_search=True
     )
     audit_data = parse_json_robust(raw_audit) or {}
-    print(f"  [Step 3 Done] Extracted TTM data: OCF=${audit_data.get('operating_cash_flow_ttm_mil')}M, NI=${audit_data.get('net_income_ttm_mil')}M, D&A=${audit_data.get('dna_ttm_mil')}M, SBC=${audit_data.get('sbc_ttm_mil')}M, Equity=${audit_data.get('equity_mil')}M", flush=True)
+    
+    ttm_rev = float(audit_data.get("trailing_revenue_ttm_mil") or 0.0)
+    lq_rev = float(audit_data.get("latest_quarter_revenue_mil") or 0.0)
+    lq_gm = float(audit_data.get("latest_quarter_gross_margin_pct") or 0.0)
+    unit_desc = audit_data.get("latest_primary_units_description") or "Active commercial volume units"
+    monet_desc = audit_data.get("latest_unit_monetization_description") or "Unit monetization and take-rate yield"
+    annualized_runrate = lq_rev * 4.0 if lq_rev > 0 else (ttm_rev if ttm_rev > 0 else 100.0)
 
     # ---------------------------------------------------------
     # Step 4: Deterministic Python Code Execution (Owner Earnings & Owner ROIC Math)
     # ---------------------------------------------------------
     print(f"  [Step 4/5] Executing deterministic Python calculations for Owner Earnings, Multiples & Owner ROIC...", flush=True)
+    
+    # 1. Mathematically cross-check and reconcile Diluted Shares Outstanding vs Market Cap
+    mcap_rep = float(audit_data.get("market_cap_mil") or 0.0)
+    shares_rep = float(audit_data.get("diluted_shares_mil") or 0.0)
+    if shares_rep > 0 and current_price > 0:
+        shares = shares_rep
+        # If shares * current_price deviates wildly (>50%) from reported market cap, reconcile with market cap
+        if mcap_rep > 0 and abs(shares * current_price - mcap_rep) > (mcap_rep * 0.50):
+            shares = mcap_rep / current_price
+    elif mcap_rep > 0 and current_price > 0:
+        shares = mcap_rep / current_price
+    else:
+        shares = max(1.0, annualized_runrate / max(1.0, current_price))
+
     ocf = float(audit_data.get("operating_cash_flow_ttm_mil") or 0.0)
-    net_income = float(audit_data.get("net_income_ttm_mil") or 350.0)
-    dna = float(audit_data.get("dna_ttm_mil") or 100.0)
-    capex = float(audit_data.get("capex_ttm_mil") or 80.0)
-    sbc = float(audit_data.get("sbc_ttm_mil") or 30.0)
+    net_income = float(audit_data.get("net_income_ttm_mil") or (ocf * 0.70 if ocf > 0 else (ttm_rev * 0.10 if ttm_rev > 0 else 10.0)))
+    dna = float(audit_data.get("dna_ttm_mil") or (ttm_rev * 0.05 if ttm_rev > 0 else 5.0))
+    capex = float(audit_data.get("capex_ttm_mil") or (ttm_rev * 0.04 if ttm_rev > 0 else 4.0))
+    sbc = float(audit_data.get("sbc_ttm_mil") or (ttm_rev * 0.03 if ttm_rev > 0 else 3.0))
     one_offs = float(audit_data.get("one_off_net_mil") or 0.0)
-    cash = float(audit_data.get("cash_mil") or 200.0)
-    debt = float(audit_data.get("debt_mil") or 50.0)
-    equity = float(audit_data.get("equity_mil") or 1500.0)
-    shares = float(audit_data.get("diluted_shares_mil") or 230.6)
+    cash = float(audit_data.get("cash_mil") or (ttm_rev * 0.15 if ttm_rev > 0 else 10.0))
+    debt = float(audit_data.get("debt_mil") or 0.0)
+    equity = float(audit_data.get("equity_mil") or (ttm_rev * 0.60 if ttm_rev > 0 else 50.0))
     moat = audit_data.get("economic_moat") or "Narrow Moat"
-    rev_growth = float(audit_data.get("revenue_growth_pct") or 15.0)
+    rev_growth = float(audit_data.get("revenue_growth_pct") or 0.0)
 
     # True Maintenance CapEx Anchor (empirically bounded by D&A for asset-light software/digital platforms):
-    maint_capex = min(capex, dna * 1.05) if dna > 0 else min(capex, 100.0)
+    maint_capex = min(capex, dna * 1.05) if dna > 0 else min(capex, max(5.0, ttm_rev * 0.03))
     
     # Buffett True Owner Earnings = Operating Cash Flow - SBC - Maintenance CapEx
     # (Reconciled with Net Income + D&A - Maintenance CapEx - SBC - OneOffs to ensure non-cash accounting charges don't distort true cash generation)
@@ -2802,7 +2823,7 @@ EDITORIAL FORMATTING & PRESENTATION MANDATE:
      2. 5-Year Unit Volume Extrapolation: Project volume units over 5 years based on current momentum (continue attrition if decaying; extrapolate realistic growth if compounding).
      3. Projected Year 5 Revenue (Units × Monetization): Multiply Year 5 Volume Units × Year 5 Unit Monetization Yield to derive Projected Year 5 Revenue = $[Rev_5]M.
      4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 5 Revenue to derive Projected Year 5 Total Owner Earnings = $[OE_Total_5]M (Owner Cash Margin = [X]%).
-     5. Explicit 5-Year Balance Sheet & Capital Allocation Bridge: Detail Starting Net Cash (${net_cash_total:+,.0f}M) + Cumulative 5Y FCF ($[Cumulative_FCF]M) - Cumulative Buybacks ($[Buybacks]M retiring [Shares_Retired]M shares) - CapEx ($[CapEx_5Y]M) = Ending Year 5 Net Cash $[Ending_Net_Cash]M ($[Ending_Net_Cash_Per_Share]/sh) across [S_5]M shares.
+     5. Explicit 5-Year Balance Sheet & Capital Allocation Bridge: Detail Starting Net Cash (${net_cash_total:+,.0f}M) + Cumulative 5Y FCF ($[Cumulative_FCF]M) - Cumulative Buybacks ($[Buybacks]M retiring [Shares_Retired]M shares) - CapEx ($[CapEx_5Y]M) = Ending Year 5 Net Cash $[Ending_Net_Cash]M ($[Ending_Net_Cash_Per_Share]/sh) across [S_5]M shares. CRITICAL CAPITAL ALLOCATION MANDATE: If Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), you MUST allocate $0.00 to share buybacks, dedicating 100% of cash flow to debt retirement and interest coverage.
      6. Institutional 3-Scenario Valuation Range:
         • Bear Case ($[Bear_Target_Low]-$[Bear_Target_High]): Macro/cyclical shock, margin compression, [X]x terminal P/OE.
         • Base Case ($[Base_Target_Low]-$[Base_Target_High]): Disciplined continuation, stable margins, [Y]x terminal P/OE -> Expected Base Target $[Target_Price]/share.
@@ -2869,7 +2890,7 @@ Act as a skeptical, conservative peer reviewer:
 - Strip out any unearned optimism, corporate spin, or turnaround fantasies.
 - AUDIT AGAINST LATEST EARNINGS & TRANSCRIPTS: Verify all revenue numbers, volume units ({unit_desc}), gross margins, and forward commentary directly against the company's LATEST earnings release and LATEST earnings call transcript Q&A. Force-reject any outdated or stale figures.
 - STRICT BAN ON LAZY TOP-DOWN CAGRS: Check Section 4. If it contains generic hand-waving like "assuming a steady 10% CAGR" or "assuming top-line growth slows to X%", REJECT and replace it with explicit bottom-up multiplication: Volume Units × Unit Yield ➔ Revenue − Cash Expenses ➔ Total Owner Earnings.
-- AUDIT BALANCE SHEET CASH BRIDGE: Ensure Section 4 contains an explicit 5-year cash bridge (Starting Net Cash + 5Y FCF - Buybacks - CapEx = Ending Net Cash).
+- AUDIT BALANCE SHEET CASH BRIDGE: Ensure Section 4 contains an explicit 5-year cash bridge (Starting Net Cash + 5Y FCF - Buybacks - CapEx = Ending Net Cash). Verify that if Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), exactly $0.00 is allocated to share buybacks.
 - ENFORCE 3-SCENARIO RANGE: Ensure Section 4 provides a clean Bear / Base / Bull valuation matrix formatted with clear bullet lines.
 - ENFORCE REVERSE OPERATING LEVERAGE: If revenue/units contract, ensure Owner Cash Margin compresses realistically; do not allow fantasy high margins during shrinkage.
 - MOAT SKEPTICISM CHECK: Verify that the assigned Economic Moat ({moat}) is 100% rigorous. If the company faces low switching costs ($0 to leave) and decaying paying users (e.g. Bumble), force-downgrade any unearned 'Narrow Moat' claims to 'Weak Moat' or 'No Moat'.

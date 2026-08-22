@@ -299,6 +299,13 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     if not has_scenarios:
         issues.append("Section 4 lacks an explicit 3-Scenario Valuation Range (Bear / Base / Bull).")
 
+    # 15c. Cash Bridge Balance Sheet Sanity
+    if "cash bridge" in html.lower() or "ending net cash" in html.lower() or "starting net cash" in html.lower():
+        if "buyback" in html.lower() and re.search(r"starting\s+net\s+(?:debt|cash\s+of\s+-\$)", html, re.IGNORECASE):
+            # If net debt is heavy and aggressive buybacks are modeled (> $200M)
+            if re.search(r"(?:repurchasing|buybacks\s+of\s+\$)[2-9]\d\d(?:\.\d+)?M", html, re.IGNORECASE):
+                issues.append("Capital Allocation Warning: Modeled large share buybacks while company is in significant starting net debt.")
+
     # 18. Storyline Targets & Alert Corridor Validity
     if metadata:
         def _parse_p(val_str: Optional[str]) -> Optional[float]:
