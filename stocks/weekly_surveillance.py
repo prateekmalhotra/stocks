@@ -79,13 +79,27 @@ def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float, w
         labels = wl_item.get("labels", [])
         status = wl_item.get("status_label", "")
         
-        # Derive high-precision fundamental heuristics from research labels
-        moat = 9.4 if ("Monopoly Moat" in labels or "High Conviction" in status) else (9.0 if "Solid Conviction" in status else 8.5)
+        # Derive high-precision fundamental heuristics from canonical research labels
+        if any(k in status or k in str(labels) for k in ["Wide Moat", "Monopoly Moat"]):
+            moat = 9.6
+            p = 0.90
+        elif any(k in status or k in str(labels) for k in ["Narrow Moat", "Solid Conviction"]):
+            moat = 8.5
+            p = 0.85
+        elif any(k in status or k in str(labels) for k in ["Weak Moat", "Turnaround"]):
+            moat = 5.5
+            p = 0.65
+        elif any(k in status or k in str(labels) for k in ["No Moat", "Speculative Risk"]):
+            moat = 3.5
+            p = 0.50
+        else:
+            moat = 8.0
+            p = 0.80
+
         bs = 9.5 if "Cash Fortress" in labels else (8.0 if "Debt Caution" in labels else 8.5)
         growth = 15.0 if ("Cloud Acceleration" in labels or "Growth" in labels) else 9.0
         cannibal = 4.0 if "Buyback Cannibal" in labels else 1.5
         oe_y = 6.0 if "Deep Value" in labels else 4.5
-        p = 0.90 if "Monopoly Moat" in labels else 0.85
         roic = 22.0 if "High ROIC" in labels else 18.0
         meta = {"moat": moat, "bs": bs, "growth": growth, "cannibal": cannibal, "oe_yield": oe_y, "p": p, "roic": roic}
     

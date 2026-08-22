@@ -2959,31 +2959,47 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     """
 
     p4_text = info.get("what_if_it_keeps_going_that_way", "")
-    extracted_target = None
-    if p4_text:
-        m = re.search(r'(?:target price|expected|fair value|target|share price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
-        if m:
-            try:
-                extracted_target = float(m.group(1))
-            except Exception:
-                pass
-
-    if extracted_target and extracted_target > 0:
-        target_5y = extracted_target
-    else:
-        target_5y = current_price * 1.25 if owner_yield >= 8.0 else current_price * 1.05
-
     p2_text = info.get("why_it_might_be_right", "")
+    extracted_target = None
     extracted_bear = None
-    if p2_text:
-        m_b = re.search(r'(?:target price|implied price|fair value|downside|exit price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p2_text, re.IGNORECASE)
-        if m_b:
+    extracted_bull = None
+
+    if p4_text:
+        # 1. Base Target extraction
+        m_base = re.search(r'(?:expected base target|base target|base case|target price|expected target|target|share price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
+        if m_base:
             try:
-                extracted_bear = float(m_b.group(1))
+                extracted_target = float(m_base.group(1))
             except Exception:
                 pass
+
+        # 2. Bear Target extraction
+        m_bear = re.search(r'(?:bear case|bear target|downside floor|downside)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
+        if m_bear:
+            try:
+                extracted_bear = float(m_bear.group(1))
+            except Exception:
+                pass
+
+        # 3. Bull Target extraction
+        m_bull = re.search(r'(?:bull case|bull target|upside target|upside)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
+        if m_bull:
+            try:
+                extracted_bull = float(m_bull.group(1))
+            except Exception:
+                pass
+
+    if not extracted_bear and p2_text:
+        m_b2 = re.search(r'(?:target price|implied price|fair value|downside|exit price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p2_text, re.IGNORECASE)
+        if m_b2:
+            try:
+                extracted_bear = float(m_b2.group(1))
+            except Exception:
+                pass
+
+    target_5y = extracted_target if (extracted_target and extracted_target > 0) else (current_price * 1.25 if owner_yield >= 8.0 else current_price * 1.05)
     bear_target_val = extracted_bear if (extracted_bear and extracted_bear > 0) else round(current_price * 0.75, 2)
-    bull_target_val = round(target_5y * 1.25, 2)
+    bull_target_val = extracted_bull if (extracted_bull and extracted_bull > 0) else round(target_5y * 1.25, 2)
 
     # Calculate 5-year expected price CAGR
     irr_5y = ((target_5y / current_price) ** (1.0 / 5.0) - 1.0) if current_price > 0 else 0.0
