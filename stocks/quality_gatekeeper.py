@@ -278,17 +278,21 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if pred_tier and pred_tier not in CANONICAL_PREDICTABILITY_TIERS:
             issues.append(f"Invalid Cash Flow Predictability Tier '{pred_tier}'. Must strictly be one of: {sorted(list(CANONICAL_PREDICTABILITY_TIERS))}.")
 
-    # 15. Grounded Unit Economics & SOTP Derivation Check (Zero Baseless Top-Down CAGRs)
+    # 15. Grounded Unit Economics Check (Strict Ban on Lazy Top-Down Hand-Waving)
+    cagr_shortcuts = re.findall(r"(?:assuming\s+(?:top-line\s+growth\s+slows\s+to\s+a\s+steady|a\s+steady\s+\d+(?:\.\d+)?%\s+cagr|growth\s+slows\s+to\s+\d+(?:\.\d+)?%\s+cagr|top-line\s+grows\s+at\s+\d+(?:\.\d+)?%|revenue\s+compounds\s+at\s+\d+(?:\.\d+)?%))", html, re.IGNORECASE)
+    if cagr_shortcuts:
+        issues.append(f"Contains lazy top-down CAGR shortcut ('{cagr_shortcuts[0]}'). Demand explicit bottom-up unit economics (Units × Yield ➔ Revenue − Cash Costs ➔ Total Owner Earnings).")
+
     unit_keywords = [
-        "user", "dau", "mau", "subscriber", "seat", "client", "merchant",
-        "store", "door", "unit", "volume", "arpu", "take rate", "take-rate",
+        "user", "dau", "mau", "subscriber", "seat", "client", "merchant", "buyer", "seller",
+        "store", "door", "club", "box", "unit", "volume", "arpu", "take rate", "take-rate",
         "price per", "pricing", "arr", "tpv", "gmv", "comp sales", "tuition",
         "asp", "retention", "nrr", "margin", "revenue", "segment", "division",
         "cloud", "search", "services", "sotp", "sum of the parts", "sum-of-the-parts"
     ]
     has_unit_anchors = any(k in html.lower() for k in unit_keywords)
     if not has_unit_anchors:
-        issues.append("Dossier lacks bottom-up unit economics / SOTP drivers (e.g. users, seats, merchants, ARPU, segment revenues, take rate, TPV, GMV).")
+        issues.append("Dossier lacks bottom-up unit economics / SOTP drivers (e.g. buyers, sellers, users, seats, merchants, ARPU, segment revenues, take rate, TPV, GMV).")
 
     # 18. Storyline Targets & Alert Corridor Validity
     if metadata:
