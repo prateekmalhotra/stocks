@@ -2701,10 +2701,10 @@ Return ONLY a valid JSON object matching this schema:
     # True Maintenance CapEx Anchor (empirically bounded by D&A for asset-light software/digital platforms):
     maint_capex = min(capex, dna * 1.05) if dna > 0 else min(capex, max(5.0, ttm_rev * 0.03))
     
-    # Buffett True Owner Earnings = Operating Cash Flow - SBC - Maintenance CapEx
+    # Buffett True Owner Earnings = Operating Cash Flow - SBC - Maintenance CapEx - OneOffs
     # (Reconciled with Net Income + D&A - Maintenance CapEx - SBC - OneOffs to ensure non-cash accounting charges don't distort true cash generation)
     if ocf > 0:
-        oe_total = ocf - sbc - maint_capex
+        oe_total = ocf - sbc - maint_capex - (one_offs if one_offs > 0 else 0.0)
     else:
         oe_total = net_income + dna - maint_capex - sbc - one_offs
         
@@ -2782,10 +2782,14 @@ Your goal is to write a rigorous, sober, deeply grounded 4-section investment th
 - Honestly extrapolate what happens over the next 3 years (The Visible Runway) if things simply continue as they are going now.
   * SOBER CONSERVATISM RULES:
     - Real-Time Baseline Anchor: Always anchor starting numbers to the real-time annualized run rate (${annualized_runrate:,.1f}M) and exact statutory units ({unit_desc}). Do NOT use stale outdated figures.
-    - 3-Year Visible Runway: Model the next 3 years (Year 1 to Year 3) rather than speculative 5-year distant extrapolations. A 3-year horizon is firmly within our circle of competence, backed by visible backlog, current churn, and known debt commitments.
-    - Reverse Operating Leverage: If revenue/units contract, fixed costs (hosting, R&D, defensive S&M, G&A) are sticky; owner cash margins must severely compress, not magically remain high.
+    - Owner Earnings as True North Star: True normalized Owner Earnings (OE₀ = ${oe_per_share:.2f}/sh) strictly treats Stock-Based Compensation (${sbc:.1f}M) as real cash/equity dilution and excludes one-off non-recurring items.
+    - 3-Year Visible Runway: Model the next 3 years (Year 1 to Year 3) based on how things are actually going today, staying firmly within our circle of competence.
+    - Rational Scenario Bounds (Don't Fight the Trend):
+      • Bear Case: Realistic operational headwinds (e.g. 200–300 bps gross margin compression, moderate unit churn, conservative trough multiple). Do NOT invent catastrophic 90% drops on profitable businesses with positive net cash.
+      • Base Case: Disciplined, sober continuation of "How Things Are Going Now" with stable/normalized margins and a sober exit multiple.
+      • Bull Case: Moderate operational leverage and healthy unit expansion.
+    - Reverse Operating Leverage: If revenue/units contract, fixed costs are sticky; owner cash margins must compress realistically.
     - Explicit Balance Sheet Cash Bridge: Explicitly calculate (Starting Net Cash + 3Y FCF - Buybacks - CapEx = Ending Net Cash).
-    - 3-Scenario Risk/Reward Range: Provide an institutional Bear / Base / Bull valuation matrix rather than false single-point precision.
 
 Provide EXACTLY 4 sections in simple, elegant, plain English.
 
@@ -2826,9 +2830,9 @@ EDITORIAL FORMATTING & PRESENTATION MANDATE:
      4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 3 Revenue to derive Projected Year 3 Total Owner Earnings = $[OE_Total_3]M (Owner Cash Margin = [X]%).
      5. Explicit 3-Year Balance Sheet & Capital Allocation Bridge: Detail Starting Net Cash (${net_cash_total:+,.0f}M) + Cumulative 3Y FCF ($[Cumulative_FCF]M) - Cumulative Buybacks ($[Buybacks]M retiring [Shares_Retired]M shares) - CapEx ($[CapEx_3Y]M) = Ending Year 3 Net Cash $[Ending_Net_Cash]M ($[Ending_Net_Cash_Per_Share]/sh) across [S_3]M shares. CRITICAL CAPITAL ALLOCATION MANDATE: If Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), you MUST allocate $0.00 to share buybacks, dedicating 100% of cash flow to debt retirement and interest coverage.
      6. Institutional 3-Scenario Valuation Range:
-        • Bear Case ($[Bear_Target_Low]-$[Bear_Target_High]): Macro/cyclical shock, margin compression, [X]x terminal P/OE.
-        • Base Case ($[Base_Target_Low]-$[Base_Target_High]): Disciplined continuation, stable margins, [Y]x terminal P/OE -> Expected Base Target $[Target_Price]/share.
-        • Bull Case ($[Bull_Target_Low]-$[Bull_Target_High]): Marketplace network flywheel acceleration, margin expansion, [Z]x terminal P/OE.
+        • Bear Case ($[Bear_Target_Low]-$[Bear_Target_High]): Macro/cyclical headwinds, 200-300 bps margin compression, [X]x trough P/OE.
+        • Base Case ($[Base_Target_Low]-$[Base_Target_High]): Disciplined continuation of current trajectory, stable margins, [Y]x sober P/OE -> Expected Base Target $[Target_Price]/share.
+        • Bull Case ($[Bull_Target_Low]-$[Bull_Target_High]): Operating leverage expansion, [Z]x multiple.
      7. Expected 3-Year Total Return Bridge: State Base Price Appreciation CAGR ($[Target_Price] / ${current_price:.2f})^(1/3) - 1 = [X]%, and state Total Realized Return (IRR) of [Y]% per annum over the 3-year holding period.
 
 Respond STRICTLY in valid JSON matching this schema:
@@ -2864,7 +2868,7 @@ Use Google Search to ACTIVELY FACT-CHECK AND AUDIT THIS DRAFT against:
 
 TARGET FINANCIAL AUDIT METRICS:
 - Market Price: ${current_price:.2f} | P/OE: {p_oe:.1f}x | EV/OE: {ev_oe:.1f}x | Owner Yield: {owner_yield:.1f}%
-- Starting True Normalized Owner Earnings (OE₀): ${oe_per_share:.2f}/sh (${oe_total:,.1f}M based on OCF cash reconciliation)
+- Starting True Normalized Owner Earnings (OE₀): ${oe_per_share:.2f}/sh (${oe_total:,.1f}M based on OCF cash reconciliation, SBC treated as real cash/dilution expense)
 - Net Balance Sheet Cash / (Debt): ${net_cash_per_share:+.2f}/sh (${net_cash_total:+,.0f}M)
 - Real-Time Annualized Run-Rate: ${annualized_runrate:,.1f}M | Latest Gross Margin: {lq_gm:.1f}%
 - Exact Latest Volume Units: {unit_desc}
@@ -2892,7 +2896,7 @@ Act as a skeptical, conservative peer reviewer:
 - AUDIT AGAINST LATEST EARNINGS & TRANSCRIPTS: Verify all revenue numbers, volume units ({unit_desc}), gross margins, and forward commentary directly against the company's LATEST earnings release and LATEST earnings call transcript Q&A. Force-reject any outdated or stale figures.
 - STRICT BAN ON LAZY TOP-DOWN CAGRS: Check Section 4. If it contains generic hand-waving like "assuming a steady 10% CAGR" or "assuming top-line growth slows to X%", REJECT and replace it with explicit bottom-up multiplication across the 3-Year Visible Runway: Volume Units × Unit Yield ➔ Revenue − Cash Expenses ➔ Total Owner Earnings.
 - AUDIT BALANCE SHEET CASH BRIDGE: Ensure Section 4 contains an explicit 3-year cash bridge (Starting Net Cash + 3Y FCF - Buybacks - CapEx = Ending Net Cash). Verify that if Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), exactly $0.00 is allocated to share buybacks.
-- ENFORCE 3-SCENARIO RANGE: Ensure Section 4 provides a clean Bear / Base / Bull valuation matrix formatted with clear bullet lines.
+- ENFORCE GROUNDED SCENARIO BOUNDS (DON'T FIGHT THE TREND): Ensure the Bear Case represents realistic operational headwinds (e.g. 200–300 bps gross margin compression, moderate customer churn, conservative multiple) rather than an absurd 90% apocalyptic destruction on a profitable going concern. Ensure the Base Case is a disciplined, cold extrapolation of current performance.
 - ENFORCE REVERSE OPERATING LEVERAGE: If revenue/units contract, ensure Owner Cash Margin compresses realistically; do not allow fantasy high margins during shrinkage.
 - MOAT SKEPTICISM CHECK: Verify that the assigned Economic Moat ({moat}) is 100% rigorous. If the company faces low switching costs ($0 to leave) and decaying paying users (e.g. Bumble), force-downgrade any unearned 'Narrow Moat' claims to 'Weak Moat' or 'No Moat'.
 - PRESENTATION & EDITORIAL AUDIT: Ensure sections are broken into breathable, concise paragraphs (2-3 per narrative section) and numbered steps are on separate lines preceded by double newlines. Reject monolithic run-on text.
