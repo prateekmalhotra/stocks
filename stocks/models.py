@@ -14,6 +14,8 @@ class ThesisVersion(BaseModel):
     company_name: Optional[str] = ""
     status_label: str = "Narrow Moat"
     moat_label: Optional[str] = "Narrow Moat"
+    moat_type: Optional[str] = ""  # e.g. "Global 2-Sided Network Effect", "Scale Economies Shared", "Procedural Switching Costs", "Regulatory Tollbooth", "Fickle Consumer / Low Switching Costs"
+    moat_scope: Optional[str] = ""  # Global, National, Regional, Local, None
     labels: List[str] = Field(default_factory=list)  # Slot 1: Moat archetype, Slots 2-3: Drivers
     action_signal: str = "BUY"  # BUY, HOLD, CAUTION, AVOID
     summary_of_change: Optional[str] = ""  # How the company/thesis changed in this version
@@ -92,6 +94,8 @@ class WatchlistStock(BaseModel):
     return_pct: float
     status_label: str = "Narrow Moat"
     moat_label: Optional[str] = "Narrow Moat"
+    moat_type: Optional[str] = ""  # e.g. "Global 2-Sided Network Effect", "Scale Economies Shared", "Procedural Switching Costs", "Regulatory Tollbooth", "Fickle Consumer / Low Switching Costs"
+    moat_scope: Optional[str] = ""  # Global, National, Regional, Local, None
     labels: List[str] = Field(default_factory=list)  # Slot 1: Moat archetype, Slots 2-3: Drivers
     action_signal: str = "BUY"  # BUY, HOLD, CAUTION, AVOID
     fair_value_estimate: str

@@ -104,14 +104,14 @@ def parse_json_robust(text: str) -> Optional[Dict[str, Any]]:
         
     # Robust key-value regex extractor for multi-line JSON responses
     keys = ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way",
-            "operating_cash_flow_ttm_mil", "adjusted_operating_income_ttm_mil", "net_income_ttm_mil", "dna_ttm_mil", "capex_ttm_mil", "sbc_ttm_mil", "one_off_net_mil", "cash_mil", "debt_mil", "equity_mil", "diluted_shares_mil", "revenue_growth_pct", "economic_moat", "predictability_tier", "predictability_score"]
+            "operating_cash_flow_ttm_mil", "adjusted_operating_income_ttm_mil", "net_income_ttm_mil", "dna_ttm_mil", "capex_ttm_mil", "sbc_ttm_mil", "one_off_net_mil", "cash_mil", "debt_mil", "equity_mil", "diluted_shares_mil", "revenue_growth_pct", "economic_moat", "moat_type", "moat_scope", "predictability_tier", "predictability_score"]
     extracted = {}
     for k in keys:
         m_val = re.search(rf'"{k}"\s*:\s*"([\s\S]*?)(?="\s*,\s*"\w+"|\s*"\s*\}}|\s*"\s*$)', candidate_str)
         if m_val:
             val_str = m_val.group(1).replace('\\"', '"').replace('\\n', '\n').strip()
             m_num_in_str = re.search(r'^\$?\s*([+-]?[\d,]+(?:\.\d+)?)$', val_str)
-            if m_num_in_str and k not in ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way", "economic_moat", "predictability_tier", "predictability_score"]:
+            if m_num_in_str and k not in ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way", "economic_moat", "moat_type", "moat_scope", "predictability_tier", "predictability_score"]:
                 try:
                     extracted[k] = float(m_num_in_str.group(1).replace(",", ""))
                 except (ValueError, TypeError):
@@ -2550,7 +2550,15 @@ Use Google Search to inspect {ticker}'s EXACT LAST 3 to 4 CONSECUTIVE QUARTERLY 
    - What specific valuation framework do recent hedge fund letters and Substack deep dives use for this company?
    - Identify the 2 to 3 core operational drivers that dictate long-term intrinsic value (e.g. core segment retention, expansion unit drivers, and capital return / buyback yield).
 
-3. PEER BENCHMARKING & MONETIZATION RUNWAY:
+3. MICROECONOMIC MOAT & COMPETITIVE ADVANTAGE (HAMILTON HELMER 7 POWERS & BUFFETT/MUNGER):
+   - What specific structural competitive advantage protects (or fails to protect) this business?
+     * Network Effects: Is there a 2-sided marketplace, data network, or direct network effect? What is its geographic scope (Global, National, Regional, Local)?
+     * Switching Costs: Are switching costs high (e.g. ERP integration, regulatory mandates, high consequence of failure) or $0 / frictionless (e.g. consumer dating apps, mobile games)?
+     * Cost Advantages / Scale Economies Shared: Does scale lower unit costs and get shared with customers (e.g. Costco)?
+     * Intangibles & Pricing Power: Can the company hike prices above inflation without volume destruction?
+     * Moat Decay / Commoditization: Are users multi-homing (using competitors simultaneously), is customer success causing churn (dating apps), or are switching barriers falling?
+
+4. PEER BENCHMARKING & MONETIZATION RUNWAY:
    - How does this company's unit monetization, gross margins, and operating efficiency compare to mature industry peers?
 
 Provide a concise, highly factual briefing synthesizing the exact sequential quarterly numbers, the best institutional valuation framework, and capital allocation pace."""
@@ -2591,6 +2599,8 @@ IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, 
     - "Wide Moat": Pristine pricing power, high switching costs, unassailable network effects (e.g. Visa, Microsoft, Apple, See's Candies, Costco).
     - "Narrow Moat": Durable brand with moderate pricing power, but subject to substitution (e.g. Nike, Starbucks).
     - "Weak Moat" / "No Moat": Zero switching costs, fickle consumer tastes, heavy user churn, or dating apps where customer success causes churn (e.g. Bumble, fast-fashion, commoditized apps). If users can leave in 5 seconds for free and paying users are shrinking, classify strictly as "Weak Moat" or "No Moat".
+- Moat Archetype / Mechanism (e.g. "Global 2-Sided Network Effect", "Scale Economies Shared", "Procedural Switching Costs", "Regulatory Tollbooth", "Niche Brand Loyalty", "Fickle Consumer & Zero Switching Costs", "Commodity Price-Taker")
+- Moat Geographic Scope (Global, National, Regional, Local, or None)
 - Cash Flow Predictability Tier (High Predictability, Moderate Predictability, Low Predictability, or Highly Unpredictable)
 - Cash Flow Predictability Subtitle (2-4 word summary, e.g. "Essential Recurring Demand", "Platform Shift Exposure", "Volatile User Churn", "Binary Technology Risk")
 
@@ -2609,6 +2619,8 @@ Return ONLY a valid JSON object matching this schema:
   "diluted_shares_mil": float,
   "revenue_growth_pct": float,
   "economic_moat": string,
+  "moat_type": string,
+  "moat_scope": string,
   "predictability_tier": string,
   "predictability_score": string
 }}
@@ -2785,6 +2797,7 @@ DRAFT SECTIONS SUBMITTED FOR AUDIT:
 YOUR CIO AUDIT GOAL:
 Act as a skeptical, conservative peer reviewer:
 - Strip out any unearned optimism, corporate spin, or turnaround fantasies.
+- MOAT SKEPTICISM CHECK: Verify that the assigned Economic Moat ({moat}) is 100% rigorous. If the company faces low switching costs ($0 to leave) and decaying paying users (e.g. Bumble), force-downgrade any unearned 'Narrow Moat' claims to 'Weak Moat' or 'No Moat'.
 - Ensure Section 4 honestly continues the real operational trajectory from Section 3 (if decaying, extrapolate decay; if compounding, extrapolate conservative growth).
 - Verify that cash allocation is grounded in balance sheet reality (e.g. debt service vs buybacks) and that 5-year returns are mathematically sound without double-counting.
 - Deliver the final, perfected 4 sections.
@@ -2825,6 +2838,8 @@ Respond STRICTLY in valid JSON matching this schema:
         "owner_yield_pct": owner_yield,
         "owner_roic_pct": owner_roic,
         "economic_moat": moat,
+        "moat_type": audit_data.get("moat_type") or "Economic Moat Advantage",
+        "moat_scope": audit_data.get("moat_scope") or "Global",
         "predictability_tier": audit_data.get("predictability_tier") or "Moderate Predictability",
         "predictability_score": audit_data.get("predictability_score") or "10-Year Cash Flow Visibility Assessment",
         "market_pricing_in": p_data.get("market_pricing_in", ""),
@@ -2843,6 +2858,8 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     
     moat_str = info.get("economic_moat", "Narrow Moat")
     moat_lbl = map_to_canonical_moat_label(moat_str)
+    moat_type = info.get("moat_type") or "Economic Moat Advantage"
+    moat_scope = info.get("moat_scope") or "Global"
     
     pred_str = info.get("predictability_tier", "Moderate Predictability")
     pred_tier = map_to_canonical_predictability_tier(pred_str)
@@ -2914,8 +2931,12 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "current_price": current_price,
         "status_label": moat_lbl,
         "moat_label": moat_lbl,
+        "moat_type": moat_type,
+        "moat_scope": moat_scope,
         "labels": [moat_lbl, pred_tier],
         "predictability_tier": pred_tier,
+        "predictability_score": pred_score,
+        "action_signal": action_signal,
         "predictability_score": pred_score,
         "action_signal": action_signal,
         "owner_earnings_per_share": oe_sh,

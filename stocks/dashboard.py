@@ -2025,6 +2025,14 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     else:
         moat_color = "var(--accent-red)"
 
+    # Moat mechanism & scope metadata
+    moat_type = getattr(stock, 'moat_type', None) or (current_v.moat_type if current_v else "")
+    moat_scope = getattr(stock, 'moat_scope', None) or (current_v.moat_scope if current_v else "")
+    moat_type_html = ""
+    if moat_type and moat_type.lower() not in ("economic moat advantage", "none", "n/a", ""):
+        scope_str = f" ({moat_scope})" if moat_scope and moat_scope.lower() not in ("none", "") else ""
+        moat_type_html = f' <span class="meta-sep">·</span> <span style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 400;">{moat_type}{scope_str}</span>'
+
     # Predictability metadata
     raw_pred = getattr(stock, 'predictability_tier', None) or (current_v.predictability_tier if current_v else "Moderate Predictability")
     pred_tier = map_to_canonical_predictability_tier(str(raw_pred or ""))
@@ -3187,7 +3195,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                         <div class="ticker-header-line">
                             <span class="ticker-symbol">{ticker_clean}</span>
                         </div>
-                        <div class="company-name-meta">{company_name} <span class="meta-sep">·</span> <span class="meta-moat" style="color: {moat_color}; font-weight: 500;">{moat_label}</span></div>
+                        <div class="company-name-meta">{company_name} <span class="meta-sep">·</span> <span class="meta-moat" style="color: {moat_color}; font-weight: 500;">{moat_label}</span>{moat_type_html}</div>
                     </div>
                 </div>
                 <div class="price-callout">
