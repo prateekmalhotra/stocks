@@ -2796,10 +2796,7 @@ Provide EXACTLY 4 sections in simple, elegant, plain English.
 EDITORIAL FORMATTING & PRESENTATION MANDATE:
 - In narrative sections ("market_pricing_in" and "how_things_are_going_now"), break commentary into 2 to 3 concise, digestible editorial paragraphs separated by double newlines (\n\n). Never write a single giant monolithic wall of text.
 - In quantitative math sections ("why_it_might_be_right" and "what_if_it_keeps_going_that_way"), you MUST format each numbered step on its own separate line preceded by double newlines (e.g. \n\n1. Starting Unit Baseline: ... \n\n2. Next Step: ...). Never write numbered steps inline in a single run-on paragraph.
-- In Section 4 Scenario Matrix, format the 3 scenarios as clean bullet points on separate lines:
-  • Bear Case ($X-$Y): ...
-  • Base Case ($A-$B): ... -> Expected Base Target $T/share
-  • Bull Case ($C-$D): ...
+- In Section 4, format each of the 6 numbered steps cleanly with its bold title and calculation on its own separate block.
 - Do NOT use raw monospace terminal code blocks, and do NOT use emojis.
 
 1. "market_pricing_in" (The Market Skepticism & Disconnect Story):
