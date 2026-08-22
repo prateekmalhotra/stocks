@@ -2744,21 +2744,19 @@ Respond STRICTLY in valid JSON matching this schema:
     # ---------------------------------------------------------
     # Step 6: Senior Investment Committee Audit & Refinement Loop
     # ---------------------------------------------------------
-    print(f"  [Step 6/6] Senior Investment Committee Audit: Stress-testing unit math, multiples & operational logic for {ticker}...", flush=True)
-    audit_critique_prompt = f"""You are the Senior Partner & Chief Investment Officer conducting an exhaustive adversarial audit on a draft investment thesis for {ticker} ({company_name}) at ${current_price:.2f}.
+    print(f"  [Step 6/6] Senior CIO Adversarial Audit: Fact-checking draft against sell-side/bear commentary & live search for {ticker}...", flush=True)
+    audit_critique_prompt = f"""You are the Senior Managing Partner & Chief Investment Officer conducting an exhaustive adversarial audit on a draft investment thesis for {ticker} ({company_name}) at ${current_price:.2f}.
+
+Use Google Search to ACTIVELY FACT-CHECK AND AUDIT THIS DRAFT against:
+1. Sell-side research & Wall Street bear commentary (e.g. recent downgrades, Morgan Stanley, Goldman Sachs, JPMorgan, MoffettNathanson, Bernstein notes).
+2. Recent earnings call transcripts & tough analyst Q&A (management tone, forward guidance caveats, headwinds).
+3. Short-seller reports, VIC critiques, and industry press releases (competitive launches, regulatory probes, pricing pushback).
 
 TARGET FINANCIAL AUDIT METRICS:
 - Market Price: ${current_price:.2f} | P/OE: {p_oe:.1f}x | EV/OE: {ev_oe:.1f}x | Owner Yield: {owner_yield:.1f}%
-- Starting True Owner Earnings: ${oe_per_share:.2f}/sh (${oe_total:,.1f}M)
+- Starting True Normalized Owner Earnings (OE₀): ${oe_per_share:.2f}/sh (${oe_total:,.1f}M based on OCF cash reconciliation)
 - Net Balance Sheet Cash / (Debt): ${net_cash_per_share:+.2f}/sh (${net_cash_total:+,.0f}M)
 - Audited Owner ROIC: {owner_roic:.1f}% | Moat: {moat}
-
-INVESTIGATED GROUND TRUTH FACTS:
-[Headwinds & Risks]:
-{headwinds_facts}
-
-[Operational Reality, Unit Economics & Peer Benchmarks]:
-{reality_facts}
 
 DRAFT SECTIONS SUBMITTED FOR AUDIT:
 [Draft Section 1 - What the Market is Pricing In]:
@@ -2770,19 +2768,22 @@ DRAFT SECTIONS SUBMITTED FOR AUDIT:
 [Draft Section 3 - How Things Are Going Now]:
 {draft_data.get('how_things_are_going_now', '')}
 
-[Draft Section 4 - What If It Keeps Going That Way (Grounded Unit / SOTP Continuation Math)]:
+[Draft Section 4 - What If It Keeps Going That Way (Grounded Continuation Math)]:
 {draft_data.get('what_if_it_keeps_going_that_way', '')}
 
-CIO AUDIT & ENFORCEMENT RULES:
-1. STRICT ANTI-AUTHOR BIAS FILTER: Verify that Section 4 does NOT copy external promotional bull-case projections, TAM fantasies, or multiple expansion hopes from outside authors. Section 4 MUST strictly be a disciplined, slightly conservative continuation of actual recent operational numbers (statutory 10-K filings), applying a Margin of Safety to future unit volume growth, cash margin conversion, and terminal multiples.
-2. STRICT VALUATION ARCHITECTURE ENFORCEMENT: Reject any top-down abstract growth rates (e.g. 'assume 10% CAGR').
-   - For conglomerates / multi-segment platforms (e.g. Alphabet, Amazon, Meta, Apple): Ensure Section 4 derives value via clean Sum-of-the-Parts (SOTP) segment economics (Segment 1 Cash Cow + Segment 2 Cloud/Growth + Segment 3 Subscriptions + Net Cash / Retired Shares).
-   - For single-segment businesses: Ensure Section 4 derives value from (Unit Volume × Unit Monetization ➔ Year 5 Revenue ➔ Owner Margin ➔ OE ➔ Per-share OE ➔ Multiple + Net Cash).
-3. Mathematical Consistency: Ensure starting Owner Earnings (${oe_per_share:.2f}/sh), math steps, share count adjustments, and 5-year IRR calculations are 100% mathematically exact and logical.
-4. Realistic Valuation Constraints: In Section 2, multiple MUST be compressed and realistic (e.g. 3.0x to 6.0x for low-multiple stocks, 8.0x to 12.0x for tech/retail). In Section 4, multiple MUST be conservative and grounded.
-5. Peer Benchmarking: In Section 3 and Section 4, ensure monetization assumptions (ARPU, take rate, seat price) are explicitly benchmarked against mature industry peers (e.g. Meta vs Reddit, Visa vs StoneCo, Salesforce vs Adobe).
+CIO AUDIT & MANDATORY CORRECTION RULES:
+1. TONE DOWN OPTIMISM & ENFORCE STRICT MARGIN OF SAFETY:
+   - If the draft is overly bullish, promotional, or assumes heroic growth/multiple expansion, FORCEFULLY TONE IT DOWN.
+   - Section 4 is NOT a bull case. It must be a slightly conservative, grounded mathematical extrapolation of HOW THINGS ARE CURRENTLY OPERATING across recent quarters.
+2. ADVERSARIAL BEAR CHECK (SECTION 2):
+   - Ensure Section 2 accurately reverse-engineers the real sell-side and short-seller concerns without unrealistic double-counting.
+3. GROUNDED UNIT ECONOMICS & SOTP DERIVATION:
+   - For conglomerates (Alphabet, Amazon, Meta, Apple, Microsoft): Enforce clean Sum-of-the-Parts (SOTP) segment breakdown.
+   - For single-segment businesses: Enforce unit drivers (users/seats/merchants × monetization ➔ Revenue ➔ Owner Margin ➔ OE ➔ Per-share OE ➔ Multiple + Net Cash).
+4. MATHEMATICAL EXACTNESS:
+   - Ensure starting Owner Earnings (${oe_per_share:.2f}/sh), share count adjustments, and 5-year IRR are 100% mathematically exact and logical.
 
-Produce the FINAL, FULLY REFINED, AND PERFECTED 4 SECTIONS incorporating all audit corrections.
+Produce the FINAL, FULLY REFINED, AND PERFECTED 4 SECTIONS incorporating all live audit corrections.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
@@ -2794,7 +2795,7 @@ Respond STRICTLY in valid JSON matching this schema:
 """
     raw_final = call_gemini_direct(
         prompt=audit_critique_prompt,
-        use_search=False
+        use_search=True
     )
     p_data = parse_json_robust(raw_final) or draft_data or {}
 
