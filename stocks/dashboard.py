@@ -142,32 +142,57 @@ def normalize_latex_typography(html: str) -> str:
     return html
 
 
-def format_labels_pills(labels: Any) -> str:
-    """Formats strictly 1 clean, minimalist text-only moat label without boxes, pills, or borders."""
-    if not labels:
-        return ''
+def format_labels_stack_html(stock_or_labels: Any) -> str:
+    """Formats 2 clean, minimalist text-only labels stacked one below another in the LABELS column:
+    Row 1: Economic Moat (Wide Moat / Narrow Moat / Weak Moat / No Moat)
+    Row 2: Predictability (High Predictability / Moderate Predictability / Low Predictability / Highly Unpredictable)
+    """
+    from stocks.gemini_agent import map_to_canonical_moat_label, map_to_canonical_predictability_tier
     
-    raw_str = ""
-    if isinstance(labels, list) and labels:
-        raw_str = str(labels[0])
-    elif isinstance(labels, str):
-        raw_str = labels
+    if isinstance(stock_or_labels, (list, tuple)):
+        raw_moat = stock_or_labels[0] if len(stock_or_labels) > 0 else "Narrow Moat"
+        raw_pred = stock_or_labels[1] if len(stock_or_labels) > 1 else "Moderate Predictability"
+    elif isinstance(stock_or_labels, str):
+        raw_moat = stock_or_labels
+        raw_pred = "Moderate Predictability"
+    elif isinstance(stock_or_labels, dict):
+        raw_moat = stock_or_labels.get("moat_label") or (stock_or_labels.get("labels")[0] if stock_or_labels.get("labels") else None) or stock_or_labels.get("status_label") or "Narrow Moat"
+        raw_pred = stock_or_labels.get("predictability_tier") or (stock_or_labels.get("labels")[1] if (stock_or_labels.get("labels") and len(stock_or_labels.get("labels")) > 1) else None) or "Moderate Predictability"
     else:
-        return ''
-        
-    from stocks.gemini_agent import map_to_canonical_moat_label
-    moat_lbl = map_to_canonical_moat_label(raw_str)
+        raw_moat = getattr(stock_or_labels, "moat_label", None) or (stock_or_labels.labels[0] if getattr(stock_or_labels, "labels", None) else None) or getattr(stock_or_labels, "status_label", None) or "Narrow Moat"
+        raw_pred = getattr(stock_or_labels, "predictability_tier", None)
+        if not raw_pred and getattr(stock_or_labels, "labels", None) and len(stock_or_labels.labels) > 1:
+            raw_pred = stock_or_labels.labels[1]
     
+    moat_lbl = map_to_canonical_moat_label(str(raw_moat or "Narrow Moat"))
     if moat_lbl == "Wide Moat":
-        color = "var(--accent-green)"
+        moat_color = "var(--accent-green)"
     elif moat_lbl == "Narrow Moat":
-        color = "var(--text-secondary)"
+        moat_color = "var(--accent-warm)"
     elif moat_lbl == "Weak Moat":
-        color = "#D48858"
+        moat_color = "#D48858"
     else:
-        color = "var(--accent-red)"
+        moat_color = "var(--accent-red)"
         
-    return f'<span class="moat-text-label" style="color: {color}; font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">{moat_lbl}</span>'
+    pred_lbl = map_to_canonical_predictability_tier(str(raw_pred or "Moderate Predictability"))
+    if pred_lbl == "High Predictability":
+        pred_color = "var(--accent-warm)"
+    elif pred_lbl == "Moderate Predictability":
+        pred_color = "var(--text-secondary)"
+    elif pred_lbl == "Low Predictability":
+        pred_color = "#D48858"
+    else:
+        pred_color = "var(--accent-red)"
+        
+    return f"""<div class="tbl-labels-stack" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
+        <span class="moat-text-label" style="color: {moat_color}; font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">{moat_lbl}</span>
+        <span class="pred-text-label" style="color: {pred_color}; font-size: 0.76rem; font-weight: 400; font-family: var(--font-sans); white-space: nowrap;">{pred_lbl}</span>
+    </div>"""
+
+
+def format_labels_pills(labels: Any, stock: Any = None) -> str:
+    """Backwards-compatible wrapper returning the 2-row stacked labels."""
+    return format_labels_stack_html(stock if stock is not None else labels)
 
 
 def format_usd_target(val: Any) -> str:
@@ -1961,7 +1986,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     net_cash_tot = net_cash_sh * (oe_tot / oe_sh if oe_sh > 0 else 100.0)
 
     # Moat text label with harmonious semantic color
-    from stocks.gemini_agent import map_to_canonical_moat_label
+    from stocks.gemini_agent import map_to_canonical_moat_label, map_to_canonical_predictability_tier
     moat_label = map_to_canonical_moat_label(str(moat or ""))
     if moat_label == "Wide Moat":
         moat_color = "var(--accent-green)"
@@ -1971,6 +1996,21 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         moat_color = "#D48858"
     else:
         moat_color = "var(--accent-red)"
+
+    # Predictability metadata
+    raw_pred = getattr(stock, 'predictability_tier', None) or (current_v.predictability_tier if current_v else "Moderate Predictability")
+    pred_tier = map_to_canonical_predictability_tier(str(raw_pred or ""))
+    pred_score = getattr(stock, 'predictability_score', None) or (current_v.predictability_score if current_v else None) or (
+        "High 10Y Visibility" if pred_tier == "High Predictability" else "Platform Shift Exposure" if pred_tier == "Moderate Predictability" else "Volatile Churn Risk" if pred_tier == "Low Predictability" else "Binary 'Too Hard' Pile"
+    )
+    if pred_tier == "High Predictability":
+        pred_color = "var(--accent-warm)"
+    elif pred_tier == "Moderate Predictability":
+        pred_color = "var(--text-secondary)"
+    elif pred_tier == "Low Predictability":
+        pred_color = "#D48858"
+    else:
+        pred_color = "var(--accent-red)"
 
     # Section prose
     if p1 or p2 or p3 or p4:
@@ -3263,9 +3303,16 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     <div class="memo-body">{p3_html}</div>
                 </section>
                 <section class="memo-section">
-                    <div class="section-header">
-                        <span class="section-index">04</span>
-                        <h2 class="memo-title">What If It Keeps Going That Way</h2>
+                    <div class="section-header" style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                        <div style="display: flex; align-items: baseline; gap: 12px;">
+                            <span class="section-index">04</span>
+                            <h2 class="memo-title">What If It Keeps Going That Way</h2>
+                        </div>
+                        <div class="section-predictability-meta" style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-family: var(--font-sans);">
+                            <span class="pred-indicator" style="color: {pred_color}; font-weight: 600;">{pred_tier}</span>
+                            <span class="pred-sep" style="color: var(--text-dim);">·</span>
+                            <span class="pred-subtext" style="color: var(--text-secondary); font-weight: 400;">{pred_score}</span>
+                        </div>
                     </div>
                     <div class="memo-body">{p4_html}</div>
                 </section>

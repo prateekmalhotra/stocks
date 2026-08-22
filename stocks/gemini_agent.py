@@ -104,14 +104,14 @@ def parse_json_robust(text: str) -> Optional[Dict[str, Any]]:
         
     # Robust key-value regex extractor for multi-line JSON responses
     keys = ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way",
-            "operating_cash_flow_ttm_mil", "adjusted_operating_income_ttm_mil", "net_income_ttm_mil", "dna_ttm_mil", "capex_ttm_mil", "sbc_ttm_mil", "one_off_net_mil", "cash_mil", "debt_mil", "equity_mil", "diluted_shares_mil", "revenue_growth_pct", "economic_moat"]
+            "operating_cash_flow_ttm_mil", "adjusted_operating_income_ttm_mil", "net_income_ttm_mil", "dna_ttm_mil", "capex_ttm_mil", "sbc_ttm_mil", "one_off_net_mil", "cash_mil", "debt_mil", "equity_mil", "diluted_shares_mil", "revenue_growth_pct", "economic_moat", "predictability_tier", "predictability_score"]
     extracted = {}
     for k in keys:
         m_val = re.search(rf'"{k}"\s*:\s*"([\s\S]*?)(?="\s*,\s*"\w+"|\s*"\s*\}}|\s*"\s*$)', candidate_str)
         if m_val:
             val_str = m_val.group(1).replace('\\"', '"').replace('\\n', '\n').strip()
             m_num_in_str = re.search(r'^\$?\s*([+-]?[\d,]+(?:\.\d+)?)$', val_str)
-            if m_num_in_str and k not in ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way", "economic_moat"]:
+            if m_num_in_str and k not in ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way", "economic_moat", "predictability_tier", "predictability_score"]:
                 try:
                     extracted[k] = float(m_num_in_str.group(1).replace(",", ""))
                 except (ValueError, TypeError):
@@ -2587,6 +2587,8 @@ IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, 
 - Diluted Shares Outstanding (Millions)
 - Revenue Growth YoY (%)
 - Economic Moat classification (Wide, Narrow, or None)
+- Cash Flow Predictability Tier (High Predictability, Moderate Predictability, Low Predictability, or Highly Unpredictable)
+- Cash Flow Predictability Subtitle (2-4 word summary, e.g. "Essential Recurring Demand", "Platform Shift Exposure", "Volatile User Churn", "Binary Technology Risk")
 
 Return ONLY a valid JSON object matching this schema:
 ```json
@@ -2602,7 +2604,9 @@ Return ONLY a valid JSON object matching this schema:
   "equity_mil": float,
   "diluted_shares_mil": float,
   "revenue_growth_pct": float,
-  "economic_moat": string
+  "economic_moat": string,
+  "predictability_tier": string,
+  "predictability_score": string
 }}
 ```"""
     raw_audit = call_gemini_direct(
@@ -2820,6 +2824,8 @@ Respond STRICTLY in valid JSON matching this schema:
         "owner_yield_pct": owner_yield,
         "owner_roic_pct": owner_roic,
         "economic_moat": moat,
+        "predictability_tier": audit_data.get("predictability_tier") or "Moderate Predictability",
+        "predictability_score": audit_data.get("predictability_score") or "10-Year Cash Flow Visibility Assessment",
         "market_pricing_in": p_data.get("market_pricing_in", ""),
         "why_it_might_be_right": p_data.get("why_it_might_be_right", ""),
         "how_things_are_going_now": p_data.get("how_things_are_going_now", ""),
@@ -2836,6 +2842,10 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     
     moat_str = info.get("economic_moat", "Narrow Moat")
     moat_lbl = map_to_canonical_moat_label(moat_str)
+    
+    pred_str = info.get("predictability_tier", "Moderate Predictability")
+    pred_tier = map_to_canonical_predictability_tier(pred_str)
+    pred_score = info.get("predictability_score") or ("High 10Y Visibility" if pred_tier == "High Predictability" else "Platform Shift Exposure" if pred_tier == "Moderate Predictability" else "Volatile Churn Risk" if pred_tier == "Low Predictability" else "Binary 'Too Hard' Pile")
     
     oe_sh = info.get("normalized_oe_per_share", 0.0)
     p_oe = info.get("p_oe", 0.0)
@@ -2903,7 +2913,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "current_price": current_price,
         "status_label": moat_lbl,
         "moat_label": moat_lbl,
-        "labels": [moat_lbl],
+        "labels": [moat_lbl, pred_tier],
+        "predictability_tier": pred_tier,
+        "predictability_score": pred_score,
         "action_signal": action_signal,
         "owner_earnings_per_share": oe_sh,
         "owner_earnings_total_mil": info.get("normalized_oe_total_mil", 0.0),

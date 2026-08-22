@@ -96,7 +96,10 @@ def _handle_genesis_task(ticker: str, notes: str):
         for issue in quality_issues:
             print(f"   └─ {issue}", flush=True)
 
-    labels = sanitize_labels(meta.get("moat_label") or meta.get("labels") or meta.get("status_label"), action_signal=meta.get("action_signal"))
+    from stocks.gemini_agent import map_to_canonical_moat_label, map_to_canonical_predictability_tier
+    canonical_moat = map_to_canonical_moat_label(meta.get("moat_label") or (meta.get("labels")[0] if meta.get("labels") else None) or meta.get("status_label") or "Narrow Moat")
+    canonical_pred = map_to_canonical_predictability_tier(meta.get("predictability_tier") or (meta.get("labels")[1] if (meta.get("labels") and len(meta.get("labels")) > 1) else None) or "Moderate Predictability")
+    labels = [canonical_moat, canonical_pred]
     action_signal = normalize_action_signal(meta.get("action_signal", "BUY"))
 
     # 1. Create Initial Thesis Version
@@ -131,7 +134,8 @@ def _handle_genesis_task(ticker: str, notes: str):
         version=1,
         date=today_str,
         price_at_version=current_price,
-        status_label=labels[0] if labels else "Narrow Moat",
+        status_label=canonical_moat,
+        moat_label=canonical_moat,
         labels=labels,
         action_signal=action_signal,
         summary_of_change=meta.get("executive_summary", "Initial institutional thesis established."),
