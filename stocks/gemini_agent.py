@@ -3100,7 +3100,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
             },
             {
                 "title": "Conservative Intrinsic Path",
-                "target": f"${target_5y:.2f}",
+                "target": f"${target_3y:.2f}",
                 "summary": info.get("what_if_it_keeps_going_that_way", "")[:180]
             }
         ]
