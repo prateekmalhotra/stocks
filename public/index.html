@@ -21,7 +21,23 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-22 04:37:18 UTC"
+    "updated_at": "2026-08-22 05:05:27 UTC"
+  },
+  "AMZN": {
+    "price": 258.63,
+    "prev_close": 258.63,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 05:05:27 UTC"
+  },
+  "BMBL": {
+    "price": 2.8,
+    "prev_close": 2.8,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 05:05:27 UTC"
   },
   "CROX": {
     "price": 122.11,
@@ -29,7 +45,7 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-22 04:37:18 UTC"
+    "updated_at": "2026-08-22 05:05:27 UTC"
   },
   "GCT": {
     "price": 49.65,
@@ -37,7 +53,15 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-22 04:37:18 UTC"
+    "updated_at": "2026-08-22 05:05:27 UTC"
+  },
+  "GOOG": {
+    "price": 341.75,
+    "prev_close": 341.75,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 05:05:27 UTC"
   },
   "LULU": {
     "price": 121.07,
@@ -45,7 +69,39 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-22 04:37:18 UTC"
+    "updated_at": "2026-08-22 05:05:27 UTC"
+  },
+  "META": {
+    "price": 549.9,
+    "prev_close": 549.9,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 05:05:27 UTC"
+  },
+  "MSFT": {
+    "price": 483.24,
+    "prev_close": 483.24,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 05:05:27 UTC"
+  },
+  "MTCH": {
+    "price": 40.87,
+    "prev_close": 40.87,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 05:05:27 UTC"
+  },
+  "YELP": {
+    "price": 23.46,
+    "prev_close": 23.46,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 05:05:27 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -823,7 +879,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">4</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">11</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -901,6 +957,76 @@
             </td>
         </tr>
         
+        <tr class="table-row" data-ticker="AMZN" data-baseline="258.63" onclick="location.href='reports/AMZN.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMZN" alt="AMZN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AM</span></div>
+                        <span class="tbl-symbol">AMZN</span>
+                    </div>
+                    <span class="tbl-company-hover">Amazon.com, Inc.</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-AMZN">$258.63</span>
+                    <span class="tbl-return tbl-ret-AMZN pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$357.79</span>
+                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +38.3%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="BMBL" data-baseline="2.8" onclick="location.href='reports/BMBL.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BMBL" alt="BMBL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BM</span></div>
+                        <span class="tbl-symbol">BMBL</span>
+                    </div>
+                    <span class="tbl-company-hover">Bumble Inc.</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-BMBL">$2.80</span>
+                    <span class="tbl-return tbl-ret-BMBL pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="moat-text-label" style="color: var(--accent-red); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">No Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$10.57</span>
+                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +277.5%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" data-ticker="CROX" data-baseline="122.11" onclick="location.href='reports/CROX.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -971,6 +1097,41 @@
             </td>
         </tr>
         
+        <tr class="table-row" data-ticker="GOOG" data-baseline="341.75" onclick="location.href='reports/GOOG.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GOOG" alt="GOOG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">GO</span></div>
+                        <span class="tbl-symbol">GOOG</span>
+                    </div>
+                    <span class="tbl-company-hover">Alphabet Inc.</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-GOOG">$341.75</span>
+                    <span class="tbl-return tbl-ret-GOOG pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$46.43</span>
+                    <span class="tbl-target-delta" style="color: #C97A72;">↘ -86.4%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" data-ticker="LULU" data-baseline="121.07" onclick="location.href='reports/LULU.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -996,6 +1157,146 @@
                 <div class="tbl-target-cell">
                     <span class="tbl-target-price">$174.98</span>
                     <span class="tbl-target-delta" style="color: #82AE8C;">↗ +44.5%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="META" data-baseline="549.9" onclick="location.href='reports/META.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/META" alt="META" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">ME</span></div>
+                        <span class="tbl-symbol">META</span>
+                    </div>
+                    <span class="tbl-company-hover">Meta Platforms, Inc.</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-META">$549.90</span>
+                    <span class="tbl-return tbl-ret-META pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$604.89</span>
+                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +10.0%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="MSFT" data-baseline="483.24" onclick="location.href='reports/MSFT.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MSFT" alt="MSFT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">MS</span></div>
+                        <span class="tbl-symbol">MSFT</span>
+                    </div>
+                    <span class="tbl-company-hover">Microsoft Corporation</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-MSFT">$483.24</span>
+                    <span class="tbl-return tbl-ret-MSFT pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$359.68</span>
+                    <span class="tbl-target-delta" style="color: #C97A72;">↘ -25.6%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="MTCH" data-baseline="40.87" onclick="location.href='reports/MTCH.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MTCH" alt="MTCH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">MT</span></div>
+                        <span class="tbl-symbol">MTCH</span>
+                    </div>
+                    <span class="tbl-company-hover">Match Group, Inc.</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-MTCH">$40.87</span>
+                    <span class="tbl-return tbl-ret-MTCH pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="moat-text-label" style="color: var(--text-secondary); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$44.96</span>
+                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +10.0%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="YELP" data-baseline="23.46" onclick="location.href='reports/YELP.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/YELP" alt="YELP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">YE</span></div>
+                        <span class="tbl-symbol">YELP</span>
+                    </div>
+                    <span class="tbl-company-hover">Yelp Inc</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-YELP">$23.46</span>
+                    <span class="tbl-return tbl-ret-YELP pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="moat-text-label" style="color: var(--text-secondary); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$250.00</span>
+                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +965.6%</span>
                 </div>
             </td>
             <td>
@@ -1038,6 +1339,72 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">5Y Delta</span>
                     <span class="grid-stat-val" style="color: #C97A72; font-weight: 500;">↘ -17.1%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="AMZN" data-baseline="258.63" onclick="location.href='reports/AMZN.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMZN" alt="AMZN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">AM</span></div>
+                    <span class="grid-symbol">AMZN</span>
+                </div>
+                <div class="grid-price grid-price-AMZN">$258.63</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+            </div>
+            <div class="grid-company">Amazon.com, Inc.</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-AMZN pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$357.79</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +38.3%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="BMBL" data-baseline="2.8" onclick="location.href='reports/BMBL.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BMBL" alt="BMBL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BM</span></div>
+                    <span class="grid-symbol">BMBL</span>
+                </div>
+                <div class="grid-price grid-price-BMBL">$2.80</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="moat-text-label" style="color: var(--accent-red); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">No Moat</span>
+            </div>
+            <div class="grid-company">Bumble Inc.</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-BMBL pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$10.57</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +277.5%</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
@@ -1112,6 +1479,39 @@
             </div>
         </div>
         
+        <div class="grid-card" data-ticker="GOOG" data-baseline="341.75" onclick="location.href='reports/GOOG.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GOOG" alt="GOOG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">GO</span></div>
+                    <span class="grid-symbol">GOOG</span>
+                </div>
+                <div class="grid-price grid-price-GOOG">$341.75</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+            </div>
+            <div class="grid-company">Alphabet Inc.</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-GOOG pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$46.43</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #C97A72; font-weight: 500;">↘ -86.4%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="grid-card" data-ticker="LULU" data-baseline="121.07" onclick="location.href='reports/LULU.html'">
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -1137,6 +1537,138 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">5Y Delta</span>
                     <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +44.5%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="META" data-baseline="549.9" onclick="location.href='reports/META.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/META" alt="META" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">ME</span></div>
+                    <span class="grid-symbol">META</span>
+                </div>
+                <div class="grid-price grid-price-META">$549.90</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+            </div>
+            <div class="grid-company">Meta Platforms, Inc.</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-META pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$604.89</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +10.0%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="MSFT" data-baseline="483.24" onclick="location.href='reports/MSFT.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MSFT" alt="MSFT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">MS</span></div>
+                    <span class="grid-symbol">MSFT</span>
+                </div>
+                <div class="grid-price grid-price-MSFT">$483.24</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+            </div>
+            <div class="grid-company">Microsoft Corporation</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-MSFT pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$359.68</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #C97A72; font-weight: 500;">↘ -25.6%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="MTCH" data-baseline="40.87" onclick="location.href='reports/MTCH.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MTCH" alt="MTCH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">MT</span></div>
+                    <span class="grid-symbol">MTCH</span>
+                </div>
+                <div class="grid-price grid-price-MTCH">$40.87</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="moat-text-label" style="color: var(--text-secondary); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+            </div>
+            <div class="grid-company">Match Group, Inc.</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-MTCH pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$44.96</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +10.0%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="YELP" data-baseline="23.46" onclick="location.href='reports/YELP.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/YELP" alt="YELP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">YE</span></div>
+                    <span class="grid-symbol">YELP</span>
+                </div>
+                <div class="grid-price grid-price-YELP">$23.46</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="moat-text-label" style="color: var(--text-secondary); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+            </div>
+            <div class="grid-company">Yelp Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-YELP pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$250.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +965.6%</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
