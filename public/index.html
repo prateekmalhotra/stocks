@@ -21,7 +21,7 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-22 03:53:45 UTC"
+    "updated_at": "2026-08-22 03:55:00 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -467,28 +467,27 @@
             font-weight: 400 !important;
         }
 
-        /* Catalyst Column: Max 4 Words, Clean Line Wrap, No Truncation */
+        /* Catalyst Column: Headline + Formatted Date */
         .tbl-catalyst-cell {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 3px;
             max-width: 220px;
-            line-height: 1.4;
+            line-height: 1.25;
         }
-        .tbl-cat-date {
-            font-family: var(--font-mono);
-            font-size: 0.88rem;
+        .tbl-cat-headline {
+            font-family: var(--font-sans);
+            font-size: 0.90rem;
             font-weight: 500;
             color: var(--text-title);
             line-height: 1.2;
+            white-space: nowrap;
         }
-        .tbl-cat-desc {
-            font-family: var(--font-sans);
-            font-size: 0.80rem;
-            color: var(--text-secondary);
-            line-height: 1.35;
-            white-space: normal;
-            word-break: break-word;
+        .tbl-cat-date {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            line-height: 1.2;
         }
 
         /* Grid View */
@@ -872,8 +871,8 @@
             </td>
             <td>
                 <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-date">2026-11-19</span>
-                    
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 19, 2026</span>
                 </div>
             </td>
         </tr>
@@ -913,7 +912,7 @@
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
-                    <span class="grid-stat-val">2026-11-19</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
                 </div>
             </div>
         </div>

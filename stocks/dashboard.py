@@ -230,38 +230,70 @@ def format_target_metric_html(target_val: Any, color_var: str = "") -> str:
     return f'<div class="metric-value" {color_style}>{val_str}</div>'
 
 
+def format_catalyst_display(event_str: Optional[str], date_str: Optional[str]) -> Tuple[str, str]:
+    """Formats catalyst into a clean, human-readable 2-line display:
+    Line 1 (Headline): Event explanation (e.g. "Q3 '26 Earnings", "Annual 20-F Filing", "Investor Day")
+    Line 2 (Subtext): Human formatted date (e.g. "Nov 19, 2026")
+    """
+    clean_event = (event_str or "").strip()
+    clean_date = (date_str or "").strip()
+
+    # Parse Date
+    parsed_dt = None
+    date_display = ""
+    if clean_date and clean_date.upper() != "TBD":
+        m_iso = re.search(r"(\d{4})-(\d{1,2})-(\d{1,2})", clean_date)
+        if m_iso:
+            try:
+                parsed_dt = datetime(int(m_iso.group(1)), int(m_iso.group(2)), int(m_iso.group(3)))
+                date_display = parsed_dt.strftime("%b %d, %Y")
+            except Exception:
+                date_display = clean_date
+        else:
+            date_display = clean_date
+
+    # Derive Event Headline
+    if clean_event and clean_event.upper() != "TBD":
+        ev = clean_event
+        # Standardize Quarter + Year: Q3 FY2026 / Q3 2026 -> Q3 '26
+        ev = re.sub(r"\bQ([1-4])\s*(?:FY|FY\s*)?20(\d{2})\b", r"Q\1 '\2", ev, flags=re.IGNORECASE)
+        ev = re.sub(r"\bFY20(\d{2})\b", r"'\1", ev, flags=re.IGNORECASE)
+        ev = re.sub(r"\bFirst Quarter\b", "Q1", ev, flags=re.IGNORECASE)
+        ev = re.sub(r"\bSecond Quarter\b", "Q2", ev, flags=re.IGNORECASE)
+        ev = re.sub(r"\bThird Quarter\b", "Q3", ev, flags=re.IGNORECASE)
+        ev = re.sub(r"\bFourth Quarter\b", "Q4", ev, flags=re.IGNORECASE)
+        ev = re.sub(r"\bEarnings (?:Release|Report|Call|Results)\b", "Earnings", ev, flags=re.IGNORECASE)
+        ev = re.sub(r"\bQuarterly Earnings\b", "Earnings", ev, flags=re.IGNORECASE)
+        
+        if not re.search(r"(?:Earnings|Filing|Report|Day|Meeting|Call|Approval|Launch|20-F|10-K)", ev, flags=re.IGNORECASE):
+            ev = f"{ev} Earnings"
+        headline = ev
+    else:
+        # If no event text was provided, deduce from the date!
+        if parsed_dt:
+            month = parsed_dt.month
+            year_short = parsed_dt.strftime("%y")
+            if month in (1, 2, 3):
+                q = "Q4" if month in (1, 2) else "Q1"
+            elif month in (4, 5, 6):
+                q = "Q1"
+            elif month in (7, 8, 9):
+                q = "Q2"
+            else:
+                q = "Q3"
+            headline = f"{q} '{year_short} Earnings"
+        else:
+            headline = "Next Earnings Call"
+
+    if not date_display:
+        date_display = "Expected 2026" if not clean_date else clean_date
+
+    return headline, date_display
+
+
 def sanitize_catalyst_desc(desc: str) -> str:
-    """Cleans and abbreviates catalyst description ensuring concise, beautiful cards (e.g. Earnings Release -> ER, Q2 FY27 -> Q2 '27)."""
-    if not desc:
-        return ""
-    cleaned = re.sub(r"\.{2,}", "", desc).strip()
-    cleaned = " ".join(cleaned.split())
-    
-    # 1. Abbreviate Earnings variations
-    cleaned = re.sub(r"\bEarnings Release\b", "ER", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bEarnings Report\b", "ER", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bEarnings Call\b", "ER", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bQuarterly Earnings\b", "ER", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bEarnings\b", "ER", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bAnnual General Meeting\b", "AGM", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bFirst Quarter\b", "Q1", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bSecond Quarter\b", "Q2", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bThird Quarter\b", "Q3", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bFourth Quarter\b", "Q4", cleaned, flags=re.IGNORECASE)
-
-    # 2. Compact Quarter + Year: Q[1-4] FY2026 / Q[1-4] FY26 / Q[1-4] 2026 -> Q[1-4] '26
-    cleaned = re.sub(r"\bQ([1-4])\s*(?:FY|FY\s*)?20(\d{2})\b", r"Q\1 '\2", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bQ([1-4])\s*(?:FY|FY\s*)(\d{2})\b", r"Q\1 '\2", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bQ([1-4])\s*\'?(\d{2})\b", r"Q\1 '\2", cleaned, flags=re.IGNORECASE)
-
-    # 3. Compact isolated FY2026 / FY26
-    cleaned = re.sub(r"\bFY20(\d{2})\b", r"'\1", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bFY(\d{2})\b", r"'\1", cleaned, flags=re.IGNORECASE)
-
-    # Clean double spaces or trailing punctuation
-    cleaned = re.sub(r"[\s\-\,\:\&]+$", "", cleaned).strip()
-    cleaned = " ".join(cleaned.split())
-    return cleaned
+    """Backward compatibility helper."""
+    return format_catalyst_display(desc, "")[0]
 
 
 def get_ticker_logo_html(ticker: str, size: int = 22) -> str:
@@ -3320,9 +3352,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         # 5Y Target & Directional Arrow Delta
         tgt_str, delta_str, delta_color, tgt_5y, delta_class = compute_market_discrepancy(stock, None)
 
-        # Clean catalyst description (max 4 words, no ellipses, wraps cleanly)
+        # Catalyst headline (e.g. "Q3 '26 Earnings") & formatted date (e.g. "Nov 19, 2026")
+        cat_headline, cat_date = format_catalyst_display(stock.next_catalyst_event, stock.next_catalyst_date)
         safe_baseline = stock.baseline_price if stock.baseline_price > 0 else stock.current_price
-        clean_catalyst_desc = sanitize_catalyst_desc(stock.next_catalyst_event).rstrip(".")
 
         table_rows_html += f"""
         <tr class="table-row" data-ticker="{stock.ticker}" data-baseline="{safe_baseline}" onclick="location.href='reports/{stock.ticker}.html'">
@@ -3354,8 +3386,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             </td>
             <td>
                 <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-date">{stock.next_catalyst_date or 'TBD'}</span>
-                    {f'<span class="tbl-cat-desc">{clean_catalyst_desc}</span>' if clean_catalyst_desc else ''}
+                    <span class="tbl-cat-headline">{cat_headline}</span>
+                    <span class="tbl-cat-date">{cat_date}</span>
                 </div>
             </td>
         </tr>
@@ -3390,7 +3422,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
-                    <span class="grid-stat-val">{stock.next_catalyst_date or 'TBD'}</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">{cat_headline}</span>
                 </div>
             </div>
         </div>
@@ -3920,28 +3952,27 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-weight: 400 !important;
         }}
 
-        /* Catalyst Column: Max 4 Words, Clean Line Wrap, No Truncation */
+        /* Catalyst Column: Headline + Formatted Date */
         .tbl-catalyst-cell {{
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 3px;
             max-width: 220px;
-            line-height: 1.4;
+            line-height: 1.25;
         }}
-        .tbl-cat-date {{
-            font-family: var(--font-mono);
-            font-size: 0.88rem;
+        .tbl-cat-headline {{
+            font-family: var(--font-sans);
+            font-size: 0.90rem;
             font-weight: 500;
             color: var(--text-title);
             line-height: 1.2;
+            white-space: nowrap;
         }}
-        .tbl-cat-desc {{
-            font-family: var(--font-sans);
-            font-size: 0.80rem;
-            color: var(--text-secondary);
-            line-height: 1.35;
-            white-space: normal;
-            word-break: break-word;
+        .tbl-cat-date {{
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            line-height: 1.2;
         }}
 
         /* Grid View */
