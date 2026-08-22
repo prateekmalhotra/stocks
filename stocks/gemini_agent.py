@@ -2687,67 +2687,45 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 {reality_facts}
 ============================================
 
-CORE PHILOSOPHY & MANDATE:
-You are an elite Institutional Value Investor (in the tradition of Warren Buffett, Charlie Munger, and Howard Marks).
-RULE #1: ZERO PRICE ANCHORING & ZERO TOP-DOWN ASSUMPTIONS:
-- Calculate Year 5 Target Share Price PURELY bottom-up: (Year 5 Per-Share OE × Terminal Multiple) + Net Cash/Debt per share.
-- NEVER anchor the target price to today's price of ${current_price:.2f}.
-RULE #2: THE TRAJECTORY INERTIA LAW (PURE UNVARNISHED CONTINUATION):
-- Section 4 is strictly titled "What If It Keeps Going That Way".
-- You MUST directly extrapolate the REAL current trajectory established in Section 3:
-  * If the business is currently shrinking / bleeding users / contracting: ASSUME IT CONTINUES CONTRACTING. Model ongoing customer attrition and revenue decline over 5 years. Factor in the real-world operational costs of decay: elevated marketing spend to fight churn, rising SBC to retain talent, and compressed margins. Calculate the resulting lower cash flows and output the honest (low) resulting intrinsic value. NEVER assume a magical turnaround, reversal, or that 'churn halts due to new product features'!
-  * If the business is currently growing / compounding: Model a conservative continuation of that current pace.
-  * If mixed: Model each segment exactly as it is currently performing without assuming the decaying part miraculously recovers.
-RULE #3: PROHIBITION OF MANAGEMENT SPIN:
-- Strictly BANNED phrases: 'intentional reset', 'turnaround underway', 'poised for growth', 'temporary pullback', 'inflection point', 'will stabilize as management executes'. Write in a cold, clinical, forensic tone.
-RULE #4: BALANCE SHEET & CAPITAL ALLOCATION REALITY:
-- If the company has NET DEBT (Debt > Cash, Net Cash < $0): You are STRICTLY FORBIDDEN from assuming share buybacks. Indebted, declining companies must use cash to service debt and survive. Share count must remain flat or dilute.
-- Only model share buybacks if the company has NET CASH (Cash > Debt) and an audited track record of share retirement.
-RULE #5: STRICT BAN ON VALUE SUMMING / CASH FLOW DOUBLE-COUNTING:
-- In Step 7, the Expected 5-Year Annualized Return (IRR) is STRICTLY calculated as:
-  IRR = (Expected Year 5 Target Share Price / ${current_price:.2f})^(1/5) - 1
-- STRICTLY FORBIDDEN: NEVER add intermediate 5-year cumulative cash flows (e.g. do NOT sum $1.39 + $1.20 + ... to the terminal share price to manufacture a phantom '$8.44 total value'). The terminal share price ALREADY represents the full equity value. Indebted, declining companies do NOT pay out intermediate cash flow as dividends—that cash is consumed by debt interest, defensive marketing, defensive R&D, and SBC. If terminal price is $3.04 from entry $2.80, the return is (+1.6% annualized). State it honestly.
-RULE #6: VALUATION ARCHITECTURE:
-- For CONGLOMERATES & MULTI-SEGMENT PLATFORMS (e.g. Alphabet, Amazon, Meta, Apple, Microsoft, Alibaba): Use SUM-OF-THE-PARTS (SOTP) & SEGMENT UNIT ECONOMICS. Model the core divisions individually based on their current trajectory, apply appropriate segment multiples, sum the parts, add Net Cash, and divide by retired shares.
-- For SINGLE-SEGMENT BUSINESSES: Use BOTTOM-UP UNIT ECONOMICS: (Current Unit Trajectory × Monetization Yield) ➔ Projected Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings ➔ Per-Share Owner Earnings ➔ Terminal Multiple + Net Cash/Debt.
-RULE #7: INSTITUTIONAL CONSERVATISM & STRICT MARGIN OF SAFETY:
-- Always err on the side of conservatism.
-- Terminal Multiples: Never stretch multiples. Assign distressed multiples (3.0x–5.0x P/OE) for shrinking/indebted businesses, modest multiples (8.0x–12.0x) for mature/narrow moat businesses, and at most (15.0x–18.0x) for elite wide moat monopolistic compounders.
-- Growth & Margin Realism: Model natural scale deceleration on growing units, and model cost inflation (elevated defensive marketing and SBC) on struggling units. Always protect against downside risk.
+You are an institutional value investor (in the tradition of Warren Buffett, Charlie Munger, and Howard Marks).
+Your goal is to write a thoughtful, grounded, and conservative 4-section investment thesis:
+- Understand what Mr. Market is worried about.
+- Reverse-engineer the skeptic math behind today's valuation.
+- Clearly describe how the business is actually performing today based on recent quarterly results.
+- Honestly extrapolate what happens over the next 5 years if things simply continue as they are going now. Be conservative: if the business is contracting, extrapolate that decay; if it is compounding, extrapolate conservative growth. Anchor your valuation in bottom-up cash generation and balance sheet reality.
 
 Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps with clean numbered lists (1. ... 2. ...). Do NOT use raw monospace terminal blocks, and do NOT use emojis.
 
 1. "market_pricing_in" (The Market Skepticism Story):
-   - In simple, plain English, explain the exact skeptical narrative and operational unit headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price and {p_oe:.1f}x P/OE.
-   - Detail the specific real-world fears (e.g. core product user churn, competitive price pressure, regulatory overhang, AI disruption) that lead investors to assign today's depressed multiple.
+   - In simple, plain English, explain the exact skeptical narrative and operational headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price and {p_oe:.1f}x P/OE.
+   - Detail the specific real-world fears (e.g. user churn, pricing pressure, competitive threats, debt load) leading to today's depressed multiple.
 
 2. "why_it_might_be_right" (Reverse-Engineering the Market's Pricing & Skeptic Math):
-   - Provide a step-by-step mathematical reverse-engineering showing exactly what implied operational decay justifies today's market price of ${current_price:.2f}:
+   - Provide a step-by-step mathematical reverse-engineering showing what operational decay justifies today's market price of ${current_price:.2f}:
    - Numbered Steps:
      1. Starting Baseline: State starting normalized Owner Earnings of ${oe_per_share:.2f}/share (${oe_total:,.1f}M total).
-     2. Implied Market Skeptic Multiple: State the compressed exit multiple reflecting permanent market distrust (e.g. {min(max(p_oe * 0.9, 4.0), 12.0):.1f}x P/OE).
-     3. Implied Year 5 Earnings Power: Calculate what depressed Year 5 Owner Earnings per share ($[OE_Skeptic]/sh) produces today's ${current_price:.2f} price at this multiple after net balance sheet cash/debt (${net_cash_per_share:+.2f}/sh).
-     4. Implied Operational Decay: Translate this earnings level into the underlying operational unit breakdown (e.g. active users contracting from [X] to [Y], ARPU eroding from $[A] to $[B], or revenue shrinking at -[Z]% CAGR with margins compressing from [M1]% to [M2]%).
-     5. Business Risk Rationale: Explain why this bear scenario is plausible if management fails to counter active headwinds.
+     2. Implied Market Multiple: State the compressed exit multiple reflecting market distrust (e.g. ~{min(max(p_oe * 0.9, 4.0), 12.0):.1f}x P/OE).
+     3. Implied Year 5 Earnings Power: Calculate what depressed Year 5 Owner Earnings per share ($[OE_Skeptic]/sh) produces today's ${current_price:.2f} price after net debt/cash (${net_cash_per_share:+.2f}/sh).
+     4. Implied Operational Decay: Translate this earnings level into the underlying operational breakdown (e.g. customer churn, ARPU erosion, or revenue shrinkage with margin compression).
+     5. Business Risk Rationale: Explain why this bear scenario is plausible if headwinds persist.
 
 3. "how_things_are_going_now" (The Operational Reality Story - Sequential 3-4 Quarters):
-   - In simple, plain English, explain how the business is ACTUALLY performing today based on the exact last 3 to 4 quarterly releases (Q1, Q2, etc.).
-   - Detail the unvarnished reality: whether users are churning or growing, revenue YoY, EBITDA margin resilience, cash flow generation, and capital allocation.
+   - In simple, plain English, explain how the business is ACTUALLY performing today based on the exact last 3 to 4 quarterly releases.
+   - Detail the unvarnished reality: whether users are churning or growing, revenue trajectory, margin resilience, cash flow generation, and capital allocation.
 
 4. "what_if_it_keeps_going_that_way" (Unvarnished Continuation Math):
-   - Mathematically extrapolate what happens if the current operational performance in Section 3 simply continues for 5 years:
+   - Extrapolate what happens if current operational performance simply continues for 5 years:
    - Numbered Steps:
-     1. Starting Baseline: State current starting unit metrics & segment revenues.
-     2. 5-Year Operational Trajectory: Extrapolate current trends (continue decline if users are churning; continue steady rate if growing).
+     1. Starting Baseline: State current starting operational metrics & segment revenues.
+     2. 5-Year Operational Trajectory: Extrapolate current trends (continue decline if contracting; continue steady pace if compounding).
      3. Projected Year 5 Revenue & Owner Cash Margin: Calculate resulting Year 5 Revenue = $[Rev_5]M and Total Owner Earnings = $[OE_Total_5]M.
-     4. Share Count & Balance Sheet Reality: If Net Debt > 0, assume shares remain flat at {shares:.1f}M (zero buybacks). Only factor in buybacks if company has Net Cash and an audited buyback history.
+     4. Capital Allocation & Share Count: Account for balance sheet reality (if indebted, cash goes to debt service/survival; if net cash rich, account for steady buybacks).
      5. Year 5 Owner Earnings Per Share: ($[OE_Total_5]M / [S_5]M) = $[OE_sh_5]/share.
-     6. Prudent Terminal Multiple & Expected Share Price: Apply a realistic multiple based on business quality + net cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Expected Year 5 Target Share Price $[Target_Price]/share.
+     6. Prudent Terminal Multiple & Expected Share Price: Apply a conservative multiple based on business quality + net cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Expected Year 5 Target Share Price $[Target_Price]/share.
      7. Expected 5-Year Total Return & Capital Allocation Bridge:
         - Price Appreciation CAGR: Calculate Price CAGR = ($[Target_Price] / ${current_price:.2f})^(1/5) - 1.
-        - Capital Allocation Bridge: Detail where 5-year cumulative cash flow goes (e.g. $[Debt_Paydown]/sh used to eliminate net debt and derisk balance sheet; remaining cash absorbed by defensive marketing/SBC).
-        - Total Realized Annualized Return (IRR): State Total IRR = Price Appreciation CAGR + Cash Dividend Yield %. (If zero dividend, Total IRR equals the Price CAGR).
-        - STRICT BAN: Never sum cumulative cash flows onto the terminal price to create a fake combined share price.
+        - Capital Allocation Bridge: Explain where the 5-year cash flow goes (e.g. debt paydown, defensive reinvestment, or dividends).
+        - Total Realized Return (IRR): State Total IRR = Price Appreciation CAGR + Cash Dividend Yield %.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
@@ -2799,23 +2777,12 @@ DRAFT SECTIONS SUBMITTED FOR AUDIT:
 [Draft Section 4 - What If It Keeps Going That Way (Grounded Continuation Math)]:
 {draft_data.get('what_if_it_keeps_going_that_way', '')}
 
-CIO AUDIT & MANDATORY CORRECTION RULES:
-1. UNVARNISHED CONTINUATION ENFORCEMENT (NO TURNAROUND FANTASIES):
-   - Verify that Section 4 strictly continues the reality from Section 3. If users/revenue are currently declining, Section 4 MUST assume they continue declining at current rates and calculate the honest low valuation. REJECT any magical turnarounds, reversals, or unearned user growth assumptions!
-2. PROHIBITION OF MANAGEMENT SPIN:
-   - Purge any promotional buzzwords ('intentional reset', 'turnaround taking hold', 'poised for growth'). Enforce cold forensic prose.
-3. BALANCE SHEET & BUYBACK SANITY:
-   - If Net Debt > 0 (${net_cash_total:+,.0f}M), verify that Section 4 does NOT assume share buybacks. Share count must remain flat or dilute.
-4. CAPITAL ALLOCATION & TOTAL RETURN SANITY:
-   - In Step 7 of Section 4, verify that Price CAGR is ($[Target_Price] / ${current_price:.2f})^(1/5) - 1. Verify that 5-year cash is properly bridged (e.g. debt paydown, defensive burn) and NOT double-counted on top of target share price.
-5. ADVERSARIAL BEAR CHECK (SECTION 2):
-   - Ensure Section 2 accurately reverse-engineers the real sell-side and short-seller concerns without unrealistic double-counting.
-6. MATHEMATICAL EXACTNESS:
-   - Ensure starting Owner Earnings (${oe_per_share:.2f}/sh), share count adjustments, and 5-year IRR are 100% mathematically exact and logical.
-7. STRICT CONSERVATISM & MARGIN OF SAFETY AUDIT:
-   - Forcefully tone down any stretched multiples, unearned operating leverage, or aggressive margin expansion. Enforce strict downside protection and conservative exit multiples.
-
-Produce the FINAL, FULLY REFINED, AND PERFECTED 4 SECTIONS incorporating all live audit corrections.
+YOUR CIO AUDIT GOAL:
+Act as a skeptical, conservative peer reviewer:
+- Strip out any unearned optimism, corporate spin, or turnaround fantasies.
+- Ensure Section 4 honestly continues the real operational trajectory from Section 3 (if decaying, extrapolate decay; if compounding, extrapolate conservative growth).
+- Verify that cash allocation is grounded in balance sheet reality (e.g. debt service vs buybacks) and that 5-year returns are mathematically sound without double-counting.
+- Deliver the final, perfected 4 sections.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
