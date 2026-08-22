@@ -3003,29 +3003,63 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     extracted_bull = None
 
     if p4_text:
-        # 1. Base Target extraction
-        m_base = re.search(r'(?:expected base target|base target|base case|target price|expected target|target|share price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
-        if m_base:
-            try:
-                extracted_target = float(m_base.group(1))
-            except Exception:
-                pass
+        # 1. Base Target extraction:
+        # Priority A: Look inside Base Case block for '= $X' or '$X target' or 'Expected Base Target $X'
+        base_block_m = re.search(r'Base Case[^\n:]*:(.*?)(?:\n\u2022|\n[1-9]\.|\n\n|\Z)', p4_text, re.DOTALL | re.IGNORECASE)
+        if base_block_m:
+            b_txt = base_block_m.group(1)
+            m_calc = re.search(r'(?:=\s*\$|expected\s+base\s+target\s+\$|base\s+target\s+\$|target\s+price\s+\$|\$([0-9]+(?:\.[0-9]+)?)\s*(?:target\s+price|expected\s+target|target))([0-9]+(?:\.[0-9]+)?)', b_txt, re.IGNORECASE)
+            if m_calc:
+                try:
+                    extracted_target = float(m_calc.group(2) or m_calc.group(1))
+                except Exception:
+                    pass
 
-        # 2. Bear Target extraction
-        m_bear = re.search(r'(?:bear case|bear target|downside floor|downside)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
-        if m_bear:
-            try:
-                extracted_bear = float(m_bear.group(1))
-            except Exception:
-                pass
+        if not extracted_target:
+            m_base = re.search(r'(?:expected base target|base target|expected target|target price|fair value)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
+            if m_base:
+                try:
+                    extracted_target = float(m_base.group(1))
+                except Exception:
+                    pass
 
-        # 3. Bull Target extraction
-        m_bull = re.search(r'(?:bull case|bull target|upside target|upside)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
-        if m_bull:
-            try:
-                extracted_bull = float(m_bull.group(1))
-            except Exception:
-                pass
+        # 2. Bear Target extraction:
+        bear_block_m = re.search(r'Bear Case[^\n:]*:(.*?)(?:\n\u2022|\n[1-9]\.|\n\n|\Z)', p4_text, re.DOTALL | re.IGNORECASE)
+        if bear_block_m:
+            br_txt = bear_block_m.group(1)
+            m_calc_br = re.search(r'(?:=\s*\$|bear\s+target\s+\$|\$([0-9]+(?:\.[0-9]+)?)\s*(?:target\s+price|expected\s+target|target))([0-9]+(?:\.[0-9]+)?)', br_txt, re.IGNORECASE)
+            if m_calc_br:
+                try:
+                    extracted_bear = float(m_calc_br.group(2) or m_calc_br.group(1))
+                except Exception:
+                    pass
+
+        if not extracted_bear:
+            m_bear = re.search(r'(?:bear target|downside floor|downside)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
+            if m_bear:
+                try:
+                    extracted_bear = float(m_bear.group(1))
+                except Exception:
+                    pass
+
+        # 3. Bull Target extraction:
+        bull_block_m = re.search(r'Bull Case[^\n:]*:(.*?)(?:\n\u2022|\n[1-9]\.|\n\n|\Z)', p4_text, re.DOTALL | re.IGNORECASE)
+        if bull_block_m:
+            bu_txt = bull_block_m.group(1)
+            m_calc_bu = re.search(r'(?:=\s*\$|bull\s+target\s+\$|\$([0-9]+(?:\.[0-9]+)?)\s*(?:target\s+price|expected\s+target|target))([0-9]+(?:\.[0-9]+)?)', bu_txt, re.IGNORECASE)
+            if m_calc_bu:
+                try:
+                    extracted_bull = float(m_calc_bu.group(2) or m_calc_bu.group(1))
+                except Exception:
+                    pass
+
+        if not extracted_bull:
+            m_bull = re.search(r'(?:bull target|upside target|upside)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
+            if m_bull:
+                try:
+                    extracted_bull = float(m_bull.group(1))
+                except Exception:
+                    pass
 
     if not extracted_bear and p2_text:
         m_b2 = re.search(r'(?:target price|implied price|fair value|downside|exit price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p2_text, re.IGNORECASE)

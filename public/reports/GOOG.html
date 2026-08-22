@@ -942,7 +942,7 @@
                         <div class="ticker-header-line">
                             <span class="ticker-symbol">GOOG</span>
                         </div>
-                        <div class="company-name-meta">Alphabet Inc. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-green); font-weight: 500;">Wide Moat</span> <span class="meta-sep">·</span> <span style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 400;">Global 2-Sided Network Effect (Global)</span></div>
+                        <div class="company-name-meta">Alphabet Inc. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-green); font-weight: 500;">Wide Moat</span></div>
                     </div>
                 </div>
                 <div class="price-callout">
@@ -957,7 +957,7 @@
                     <div class="chart-live-val">
                         <span id="tooltip-date">Aug 21, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$341.75</strong>
                         <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
-                        <span style="color: var(--accent-warm); font-size: 0.80rem;">5Y Target: <strong>$370.00</strong></span>
+                        <span style="color: var(--accent-warm); font-size: 0.80rem;">5Y Target: <strong>$381.62</strong></span>
                     </div>
                     <div class="chart-range-pills">
                         <button class="range-pill" onclick="switchRange('1D')">1D</button>
@@ -987,7 +987,7 @@
                         
                         <!-- 5Y Target Dotted Line & Tag -->
                         <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
-                        <text id="target-label" x="884" y="8" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">5Y Target: $370.00</text>
+                        <text id="target-label" x="884" y="8" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $381.62</text>
 
                         <!-- Dynamic Area & Stroke -->
                         <polygon id="chart-area" fill="url(#area-grad)" points="" />
@@ -1203,7 +1203,7 @@
                 <div class="corridor-grid">
                     <div class="corridor-card">
                         <span class="corridor-label">Lower Price Alert Floor</span>
-                        <span class="corridor-value">$205.00</span>
+                        <span class="corridor-value">$219.00</span>
                         <span class="corridor-sub">Triggers downside margin-of-safety review if breached</span>
                     </div>
                     <div class="corridor-card">
@@ -1224,7 +1224,7 @@
                         
         <div class="empty-alerts-box">
             <div class="empty-alerts-title">No Active Alert Breaches</div>
-            <div class="empty-alerts-sub">Price is trading within calibrated corridors ($205.00 – $393.01). Weekly autonomous surveillance and earnings call monitor are active.</div>
+            <div class="empty-alerts-sub">Price is trading within calibrated corridors ($219.00 – $393.01). Weekly autonomous surveillance and earnings call monitor are active.</div>
         </div>
         
                     </div>
@@ -1282,7 +1282,7 @@
                 return;
             }
 
-            const targetPrice = 370.0;
+            const targetPrice = 381.62;
             const prices = points.map(p => p.price);
             let minP = Math.min(...prices);
             let maxP = Math.max(...prices);

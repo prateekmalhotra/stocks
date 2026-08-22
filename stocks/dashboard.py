@@ -2335,12 +2335,22 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             pass
 
     if target_price is None and p4:
-        m = re.search(r'(?:target price|expected|fair value|target)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4, re.IGNORECASE)
-        if m:
-            try:
-                target_price = float(m.group(1))
-            except Exception:
-                pass
+        base_block_m = re.search(r'Base Case[^\n:]*:(.*?)(?:\n\u2022|\n[1-9]\.|\n\n|\Z)', p4, re.DOTALL | re.IGNORECASE)
+        if base_block_m:
+            b_txt = base_block_m.group(1)
+            m_calc = re.search(r'(?:=\s*\$|expected\s+base\s+target\s+\$|base\s+target\s+\$|target\s+price\s+\$|\$([0-9]+(?:\.[0-9]+)?)\s*(?:target\s+price|expected\s+target|target))([0-9]+(?:\.[0-9]+)?)', b_txt, re.IGNORECASE)
+            if m_calc:
+                try:
+                    target_price = float(m_calc.group(2) or m_calc.group(1))
+                except Exception:
+                    pass
+        if target_price is None:
+            m = re.search(r'(?:expected base target|base target|expected target|target price|fair value)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4, re.IGNORECASE)
+            if m:
+                try:
+                    target_price = float(m.group(1))
+                except Exception:
+                    pass
 
     if target_price is None or target_price <= 0:
         target_price = round(current_price * 1.35, 2)
@@ -3771,12 +3781,22 @@ def compute_market_discrepancy(stock: WatchlistStock, current_v: Optional[Thesis
 
     p4 = getattr(stock, 'what_if_it_keeps_going_that_way', '') or (current_v.what_if_it_keeps_going_that_way if current_v else '')
     if target_3y is None and p4:
-        m = re.search(r'(?:expected base target|base target|target price|expected target|target|share price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4, re.IGNORECASE)
-        if m:
-            try:
-                target_3y = float(m.group(1))
-            except Exception:
-                pass
+        base_block_m = re.search(r'Base Case[^\n:]*:(.*?)(?:\n\u2022|\n[1-9]\.|\n\n|\Z)', p4, re.DOTALL | re.IGNORECASE)
+        if base_block_m:
+            b_txt = base_block_m.group(1)
+            m_calc = re.search(r'(?:=\s*\$|expected\s+base\s+target\s+\$|base\s+target\s+\$|target\s+price\s+\$|\$([0-9]+(?:\.[0-9]+)?)\s*(?:target\s+price|expected\s+target|target))([0-9]+(?:\.[0-9]+)?)', b_txt, re.IGNORECASE)
+            if m_calc:
+                try:
+                    target_3y = float(m_calc.group(2) or m_calc.group(1))
+                except Exception:
+                    pass
+        if target_3y is None:
+            m = re.search(r'(?:expected base target|base target|expected target|target price|fair value)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4, re.IGNORECASE)
+            if m:
+                try:
+                    target_3y = float(m.group(1))
+                except Exception:
+                    pass
 
     if target_3y is None or target_3y <= 0:
         if current_price > 0:
