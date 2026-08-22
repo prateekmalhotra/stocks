@@ -2586,7 +2586,11 @@ IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, 
 - Total Stockholders' Equity ($M USD)
 - Diluted Shares Outstanding (Millions)
 - Revenue Growth YoY (%)
-- Economic Moat classification (Wide, Narrow, or None)
+- Economic Moat classification:
+  * Strict Buffett & Munger Moat Standard:
+    - "Wide Moat": Pristine pricing power, high switching costs, unassailable network effects (e.g. Visa, Microsoft, Apple, See's Candies, Costco).
+    - "Narrow Moat": Durable brand with moderate pricing power, but subject to substitution (e.g. Nike, Starbucks).
+    - "Weak Moat" / "No Moat": Zero switching costs, fickle consumer tastes, heavy user churn, or dating apps where customer success causes churn (e.g. Bumble, fast-fashion, commoditized apps). If users can leave in 5 seconds for free and paying users are shrinking, classify strictly as "Weak Moat" or "No Moat".
 - Cash Flow Predictability Tier (High Predictability, Moderate Predictability, Low Predictability, or Highly Unpredictable)
 - Cash Flow Predictability Subtitle (2-4 word summary, e.g. "Essential Recurring Demand", "Platform Shift Exposure", "Volatile User Churn", "Binary Technology Risk")
 
@@ -2726,10 +2730,7 @@ Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps w
      4. Capital Allocation & Share Count: Account for balance sheet reality (if indebted, cash goes to debt service/survival; if net cash rich, account for steady buybacks).
      5. Year 5 Owner Earnings Per Share: ($[OE_Total_5]M / [S_5]M) = $[OE_sh_5]/share.
      6. Prudent Terminal Multiple & Expected Share Price: Apply a conservative multiple based on business quality + net cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Expected Year 5 Target Share Price $[Target_Price]/share.
-     7. Expected 5-Year Total Return & Capital Allocation Bridge:
-        - Price Appreciation CAGR: Calculate Price CAGR = ($[Target_Price] / ${current_price:.2f})^(1/5) - 1.
-        - Capital Allocation Bridge: Explain where the 5-year cash flow goes (e.g. debt paydown, defensive reinvestment, or dividends).
-        - Total Realized Return (IRR): State Total IRR = Price Appreciation CAGR + Cash Dividend Yield %.
+     7. Expected 5-Year Total Return & Capital Allocation Bridge: State Price Appreciation CAGR ($[Target_Price] / ${current_price:.2f})^(1/5) - 1 = [X]%, detail where 5-year cash flow goes (e.g. debt service/derisking or buybacks/dividends), and state Total Realized Return (IRR) of [Y]% per annum.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{

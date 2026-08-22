@@ -1907,17 +1907,45 @@ def markdown_to_memo_html(text: str) -> str:
         
         if is_numbered:
             cards = []
-            for idx, line in enumerate(lines, start=1):
-                cleaned_line = re.sub(r"^(?:\d+[\.\)]|step\s+\d+:?|•|-|\*)\s*", "", line, flags=re.IGNORECASE).strip()
-                if not cleaned_line:
-                    continue
-                if ":" in cleaned_line:
-                    lbl, val = cleaned_line.split(":", 1)
+            current_step_lines = []
+            steps_list = []
+            for line in lines:
+                if re.match(r"^\d+[\.\)]\s+", line) or line.lower().startswith("step "):
+                    if current_step_lines:
+                        steps_list.append(current_step_lines)
+                    current_step_lines = [line]
+                else:
+                    if current_step_lines:
+                        current_step_lines.append(line)
+                    else:
+                        current_step_lines = [line]
+            if current_step_lines:
+                steps_list.append(current_step_lines)
+                
+            for idx, s_lines in enumerate(steps_list, start=1):
+                first_line = s_lines[0]
+                rest_lines = s_lines[1:]
+                
+                cleaned_first = re.sub(r"^(?:\d+[\.\)]|step\s+\d+:?)\s*", "", first_line, flags=re.I).strip()
+                if ":" in cleaned_first:
+                    lbl, val = cleaned_first.split(":", 1)
                     lbl = lbl.strip()
                     val = val.strip()
                 else:
                     lbl = f"Step {idx}"
-                    val = cleaned_line
+                    val = cleaned_first
+                    
+                extra_vals = []
+                for r_line in rest_lines:
+                    cleaned_r = re.sub(r"^(?:•|-|\*|\d+[\.\)])\s*", "", r_line).strip()
+                    if cleaned_r:
+                        extra_vals.append(cleaned_r)
+                if extra_vals:
+                    if val:
+                        val = val + " " + " · ".join(extra_vals)
+                    else:
+                        val = " · ".join(extra_vals)
+                        
                 cards.append(f"""
                 <div class="math-step-item">
                     <div class="math-step-badge">{idx}</div>
