@@ -69,16 +69,19 @@ def safe_float(val: Any, default: float = 0.0) -> float:
 
 
 def parse_json_robust(text: str) -> Optional[Dict[str, Any]]:
-    """Safely extracts and parses JSON objects even if surrounded by markdown, trailing commas, or minor syntax hiccups."""
+    """Safely extracts and parses JSON objects even if surrounded by markdown, trailing commas, citations, or minor syntax hiccups."""
     if not text or not isinstance(text, str):
         return None
     
-    # 1. Match ```json ... ``` or ``` ... ``` block (greedy to capture entire JSON)
-    m = re.search(r'```(?:json)?\s*(\{[\s\S]*\})\s*```', text)
+    # Strip cite tags like [cite: 1, 2]
+    clean_input = re.sub(r'\[cite:[^\]]*\]', '', text).strip()
+    
+    # 1. Match ```json ... ``` or ``` ... ``` block
+    m = re.search(r'```(?:json)?\s*(\{[\s\S]*?\})\s*```', clean_input)
     candidate_str = m.group(1) if m else None
     if not candidate_str:
         # Fallback to outermost { ... }
-        m2 = re.search(r'(\{[\s\S]*\})', text)
+        m2 = re.search(r'(\{[\s\S]*\})', clean_input)
         if m2:
             candidate_str = m2.group(1)
             
@@ -106,13 +109,21 @@ def parse_json_robust(text: str) -> Optional[Dict[str, Any]]:
     for k in keys:
         m_val = re.search(rf'"{k}"\s*:\s*"([\s\S]*?)(?="\s*,\s*"\w+"|\s*"\s*\}}|\s*"\s*$)', candidate_str)
         if m_val:
-            extracted[k] = m_val.group(1).replace('\\"', '"').replace('\\n', '\n').strip()
+            val_str = m_val.group(1).replace('\\"', '"').replace('\\n', '\n').strip()
+            m_num_in_str = re.search(r'^\$?\s*([+-]?[\d,]+(?:\.\d+)?)$', val_str)
+            if m_num_in_str and k not in ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way", "economic_moat"]:
+                try:
+                    extracted[k] = float(m_num_in_str.group(1).replace(",", ""))
+                except (ValueError, TypeError):
+                    extracted[k] = val_str
+            else:
+                extracted[k] = val_str
         else:
-            m_num = re.search(rf'"{k}"\s*:\s*([-\d.]+)', candidate_str)
+            m_num = re.search(rf'"{k}"\s*:\s*"?\$?\s*([+-]?[\d,]+(?:\.\d+)?)"?', candidate_str)
             if m_num:
                 try:
-                    extracted[k] = float(m_num.group(1))
-                except ValueError:
+                    extracted[k] = float(m_num.group(1).replace(",", ""))
+                except (ValueError, TypeError):
                     pass
     if extracted:
         return extracted
@@ -2514,30 +2525,32 @@ def run_forensic_audit_agent(ticker: str, company_name: str, current_price: floa
     print(f"  [Step 1/5] Deep forensic search: Investigating active headwinds, unit risks & short thesis for {ticker}...", flush=True)
     headwinds_prompt = f"""You are a Senior Short-Seller & Forensic Risk Analyst researching {ticker} ({company_name}) at current market price ${current_price:.2f}.
 
-Use Google Search to find the EXACT, SPECIFIC operational unit drivers and financial vulnerabilities why investors and the market are skeptical or selling {ticker}:
-1. What specific operational unit metrics is the market concerned about?
-   - Unit Volumes: (e.g. active users/DAU/MAU, enterprise cloud seats, subscriber additions, store comps, merchant count, TPV/GMV volume deceleration)
-   - Unit Monetization / Pricing Power: (e.g. ARPU compression, take-rate erosion, discounting, pricing pushback, churn rate, NPL default rates, software seat downgrades)
-2. What specific competitive threats and macro headwinds are impairing these unit drivers? (e.g. specific low-cost competitors, AI substitution, regulatory fee caps, funding costs).
-3. Cite exact figures from recent 2025/2026 earnings reports, regulatory filings, and analyst disclosures.
+Use Google Search to inspect recent (last 6-12 months / 2025-2026) short reports, hedge fund bear theses, Substack deep dives, and analyst downgrades for {ticker}:
+1. What specific operational unit breakdowns and risks are highlighted by short-sellers and skeptics?
+   - Unit Volumes: (e.g. active users/DAU/MAU churning, enterprise software seat downgrades, store comp declines, merchant attrition, TPV/GMV deceleration)
+   - Unit Monetization / Pricing Power: (e.g. ARPU compression, take-rate erosion, discounting, NPL default provisions, AI commoditization)
+2. What specific competitive threats and structural headwinds are they warning about?
+3. Cite exact data points, figures, and quotes from recent 2025/2026 earnings reports, regulatory filings, and analyst disclosures.
 
 Provide a concise, highly factual briefing of the core skeptical thesis and operational unit vulnerabilities."""
 
-    reality_prompt = f"""You are a Lead Value Investor auditing {ticker} ({company_name}).
+    reality_prompt = f"""You are a Senior Value Investor & Portfolio Manager auditing {ticker} ({company_name}).
 
-Use Google Search to inspect {ticker}'s latest quarterly earnings report, investor presentations, and conference call transcript to extract the GROUND TRUTH OPERATIONAL UNIT ECONOMICS:
-1. What are the company's ACTUAL reported core unit volume metrics?
-   - (e.g. Active Users / DAU / MAU, Enterprise Cloud Seats / ARR, Store Count / Square Footage, Active Merchants, TPV / GMV, Enrolled Units / Deliveries).
-2. What are the company's ACTUAL unit monetization and pricing metrics?
-   - (e.g. Average Revenue Per User [ARPU], Take Rate %, ARR per Seat / NRR %, Comp Store Sales %, Gross Tuition per Student, Average Order Value).
-3. Benchmark Comparison / Monetization Runway:
-   - How does this company's unit monetization compare to mature industry peers? (e.g. Reddit ARPU vs Meta/Instagram ARPU; StoneCo take rate vs Cielo/PagBank; Adobe seat ARR vs peers; Lululemon sales/sqft vs peers). Is there significant unmonetized runway?
-4. Unit Cash Conversion & Capital Allocation:
-   - What is the gross margin %, operating margin %, true cash generation, and share repurchase / buyback pace?
+Use Google Search to find RECENT (last 6-12 months / 2025-2026) institutional investor letters, Substack investment memos (e.g. Scuttleblurb, Diffs, In Practise, MBI Deep Dives, Value Investors Club), and latest 10-K/quarterly earnings disclosures for {ticker}:
+1. How are top institutional investors valuing this company today?
+   - What specific valuation framework do they use? (e.g. Sum-of-the-Parts [SOTP] for conglomerates like Google/Amazon/Meta; ARPU expansion for ad/subscription networks like Reddit/Bumble; Seat ARR & NRR for enterprise SaaS; TPV & Take-rate for fintechs; Store comps & buybacks for retail).
+2. What are the company's ACTUAL reported core unit volume metrics and segment breakdowns?
+   - (e.g. Segment revenues for Search vs Cloud vs YouTube vs Ads; DAU/MAU, enterprise seats, active merchants, store count, TPV/GMV).
+3. What are the ACTUAL unit monetization and pricing metrics?
+   - (e.g. ARPU, Take Rate %, Seat ARR, NRR %, Comp Store Sales %, Gross Margin %, Operating Margin %).
+4. Peer Benchmarking & Monetization Runway:
+   - How does this company's unit monetization compare to mature industry peers? (e.g. Reddit ARPU vs Meta ARPU; StoneCo take rate vs Cielo; Google Cloud margin vs AWS; Lululemon sales/sqft vs Nike).
+5. Capital Allocation:
+   - What is the pace of share repurchases / buybacks, dividend yield, and true cash conversion?
 
-Provide a concise, highly factual briefing of the true operational reality, actual unit numbers, and peer benchmarks."""
+Provide a concise, highly factual briefing synthesizing the best institutional valuation framework, actual reported unit metrics, and peer benchmarks."""
 
-    print(f"  [Step 1-2/5] Deep forensic search: Concurrently investigating headwinds, unit economics & peer benchmarks for {ticker}...", flush=True)
+    print(f"  [Step 1-2/5] Deep forensic search: Concurrently investigating headwinds, investor memos & valuation frameworks for {ticker}...", flush=True)
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
         fut_headwinds = executor.submit(call_gemini_direct, headwinds_prompt, "", True)
         fut_reality = executor.submit(call_gemini_direct, reality_prompt, "", True)
@@ -2651,39 +2664,48 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 CORE PHILOSOPHY & MANDATE:
 You are an elite Institutional Value Investor (in the tradition of Warren Buffett, Charlie Munger, and Howard Marks).
 RULE #1: ZERO BASELESS TOP-DOWN NUMBERS. NEVER assume arbitrary growth rates (e.g. never say 'assume earnings grow at 8% CAGR' or 'multiple is 12x').
-RULE #2: ALL VALUATIONS MUST BE BUILT FROM BOTTOM-UP UNIT ECONOMICS:
-(Unit Volume × Unit Monetization/ARPU/Price) ➔ Projected Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings ➔ Per-Share Owner Earnings ➔ Terminal Multiple + Net Cash/Debt.
+RULE #2: VALUATION ARCHITECTURE:
+- For CONGLOMERATES & MULTI-SEGMENT PLATFORMS (e.g. Alphabet, Amazon, Meta, Apple, Microsoft, Alibaba): Use SUM-OF-THE-PARTS (SOTP) & SEGMENT UNIT ECONOMICS. Model the core divisions individually (e.g. Search/Services Cash Cow, Cloud Infrastructure, High-Margin Ads, Streaming/Subscriptions), apply appropriate segment multiples, sum the parts, add Net Cash, and divide by retired shares.
+- For SINGLE-SEGMENT BUSINESSES (e.g. Reddit, Bumble, StoneCo, Lululemon, Crocs): Use BOTTOM-UP UNIT ECONOMICS: (Unit Volume × Unit Monetization/ARPU/Price) ➔ Projected Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings ➔ Per-Share Owner Earnings ➔ Terminal Multiple + Net Cash/Debt.
 
 Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps with clean numbered lists (1. ... 2. ...). Do NOT use raw monospace terminal blocks, and do NOT use emojis.
 
 1. "market_pricing_in" (The Market Skepticism Story):
    - In simple, plain English, explain the exact skeptical story and operational unit headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price and {p_oe:.1f}x P/OE.
-   - Explain what implied unit breakdown the market fears (e.g. active users stalling, ARPU compressing due to competitor [X], merchant take-rate eroding, or AI substitution).
+   - For conglomerates, detail which specific division the market fears is decelerating or losing pricing power (e.g. Search AI cannibalization, Cloud price wars, Hardware deceleration).
 
-2. "why_it_might_be_right" (Skeptic Unit Economics Math):
-   - Provide a step-by-step mathematical derivation showing what pessimistic unit deterioration justifies the market's low valuation.
+2. "why_it_might_be_right" (Skeptic Unit Economics / Segment Math):
+   - Provide a step-by-step mathematical derivation showing what pessimistic unit deterioration or segment margin compression justifies the market's low valuation.
    - Numbered Steps:
-     1. Starting Unit Baseline: State the baseline unit volume and unit pricing/monetization that produced starting Owner Earnings of ${oe_per_share:.2f}/share (${oe_total:,.1f}M total).
-     2. Skeptic Unit Deterioration: Assume unit volume stalls/contracts to [specific number] and unit monetization/ARPU compresses to [specific number] due to investigated headwinds.
-     3. Implied Skeptic Year 5 Revenue & Compressed Margin: Calculate the resulting depressed Revenue = (Units × Monetization) = $[X]M. Apply a compressed Owner Cash Margin (e.g. [M]%) ➔ Skeptic Year 5 Total Owner Earnings = $[Y]M.
-     4. Skeptic Terminal Valuation & Share Price: Divide by shares ({shares:.1f}M) to get Skeptic Year 5 OE/share ($[Z]/sh). Apply a realistic compressed skeptic multiple (e.g. 3.0x to 6.0x for low-multiple fintech, 8.0x to 10.0x for tech/retail) and adjust for net balance sheet cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Bear/Skeptic Target Price $[P_Skeptic]/share.
-     5. Business Risk Rationale: Connect this math directly to the operational risks (e.g. churn, margin erosion, capital destruction).
+     1. Starting Unit Baseline: State baseline unit volume / segment revenues and monetization yields that produced starting Owner Earnings of ${oe_per_share:.2f}/share (${oe_total:,.1f}M total).
+     2. Skeptic Unit/Segment Deterioration: Model pessimistic unit volume contraction and ARPU/take-rate compression across core divisions.
+     3. Implied Skeptic Year 5 Revenue & Compressed Margin: Calculate resulting depressed Revenue = $[X]M and compressed Owner Cash Margin ➔ Skeptic Year 5 Total Owner Earnings = $[Y]M.
+     4. Skeptic Terminal Valuation & Share Price: Divide by shares ({shares:.1f}M) to get Skeptic Year 5 OE/share ($[Z]/sh). Apply a realistic compressed skeptic multiple (e.g. 3.0x to 6.0x for low-multiple fintech, 8.0x to 12.0x for tech/retail) and adjust for net balance sheet cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Bear Target Price $[P_Skeptic]/share.
+     5. Business Risk Rationale: Connect this math directly to the operational risks (e.g. churn, margin erosion, regulatory remedies).
 
 3. "how_things_are_going_now" (The Operational Reality Story):
    - In simple, plain English, explain how the business is ACTUALLY performing today based on latest statutory filings and earnings disclosures.
-   - Detail the REAL, verified unit metrics: actual active users/seats/merchants/stores, actual ARPU/take-rate/comp sales, gross margin resilience, audited Owner ROIC of {owner_roic:.1f}%, and capital allocation / buybacks.
-   - Highlight the monetization runway and benchmark comparison (e.g. how the company's current monetization compares to mature peers like Meta, Visa, Salesforce, Nike, etc.).
+   - Detail the REAL, verified unit metrics: actual active users/seats/merchants/stores, actual segment revenues (e.g. Search vs Cloud vs YouTube vs Ads), gross margins, audited Owner ROIC of {owner_roic:.1f}%, and capital allocation / buybacks.
+   - Highlight the monetization runway and benchmark comparison against mature peers.
 
-4. "what_if_it_keeps_going_that_way" (Grounded Unit Continuation Math):
-   - Ground the 5-year intrinsic valuation strictly in CONSERVATIVE, VERIFIABLE UNIT EXPANSION (NOT top-down CAGRs):
-   - Numbered Steps:
-     1. Starting Unit Baseline: State baseline starting unit volume (e.g. [X] users/seats/merchants) × baseline unit monetization (e.g. $[Y] ARPU/take-rate/seat price) = Base Revenue.
-     2. Conservative Unit Volume Expansion: Assume unit volume grows modestly from [X] to [X_5] over 5 years (supported by [specific operational driver]).
-     3. Conservative Unit Monetization Expansion: Assume unit monetization/ARPU expands conservatively from $[Y] to $[Y_5] (referencing mature peer benchmark [e.g. peer generates $[W] ARPU, so $[Y_5] is deeply conservative and realistic]).
-     4. Projected Year 5 Revenue & Audited Owner Cash Conversion: Calculate Year 5 Revenue = (X_5 × $Y_5) = $[Rev_5]M. Applying historical audited Owner Cash Margin of [M%] ➔ Year 5 Total Owner Earnings = $[OE_Total_5]M.
-     5. Share Count Retirement & Year 5 Owner Earnings Per Share: Account for diluted shares retired through audited buyback capacity (e.g. shares reduce from {shares:.1f}M to [S_5]M) ➔ Year 5 Owner Earnings per share = $[OE_sh_5]/share.
-     6. Prudent Terminal Multiple & Expected Share Price: Apply an appropriate terminal multiple (e.g. 8-11x for low-multiple fintech, 13-16x for narrow-moat retail, 18-22x for Wide Moat / tech monopolistic compounders with >30% ROIC and net cash balance sheets like GOOG, MSFT, META) and add net balance sheet cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Expected Year 5 Share Price $[Target_Price]/share.
+4. "what_if_it_keeps_going_that_way" (Grounded Continuation / Sum-of-the-Parts Math):
+   - Ground the 5-year intrinsic valuation strictly in CONSERVATIVE UNIT EXPANSION or SUM-OF-THE-PARTS (SOTP) SEGMENT DERIVATION:
+   - For Conglomerates / Multi-Segment Platforms (SOTP Format):
+     1. Starting Segment Baseline: State current segment breakdown (e.g. Services/Search Revenue, Cloud ARR, Subscriptions/Media).
+     2. Segment 1 (Cash Cow / Core Ads / Hardware): 5-year conservative unit expansion ➔ Year 5 Segment Revenue $[R1]M ➔ Operating Profit $[P1]M ➔ Prudent Multiple ([M1]x) ➔ Segment Value $[V1]B.
+     3. Segment 2 (High-Growth Cloud / Subscription / Enterprise): 5-year unit expansion ➔ Year 5 Segment Revenue $[R2]M ➔ Operating Profit $[P2]M ➔ Prudent Cloud Multiple ([M2]x) ➔ Segment Value $[V2]B.
+     4. Segment 3 / Other Bets: Emerging segment value $[V3]B.
+     5. Consolidated Operating Enterprise Value: Sum of Segment Values = $[Total_EV]B.
+     6. Balance Sheet & Share Count Adjustment: Add Net Balance Sheet Cash (+${net_cash_total:+,.0f}M) / subtract debt ➔ Equity Value $[Total_Equity]B. Divide by retired share count ([S_5]M shares after buybacks) ➔ Expected Year 5 Share Price $[Target_Price]/share.
      7. Expected 5-Year Annualized Return (IRR): Show the annualized capital compounding from today's real entry price of ${current_price:.2f} + the {owner_yield:.1f}% Owner Cash Yield.
+   - For Single-Segment Businesses:
+     1. Baseline unit drivers × monetization.
+     2. Modest 5-year unit volume expansion.
+     3. Conservative unit monetization expansion (peer benchmarked).
+     4. Year 5 Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings.
+     5. Retired share count ➔ Year 5 Owner Earnings per share.
+     6. Prudent Terminal Multiple + Net Cash ➔ Target Share Price.
+     7. 5-Year Annualized Return (IRR).
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
@@ -2728,14 +2750,15 @@ DRAFT SECTIONS SUBMITTED FOR AUDIT:
 [Draft Section 3 - How Things Are Going Now]:
 {draft_data.get('how_things_are_going_now', '')}
 
-[Draft Section 4 - What If It Keeps Going That Way (Grounded Unit Continuation Math)]:
+[Draft Section 4 - What If It Keeps Going That Way (Grounded Unit / SOTP Continuation Math)]:
 {draft_data.get('what_if_it_keeps_going_that_way', '')}
 
 CIO AUDIT & ENFORCEMENT RULES:
-1. STRICT UNIT ECONOMICS ENFORCEMENT: Reject any top-down abstract growth rates (e.g. 'assume 10% CAGR'). Section 2 and Section 4 MUST explicitly calculate:
-   (Unit Volume × Unit Monetization/ARPU/Price) ➔ Year 5 Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings ➔ Per-Share Owner Earnings ➔ Target Price.
+1. STRICT VALUATION ARCHITECTURE ENFORCEMENT: Reject any top-down abstract growth rates (e.g. 'assume 10% CAGR').
+   - For conglomerates / multi-segment platforms (e.g. Alphabet, Amazon, Meta, Apple): Ensure Section 4 derives value via clean Sum-of-the-Parts (SOTP) segment economics (Segment 1 Cash Cow + Segment 2 Cloud/Growth + Segment 3 Subscriptions + Net Cash / Retired Shares).
+   - For single-segment businesses: Ensure Section 4 derives value from (Unit Volume × Unit Monetization ➔ Year 5 Revenue ➔ Owner Margin ➔ OE ➔ Per-share OE ➔ Multiple + Net Cash).
 2. Mathematical Consistency: Ensure starting Owner Earnings (${oe_per_share:.2f}/sh), math steps, share count adjustments, and 5-year IRR calculations are 100% mathematically exact and logical.
-3. Realistic Valuation Constraints: In Section 2, multiple MUST be compressed and realistic (e.g. 3.0x to 6.0x for low-multiple stocks, 8.0x to 10.0x for tech/retail). In Section 4, multiple MUST be conservative and grounded.
+3. Realistic Valuation Constraints: In Section 2, multiple MUST be compressed and realistic (e.g. 3.0x to 6.0x for low-multiple stocks, 8.0x to 12.0x for tech/retail). In Section 4, multiple MUST be conservative and grounded.
 4. Peer Benchmarking: In Section 3 and Section 4, ensure monetization assumptions (ARPU, take rate, seat price) are explicitly benchmarked against mature industry peers (e.g. Meta vs Reddit, Visa vs StoneCo, Salesforce vs Adobe).
 
 Produce the FINAL, FULLY REFINED, AND PERFECTED 4 SECTIONS incorporating all audit corrections.

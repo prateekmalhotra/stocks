@@ -278,16 +278,17 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if pred_tier and pred_tier not in CANONICAL_PREDICTABILITY_TIERS:
             issues.append(f"Invalid Cash Flow Predictability Tier '{pred_tier}'. Must strictly be one of: {sorted(list(CANONICAL_PREDICTABILITY_TIERS))}.")
 
-    # 15. Grounded Unit Economics Derivation Check (Zero Baseless Top-Down CAGRs)
+    # 15. Grounded Unit Economics & SOTP Derivation Check (Zero Baseless Top-Down CAGRs)
     unit_keywords = [
         "user", "dau", "mau", "subscriber", "seat", "client", "merchant",
         "store", "door", "unit", "volume", "arpu", "take rate", "take-rate",
         "price per", "pricing", "arr", "tpv", "gmv", "comp sales", "tuition",
-        "asp", "retention", "nrr", "margin", "revenue"
+        "asp", "retention", "nrr", "margin", "revenue", "segment", "division",
+        "cloud", "search", "services", "sotp", "sum of the parts", "sum-of-the-parts"
     ]
     has_unit_anchors = any(k in html.lower() for k in unit_keywords)
     if not has_unit_anchors:
-        issues.append("Dossier lacks bottom-up unit economics drivers (e.g. users, seats, merchants, ARPU, take rate, TPV, GMV).")
+        issues.append("Dossier lacks bottom-up unit economics / SOTP drivers (e.g. users, seats, merchants, ARPU, segment revenues, take rate, TPV, GMV).")
 
     # 18. Storyline Targets & Alert Corridor Validity
     if metadata:
