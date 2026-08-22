@@ -3751,12 +3751,12 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
 
 def compute_market_discrepancy(stock: WatchlistStock, current_v: Optional[ThesisVersion] = None) -> Tuple[str, str, str, float, str]:
-    """Computes the 5-Year Target price and delta percentage with a clean directional arrow.
-    Returns: (target_price_str, delta_str, delta_color, target_5y, delta_class)
+    """Computes the 3-Year Target price and delta percentage with a clean directional arrow.
+    Returns: (target_price_str, delta_str, delta_color, target_3y, delta_class)
     """
     current_price = getattr(stock, 'current_price', 0.0) or 0.0
 
-    target_5y = None
+    target_3y = None
     raw_target = getattr(stock, 'base_target', '') or getattr(stock, 'fair_value_estimate', '')
     if not raw_target and current_v:
         raw_target = getattr(current_v, 'base_target', '') or getattr(current_v, 'fair_value_estimate', '')
@@ -3765,27 +3765,27 @@ def compute_market_discrepancy(stock: WatchlistStock, current_v: Optional[Thesis
         try:
             clean_tgt = re.sub(r'[^\d\.]', '', str(raw_target))
             if clean_tgt:
-                target_5y = float(clean_tgt)
+                target_3y = float(clean_tgt)
         except Exception:
             pass
 
     p4 = getattr(stock, 'what_if_it_keeps_going_that_way', '') or (current_v.what_if_it_keeps_going_that_way if current_v else '')
-    if target_5y is None and p4:
-        m = re.search(r'(?:target price|expected|fair value|target|share price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4, re.IGNORECASE)
+    if target_3y is None and p4:
+        m = re.search(r'(?:expected base target|base target|target price|expected target|target|share price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4, re.IGNORECASE)
         if m:
             try:
-                target_5y = float(m.group(1))
+                target_3y = float(m.group(1))
             except Exception:
                 pass
 
-    if target_5y is None or target_5y <= 0:
+    if target_3y is None or target_3y <= 0:
         if current_price > 0:
-            target_5y = round(current_price * 1.35, 2)
+            target_3y = round(current_price * 1.25, 2)
         else:
-            target_5y = 0.0
+            target_3y = 0.0
 
-    if current_price > 0 and target_5y > 0:
-        gap_pct = ((target_5y - current_price) / current_price) * 100.0
+    if current_price > 0 and target_3y > 0:
+        gap_pct = ((target_3y - current_price) / current_price) * 100.0
     else:
         gap_pct = 0.0
 
@@ -3802,8 +3802,8 @@ def compute_market_discrepancy(stock: WatchlistStock, current_v: Optional[Thesis
         delta_color = "#9E978C"
         delta_class = "neutral"
 
-    target_price_str = f"${target_5y:.2f}" if target_5y > 0 else "—"
-    return target_price_str, delta_str, delta_color, target_5y, delta_class
+    target_price_str = f"${target_3y:.2f}" if target_3y > 0 else "—"
+    return target_price_str, delta_str, delta_color, target_3y, delta_class
 
 
 def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts: List[AlertItem]) -> str:
@@ -3905,11 +3905,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     <span class="grid-stat-val grid-ret-{stock.ticker} {ret_class}">{f"{stock.return_pct:+.2f}%" if stock.return_pct is not None else "+0.00%"}</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-lbl">3Y Target</span>
                     <span class="grid-stat-val" style="color: var(--text-title);">{tgt_str}</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-lbl">3Y Delta</span>
                     <span class="grid-stat-val" style="color: {delta_color}; font-weight: 500;">{delta_str}</span>
                 </div>
                 <div class="grid-stat">
@@ -4813,7 +4813,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                             <th>Ticker</th>
                             <th>Price</th>
                             <th>Labels <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="Legend">ⓘ</button></th>
-                            <th>5Y Target</th>
+                            <th>3Y Target</th>
                             <th>Catalyst</th>
                         </tr>
                     </thead>

@@ -2779,11 +2779,12 @@ Your goal is to write a rigorous, sober, deeply grounded 4-section investment th
 - Understand what Mr. Market is worried about.
 - Reverse-engineer the skeptic math behind today's valuation.
 - Clearly describe how the business is actually performing today based on recent quarterly results.
-- Honestly extrapolate what happens over the next 5 years if things simply continue as they are going now.
+- Honestly extrapolate what happens over the next 3 years (The Visible Runway) if things simply continue as they are going now.
   * SOBER CONSERVATISM RULES:
     - Real-Time Baseline Anchor: Always anchor starting numbers to the real-time annualized run rate (${annualized_runrate:,.1f}M) and exact statutory units ({unit_desc}). Do NOT use stale outdated figures.
+    - 3-Year Visible Runway: Model the next 3 years (Year 1 to Year 3) rather than speculative 5-year distant extrapolations. A 3-year horizon is firmly within our circle of competence, backed by visible backlog, current churn, and known debt commitments.
     - Reverse Operating Leverage: If revenue/units contract, fixed costs (hosting, R&D, defensive S&M, G&A) are sticky; owner cash margins must severely compress, not magically remain high.
-    - Explicit Balance Sheet Cash Bridge: Explicitly calculate (Starting Net Cash + 5Y FCF - Buybacks - CapEx = Ending Net Cash).
+    - Explicit Balance Sheet Cash Bridge: Explicitly calculate (Starting Net Cash + 3Y FCF - Buybacks - CapEx = Ending Net Cash).
     - 3-Scenario Risk/Reward Range: Provide an institutional Bear / Base / Bull valuation matrix rather than false single-point precision.
 
 Provide EXACTLY 4 sections in simple, elegant, plain English.
@@ -2807,7 +2808,7 @@ EDITORIAL FORMATTING & PRESENTATION MANDATE:
    - Numbered Steps (each on a separate line preceded by double newline):
      1. Starting Baseline: State starting normalized Owner Earnings of ${oe_per_share:.2f}/share (${oe_total:,.1f}M total).
      2. Implied Market Multiple: State the compressed exit multiple reflecting market distrust (e.g. ~{min(max(p_oe * 0.9, 4.0), 12.0):.1f}x P/OE).
-     3. Implied Year 5 Earnings Power: Calculate what depressed Year 5 Owner Earnings per share ($[OE_Skeptic]/sh) produces today's ${current_price:.2f} price after net debt/cash (${net_cash_per_share:+.2f}/sh).
+     3. Implied Year 3 Earnings Power: Calculate what depressed Year 3 Owner Earnings per share ($[OE_Skeptic]/sh) produces today's ${current_price:.2f} price after net debt/cash (${net_cash_per_share:+.2f}/sh).
      4. Implied Operational Decay: Translate this earnings level into the underlying operational breakdown (e.g. customer churn, ARPU erosion, or revenue shrinkage with margin compression).
      5. Business Risk Rationale: Explain why this bear scenario is plausible if headwinds persist.
 
@@ -2818,17 +2819,17 @@ EDITORIAL FORMATTING & PRESENTATION MANDATE:
 
 4. "what_if_it_keeps_going_that_way" (Unvarnished Bottom-Up Continuation Math & 3-Scenario Range):
    - STRICT REQUIREMENT: Anchor starting revenue to the real annualized run rate (${annualized_runrate:,.1f}M) and exact unit volume ({unit_desc}). Do NOT use top-down percentage growth shortcuts.
-   - Build an explicit 7-step Bottom-Up Ledger (each step on a separate line preceded by double newline) with an explicit Balance Sheet Cash Bridge and 3-Scenario Valuation Range:
+   - Build an explicit 7-step Bottom-Up Ledger (each step on a separate line preceded by double newline) across the 3-Year Visible Runway with an explicit Balance Sheet Cash Bridge and 3-Scenario Valuation Range:
      1. Starting Unit Baseline: State exact starting volume units ({unit_desc}), monetization yield ({monet_desc}), and annualized revenue run-rate (${annualized_runrate:,.1f}M).
-     2. 5-Year Unit Volume Extrapolation: Project volume units over 5 years based on current momentum (continue attrition if decaying; extrapolate realistic growth if compounding).
-     3. Projected Year 5 Revenue (Units × Monetization): Multiply Year 5 Volume Units × Year 5 Unit Monetization Yield to derive Projected Year 5 Revenue = $[Rev_5]M.
-     4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 5 Revenue to derive Projected Year 5 Total Owner Earnings = $[OE_Total_5]M (Owner Cash Margin = [X]%).
-     5. Explicit 5-Year Balance Sheet & Capital Allocation Bridge: Detail Starting Net Cash (${net_cash_total:+,.0f}M) + Cumulative 5Y FCF ($[Cumulative_FCF]M) - Cumulative Buybacks ($[Buybacks]M retiring [Shares_Retired]M shares) - CapEx ($[CapEx_5Y]M) = Ending Year 5 Net Cash $[Ending_Net_Cash]M ($[Ending_Net_Cash_Per_Share]/sh) across [S_5]M shares. CRITICAL CAPITAL ALLOCATION MANDATE: If Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), you MUST allocate $0.00 to share buybacks, dedicating 100% of cash flow to debt retirement and interest coverage.
+     2. 3-Year Unit Volume Extrapolation: Project volume units over the next 3 years based on current momentum (continue attrition if decaying; extrapolate realistic growth if compounding).
+     3. Projected Year 3 Revenue (Units × Monetization): Multiply Year 3 Volume Units × Year 3 Unit Monetization Yield to derive Projected Year 3 Revenue = $[Rev_3]M.
+     4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 3 Revenue to derive Projected Year 3 Total Owner Earnings = $[OE_Total_3]M (Owner Cash Margin = [X]%).
+     5. Explicit 3-Year Balance Sheet & Capital Allocation Bridge: Detail Starting Net Cash (${net_cash_total:+,.0f}M) + Cumulative 3Y FCF ($[Cumulative_FCF]M) - Cumulative Buybacks ($[Buybacks]M retiring [Shares_Retired]M shares) - CapEx ($[CapEx_3Y]M) = Ending Year 3 Net Cash $[Ending_Net_Cash]M ($[Ending_Net_Cash_Per_Share]/sh) across [S_3]M shares. CRITICAL CAPITAL ALLOCATION MANDATE: If Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), you MUST allocate $0.00 to share buybacks, dedicating 100% of cash flow to debt retirement and interest coverage.
      6. Institutional 3-Scenario Valuation Range:
         • Bear Case ($[Bear_Target_Low]-$[Bear_Target_High]): Macro/cyclical shock, margin compression, [X]x terminal P/OE.
         • Base Case ($[Base_Target_Low]-$[Base_Target_High]): Disciplined continuation, stable margins, [Y]x terminal P/OE -> Expected Base Target $[Target_Price]/share.
         • Bull Case ($[Bull_Target_Low]-$[Bull_Target_High]): Marketplace network flywheel acceleration, margin expansion, [Z]x terminal P/OE.
-     7. Expected 5-Year Total Return Bridge: State Base Price Appreciation CAGR ($[Target_Price] / ${current_price:.2f})^(1/5) - 1 = [X]%, and state Total Realized Return (IRR) of [Y]% per annum.
+     7. Expected 3-Year Total Return Bridge: State Base Price Appreciation CAGR ($[Target_Price] / ${current_price:.2f})^(1/3) - 1 = [X]%, and state Total Realized Return (IRR) of [Y]% per annum over the 3-year holding period.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
@@ -2882,15 +2883,15 @@ DRAFT SECTIONS SUBMITTED FOR AUDIT:
 [Draft Section 3 - How Things Are Going Now]:
 {draft_data.get('how_things_are_going_now', '')}
 
-[Draft Section 4 - What If It Keeps Going That Way (Grounded Continuation Math)]:
+[Draft Section 4 - What If It Keeps Going That Way (3-Year Visible Runway Math)]:
 {draft_data.get('what_if_it_keeps_going_that_way', '')}
 
 YOUR CIO AUDIT GOAL:
 Act as a skeptical, conservative peer reviewer:
 - Strip out any unearned optimism, corporate spin, or turnaround fantasies.
 - AUDIT AGAINST LATEST EARNINGS & TRANSCRIPTS: Verify all revenue numbers, volume units ({unit_desc}), gross margins, and forward commentary directly against the company's LATEST earnings release and LATEST earnings call transcript Q&A. Force-reject any outdated or stale figures.
-- STRICT BAN ON LAZY TOP-DOWN CAGRS: Check Section 4. If it contains generic hand-waving like "assuming a steady 10% CAGR" or "assuming top-line growth slows to X%", REJECT and replace it with explicit bottom-up multiplication: Volume Units × Unit Yield ➔ Revenue − Cash Expenses ➔ Total Owner Earnings.
-- AUDIT BALANCE SHEET CASH BRIDGE: Ensure Section 4 contains an explicit 5-year cash bridge (Starting Net Cash + 5Y FCF - Buybacks - CapEx = Ending Net Cash). Verify that if Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), exactly $0.00 is allocated to share buybacks.
+- STRICT BAN ON LAZY TOP-DOWN CAGRS: Check Section 4. If it contains generic hand-waving like "assuming a steady 10% CAGR" or "assuming top-line growth slows to X%", REJECT and replace it with explicit bottom-up multiplication across the 3-Year Visible Runway: Volume Units × Unit Yield ➔ Revenue − Cash Expenses ➔ Total Owner Earnings.
+- AUDIT BALANCE SHEET CASH BRIDGE: Ensure Section 4 contains an explicit 3-year cash bridge (Starting Net Cash + 3Y FCF - Buybacks - CapEx = Ending Net Cash). Verify that if Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), exactly $0.00 is allocated to share buybacks.
 - ENFORCE 3-SCENARIO RANGE: Ensure Section 4 provides a clean Bear / Base / Bull valuation matrix formatted with clear bullet lines.
 - ENFORCE REVERSE OPERATING LEVERAGE: If revenue/units contract, ensure Owner Cash Margin compresses realistically; do not allow fantasy high margins during shrinkage.
 - MOAT SKEPTICISM CHECK: Verify that the assigned Economic Moat ({moat}) is 100% rigorous. If the company faces low switching costs ($0 to leave) and decaying paying users (e.g. Bumble), force-downgrade any unearned 'Narrow Moat' claims to 'Weak Moat' or 'No Moat'.
@@ -3030,22 +3031,22 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
             except Exception:
                 pass
 
-    target_5y = extracted_target if (extracted_target and extracted_target > 0) else (current_price * 1.25 if owner_yield >= 8.0 else current_price * 1.05)
-    bear_target_val = extracted_bear if (extracted_bear and extracted_bear > 0) else round(current_price * 0.75, 2)
-    bull_target_val = extracted_bull if (extracted_bull and extracted_bull > 0) else round(target_5y * 1.25, 2)
+    target_3y = extracted_target if (extracted_target and extracted_target > 0) else (current_price * 1.20 if owner_yield >= 8.0 else current_price * 1.05)
+    bear_target_val = extracted_bear if (extracted_bear and extracted_bear > 0) else round(current_price * 0.80, 2)
+    bull_target_val = extracted_bull if (extracted_bull and extracted_bull > 0) else round(target_3y * 1.25, 2)
 
-    # Calculate 5-year expected price CAGR
-    irr_5y = ((target_5y / current_price) ** (1.0 / 5.0) - 1.0) if current_price > 0 else 0.0
+    # Calculate 3-year expected price CAGR (IRR)
+    irr_3y = ((target_3y / current_price) ** (1.0 / 3.0) - 1.0) if current_price > 0 else 0.0
 
-    # Institutional Action Signal:
-    # BUY: Requires genuine 5-year compounding (IRR >= 10.0% / target > 1.6x current) and not a decaying value trap.
-    # HOLD / CAUTION: Low or flat return (IRR between 0% and 10%).
-    # AVOID: Negative return (target_5y < current_price) or severe distress.
-    if target_5y < current_price * 0.95 or irr_5y < 0.0:
+    # Institutional Action Signal for 3-Year Visible Runway:
+    # BUY: Requires genuine 3-year compounding (IRR >= 12.0% / target > 1.40x current) and not a decaying value trap.
+    # HOLD / CAUTION: Moderate or flat return (IRR between 0% and 12%).
+    # AVOID: Negative return (target_3y < current_price) or severe distress.
+    if target_3y < current_price * 0.95 or irr_3y < 0.0:
         action_signal = "AVOID"
-    elif irr_5y >= 0.10 and (moat_lbl in ["Wide Moat", "Narrow Moat"] or target_5y >= current_price * 1.50):
+    elif irr_3y >= 0.12 and (moat_lbl in ["Wide Moat", "Narrow Moat"] or target_3y >= current_price * 1.40):
         action_signal = "BUY"
-    elif irr_5y >= 0.05:
+    elif irr_3y >= 0.05:
         action_signal = "HOLD"
     else:
         action_signal = "CAUTION"
@@ -3072,16 +3073,21 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "why_it_might_be_right": info.get("why_it_might_be_right", ""),
         "how_things_are_going_now": info.get("how_things_are_going_now", ""),
         "what_if_it_keeps_going_that_way": info.get("what_if_it_keeps_going_that_way", ""),
-        "fair_value_estimate": f"${target_5y:.2f}",
-        "expected_fair_value": f"${target_5y:.2f}",
-        "expected_val": target_5y,
+        "fair_value_estimate": f"${target_3y:.2f}",
+        "expected_fair_value": f"${target_3y:.2f}",
+        "expected_val": target_3y,
         "bear_target": f"${bear_target_val:.2f}",
-        "base_target": f"${target_5y:.2f}",
+        "base_target": f"${target_3y:.2f}",
         "bull_target": f"${bull_target_val:.2f}",
+        "story1_target": f"${target_3y:.2f}",
+        "story2_target": f"${bear_target_val:.2f}",
+        "story3_target": f"${bull_target_val:.2f}",
+        "expected_return_cagr": round(irr_3y * 100.0, 1),
+        "irr_3y": round(irr_3y * 100.0, 1),
         "what_is_priced_in": f"{p_oe:.1f}x P/OE",
         "executive_summary": info.get("how_things_are_going_now", "")[:250],
-        "upper_alert_threshold": round(max(current_price * 1.20, target_5y * 0.95), 2),
-        "lower_alert_threshold": round(min(current_price * 0.85, bear_target_val * 1.05), 2),
+        "upper_alert_threshold": round(max(current_price * 1.15, target_3y), 2),
+        "lower_alert_threshold": round(min(current_price * 0.85, bear_target_val), 2),
         "stories": [
             {
                 "title": "Market Skepticism Pricing",
