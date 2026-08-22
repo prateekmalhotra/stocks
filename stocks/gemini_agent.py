@@ -2539,19 +2539,19 @@ Provide a concise, highly factual briefing of the core skeptical thesis and oper
 Use Google Search to inspect {ticker}'s EXACT LAST 3 to 4 CONSECUTIVE QUARTERLY EARNINGS REPORTS (Q1, Q2, Q3, Q4 2025/2026), conference call transcripts, and recent (last 6-12 months / 2025-2026) institutional investor letters / Substack deep dives (e.g. Scuttleblurb, Diffs, In Practise, MBI Deep Dives, Value Investors Club):
 
 1. SEQUENTIAL 3-4 QUARTER OPERATIONAL TRAJECTORY:
-   - Extract the exact quarterly progression across the last 3-4 quarters:
-     * Revenue YoY growth % (e.g. Q1 vs Q2 vs Q3 vs Q4)
-     * Adjusted EBITDA and EBITDA margin % (e.g. 39-40% margins)
-     * Segment Revenues & Growth: (e.g. Hinge direct revenue & growth % [e.g. $204M, +22%] vs Tinder direct revenue & growth %; Cloud vs Search)
-     * Key Core Unit KPI Trends: (e.g. Tinder DAU/payer % decline sequential improvement from -8% to -4%; Hinge payer growth; RPP expansion %; active users/seats)
-     * Trailing 6-Month / H1 Cash Flow: Operating Cash Flow (OCF), Free Cash Flow (FCF), share buyback dollar amount, and YoY diluted share count reduction % (e.g. -5% to -7% YoY).
+   - Extract the exact quarterly progression across the last 3-4 consecutive quarters:
+     * Revenue YoY growth % (progression across recent quarters)
+     * Operating profitability and cash margin resilience (EBITDA / Operating Margin %)
+     * Segment Revenues & Trajectory: Breakdown of core divisions vs high-growth / emerging divisions
+     * Core Volume & Pricing Unit KPIs: Trends in paying users / active seats / merchants / store comps / pricing / ARPU / take rate (whether expanding, stabilizing, or declining)
+     * Trailing Cash Flow & Capital Allocation: Operating Cash Flow (OCF), Free Cash Flow (FCF), share repurchases ($M), and net change in diluted share count YoY.
 
-2. VALUATION FRAMEWORK USED BY TOP INVESTORS (LAST 6-12 MONTHS ONLY):
+2. INSTITUTIONAL VALUATION FRAMEWORK (LAST 6-12 MONTHS ONLY):
    - What specific valuation framework do recent hedge fund letters and Substack deep dives use for this company?
-   - Identify the 2 to 3 core operational levers that dictate long-term intrinsic value (e.g. For MTCH: 1. Tinder payer decline bottoming, 2. Hinge scaling to $1B+ in 2027, 3. Buyback accretion retiring 5-7% of shares annually).
+   - Identify the 2 to 3 core operational drivers that dictate long-term intrinsic value (e.g. core segment retention, expansion unit drivers, and capital return / buyback yield).
 
 3. PEER BENCHMARKING & MONETIZATION RUNWAY:
-   - How does this company's unit monetization/margins compare to mature industry peers?
+   - How does this company's unit monetization, gross margins, and operating efficiency compare to mature industry peers?
 
 Provide a concise, highly factual briefing synthesizing the exact sequential quarterly numbers, the best institutional valuation framework, and capital allocation pace."""
 
