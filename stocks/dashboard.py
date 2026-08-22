@@ -3226,13 +3226,11 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 """
 
 
-def compute_market_discrepancy(stock: WatchlistStock, current_v: Optional[ThesisVersion] = None) -> Tuple[str, str, str, str]:
-    """Computes the Market Discrepancy indicator comparing Mr. Market's implied pricing against the 5-year intrinsic continuation trajectory.
-    Returns: (discrepancy_label, discrepancy_class, discrepancy_color, subtext)
+def compute_market_discrepancy(stock: WatchlistStock, current_v: Optional[ThesisVersion] = None) -> Tuple[str, str, str, float, str]:
+    """Computes the 5-Year Target price and delta percentage with a clean directional arrow.
+    Returns: (target_price_str, delta_str, delta_color, target_5y, delta_class)
     """
     current_price = getattr(stock, 'current_price', 0.0) or 0.0
-    p_oe = getattr(stock, 'p_oe', None) or (current_v.p_oe if current_v else None)
-    yield_pct = getattr(stock, 'owner_yield_pct', None) or (current_v.owner_yield_pct if current_v else None)
 
     target_5y = None
     raw_target = getattr(stock, 'base_target', '') or getattr(stock, 'fair_value_estimate', '')
@@ -3249,7 +3247,7 @@ def compute_market_discrepancy(stock: WatchlistStock, current_v: Optional[Thesis
 
     p4 = getattr(stock, 'what_if_it_keeps_going_that_way', '') or (current_v.what_if_it_keeps_going_that_way if current_v else '')
     if target_5y is None and p4:
-        m = re.search(r'(?:target price|expected|fair value|target)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4, re.IGNORECASE)
+        m = re.search(r'(?:target price|expected|fair value|target|share price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4, re.IGNORECASE)
         if m:
             try:
                 target_5y = float(m.group(1))
@@ -3267,26 +3265,21 @@ def compute_market_discrepancy(stock: WatchlistStock, current_v: Optional[Thesis
     else:
         gap_pct = 0.0
 
-    # Discrepancy Classification
-    if gap_pct >= 50.0 or (yield_pct and yield_pct >= 18.0) or (p_oe and p_oe <= 6.0):
-        label = "Deep Disconnect"
-        d_class = "discrepancy-deep"
-        color = "#82AE8C"
-    elif gap_pct >= 20.0 or (yield_pct and yield_pct >= 10.0):
-        label = "Material Gap"
-        d_class = "discrepancy-material"
-        color = "#D4A373"
-    elif gap_pct >= -10.0:
-        label = "Fairly Priced"
-        d_class = "discrepancy-fair"
-        color = "#9E978C"
+    if gap_pct > 0.05:
+        delta_str = f"↗ {gap_pct:+.1f}%"
+        delta_color = "#82AE8C"
+        delta_class = "pos"
+    elif gap_pct < -0.05:
+        delta_str = f"↘ {gap_pct:.1f}%"
+        delta_color = "#C97A72"
+        delta_class = "neg"
     else:
-        label = "Overpriced Gap"
-        d_class = "discrepancy-overpriced"
-        color = "#C97A72"
+        delta_str = "→ +0.0%"
+        delta_color = "#9E978C"
+        delta_class = "neutral"
 
-    subtext = f"5Y: ${target_5y:.2f} ({gap_pct:+.1f}%)"
-    return label, d_class, color, subtext
+    target_price_str = f"${target_5y:.2f}" if target_5y > 0 else "—"
+    return target_price_str, delta_str, delta_color, target_5y, delta_class
 
 
 def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts: List[AlertItem]) -> str:
@@ -3324,8 +3317,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         # Clean company name (preserve canonical full name like Amazon.com, Inc.)
         clean_company = get_canonical_company_name(stock.ticker, stock.company_name)
 
-        # Market Discrepancy indicator
-        d_label, d_class, d_color, d_subtext = compute_market_discrepancy(stock, None)
+        # 5Y Target & Directional Arrow Delta
+        tgt_str, delta_str, delta_color, tgt_5y, delta_class = compute_market_discrepancy(stock, None)
 
         # Clean catalyst description (max 4 words, no ellipses, wraps cleanly)
         safe_baseline = stock.baseline_price if stock.baseline_price > 0 else stock.current_price
@@ -3354,9 +3347,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
             </td>
             <td>
-                <div class="tbl-discrepancy-cell">
-                    <span class="discrepancy-pill {d_class}">{d_label}</span>
-                    <span class="discrepancy-sub">{d_subtext}</span>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">{tgt_str}</span>
+                    <span class="tbl-target-delta" style="color: {delta_color};">{delta_str}</span>
                 </div>
             </td>
             <td>
@@ -3388,12 +3381,12 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     <span class="grid-stat-val grid-ret-{stock.ticker} {ret_class}">{f"{stock.return_pct:+.2f}%" if stock.return_pct is not None else "+0.00%"}</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">Discrepancy</span>
-                    <span class="grid-stat-val" style="color: {d_color}; font-weight: 600;">{d_label}</span>
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">{tgt_str}</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">5Y Target</span>
-                    <span class="grid-stat-val">{d_subtext.split(' ')[0]}</span>
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: {delta_color}; font-weight: 500;">{delta_str}</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
@@ -3866,48 +3859,23 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
         .tbl-labels-cell {{ display: flex; gap: 6px; flex-wrap: nowrap; align-items: center; white-space: nowrap; }}
 
-        .tbl-discrepancy-cell {{
+        .tbl-target-cell {{
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            align-items: flex-start;
+            gap: 3px;
             line-height: 1.25;
         }}
-        .discrepancy-pill {{
-            display: inline-flex;
-            align-items: center;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-family: var(--font-sans);
-            font-size: 0.76rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            line-height: 1.25;
-        }}
-        .discrepancy-deep {{
-            background: rgba(130, 174, 140, 0.14);
-            color: #82AE8C;
-            border: 1px solid rgba(130, 174, 140, 0.28);
-        }}
-        .discrepancy-material {{
-            background: rgba(212, 163, 115, 0.14);
-            color: #D4A373;
-            border: 1px solid rgba(212, 163, 115, 0.28);
-        }}
-        .discrepancy-fair {{
-            background: rgba(158, 151, 140, 0.12);
-            color: #9E978C;
-            border: 1px solid rgba(158, 151, 140, 0.22);
-        }}
-        .discrepancy-overpriced {{
-            background: rgba(201, 122, 114, 0.14);
-            color: #C97A72;
-            border: 1px solid rgba(201, 122, 114, 0.28);
-        }}
-        .discrepancy-sub {{
+        .tbl-target-price {{
+            font-size: 1.05rem;
+            font-weight: 500;
             font-family: var(--font-mono);
-            font-size: 0.76rem;
-            color: var(--text-secondary);
+            color: var(--text-title);
+            line-height: 1.2;
+        }}
+        .tbl-target-delta {{
+            font-size: 0.78rem;
+            font-family: var(--font-mono);
+            font-weight: 500;
             line-height: 1.2;
         }}
 
@@ -4322,7 +4290,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                             <th>Ticker</th>
                             <th>Price</th>
                             <th>Labels <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="Legend">ⓘ</button></th>
-                            <th>Market Discrepancy</th>
+                            <th>5Y Target</th>
                             <th>Catalyst</th>
                         </tr>
                     </thead>

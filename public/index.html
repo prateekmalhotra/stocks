@@ -21,7 +21,7 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-21 22:27:52 UTC"
+    "updated_at": "2026-08-22 03:53:45 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -406,48 +406,23 @@
 
         .tbl-labels-cell { display: flex; gap: 6px; flex-wrap: nowrap; align-items: center; white-space: nowrap; }
 
-        .tbl-discrepancy-cell {
+        .tbl-target-cell {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            align-items: flex-start;
+            gap: 3px;
             line-height: 1.25;
         }
-        .discrepancy-pill {
-            display: inline-flex;
-            align-items: center;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-family: var(--font-sans);
-            font-size: 0.76rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            line-height: 1.25;
-        }
-        .discrepancy-deep {
-            background: rgba(130, 174, 140, 0.14);
-            color: #82AE8C;
-            border: 1px solid rgba(130, 174, 140, 0.28);
-        }
-        .discrepancy-material {
-            background: rgba(212, 163, 115, 0.14);
-            color: #D4A373;
-            border: 1px solid rgba(212, 163, 115, 0.28);
-        }
-        .discrepancy-fair {
-            background: rgba(158, 151, 140, 0.12);
-            color: #9E978C;
-            border: 1px solid rgba(158, 151, 140, 0.22);
-        }
-        .discrepancy-overpriced {
-            background: rgba(201, 122, 114, 0.14);
-            color: #C97A72;
-            border: 1px solid rgba(201, 122, 114, 0.28);
-        }
-        .discrepancy-sub {
+        .tbl-target-price {
+            font-size: 1.05rem;
+            font-weight: 500;
             font-family: var(--font-mono);
-            font-size: 0.76rem;
-            color: var(--text-secondary);
+            color: var(--text-title);
+            line-height: 1.2;
+        }
+        .tbl-target-delta {
+            font-size: 0.78rem;
+            font-family: var(--font-mono);
+            font-weight: 500;
             line-height: 1.2;
         }
 
@@ -862,7 +837,7 @@
                             <th>Ticker</th>
                             <th>Price</th>
                             <th>Labels <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="Legend">ⓘ</button></th>
-                            <th>Market Discrepancy</th>
+                            <th>5Y Target</th>
                             <th>Catalyst</th>
                         </tr>
                     </thead>
@@ -890,9 +865,9 @@
                 </div>
             </td>
             <td>
-                <div class="tbl-discrepancy-cell">
-                    <span class="discrepancy-pill discrepancy-material">Material Gap</span>
-                    <span class="discrepancy-sub">5Y: $67.03 (+35.0%)</span>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$67.03</span>
+                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +35.0%</span>
                 </div>
             </td>
             <td>
@@ -929,12 +904,12 @@
                     <span class="grid-stat-val grid-ret-GCT pos">+0.00%</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">Discrepancy</span>
-                    <span class="grid-stat-val" style="color: #D4A373; font-weight: 600;">Material Gap</span>
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$67.03</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">5Y Target</span>
-                    <span class="grid-stat-val">5Y:</span>
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +35.0%</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
