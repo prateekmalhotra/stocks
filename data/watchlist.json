@@ -1,1 +1,71 @@
-{}
+{
+  "BMBL": {
+    "ticker": "BMBL",
+    "company_name": "Bumble Inc.",
+    "baseline_price": 2.8,
+    "current_price": 2.8,
+    "return_pct": 0.0,
+    "status_label": "No Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "No Moat"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$9.02",
+    "expected_fair_value": "$9.02",
+    "expected_val": 9.02,
+    "stories": [
+      {
+        "title": "Market Skepticism Pricing",
+        "target": "$2.24",
+        "summary": "At today's $2.80 share price ($369M market cap, down over 96% from its IPO high), Mr. Market is pricing in a terminal operational death spiral for Bumble Inc. The market views the "
+      },
+      {
+        "title": "Conservative Intrinsic Path",
+        "target": "$9.02",
+        "summary": "A grounded 5-year intrinsic valuation based on bottom-up unit economics, assuming paying user churn flattens and product updates stabilize the ecosystem:\n\n1. Baseline Unit Drivers:"
+      }
+    ],
+    "story1_target": "$2.24",
+    "story2_target": "$9.02",
+    "story3_target": "",
+    "story1_title": "Path 1",
+    "story2_title": "Path 2",
+    "story3_title": "Path 3",
+    "bear_target": "$2.10",
+    "base_target": "$9.02",
+    "bull_target": "$11.27",
+    "what_is_priced_in": "1.7x P/OE",
+    "upper_alert_threshold": 8.57,
+    "lower_alert_threshold": 2.21,
+    "next_catalyst_date": "2026-11-20",
+    "next_catalyst_event": "",
+    "top_funds": [],
+    "institutional_ownership_pct": "13F Registry",
+    "insider_signal": "Sponsor Liquidation (Blackstone Exit)",
+    "insider_summary": "Controlling sponsor liquidating equity position (-$272.5M)",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "",
+    "cyclicality_type": "Moderate Cyclical",
+    "cycle_stance": "Mid-Cycle Run-Rate",
+    "cycle_summary": "",
+    "owner_earnings_per_share": 1.6816320339754285,
+    "owner_earnings_total_mil": 221.74,
+    "p_oe": 1.6650491566699737,
+    "ev_oe": 3.004636060250744,
+    "owner_yield_pct": 60.058286927693885,
+    "owner_roic_pct": 24.269421885602966,
+    "net_cash_per_share": -2.2526922493553765,
+    "market_pricing_in": "At today's $2.80 share price ($369M market cap, down over 96% from its IPO high), Mr. Market is pricing in a terminal operational death spiral for Bumble Inc. The market views the business as an obsolete swiping platform losing ground to competitors like Hinge, TikTok, and Instagram, while Gen Z users suffer acute dating app burnout. Investors are severely penalizing Bumble for three main reasons: accelerating paid user attrition (paying users down 16.4% YoY to 3.16 million in Q2 2026), suspicious margin expansion achieved by slashing top-of-funnel marketing by over 50% rather than genuine operating leverage, and chronic delays in re-architecting its tech stack to launch a swipe-free AI platform. Furthermore, with $297 million in net balance sheet debt ($-2.25 per share) and $1.2 billion in cumulative goodwill write-downs over 18 months, the current compressed multiple of 1.7x P/OE reflects widespread fear that cash flow will dry up before user losses stabilize.",
+    "why_it_might_be_right": "The market's extreme skepticism can be reverse-engineered step-by-step to demonstrate how continued operational decay justifies today's $2.80 stock price:\n\n1. Starting Baseline: Audited normalized Owner Earnings stand at $1.68 per share ($221.7M total), offset by net debt of $-2.25 per share ($-297M total net balance sheet position).\n2. Implied Market Skeptic Multiple: A distressed exit multiple of 3.0x Owner Earnings, reflecting permanent top-line contraction and zero terminal growth value.\n3. Implied Year 5 Earnings Power: To justify a stagnant $2.80 target price under a 3.0x terminal multiple after accounting for $-2.25 per share in net debt, Year 5 Owner Earnings per share would need to collapse to $0.55 per share (a ~67% decay from today's $1.68 per share).\n4. Implied Operational Decay: This earnings collapse requires total paying users to contract from 3.16 million down to under 1.8 million, top-line revenues to drop at a -12% CAGR down to ~$500 million, and Owner Earnings margins to compress from 23% to 14% as performance marketing must be urgently restored to prevent complete app abandonment.\n5. Business Risk Rationale: This bear scenario is entirely plausible if young users permanently abandon paid subscription tiers, Badoo's international decline accelerates, and management's delayed 2027 product redesign fails to re-engage active users.",
+    "how_things_are_going_now": "Despite top-line headwinds, Bumble's underlying operational reality reveals a highly cash-generative core business undergoing an intentional reset. In Q2 2026, Bumble generated $210.5 million in revenue and $72.9 million in Adjusted EBITDA (34.6% margin). While paying users declined to 3.16 million, core Bumble App monetization remains resilient: Bumble App Monthly ARPPU stands at $27.55, significantly outperforming competitor benchmarks like Tinder ($16\u2013$19) and demonstrating strong pricing power among high-intent users. Free cash flow conversion remains exceptionally strong at over 80% of Adjusted EBITDA, generating $124.9 million in FCF in H1 2026 alone and maintaining a audited Owner ROIC of 24.3%. Management has taken decisive corporate finance actions to derisk the balance sheet: terminating the complex Blackstone Tax Receivable Agreement (TRA) for $186 million to eliminate long-term tax liabilities, and refinancing term debt into a secure $456 million facility maturing in 2030 with $154 million in liquid cash on hand.",
+    "what_if_it_keeps_going_that_way": "A grounded 5-year intrinsic valuation based on bottom-up unit economics, assuming paying user churn flattens and product updates stabilize the ecosystem:\n\n1. Baseline Unit Drivers: Current paying user base of 3.16 million at a blended ecosystem ARPPU of $21.96/month ($263.50 annualized), generating ~$833 million in run-rate revenue.\n2. Modest 5-Year Unit Volume Trajectory: Assume total paying users contract slightly further before stabilizing at 2.80 million users by Year 5 as product improvements (Tech Stack 2.0 and non-swipe UI) halt organic churn.\n3. Conservative Unit Monetization: Assume ARPPU grows modestly at 2.5% annually to $24.84/month ($298.08/year) through premium AI tier expansion and expanded direct billing systems that bypass app store commissions.\n4. Year 5 Financials: Year 5 Revenue = 2.80M paying users \u00d7 $298.08 ARPPU = $834.6M. Applying a conservative, normalized post-marketing Owner Earnings margin of 22% yields Total Owner Earnings of $183.6M.\n5. Retired Share Count: Assuming $120M of organic cash flow is used over 5 years to retire shares at distressed prices, reducing diluted shares from 131.9M to 110.0M. Year 5 Owner Earnings = $1.67 per share.\n6. Valuation & Target Price: Applying a prudent terminal multiple of 6.0x Owner Earnings (well below historic platform averages) yields $10.02 per share. Adjusting for net debt paydown (deleveraged to $-1.00 per share using free cash flow) results in a Target Share Price of $9.02 per share.\n7. 5-Year Annualized Return (IRR): Compounding from today's $2.80 entry price to $9.02 per share represents an annualized return (IRR) of ~26.3%, backed by a 60.1% baseline Owner Cash Yield.",
+    "last_updated": "2026-08-22",
+    "total_versions": 1,
+    "report_path": "reports/BMBL.html"
+  }
+}
