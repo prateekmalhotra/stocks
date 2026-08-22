@@ -2664,7 +2664,11 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 CORE PHILOSOPHY & MANDATE:
 You are an elite Institutional Value Investor (in the tradition of Warren Buffett, Charlie Munger, and Howard Marks).
 RULE #1: ZERO BASELESS TOP-DOWN NUMBERS. NEVER assume arbitrary growth rates (e.g. never say 'assume earnings grow at 8% CAGR' or 'multiple is 12x').
-RULE #2: VALUATION ARCHITECTURE:
+RULE #2: CRITICAL SKEPTICISM OF OUTSIDE THESES (ANTI-AUTHOR BIAS FILTER):
+- Outside Substack / hedge fund letters are useful ONLY to extract structural mental models, business segment breakdowns, and operational unit metrics.
+- NEVER adopt an author's promotional bull-case growth rates, TAM fantasies, or multiple expansion hopes.
+- Section 4 is NOT a bull case. It is a SLIGHTLY CONSERVATIVE, GROUNDED CONTINUATION of actual operational reality anchored to statutory 10-K filings, applying a disciplined Margin of Safety to future unit volume growth, cash margin conversion, and terminal multiples.
+RULE #3: VALUATION ARCHITECTURE:
 - For CONGLOMERATES & MULTI-SEGMENT PLATFORMS (e.g. Alphabet, Amazon, Meta, Apple, Microsoft, Alibaba): Use SUM-OF-THE-PARTS (SOTP) & SEGMENT UNIT ECONOMICS. Model the core divisions individually (e.g. Search/Services Cash Cow, Cloud Infrastructure, High-Margin Ads, Streaming/Subscriptions), apply appropriate segment multiples, sum the parts, add Net Cash, and divide by retired shares.
 - For SINGLE-SEGMENT BUSINESSES (e.g. Reddit, Bumble, StoneCo, Lululemon, Crocs): Use BOTTOM-UP UNIT ECONOMICS: (Unit Volume × Unit Monetization/ARPU/Price) ➔ Projected Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings ➔ Per-Share Owner Earnings ➔ Terminal Multiple + Net Cash/Debt.
 
@@ -2754,12 +2758,13 @@ DRAFT SECTIONS SUBMITTED FOR AUDIT:
 {draft_data.get('what_if_it_keeps_going_that_way', '')}
 
 CIO AUDIT & ENFORCEMENT RULES:
-1. STRICT VALUATION ARCHITECTURE ENFORCEMENT: Reject any top-down abstract growth rates (e.g. 'assume 10% CAGR').
+1. STRICT ANTI-AUTHOR BIAS FILTER: Verify that Section 4 does NOT copy external promotional bull-case projections, TAM fantasies, or multiple expansion hopes from outside authors. Section 4 MUST strictly be a disciplined, slightly conservative continuation of actual recent operational numbers (statutory 10-K filings), applying a Margin of Safety to future unit volume growth, cash margin conversion, and terminal multiples.
+2. STRICT VALUATION ARCHITECTURE ENFORCEMENT: Reject any top-down abstract growth rates (e.g. 'assume 10% CAGR').
    - For conglomerates / multi-segment platforms (e.g. Alphabet, Amazon, Meta, Apple): Ensure Section 4 derives value via clean Sum-of-the-Parts (SOTP) segment economics (Segment 1 Cash Cow + Segment 2 Cloud/Growth + Segment 3 Subscriptions + Net Cash / Retired Shares).
    - For single-segment businesses: Ensure Section 4 derives value from (Unit Volume × Unit Monetization ➔ Year 5 Revenue ➔ Owner Margin ➔ OE ➔ Per-share OE ➔ Multiple + Net Cash).
-2. Mathematical Consistency: Ensure starting Owner Earnings (${oe_per_share:.2f}/sh), math steps, share count adjustments, and 5-year IRR calculations are 100% mathematically exact and logical.
-3. Realistic Valuation Constraints: In Section 2, multiple MUST be compressed and realistic (e.g. 3.0x to 6.0x for low-multiple stocks, 8.0x to 12.0x for tech/retail). In Section 4, multiple MUST be conservative and grounded.
-4. Peer Benchmarking: In Section 3 and Section 4, ensure monetization assumptions (ARPU, take rate, seat price) are explicitly benchmarked against mature industry peers (e.g. Meta vs Reddit, Visa vs StoneCo, Salesforce vs Adobe).
+3. Mathematical Consistency: Ensure starting Owner Earnings (${oe_per_share:.2f}/sh), math steps, share count adjustments, and 5-year IRR calculations are 100% mathematically exact and logical.
+4. Realistic Valuation Constraints: In Section 2, multiple MUST be compressed and realistic (e.g. 3.0x to 6.0x for low-multiple stocks, 8.0x to 12.0x for tech/retail). In Section 4, multiple MUST be conservative and grounded.
+5. Peer Benchmarking: In Section 3 and Section 4, ensure monetization assumptions (ARPU, take rate, seat price) are explicitly benchmarked against mature industry peers (e.g. Meta vs Reddit, Visa vs StoneCo, Salesforce vs Adobe).
 
 Produce the FINAL, FULLY REFINED, AND PERFECTED 4 SECTIONS incorporating all audit corrections.
 
