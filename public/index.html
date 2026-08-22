@@ -21,7 +21,15 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-22 04:28:12 UTC"
+    "updated_at": "2026-08-22 04:37:18 UTC"
+  },
+  "CROX": {
+    "price": 122.11,
+    "prev_close": 122.11,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 04:37:18 UTC"
   },
   "GCT": {
     "price": 49.65,
@@ -29,7 +37,15 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-22 04:28:12 UTC"
+    "updated_at": "2026-08-22 04:37:18 UTC"
+  },
+  "LULU": {
+    "price": 121.07,
+    "prev_close": 121.07,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 04:37:18 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -807,7 +823,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">2</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">4</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -885,6 +901,41 @@
             </td>
         </tr>
         
+        <tr class="table-row" data-ticker="CROX" data-baseline="122.11" onclick="location.href='reports/CROX.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CROX" alt="CROX" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CR</span></div>
+                        <span class="tbl-symbol">CROX</span>
+                    </div>
+                    <span class="tbl-company-hover">Crocs, Inc.</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-CROX">$122.11</span>
+                    <span class="tbl-return tbl-ret-CROX pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="moat-text-label" style="color: var(--text-secondary); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$153.58</span>
+                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +25.8%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" data-ticker="GCT" data-baseline="49.65" onclick="location.href='reports/GCT.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -916,6 +967,41 @@
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-headline">Q3 '26 Earnings</span>
                     <span class="tbl-cat-date">Nov 19, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="LULU" data-baseline="121.07" onclick="location.href='reports/LULU.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LULU" alt="LULU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">LU</span></div>
+                        <span class="tbl-symbol">LULU</span>
+                    </div>
+                    <span class="tbl-company-hover">Lululemon Athletica Inc.</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-LULU">$121.07</span>
+                    <span class="tbl-return tbl-ret-LULU pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="moat-text-label" style="color: var(--text-secondary); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$174.98</span>
+                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +44.5%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
                 </div>
             </td>
         </tr>
@@ -960,6 +1046,39 @@
             </div>
         </div>
         
+        <div class="grid-card" data-ticker="CROX" data-baseline="122.11" onclick="location.href='reports/CROX.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CROX" alt="CROX" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CR</span></div>
+                    <span class="grid-symbol">CROX</span>
+                </div>
+                <div class="grid-price grid-price-CROX">$122.11</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="moat-text-label" style="color: var(--text-secondary); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+            </div>
+            <div class="grid-company">Crocs, Inc.</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-CROX pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$153.58</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +25.8%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="grid-card" data-ticker="GCT" data-baseline="49.65" onclick="location.href='reports/GCT.html'">
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -985,6 +1104,39 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">5Y Delta</span>
                     <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +35.0%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="LULU" data-baseline="121.07" onclick="location.href='reports/LULU.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LULU" alt="LULU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">LU</span></div>
+                    <span class="grid-symbol">LULU</span>
+                </div>
+                <div class="grid-price grid-price-LULU">$121.07</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="moat-text-label" style="color: var(--text-secondary); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+            </div>
+            <div class="grid-company">Lululemon Athletica Inc.</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-LULU pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$174.98</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +44.5%</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
@@ -1163,7 +1315,7 @@
     <!-- Chart & Real-Time Sync Script -->
     <script>
         (function() {
-            const pData = {"dates": ["2026-08-11", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21"], "portfolio": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0], "spy": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0]};
+            const pData = {"dates": ["2026-08-11", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-22"], "portfolio": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0], "spy": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0]};
             const ctx = document.getElementById('chart-defensive');
             if (ctx) {
                 const dates = pData.dates || ['Day 1'];
@@ -1624,7 +1776,7 @@
     <!-- Chart & Real-Time Sync Script -->
     <script>
         (function() {
-            const pData = {"dates": ["2026-08-11", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21"], "portfolio": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0], "spy": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0]};
+            const pData = {"dates": ["2026-08-11", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-20", "2026-08-21", "2026-08-22"], "portfolio": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0], "spy": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0]};
             const ctx = document.getElementById('chart-aggressive');
             if (ctx) {
                 const dates = pData.dates || ['Day 1'];
