@@ -3040,8 +3040,6 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "predictability_tier": pred_tier,
         "predictability_score": pred_score,
         "action_signal": action_signal,
-        "predictability_score": pred_score,
-        "action_signal": action_signal,
         "owner_earnings_per_share": oe_sh,
         "owner_earnings_total_mil": info.get("normalized_oe_total_mil", 0.0),
         "p_oe": p_oe,
