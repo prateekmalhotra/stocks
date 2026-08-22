@@ -1,1 +1,74 @@
-{}
+{
+  "BMBL": {
+    "ticker": "BMBL",
+    "company_name": "Bumble Inc.",
+    "baseline_price": 2.8,
+    "current_price": 2.8,
+    "return_pct": 0.0,
+    "status_label": "Narrow Moat",
+    "moat_label": "Narrow Moat",
+    "moat_type": "",
+    "moat_scope": "",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$11.00",
+    "expected_fair_value": "$11.00",
+    "expected_val": 11.0,
+    "stories": [
+      {
+        "title": "Market Skepticism Pricing",
+        "target": "$2.24",
+        "summary": "At today's market price of $2.80 per share, Bumble Inc. trades at a deeply distressed valuation of 1.9x normalized Owner Earnings and 1.5x Enterprise Value to Owner Earnings, despi"
+      },
+      {
+        "title": "Conservative Intrinsic Path",
+        "target": "$11.00",
+        "summary": "1. Starting Unit Baseline: Current active commercial volume units generating an annualized revenue run-rate of $1,000.0M at baseline unit monetization and take-rate yields.\n2. 5-Ye"
+      }
+    ],
+    "story1_target": "$2.24",
+    "story2_target": "$11.00",
+    "story3_target": "",
+    "story1_title": "Path 1",
+    "story2_title": "Path 2",
+    "story3_title": "Path 3",
+    "bear_target": "$2.10",
+    "base_target": "$11.00",
+    "bull_target": "$13.75",
+    "what_is_priced_in": "1.9x P/OE",
+    "upper_alert_threshold": 10.45,
+    "lower_alert_threshold": 2.21,
+    "next_catalyst_date": "2026-11-20",
+    "next_catalyst_event": "",
+    "top_funds": [],
+    "institutional_ownership_pct": "13F Registry",
+    "insider_signal": "Sponsor Liquidation (Blackstone Exit)",
+    "insider_summary": "Controlling sponsor liquidating equity position (-$272.5M)",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "10-Year Cash Flow Visibility Assessment",
+    "predictability_summary": "",
+    "cyclicality_type": "Moderate Cyclical",
+    "cycle_stance": "Mid-Cycle Run-Rate",
+    "cycle_summary": "",
+    "owner_earnings_per_share": 1.4744145706851692,
+    "owner_earnings_total_mil": 340.0,
+    "p_oe": 1.8990588235294115,
+    "ev_oe": 1.4578823529411764,
+    "owner_yield_pct": 52.657663238756044,
+    "owner_roic_pct": 25.185185185185183,
+    "net_cash_per_share": 0.6504770164787511,
+    "market_pricing_in": "At today's market price of $2.80 per share, Bumble Inc. trades at a deeply distressed valuation of 1.9x normalized Owner Earnings and 1.5x Enterprise Value to Owner Earnings, despite holding $150M in net cash ($0.65 per share) and generating $340M in normalized owner cash flow ($1.47 per share). Mr. Market is pricing in extreme structural skepticism around the digital dating ecosystem. Investors fear that Gen Z and Millennial consumer fatigue with online dating apps, rising user acquisition costs, and subscription resistance will trigger a secular collapse in monetization. The core investment asymmetry centers on this valuation disconnect: the market is treating current normalized earnings of $1.47 per share as an unsustainable, peak-cycle anomaly bound for steep terminal decay, whereas actual top-line execution shows 15.0% year-over-year revenue growth reaching a $1,000.0M annualized run rate with a robust 25.2% Owner ROIC.",
+    "why_it_might_be_right": "1. Starting Baseline: The business generates $1.47 per share in audited normalized Owner Earnings ($340.0M total across 230.6M diluted shares), backed by $0.65 per share in net balance sheet cash ($150.0M total).\n2. Implied Market Multiple: To arrive at today's $2.80 share price, the market applies a severely depressed exit multiple of ~4.0x P/OE on terminal earnings.\n3. Implied Year 5 Earnings Power: Stripping out current net cash of $0.65 per share leaves an operating equity value of $2.15 per share. At a 4.0x terminal P/OE, the market is pricing Year 5 Owner Earnings down to just $0.54 per share ($124.5M total), representing a permanent 63.4% collapse in earning power from today's $1.47 per share.\n4. Implied Operational Decay: A reduction from $340.0M to $124.5M in annual cash flow implies that active commercial volume units experience severe user churn (shrinking 20% to 30%), combined with lower unit monetization yield as subscribers downgrade to free tiers. Under reverse operating leverage, sticky fixed cash expenses in host infrastructure, R&D, and defensive marketing compress owner cash margins from ~34% down to ~12%.\n5. Business Risk Rationale: This bear narrative is plausible if young adult demographics permanently reject paid dating subscriptions, if brand fatigue degrades organic download channels, or if aggressive competitive pressure from alternative social platforms erodes user acquisition efficiency.",
+    "how_things_are_going_now": "In stark contrast to its distressed market valuation, Bumble's underlying operational trajectory remains stable. Over the last 3 to 4 quarterly releases, the company has maintained steady execution, driving annualized run-rate revenue to $1,000.0M on 15.0% year-over-year growth. Active commercial volume units across core app ecosystems remain resilient, while unit monetization and take-rate yield have held up as localized pricing optimization and premium tier features offset macroeconomic headwinds. Operating efficiency is reflected in an Audited Owner ROIC of 25.2%. Free cash generation remains highly cash-generative: after accounting for $30.0M in stock-based compensation and $80.0M in maintenance capital expenditures, the firm generates $340.0M in annual Owner Earnings ($1.47 per share), translating into an extraordinary 52.7% owner cash yield. Capital allocation is supported by a solid balance sheet containing $200.0M in liquid cash against $50.0M in debt ($150.0M net cash), offering ample liquidity to fund product development and disciplined share buybacks.",
+    "what_if_it_keeps_going_that_way": "1. Starting Unit Baseline: Current active commercial volume units generating an annualized revenue run-rate of $1,000.0M at baseline unit monetization and take-rate yields.\n2. 5-Year Unit Volume Extrapolation: Assuming modest international user expansion and core app feature enhancements, active commercial volume units grow at a conservative 3.0% compound annual rate over the next 5 years.\n3. Projected Year 5 Revenue: At expanded volume units and steady unit monetization yields, Projected Year 5 Revenue reaches $1,160.0M.\n4. Cash Cost Structure & Projected Owner Earnings: Subtracting cash COGS, sales & marketing, R&D, fixed overhead, $35.0M in stock-based compensation, and $85.0M in maintenance CapEx yields Projected Year 5 Total Owner Earnings of $336.4M (representing a stable 29.0% Owner Cash Margin).\n5. Explicit 5-Year Balance Sheet & Capital Allocation Bridge: Starting Net Cash of +$150.0M + Cumulative 5-Year Cash Flow of +$1,800.0M - Cumulative Maintenance CapEx of -$425.0M - Cumulative Share Buybacks of -$1,000.0M (retiring 100.0M shares at an average price of $10.00/share, reducing share count from 230.6M to 130.6M) = Ending Year 5 Net Cash of $525.0M ($4.02/share across 130.6M shares).\n6. Institutional 3-Scenario Valuation Range:\n- Bear Case ($1.80 - $2.50): Paying unit contraction, margin decay, Year 5 OE of $120.0M ($0.92/share), 2.0x exit P/OE plus cash -> $2.20 target price.\n- Base Case ($11.00 - $13.50): Steady operational execution, Year 5 OE of $336.4M ($2.58/share on 130.6M shares). Applying a conservative 3.5x exit P/OE ($9.03) plus $4.02 net cash per share -> Expected Base Target Price of $13.05/share.\n- Bull Case ($18.00 - $23.00): Product ecosystem expansion, Year 5 OE of $450.0M ($3.45/share), 5.0x exit P/OE plus cash -> $21.27 target price.\n7. Expected 5-Year Total Return Bridge: Base Price Appreciation CAGR = ($13.05 / $2.80)^(1/5) - 1 = 36.0% per annum. Total Realized Return (IRR) including capital returns equals ~38.5% per annum.",
+    "last_updated": "2026-08-22",
+    "total_versions": 1,
+    "report_path": "reports/BMBL.html"
+  }
+}
