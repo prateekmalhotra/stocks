@@ -104,7 +104,7 @@ def parse_json_robust(text: str) -> Optional[Dict[str, Any]]:
         
     # Robust key-value regex extractor for multi-line JSON responses
     keys = ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way",
-            "net_income_ttm_mil", "dna_ttm_mil", "capex_ttm_mil", "sbc_ttm_mil", "one_off_net_mil", "cash_mil", "debt_mil", "equity_mil", "diluted_shares_mil", "revenue_growth_pct", "economic_moat"]
+            "operating_cash_flow_ttm_mil", "adjusted_operating_income_ttm_mil", "net_income_ttm_mil", "dna_ttm_mil", "capex_ttm_mil", "sbc_ttm_mil", "one_off_net_mil", "cash_mil", "debt_mil", "equity_mil", "diluted_shares_mil", "revenue_growth_pct", "economic_moat"]
     extracted = {}
     for k in keys:
         m_val = re.search(rf'"{k}"\s*:\s*"([\s\S]*?)(?="\s*,\s*"\w+"|\s*"\s*\}}|\s*"\s*$)', candidate_str)
@@ -2536,19 +2536,24 @@ Provide a concise, highly factual briefing of the core skeptical thesis and oper
 
     reality_prompt = f"""You are a Senior Value Investor & Portfolio Manager auditing {ticker} ({company_name}).
 
-Use Google Search to find RECENT (last 6-12 months / 2025-2026) institutional investor letters, Substack investment memos (e.g. Scuttleblurb, Diffs, In Practise, MBI Deep Dives, Value Investors Club), and latest 10-K/quarterly earnings disclosures for {ticker}:
-1. How are top institutional investors valuing this company today?
-   - What specific valuation framework do they use? (e.g. Sum-of-the-Parts [SOTP] for conglomerates like Google/Amazon/Meta; ARPU expansion for ad/subscription networks like Reddit/Bumble; Seat ARR & NRR for enterprise SaaS; TPV & Take-rate for fintechs; Store comps & buybacks for retail).
-2. What are the company's ACTUAL reported core unit volume metrics and segment breakdowns?
-   - (e.g. Segment revenues for Search vs Cloud vs YouTube vs Ads; DAU/MAU, enterprise seats, active merchants, store count, TPV/GMV).
-3. What are the ACTUAL unit monetization and pricing metrics?
-   - (e.g. ARPU, Take Rate %, Seat ARR, NRR %, Comp Store Sales %, Gross Margin %, Operating Margin %).
-4. Peer Benchmarking & Monetization Runway:
-   - How does this company's unit monetization compare to mature industry peers? (e.g. Reddit ARPU vs Meta ARPU; StoneCo take rate vs Cielo; Google Cloud margin vs AWS; Lululemon sales/sqft vs Nike).
-5. Capital Allocation:
-   - What is the pace of share repurchases / buybacks, dividend yield, and true cash conversion?
+Use Google Search to inspect {ticker}'s EXACT LAST 3 to 4 CONSECUTIVE QUARTERLY EARNINGS REPORTS (Q1, Q2, Q3, Q4 2025/2026), conference call transcripts, and recent (last 6-12 months / 2025-2026) institutional investor letters / Substack deep dives (e.g. Scuttleblurb, Diffs, In Practise, MBI Deep Dives, Value Investors Club):
 
-Provide a concise, highly factual briefing synthesizing the best institutional valuation framework, actual reported unit metrics, and peer benchmarks."""
+1. SEQUENTIAL 3-4 QUARTER OPERATIONAL TRAJECTORY:
+   - Extract the exact quarterly progression across the last 3-4 quarters:
+     * Revenue YoY growth % (e.g. Q1 vs Q2 vs Q3 vs Q4)
+     * Adjusted EBITDA and EBITDA margin % (e.g. 39-40% margins)
+     * Segment Revenues & Growth: (e.g. Hinge direct revenue & growth % [e.g. $204M, +22%] vs Tinder direct revenue & growth %; Cloud vs Search)
+     * Key Core Unit KPI Trends: (e.g. Tinder DAU/payer % decline sequential improvement from -8% to -4%; Hinge payer growth; RPP expansion %; active users/seats)
+     * Trailing 6-Month / H1 Cash Flow: Operating Cash Flow (OCF), Free Cash Flow (FCF), share buyback dollar amount, and YoY diluted share count reduction % (e.g. -5% to -7% YoY).
+
+2. VALUATION FRAMEWORK USED BY TOP INVESTORS (LAST 6-12 MONTHS ONLY):
+   - What specific valuation framework do recent hedge fund letters and Substack deep dives use for this company?
+   - Identify the 2 to 3 core operational levers that dictate long-term intrinsic value (e.g. For MTCH: 1. Tinder payer decline bottoming, 2. Hinge scaling to $1B+ in 2027, 3. Buyback accretion retiring 5-7% of shares annually).
+
+3. PEER BENCHMARKING & MONETIZATION RUNWAY:
+   - How does this company's unit monetization/margins compare to mature industry peers?
+
+Provide a concise, highly factual briefing synthesizing the exact sequential quarterly numbers, the best institutional valuation framework, and capital allocation pace."""
 
     print(f"  [Step 1-2/5] Deep forensic search: Concurrently investigating headwinds, investor memos & valuation frameworks for {ticker}...", flush=True)
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
@@ -2558,14 +2563,15 @@ Provide a concise, highly factual briefing synthesizing the best institutional v
         reality_facts = fut_reality.result()
 
     # ---------------------------------------------------------
-    # Step 3: Statutory 10-K / 20-F Balance Sheet Audit
+    # Step 3: Statutory 10-K / 20-F Balance Sheet & Cash Flow Audit
     # ---------------------------------------------------------
     print(f"  [Step 3/5] Extracting statutory 10-K/20-F balance sheet and cash flow metrics for {ticker}...", flush=True)
     audit_prompt = f"""You are a Forensic Financial Auditor researching {ticker} ({company_name}) at current real market price ${current_price:.2f}.
 
-Use Google Search to retrieve the statutory 10-K / 20-F filings and TTM financial numbers for {ticker}.
+Use Google Search to retrieve the statutory 10-K / 20-F / 10-Q filings and TTM financial numbers for {ticker}.
 IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, convert to USD at ~5.6 BRL/USD. Return purely numerical floats without symbols or commas.
 
+- Trailing Operating Cash Flow (OCF) ($M USD)
 - Trailing Net Income ($M USD)
 - Trailing Depreciation & Amortization ($M USD)
 - Trailing Capital Expenditures ($M USD)
@@ -2581,6 +2587,7 @@ IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, 
 Return ONLY a valid JSON object matching this schema:
 ```json
 {{
+  "operating_cash_flow_ttm_mil": float,
   "net_income_ttm_mil": float,
   "dna_ttm_mil": float,
   "capex_ttm_mil": float,
@@ -2599,12 +2606,13 @@ Return ONLY a valid JSON object matching this schema:
         use_search=True
     )
     audit_data = parse_json_robust(raw_audit) or {}
-    print(f"  [Step 3 Done] Extracted TTM data: NI=${audit_data.get('net_income_ttm_mil')}M, D&A=${audit_data.get('dna_ttm_mil')}M, SBC=${audit_data.get('sbc_ttm_mil')}M, Equity=${audit_data.get('equity_mil')}M", flush=True)
+    print(f"  [Step 3 Done] Extracted TTM data: OCF=${audit_data.get('operating_cash_flow_ttm_mil')}M, NI=${audit_data.get('net_income_ttm_mil')}M, D&A=${audit_data.get('dna_ttm_mil')}M, SBC=${audit_data.get('sbc_ttm_mil')}M, Equity=${audit_data.get('equity_mil')}M", flush=True)
 
     # ---------------------------------------------------------
     # Step 4: Deterministic Python Code Execution (Owner Earnings & Owner ROIC Math)
     # ---------------------------------------------------------
     print(f"  [Step 4/5] Executing deterministic Python calculations for Owner Earnings, Multiples & Owner ROIC...", flush=True)
+    ocf = float(audit_data.get("operating_cash_flow_ttm_mil") or 0.0)
     net_income = float(audit_data.get("net_income_ttm_mil") or 350.0)
     dna = float(audit_data.get("dna_ttm_mil") or 100.0)
     capex = float(audit_data.get("capex_ttm_mil") or 80.0)
@@ -2617,13 +2625,21 @@ Return ONLY a valid JSON object matching this schema:
     moat = audit_data.get("economic_moat") or "Narrow Moat"
     rev_growth = float(audit_data.get("revenue_growth_pct") or 15.0)
 
-    # True Maintenance CapEx Anchor (empirically bounded by D&A):
-    # In tech/software/digital platforms, growth CapEx (AI data centers, custom silicon) expands future capacity.
-    # True maintenance CapEx required to sustain current unit volume is anchored to D&A (typically 0.8x to 1.0x D&A), NOT total growth CapEx.
+    # True Maintenance CapEx Anchor (empirically bounded by D&A for asset-light software/digital platforms):
     maint_capex = min(capex, dna * 1.05) if dna > 0 else min(capex, 100.0)
     
-    # Buffett True Owner Earnings = Net Income + D&A - Maintenance CapEx - SBC - Net One-off Gains
-    oe_total = net_income + dna - maint_capex - sbc - one_offs
+    # Buffett True Owner Earnings = Operating Cash Flow - SBC - Maintenance CapEx
+    # (Reconciled with Net Income + D&A - Maintenance CapEx - SBC - OneOffs to ensure non-cash accounting charges don't distort true cash generation)
+    if ocf > 0:
+        oe_total = ocf - sbc - maint_capex
+    else:
+        oe_total = net_income + dna - maint_capex - sbc - one_offs
+        
+    # Safety reconciliation: OE cannot be lower than 60% of normalized cash generation
+    oe_from_ni = net_income + dna - maint_capex - sbc - one_offs
+    if oe_total < oe_from_ni * 0.6 and oe_from_ni > 0:
+        oe_total = oe_from_ni
+        
     oe_per_share = oe_total / shares if shares > 0 else 0.0
     
     net_cash_total = cash - debt
@@ -2675,17 +2691,17 @@ RULE #3: VALUATION ARCHITECTURE:
 Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps with clean numbered lists (1. ... 2. ...). Do NOT use raw monospace terminal blocks, and do NOT use emojis.
 
 1. "market_pricing_in" (The Market Skepticism Story):
-   - In simple, plain English, explain the exact skeptical story and operational unit headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price and {p_oe:.1f}x P/OE.
-   - For conglomerates, detail which specific division the market fears is decelerating or losing pricing power (e.g. Search AI cannibalization, Cloud price wars, Hardware deceleration).
+   - In simple, plain English, explain the exact skeptical narrative and operational unit headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price and {p_oe:.1f}x P/OE.
+   - Detail the specific real-world fears (e.g. core product user churn, competitive price pressure, regulatory overhang, AI disruption) that lead investors to assign today's depressed multiple.
 
-2. "why_it_might_be_right" (Skeptic Unit Economics / Segment Math):
-   - Provide a step-by-step mathematical derivation showing what pessimistic unit deterioration or segment margin compression justifies the market's low valuation.
+2. "why_it_might_be_right" (Reverse-Engineering the Market's Pricing & Skeptic Math):
+   - Provide a step-by-step mathematical reverse-engineering showing exactly what implied operational decay justifies today's market price of ${current_price:.2f}:
    - Numbered Steps:
-     1. Starting Unit Baseline: State baseline unit volume / segment revenues and monetization yields that produced starting Owner Earnings of ${oe_per_share:.2f}/share (${oe_total:,.1f}M total).
-     2. Skeptic Unit/Segment Deterioration: Model pessimistic unit volume contraction and ARPU/take-rate compression across core divisions.
-     3. Implied Skeptic Year 5 Revenue & Compressed Margin: Calculate resulting depressed Revenue = $[X]M and compressed Owner Cash Margin ➔ Skeptic Year 5 Total Owner Earnings = $[Y]M.
-     4. Skeptic Terminal Valuation & Share Price: Divide by shares ({shares:.1f}M) to get Skeptic Year 5 OE/share ($[Z]/sh). Apply a realistic compressed skeptic multiple (e.g. 3.0x to 6.0x for low-multiple fintech, 8.0x to 12.0x for tech/retail) and adjust for net balance sheet cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Bear Target Price $[P_Skeptic]/share.
-     5. Business Risk Rationale: Connect this math directly to the operational risks (e.g. churn, margin erosion, regulatory remedies).
+     1. Starting Baseline: State starting normalized Owner Earnings of ${oe_per_share:.2f}/share (${oe_total:,.1f}M total).
+     2. Implied Market Skeptic Multiple: State the compressed exit multiple reflecting permanent market distrust (e.g. {min(max(p_oe * 0.9, 4.0), 12.0):.1f}x P/OE).
+     3. Implied Year 5 Earnings Power: Calculate what depressed Year 5 Owner Earnings per share ($[OE_Skeptic]/sh) produces today's ${current_price:.2f} price at this multiple after net balance sheet cash/debt (${net_cash_per_share:+.2f}/sh).
+     4. Implied Operational Decay: Translate this earnings level into the underlying operational unit breakdown (e.g. active users contracting from [X] to [Y], ARPU eroding from $[A] to $[B], or revenue shrinking at -[Z]% CAGR with margins compressing from [M1]% to [M2]%).
+     5. Business Risk Rationale: Explain why this bear scenario is plausible if management fails to counter active headwinds.
 
 3. "how_things_are_going_now" (The Operational Reality Story):
    - In simple, plain English, explain how the business is ACTUALLY performing today based on latest statutory filings and earnings disclosures.
