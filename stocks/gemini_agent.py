@@ -2680,13 +2680,15 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 CORE PHILOSOPHY & MANDATE:
 You are an elite Institutional Value Investor (in the tradition of Warren Buffett, Charlie Munger, and Howard Marks).
 RULE #1: ZERO BASELESS TOP-DOWN NUMBERS. NEVER assume arbitrary growth rates (e.g. never say 'assume earnings grow at 8% CAGR' or 'multiple is 12x').
-RULE #2: CRITICAL SKEPTICISM OF OUTSIDE THESES (ANTI-AUTHOR BIAS FILTER):
-- Outside Substack / hedge fund letters are useful ONLY to extract structural mental models, business segment breakdowns, and operational unit metrics.
-- NEVER adopt an author's promotional bull-case growth rates, TAM fantasies, or multiple expansion hopes.
-- Section 4 is NOT a bull case. It is a SLIGHTLY CONSERVATIVE, GROUNDED CONTINUATION of actual operational reality anchored to statutory 10-K filings, applying a disciplined Margin of Safety to future unit volume growth, cash margin conversion, and terminal multiples.
+RULE #2: PURE UNVARNISHED CONTINUATION (NO MAGICAL TURNAROUNDS):
+- Section 4 is strictly titled "What If It Keeps Going That Way".
+- You MUST directly extrapolate the REAL current trajectory established in Section 3:
+  * If the business is currently bleeding users / revenue is contracting: ASSUME IT CONTINUES CONTRACTING. Model the ongoing shrinkage in paying users/revenue, calculate the resulting lower cash flow, and output the honest (low) resulting intrinsic value. NEVER assume a magical turnaround, reversal, or user growth resumption!
+  * If the business is currently growing / compounding: Model a conservative continuation of that current pace.
+  * If mixed (e.g. one segment declining while another grows): Model each segment exactly as it is currently performing.
 RULE #3: VALUATION ARCHITECTURE:
-- For CONGLOMERATES & MULTI-SEGMENT PLATFORMS (e.g. Alphabet, Amazon, Meta, Apple, Microsoft, Alibaba): Use SUM-OF-THE-PARTS (SOTP) & SEGMENT UNIT ECONOMICS. Model the core divisions individually (e.g. Search/Services Cash Cow, Cloud Infrastructure, High-Margin Ads, Streaming/Subscriptions), apply appropriate segment multiples, sum the parts, add Net Cash, and divide by retired shares.
-- For SINGLE-SEGMENT BUSINESSES (e.g. Reddit, Bumble, StoneCo, Lululemon, Crocs): Use BOTTOM-UP UNIT ECONOMICS: (Unit Volume × Unit Monetization/ARPU/Price) ➔ Projected Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings ➔ Per-Share Owner Earnings ➔ Terminal Multiple + Net Cash/Debt.
+- For CONGLOMERATES & MULTI-SEGMENT PLATFORMS (e.g. Alphabet, Amazon, Meta, Apple, Microsoft, Alibaba): Use SUM-OF-THE-PARTS (SOTP) & SEGMENT UNIT ECONOMICS. Model the core divisions individually based on their current trajectory, apply appropriate segment multiples, sum the parts, add Net Cash, and divide by retired shares.
+- For SINGLE-SEGMENT BUSINESSES: Use BOTTOM-UP UNIT ECONOMICS: (Current Unit Trajectory × Monetization Yield) ➔ Projected Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings ➔ Per-Share Owner Earnings ➔ Terminal Multiple + Net Cash/Debt.
 
 Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps with clean numbered lists (1. ... 2. ...). Do NOT use raw monospace terminal blocks, and do NOT use emojis.
 
@@ -2703,29 +2705,20 @@ Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps w
      4. Implied Operational Decay: Translate this earnings level into the underlying operational unit breakdown (e.g. active users contracting from [X] to [Y], ARPU eroding from $[A] to $[B], or revenue shrinking at -[Z]% CAGR with margins compressing from [M1]% to [M2]%).
      5. Business Risk Rationale: Explain why this bear scenario is plausible if management fails to counter active headwinds.
 
-3. "how_things_are_going_now" (The Operational Reality Story):
-   - In simple, plain English, explain how the business is ACTUALLY performing today based on latest statutory filings and earnings disclosures.
-   - Detail the REAL, verified unit metrics: actual active users/seats/merchants/stores, actual segment revenues (e.g. Search vs Cloud vs YouTube vs Ads), gross margins, audited Owner ROIC of {owner_roic:.1f}%, and capital allocation / buybacks.
-   - Highlight the monetization runway and benchmark comparison against mature peers.
+3. "how_things_are_going_now" (The Operational Reality Story - Sequential 3-4 Quarters):
+   - In simple, plain English, explain how the business is ACTUALLY performing today based on the exact last 3 to 4 quarterly releases (Q1, Q2, etc.).
+   - Detail the unvarnished reality: whether users are churning or growing, revenue YoY, EBITDA margin resilience, cash flow generation, and capital allocation.
 
-4. "what_if_it_keeps_going_that_way" (Grounded Continuation / Sum-of-the-Parts Math):
-   - Ground the 5-year intrinsic valuation strictly in CONSERVATIVE UNIT EXPANSION or SUM-OF-THE-PARTS (SOTP) SEGMENT DERIVATION:
-   - For Conglomerates / Multi-Segment Platforms (SOTP Format):
-     1. Starting Segment Baseline: State current segment breakdown (e.g. Services/Search Revenue, Cloud ARR, Subscriptions/Media).
-     2. Segment 1 (Cash Cow / Core Ads / Hardware): 5-year conservative unit expansion ➔ Year 5 Segment Revenue $[R1]M ➔ Operating Profit $[P1]M ➔ Prudent Multiple ([M1]x) ➔ Segment Value $[V1]B.
-     3. Segment 2 (High-Growth Cloud / Subscription / Enterprise): 5-year unit expansion ➔ Year 5 Segment Revenue $[R2]M ➔ Operating Profit $[P2]M ➔ Prudent Cloud Multiple ([M2]x) ➔ Segment Value $[V2]B.
-     4. Segment 3 / Other Bets: Emerging segment value $[V3]B.
-     5. Consolidated Operating Enterprise Value: Sum of Segment Values = $[Total_EV]B.
-     6. Balance Sheet & Share Count Adjustment: Add Net Balance Sheet Cash (+${net_cash_total:+,.0f}M) / subtract debt ➔ Equity Value $[Total_Equity]B. Divide by retired share count ([S_5]M shares after buybacks) ➔ Expected Year 5 Share Price $[Target_Price]/share.
-     7. Expected 5-Year Annualized Return (IRR): Show the annualized capital compounding from today's real entry price of ${current_price:.2f} + the {owner_yield:.1f}% Owner Cash Yield.
-   - For Single-Segment Businesses:
-     1. Baseline unit drivers × monetization.
-     2. Modest 5-year unit volume expansion.
-     3. Conservative unit monetization expansion (peer benchmarked).
-     4. Year 5 Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings.
-     5. Retired share count ➔ Year 5 Owner Earnings per share.
-     6. Prudent Terminal Multiple + Net Cash ➔ Target Share Price.
-     7. 5-Year Annualized Return (IRR).
+4. "what_if_it_keeps_going_that_way" (Unvarnished Continuation Math):
+   - Mathematically extrapolate what happens if the current operational performance in Section 3 simply continues for 5 years:
+   - Numbered Steps:
+     1. Starting Baseline: State current starting unit metrics & segment revenues.
+     2. 5-Year Operational Trajectory: Extrapolate current trends (continue decline if users are churning; continue steady rate if growing).
+     3. Projected Year 5 Revenue & Owner Cash Margin: Calculate resulting Year 5 Revenue = $[Rev_5]M and Total Owner Earnings = $[OE_Total_5]M.
+     4. Share Count & Buybacks: Factor in share buybacks (if company produces excess cash) or dilution.
+     5. Year 5 Owner Earnings Per Share: ($[OE_Total_5]M / [S_5]M) = $[OE_sh_5]/share.
+     6. Prudent Terminal Multiple & Expected Share Price: Apply a realistic multiple based on business quality + net cash/debt ➔ Expected Year 5 Share Price $[Target_Price]/share.
+     7. Expected 5-Year Annualized Return (IRR): Show the annualized compounding return from today's real entry price of ${current_price:.2f} + the {owner_yield:.1f}% Owner Cash Yield.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
@@ -2772,9 +2765,8 @@ DRAFT SECTIONS SUBMITTED FOR AUDIT:
 {draft_data.get('what_if_it_keeps_going_that_way', '')}
 
 CIO AUDIT & MANDATORY CORRECTION RULES:
-1. TONE DOWN OPTIMISM & ENFORCE STRICT MARGIN OF SAFETY:
-   - If the draft is overly bullish, promotional, or assumes heroic growth/multiple expansion, FORCEFULLY TONE IT DOWN.
-   - Section 4 is NOT a bull case. It must be a slightly conservative, grounded mathematical extrapolation of HOW THINGS ARE CURRENTLY OPERATING across recent quarters.
+1. UNVARNISHED CONTINUATION ENFORCEMENT (NO TURNAROUND FANTASIES):
+   - Verify that Section 4 strictly continues the reality from Section 3. If users/revenue are currently declining, Section 4 MUST assume they continue declining at current rates and calculate the honest low valuation. REJECT any magical turnarounds, reversals, or unearned user growth assumptions!
 2. ADVERSARIAL BEAR CHECK (SECTION 2):
    - Ensure Section 2 accurately reverse-engineers the real sell-side and short-seller concerns without unrealistic double-counting.
 3. GROUNDED UNIT ECONOMICS & SOTP DERIVATION:
