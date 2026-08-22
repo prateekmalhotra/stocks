@@ -2707,12 +2707,17 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 {reality_facts}
 ============================================
 
-You are an institutional value investor (in the tradition of Warren Buffett, Charlie Munger, and Howard Marks).
-Your goal is to write a thoughtful, grounded, and conservative 4-section investment thesis:
+You are an institutional value investor (in the tradition of Warren Buffett, Charlie Munger, Howard Marks, and Seth Klarman).
+Your goal is to write a rigorous, sober, deeply conservative 4-section investment thesis:
 - Understand what Mr. Market is worried about.
 - Reverse-engineer the skeptic math behind today's valuation.
 - Clearly describe how the business is actually performing today based on recent quarterly results.
-- Honestly extrapolate what happens over the next 5 years if things simply continue as they are going now. Be conservative: if the business is contracting, extrapolate that decay; if it is compounding, extrapolate conservative growth. Anchor your valuation in bottom-up cash generation and balance sheet reality.
+- Honestly extrapolate what happens over the next 5 years if things simply continue as they are going now.
+  * SOBER CONSERVATISM RULES:
+    - Reverse Operating Leverage: If revenue/units contract, fixed costs (hosting, R&D, defensive S&M, G&A) are sticky; owner cash margins must severely compress, not magically remain high.
+    - Debt & Interest Reality: If the company carries net debt, cash flow is absorbed by interest expense (at 8-10%) and debt retirement. Zero cash for share buybacks until debt is safe.
+    - Terminal Multiple Realism: Decaying or unmoated businesses must use compressed terminal multiples (3.0x-6.0x P/OE); never assume unearned multiple expansion on melting ice cubes.
+    - Cyclical Stress-Testing: For cyclical or marketplace models (e.g. GCT), stress-test macro shocks (freight rates, tariffs, seller churn).
 
 Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps with clean numbered lists (1. ... 2. ...). Do NOT use raw monospace terminal blocks, and do NOT use emojis.
 
@@ -2739,7 +2744,7 @@ Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps w
      1. Starting Unit Baseline: State exact starting operational volume units (e.g. active buyers/sellers, paying users, store count, seats, GMV) and unit monetization yields (ARPU, take-rate, spend/buyer, comp sales).
      2. 5-Year Unit Volume Extrapolation: Project the volume units over 5 years based on current trajectory (continue attrition if decaying; extrapolate conservative net additions if compounding).
      3. Projected Year 5 Revenue (Units × Monetization): Multiply Year 5 Volume Units × Year 5 Unit Monetization Yield to derive Projected Year 5 Revenue = $[Rev_5]M.
-     4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 5 Revenue to derive Projected Year 5 Total Owner Earnings = $[OE_Total_5]M (Owner Cash Margin = [X]%).
+     4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 5 Revenue to derive Projected Year 5 Total Owner Earnings = $[OE_Total_5]M (Owner Cash Margin = [X]%). Apply reverse operating leverage if revenue is declining.
      5. Capital Allocation & Share Count: Account for balance sheet reality (if indebted, cash pays down debt; if net cash rich, account for steady buybacks) to determine Year 5 Diluted Shares = [S_5]M.
      6. Year 5 Owner Earnings Per Share & Target Price: ($[OE_Total_5]M / [S_5]M) = $[OE_sh_5]/share. Apply a conservative terminal multiple + net cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Expected Year 5 Target Share Price $[Target_Price]/share.
      7. Expected 5-Year Total Return & Capital Allocation Bridge: State Price Appreciation CAGR ($[Target_Price] / ${current_price:.2f})^(1/5) - 1 = [X]%, detail where 5-year cash flow goes (e.g. debt service/derisking or buybacks/dividends), and state Total Realized Return (IRR) of [Y]% per annum.
@@ -2798,6 +2803,7 @@ YOUR CIO AUDIT GOAL:
 Act as a skeptical, conservative peer reviewer:
 - Strip out any unearned optimism, corporate spin, or turnaround fantasies.
 - STRICT BAN ON LAZY TOP-DOWN CAGRS: Check Section 4. If it contains generic hand-waving like "assuming a steady 10% CAGR" or "assuming top-line growth slows to X%", REJECT and replace it with explicit bottom-up multiplication: Volume Units × Unit Yield ➔ Revenue − Cash Expenses ➔ Total Owner Earnings.
+- ENFORCE REVERSE OPERATING LEVERAGE: If revenue/units contract, ensure Owner Cash Margin compresses realistically; do not allow fantasy high margins during shrinkage.
 - MOAT SKEPTICISM CHECK: Verify that the assigned Economic Moat ({moat}) is 100% rigorous. If the company faces low switching costs ($0 to leave) and decaying paying users (e.g. Bumble), force-downgrade any unearned 'Narrow Moat' claims to 'Weak Moat' or 'No Moat'.
 - Ensure cash allocation is grounded in balance sheet reality (e.g. debt service vs buybacks) and that 5-year returns are mathematically sound without double-counting.
 - Deliver the final, perfected 4 sections.
