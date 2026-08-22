@@ -351,6 +351,21 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             if not matches_exp and not matches_s1 and s1_num is not None:
                 issues.append(f"Storyline Target Inconsistency: Headline Fair Value (${fv_num:.2f}) does not match Expected Value (${exp_num or 0:.2f}) or Storyline 1 Target (${s1_num:.2f}).")
 
+    # 23. Prohibition of Promotional Buzzwords & Unearned Spin
+    banned_spin_phrases = [
+        "intentional reset",
+        "turnaround taking hold",
+        "turnaround is taking hold",
+        "poised for explosive growth",
+        "poised for growth",
+        "temporary pullback",
+        "will stabilize as product",
+        "will halt as new product",
+    ]
+    for phrase in banned_spin_phrases:
+        if phrase in html.lower():
+            issues.append(f"Dossier contains unearned promotional spin phrase '{phrase}'. Must strictly use cold, forensic, unvarnished prose.")
+
     return len(issues) == 0, issues
 
 
