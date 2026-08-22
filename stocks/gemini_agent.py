@@ -104,6 +104,7 @@ def parse_json_robust(text: str) -> Optional[Dict[str, Any]]:
         
     # Robust key-value regex extractor for multi-line JSON responses
     keys = ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way",
+            "trailing_revenue_ttm_mil", "latest_quarter_revenue_mil", "latest_quarter_gross_margin_pct", "latest_primary_units_description", "latest_unit_monetization_description",
             "operating_cash_flow_ttm_mil", "adjusted_operating_income_ttm_mil", "net_income_ttm_mil", "dna_ttm_mil", "capex_ttm_mil", "sbc_ttm_mil", "one_off_net_mil", "cash_mil", "debt_mil", "equity_mil", "diluted_shares_mil", "revenue_growth_pct", "economic_moat", "moat_type", "moat_scope", "predictability_tier", "predictability_score"]
     extracted = {}
     for k in keys:
@@ -111,7 +112,7 @@ def parse_json_robust(text: str) -> Optional[Dict[str, Any]]:
         if m_val:
             val_str = m_val.group(1).replace('\\"', '"').replace('\\n', '\n').strip()
             m_num_in_str = re.search(r'^\$?\s*([+-]?[\d,]+(?:\.\d+)?)$', val_str)
-            if m_num_in_str and k not in ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way", "economic_moat", "moat_type", "moat_scope", "predictability_tier", "predictability_score"]:
+            if m_num_in_str and k not in ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way", "economic_moat", "moat_type", "moat_scope", "predictability_tier", "predictability_score", "latest_primary_units_description", "latest_unit_monetization_description"]:
                 try:
                     extracted[k] = float(m_num_in_str.group(1).replace(",", ""))
                 except (ValueError, TypeError):
@@ -2580,9 +2581,14 @@ Provide a concise, highly factual briefing synthesizing the exact sequential qua
     print(f"  [Step 3/5] Extracting statutory 10-K/20-F balance sheet and cash flow metrics for {ticker}...", flush=True)
     audit_prompt = f"""You are a Forensic Financial Auditor researching {ticker} ({company_name}) at current real market price ${current_price:.2f}.
 
-Use Google Search to retrieve the statutory 10-K / 20-F / 10-Q filings and TTM financial numbers for {ticker}.
+Use Google Search to retrieve the statutory 10-K / 20-F / 10-Q filings, latest quarterly reports (Q1/Q2/Q3/Q4 2025/2026), and TTM financial numbers for {ticker}.
 IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, convert to USD at ~5.6 BRL/USD. Return purely numerical floats without symbols or commas.
 
+- Trailing 12-Month Revenue ($M USD)
+- Latest Reported Quarter Revenue ($M USD)
+- Latest Quarter Gross Margin (%)
+- Exact Latest Primary Unit Volume (e.g. "12,823 active buyers (+17.1% YoY) and 1,465 active 3P sellers (+26.1% YoY)", or "3.16M paying users (-16.4% YoY)")
+- Exact Latest Unit Monetization (e.g. "$215,000 average spend per buyer and 15.5% 3P take rate", or "$21.96 monthly ARPPU")
 - Trailing Operating Cash Flow (OCF) ($M USD)
 - Trailing Net Income ($M USD)
 - Trailing Depreciation & Amortization ($M USD)
@@ -2607,6 +2613,11 @@ IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, 
 Return ONLY a valid JSON object matching this schema:
 ```json
 {{
+  "trailing_revenue_ttm_mil": float,
+  "latest_quarter_revenue_mil": float,
+  "latest_quarter_gross_margin_pct": float,
+  "latest_primary_units_description": string,
+  "latest_unit_monetization_description": string,
   "operating_cash_flow_ttm_mil": float,
   "net_income_ttm_mil": float,
   "dna_ttm_mil": float,
@@ -2686,6 +2697,13 @@ Return ONLY a valid JSON object matching this schema:
     print(f"  ├─ Balance Sheet: Cash=${cash:,.1f}M | Debt=${debt:,.1f}M -> Net Cash: ${net_cash_per_share:+.2f}/sh (${net_cash_total:+,.0f}M)", flush=True)
     print(f"  └─ Capital Efficiency: Owner ROIC={owner_roic:.1f}% | Moat={moat} | Rev Growth={rev_growth:+.1f}%\n", flush=True)
 
+    ttm_rev = float(audit_data.get("trailing_revenue_ttm_mil") or 0.0)
+    lq_rev = float(audit_data.get("latest_quarter_revenue_mil") or 0.0)
+    lq_gm = float(audit_data.get("latest_quarter_gross_margin_pct") or 0.0)
+    unit_desc = audit_data.get("latest_primary_units_description") or "Active commercial volume units"
+    monet_desc = audit_data.get("latest_unit_monetization_description") or "Unit monetization and take-rate yield"
+    annualized_runrate = lq_rev * 4.0 if lq_rev > 0 else (ttm_rev if ttm_rev > 0 else 1000.0)
+
     # ---------------------------------------------------------
     # Step 5: Draft Synthesis of The 4 Core Deep Forensic Sections
     # ---------------------------------------------------------
@@ -2699,6 +2717,14 @@ Net Balance Sheet Cash / (Debt): ${net_cash_per_share:+.2f} / share (${net_cash_
 Audited Owner ROIC (OE / Invested Capital): {owner_roic:.1f}% | Moat: {moat}
 Recent Revenue Growth: {rev_growth:+.1f}% YoY
 
+=== REAL-TIME STATUTORY & UNIT METRICS ===
+- Trailing 12M Revenue: ${ttm_rev:,.1f}M
+- Latest Quarter Revenue: ${lq_rev:,.1f}M -> Current Annualized Run-Rate: ${annualized_runrate:,.1f}M
+- Latest Quarter Gross Margin: {lq_gm:.1f}%
+- Exact Latest Volume Units: {unit_desc}
+- Exact Latest Unit Monetization: {monet_desc}
+- Liquid Cash & Investments: ${cash:,.1f}M | Total Debt: ${debt:,.1f}M -> Net Cash: ${net_cash_total:+,.0f}M (${net_cash_per_share:+.2f}/sh)
+
 === DEEP FORENSIC INVESTIGATION FINDINGS ===
 [INVESTIGATED HEADWINDS & SKEPTICISM]:
 {headwinds_facts}
@@ -2708,22 +2734,22 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 ============================================
 
 You are an institutional value investor (in the tradition of Warren Buffett, Charlie Munger, Howard Marks, and Seth Klarman).
-Your goal is to write a rigorous, sober, deeply conservative 4-section investment thesis:
+Your goal is to write a rigorous, sober, deeply grounded 4-section investment thesis:
 - Understand what Mr. Market is worried about.
 - Reverse-engineer the skeptic math behind today's valuation.
 - Clearly describe how the business is actually performing today based on recent quarterly results.
 - Honestly extrapolate what happens over the next 5 years if things simply continue as they are going now.
   * SOBER CONSERVATISM RULES:
+    - Real-Time Baseline Anchor: Always anchor starting numbers to the real-time annualized run rate (${annualized_runrate:,.1f}M) and exact statutory units ({unit_desc}). Do NOT use stale outdated figures.
     - Reverse Operating Leverage: If revenue/units contract, fixed costs (hosting, R&D, defensive S&M, G&A) are sticky; owner cash margins must severely compress, not magically remain high.
-    - Debt & Interest Reality: If the company carries net debt, cash flow is absorbed by interest expense (at 8-10%) and debt retirement. Zero cash for share buybacks until debt is safe.
-    - Terminal Multiple Realism: Decaying or unmoated businesses must use compressed terminal multiples (3.0x-6.0x P/OE); never assume unearned multiple expansion on melting ice cubes.
-    - Cyclical Stress-Testing: For cyclical or marketplace models (e.g. GCT), stress-test macro shocks (freight rates, tariffs, seller churn).
+    - Explicit Balance Sheet Cash Bridge: Explicitly calculate (Starting Net Cash + 5Y FCF - Buybacks - CapEx = Ending Net Cash).
+    - 3-Scenario Risk/Reward Range: Provide an institutional Bear / Base / Bull valuation matrix rather than false single-point precision.
 
 Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps with clean numbered lists (1. ... 2. ...). Do NOT use raw monospace terminal blocks, and do NOT use emojis.
 
-1. "market_pricing_in" (The Market Skepticism Story):
-   - In simple, plain English, explain the exact skeptical narrative and operational headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price and {p_oe:.1f}x P/OE.
-   - Detail the specific real-world fears (e.g. user churn, pricing pressure, competitive threats, debt load) leading to today's depressed multiple.
+1. "market_pricing_in" (The Market Skepticism & Disconnect Story):
+   - In simple, plain English, explain the exact skeptical narrative and operational headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price ({p_oe:.1f}x P/OE, {ev_oe:.1f}x EV/OE).
+   - Frame the core investment asymmetry: is the market pricing current earnings as peak/unsustainable despite underlying volume growth, expanding margins, and net cash? Or is it pricing genuine structural terminal decay?
 
 2. "why_it_might_be_right" (Reverse-Engineering the Market's Pricing & Skeptic Math):
    - Provide a step-by-step mathematical reverse-engineering showing what operational decay justifies today's market price of ${current_price:.2f}:
@@ -2736,18 +2762,21 @@ Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps w
 
 3. "how_things_are_going_now" (The Operational Reality Story - Sequential 3-4 Quarters):
    - In simple, plain English, explain how the business is ACTUALLY performing today based on the exact last 3 to 4 quarterly releases.
-   - Detail the unvarnished reality: whether users are churning or growing, revenue trajectory, margin resilience, cash flow generation, and capital allocation.
+   - Detail the unvarnished reality: exact active volume units ({unit_desc}), revenue trajectory (${annualized_runrate:,.1f}M run-rate), gross margin progression ({lq_gm:.1f}%), cash flow generation, and capital allocation.
 
-4. "what_if_it_keeps_going_that_way" (Unvarnished Bottom-Up Continuation Math):
-   - STRICT REQUIREMENT: Do NOT use lazy top-down percentage growth assumptions (e.g. "assuming 10% CAGR" or "assuming growth slows to X%").
-   - Build an explicit 7-step Bottom-Up Unit Economic Ledger:
-     1. Starting Unit Baseline: State exact starting operational volume units (e.g. active buyers/sellers, paying users, store count, seats, GMV) and unit monetization yields (ARPU, take-rate, spend/buyer, comp sales).
-     2. 5-Year Unit Volume Extrapolation: Project the volume units over 5 years based on current trajectory (continue attrition if decaying; extrapolate conservative net additions if compounding).
+4. "what_if_it_keeps_going_that_way" (Unvarnished Bottom-Up Continuation Math & 3-Scenario Range):
+   - STRICT REQUIREMENT: Anchor starting revenue to the real annualized run rate (${annualized_runrate:,.1f}M) and exact unit volume ({unit_desc}). Do NOT use top-down percentage growth shortcuts.
+   - Build an explicit 7-step Bottom-Up Ledger with an explicit Balance Sheet Cash Bridge and 3-Scenario Valuation Range:
+     1. Starting Unit Baseline: State exact starting volume units ({unit_desc}), monetization yield ({monet_desc}), and annualized revenue run-rate (${annualized_runrate:,.1f}M).
+     2. 5-Year Unit Volume Extrapolation: Project volume units over 5 years based on current momentum (continue attrition if decaying; extrapolate realistic growth if compounding).
      3. Projected Year 5 Revenue (Units × Monetization): Multiply Year 5 Volume Units × Year 5 Unit Monetization Yield to derive Projected Year 5 Revenue = $[Rev_5]M.
-     4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 5 Revenue to derive Projected Year 5 Total Owner Earnings = $[OE_Total_5]M (Owner Cash Margin = [X]%). Apply reverse operating leverage if revenue is declining.
-     5. Capital Allocation & Share Count: Account for balance sheet reality (if indebted, cash pays down debt; if net cash rich, account for steady buybacks) to determine Year 5 Diluted Shares = [S_5]M.
-     6. Year 5 Owner Earnings Per Share & Target Price: ($[OE_Total_5]M / [S_5]M) = $[OE_sh_5]/share. Apply a conservative terminal multiple + net cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Expected Year 5 Target Share Price $[Target_Price]/share.
-     7. Expected 5-Year Total Return & Capital Allocation Bridge: State Price Appreciation CAGR ($[Target_Price] / ${current_price:.2f})^(1/5) - 1 = [X]%, detail where 5-year cash flow goes (e.g. debt service/derisking or buybacks/dividends), and state Total Realized Return (IRR) of [Y]% per annum.
+     4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 5 Revenue to derive Projected Year 5 Total Owner Earnings = $[OE_Total_5]M (Owner Cash Margin = [X]%).
+     5. Explicit 5-Year Balance Sheet & Capital Allocation Bridge: Detail Starting Net Cash (${net_cash_total:+,.0f}M) + Cumulative 5Y FCF ($[Cumulative_FCF]M) - Cumulative Buybacks ($[Buybacks]M retiring [Shares_Retired]M shares) - CapEx ($[CapEx_5Y]M) = Ending Year 5 Net Cash $[Ending_Net_Cash]M ($[Ending_Net_Cash_Per_Share]/sh) across [S_5]M shares.
+     6. Institutional 3-Scenario Valuation Range:
+        - Bear Case ($[Bear_Target_Low]-$[Bear_Target_High]): Macro/cyclical shock, margin compression, [X]x terminal P/OE.
+        - Base Case ($[Base_Target_Low]-$[Base_Target_High]): Disciplined continuation, stable margins, [Y]x terminal P/OE -> Expected Base Target $[Target_Price]/share.
+        - Bull Case ($[Bull_Target_Low]-$[Bull_Target_High]): Marketplace network flywheel acceleration, margin expansion, [Z]x terminal P/OE.
+     7. Expected 5-Year Total Return Bridge: State Base Price Appreciation CAGR ($[Target_Price] / ${current_price:.2f})^(1/5) - 1 = [X]%, and state Total Realized Return (IRR) of [Y]% per annum.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
@@ -2784,6 +2813,8 @@ TARGET FINANCIAL AUDIT METRICS:
 - Market Price: ${current_price:.2f} | P/OE: {p_oe:.1f}x | EV/OE: {ev_oe:.1f}x | Owner Yield: {owner_yield:.1f}%
 - Starting True Normalized Owner Earnings (OE₀): ${oe_per_share:.2f}/sh (${oe_total:,.1f}M based on OCF cash reconciliation)
 - Net Balance Sheet Cash / (Debt): ${net_cash_per_share:+.2f}/sh (${net_cash_total:+,.0f}M)
+- Real-Time Annualized Run-Rate: ${annualized_runrate:,.1f}M | Latest Gross Margin: {lq_gm:.1f}%
+- Exact Latest Volume Units: {unit_desc}
 - Audited Owner ROIC: {owner_roic:.1f}% | Moat: {moat}
 
 DRAFT SECTIONS SUBMITTED FOR AUDIT:
@@ -2802,10 +2833,12 @@ DRAFT SECTIONS SUBMITTED FOR AUDIT:
 YOUR CIO AUDIT GOAL:
 Act as a skeptical, conservative peer reviewer:
 - Strip out any unearned optimism, corporate spin, or turnaround fantasies.
+- AUDIT UNIT & REVENUE INTEGRITY: Verify that Section 3 and Section 4 use the exact latest statutory volume units ({unit_desc}) and annualized run-rate (${annualized_runrate:,.1f}M). Reject any stale historical numbers.
 - STRICT BAN ON LAZY TOP-DOWN CAGRS: Check Section 4. If it contains generic hand-waving like "assuming a steady 10% CAGR" or "assuming top-line growth slows to X%", REJECT and replace it with explicit bottom-up multiplication: Volume Units × Unit Yield ➔ Revenue − Cash Expenses ➔ Total Owner Earnings.
+- AUDIT BALANCE SHEET CASH BRIDGE: Ensure Section 4 contains an explicit 5-year cash bridge (Starting Net Cash + 5Y FCF - Buybacks - CapEx = Ending Net Cash).
+- ENFORCE 3-SCENARIO RANGE: Ensure Section 4 provides a clean Bear / Base / Bull valuation matrix.
 - ENFORCE REVERSE OPERATING LEVERAGE: If revenue/units contract, ensure Owner Cash Margin compresses realistically; do not allow fantasy high margins during shrinkage.
 - MOAT SKEPTICISM CHECK: Verify that the assigned Economic Moat ({moat}) is 100% rigorous. If the company faces low switching costs ($0 to leave) and decaying paying users (e.g. Bumble), force-downgrade any unearned 'Narrow Moat' claims to 'Weak Moat' or 'No Moat'.
-- Ensure cash allocation is grounded in balance sheet reality (e.g. debt service vs buybacks) and that 5-year returns are mathematically sound without double-counting.
 - Deliver the final, perfected 4 sections.
 
 Respond STRICTLY in valid JSON matching this schema:
