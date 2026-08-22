@@ -14,12 +14,12 @@ load_dotenv()
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
-DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
+DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.7-flash")
 _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
 GEMINI_MODELS_LADDER = [
+    "gemini-3.7-flash",
     "gemini-3.6-flash",
-    "gemini-3.5-flash",
-    "gemini-3.5-flash-lite"
+    "gemini-3.5-flash"
 ]
 if DEFAULT_GEMINI_MODEL not in GEMINI_MODELS_LADDER:
     GEMINI_MODELS_LADDER.insert(0, DEFAULT_GEMINI_MODEL)
@@ -649,27 +649,17 @@ def call_gemini_with_search(
                                 
                     return "Analysis completed."
                 elif response.status_code in (500, 502, 503, 504, 429):
-                    if attempt < max_retries:
-                        jitter = random.uniform(0.5, 1.8)
-                        wait_time = round(min(24.0, (2.0 ** attempt) + jitter), 2)
-                        print(f"  ⚠️ Gemini API ({model_name}) returned HTTP {response.status_code}. Retrying in {wait_time}s (Attempt {attempt}/{max_retries})...", flush=True)
-                        time.sleep(wait_time)
-                        continue
-                    elif model_name != models_to_try[-1]:
-                        switch_to_fallback_model(f"HTTP {response.status_code} after {max_retries} attempts on {model_name}")
+                    if model_name != models_to_try[-1]:
+                        switch_to_fallback_model(f"HTTP {response.status_code}")
+                        break
+                    else:
+                        last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
                         break
                 else:
                     last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
-                    break
             except (requests.RequestException, Exception) as req_err:
-                if attempt < max_retries:
-                    jitter = random.uniform(0.5, 1.8)
-                    wait_time = round(min(24.0, (2.0 ** attempt) + jitter), 2)
-                    print(f"  ⚠️ Network/Connection error on {model_name} ({req_err}). Retrying in {wait_time}s (Attempt {attempt}/{max_retries})...", flush=True)
-                    time.sleep(wait_time)
-                    continue
-                elif model_name != models_to_try[-1]:
-                    switch_to_fallback_model(f"{req_err} after {max_retries} attempts on {model_name}")
+                if model_name != models_to_try[-1]:
+                    switch_to_fallback_model(f"Exception: {req_err}")
                     break
                 last_err = RuntimeError(f"Gemini API network error: {req_err}")
                 break
@@ -2417,7 +2407,7 @@ def call_gemini_direct(prompt: str, system_instruction: str = "", use_search: bo
     if not api_key:
         raise ValueError("Missing GEMINI_API_KEY / GOOGLE_API_KEY.")
     
-    models = ["gemini-3.6-flash", "gemini-2.5-flash", "gemini-1.5-flash"]
+    models = ["gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash"]
     for model in models:
         try:
             url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
@@ -2425,7 +2415,7 @@ def call_gemini_direct(prompt: str, system_instruction: str = "", use_search: bo
                 "contents": [{"parts": [{"text": prompt}]}],
                 "generationConfig": {
                     "temperature": 0.1,
-                    "maxOutputTokens": 4096
+                    "maxOutputTokens": 8192
                 }
             }
             if use_search:
@@ -2433,7 +2423,7 @@ def call_gemini_direct(prompt: str, system_instruction: str = "", use_search: bo
             if system_instruction:
                 payload["systemInstruction"] = {"parts": [{"text": system_instruction}]}
             
-            resp = requests.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=45)
+            resp = requests.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=90)
             if resp.status_code == 200:
                 data = resp.json()
                 candidates = data.get("candidates", [])
