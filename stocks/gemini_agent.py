@@ -2562,6 +2562,10 @@ Provide a concise, highly factual briefing synthesizing the exact sequential qua
         headwinds_facts = fut_headwinds.result()
         reality_facts = fut_reality.result()
 
+    print(f"\n  📋 [Forensic Intelligence Summary for {ticker}]:", flush=True)
+    print(f"  ├─ Bear Headwinds & Unit Risks: {headwinds_facts[:240].strip()}...", flush=True)
+    print(f"  └─ Operational Reality & Frameworks: {reality_facts[:240].strip()}...\n", flush=True)
+
     # ---------------------------------------------------------
     # Step 3: Statutory 10-K / 20-F Balance Sheet & Cash Flow Audit
     # ---------------------------------------------------------
@@ -2656,6 +2660,12 @@ Return ONLY a valid JSON object matching this schema:
     ev_oe = ev / oe_total if oe_total > 0 else 0.0
     owner_yield = (oe_per_share / current_price) * 100.0 if current_price > 0 else 0.0
 
+    print(f"\n  📊 [Statutory 10-K Financial Reality for {ticker}]:", flush=True)
+    print(f"  ├─ Cash Flow: OCF=${ocf:,.1f}M | NI=${net_income:,.1f}M | D&A=${dna:,.1f}M | SBC=${sbc:,.1f}M | MaintCapEx=${maint_capex:,.1f}M", flush=True)
+    print(f"  ├─ True Starting Owner Earnings (OE₀): ${oe_per_share:.2f}/sh (${oe_total:,.1f}M) -> {p_oe:.1f}x P/OE | Owner Yield: {owner_yield:.1f}%", flush=True)
+    print(f"  ├─ Balance Sheet: Cash=${cash:,.1f}M | Debt=${debt:,.1f}M -> Net Cash: ${net_cash_per_share:+.2f}/sh (${net_cash_total:+,.0f}M)", flush=True)
+    print(f"  └─ Capital Efficiency: Owner ROIC={owner_roic:.1f}% | Moat={moat} | Rev Growth={rev_growth:+.1f}%\n", flush=True)
+
     # ---------------------------------------------------------
     # Step 5: Draft Synthesis of The 4 Core Deep Forensic Sections
     # ---------------------------------------------------------
@@ -2739,6 +2749,12 @@ Respond STRICTLY in valid JSON matching this schema:
     )
     draft_data = parse_json_robust(raw_draft) or {}
 
+    print(f"\n  📝 [Step 5 Draft Sections for {ticker}]:", flush=True)
+    print(f"  ├─ Section 1 (Market Story): {draft_data.get('market_pricing_in', '')[:140].strip()}...", flush=True)
+    print(f"  ├─ Section 2 (Skeptic Math): {draft_data.get('why_it_might_be_right', '')[:140].strip()}...", flush=True)
+    print(f"  ├─ Section 3 (Operational Reality): {draft_data.get('how_things_are_going_now', '')[:140].strip()}...", flush=True)
+    print(f"  └─ Section 4 (Continuation Math): {draft_data.get('what_if_it_keeps_going_that_way', '')[:140].strip()}...\n", flush=True)
+
     # ---------------------------------------------------------
     # Step 6: Senior Investment Committee Audit & Refinement Loop
     # ---------------------------------------------------------
@@ -2796,6 +2812,12 @@ Respond STRICTLY in valid JSON matching this schema:
         use_search=True
     )
     p_data = parse_json_robust(raw_final) or draft_data or {}
+
+    print(f"\n  🎯 [Final Perfected Sections Audited by CIO for {ticker}]:", flush=True)
+    print(f"  ├─ Section 1 (Market Story): {p_data.get('market_pricing_in', '')[:140].strip()}...", flush=True)
+    print(f"  ├─ Section 2 (Skeptic Math): {p_data.get('why_it_might_be_right', '')[:140].strip()}...", flush=True)
+    print(f"  ├─ Section 3 (Operational Reality): {p_data.get('how_things_are_going_now', '')[:140].strip()}...", flush=True)
+    print(f"  └─ Section 4 (Continuation Math): {p_data.get('what_if_it_keeps_going_that_way', '')[:140].strip()}...\n", flush=True)
 
     return {
         "ticker": ticker,
