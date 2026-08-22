@@ -799,7 +799,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">1</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">0</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -842,40 +842,11 @@
                     </thead>
                     <tbody>
                         
-        <tr class="table-row" data-ticker="BMBL" data-baseline="2.8" onclick="location.href='reports/BMBL.html'">
-            <td>
-                <div class="tbl-ticker-cell">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BMBL" alt="BMBL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BM</span></div>
-                        <span class="tbl-symbol">BMBL</span>
-                    </div>
-                    <span class="tbl-company-hover">Bumble Inc.</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-price-cell">
-                    <span class="tbl-price tbl-price-BMBL">$2.80</span>
-                    <span class="tbl-return tbl-ret-BMBL pos">+0.00%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-labels-cell">
-                    <div class="tbl-labels-stack" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
-        <span class="moat-text-label" style="color: var(--accent-warm); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
-        <span class="pred-text-label" style="color: var(--text-secondary); font-size: 0.76rem; font-weight: 400; font-family: var(--font-sans); white-space: nowrap;">Moderate Predictability</span>
-    </div>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-target-cell">
-                    <span class="tbl-target-price">$6.71</span>
-                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +139.6%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
-                    <span class="tbl-cat-date">Nov 20, 2026</span>
+        <tr>
+            <td colspan="5" style="border-bottom: none !important; padding: 0 !important;">
+                <div class="empty-state-box">
+                    <div class="empty-state-title">No Stocks Tracked</div>
+                    <div class="empty-state-sub">Ready for coverage</div>
                 </div>
             </td>
         </tr>
@@ -887,39 +858,10 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div class="grid-card" data-ticker="BMBL" data-baseline="2.8" onclick="location.href='reports/BMBL.html'">
-            <div class="grid-card-top">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BMBL" alt="BMBL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BM</span></div>
-                    <span class="grid-symbol">BMBL</span>
-                </div>
-                <div class="grid-price grid-price-BMBL">$2.80</div>
-            </div>
-            <div class="grid-labels-row" style="margin: 4px 0 8px;">
-                <div class="tbl-labels-stack" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
-        <span class="moat-text-label" style="color: var(--accent-warm); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
-        <span class="pred-text-label" style="color: var(--text-secondary); font-size: 0.76rem; font-weight: 400; font-family: var(--font-sans); white-space: nowrap;">Moderate Predictability</span>
-    </div>
-            </div>
-            <div class="grid-company">Bumble Inc.</div>
-            
-            <div class="grid-metrics-box">
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Return</span>
-                    <span class="grid-stat-val grid-ret-BMBL pos">+0.00%</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">5Y Target</span>
-                    <span class="grid-stat-val" style="color: var(--text-title);">$6.71</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">5Y Delta</span>
-                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +139.6%</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Catalyst</span>
-                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
-                </div>
+        <div style="grid-column: 1 / -1; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px;">
+            <div class="empty-state-box">
+                <div class="empty-state-title">No Stocks Tracked</div>
+                <div class="empty-state-sub">Ready for coverage</div>
             </div>
         </div>
         
