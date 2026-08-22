@@ -14,11 +14,11 @@ load_dotenv()
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
-DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.7-flash")
+DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
 _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
 GEMINI_MODELS_LADDER = [
-    "gemini-3.7-flash",
     "gemini-3.6-flash",
+    "gemini-3.7-flash",
     "gemini-3.5-flash"
 ]
 if DEFAULT_GEMINI_MODEL not in GEMINI_MODELS_LADDER:
@@ -2407,7 +2407,7 @@ def call_gemini_direct(prompt: str, system_instruction: str = "", use_search: bo
     if not api_key:
         raise ValueError("Missing GEMINI_API_KEY / GOOGLE_API_KEY.")
     
-    models = ["gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash"]
+    models = ["gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.5-flash"]
     for model in models:
         try:
             url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
@@ -2423,7 +2423,7 @@ def call_gemini_direct(prompt: str, system_instruction: str = "", use_search: bo
             if system_instruction:
                 payload["systemInstruction"] = {"parts": [{"text": system_instruction}]}
             
-            resp = requests.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=90)
+            resp = requests.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=35)
             if resp.status_code == 200:
                 data = resp.json()
                 candidates = data.get("candidates", [])
@@ -2511,28 +2511,38 @@ def run_forensic_audit_agent(ticker: str, company_name: str, current_price: floa
     # ---------------------------------------------------------
     # Step 1: Deep Grounded Investigation of Headwinds, Risks & Skepticism
     # ---------------------------------------------------------
-    print(f"  [Step 1/5] Deep forensic search: Investigating active headwinds, NPLs, short thesis & risks for {ticker}...", flush=True)
+    print(f"  [Step 1/5] Deep forensic search: Investigating active headwinds, unit risks & short thesis for {ticker}...", flush=True)
     headwinds_prompt = f"""You are a Senior Short-Seller & Forensic Risk Analyst researching {ticker} ({company_name}) at current market price ${current_price:.2f}.
 
-Use Google Search to find the EXACT, SPECIFIC operational and financial reasons why investors and the market are skeptical or selling {ticker}:
-- What are the latest specific headwinds (e.g. rising Non-Performing Loans / NPLs, delinquency rates, credit loss provisions, customer churn, take-rate compression, regulatory friction, interest rate/funding costs, or segment deceleration)?
-- Cite specific metrics from recent 2025/2026 earnings reports, analyst notes, and conference calls (e.g. exact NPL 90+ percentages, specific product desks, provisioning dollar amounts, macroeconomic pressures).
+Use Google Search to find the EXACT, SPECIFIC operational unit drivers and financial vulnerabilities why investors and the market are skeptical or selling {ticker}:
+1. What specific operational unit metrics is the market concerned about?
+   - Unit Volumes: (e.g. active users/DAU/MAU, enterprise cloud seats, subscriber additions, store comps, merchant count, TPV/GMV volume deceleration)
+   - Unit Monetization / Pricing Power: (e.g. ARPU compression, take-rate erosion, discounting, pricing pushback, churn rate, NPL default rates, software seat downgrades)
+2. What specific competitive threats and macro headwinds are impairing these unit drivers? (e.g. specific low-cost competitors, AI substitution, regulatory fee caps, funding costs).
+3. Cite exact figures from recent 2025/2026 earnings reports, regulatory filings, and analyst disclosures.
 
-Provide a concise, highly factual briefing of the core skeptical thesis and operational vulnerabilities."""
-    headwinds_facts = call_gemini_direct(prompt=headwinds_prompt, use_search=True)
+Provide a concise, highly factual briefing of the core skeptical thesis and operational unit vulnerabilities."""
 
-    # ---------------------------------------------------------
-    # Step 2: Deep Grounded Investigation of Operational Reality & Latest Earnings
-    # ---------------------------------------------------------
-    print(f"  [Step 2/5] Deep forensic search: Investigating latest quarterly earnings, actual operational metrics & unit economics for {ticker}...", flush=True)
     reality_prompt = f"""You are a Lead Value Investor auditing {ticker} ({company_name}).
 
-Use Google Search to inspect {ticker}'s latest quarterly earnings report and conference call transcript:
-- What are the actual underlying operating numbers (e.g. revenue growth YoY, active client count, transaction volume / TPV, gross profit margin, software cross-sell, banking deposits, provision coverage ratio, and share buybacks / capital return)?
-- How is management countering active headwinds? What are the actual resilient segments?
+Use Google Search to inspect {ticker}'s latest quarterly earnings report, investor presentations, and conference call transcript to extract the GROUND TRUTH OPERATIONAL UNIT ECONOMICS:
+1. What are the company's ACTUAL reported core unit volume metrics?
+   - (e.g. Active Users / DAU / MAU, Enterprise Cloud Seats / ARR, Store Count / Square Footage, Active Merchants, TPV / GMV, Enrolled Units / Deliveries).
+2. What are the company's ACTUAL unit monetization and pricing metrics?
+   - (e.g. Average Revenue Per User [ARPU], Take Rate %, ARR per Seat / NRR %, Comp Store Sales %, Gross Tuition per Student, Average Order Value).
+3. Benchmark Comparison / Monetization Runway:
+   - How does this company's unit monetization compare to mature industry peers? (e.g. Reddit ARPU vs Meta/Instagram ARPU; StoneCo take rate vs Cielo/PagBank; Adobe seat ARR vs peers; Lululemon sales/sqft vs peers). Is there significant unmonetized runway?
+4. Unit Cash Conversion & Capital Allocation:
+   - What is the gross margin %, operating margin %, true cash generation, and share repurchase / buyback pace?
 
-Provide a concise, highly factual briefing of the true operational reality and recent quarterly disclosures."""
-    reality_facts = call_gemini_direct(prompt=reality_prompt, use_search=True)
+Provide a concise, highly factual briefing of the true operational reality, actual unit numbers, and peer benchmarks."""
+
+    print(f"  [Step 1-2/5] Deep forensic search: Concurrently investigating headwinds, unit economics & peer benchmarks for {ticker}...", flush=True)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        fut_headwinds = executor.submit(call_gemini_direct, headwinds_prompt, "", True)
+        fut_reality = executor.submit(call_gemini_direct, reality_prompt, "", True)
+        headwinds_facts = fut_headwinds.result()
+        reality_facts = fut_reality.result()
 
     # ---------------------------------------------------------
     # Step 3: Statutory 10-K / 20-F Balance Sheet Audit
@@ -2594,8 +2604,10 @@ Return ONLY a valid JSON object matching this schema:
     moat = audit_data.get("economic_moat") or "Narrow Moat"
     rev_growth = float(audit_data.get("revenue_growth_pct") or 15.0)
 
-    # Maintenance CapEx Anchor (empirically bounded by D&A)
-    maint_capex = min(capex, max(dna * 0.70, capex * 0.50))
+    # True Maintenance CapEx Anchor (empirically bounded by D&A):
+    # In tech/software/digital platforms, growth CapEx (AI data centers, custom silicon) expands future capacity.
+    # True maintenance CapEx required to sustain current unit volume is anchored to D&A (typically 0.8x to 1.0x D&A), NOT total growth CapEx.
+    maint_capex = min(capex, dna * 1.05) if dna > 0 else min(capex, 100.0)
     
     # Buffett True Owner Earnings = Net Income + D&A - Maintenance CapEx - SBC - Net One-off Gains
     oe_total = net_income + dna - maint_capex - sbc - one_offs
@@ -2632,47 +2644,46 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 [INVESTIGATED HEADWINDS & SKEPTICISM]:
 {headwinds_facts}
 
-[INVESTIGATED OPERATIONAL REALITY & LATEST EARNINGS]:
+[INVESTIGATED OPERATIONAL REALITY, UNIT ECONOMICS & BENCHMARKS]:
 {reality_facts}
 ============================================
 
-TASK & PHILOSOPHY:
-You are a Lead Value Investor & Forensic Analyst writing an institutional investment memo.
-Alpha comes from the delta when the market is pricing disaster, but actual business operations are healthy, resilient, or compounding.
+CORE PHILOSOPHY & MANDATE:
+You are an elite Institutional Value Investor (in the tradition of Warren Buffett, Charlie Munger, and Howard Marks).
+RULE #1: ZERO BASELESS TOP-DOWN NUMBERS. NEVER assume arbitrary growth rates (e.g. never say 'assume earnings grow at 8% CAGR' or 'multiple is 12x').
+RULE #2: ALL VALUATIONS MUST BE BUILT FROM BOTTOM-UP UNIT ECONOMICS:
+(Unit Volume × Unit Monetization/ARPU/Price) ➔ Projected Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings ➔ Per-Share Owner Earnings ➔ Terminal Multiple + Net Cash/Debt.
 
-CRITICAL INSTRUCTIONS:
-- Ground your analysis DEEPLY in the specific real-world facts provided above (e.g. if Non-Performing Loans / NPLs, specific credit desks, Selic interest rates, take-rate dynamics, or specific product numbers were uncovered, YOU MUST CITE AND EXPLAIN THEM SPECIFICALLY, not with generic boilerplates).
-- Provide EXACTLY 4 sections in simple, elegant, plain English. Format key numbers and steps with clear prose or clean numbered lists (1. ... 2. ...). Do NOT use raw monospace terminal blocks, do NOT use emojis, and do NOT use question marks in headings.
+Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps with clean numbered lists (1. ... 2. ...). Do NOT use raw monospace terminal blocks, and do NOT use emojis.
 
 1. "market_pricing_in" (The Market Skepticism Story):
-   - In simple, plain English, explain the exact skeptical story and business headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price and {p_oe:.1f}x P/OE.
-   - Detail the specific real risks uncovered (e.g. rising NPL delinquency rates, credit impairment cycles, funding costs, merchant churn, or competitive disruption).
+   - In simple, plain English, explain the exact skeptical story and operational unit headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price and {p_oe:.1f}x P/OE.
+   - Explain what implied unit breakdown the market fears (e.g. active users stalling, ARPU compressing due to competitor [X], merchant take-rate eroding, or AI substitution).
 
-2. "why_it_might_be_right" (Market Skepticism Math):
-   - Provide clean, mathematically sound back-of-the-napkin math in numbered steps explaining what numbers justify the market's low valuation.
-   - CRITICAL MULTIPLE RULE: In a skeptical/declining scenario, the terminal exit multiple MUST be compressed and realistic (e.g. 3.0x to 6.0x for low-multiple/fintech stocks like STNE, 8.0x to 10.0x for retail/tech). NEVER use an inflated multiple (e.g. never use 15x or 18x on a decaying business, especially if it trades at 3x-9x today).
-   - Show:
-     1. Starting Owner Earnings: ${oe_per_share:.2f} per share.
-     2. Realistic Skeptic Exit Multiple: A compressed multiple reflecting market distrust (e.g. {min(max(p_oe * 0.9, 3.5), 10.0):.1f}x P/OE).
-     3. Implied Year 5 Owner Earnings: What earnings level at this compressed multiple plus balance sheet net cash/debt (${net_cash_per_share:+.2f}/sh) produces today's ${current_price:.2f} stock price.
-     4. Implied Growth/Decay Rate: Show what percentage annual shrinkage or stagnation this implies over 5 years.
-     5. Business Risk Rationale: Connect this math directly to the investigated headwinds (e.g. rising NPL defaults, credit provisioning doubling, fee erosion, interest rate drag).
+2. "why_it_might_be_right" (Skeptic Unit Economics Math):
+   - Provide a step-by-step mathematical derivation showing what pessimistic unit deterioration justifies the market's low valuation.
+   - Numbered Steps:
+     1. Starting Unit Baseline: State the baseline unit volume and unit pricing/monetization that produced starting Owner Earnings of ${oe_per_share:.2f}/share (${oe_total:,.1f}M total).
+     2. Skeptic Unit Deterioration: Assume unit volume stalls/contracts to [specific number] and unit monetization/ARPU compresses to [specific number] due to investigated headwinds.
+     3. Implied Skeptic Year 5 Revenue & Compressed Margin: Calculate the resulting depressed Revenue = (Units × Monetization) = $[X]M. Apply a compressed Owner Cash Margin (e.g. [M]%) ➔ Skeptic Year 5 Total Owner Earnings = $[Y]M.
+     4. Skeptic Terminal Valuation & Share Price: Divide by shares ({shares:.1f}M) to get Skeptic Year 5 OE/share ($[Z]/sh). Apply a realistic compressed skeptic multiple (e.g. 3.0x to 6.0x for low-multiple fintech, 8.0x to 10.0x for tech/retail) and adjust for net balance sheet cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Bear/Skeptic Target Price $[P_Skeptic]/share.
+     5. Business Risk Rationale: Connect this math directly to the operational risks (e.g. churn, margin erosion, capital destruction).
 
 3. "how_things_are_going_now" (The Operational Reality Story):
    - In simple, plain English, explain how the business is ACTUALLY performing today based on latest statutory filings and earnings disclosures.
-   - Cite specific operational metrics (e.g. revenue growth of {rev_growth:+.1f}% YoY, actual NPL coverage ratio, deposit growth, credit book adjustments, capital allocation / buybacks, and audited Owner ROIC of {owner_roic:.1f}%). Where is the disconnect between market panic and actual operational cash flow?
+   - Detail the REAL, verified unit metrics: actual active users/seats/merchants/stores, actual ARPU/take-rate/comp sales, gross margin resilience, audited Owner ROIC of {owner_roic:.1f}%, and capital allocation / buybacks.
+   - Highlight the monetization runway and benchmark comparison (e.g. how the company's current monetization compares to mature peers like Meta, Visa, Salesforce, Nike, etc.).
 
-4. "what_if_it_keeps_going_that_way" (Slightly Conservative Continuation Math):
-   - Provide realistic, slightly conservative back-of-the-napkin math written in clean, simple numbered steps (1. ... 2. ... 3. ... 4. ... 5. ...).
-   - Philosophy: NOT an aggressive bull case. Just how things are actually going today, but with a prudent, slightly conservative margin of safety about future growth and exit multiples.
-   - Prudent growth rate: If current growth is 4-8%, assume modest 3-5% annual growth; if current growth is 15-25%, assume conservative 7-10% CAGR.
-   - Prudent terminal multiple: Use a modest, realistic multiple (e.g. 8-10x for low-multiple fintech/emerging markets like STNE, 11-13x for Narrow Moat retail like LULU, 14-16x for Wide Moat tech).
-   - Show:
-     1. Starting Owner Earnings: ${oe_per_share:.2f} per share.
-     2. Modest 5-year compounding rate -> Year 5 Owner Earnings.
-     3. Conservative terminal multiple -> Year 5 operating business value per share.
-     4. Net balance sheet cash/debt (${net_cash_per_share:+.2f}/sh) -> Expected 5-year share price.
-     5. Expected 5-year annualized IRR return from today's real entry price of ${current_price:.2f}.
+4. "what_if_it_keeps_going_that_way" (Grounded Unit Continuation Math):
+   - Ground the 5-year intrinsic valuation strictly in CONSERVATIVE, VERIFIABLE UNIT EXPANSION (NOT top-down CAGRs):
+   - Numbered Steps:
+     1. Starting Unit Baseline: State baseline starting unit volume (e.g. [X] users/seats/merchants) × baseline unit monetization (e.g. $[Y] ARPU/take-rate/seat price) = Base Revenue.
+     2. Conservative Unit Volume Expansion: Assume unit volume grows modestly from [X] to [X_5] over 5 years (supported by [specific operational driver]).
+     3. Conservative Unit Monetization Expansion: Assume unit monetization/ARPU expands conservatively from $[Y] to $[Y_5] (referencing mature peer benchmark [e.g. peer generates $[W] ARPU, so $[Y_5] is deeply conservative and realistic]).
+     4. Projected Year 5 Revenue & Audited Owner Cash Conversion: Calculate Year 5 Revenue = (X_5 × $Y_5) = $[Rev_5]M. Applying historical audited Owner Cash Margin of [M%] ➔ Year 5 Total Owner Earnings = $[OE_Total_5]M.
+     5. Share Count Retirement & Year 5 Owner Earnings Per Share: Account for diluted shares retired through audited buyback capacity (e.g. shares reduce from {shares:.1f}M to [S_5]M) ➔ Year 5 Owner Earnings per share = $[OE_sh_5]/share.
+     6. Prudent Terminal Multiple & Expected Share Price: Apply an appropriate terminal multiple (e.g. 8-11x for low-multiple fintech, 13-16x for narrow-moat retail, 18-22x for Wide Moat / tech monopolistic compounders with >30% ROIC and net cash balance sheets like GOOG, MSFT, META) and add net balance sheet cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Expected Year 5 Share Price $[Target_Price]/share.
+     7. Expected 5-Year Annualized Return (IRR): Show the annualized capital compounding from today's real entry price of ${current_price:.2f} + the {owner_yield:.1f}% Owner Cash Yield.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
@@ -2691,7 +2702,7 @@ Respond STRICTLY in valid JSON matching this schema:
     # ---------------------------------------------------------
     # Step 6: Senior Investment Committee Audit & Refinement Loop
     # ---------------------------------------------------------
-    print(f"  [Step 6/6] Senior Investment Committee Audit: Stress-testing math, multiples & operational logic for {ticker}...", flush=True)
+    print(f"  [Step 6/6] Senior Investment Committee Audit: Stress-testing unit math, multiples & operational logic for {ticker}...", flush=True)
     audit_critique_prompt = f"""You are the Senior Partner & Chief Investment Officer conducting an exhaustive adversarial audit on a draft investment thesis for {ticker} ({company_name}) at ${current_price:.2f}.
 
 TARGET FINANCIAL AUDIT METRICS:
@@ -2704,27 +2715,28 @@ INVESTIGATED GROUND TRUTH FACTS:
 [Headwinds & Risks]:
 {headwinds_facts}
 
-[Operational Reality & Recent Disclosures]:
+[Operational Reality, Unit Economics & Peer Benchmarks]:
 {reality_facts}
 
 DRAFT SECTIONS SUBMITTED FOR AUDIT:
 [Draft Section 1 - What the Market is Pricing In]:
 {draft_data.get('market_pricing_in', '')}
 
-[Draft Section 2 - Why the Market Might Be Right (Math)]:
+[Draft Section 2 - Why the Market Might Be Right (Skeptic Unit Math)]:
 {draft_data.get('why_it_might_be_right', '')}
 
 [Draft Section 3 - How Things Are Going Now]:
 {draft_data.get('how_things_are_going_now', '')}
 
-[Draft Section 4 - What If It Keeps Going That Way (Continuation Math)]:
+[Draft Section 4 - What If It Keeps Going That Way (Grounded Unit Continuation Math)]:
 {draft_data.get('what_if_it_keeps_going_that_way', '')}
 
-CIO AUDIT & STRESS-TEST INSTRUCTIONS:
-1. Mathematical Verification: Verify every step of math in Section 2 and Section 4. Ensure starting Owner Earnings (${oe_per_share:.2f}), compounding calculations, multiple applications, net debt adjustments (${net_cash_per_share:+.2f}), and 5-year IRR percentages are 100% mathematically exact and logical.
-2. Realistic Valuation Constraints: Ensure the skeptic multiple in Section 2 is compressed and realistic (e.g. 3.0x to 6.0x for low-multiple stocks, NEVER an inflated multiple like 18x on decaying earnings). Ensure Section 4 uses a prudent, conservative multiple (e.g. 8x to 13x).
-3. Depth & Specificity: Ensure all investigated real-world facts (e.g. exact NPL percentages, provisioning surges, Selic rates, deposit growth, client additions, buybacks) are explicitly explained without generic fluff.
-4. Conservative Tone: Confirm Section 4 is a grounded continuation, NOT an aggressive bull case.
+CIO AUDIT & ENFORCEMENT RULES:
+1. STRICT UNIT ECONOMICS ENFORCEMENT: Reject any top-down abstract growth rates (e.g. 'assume 10% CAGR'). Section 2 and Section 4 MUST explicitly calculate:
+   (Unit Volume × Unit Monetization/ARPU/Price) ➔ Year 5 Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings ➔ Per-Share Owner Earnings ➔ Target Price.
+2. Mathematical Consistency: Ensure starting Owner Earnings (${oe_per_share:.2f}/sh), math steps, share count adjustments, and 5-year IRR calculations are 100% mathematically exact and logical.
+3. Realistic Valuation Constraints: In Section 2, multiple MUST be compressed and realistic (e.g. 3.0x to 6.0x for low-multiple stocks, 8.0x to 10.0x for tech/retail). In Section 4, multiple MUST be conservative and grounded.
+4. Peer Benchmarking: In Section 3 and Section 4, ensure monetization assumptions (ARPU, take rate, seat price) are explicitly benchmarked against mature industry peers (e.g. Meta vs Reddit, Visa vs StoneCo, Salesforce vs Adobe).
 
 Produce the FINAL, FULLY REFINED, AND PERFECTED 4 SECTIONS incorporating all audit corrections.
 

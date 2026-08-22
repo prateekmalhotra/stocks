@@ -278,8 +278,16 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if pred_tier and pred_tier not in CANONICAL_PREDICTABILITY_TIERS:
             issues.append(f"Invalid Cash Flow Predictability Tier '{pred_tier}'. Must strictly be one of: {sorted(list(CANONICAL_PREDICTABILITY_TIERS))}.")
 
-    # 15. Single-Agent Section Completeness Check
-    # Verified through required 4-section architecture above.
+    # 15. Grounded Unit Economics Derivation Check (Zero Baseless Top-Down CAGRs)
+    unit_keywords = [
+        "user", "dau", "mau", "subscriber", "seat", "client", "merchant",
+        "store", "door", "unit", "volume", "arpu", "take rate", "take-rate",
+        "price per", "pricing", "arr", "tpv", "gmv", "comp sales", "tuition",
+        "asp", "retention", "nrr", "margin", "revenue"
+    ]
+    has_unit_anchors = any(k in html.lower() for k in unit_keywords)
+    if not has_unit_anchors:
+        issues.append("Dossier lacks bottom-up unit economics drivers (e.g. users, seats, merchants, ARPU, take rate, TPV, GMV).")
 
     # 18. Storyline Targets & Alert Corridor Validity
     if metadata:
