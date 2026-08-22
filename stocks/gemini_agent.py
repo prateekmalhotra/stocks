@@ -2521,9 +2521,8 @@ def run_forensic_audit_agent(ticker: str, company_name: str, current_price: floa
             4. What If It Keeps Going That Way (Continuation Math in Clean Editorial Steps)
     """
     # ---------------------------------------------------------
-    # Step 1: Deep Grounded Investigation of Headwinds, Risks & Skepticism
+    # Step 1-2: Deep Grounded Investigation of Headwinds, Risks, Reality & Valuation Frameworks
     # ---------------------------------------------------------
-    print(f"  [Step 1/5] Deep forensic search: Investigating active headwinds, unit risks & short thesis for {ticker}...", flush=True)
     headwinds_prompt = f"""You are a Senior Short-Seller & Forensic Risk Analyst researching {ticker} ({company_name}) at current market price ${current_price:.2f}.
 
 LATEST EARNINGS & CALL TRANSCRIPTS MANDATE: You MUST search for and inspect the company's LATEST earnings release, LATEST 10-Q/10-K filing, and LATEST earnings call transcripts (especially tough analyst Q&A). Extract the latest active risks, management tone, guidance revisions, and unit headwinds.
@@ -2549,11 +2548,7 @@ LATEST EARNINGS & TRANSCRIPTS MANDATE: You MUST search for and extract data dire
      * Cash Operating Cost Structure: Breakdown of COGS/Fulfillment, Sales & Marketing, R&D, Maintenance CapEx, and Stock-Based Compensation.
      * Trailing Cash Flow & Capital Allocation: Operating Cash Flow (OCF), Free Cash Flow (FCF), share repurchases ($M), and net change in diluted share count YoY.
 
-2. INSTITUTIONAL VALUATION FRAMEWORK:
-   - What specific valuation framework do recent hedge fund letters and Substack deep dives use for this company?
-   - Identify the 2 to 3 core operational drivers that dictate long-term intrinsic value (e.g. core segment retention, expansion unit drivers, and capital return / buyback yield).
-
-3. MICROECONOMIC MOAT & COMPETITIVE ADVANTAGE (HAMILTON HELMER 7 POWERS & BUFFETT/MUNGER):
+2. MICROECONOMIC MOAT & COMPETITIVE ADVANTAGE (HAMILTON HELMER 7 POWERS & BUFFETT/MUNGER):
    - What specific structural competitive advantage protects (or fails to protect) this business?
      * Network Effects: Is there a 2-sided marketplace, data network, or direct network effect? What is its geographic scope (Global, National, Regional, Local)?
      * Switching Costs: Are switching costs high (e.g. ERP integration, regulatory mandates, high consequence of failure) or $0 / frictionless (e.g. consumer dating apps, mobile games)?
@@ -2561,21 +2556,39 @@ LATEST EARNINGS & TRANSCRIPTS MANDATE: You MUST search for and extract data dire
      * Intangibles & Pricing Power: Can the company hike prices above inflation without volume destruction?
      * Moat Decay / Commoditization: Are users multi-homing (using competitors simultaneously), is customer success causing churn (dating apps), or are switching barriers falling?
 
-4. PEER BENCHMARKING & MONETIZATION RUNWAY:
+3. PEER BENCHMARKING & MONETIZATION RUNWAY:
    - How does this company's unit monetization, gross margins, and operating efficiency compare to mature industry peers?
 
 Provide a concise, highly factual briefing synthesizing the exact sequential quarterly numbers, executive call commentary, and capital allocation pace."""
 
-    print(f"  [Step 1-2/5] Deep forensic search: Concurrently investigating headwinds, investor memos & valuation frameworks for {ticker}...", flush=True)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+    frameworks_prompt = f"""You are an Institutional Valuation Architect surveying investor methodologies for {ticker} ({company_name}) at ${current_price:.2f}.
+
+Use Google Search to inspect at least 10 DISTINCT INVESTOR THESES, hedge fund letters, Substack deep dives (e.g. Scuttleblurb, Diffs, In Practise, MBI Deep Dives, Value Investors Club, Yet Another Value Blog, Punch Card Investor), Sell-Side institutional research notes (Morgan Stanley, Goldman Sachs, JPMorgan, MoffettNathanson), and VIC writeups for {ticker}.
+
+STRICT MANDATE ON INVESTOR THESES:
+We DO NOT use their price targets, cheerleading, or promotional optimism.
+We use their research ONLY TO UNDERSTAND HOW TO PROPERLY VALUE THIS SPECIFIC COMPANY & BUSINESS MODEL.
+
+Extract:
+1. WHAT ARE THE 2-3 CORE MICROECONOMIC UNIT DRIVERS that institutional analysts use to model this specific company (e.g. active buyers × spend/buyer, store count × comp sales, paid seats × net retention, GMV × take-rate)?
+2. HOW DO INSTITUTIONAL VALUATORS MAP BUSINESS METRICS TO OWNER CASH FLOW for this industry (e.g. gross margin sensitivity to freight/tariffs, customer acquisition cost payback, maintenance vs growth CapEx split)?
+3. WHAT VALUATION FRAMEWORK IS MOST INSTITUTIONALLY GROUNDED for this asset archetype (e.g. EV / Owner Earnings, Normalized Cash Yield + Net Cash, SOTP, or Unit Economics DCF)?
+
+Provide a concise, dense briefing synthesizing the collective valuation mechanics from at least 10 investor theses."""
+
+    print(f"  [Step 1-2/5] Deep forensic search: Concurrently investigating headwinds, operational reality & 10+ valuation frameworks for {ticker}...", flush=True)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         fut_headwinds = executor.submit(call_gemini_direct, headwinds_prompt, "", True)
         fut_reality = executor.submit(call_gemini_direct, reality_prompt, "", True)
+        fut_frameworks = executor.submit(call_gemini_direct, frameworks_prompt, "", True)
         headwinds_facts = fut_headwinds.result()
         reality_facts = fut_reality.result()
+        frameworks_facts = fut_frameworks.result()
 
     print(f"\n  📋 [Forensic Intelligence Summary for {ticker}]:", flush=True)
-    print(f"  ├─ Bear Headwinds & Unit Risks: {headwinds_facts[:240].strip()}...", flush=True)
-    print(f"  └─ Operational Reality & Frameworks: {reality_facts[:240].strip()}...\n", flush=True)
+    print(f"  ├─ Bear Headwinds & Unit Risks: {headwinds_facts[:180].strip()}...", flush=True)
+    print(f"  ├─ Operational Reality & Units: {reality_facts[:180].strip()}...", flush=True)
+    print(f"  └─ 10+ Investor Valuation Mechanics: {frameworks_facts[:180].strip()}...\n", flush=True)
 
     # ---------------------------------------------------------
     # Step 3: Statutory 10-K / 20-F Balance Sheet & Cash Flow Audit
@@ -2733,8 +2746,11 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 [INVESTIGATED HEADWINDS & SKEPTICISM]:
 {headwinds_facts}
 
-[INVESTIGATED OPERATIONAL REALITY, UNIT ECONOMICS & BENCHMARKS]:
+[INVESTIGATED OPERATIONAL REALITY & SEQUENTIAL PERFORMANCE]:
 {reality_facts}
+
+[COLLECTIVE VALUATION MECHANICS FROM 10+ INVESTOR THESES (METHODOLOGY ONLY)]:
+{frameworks_facts}
 ============================================
 
 You are an institutional value investor (in the tradition of Warren Buffett, Charlie Munger, Howard Marks, and Seth Klarman).
@@ -2820,6 +2836,9 @@ TARGET FINANCIAL AUDIT METRICS:
 - Real-Time Annualized Run-Rate: ${annualized_runrate:,.1f}M | Latest Gross Margin: {lq_gm:.1f}%
 - Exact Latest Volume Units: {unit_desc}
 - Audited Owner ROIC: {owner_roic:.1f}% | Moat: {moat}
+
+SURVEYED 10+ INVESTOR VALUATION MECHANICS:
+{frameworks_facts}
 
 DRAFT SECTIONS SUBMITTED FOR AUDIT:
 [Draft Section 1 - What the Market is Pricing In]:
