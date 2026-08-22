@@ -294,10 +294,10 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     if not has_unit_anchors:
         issues.append("Dossier lacks bottom-up unit economics / SOTP drivers (e.g. buyers, sellers, users, seats, merchants, ARPU, segment revenues, take rate, TPV, GMV).")
 
-    # 15b. Institutional 3-Scenario & Capital Allocation Bridge Verification
-    has_scenarios = ("bear" in html.lower() or "downside" in html.lower()) and ("base" in html.lower() or "target" in html.lower()) and ("bull" in html.lower() or "upside" in html.lower())
-    if not has_scenarios:
-        issues.append("Section 4 lacks an explicit 3-Scenario Valuation Range (Bear / Base / Bull).")
+    # 15b. Grounded 3-Year Continuation & Target Verification
+    has_target = "target" in html.lower() or "fair value" in html.lower() or "return" in html.lower() or "irr" in html.lower()
+    if not has_target:
+        issues.append("Section 4 lacks an explicit Intrinsic Fair Value Target or Expected Return.")
 
     # 15c. Cash Bridge Balance Sheet Sanity
     if "cash bridge" in html.lower() or "ending net cash" in html.lower() or "starting net cash" in html.lower():

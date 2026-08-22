@@ -2821,22 +2821,23 @@ EDITORIAL FORMATTING & PRESENTATION MANDATE:
    - Detail the unvarnished reality: exact active volume units ({unit_desc}), revenue trajectory (${annualized_runrate:,.1f}M run-rate), gross margin progression ({lq_gm:.1f}%), cash flow generation, and capital allocation.
    - Break into 2-3 clean, readable paragraphs.
 
-4. "what_if_it_keeps_going_that_way" (Unvarnished Bottom-Up Continuation Math & 3-Scenario Range):
+4. "what_if_it_keeps_going_that_way" (Single Grounded 3-Year Continuation Ledger):
    - STRICT REQUIREMENT: Anchor starting revenue to the real annualized run rate (${annualized_runrate:,.1f}M) and exact unit volume ({unit_desc}). Do NOT use top-down percentage growth shortcuts.
-   - Build an explicit 7-step Bottom-Up Ledger (each step on a separate line preceded by double newline) across the 3-Year Visible Runway with an explicit Balance Sheet Cash Bridge and 3-Scenario Valuation Range:
+   - Build an explicit 6-step Bottom-Up Ledger (each step on a separate line preceded by double newline) across the 3-Year Visible Runway leading to the single definitive Intrinsic Fair Value Target:
      1. Starting Unit Baseline: State exact starting volume units ({unit_desc}), monetization yield ({monet_desc}), and annualized revenue run-rate (${annualized_runrate:,.1f}M).
      2. 3-Year Unit Volume Extrapolation: Project volume units over the next 3 years based on current momentum (continue attrition if decaying; extrapolate realistic growth if compounding).
      3. Projected Year 3 Revenue (Units × Monetization): Multiply Year 3 Volume Units × Year 3 Unit Monetization Yield to derive Projected Year 3 Revenue = $[Rev_3]M.
-     4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 3 Revenue to derive Projected Year 3 Total Owner Earnings = $[OE_Total_3]M (Owner Cash Margin = [X]%).
-     5. Explicit 3-Year Balance Sheet & Capital Allocation Bridge: Detail Starting Net Cash (${net_cash_total:+,.0f}M) + Cumulative 3Y FCF ($[Cumulative_FCF]M) - Cumulative Buybacks ($[Buybacks]M retiring [Shares_Retired]M shares) - CapEx ($[CapEx_3Y]M) = Ending Year 3 Net Cash $[Ending_Net_Cash]M ($[Ending_Net_Cash_Per_Share]/sh) across [S_3]M shares. CRITICAL CAPITAL ALLOCATION MANDATE: If Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), you MUST allocate $0.00 to share buybacks, dedicating 100% of cash flow to debt retirement and interest coverage.
-     6. Institutional 3-Scenario Valuation Range:
-        • Bear Case ($[Bear_Target_Low]-$[Bear_Target_High]): Macro/cyclical headwinds, 200-300 bps margin compression, [X]x trough P/OE.
-        • Base Case ($[Base_Target_Low]-$[Base_Target_High]): Disciplined continuation of current trajectory, stable margins, [Y]x sober P/OE -> Expected Base Target $[Target_Price]/share.
-        • Bull Case ($[Bull_Target_Low]-$[Bull_Target_High]): Operating leverage expansion, [Z]x multiple.
-     7. Expected 3-Year Total Return Bridge: State Base Price Appreciation CAGR ($[Target_Price] / ${current_price:.2f})^(1/3) - 1 = [X]%, and state Total Realized Return (IRR) of [Y]% per annum over the 3-year holding period.
+     4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 3 Revenue to derive Projected Year 3 Total Owner Earnings = $[OE_Total_3]M (Owner Cash Margin = [X]%, $[OE_Per_Share_3]/share).
+     5. Explicit 3-Year Balance Sheet & Capital Allocation Bridge: Detail Starting Net Cash (${net_cash_total:+,.0f}M) + Cumulative 3Y FCF ($[Cumulative_FCF]M) - Cumulative Buybacks ($[Buybacks]M) - CapEx ($[CapEx_3Y]M) = Ending Year 3 Net Cash $[Ending_Net_Cash]M ($[Ending_Net_Cash_Per_Share]/sh). (If Starting Net Cash is negative, allocate $0.00 to buybacks).
+     6. Intrinsic Fair Value Target & Expected 3-Year Return: Capitalize Year 3 Owner Earnings at a sober multiple of [M]x P/OE ($[OE_Cap]) + $[Ending_Net_Cash_Per_Share]/sh Net Cash = $[Target_Price] Expected Fair Value Target. Deliver an expected 3-year annualized return (IRR) of [X]% per annum from today's ${current_price:.2f} price.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
+  "fair_value_target": float,
+  "bear_floor_target": float,
+  "bull_upside_target": float,
+  "irr_3y_pct": float,
+  "action_signal": "BUY" | "HOLD" | "CAUTION" | "AVOID",
   "market_pricing_in": string,
   "why_it_might_be_right": string,
   "how_things_are_going_now": string,
@@ -2942,6 +2943,11 @@ Respond STRICTLY in valid JSON matching this schema:
         "moat_scope": audit_data.get("moat_scope") or "Global",
         "predictability_tier": audit_data.get("predictability_tier") or "Moderate Predictability",
         "predictability_score": audit_data.get("predictability_score") or "10-Year Cash Flow Visibility Assessment",
+        "fair_value_target": p_data.get("fair_value_target"),
+        "bear_floor_target": p_data.get("bear_floor_target"),
+        "bull_upside_target": p_data.get("bull_upside_target"),
+        "irr_3y_pct": p_data.get("irr_3y_pct"),
+        "action_signal": p_data.get("action_signal"),
         "market_pricing_in": p_data.get("market_pricing_in", ""),
         "why_it_might_be_right": p_data.get("why_it_might_be_right", ""),
         "how_things_are_going_now": p_data.get("how_things_are_going_now", ""),
@@ -2996,91 +3002,26 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     </section>
     """
 
-    p4_text = info.get("what_if_it_keeps_going_that_way", "")
-    p2_text = info.get("why_it_might_be_right", "")
-    extracted_target = None
-    extracted_bear = None
-    extracted_bull = None
+    # Retrieve structured targets directly (Zero Fragile Regex)
+    raw_fv = safe_float(info.get("fair_value_target"))
+    target_3y = raw_fv if (raw_fv and raw_fv > 0) else (current_price * 1.20 if owner_yield >= 8.0 else current_price * 1.05)
+    
+    raw_bear = safe_float(info.get("bear_floor_target"))
+    bear_target_val = raw_bear if (raw_bear and raw_bear > 0) else round(current_price * 0.80, 2)
+    
+    raw_bull = safe_float(info.get("bull_upside_target"))
+    bull_target_val = raw_bull if (raw_bull and raw_bull > 0) else round(target_3y * 1.25, 2)
 
-    if p4_text:
-        # 1. Base Target extraction:
-        # Priority A: Look inside Base Case block for '= $X' or '$X target' or 'Expected Base Target $X'
-        base_block_m = re.search(r'Base Case[^\n:]*:(.*?)(?:\n\u2022|\n[1-9]\.|\n\n|\Z)', p4_text, re.DOTALL | re.IGNORECASE)
-        if base_block_m:
-            b_txt = base_block_m.group(1)
-            m_calc = re.search(r'(?:=\s*\$|expected\s+base\s+target\s+\$|base\s+target\s+\$|target\s+price\s+\$|\$([0-9]+(?:\.[0-9]+)?)\s*(?:target\s+price|expected\s+target|target))([0-9]+(?:\.[0-9]+)?)', b_txt, re.IGNORECASE)
-            if m_calc:
-                try:
-                    extracted_target = float(m_calc.group(2) or m_calc.group(1))
-                except Exception:
-                    pass
+    raw_irr = info.get("irr_3y_pct")
+    if raw_irr is not None and isinstance(raw_irr, (int, float)):
+        irr_3y = float(raw_irr) / 100.0
+    else:
+        irr_3y = ((target_3y / current_price) ** (1.0 / 3.0) - 1.0) if current_price > 0 else 0.0
 
-        if not extracted_target:
-            m_base = re.search(r'(?:expected base target|base target|expected target|target price|fair value)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
-            if m_base:
-                try:
-                    extracted_target = float(m_base.group(1))
-                except Exception:
-                    pass
-
-        # 2. Bear Target extraction:
-        bear_block_m = re.search(r'Bear Case[^\n:]*:(.*?)(?:\n\u2022|\n[1-9]\.|\n\n|\Z)', p4_text, re.DOTALL | re.IGNORECASE)
-        if bear_block_m:
-            br_txt = bear_block_m.group(1)
-            m_calc_br = re.search(r'(?:=\s*\$|bear\s+target\s+\$|\$([0-9]+(?:\.[0-9]+)?)\s*(?:target\s+price|expected\s+target|target))([0-9]+(?:\.[0-9]+)?)', br_txt, re.IGNORECASE)
-            if m_calc_br:
-                try:
-                    extracted_bear = float(m_calc_br.group(2) or m_calc_br.group(1))
-                except Exception:
-                    pass
-
-        if not extracted_bear:
-            m_bear = re.search(r'(?:bear target|downside floor|downside)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
-            if m_bear:
-                try:
-                    extracted_bear = float(m_bear.group(1))
-                except Exception:
-                    pass
-
-        # 3. Bull Target extraction:
-        bull_block_m = re.search(r'Bull Case[^\n:]*:(.*?)(?:\n\u2022|\n[1-9]\.|\n\n|\Z)', p4_text, re.DOTALL | re.IGNORECASE)
-        if bull_block_m:
-            bu_txt = bull_block_m.group(1)
-            m_calc_bu = re.search(r'(?:=\s*\$|bull\s+target\s+\$|\$([0-9]+(?:\.[0-9]+)?)\s*(?:target\s+price|expected\s+target|target))([0-9]+(?:\.[0-9]+)?)', bu_txt, re.IGNORECASE)
-            if m_calc_bu:
-                try:
-                    extracted_bull = float(m_calc_bu.group(2) or m_calc_bu.group(1))
-                except Exception:
-                    pass
-
-        if not extracted_bull:
-            m_bull = re.search(r'(?:bull target|upside target|upside)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
-            if m_bull:
-                try:
-                    extracted_bull = float(m_bull.group(1))
-                except Exception:
-                    pass
-
-    if not extracted_bear and p2_text:
-        m_b2 = re.search(r'(?:target price|implied price|fair value|downside|exit price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p2_text, re.IGNORECASE)
-        if m_b2:
-            try:
-                extracted_bear = float(m_b2.group(1))
-            except Exception:
-                pass
-
-    target_3y = extracted_target if (extracted_target and extracted_target > 0) else (current_price * 1.20 if owner_yield >= 8.0 else current_price * 1.05)
-    bear_target_val = extracted_bear if (extracted_bear and extracted_bear > 0) else round(current_price * 0.80, 2)
-    bull_target_val = extracted_bull if (extracted_bull and extracted_bull > 0) else round(target_3y * 1.25, 2)
-
-    # Calculate 3-year expected price CAGR (IRR)
-    irr_3y = ((target_3y / current_price) ** (1.0 / 3.0) - 1.0) if current_price > 0 else 0.0
-
-    # Institutional Action Signal for 3-Year Visible Runway:
-    # BUY: Requires genuine 3-year compounding (IRR >= 12.0% / target > 1.40x current) and not a decaying value trap.
-    # HOLD / CAUTION: Moderate or flat return (IRR between 0% and 12%).
-    # AVOID: Negative return (target_3y < current_price) or severe distress.
-    if target_3y < current_price * 0.95 or irr_3y < 0.0:
+    raw_action = str(info.get("action_signal") or "").upper()
+    if raw_action in ["BUY", "HOLD", "CAUTION", "AVOID"]:
+        action_signal = raw_action
+    elif target_3y < current_price * 0.95 or irr_3y < 0.0:
         action_signal = "AVOID"
     elif irr_3y >= 0.12 and (moat_lbl in ["Wide Moat", "Narrow Moat"] or target_3y >= current_price * 1.40):
         action_signal = "BUY"
