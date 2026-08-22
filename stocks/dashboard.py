@@ -3113,16 +3113,12 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Cyclicality Profile</span>
-                    <div style="margin: 3px 0 2px;">
-                        <span class="cycle-badge {cyclicality_badge_class}">{cyclicality_type}</span>
-                    </div>
+                    <span class="metric-value" style="font-family: var(--font-sans); font-size: 1.18rem; font-weight: 600; color: var(--text-title);">{cyclicality_type}</span>
                     <span class="metric-sub">{cyclicality_sub}</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Cycle Position</span>
-                    <div style="margin: 3px 0 2px;">
-                        <span class="cycle-badge {cycle_badge_class}">{cycle_stance}</span>
-                    </div>
+                    <span class="metric-value" style="font-family: var(--font-sans); font-size: 1.18rem; font-weight: 600; color: {cycle_color};">{cycle_stance}</span>
                     <span class="metric-sub">{cycle_summary}</span>
                 </div>
             </div>
