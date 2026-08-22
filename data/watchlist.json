@@ -1,1 +1,71 @@
-{}
+{
+  "BMBL": {
+    "ticker": "BMBL",
+    "company_name": "Bumble Inc.",
+    "baseline_price": 2.8,
+    "current_price": 2.8,
+    "return_pct": 0.0,
+    "status_label": "No Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "No Moat"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$12.39",
+    "expected_fair_value": "$12.39",
+    "expected_val": 12.39,
+    "stories": [
+      {
+        "title": "Market Skepticism Pricing",
+        "target": "$2.24",
+        "summary": "At a stock price of $2.80 and a compressed 1.8x Price-to-Owner Earnings (P/OE) multiple, Mr. Market is pricing Bumble Inc. as a structurally broken, melting ice cube. The market's "
+      },
+      {
+        "title": "Conservative Intrinsic Path",
+        "target": "$12.39",
+        "summary": "If Bumble's current trajectory of operational shrinkage continues over the next 5 years without a magical product turnaround, the bottom-up math reveals extreme asymmetrical upside"
+      }
+    ],
+    "story1_target": "$2.24",
+    "story2_target": "$12.39",
+    "story3_target": "",
+    "story1_title": "Path 1",
+    "story2_title": "Path 2",
+    "story3_title": "Path 3",
+    "bear_target": "$2.10",
+    "base_target": "$12.39",
+    "bull_target": "$15.49",
+    "what_is_priced_in": "1.8x P/OE",
+    "upper_alert_threshold": 11.77,
+    "lower_alert_threshold": 2.21,
+    "next_catalyst_date": "2026-11-20",
+    "next_catalyst_event": "",
+    "top_funds": [],
+    "institutional_ownership_pct": "13F Registry",
+    "insider_signal": "Sponsor Liquidation (Blackstone Exit)",
+    "insider_summary": "Controlling sponsor liquidating equity position (-$272.5M)",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "",
+    "cyclicality_type": "Moderate Cyclical",
+    "cycle_stance": "Mid-Cycle Run-Rate",
+    "cycle_summary": "",
+    "owner_earnings_per_share": 1.5925982102229634,
+    "owner_earnings_total_mil": 209.99999999999997,
+    "p_oe": 1.7581333333333335,
+    "ev_oe": 3.1726095238095247,
+    "owner_yield_pct": 56.878507507962986,
+    "owner_roic_pct": 25.827081539786,
+    "net_cash_per_share": -2.2526922493553765,
+    "market_pricing_in": "At a stock price of $2.80 and a compressed 1.8x Price-to-Owner Earnings (P/OE) multiple, Mr. Market is pricing Bumble Inc. as a structurally broken, melting ice cube. The market's deep skepticism is driven by a double-digit collapse in core operational metrics: paying users fell 16.4% year-over-year in Q2 2026 to 3.157 million, while performance marketing cuts drove U.S. app downloads down by over 35%. Investors view recent EBITDA margin resilience as a temporary illusion created by unsustainably cutting brand spend, expecting margins to compress sharply as management is forced to reinvest into user acquisition. Furthermore, widespread swipe fatigue among Gen Z, market share gains by Match Group's Hinge, multi-hundred-million-dollar goodwill write-downs ($169.3M in Q2 2026), and the delay of the critical 'Bumble 2.0' product overhaul into 2027 have convinced the market that the business faces permanent top-of-funnel decay.",
+    "why_it_might_be_right": "The market's distressed valuation can be reverse-engineered through a conservative bear-case model of operational decay:\n\n1. Starting Baseline: Normalized Owner Earnings stand at $1.59 per share ($210.0M total), with net balance sheet debt of $-2.25 per share ($-297M net debt).\n2. Implied Market Skeptic Multiple: A distressed terminal multiple of 3.5x P/OE, reflecting permanent market distrust and zero terminal growth.\n3. Implied Year 5 Earnings Power: To justify today's $2.80 stock price under a $-2.25 per share net debt burden, Year 5 Owner Earnings per share must decline to $1.44 per share (($2.80 + $2.25) / 3.5 = $1.44/share), representing a total Year 5 Owner Earnings pool of ~$190M.\n4. Implied Operational Decay: This requires paying users to continue churning from 3.16M down to ~2.20M over 5 years, with total revenue contracting at -6% to -7% per year from $842M down to ~$600M, while EBITDA margins permanently settle near ~25-27% as marketing spend normalizes.\n5. Business Risk Rationale: This bear scenario is highly plausible if Gen Z permanently disengages from swipe-based dating apps, Hinge continues capturing high-intent premium users, and the delayed 2027 platform overhaul fails to reignite organic downloads.",
+    "how_things_are_going_now": "Bumble's recent quarterly performance displays significant top-line contraction paired with resilient underlying free cash flow generation:\n\n1. Revenue Progression: Quarterly revenue contracted sequentially over the last four quarters from $246.2M (Q3 2025) to $224.2M (Q4 2025), $212.4M (Q1 2026), and $210.5M (Q2 2026), representing a -15.2% YoY decline in the most recent quarter.\n2. User Metrics & ARPPU: Total paying users declined from 3.60M in Q3 2025 to 3.157M in Q2 2026. However, user loss decelerated significantly in Q2 2026 (down only 9,000 sequentially across all apps and 5,000 on the core Bumble App). ARPPU expanded slightly to $21.96 overall, with the flagship Bumble App reaching $27.55 due to a mix shift toward higher-tier subscribers.\n3. Margin & Cash Generation: Adjusted EBITDA reached $72.9M (34.6% margin) in Q2 2026. H1 2026 Operating Cash Flow reached $130.9M and Free Cash Flow reached $124.9M, representing an ~80% cash conversion rate from Adjusted EBITDA and an annualized FCF run-rate of ~$240M+.\n4. Capital Allocation: Management settled its Tax Receivable Agreement liability for $186M cash in Q4 2025, refinanced term debt into a $475M loan maturing in 2030, and holds $154M in cash against $451M carrying debt, shifting priorities toward balance sheet stabilization.",
+    "what_if_it_keeps_going_that_way": "If Bumble's current trajectory of operational shrinkage continues over the next 5 years without a magical product turnaround, the bottom-up math reveals extreme asymmetrical upside due to the massive starting cash yield:\n\n1. Starting Baseline: Annualized revenue run-rate of $842M, 3.157M paying users, and normalized starting Owner Earnings of $1.59 per share ($210.0M total).\n2. 5-Year Operational Trajectory: Assuming no operational turnaround, revenue continues to shrink at -8.0% annually over 5 years as paying users bleed down from 3.16M to 2.10M, while ARPPU stabilizes near $22.00.\n3. Projected Year 5 Revenue & Cash Margin: Year 5 Revenue reaches $555M ($842M x 0.92^5). Assuming higher required marketing spend compresses the Owner Earnings margin to 22.0%, Year 5 Total Owner Earnings equal $122.0M.\n4. Share Count & Buybacks: Over 5 years, Bumble generates ~$750M in cumulative FCF. After allocating $297M to eliminate all net debt, $453M of cash remains. Utilizing 60% of remaining cash ($271.8M) to repurchase shares at an average price of $4.00 reduces diluted shares from 131.9M down to 63.95M shares.\n5. Year 5 Owner Earnings Per Share: $122.0M Total Owner Earnings / 63.95M shares = $1.91 per share.\n6. Prudent Terminal Multiple & Expected Share Price: Applying a conservative 5.0x P/OE multiple to a declining business with zero debt yields $9.55/share. Adding remaining net balance sheet cash of $2.84/share ($181.2M net cash / 63.95M shares) results in a Year 5 target share price of $12.39 per share.\n7. Expected 5-Year Annualized Return (IRR): Buying at $2.80 today and reaching $12.39 in 5 years delivers a 34.6% annualized capital gain CAGR. Including the high cash flow distribution potential (56.9% Owner Cash Yield), total expected 5-year annualized IRR exceeds 38% under continuous business shrinkage.",
+    "last_updated": "2026-08-22",
+    "total_versions": 1,
+    "report_path": "reports/BMBL.html"
+  }
+}
