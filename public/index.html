@@ -14,7 +14,16 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- Embedded Initial Live Quotes for 100% Guaranteed Zero-Lag Data Delivery -->
-    <script id="embedded-live-quotes" type="application/json">{}</script>
+    <script id="embedded-live-quotes" type="application/json">{
+  "MTCH": {
+    "price": 40.87,
+    "prev_close": 40.87,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 14:12:06 UTC"
+  }
+}</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -790,7 +799,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">0</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">1</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -833,11 +842,37 @@
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td colspan="5" style="border-bottom: none !important; padding: 0 !important;">
-                <div class="empty-state-box">
-                    <div class="empty-state-title">No Stocks Tracked</div>
-                    <div class="empty-state-sub">Ready for coverage</div>
+        <tr class="table-row" data-ticker="MTCH" data-baseline="40.87" onclick="location.href='reports/MTCH.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MTCH" alt="MTCH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">MT</span></div>
+                        <span class="tbl-symbol">MTCH</span>
+                    </div>
+                    <span class="tbl-company-hover">Match Group, Inc.</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-MTCH">$40.87</span>
+                    <span class="tbl-return tbl-ret-MTCH pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="moat-text-label" style="color: var(--text-secondary); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$55.13</span>
+                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +34.9%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
                 </div>
             </td>
         </tr>
@@ -849,10 +884,36 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div style="grid-column: 1 / -1; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px;">
-            <div class="empty-state-box">
-                <div class="empty-state-title">No Stocks Tracked</div>
-                <div class="empty-state-sub">Ready for coverage</div>
+        <div class="grid-card" data-ticker="MTCH" data-baseline="40.87" onclick="location.href='reports/MTCH.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MTCH" alt="MTCH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">MT</span></div>
+                    <span class="grid-symbol">MTCH</span>
+                </div>
+                <div class="grid-price grid-price-MTCH">$40.87</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="moat-text-label" style="color: var(--text-secondary); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+            </div>
+            <div class="grid-company">Match Group, Inc.</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-MTCH pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$55.13</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +34.9%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
             </div>
         </div>
         
