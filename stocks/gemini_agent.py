@@ -2765,15 +2765,25 @@ Your goal is to write a rigorous, sober, deeply grounded 4-section investment th
     - Explicit Balance Sheet Cash Bridge: Explicitly calculate (Starting Net Cash + 5Y FCF - Buybacks - CapEx = Ending Net Cash).
     - 3-Scenario Risk/Reward Range: Provide an institutional Bear / Base / Bull valuation matrix rather than false single-point precision.
 
-Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps with clean numbered lists (1. ... 2. ...). Do NOT use raw monospace terminal blocks, and do NOT use emojis.
+Provide EXACTLY 4 sections in simple, elegant, plain English.
+
+EDITORIAL FORMATTING & PRESENTATION MANDATE:
+- In narrative sections ("market_pricing_in" and "how_things_are_going_now"), break commentary into 2 to 3 concise, digestible editorial paragraphs separated by double newlines (\n\n). Never write a single giant monolithic wall of text.
+- In quantitative math sections ("why_it_might_be_right" and "what_if_it_keeps_going_that_way"), you MUST format each numbered step on its own separate line preceded by double newlines (e.g. \n\n1. Starting Unit Baseline: ... \n\n2. Next Step: ...). Never write numbered steps inline in a single run-on paragraph.
+- In Section 4 Scenario Matrix, format the 3 scenarios as clean bullet points on separate lines:
+  • Bear Case ($X-$Y): ...
+  • Base Case ($A-$B): ... -> Expected Base Target $T/share
+  • Bull Case ($C-$D): ...
+- Do NOT use raw monospace terminal code blocks, and do NOT use emojis.
 
 1. "market_pricing_in" (The Market Skepticism & Disconnect Story):
    - In simple, plain English, explain the exact skeptical narrative and operational headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price ({p_oe:.1f}x P/OE, {ev_oe:.1f}x EV/OE).
    - Frame the core investment asymmetry: is the market pricing current earnings as peak/unsustainable despite underlying volume growth, expanding margins, and net cash? Or is it pricing genuine structural terminal decay?
+   - Break into 2 digestible paragraphs.
 
 2. "why_it_might_be_right" (Reverse-Engineering the Market's Pricing & Skeptic Math):
    - Provide a step-by-step mathematical reverse-engineering showing what operational decay justifies today's market price of ${current_price:.2f}:
-   - Numbered Steps:
+   - Numbered Steps (each on a separate line preceded by double newline):
      1. Starting Baseline: State starting normalized Owner Earnings of ${oe_per_share:.2f}/share (${oe_total:,.1f}M total).
      2. Implied Market Multiple: State the compressed exit multiple reflecting market distrust (e.g. ~{min(max(p_oe * 0.9, 4.0), 12.0):.1f}x P/OE).
      3. Implied Year 5 Earnings Power: Calculate what depressed Year 5 Owner Earnings per share ($[OE_Skeptic]/sh) produces today's ${current_price:.2f} price after net debt/cash (${net_cash_per_share:+.2f}/sh).
@@ -2783,19 +2793,20 @@ Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps w
 3. "how_things_are_going_now" (The Operational Reality Story - Sequential 3-4 Quarters):
    - In simple, plain English, explain how the business is ACTUALLY performing today based on the exact last 3 to 4 quarterly releases.
    - Detail the unvarnished reality: exact active volume units ({unit_desc}), revenue trajectory (${annualized_runrate:,.1f}M run-rate), gross margin progression ({lq_gm:.1f}%), cash flow generation, and capital allocation.
+   - Break into 2-3 clean, readable paragraphs.
 
 4. "what_if_it_keeps_going_that_way" (Unvarnished Bottom-Up Continuation Math & 3-Scenario Range):
    - STRICT REQUIREMENT: Anchor starting revenue to the real annualized run rate (${annualized_runrate:,.1f}M) and exact unit volume ({unit_desc}). Do NOT use top-down percentage growth shortcuts.
-   - Build an explicit 7-step Bottom-Up Ledger with an explicit Balance Sheet Cash Bridge and 3-Scenario Valuation Range:
+   - Build an explicit 7-step Bottom-Up Ledger (each step on a separate line preceded by double newline) with an explicit Balance Sheet Cash Bridge and 3-Scenario Valuation Range:
      1. Starting Unit Baseline: State exact starting volume units ({unit_desc}), monetization yield ({monet_desc}), and annualized revenue run-rate (${annualized_runrate:,.1f}M).
      2. 5-Year Unit Volume Extrapolation: Project volume units over 5 years based on current momentum (continue attrition if decaying; extrapolate realistic growth if compounding).
      3. Projected Year 5 Revenue (Units × Monetization): Multiply Year 5 Volume Units × Year 5 Unit Monetization Yield to derive Projected Year 5 Revenue = $[Rev_5]M.
      4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 5 Revenue to derive Projected Year 5 Total Owner Earnings = $[OE_Total_5]M (Owner Cash Margin = [X]%).
      5. Explicit 5-Year Balance Sheet & Capital Allocation Bridge: Detail Starting Net Cash (${net_cash_total:+,.0f}M) + Cumulative 5Y FCF ($[Cumulative_FCF]M) - Cumulative Buybacks ($[Buybacks]M retiring [Shares_Retired]M shares) - CapEx ($[CapEx_5Y]M) = Ending Year 5 Net Cash $[Ending_Net_Cash]M ($[Ending_Net_Cash_Per_Share]/sh) across [S_5]M shares.
      6. Institutional 3-Scenario Valuation Range:
-        - Bear Case ($[Bear_Target_Low]-$[Bear_Target_High]): Macro/cyclical shock, margin compression, [X]x terminal P/OE.
-        - Base Case ($[Base_Target_Low]-$[Base_Target_High]): Disciplined continuation, stable margins, [Y]x terminal P/OE -> Expected Base Target $[Target_Price]/share.
-        - Bull Case ($[Bull_Target_Low]-$[Bull_Target_High]): Marketplace network flywheel acceleration, margin expansion, [Z]x terminal P/OE.
+        • Bear Case ($[Bear_Target_Low]-$[Bear_Target_High]): Macro/cyclical shock, margin compression, [X]x terminal P/OE.
+        • Base Case ($[Base_Target_Low]-$[Base_Target_High]): Disciplined continuation, stable margins, [Y]x terminal P/OE -> Expected Base Target $[Target_Price]/share.
+        • Bull Case ($[Bull_Target_Low]-$[Bull_Target_High]): Marketplace network flywheel acceleration, margin expansion, [Z]x terminal P/OE.
      7. Expected 5-Year Total Return Bridge: State Base Price Appreciation CAGR ($[Target_Price] / ${current_price:.2f})^(1/5) - 1 = [X]%, and state Total Realized Return (IRR) of [Y]% per annum.
 
 Respond STRICTLY in valid JSON matching this schema:
@@ -2859,9 +2870,10 @@ Act as a skeptical, conservative peer reviewer:
 - AUDIT AGAINST LATEST EARNINGS & TRANSCRIPTS: Verify all revenue numbers, volume units ({unit_desc}), gross margins, and forward commentary directly against the company's LATEST earnings release and LATEST earnings call transcript Q&A. Force-reject any outdated or stale figures.
 - STRICT BAN ON LAZY TOP-DOWN CAGRS: Check Section 4. If it contains generic hand-waving like "assuming a steady 10% CAGR" or "assuming top-line growth slows to X%", REJECT and replace it with explicit bottom-up multiplication: Volume Units × Unit Yield ➔ Revenue − Cash Expenses ➔ Total Owner Earnings.
 - AUDIT BALANCE SHEET CASH BRIDGE: Ensure Section 4 contains an explicit 5-year cash bridge (Starting Net Cash + 5Y FCF - Buybacks - CapEx = Ending Net Cash).
-- ENFORCE 3-SCENARIO RANGE: Ensure Section 4 provides a clean Bear / Base / Bull valuation matrix.
+- ENFORCE 3-SCENARIO RANGE: Ensure Section 4 provides a clean Bear / Base / Bull valuation matrix formatted with clear bullet lines.
 - ENFORCE REVERSE OPERATING LEVERAGE: If revenue/units contract, ensure Owner Cash Margin compresses realistically; do not allow fantasy high margins during shrinkage.
 - MOAT SKEPTICISM CHECK: Verify that the assigned Economic Moat ({moat}) is 100% rigorous. If the company faces low switching costs ($0 to leave) and decaying paying users (e.g. Bumble), force-downgrade any unearned 'Narrow Moat' claims to 'Weak Moat' or 'No Moat'.
+- PRESENTATION & EDITORIAL AUDIT: Ensure sections are broken into breathable, concise paragraphs (2-3 per narrative section) and numbered steps are on separate lines preceded by double newlines. Reject monolithic run-on text.
 - Deliver the final, perfected 4 sections.
 
 Respond STRICTLY in valid JSON matching this schema:

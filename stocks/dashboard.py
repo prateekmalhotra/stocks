@@ -1884,8 +1884,45 @@ def build_native_svg_chart(
     """
 
 
+def render_scenarios_grid(text: str) -> str:
+    """Renders a responsive 3-column scenario card grid for Bear, Base, and Bull valuation corridors."""
+    scenario_patterns = re.findall(
+        r'(?:•|-|\*)\s*(Bear Case|Base Case|Bull Case|Downside|Upside|Base Target)\s*(?:\(([^)]+)\))?:\s*(.*?)(?=(?:•|-|\*)\s*(?:Bear Case|Base Case|Bull Case|Downside|Upside|Base Target)|$)',
+        text, re.DOTALL | re.IGNORECASE
+    )
+    if scenario_patterns and len(scenario_patterns) >= 2:
+        cards_html = []
+        for name, target, body in scenario_patterns:
+            name_clean = name.strip()
+            name_lower = name_clean.lower()
+            if 'bear' in name_lower or 'downside' in name_lower:
+                card_cls = 'scenario-card-bear'
+                tag_cls = 'tag-bear'
+                tag_lbl = 'BEAR SCENARIO'
+            elif 'bull' in name_lower or 'upside' in name_lower:
+                card_cls = 'scenario-card-bull'
+                tag_cls = 'tag-bull'
+                tag_lbl = 'BULL SCENARIO'
+            else:
+                card_cls = 'scenario-card-base'
+                tag_cls = 'tag-base'
+                tag_lbl = 'BASE CASE (TARGET)'
+                
+            target_str = f'<span class="scenario-target-range">{target.strip()}</span>' if target else ''
+            cards_html.append(f"""
+            <div class="scenario-col-card {card_cls}">
+                <div class="scenario-col-header">
+                    <span class="scenario-tag-badge {tag_cls}">{tag_lbl}</span>
+                    {target_str}
+                </div>
+                <div class="scenario-col-body">{body.strip()}</div>
+            </div>""")
+        return f'<div class="scenarios-trio-grid">{" ".join(cards_html)}</div>'
+    return text
+
+
 def markdown_to_memo_html(text: str) -> str:
-    """Converts markdown paragraphs and lists into clean editorial HTML with structured math cards."""
+    """Converts markdown paragraphs and lists into clean editorial HTML with structured math cards and scenario grids."""
     if not text:
         return "<p>—</p>"
     
@@ -1894,23 +1931,43 @@ def markdown_to_memo_html(text: str) -> str:
     clean_text = emoji_pattern.sub("", text).strip()
     clean_text = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", clean_text)
     
-    blocks = clean_text.split("\n\n")
-    html_parts = []
+    # 1. Pre-process inline numbered steps: split ': 1) ... 2) ...' or ' 1. ... 2. ...' into separate lines
+    clean_text = re.sub(r'(:\s*)([1-9]\d?[\.\)])\s+', r'\1\n\n\2 ', clean_text)
+    clean_text = re.sub(r'(\s+)(?:Step\s+)?([1-9]\d?[\.\)])\s+(?=[A-Z0-9])', r'\n\n\2 ', clean_text).strip()
     
-    for block in blocks:
-        lines = [line.strip() for line in block.split("\n") if line.strip()]
+    raw_blocks = clean_text.split("\n\n")
+    
+    # Group consecutive numbered blocks into structured ledgers
+    combined_blocks = []
+    current_numbered_group = []
+    
+    for b in raw_blocks:
+        b_lines = [line.strip() for line in b.split("\n") if line.strip()]
+        if not b_lines:
+            continue
+        first_line = b_lines[0]
+        if re.match(r"^(?:\d+[\.\)]|step\s+\d+:?)\s+", first_line, flags=re.I):
+            current_numbered_group.append("\n".join(b_lines))
+        else:
+            if current_numbered_group:
+                combined_blocks.append(("numbered", "\n".join(current_numbered_group)))
+                current_numbered_group = []
+            combined_blocks.append(("normal", "\n".join(b_lines)))
+            
+    if current_numbered_group:
+        combined_blocks.append(("numbered", "\n".join(current_numbered_group)))
+        
+    html_parts = []
+    for b_type, b_content in combined_blocks:
+        lines = [line.strip() for line in b_content.split("\n") if line.strip()]
         if not lines:
             continue
-        
-        is_numbered = bool(re.match(r"^\d+[\.\)]\s+", lines[0]) or lines[0].lower().startswith("step ") or (len(lines) > 1 and re.match(r"^\d+[\.\)]\s+", lines[1])))
-        is_bullet = bool(lines[0].startswith("- ") or lines[0].startswith("• ") or lines[0].startswith("* "))
-        
-        if is_numbered:
+        if b_type == "numbered":
             cards = []
             current_step_lines = []
             steps_list = []
             for line in lines:
-                if re.match(r"^\d+[\.\)]\s+", line) or line.lower().startswith("step "):
+                if re.match(r"^(?:\d+[\.\)]|step\s+\d+:?)\s+", line, flags=re.I):
                     if current_step_lines:
                         steps_list.append(current_step_lines)
                     current_step_lines = [line]
@@ -1942,21 +1999,24 @@ def markdown_to_memo_html(text: str) -> str:
                         extra_vals.append(cleaned_r)
                 if extra_vals:
                     if val:
-                        val = val + " " + " · ".join(extra_vals)
+                        val = val + " " + " ".join(extra_vals)
                     else:
-                        val = " · ".join(extra_vals)
+                        val = " ".join(extra_vals)
+                
+                # Check for sub-scenario cards inside val
+                val_rendered = render_scenarios_grid(val)
                         
                 cards.append(f"""
                 <div class="math-step-item">
                     <div class="math-step-badge">{idx}</div>
                     <div class="math-step-main">
                         <div class="math-step-label">{lbl}</div>
-                        <div class="math-step-body">{val}</div>
+                        <div class="math-step-body">{val_rendered}</div>
                     </div>
                 </div>""")
             if cards:
                 html_parts.append(f'<div class="math-steps-ledger">{"".join(cards)}</div>')
-        elif is_bullet:
+        elif lines[0].startswith("- ") or lines[0].startswith("• ") or lines[0].startswith("* "):
             items = []
             for line in lines:
                 cleaned_line = re.sub(r"^(?:•|-|\*)\s*", "", line).strip()
@@ -1966,7 +2026,10 @@ def markdown_to_memo_html(text: str) -> str:
                 html_parts.append(f"<ul>{''.join(items)}</ul>")
         else:
             para_text = " ".join(lines)
-            html_parts.append(f"<p>{para_text}</p>")
+            if para_text.endswith(":"):
+                html_parts.append(f'<p class="memo-intro-lead">{para_text}</p>')
+            else:
+                html_parts.append(f'<p class="memo-para">{para_text}</p>')
             
     return "\n".join(html_parts) if html_parts else f"<p>{clean_text}</p>"
 
@@ -2788,7 +2851,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .memo-title {{
             font-family: var(--font-display);
-            font-size: 1.32rem;
+            font-size: 1.35rem;
             font-weight: 700;
             color: var(--text-title);
             letter-spacing: -0.025em;
@@ -2796,56 +2859,76 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .memo-body {{
             font-size: 0.98rem;
-            color: #C5BCB0;
+            color: #D2C9BD;
             line-height: 1.82;
+            letter-spacing: 0.005em;
         }}
-        .memo-body p {{
+        .memo-intro-lead {{
+            font-size: 1.02rem;
+            font-weight: 500;
+            color: var(--text-title);
+            line-height: 1.72;
             margin-bottom: 16px;
+        }}
+        .memo-para {{
+            margin-bottom: 18px;
+            font-size: 0.98rem;
+            color: #D2C9BD;
+            line-height: 1.82;
         }}
         .memo-body p:last-child {{
             margin-bottom: 0;
         }}
         .memo-body strong {{
-            color: #F0ECE4;
+            color: #F8F5EE;
             font-weight: 600;
+        }}
+        .memo-body ul {{
+            margin: 12px 0 18px 0;
+            padding-left: 20px;
+        }}
+        .memo-body li {{
+            margin-bottom: 8px;
+            color: #D2C9BD;
+            line-height: 1.68;
         }}
 
         /* Valuation Math Steps Ledger */
         .math-steps-ledger {{
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 14px;
+            gap: 14px;
+            margin-top: 16px;
         }}
         .math-step-item {{
-            background: var(--bg-subpanel);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.022);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            padding: 18px 22px;
             display: flex;
             align-items: flex-start;
             gap: 16px;
-            transition: border-color 0.15s ease, background 0.15s ease;
+            transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
         }}
         .math-step-item:hover {{
-            border-color: rgba(212, 163, 115, 0.25);
-            background: var(--bg-hover);
+            border-color: rgba(212, 163, 115, 0.35);
+            background: rgba(255, 255, 255, 0.038);
         }}
         .math-step-badge {{
             font-family: var(--font-mono);
-            font-size: 0.78rem;
-            font-weight: 600;
+            font-size: 0.80rem;
+            font-weight: 700;
             color: var(--accent-warm);
-            background: var(--accent-warm-subtle);
-            border: 1px solid rgba(212, 163, 115, 0.25);
-            width: 26px;
-            height: 26px;
+            background: rgba(212, 163, 115, 0.12);
+            border: 1px solid rgba(212, 163, 115, 0.3);
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            margin-top: 1px;
+            margin-top: 2px;
         }}
         .math-step-main {{
             flex: 1;
@@ -2853,19 +2936,94 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .math-step-label {{
             font-family: var(--font-sans);
-            font-size: 0.94rem;
+            font-size: 0.96rem;
             font-weight: 600;
             color: var(--text-title);
-            margin-bottom: 3px;
+            margin-bottom: 5px;
+            letter-spacing: -0.01em;
         }}
         .math-step-body {{
-            font-size: 0.92rem;
-            color: var(--text-body);
-            line-height: 1.65;
+            font-size: 0.93rem;
+            color: #CBC2B5;
+            line-height: 1.68;
         }}
         .math-step-body strong {{
-            color: var(--accent-warm-hover);
+            color: #F8F5EE;
             font-weight: 600;
+        }}
+
+        /* 3-Scenario Corridor Matrix Cards */
+        .scenarios-trio-grid {{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }}
+        @media (max-width: 860px) {{
+            .scenarios-trio-grid {{
+                grid-template-columns: 1fr;
+            }}
+        }}
+        .scenario-col-card {{
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }}
+        .scenario-card-bear {{
+            background: rgba(224, 86, 36, 0.05);
+            border: 1px solid rgba(224, 86, 36, 0.22);
+        }}
+        .scenario-card-base {{
+            background: rgba(212, 163, 115, 0.06);
+            border: 1px solid rgba(212, 163, 115, 0.28);
+        }}
+        .scenario-card-bull {{
+            background: rgba(46, 196, 182, 0.05);
+            border: 1px solid rgba(46, 196, 182, 0.22);
+        }}
+        .scenario-col-header {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }}
+        .scenario-tag-badge {{
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            border-radius: 4px;
+        }}
+        .tag-bear {{
+            color: var(--accent-red);
+            background: rgba(224, 86, 36, 0.14);
+            border: 1px solid rgba(224, 86, 36, 0.25);
+        }}
+        .tag-base {{
+            color: var(--accent-warm);
+            background: rgba(212, 163, 115, 0.14);
+            border: 1px solid rgba(212, 163, 115, 0.28);
+        }}
+        .tag-bull {{
+            color: var(--accent-green);
+            background: rgba(46, 196, 182, 0.14);
+            border: 1px solid rgba(46, 196, 182, 0.25);
+        }}
+        .scenario-target-range {{
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text-title);
+        }}
+        .scenario-col-body {{
+            font-size: 0.85rem;
+            line-height: 1.55;
+            color: #BDB4A8;
         }}
 
         /* Thesis Evolution Timeline */
