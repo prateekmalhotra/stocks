@@ -685,6 +685,74 @@ def build_multibagger_legend_modal_html() -> str:
     """
 
 
+def build_cyclicality_legend_modal_html() -> str:
+    """Builds the clean, minimalist modal explaining Cyclicality Profiles and Cycle Positions in plain English."""
+    return """
+    <!-- Cyclicality & Macro Cycle Intelligence Modal -->
+    <div id="cyclicality-modal" class="modal-shade" onclick="closeCyclicalityModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 580px; max-height: 88vh; overflow-y: auto; padding: 26px 28px; background: rgba(18, 17, 16, 0.98); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 16px; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75); font-family: var(--font-sans);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                <div>
+                    <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); letter-spacing: -0.02em; margin-bottom: 4px;">
+                        Business Cyclicality &amp; Cycle Stance
+                    </div>
+                    <div style="font-family: var(--font-sans); font-size: 0.78rem; color: var(--text-dim); line-height: 1.4;">
+                        Howard Marks &amp; Warren Buffett mental models for cycle positioning and earnings durability.
+                    </div>
+                </div>
+                <button class="modal-x" onclick="closeCyclicalityModal()" style="color: var(--text-dim); font-size: 1.1rem; cursor: pointer; background: transparent; border: none; padding: 2px 6px;">✕</button>
+            </div>
+
+            <!-- Section 1: Cyclicality Profile -->
+            <div style="margin-bottom: 20px;">
+                <div style="font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    1. Cyclicality Profile (The Nature of the Business)
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #82AE8C; font-size: 0.86rem; margin-bottom: 3px;">Secular Compounder</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Mission-critical software, tolls, or subscriptions (e.g. Microsoft, Visa, Apple). Revenue and cash flows compound steadily through economic downturns.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: var(--text-title); font-size: 0.86rem; margin-bottom: 3px;">Moderate Cyclical</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Consumer retail, merchant payments, or advertising (e.g. StoneCo, Amazon, Lululemon). Earnings fluctuate with interest rates and consumer spending, but long-term secular growth continues.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #D4A373; font-size: 0.86rem; margin-bottom: 3px;">Deep Cyclical</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Commodities, homebuilders, freight shipping, or manufacturing (e.g. NVR, Vale, GigaCloud). Earnings swing between extreme peaks and valleys. Never extrapolate peak earnings.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Cycle Position -->
+            <div style="margin-bottom: 22px;">
+                <div style="font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    2. Cycle Stance (Where the Business Sits Today)
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #D4A373; font-size: 0.86rem; margin-bottom: 3px;">Downcycle Contraction / Trough</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Operating under high interest rates, credit contractions, or inventory destocking. Starting earnings are depressed, offering asymmetric upside when conditions normalize.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: var(--text-title); font-size: 0.86rem; margin-bottom: 3px;">Mid-Cycle Run-Rate</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Operating near sustainable historical margins and normal unit economics. Reliable baseline for 5-year compounding calculations.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #C97A72; font-size: 0.86rem; margin-bottom: 3px;">Peak / Over-Earning Risk</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Generating temporary peak margins due to shortages or bubble pricing. Downside risk if margins mean-revert to historical levels.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end;">
+                <button onclick="closeCyclicalityModal()" style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 7px 18px; cursor: pointer; transition: all 0.15s;">Got It</button>
+            </div>
+        </div>
+    </div>
+    """
+
+
 def build_card_attribution_modal_html() -> str:
     """Builds the dynamic modal explaining the exact Return / Drag Attribution statement for any card clicked."""
     return """
@@ -2199,6 +2267,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         cycle_color = "var(--text-title)"
 
     logo_html = get_ticker_logo_html(ticker_clean, size=36)
+    cyclicality_modal_html = build_cyclicality_legend_modal_html()
     width = 900
     height = 200
     padding_x = 10
@@ -2297,19 +2366,19 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             margin-bottom: 16px;
         }}
         .hero-title-area {{ display: flex; align-items: center; gap: 14px; }}
-        .hero-title-text {{ display: flex; flex-direction: column; gap: 2px; }}
+        .hero-title-text {{ display: flex; flex-direction: column; gap: 8px; }}
         .ticker-header-line {{ display: flex; align-items: baseline; gap: 10px; }}
         .ticker-symbol {{
             font-family: var(--font-display);
             font-size: 2.35rem;
             font-weight: 700;
-            letter-spacing: -0.035em;
+            letter-spacing: -0.03em;
             color: #F0ECE4;
             line-height: 1.05;
         }}
         .company-name-meta {{
             color: #9E978C;
-            font-size: 0.94rem;
+            font-size: 0.92rem;
             font-family: var(--font-sans);
             font-weight: 400;
             letter-spacing: -0.01em;
@@ -2361,8 +2430,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
 
         .price-callout {{ text-align: right; }}
-        .price-number {{ font-size: 2.35rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); line-height: 1.05; }}
-        .price-sub {{ font-size: 0.78rem; font-family: var(--font-mono); margin-top: 3px; color: var(--text-secondary); }}
+        .price-number {{ font-size: 2.35rem; font-weight: 600; font-family: var(--font-mono); color: var(--text-title); line-height: 1.05; letter-spacing: -0.02em; }}
+        .price-sub {{ font-size: 0.76rem; font-family: var(--font-sans); font-weight: 500; margin-top: 6px; color: var(--text-secondary); letter-spacing: 0.02em; }}
 
         /* Native SVG Area Chart */
         .native-chart-wrap {{
@@ -2456,11 +2525,11 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 14px 16px;
+            padding: 13px 15px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 94px;
+            min-height: 90px;
             transition: all 0.15s ease;
         }}
         .metric-card:hover {{
@@ -2468,20 +2537,19 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-color: rgba(212, 163, 115, 0.3);
         }}
         .metric-label {{
-            font-size: 0.70rem;
+            font-size: 0.76rem;
             font-family: var(--font-sans);
-            font-weight: 600;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-weight: 500;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             line-height: 1.2;
+            letter-spacing: -0.01em;
         }}
         .metric-value {{
-            font-size: 1.24rem;
-            font-weight: 600;
+            font-size: 1.15rem;
+            font-weight: 500;
             font-family: var(--font-mono);
             color: var(--text-title);
             line-height: 1.2;
@@ -2489,9 +2557,21 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            letter-spacing: -0.01em;
+        }}
+        .metric-value-text {{
+            font-size: 1.02rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            line-height: 1.2;
+            margin: 2px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: -0.01em;
         }}
         .metric-sub {{
-            font-size: 0.76rem;
+            font-size: 0.74rem;
             color: var(--text-secondary);
             font-family: var(--font-sans);
             line-height: 1.25;
@@ -2499,37 +2579,57 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             overflow: hidden;
             text-overflow: ellipsis;
         }}
-        .cycle-badge {{
+        .btn-info-circle {{
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            padding: 2px 7px;
-            border-radius: 5px;
-            font-family: var(--font-sans);
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            line-height: 1.25;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-dim);
+            font-size: 0.60rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
         }}
-        .cycle-badge-down {{
-            background: rgba(212, 163, 115, 0.12);
-            color: #D4A373;
-            border: 1px solid rgba(212, 163, 115, 0.28);
+        .btn-info-circle:hover {{
+            background: var(--bg-hover);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
         }}
-        .cycle-badge-mid {{
-            background: rgba(158, 151, 140, 0.12);
-            color: #B5AFA4;
-            border: 1px solid rgba(158, 151, 140, 0.22);
+        .modal-shade {{
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 9, 8, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
         }}
-        .cycle-badge-secular {{
-            background: rgba(130, 174, 140, 0.12);
-            color: #82AE8C;
-            border: 1px solid rgba(130, 174, 140, 0.28);
+        .modal-body-card {{
+            position: relative;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8);
+            box-sizing: border-box;
+            animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }}
-        .cycle-badge-peak {{
-            background: rgba(201, 122, 114, 0.12);
-            color: #C97A72;
-            border: 1px solid rgba(201, 122, 114, 0.28);
+        @keyframes modalFadeIn {{
+            from {{ opacity: 0; transform: scale(0.96) translateY(8px); }}
+            to {{ opacity: 1; transform: scale(1) translateY(0); }}
         }}
 
         /* Tab Bar */
@@ -3112,13 +3212,19 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     <span class="metric-sub">${net_cash_tot:+,.0f}M Balance Sheet</span>
                 </div>
                 <div class="metric-card">
-                    <span class="metric-label">Cyclicality Profile</span>
-                    <span class="metric-value" style="font-family: var(--font-sans); font-size: 1.18rem; font-weight: 600; color: var(--text-title);">{cyclicality_type}</span>
+                    <span class="metric-label">
+                        <span>Cyclicality Profile</span>
+                        <button type="button" class="btn-info-circle" onclick="openCyclicalityModal(event)" title="Learn about Cyclicality Profile">ⓘ</button>
+                    </span>
+                    <span class="metric-value-text" style="color: var(--text-title);">{cyclicality_type}</span>
                     <span class="metric-sub">{cyclicality_sub}</span>
                 </div>
                 <div class="metric-card">
-                    <span class="metric-label">Cycle Position</span>
-                    <span class="metric-value" style="font-family: var(--font-sans); font-size: 1.18rem; font-weight: 600; color: {cycle_color};">{cycle_stance}</span>
+                    <span class="metric-label">
+                        <span>Cycle Position</span>
+                        <button type="button" class="btn-info-circle" onclick="openCyclicalityModal(event)" title="Learn about Cycle Position">ⓘ</button>
+                    </span>
+                    <span class="metric-value-text" style="color: {cycle_color};">{cycle_stance}</span>
                     <span class="metric-sub">{cycle_summary}</span>
                 </div>
             </div>
@@ -3376,7 +3482,28 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         document.addEventListener('DOMContentLoaded', () => {{
             renderChart('1Y');
         }});
+
+        function openCyclicalityModal(event) {{
+            if (event) {{
+                event.stopPropagation();
+                event.preventDefault();
+            }}
+            const modal = document.getElementById('cyclicality-modal');
+            if (modal) modal.style.display = 'flex';
+        }}
+
+        function closeCyclicalityModal() {{
+            const modal = document.getElementById('cyclicality-modal');
+            if (modal) modal.style.display = 'none';
+        }}
+
+        function closeCyclicalityModalOutside(event) {{
+            if (event.target.id === 'cyclicality-modal') {{
+                closeCyclicalityModal();
+            }}
+        }}
     </script>
+    {cyclicality_modal_html}
 </body>
 </html>
 """
