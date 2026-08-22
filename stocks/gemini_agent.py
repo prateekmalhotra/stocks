@@ -2526,6 +2526,8 @@ def run_forensic_audit_agent(ticker: str, company_name: str, current_price: floa
     print(f"  [Step 1/5] Deep forensic search: Investigating active headwinds, unit risks & short thesis for {ticker}...", flush=True)
     headwinds_prompt = f"""You are a Senior Short-Seller & Forensic Risk Analyst researching {ticker} ({company_name}) at current market price ${current_price:.2f}.
 
+RECENCY MANDATE: Current calendar year is 2026. You MUST search for and prioritize live 2025/2026 earnings reports, recent 10-Q filings, conference calls, and current analyst downgrades. Do NOT use outdated 2023/2024 commentary when newer 2025/2026 disclosures exist.
+
 Use Google Search to inspect recent (last 6-12 months / 2025-2026) short reports, hedge fund bear theses, Substack deep dives, and analyst downgrades for {ticker}:
 1. What specific operational unit breakdowns and risks are highlighted by short-sellers and skeptics?
    - Unit Volumes: (e.g. active users/DAU/MAU churning, enterprise software seat downgrades, store comp declines, merchant attrition, TPV/GMV deceleration)
@@ -2537,10 +2539,10 @@ Provide a concise, highly factual briefing of the core skeptical thesis and oper
 
     reality_prompt = f"""You are a Senior Value Investor & Portfolio Manager auditing {ticker} ({company_name}).
 
-Use Google Search to inspect {ticker}'s EXACT LAST 3 to 4 CONSECUTIVE QUARTERLY EARNINGS REPORTS (Q1, Q2, Q3, Q4 2025/2026), conference call transcripts, and recent (last 6-12 months / 2025-2026) institutional investor letters / Substack deep dives (e.g. Scuttleblurb, Diffs, In Practise, MBI Deep Dives, Value Investors Club):
+RECENCY MANDATE: Current calendar year is 2026. You MUST search for and extract {ticker}'s EXACT LAST 3 to 4 CONSECUTIVE QUARTERLY EARNINGS REPORTS (Q1, Q2, Q3, Q4 2025/2026), latest 10-Q filings, and current institutional investor letters / Substack deep dives (e.g. Scuttleblurb, Diffs, In Practise, MBI Deep Dives, Value Investors Club):
 
 1. SEQUENTIAL 3-4 QUARTER OPERATIONAL UNIT TRAJECTORY (STATUTORY RELEASES):
-   - Extract the exact statutory volume units and unit monetization reported in 10-Q/10-K filings:
+   - Extract the exact statutory volume units and unit monetization reported in the latest 10-Q/10-K filings:
      * Physical/Digital Volume Units: (e.g. Active 3P Sellers, Active Buyers, GMV, Paying Users, Subscribers, Warehouses/Clubs, Enterprise Seats, Volume Shipped)
      * Unit Monetization & Pricing Yield: (e.g. Spend per Buyer, ARPU $/mo, Marketplace Take-Rate %, Comp Sales per box, Price per Unit/ASP)
      * Exact Revenue YoY progression across recent quarters ($M)
@@ -2580,6 +2582,8 @@ Provide a concise, highly factual briefing synthesizing the exact sequential qua
     # ---------------------------------------------------------
     print(f"  [Step 3/5] Extracting statutory 10-K/20-F balance sheet and cash flow metrics for {ticker}...", flush=True)
     audit_prompt = f"""You are a Forensic Financial Auditor researching {ticker} ({company_name}) at current real market price ${current_price:.2f}.
+
+RECENCY MANDATE: Current calendar year is 2026. You MUST retrieve numbers from the latest statutory 10-Q / 10-K filings and latest quarterly earnings releases (Q1/Q2/Q3/Q4 2025/2026). If the company has reported Q1 or Q2 2026, use those exact latest reported numbers and calculate TTM from the latest 4 consecutive quarters. Do NOT use outdated 2023/2024 numbers.
 
 Use Google Search to retrieve the statutory 10-K / 20-F / 10-Q filings, latest quarterly reports (Q1/Q2/Q3/Q4 2025/2026), and TTM financial numbers for {ticker}.
 IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, convert to USD at ~5.6 BRL/USD. Return purely numerical floats without symbols or commas.
