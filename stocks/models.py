@@ -49,6 +49,9 @@ class ThesisVersion(BaseModel):
     predictability_tier: Optional[str] = "Moderate Predictability"  # High, Moderate, Low, Highly Unpredictable
     predictability_score: Optional[str] = "Manageable Visibility · Moat Protected"
     predictability_summary: Optional[str] = ""  # 1-sentence synthesis of 10-year visibility
+    cyclicality_type: Optional[str] = "Moderate Cyclical"  # Secular Compounder, Moderate Cyclical, Deep Cyclical
+    cycle_stance: Optional[str] = "Mid-Cycle Run-Rate"  # Trough / Max Pessimism, Downcycle Contraction, Mid-Cycle Run-Rate, Peak / Over-Earning Risk
+    cycle_summary: Optional[str] = ""  # 1-line synthesis of cycle drivers
     owner_earnings_per_share: Optional[float] = None
     owner_earnings_total_mil: Optional[float] = None
     p_oe: Optional[float] = None
@@ -119,6 +122,9 @@ class WatchlistStock(BaseModel):
     predictability_tier: Optional[str] = "Moderate Predictability"
     predictability_score: Optional[str] = "Manageable Visibility · Moat Protected"
     predictability_summary: Optional[str] = ""
+    cyclicality_type: Optional[str] = "Moderate Cyclical"
+    cycle_stance: Optional[str] = "Mid-Cycle Run-Rate"
+    cycle_summary: Optional[str] = ""
     owner_earnings_per_share: Optional[float] = None
     owner_earnings_total_mil: Optional[float] = None
     p_oe: Optional[float] = None

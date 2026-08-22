@@ -229,12 +229,22 @@
             white-space: nowrap;
         }
 
-        /* Clean 3-Column Metrics Grid */
+        /* Clean 4-Column (8-Box) Derived Financial & Cycle Metrics Grid */
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 14px;
             margin-top: 20px;
+        }
+        @media (max-width: 1024px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 640px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
         }
         .metric-card {
             background: var(--bg-subpanel);
@@ -816,7 +826,7 @@
                 <div class="chart-x-axis" id="chart-x-axis"></div>
             </div>
 
-            <!-- 6-Box Derived Financial Metrics Grid -->
+            <!-- 8-Box Derived Financial & Cycle Metrics Grid -->
             <div class="metrics-grid">
                 <div class="metric-card">
                     <span class="metric-label">Normalized Owner Earnings</span>
@@ -847,6 +857,16 @@
                     <span class="metric-label">Net Cash / Share</span>
                     <span class="metric-value" style="color: var(--text-title);">$-3.50 / sh</span>
                     <span class="metric-sub">$-128M Balance Sheet</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Cyclicality Profile</span>
+                    <span class="metric-value" style="font-size: 1.15rem;">Moderate Cyclical</span>
+                    <span class="metric-sub">Macro & Rate Sensitivity</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Cycle Position</span>
+                    <span class="metric-value" style="font-size: 1.15rem; color: var(--text-title);">Mid-Cycle Run-Rate</span>
+                    <span class="metric-sub">Normal Run-Rate Earnings</span>
                 </div>
             </div>
         </header>

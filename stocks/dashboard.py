@@ -2141,6 +2141,52 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     if target_price is None or target_price <= 0:
         target_price = round(current_price * 1.35, 2)
 
+    # Cyclicality & Business Cycle Stance
+    cyclicality_type = getattr(stock, 'cyclicality_type', None) or (current_v.cyclicality_type if current_v else None)
+    cycle_stance = getattr(stock, 'cycle_stance', None) or (current_v.cycle_stance if current_v else None)
+    cycle_summary = getattr(stock, 'cycle_summary', None) or (current_v.cycle_summary if current_v else None)
+
+    if not cyclicality_type or not cycle_stance:
+        if ticker_clean in ("STNE", "PAGS"):
+            cyclicality_type = cyclicality_type or "Moderate Cyclical"
+            cycle_stance = cycle_stance or "Downcycle Contraction"
+            cycle_summary = cycle_summary or "Selic Rate Drag · Depressed Starting Base"
+        elif ticker_clean in ("GCT", "BABA", "PDD", "JD", "AMZN", "LULU"):
+            cyclicality_type = cyclicality_type or "Moderate Cyclical"
+            cycle_stance = cycle_stance or "Mid-Cycle Run-Rate"
+            cycle_summary = cycle_summary or "Consumer Demand & Trade Cycle Sensitivity"
+        elif ticker_clean in ("MSFT", "GOOGL", "META", "AAPL", "V", "MA", "CSU"):
+            cyclicality_type = cyclicality_type or "Secular Compounder"
+            cycle_stance = cycle_stance or "Secular Expansion"
+            cycle_summary = cycle_summary or "Mission-Critical Software Subscription Moat"
+        elif ticker_clean in ("NVR", "LEN", "DHI", "VALE", "CLF", "ZIM"):
+            cyclicality_type = cyclicality_type or "Deep Cyclical"
+            cycle_stance = cycle_stance or "Mid-Cycle Run-Rate"
+            cycle_summary = cycle_summary or "Commodity / Housing Rate Cycle"
+        else:
+            cyclicality_type = cyclicality_type or "Moderate Cyclical"
+            cycle_stance = cycle_stance or "Mid-Cycle Run-Rate"
+            cycle_summary = cycle_summary or "Economic & Interest Rate Sensitivity"
+
+    if not cycle_summary:
+        cycle_summary = "Depressed Rate & Credit Base" if any(k in cycle_stance for k in ["Down", "Trough"]) else "Normal Run-Rate Earnings"
+
+    if "Secular" in str(cyclicality_type):
+        cyclicality_sub = "Mission-Critical Subscription Moat"
+    elif "Deep" in str(cyclicality_type):
+        cyclicality_sub = "Commodity & Credit Sensitive"
+    else:
+        cyclicality_sub = "Macro & Rate Sensitivity"
+
+    if any(k in cycle_stance for k in ["Trough", "Downcycle", "Depressed"]):
+        cycle_color = "#D4A373"  # warm sand
+    elif any(k in cycle_stance for k in ["Peak", "Over-Earning", "Late Cycle"]):
+        cycle_color = "#C97A72"  # soft red warning
+    elif any(k in cycle_stance for k in ["Secular", "Expansion"]):
+        cycle_color = "#82AE8C"  # soft sage green
+    else:
+        cycle_color = "var(--text-title)"
+
     logo_html = get_ticker_logo_html(ticker_clean, size=36)
     width = 900
     height = 200
@@ -2378,12 +2424,22 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             white-space: nowrap;
         }}
 
-        /* Clean 3-Column Metrics Grid */
+        /* Clean 4-Column (8-Box) Derived Financial & Cycle Metrics Grid */
         .metrics-grid {{
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 14px;
             margin-top: 20px;
+        }}
+        @media (max-width: 1024px) {{
+            .metrics-grid {{
+                grid-template-columns: repeat(2, 1fr);
+            }}
+        }}
+        @media (max-width: 640px) {{
+            .metrics-grid {{
+                grid-template-columns: 1fr;
+            }}
         }}
         .metric-card {{
             background: var(--bg-subpanel);
@@ -2965,7 +3021,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 <div class="chart-x-axis" id="chart-x-axis"></div>
             </div>
 
-            <!-- 6-Box Derived Financial Metrics Grid -->
+            <!-- 8-Box Derived Financial & Cycle Metrics Grid -->
             <div class="metrics-grid">
                 <div class="metric-card">
                     <span class="metric-label">Normalized Owner Earnings</span>
@@ -2996,6 +3052,16 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     <span class="metric-label">Net Cash / Share</span>
                     <span class="metric-value" style="color: {'var(--accent-green)' if net_cash_sh > 0 else 'var(--text-title)'};">${net_cash_sh:+.2f} / sh</span>
                     <span class="metric-sub">${net_cash_tot:+,.0f}M Balance Sheet</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Cyclicality Profile</span>
+                    <span class="metric-value" style="font-size: 1.15rem;">{cyclicality_type}</span>
+                    <span class="metric-sub">{cyclicality_sub}</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Cycle Position</span>
+                    <span class="metric-value" style="font-size: 1.15rem; color: {cycle_color};">{cycle_stance}</span>
+                    <span class="metric-sub">{cycle_summary}</span>
                 </div>
             </div>
         </header>
