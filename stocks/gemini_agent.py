@@ -2915,8 +2915,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     if extracted_target and extracted_target > 0:
         target_5y = extracted_target
     else:
-        action_signal = "BUY" if (owner_yield >= 8.0 or p_oe <= 15.0) else "HOLD"
-        target_5y = current_price * 1.35 if action_signal == "BUY" else current_price * 1.10
+        target_5y = current_price * 1.25 if owner_yield >= 8.0 else current_price * 1.05
 
     p2_text = info.get("why_it_might_be_right", "")
     extracted_bear = None
@@ -2930,7 +2929,21 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     bear_target_val = extracted_bear if (extracted_bear and extracted_bear > 0) else round(current_price * 0.75, 2)
     bull_target_val = round(target_5y * 1.25, 2)
 
-    action_signal = "BUY" if (target_5y > current_price * 1.15 or owner_yield >= 10.0) else "HOLD"
+    # Calculate 5-year expected price CAGR
+    irr_5y = ((target_5y / current_price) ** (1.0 / 5.0) - 1.0) if current_price > 0 else 0.0
+
+    # Institutional Action Signal:
+    # BUY: Requires genuine 5-year compounding (IRR >= 10.0% / target > 1.6x current) and not a decaying value trap.
+    # HOLD / CAUTION: Low or flat return (IRR between 0% and 10%).
+    # AVOID: Negative return (target_5y < current_price) or severe distress.
+    if target_5y < current_price * 0.95 or irr_5y < 0.0:
+        action_signal = "AVOID"
+    elif irr_5y >= 0.10 and (moat_lbl in ["Wide Moat", "Narrow Moat"] or target_5y >= current_price * 1.50):
+        action_signal = "BUY"
+    elif irr_5y >= 0.05:
+        action_signal = "HOLD"
+    else:
+        action_signal = "CAUTION"
 
     meta = {
         "company_name": company_name,
