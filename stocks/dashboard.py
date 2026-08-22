@@ -2547,7 +2547,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         /* Minimalist Logo Avatars */
         .ticker-logo-wrap {{
-            border-radius: 8px;
+            border-radius: 50%;
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             display: inline-flex;
@@ -2560,9 +2560,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .ticker-logo {{
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            padding: 2px;
-            border-radius: 6px;
+            object-fit: cover;
+            border-radius: 50%;
             display: block;
         }}
         .ticker-logo-fallback {{
@@ -2575,6 +2574,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             justify-content: center;
             width: 100%;
             height: 100%;
+            border-radius: 50%;
             background: rgba(212, 163, 115, 0.08);
         }}
 
@@ -4354,7 +4354,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
         /* Minimalist Logo Avatars */
         .ticker-logo-wrap {{
-            border-radius: 6px;
+            border-radius: 50%;
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             display: inline-flex;
@@ -4368,9 +4368,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .ticker-logo {{
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            padding: 2px;
-            border-radius: 5px;
+            object-fit: cover;
+            border-radius: 50%;
             display: block;
         }}
         .ticker-logo-fallback {{
@@ -4383,6 +4382,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             justify-content: center;
             width: 100%;
             height: 100%;
+            border-radius: 50%;
             background: rgba(212, 163, 115, 0.08);
         }}
 
