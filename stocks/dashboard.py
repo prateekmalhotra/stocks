@@ -2178,13 +2178,24 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     else:
         cyclicality_sub = "Macro & Rate Sensitivity"
 
+    if "Secular" in str(cyclicality_type):
+        cyclicality_badge_class = "cycle-badge-secular"
+    elif "Deep" in str(cyclicality_type):
+        cyclicality_badge_class = "cycle-badge-down"
+    else:
+        cyclicality_badge_class = "cycle-badge-mid"
+
     if any(k in cycle_stance for k in ["Trough", "Downcycle", "Depressed"]):
+        cycle_badge_class = "cycle-badge-down"
         cycle_color = "#D4A373"  # warm sand
     elif any(k in cycle_stance for k in ["Peak", "Over-Earning", "Late Cycle"]):
+        cycle_badge_class = "cycle-badge-peak"
         cycle_color = "#C97A72"  # soft red warning
     elif any(k in cycle_stance for k in ["Secular", "Expansion"]):
+        cycle_badge_class = "cycle-badge-secular"
         cycle_color = "#82AE8C"  # soft sage green
     else:
+        cycle_badge_class = "cycle-badge-mid"
         cycle_color = "var(--text-title)"
 
     logo_html = get_ticker_logo_html(ticker_clean, size=36)
@@ -2428,7 +2439,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .metrics-grid {{
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
+            gap: 12px;
             margin-top: 20px;
         }}
         @media (max-width: 1024px) {{
@@ -2444,34 +2455,81 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .metric-card {{
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 16px 18px;
+            border-radius: 12px;
+            padding: 14px 16px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            transition: border-color 0.15s;
+            justify-content: space-between;
+            min-height: 94px;
+            transition: all 0.15s ease;
         }}
-        .metric-card:hover {{ border-color: rgba(212, 163, 115, 0.25); }}
+        .metric-card:hover {{
+            background: var(--bg-panel);
+            border-color: rgba(212, 163, 115, 0.3);
+        }}
         .metric-label {{
-            font-size: 0.78rem;
-            font-family: var(--font-mono);
-            color: var(--text-secondary);
+            font-size: 0.70rem;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
         }}
         .metric-value {{
-            font-size: 1.28rem;
+            font-size: 1.24rem;
             font-weight: 600;
             font-family: var(--font-mono);
             color: var(--text-title);
+            line-height: 1.2;
+            margin: 2px 0;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }}
         .metric-sub {{
             font-size: 0.76rem;
-            color: var(--text-dim);
-            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            line-height: 1.25;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }}
+        .cycle-badge {{
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.25;
+        }}
+        .cycle-badge-down {{
+            background: rgba(212, 163, 115, 0.12);
+            color: #D4A373;
+            border: 1px solid rgba(212, 163, 115, 0.28);
+        }}
+        .cycle-badge-mid {{
+            background: rgba(158, 151, 140, 0.12);
+            color: #B5AFA4;
+            border: 1px solid rgba(158, 151, 140, 0.22);
+        }}
+        .cycle-badge-secular {{
+            background: rgba(130, 174, 140, 0.12);
+            color: #82AE8C;
+            border: 1px solid rgba(130, 174, 140, 0.28);
+        }}
+        .cycle-badge-peak {{
+            background: rgba(201, 122, 114, 0.12);
+            color: #C97A72;
+            border: 1px solid rgba(201, 122, 114, 0.28);
         }}
 
         /* Tab Bar */
@@ -3024,7 +3082,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             <!-- 8-Box Derived Financial & Cycle Metrics Grid -->
             <div class="metrics-grid">
                 <div class="metric-card">
-                    <span class="metric-label">Normalized Owner Earnings</span>
+                    <span class="metric-label">Owner Earnings (TTM)</span>
                     <span class="metric-value">${oe_sh:.2f} / sh</span>
                     <span class="metric-sub">${oe_tot:,.0f}M total (ex-SBC)</span>
                 </div>
@@ -3055,12 +3113,16 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Cyclicality Profile</span>
-                    <span class="metric-value" style="font-size: 1.15rem;">{cyclicality_type}</span>
+                    <div style="margin: 3px 0 2px;">
+                        <span class="cycle-badge {cyclicality_badge_class}">{cyclicality_type}</span>
+                    </div>
                     <span class="metric-sub">{cyclicality_sub}</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Cycle Position</span>
-                    <span class="metric-value" style="font-size: 1.15rem; color: {cycle_color};">{cycle_stance}</span>
+                    <div style="margin: 3px 0 2px;">
+                        <span class="cycle-badge {cycle_badge_class}">{cycle_stance}</span>
+                    </div>
                     <span class="metric-sub">{cycle_summary}</span>
                 </div>
             </div>
