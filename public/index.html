@@ -21,7 +21,15 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-22 18:39:09 UTC"
+    "updated_at": "2026-08-22 18:47:55 UTC"
+  },
+  "BYD": {
+    "price": 80.78,
+    "prev_close": 80.78,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 18:47:55 UTC"
   },
   "GCT": {
     "price": 49.65,
@@ -29,7 +37,15 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-22 18:39:09 UTC"
+    "updated_at": "2026-08-22 18:47:55 UTC"
+  },
+  "LGCY": {
+    "price": 10.55,
+    "prev_close": 10.55,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-22 18:47:55 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -807,7 +823,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">2</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">4</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -888,6 +904,44 @@
             </td>
         </tr>
         
+        <tr class="table-row" data-ticker="BYD" data-baseline="80.78" onclick="location.href='reports/BYD.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BYD" alt="BYD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BY</span></div>
+                        <span class="tbl-symbol">BYD</span>
+                    </div>
+                    <span class="tbl-company-hover">BYD Company Limited</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-BYD">$80.78</span>
+                    <span class="tbl-return tbl-ret-BYD pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <div class="tbl-labels-stack" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
+        <span class="moat-text-label" style="color: var(--accent-warm); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+        <span class="pred-text-label" style="color: var(--text-secondary); font-size: 0.76rem; font-weight: 400; font-family: var(--font-sans); white-space: nowrap;">Moderate Predictability</span>
+    </div>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$110.00</span>
+                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +36.2%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" data-ticker="GCT" data-baseline="49.65" onclick="location.href='reports/GCT.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -916,6 +970,44 @@
                 <div class="tbl-target-cell">
                     <span class="tbl-target-price">$88.00</span>
                     <span class="tbl-target-delta" style="color: #82AE8C;">↗ +77.2%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 20, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="LGCY" data-baseline="10.55" onclick="location.href='reports/LGCY.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LGCY" alt="LGCY" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">LG</span></div>
+                        <span class="tbl-symbol">LGCY</span>
+                    </div>
+                    <span class="tbl-company-hover">Legacy Education Inc.</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-LGCY">$10.55</span>
+                    <span class="tbl-return tbl-ret-LGCY pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <div class="tbl-labels-stack" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
+        <span class="moat-text-label" style="color: #D48858; font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Weak Moat</span>
+        <span class="pred-text-label" style="color: var(--text-secondary); font-size: 0.76rem; font-weight: 400; font-family: var(--font-sans); white-space: nowrap;">Moderate Predictability</span>
+    </div>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$18.00</span>
+                    <span class="tbl-target-delta" style="color: #82AE8C;">↗ +70.6%</span>
                 </div>
             </td>
             <td>
@@ -969,6 +1061,42 @@
             </div>
         </div>
         
+        <div class="grid-card" data-ticker="BYD" data-baseline="80.78" onclick="location.href='reports/BYD.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BYD" alt="BYD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BY</span></div>
+                    <span class="grid-symbol">BYD</span>
+                </div>
+                <div class="grid-price grid-price-BYD">$80.78</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <div class="tbl-labels-stack" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
+        <span class="moat-text-label" style="color: var(--accent-warm); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Narrow Moat</span>
+        <span class="pred-text-label" style="color: var(--text-secondary); font-size: 0.76rem; font-weight: 400; font-family: var(--font-sans); white-space: nowrap;">Moderate Predictability</span>
+    </div>
+            </div>
+            <div class="grid-company">BYD Company Limited</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-BYD pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$110.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +36.2%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="grid-card" data-ticker="GCT" data-baseline="49.65" onclick="location.href='reports/GCT.html'">
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -997,6 +1125,42 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">5Y Delta</span>
                     <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +77.2%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="LGCY" data-baseline="10.55" onclick="location.href='reports/LGCY.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LGCY" alt="LGCY" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">LG</span></div>
+                    <span class="grid-symbol">LGCY</span>
+                </div>
+                <div class="grid-price grid-price-LGCY">$10.55</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <div class="tbl-labels-stack" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
+        <span class="moat-text-label" style="color: #D48858; font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Weak Moat</span>
+        <span class="pred-text-label" style="color: var(--text-secondary); font-size: 0.76rem; font-weight: 400; font-family: var(--font-sans); white-space: nowrap;">Moderate Predictability</span>
+    </div>
+            </div>
+            <div class="grid-company">Legacy Education Inc.</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-LGCY pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$18.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">5Y Delta</span>
+                    <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +70.6%</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
