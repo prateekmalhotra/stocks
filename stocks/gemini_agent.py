@@ -2710,6 +2710,10 @@ RULE #5: STRICT BAN ON VALUE SUMMING / CASH FLOW DOUBLE-COUNTING:
 RULE #6: VALUATION ARCHITECTURE:
 - For CONGLOMERATES & MULTI-SEGMENT PLATFORMS (e.g. Alphabet, Amazon, Meta, Apple, Microsoft, Alibaba): Use SUM-OF-THE-PARTS (SOTP) & SEGMENT UNIT ECONOMICS. Model the core divisions individually based on their current trajectory, apply appropriate segment multiples, sum the parts, add Net Cash, and divide by retired shares.
 - For SINGLE-SEGMENT BUSINESSES: Use BOTTOM-UP UNIT ECONOMICS: (Current Unit Trajectory × Monetization Yield) ➔ Projected Revenue ➔ Owner Cash Margin ➔ Total Owner Earnings ➔ Per-Share Owner Earnings ➔ Terminal Multiple + Net Cash/Debt.
+RULE #7: INSTITUTIONAL CONSERVATISM & STRICT MARGIN OF SAFETY:
+- Always err on the side of conservatism.
+- Terminal Multiples: Never stretch multiples. Assign distressed multiples (3.0x–5.0x P/OE) for shrinking/indebted businesses, modest multiples (8.0x–12.0x) for mature/narrow moat businesses, and at most (15.0x–18.0x) for elite wide moat monopolistic compounders.
+- Growth & Margin Realism: Model natural scale deceleration on growing units, and model cost inflation (elevated defensive marketing and SBC) on struggling units. Always protect against downside risk.
 
 Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps with clean numbered lists (1. ... 2. ...). Do NOT use raw monospace terminal blocks, and do NOT use emojis.
 
@@ -2739,7 +2743,11 @@ Provide EXACTLY 4 sections in simple, elegant, plain English. Format key steps w
      4. Share Count & Balance Sheet Reality: If Net Debt > 0, assume shares remain flat at {shares:.1f}M (zero buybacks). Only factor in buybacks if company has Net Cash and an audited buyback history.
      5. Year 5 Owner Earnings Per Share: ($[OE_Total_5]M / [S_5]M) = $[OE_sh_5]/share.
      6. Prudent Terminal Multiple & Expected Share Price: Apply a realistic multiple based on business quality + net cash/debt (${net_cash_per_share:+.2f}/sh) ➔ Expected Year 5 Target Share Price $[Target_Price]/share.
-     7. Expected 5-Year Annualized Return (IRR): Calculate IRR = ($[Target_Price] / ${current_price:.2f})^(1/5) - 1. Show the pure capital appreciation compounding return. NEVER sum intermediate annual cash flows into a phantom combined share price.
+     7. Expected 5-Year Total Return & Capital Allocation Bridge:
+        - Price Appreciation CAGR: Calculate Price CAGR = ($[Target_Price] / ${current_price:.2f})^(1/5) - 1.
+        - Capital Allocation Bridge: Detail where 5-year cumulative cash flow goes (e.g. $[Debt_Paydown]/sh used to eliminate net debt and derisk balance sheet; remaining cash absorbed by defensive marketing/SBC).
+        - Total Realized Annualized Return (IRR): State Total IRR = Price Appreciation CAGR + Cash Dividend Yield %. (If zero dividend, Total IRR equals the Price CAGR).
+        - STRICT BAN: Never sum cumulative cash flows onto the terminal price to create a fake combined share price.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
@@ -2798,12 +2806,14 @@ CIO AUDIT & MANDATORY CORRECTION RULES:
    - Purge any promotional buzzwords ('intentional reset', 'turnaround taking hold', 'poised for growth'). Enforce cold forensic prose.
 3. BALANCE SHEET & BUYBACK SANITY:
    - If Net Debt > 0 (${net_cash_total:+,.0f}M), verify that Section 4 does NOT assume share buybacks. Share count must remain flat or dilute.
-4. STRICT BAN ON CASH FLOW SUMMING / VALUE DOUBLE-COUNTING:
-   - In Step 7 of Section 4, verify that IRR is strictly (Target Share Price / ${current_price:.2f})^(1/5) - 1. REJECT any attempts to add 5-year cumulative cash flows to the terminal price to create a fake combined value.
+4. CAPITAL ALLOCATION & TOTAL RETURN SANITY:
+   - In Step 7 of Section 4, verify that Price CAGR is ($[Target_Price] / ${current_price:.2f})^(1/5) - 1. Verify that 5-year cash is properly bridged (e.g. debt paydown, defensive burn) and NOT double-counted on top of target share price.
 5. ADVERSARIAL BEAR CHECK (SECTION 2):
    - Ensure Section 2 accurately reverse-engineers the real sell-side and short-seller concerns without unrealistic double-counting.
 6. MATHEMATICAL EXACTNESS:
    - Ensure starting Owner Earnings (${oe_per_share:.2f}/sh), share count adjustments, and 5-year IRR are 100% mathematically exact and logical.
+7. STRICT CONSERVATISM & MARGIN OF SAFETY AUDIT:
+   - Forcefully tone down any stretched multiples, unearned operating leverage, or aggressive margin expansion. Enforce strict downside protection and conservative exit multiples.
 
 Produce the FINAL, FULLY REFINED, AND PERFECTED 4 SECTIONS incorporating all live audit corrections.
 
