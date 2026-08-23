@@ -328,6 +328,54 @@ def map_to_canonical_predictability_tier(lbl: str = "", sec1_text: str = "", def
     return default
 
 
+def get_buffett_munger_2factor_matrix_guidance(moat: str = "Narrow Moat", roic: float = 15.0, pred_tier: str = "Moderate Predictability") -> str:
+    """Builds the explicit 2-Factor Buffett-Munger Capitalization Matrix (Moat/ROIC Tier x Year 3 Growth Rate g3).
+    Enforces strict economic discipline: terminal exit multiple is an explicit function of business quality (ROIC/Moat)
+    AND ongoing cash compounding velocity in Year 3 (g3)."""
+    clean_moat = str(moat or "Narrow Moat")
+    clean_pred = str(pred_tier or "Moderate Predictability")
+    r = float(roic if roic is not None else 15.0)
+
+    if "Wide" in clean_moat:
+        return f"""2-FACTOR EXIT MULTIPLE MATRIX FOR WIDE MOAT (Audited ROIC: {r:.1f}% | {clean_pred}):
+  • Rapid Compounding (Year 3 Owner Earnings YoY growth g₃ > 15%): Apply 22.0x–25.0x P/OE (~4.0%–4.5% yield on elite compounder)
+  • Steady Compounding (Year 3 Owner Earnings YoY growth g₃ is 8%–15%): Apply 18.0x–21.0x P/OE (~4.8%–5.5% yield on solid compounder)
+  • Mature / Steady (Year 3 Owner Earnings YoY growth g₃ is 3%–8%): Apply 14.0x–17.0x P/OE (~6.0%–7.0% yield on mature franchise)
+  • Stagnant / Contracting (Year 3 Owner Earnings YoY growth g₃ < 3% or negative): Apply 11.0x–13.0x P/OE (~8.0%–9.0% yield on stagnant business)"""
+    elif "Narrow" in clean_moat:
+        return f"""2-FACTOR EXIT MULTIPLE MATRIX FOR NARROW MOAT (Audited ROIC: {r:.1f}% | {clean_pred}):
+  • Rapid Compounding (Year 3 Owner Earnings YoY growth g₃ > 15%): Apply 15.0x–18.0x P/OE (~5.5%–6.5% yield on expanding niche platform)
+  • Steady Compounding (Year 3 Owner Earnings YoY growth g₃ is 8%–15%): Apply 12.0x–15.0x P/OE (~6.5%–8.0% yield on healthy compounder)
+  • Mature / Steady (Year 3 Owner Earnings YoY growth g₃ is 3%–8%): Apply 10.0x–12.0x P/OE (~8.0%–10.0% yield on mature asset)
+  • Stagnant / Contracting (Year 3 Owner Earnings YoY growth g₃ < 3% or negative): Apply 7.0x–9.0x P/OE (~11.0%–14.0% yield on low-growth business)"""
+    elif "Weak" in clean_moat:
+        return f"""2-FACTOR EXIT MULTIPLE MATRIX FOR WEAK MOAT (Audited ROIC: {r:.1f}% | {clean_pred}):
+  • Rapid Compounding (Year 3 Owner Earnings YoY growth g₃ > 15%): Apply 9.0x–11.0x P/OE (~9.0%–11.0% yield on cyclical rebound)
+  • Steady Compounding (Year 3 Owner Earnings YoY growth g₃ is 8%–15%): Apply 7.0x–9.0x P/OE (~11.0%–14.0% yield on moderate growth)
+  • Mature / Steady (Year 3 Owner Earnings YoY growth g₃ is 3%–8%): Apply 5.0x–7.0x P/OE (~14.0%–20.0% yield on low-moat mature)
+  • Stagnant / Contracting (Year 3 Owner Earnings YoY growth g₃ < 3% or negative): Apply 3.5x–5.0x P/OE (>20.0% yield on value-trap/churn asset)"""
+    else:
+        return f"""2-FACTOR EXIT MULTIPLE MATRIX FOR NO MOAT (Audited ROIC: {r:.1f}% | {clean_pred}):
+  • Compounding (Year 3 Owner Earnings YoY growth g₃ > 10%): Apply 6.0x–7.0x P/OE
+  • Mature (Year 3 Owner Earnings YoY growth g₃ is 3%–10%): Apply 4.5x–5.5x P/OE
+  • Stagnant / Contracting (Year 3 Owner Earnings YoY growth g₃ < 3%): Apply 3.0x–4.0x P/OE (or tangible liquidation value)"""
+
+
+def lookup_2factor_fundamental_multiple(moat: str = "Narrow Moat", rev_growth_pct: float = 10.0) -> float:
+    """Deterministic 2-Factor fundamental multiple lookup for Python fallbacks."""
+    clean_moat = str(moat or "Narrow Moat")
+    g = float(rev_growth_pct if rev_growth_pct is not None else 8.0)
+    
+    if "Wide" in clean_moat:
+        return 23.5 if g > 15.0 else (19.5 if g >= 8.0 else (15.5 if g >= 3.0 else 12.0))
+    elif "Narrow" in clean_moat:
+        return 16.5 if g > 15.0 else (13.5 if g >= 8.0 else (11.0 if g >= 3.0 else 8.0))
+    elif "Weak" in clean_moat:
+        return 10.0 if g > 15.0 else (8.0 if g >= 8.0 else (6.0 if g >= 3.0 else 4.5))
+    else:
+        return 6.5 if g > 10.0 else (5.0 if g >= 3.0 else 3.5)
+
+
 def extract_probabilities_from_sec3(sec3_text: str, num_stories: int = 3) -> list:
     """Extracts dynamically derived probability weights (p1, ..., pN) for N stories from Section 3 text.
     Ensures weights sum strictly to 1.0 (100%)."""
@@ -2741,6 +2789,10 @@ Return ONLY a valid JSON object matching this schema:
     unit_desc = audit_data.get("latest_primary_units_description") or "Active commercial volume units"
     monet_desc = audit_data.get("latest_unit_monetization_description") or "Unit monetization and take-rate yield"
     annualized_runrate = lq_rev * 4.0 if lq_rev > 0 else (ttm_rev if ttm_rev > 0 else 1000.0)
+    pred_tier = audit_data.get("predictability_tier") or "Moderate Predictability"
+
+    # 2-Factor Buffett-Munger Valuation Matrix (Moat/ROIC Tier x Year 3 Growth Rate)
+    matrix_guidance = get_buffett_munger_2factor_matrix_guidance(moat, owner_roic, pred_tier)
 
     # ---------------------------------------------------------
     # Step 5: Draft Synthesis of The 4 Core Deep Forensic Sections
@@ -2763,6 +2815,13 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 - Exact Latest Unit Monetization: {monet_desc}
 - Liquid Cash & Investments: ${cash:,.1f}M | Total Debt: ${debt:,.1f}M -> Net Cash: ${net_cash_total:+,.0f}M (${net_cash_per_share:+.2f}/sh)
 
+=== 2-FACTOR BUFFETT-MUNGER VALUATION MATRIX MANDATE (MOAT × YEAR 3 GROWTH) ===
+{matrix_guidance}
+
+CRITICAL ANTI-ANCHORING MANDATE:
+- In Step 6 of Section 4, determine the Exit Multiple [M]x strictly from this 2-Factor Matrix based on your projected Year 3 Owner Earnings YoY growth rate (g₃).
+- NEVER inflate or adjust the multiple to match today's quoted market price (${current_price:.2f}). If a company trades at 60x–80x P/OE, applying a disciplined 2-Factor multiple will correctly show whether it offers adequate margin of safety or faces multiple compression.
+
 === DEEP FORENSIC INVESTIGATION FINDINGS ===
 [INVESTIGATED HEADWINDS & SKEPTICISM]:
 {headwinds_facts}
@@ -2777,17 +2836,13 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 You are an institutional value investor (in the tradition of Warren Buffett, Charlie Munger, Howard Marks, and Seth Klarman).
 Your goal is to write a rigorous, sober, deeply grounded 4-section investment thesis:
 - Understand what Mr. Market is worried about.
-- Reverse-engineer the skeptic math behind today's valuation.
+- Perform an independent forward forensic risk assessment of what happens if skeptic headwinds materialize.
 - Clearly describe how the business is actually performing today based on recent quarterly results.
 - Honestly extrapolate what happens over the next 3 years (The Visible Runway) if things simply continue as they are going now.
   * SOBER CONSERVATISM RULES:
     - Real-Time Baseline Anchor: Always anchor starting numbers to the real-time annualized run rate (${annualized_runrate:,.1f}M) and exact statutory units ({unit_desc}). Do NOT use stale outdated figures.
     - Owner Earnings as True North Star: True normalized Owner Earnings (OE₀ = ${oe_per_share:.2f}/sh) strictly treats Stock-Based Compensation (${sbc:.1f}M) as real cash/equity dilution and excludes one-off non-recurring items.
     - 3-Year Visible Runway: Model the next 3 years (Year 1 to Year 3) based on how things are actually going today, staying firmly within our circle of competence.
-    - Rational Scenario Bounds (Don't Fight the Trend):
-      • Bear Case: Realistic operational headwinds (e.g. 200–300 bps gross margin compression, moderate unit churn, conservative trough multiple). Do NOT invent catastrophic 90% drops on profitable businesses with positive net cash.
-      • Base Case: Disciplined, sober continuation of "How Things Are Going Now" with stable/normalized margins and a sober exit multiple.
-      • Bull Case: Moderate operational leverage and healthy unit expansion.
     - Reverse Operating Leverage: If revenue/units contract, fixed costs are sticky; owner cash margins must compress realistically.
     - Explicit Balance Sheet Cash Bridge: Explicitly calculate (Starting Net Cash + 3Y FCF - Buybacks - CapEx = Ending Net Cash).
 
@@ -2804,14 +2859,14 @@ EDITORIAL FORMATTING & PRESENTATION MANDATE:
    - Frame the core investment asymmetry: is the market pricing current earnings as peak/unsustainable despite underlying volume growth, expanding margins, and net cash? Or is it pricing genuine structural terminal decay?
    - Break into 2 digestible paragraphs.
 
-2. "why_it_might_be_right" (Reverse-Engineering the Market's Pricing & Skeptic Math):
-   - Provide a step-by-step mathematical reverse-engineering showing what operational decay justifies today's market price of ${current_price:.2f}:
+2. "why_it_might_be_right" (Forensic Business Headwinds & Downside Cash Floor):
+   - Provide an unvarnished, step-by-step forward forensic risk model of what happens if skeptic headwinds materialize:
    - Numbered Steps (each on a separate line preceded by double newline):
-     1. Starting Baseline: State starting normalized Owner Earnings of ${oe_per_share:.2f}/share (${oe_total:,.1f}M total).
-     2. Implied Market Multiple: State the compressed exit multiple reflecting market distrust (e.g. ~{min(max(p_oe * 0.9, 4.0), 12.0):.1f}x P/OE).
-     3. Implied Year 3 Earnings Power: Calculate what depressed Year 3 Owner Earnings per share ($[OE_Skeptic]/sh) produces today's ${current_price:.2f} price after net debt/cash (${net_cash_per_share:+.2f}/sh).
-     4. Implied Operational Decay: Translate this earnings level into the underlying operational breakdown (e.g. customer churn, ARPU erosion, or revenue shrinkage with margin compression).
-     5. Business Risk Rationale: Explain why this bear scenario is plausible if headwinds persist.
+     1. Starting Baseline: State starting normalized Owner Earnings of ${oe_per_share:.2f}/share (${oe_total:,.1f}M total) and net balance sheet cash/debt (${net_cash_per_share:+.2f}/sh).
+     2. Forensic Business Headwinds: Identify the key structural vulnerabilities, customer churn risks, compute cost inflation, or pricing pushback highlighted by skeptics.
+     3. Skeptic Unit Contraction: Model the downside volume/unit attrition (e.g. active users/buyers declining, ARPU/yield compression).
+     4. Reverse Operating Leverage & Cash Degradation: Deduct sticky cash fixed costs from degraded revenue to calculate the degraded Skeptic Year-3 Owner Earnings ($[OE_Skeptic]/sh, $[OE_Skeptic_Total]M).
+     5. Downside Risk Valuation Floor: Capitalize degraded $[OE_Skeptic]/sh at a conservative trough multiple (3.5x–7.0x P/OE depending on moat) + ending net cash to derive the Downside Floor Target ($[Bear_Target]/sh).
 
 3. "how_things_are_going_now" (The Operational Reality Story - Sequential 3-4 Quarters):
    - In simple, plain English, explain how the business is ACTUALLY performing today based on the exact last 3 to 4 quarterly releases.
@@ -2822,11 +2877,11 @@ EDITORIAL FORMATTING & PRESENTATION MANDATE:
    - STRICT REQUIREMENT: Anchor starting revenue to the real annualized run rate (${annualized_runrate:,.1f}M) and exact unit volume ({unit_desc}). Do NOT use top-down percentage growth shortcuts.
    - Build an explicit 6-step Bottom-Up Ledger (each step on a separate line preceded by double newline) across the 3-Year Visible Runway leading to the single definitive Intrinsic Fair Value Target:
      1. Starting Unit Baseline: State exact starting volume units ({unit_desc}), monetization yield ({monet_desc}), and annualized revenue run-rate (${annualized_runrate:,.1f}M).
-     2. 3-Year Unit Volume Extrapolation: Project volume units over the next 3 years based on current momentum (continue attrition if decaying; extrapolate realistic growth if compounding).
+     2. 3-Year Unit Volume Extrapolation: Project volume units across Year 1, Year 2, and Year 3 based on current momentum (continue attrition if decaying; extrapolate realistic growth if compounding).
      3. Projected Year 3 Revenue (Units × Monetization): Multiply Year 3 Volume Units × Year 3 Unit Monetization Yield to derive Projected Year 3 Revenue = $[Rev_3]M.
      4. Cash Cost Structure & Projected Owner Earnings: Explicitly subtract cash operating expenses (COGS/fulfillment, sales & marketing, R&D, maintenance CapEx, SBC) from Year 3 Revenue to derive Projected Year 3 Total Owner Earnings = $[OE_Total_3]M (Owner Cash Margin = [X]%, $[OE_Per_Share_3]/share).
      5. Explicit 3-Year Balance Sheet & Capital Allocation Bridge: Detail Starting Net Cash (${net_cash_total:+,.0f}M) + Cumulative 3Y FCF ($[Cumulative_FCF]M) - Cumulative Buybacks ($[Buybacks]M) - CapEx ($[CapEx_3Y]M) = Ending Year 3 Net Cash $[Ending_Net_Cash]M ($[Ending_Net_Cash_Per_Share]/sh). (If Starting Net Cash is negative, allocate $0.00 to buybacks).
-     6. Intrinsic Fair Value Target & Expected 3-Year Return: Capitalize Year 3 Owner Earnings at a sober multiple of [M]x P/OE ($[OE_Cap]) + $[Ending_Net_Cash_Per_Share]/sh Net Cash = $[Target_Price] Expected Fair Value Target. Deliver an expected 3-year annualized return (IRR) of [X]% per annum from today's ${current_price:.2f} price.
+     6. Intrinsic Fair Value Target & Expected 3-Year Return: Calculate projected Year 3 Owner Earnings YoY growth rate (g₃ = [X]% YoY). Select the corresponding 2-Factor Exit Multiple of [M]x P/OE strictly from the {moat} Matrix -> Year 3 OE $[OE_3]/sh × [M]x ($[OE_Cap]) + Ending Net Cash $[Ending_Net_Cash_Per_Share]/sh = $[Target_Price] Expected Fair Value Target. Deliver an expected 3-year annualized return (IRR) of [X]% per annum from today's ${current_price:.2f} price.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
@@ -2872,6 +2927,13 @@ TARGET FINANCIAL AUDIT METRICS:
 - Exact Latest Volume Units: {unit_desc}
 - Audited Owner ROIC: {owner_roic:.1f}% | Moat: {moat}
 
+2-FACTOR BUFFETT-MUNGER VALUATION MATRIX MANDATE (MOAT × YEAR 3 GROWTH):
+{matrix_guidance}
+
+CRITICAL ANTI-ANCHORING AUDIT RULE:
+- Verify that Section 4 Step 6 calculates Year 3 Owner Earnings growth (g₃) and selects the corresponding multiple [M]x strictly from the {moat} Matrix.
+- Reject and correct any attempts to inflate the multiple to match today's trading price.
+
 SURVEYED 10+ INVESTOR VALUATION MECHANICS:
 {frameworks_facts}
 
@@ -2894,14 +2956,19 @@ Act as a skeptical, conservative peer reviewer:
 - AUDIT AGAINST LATEST EARNINGS & TRANSCRIPTS: Verify all revenue numbers, volume units ({unit_desc}), gross margins, and forward commentary directly against the company's LATEST earnings release and LATEST earnings call transcript Q&A. Force-reject any outdated or stale figures.
 - STRICT BAN ON LAZY TOP-DOWN CAGRS: Check Section 4. If it contains generic hand-waving like "assuming a steady 10% CAGR" or "assuming top-line growth slows to X%", REJECT and replace it with explicit bottom-up multiplication across the 3-Year Visible Runway: Volume Units × Unit Yield ➔ Revenue − Cash Expenses ➔ Total Owner Earnings.
 - AUDIT BALANCE SHEET CASH BRIDGE: Ensure Section 4 contains an explicit 3-year cash bridge (Starting Net Cash + 3Y FCF - Buybacks - CapEx = Ending Net Cash). Verify that if Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), exactly $0.00 is allocated to share buybacks.
-- ENFORCE GROUNDED SCENARIO BOUNDS (DON'T FIGHT THE TREND): Ensure the Bear Case represents realistic operational headwinds (e.g. 200–300 bps gross margin compression, moderate customer churn, conservative multiple) rather than an absurd 90% apocalyptic destruction on a profitable going concern. Ensure the Base Case is a disciplined, cold extrapolation of current performance.
+- ENFORCE GROUNDED VALUATION TARGET: Output a single definitive Intrinsic Fair Value Target ("fair_value_target") based on disciplined continuation of "How Things Are Going Now" capitalized strictly using the 2-Factor Matrix ({moat} × g₃).
 - ENFORCE REVERSE OPERATING LEVERAGE: If revenue/units contract, ensure Owner Cash Margin compresses realistically; do not allow fantasy high margins during shrinkage.
 - MOAT SKEPTICISM CHECK: Verify that the assigned Economic Moat ({moat}) is 100% rigorous. If the company faces low switching costs ($0 to leave) and decaying paying users (e.g. Bumble), force-downgrade any unearned 'Narrow Moat' claims to 'Weak Moat' or 'No Moat'.
 - PRESENTATION & EDITORIAL AUDIT: Ensure sections are broken into breathable, concise paragraphs (2-3 per narrative section) and numbered steps are on separate lines preceded by double newlines. Reject monolithic run-on text.
-- Deliver the final, perfected 4 sections.
+- Deliver the final, perfected 4 sections and structured fields.
 
 Respond STRICTLY in valid JSON matching this schema:
 {{
+  "fair_value_target": float,
+  "bear_floor_target": float,
+  "bull_upside_target": float,
+  "irr_3y_pct": float,
+  "action_signal": "BUY" | "HOLD" | "CAUTION" | "AVOID",
   "market_pricing_in": string,
   "why_it_might_be_right": string,
   "how_things_are_going_now": string,
@@ -2915,6 +2982,7 @@ Respond STRICTLY in valid JSON matching this schema:
     p_data = parse_json_robust(raw_final) or draft_data or {}
 
     print(f"\n  🎯 [Final Perfected Sections Audited by CIO for {ticker}]:", flush=True)
+    print(f"  ├─ Fair Value Target: ${p_data.get('fair_value_target')} (IRR: {p_data.get('irr_3y_pct')}%) | Action: {p_data.get('action_signal')}", flush=True)
     print(f"  ├─ Section 1 (Market Story): {p_data.get('market_pricing_in', '')[:140].strip()}...", flush=True)
     print(f"  ├─ Section 2 (Skeptic Math): {p_data.get('why_it_might_be_right', '')[:140].strip()}...", flush=True)
     print(f"  ├─ Section 3 (Operational Reality): {p_data.get('how_things_are_going_now', '')[:140].strip()}...", flush=True)
@@ -2938,7 +3006,7 @@ Respond STRICTLY in valid JSON matching this schema:
         "economic_moat": moat,
         "moat_type": audit_data.get("moat_type") or "Economic Moat Advantage",
         "moat_scope": audit_data.get("moat_scope") or "Global",
-        "predictability_tier": audit_data.get("predictability_tier") or "Moderate Predictability",
+        "predictability_tier": pred_tier,
         "predictability_score": audit_data.get("predictability_score") or "10-Year Cash Flow Visibility Assessment",
         "fair_value_target": p_data.get("fair_value_target"),
         "bear_floor_target": p_data.get("bear_floor_target"),
@@ -2999,15 +3067,20 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     </section>
     """
 
-    # Retrieve structured targets directly (Zero Fragile Regex)
+    # Objective 2-Factor Fundamental Valuation Fallback (strictly independent of current_price)
+    default_mult = lookup_2factor_fundamental_multiple(moat_lbl, info.get("revenue_growth_yoy_pct", 8.0))
+    fundamental_target = round((oe_sh * default_mult) + net_cash_sh, 2)
+    if fundamental_target <= 0:
+        fundamental_target = round(max(oe_sh * 5.0, 1.0), 2)
+
     raw_fv = safe_float(info.get("fair_value_target"))
-    target_3y = raw_fv if (raw_fv and raw_fv > 0) else (current_price * 1.20 if owner_yield >= 8.0 else current_price * 1.05)
+    target_3y = raw_fv if (raw_fv and raw_fv > 0) else round(fundamental_target, 2)
     
     raw_bear = safe_float(info.get("bear_floor_target"))
-    bear_target_val = raw_bear if (raw_bear and raw_bear > 0) else round(current_price * 0.80, 2)
+    bear_target_val = raw_bear if (raw_bear and raw_bear > 0) else round((oe_sh * (default_mult * 0.65)) + (net_cash_sh if net_cash_sh > 0 else net_cash_sh * 1.2), 2)
     
     raw_bull = safe_float(info.get("bull_upside_target"))
-    bull_target_val = raw_bull if (raw_bull and raw_bull > 0) else round(target_3y * 1.25, 2)
+    bull_target_val = raw_bull if (raw_bull and raw_bull > 0) else round((oe_sh * (default_mult * 1.30)) + net_cash_sh, 2)
 
     raw_irr = info.get("irr_3y_pct")
     if raw_irr is not None and isinstance(raw_irr, (int, float)):

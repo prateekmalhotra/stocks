@@ -2353,7 +2353,26 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     pass
 
     if target_price is None or target_price <= 0:
-        target_price = round(current_price * 1.35, 2)
+        moat_lbl_val = getattr(stock, 'moat_label', '') or (current_v.moat_label if current_v else "Narrow Moat")
+        rev_g = getattr(stock, 'revenue_growth_yoy_pct', 8.0) or (current_v.revenue_growth_yoy_pct if current_v else 8.0)
+        try:
+            rev_g_num = float(rev_g or 8.0)
+        except Exception:
+            rev_g_num = 8.0
+
+        if "Wide" in str(moat_lbl_val):
+            default_mult = 23.5 if rev_g_num > 15.0 else (19.5 if rev_g_num >= 8.0 else (15.5 if rev_g_num >= 3.0 else 12.0))
+        elif "Narrow" in str(moat_lbl_val):
+            default_mult = 16.5 if rev_g_num > 15.0 else (13.5 if rev_g_num >= 8.0 else (11.0 if rev_g_num >= 3.0 else 8.0))
+        elif "Weak" in str(moat_lbl_val):
+            default_mult = 10.0 if rev_g_num > 15.0 else (8.0 if rev_g_num >= 8.0 else (6.0 if rev_g_num >= 3.0 else 4.5))
+        else:
+            default_mult = 6.5 if rev_g_num > 10.0 else (5.0 if rev_g_num >= 3.0 else 3.5)
+
+        if oe_sh and oe_sh > 0:
+            target_price = round((oe_sh * default_mult) + (net_cash_sh or 0.0), 2)
+        else:
+            target_price = 0.0
 
     # Cyclicality & Business Cycle Stance
     cyclicality_type = getattr(stock, 'cyclicality_type', None) or (current_v.cyclicality_type if current_v else None)
@@ -3799,8 +3818,26 @@ def compute_market_discrepancy(stock: WatchlistStock, current_v: Optional[Thesis
                     pass
 
     if target_3y is None or target_3y <= 0:
-        if current_price > 0:
-            target_3y = round(current_price * 1.25, 2)
+        moat_lbl_val = getattr(stock, 'moat_label', '') or (current_v.moat_label if current_v else "Narrow Moat")
+        oe_sh_val = getattr(stock, 'owner_earnings_per_share', 0.0) or (current_v.owner_earnings_per_share if current_v else 0.0)
+        net_cash_sh_val = getattr(stock, 'net_cash_per_share', 0.0) or (current_v.net_cash_per_share if current_v else 0.0)
+        rev_g = getattr(stock, 'revenue_growth_yoy_pct', 8.0) or (current_v.revenue_growth_yoy_pct if current_v else 8.0)
+        try:
+            rev_g_num = float(rev_g or 8.0)
+        except Exception:
+            rev_g_num = 8.0
+
+        if "Wide" in str(moat_lbl_val):
+            default_mult = 23.5 if rev_g_num > 15.0 else (19.5 if rev_g_num >= 8.0 else (15.5 if rev_g_num >= 3.0 else 12.0))
+        elif "Narrow" in str(moat_lbl_val):
+            default_mult = 16.5 if rev_g_num > 15.0 else (13.5 if rev_g_num >= 8.0 else (11.0 if rev_g_num >= 3.0 else 8.0))
+        elif "Weak" in str(moat_lbl_val):
+            default_mult = 10.0 if rev_g_num > 15.0 else (8.0 if rev_g_num >= 8.0 else (6.0 if rev_g_num >= 3.0 else 4.5))
+        else:
+            default_mult = 6.5 if rev_g_num > 10.0 else (5.0 if rev_g_num >= 3.0 else 3.5)
+
+        if oe_sh_val and oe_sh_val > 0:
+            target_3y = round((oe_sh_val * default_mult) + (net_cash_sh_val or 0.0), 2)
         else:
             target_3y = 0.0
 
