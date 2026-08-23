@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAPL · Apple Inc. · Forensic Valuation Dossier</title>
+    <link rel="icon" type="image/svg+xml" href="https://assets.parqet.com/logos/symbol/AAPL">
+    <link rel="icon" type="image/png" href="https://assets.parqet.com/logos/symbol/AAPL">
+    <link rel="apple-touch-icon" href="https://assets.parqet.com/logos/symbol/AAPL">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1B1A19;
+            --bg-subpanel: #21201E;
+            --bg-hover: #272624;
+            --text-title: #E8E2D8;
+            --text-body: #C5BCB0;
+            --text-secondary: #8E867A;
+            --text-dim: #5C5549;
+            --accent-warm: #D4A373;
+            --accent-warm-hover: #E2B689;
+            --accent-warm-subtle: rgba(212, 163, 115, 0.12);
+            --accent-green: #82AE8C;
+            --accent-red: #C97A72;
+            --border-color: rgba(255, 255, 255, 0.055);
+            --border-focus: rgba(212, 163, 115, 0.35);
+            --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: 
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
+                var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-sans);
+            font-size: 0.96rem;
+            line-height: 1.82;
+            letter-spacing: 0.005em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 0;
+            margin-bottom: 24px;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.84rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .nav-back:hover { color: var(--accent-warm-hover); transform: translateX(-2px); }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 26px 30px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+
+        .hero-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .hero-title-area { display: flex; align-items: center; gap: 14px; }
+        .hero-title-text { display: flex; flex-direction: column; gap: 8px; }
+        .ticker-header-line { display: flex; align-items: baseline; gap: 10px; }
+        .ticker-symbol {
+            font-family: var(--font-display);
+            font-size: 2.35rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #F0ECE4;
+            line-height: 1.05;
+        }
+        .company-name-meta {
+            color: #9E978C;
+            font-size: 0.92rem;
+            font-family: var(--font-sans);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .meta-sep {
+            color: var(--text-dim);
+            font-size: 0.82rem;
+        }
+        .meta-moat {
+            color: var(--accent-warm);
+            font-weight: 500;
+        }
+
+        /* Minimalist Logo Avatars */
+        .ticker-logo-wrap {
+            border-radius: 50%;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .ticker-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+        .ticker-logo-fallback {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(212, 163, 115, 0.08);
+        }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.35rem; font-weight: 600; font-family: var(--font-mono); color: var(--text-title); line-height: 1.05; letter-spacing: -0.02em; }
+        .price-sub { font-size: 0.76rem; font-family: var(--font-sans); font-weight: 500; margin-top: 6px; color: var(--text-secondary); letter-spacing: 0.02em; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 0;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 18px 12px;
+            position: relative;
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .chart-live-val {
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+        }
+        .chart-range-pills {
+            display: inline-flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .range-pill {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .range-pill:hover { color: var(--text-title); background: var(--bg-hover); }
+        .range-pill.active {
+            background: var(--accent-warm-subtle);
+            color: var(--accent-warm);
+            font-weight: 600;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 200px;
+            overflow: visible;
+            display: block;
+        }
+        .chart-x-axis {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            font-size: 0.70rem;
+            color: var(--text-dim);
+            user-select: none;
+        }
+        .chart-x-tick {
+            white-space: nowrap;
+        }
+
+        /* Clean 4-Column (8-Box) Derived Financial & Cycle Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+        @media (max-width: 1024px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 640px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .metric-card {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 13px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 90px;
+            transition: all 0.15s ease;
+        }
+        .metric-card:hover {
+            background: var(--bg-panel);
+            border-color: rgba(212, 163, 115, 0.3);
+        }
+        .metric-label {
+            font-size: 0.76rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+        .metric-value {
+            font-size: 1.15rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            color: var(--text-title);
+            line-height: 1.2;
+            margin: 2px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: -0.01em;
+        }
+        .metric-value-text {
+            font-size: 1.02rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            line-height: 1.2;
+            margin: 2px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: -0.01em;
+        }
+        .metric-sub {
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            line-height: 1.25;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .btn-info-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-dim);
+            font-size: 0.60rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
+        }
+        .btn-info-circle:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+        }
+        .modal-shade {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 9, 8, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal-body-card {
+            position: relative;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8);
+            box-sizing: border-box;
+            animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.96) translateY(8px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Tab Bar */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 32px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .nav-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 12px 18px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-tab:hover { color: var(--text-title); }
+        .nav-tab.active {
+            color: var(--accent-warm);
+            border-bottom-color: var(--accent-warm);
+            font-weight: 600;
+        }
+        .tab-badge {
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            padding: 2px 7px;
+            border-radius: 9999px;
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+        .nav-tab.active .tab-badge {
+            background: var(--accent-warm-subtle);
+            color: var(--accent-warm);
+            border-color: rgba(212, 163, 115, 0.3);
+        }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        /* Editorial Sections & Clean Typography */
+        .memo-container {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.015) 0%, var(--bg-panel) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 44px 48px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+        }
+        .memo-section {
+            margin-bottom: 44px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .memo-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .section-index {
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: 0.06em;
+        }
+        .memo-title {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-title);
+            letter-spacing: -0.025em;
+            margin: 0;
+        }
+        .memo-body {
+            font-size: 0.98rem;
+            color: #D2C9BD;
+            line-height: 1.82;
+            letter-spacing: 0.005em;
+        }
+        .memo-intro-lead {
+            font-size: 1.02rem;
+            font-weight: 500;
+            color: var(--text-title);
+            line-height: 1.72;
+            margin-bottom: 16px;
+        }
+        .memo-para {
+            margin-bottom: 18px;
+            font-size: 0.98rem;
+            color: #D2C9BD;
+            line-height: 1.82;
+        }
+        .memo-body p:last-child {
+            margin-bottom: 0;
+        }
+        .memo-body strong {
+            color: #F8F5EE;
+            font-weight: 600;
+        }
+        .memo-body ul {
+            margin: 12px 0 18px 0;
+            padding-left: 20px;
+        }
+        .memo-body li {
+            margin-bottom: 8px;
+            color: #D2C9BD;
+            line-height: 1.68;
+        }
+
+        /* Valuation Math Steps Ledger */
+        .math-steps-ledger {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 16px;
+        }
+        .math-step-item {
+            background: rgba(255, 255, 255, 0.022);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+        }
+        .math-step-item:hover {
+            border-color: rgba(212, 163, 115, 0.35);
+            background: rgba(255, 255, 255, 0.038);
+        }
+        .math-step-badge {
+            font-family: var(--font-mono);
+            font-size: 0.80rem;
+            font-weight: 700;
+            color: var(--accent-warm);
+            background: rgba(212, 163, 115, 0.12);
+            border: 1px solid rgba(212, 163, 115, 0.3);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .math-step-main {
+            flex: 1;
+            min-width: 0;
+        }
+        .math-step-label {
+            font-family: var(--font-sans);
+            font-size: 0.96rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-bottom: 5px;
+            letter-spacing: -0.01em;
+        }
+        .math-step-body {
+            font-size: 0.93rem;
+            color: #CBC2B5;
+            line-height: 1.68;
+        }
+        .math-step-body strong {
+            color: #F8F5EE;
+            font-weight: 600;
+        }
+
+        /* 3-Scenario Corridor Matrix Cards */
+        .scenarios-trio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+        @media (max-width: 860px) {
+            .scenarios-trio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .scenario-col-card {
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .scenario-card-bear {
+            background: rgba(224, 86, 36, 0.05);
+            border: 1px solid rgba(224, 86, 36, 0.22);
+        }
+        .scenario-card-base {
+            background: rgba(212, 163, 115, 0.06);
+            border: 1px solid rgba(212, 163, 115, 0.28);
+        }
+        .scenario-card-bull {
+            background: rgba(46, 196, 182, 0.05);
+            border: 1px solid rgba(46, 196, 182, 0.22);
+        }
+        .scenario-col-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .scenario-tag-badge {
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            border-radius: 4px;
+        }
+        .tag-bear {
+            color: var(--accent-red);
+            background: rgba(224, 86, 36, 0.14);
+            border: 1px solid rgba(224, 86, 36, 0.25);
+        }
+        .tag-base {
+            color: var(--accent-warm);
+            background: rgba(212, 163, 115, 0.14);
+            border: 1px solid rgba(212, 163, 115, 0.28);
+        }
+        .tag-bull {
+            color: var(--accent-green);
+            background: rgba(46, 196, 182, 0.14);
+            border: 1px solid rgba(46, 196, 182, 0.25);
+        }
+        .scenario-target-range {
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text-title);
+        }
+        .scenario-col-body {
+            font-size: 0.85rem;
+            line-height: 1.55;
+            color: #BDB4A8;
+        }
+
+        /* Thesis Evolution Timeline */
+        .evolution-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .evolution-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px 28px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .active-version-card {
+            border-color: rgba(212, 163, 115, 0.35);
+            background: linear-gradient(180deg, rgba(212, 163, 115, 0.03) 0%, var(--bg-panel) 100%);
+        }
+        .evolution-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .evolution-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .evolution-vnum {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-title);
+        }
+        .evolution-status-text {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        .status-active {
+            color: #82AE8C;
+        }
+        .status-archived {
+            color: var(--text-dim);
+        }
+        .evolution-date {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-dim);
+        }
+        .evolution-price {
+            font-family: var(--font-mono);
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+        }
+        .evolution-price strong {
+            color: var(--accent-warm);
+        }
+        .evolution-reason {
+            font-size: 0.90rem;
+            color: var(--text-body);
+            margin-bottom: 14px;
+        }
+        .reason-label {
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-right: 6px;
+        }
+        .evolution-metrics-text-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+        .evolution-metrics-text-row strong {
+            color: var(--text-title);
+        }
+        .evolution-change-text {
+            font-size: 0.90rem;
+            color: #A8A196;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+        .archived-accordion {
+            margin-top: 10px;
+        }
+        .archived-summary {
+            font-family: var(--font-mono);
+            font-size: 0.80rem;
+            color: var(--accent-warm);
+            cursor: pointer;
+            user-select: none;
+            padding: 6px 0;
+            transition: color 0.15s;
+        }
+        .archived-summary:hover {
+            color: var(--accent-warm-hover);
+        }
+        .archived-content-body {
+            margin-top: 14px;
+            padding: 20px 24px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+        .archived-memo-section {
+            margin-bottom: 18px;
+        }
+        .archived-memo-section:last-child {
+            margin-bottom: 0;
+        }
+        .archived-memo-sub {
+            font-family: var(--font-sans);
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 6px;
+        }
+
+        /* Alerts & Surveillance Hub */
+        .alerts-hub {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .corridor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .corridor-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .corridor-label {
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .corridor-value {
+            font-family: var(--font-mono);
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-title);
+        }
+        .corridor-sub {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+        }
+        .alert-feed-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .alert-feed-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 24px;
+        }
+        .alert-feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .alert-feed-badge {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(201, 122, 114, 0.15);
+            color: #C97A72;
+            border: 1px solid rgba(201, 122, 114, 0.3);
+            text-transform: uppercase;
+        }
+        .alert-feed-time {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-dim);
+        }
+        .alert-feed-title {
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-bottom: 4px;
+        }
+        .alert-feed-reason {
+            font-size: 0.88rem;
+            color: var(--text-body);
+            margin-bottom: 6px;
+        }
+        .alert-feed-desc {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .empty-alerts-box {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+        }
+        .empty-alerts-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-bottom: 6px;
+        }
+        .empty-alerts-sub {
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Ownership & Fund Intel */
+        .ownership-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .whale-chips-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .whale-chip {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.86rem;
+            color: var(--text-title);
+            font-weight: 500;
+        }
+
+        /* Regulatory & Ownership Portals */
+        .portals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        .portal-card {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: border-color 0.2s, transform 0.15s;
+        }
+        .portal-card:hover {
+            border-color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+        .portal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .portal-name {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-title);
+        }
+        .portal-arrow {
+            color: var(--accent-warm);
+            font-size: 0.95rem;
+        }
+        .portal-desc {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Nav -->
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../" class="nav-back">← Back to Watchlist</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- 1. Hero Deck -->
+        <header class="hero-deck">
+            <div class="hero-top-row">
+                <div class="hero-title-area">
+                    <div class="ticker-logo-wrap" style="width:36px; height:36px; min-width:36px; min-height:36px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AAPL" alt="AAPL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:15px;">AA</span></div>
+                    <div class="hero-title-text">
+                        <div class="ticker-header-line">
+                            <span class="ticker-symbol">AAPL</span>
+                        </div>
+                        <div class="company-name-meta">Apple Inc. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-green); font-weight: 500;">Wide Moat</span> <span class="meta-sep">·</span> <span style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 400;">Procedural Switching Costs & Ecosystem Network Effects (Global)</span></div>
+                    </div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$309.35</div>
+                    <div class="price-sub">Market Price</div>
+                </div>
+            </div>
+
+            <!-- Native SVG Area Chart with 5Y Continuation Target Line -->
+            <div class="native-chart-wrap">
+                <div class="chart-top-bar">
+                    <div class="chart-live-val">
+                        <span id="tooltip-date">Aug 21, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$309.35</strong>
+                        <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
+                        <span style="color: var(--accent-warm); font-size: 0.80rem;">5Y Target: <strong>$234.86</strong></span>
+                    </div>
+                    <div class="chart-range-pills">
+                        <button class="range-pill" onclick="switchRange('1D')">1D</button>
+                        <button class="range-pill" onclick="switchRange('1M')">1M</button>
+                        <button class="range-pill active" onclick="switchRange('1Y')">1Y</button>
+                        <button class="range-pill" onclick="switchRange('5Y')">5Y</button>
+                        <button class="range-pill" onclick="switchRange('MAX')">MAX</button>
+                    </div>
+                </div>
+                <div style="position: relative; width: 100%; height: 200px;">
+                    <svg id="interactive-svg" class="chart-svg" viewBox="0 0 900 200" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#82AE8C" stop-opacity="0.22" />
+                                <stop offset="100%" stop-color="#82AE8C" stop-opacity="0.0" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Horizontal Grid Lines & Y-Axis Prices -->
+                        <text id="grid-price-high" x="884" y="23" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="10" y1="12" x2="890" y2="12" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
+
+                        <text id="grid-price-mid" x="884" y="103.0" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="10" y1="100.0" x2="890" y2="100.0" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
+
+                        <text id="grid-price-low" x="884" y="184" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="10" y1="188" x2="890" y2="188" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
+                        
+                        <!-- 5Y Target Dotted Line & Tag -->
+                        <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
+                        <text id="target-label" x="884" y="8" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $234.86</text>
+
+                        <!-- Dynamic Area & Stroke -->
+                        <polygon id="chart-area" fill="url(#area-grad)" points="" />
+                        <polyline id="chart-line" fill="none" stroke="#82AE8C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" points="" />
+                        
+                        <!-- Hover Crosshair & Marker -->
+                        <line id="hover-line" x1="0" y1="0" x2="0" y2="200" stroke="rgba(212, 163, 115, 0.4)" stroke-width="1" stroke-dasharray="3 3" opacity="0" />
+                        <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#1B1A19" stroke-width="2" opacity="0" />
+                    </svg>
+                </div>
+                <!-- X-Axis Timeline Dates -->
+                <div class="chart-x-axis" id="chart-x-axis"></div>
+            </div>
+
+            <!-- 8-Box Derived Financial & Cycle Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Owner Earnings (TTM)</span>
+                    <span class="metric-value">$8.74 / sh</span>
+                    <span class="metric-sub">$128,558M total (ex-SBC)</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">P / Owner Earnings</span>
+                    <span class="metric-value">35.4x</span>
+                    <span class="metric-sub">Market Cap: $4,550,538M</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">EV / Owner Earnings</span>
+                    <span class="metric-value">34.9x</span>
+                    <span class="metric-sub">Enterprise Value: $4,488,366M</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Owner Cash Yield</span>
+                    <span class="metric-value" style="color: var(--accent-green);">2.8%</span>
+                    <span class="metric-sub">Starting Free Cash Flow</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Owner ROIC</span>
+                    <span class="metric-value" style="color: var(--accent-green);">283.5%</span>
+                    <span class="metric-sub">OE / Invested Capital</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Net Cash / Share</span>
+                    <span class="metric-value" style="color: var(--accent-green);">$+4.23 / sh</span>
+                    <span class="metric-sub">$+62,173M Balance Sheet</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">
+                        <span>Cyclicality Profile</span>
+                        <button type="button" class="btn-info-circle" onclick="openCyclicalityModal(event)" title="Learn about Cyclicality Profile">ⓘ</button>
+                    </span>
+                    <span class="metric-value-text" style="color: var(--text-title);">Moderate Cyclical</span>
+                    <span class="metric-sub">Macro & Rate Sensitivity</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">
+                        <span>Cycle Position</span>
+                        <button type="button" class="btn-info-circle" onclick="openCyclicalityModal(event)" title="Learn about Cycle Position">ⓘ</button>
+                    </span>
+                    <span class="metric-value-text" style="color: var(--text-title);">Mid-Cycle Run-Rate</span>
+                    <span class="metric-sub">Normal Run-Rate Earnings</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('thesis', this)">Investment Thesis</button>
+            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">0</span></button>
+            <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">0</span></button>
+            <button class="nav-tab" onclick="switchTab('ownership', this)">Ownership & Fund Intel</button>
+        </div>
+
+        <!-- TAB 1: Investment Thesis (4 Core Sections) -->
+        <div id="tab-thesis" class="tab-pane active">
+            <main class="memo-container">
+                <section class="memo-section">
+                    <div class="section-header">
+                        <span class="section-index">01</span>
+                        <h2 class="memo-title">What the Market is Pricing In</h2>
+                    </div>
+                    <div class="memo-body"><p class="memo-para">At the current market price of $309.35, Apple Inc. trades at an elevated valuation of 35.4x Owner Earnings (34.9x EV/OE), reflecting a market that is pricing in near-perfection despite mounting structural headwinds. Mr. Market is currently ignoring severe cost inflation in DRAM/NAND memory chips, supply constraints on advanced semiconductor nodes, and a looming deceleration in the high-margin Services engine. Skeptics argue that the current valuation unsustainably assumes Apple can maintain its historical pricing power and ecosystem lock-in, even as the company navigates a critical executive leadership transition.</p>
+<p class="memo-para">The core investment asymmetry lies in whether Apple's massive installed base of over 2.5 billion active devices can insulate it from regulatory and geopolitical shocks, or if the stock is on the precipice of multiple compression. The market is pricing in aggressive, uninterrupted growth from generative AI monetization and iCloud+ subscriptions. However, the reality of a potential loss of the lucrative Google Traffic Acquisition Cost (TAC) revenue—representing a near-100% margin stream—and aggressive antitrust actions globally suggest that the market is capitalizing peak, unsustainable earnings.</p></div>
+                </section>
+                <section class="memo-section">
+                    <div class="section-header">
+                        <span class="section-index">02</span>
+                        <h2 class="memo-title">Why the Market Might Be Right</h2>
+                    </div>
+                    <div class="memo-body"><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Baseline</div>
+                        <div class="math-step-body">Apple generates starting normalized Owner Earnings of $8.74 per share ($128,558.0M total) off an operating cash flow reconciliation where stock-based compensation ($13,223.0M) is treated as a real cash dilution expense, supported by net balance sheet cash of $+4.23 per share ($+62,173.0M total).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Forensic Business Headwinds</div>
+                        <div class="math-step-body">Structural vulnerabilities include the potential loss of $20.0 billion in high-margin Google search default payments (TAC), EU Digital Markets Act (DMA) anti-steering penalties compressing App Store commissions, and projected 100%+ memory chip cost inflation on DRAM/NAND components.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Skeptic Unit Contraction</div>
+                        <div class="math-step-body">Under a severe regulatory and macro stress test, active devices flatline at 2.45 billion while monetization yield drops from $186.73 to $165.00 per device due to App Store fee cuts and aggressive smartphone competition in Greater China.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Reverse Operating Leverage & Cash Degradation</div>
+                        <div class="math-step-body">Multiplying 2.45 billion devices by $165.00 yield results in degraded revenue of $404,250.0M. After deducting sticky cash fixed costs and accounting for gross margin compression down to 45.0% due to memory cost spikes, Year-3 Owner Earnings degrade to $5.80 per share ($85,318.0M total).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Downside Risk Valuation Floor</div>
+                        <div class="math-step-body">Capitalizing degraded Year-3 Owner Earnings of $5.80 per share at a conservative multiple of 12.0x P/OE (strictly corresponding to the Stagnant/Contracting category under the Wide Moat Matrix) plus ending net cash of $4.50 per share establishes a Downside Risk Floor Target of $74.10 per share.</div>
+                    </div>
+                </div></div></div>
+                </section>
+                <section class="memo-section">
+                    <div class="section-header">
+                        <span class="section-index">03</span>
+                        <h2 class="memo-title">How Things Are Going Now</h2>
+                    </div>
+                    <div class="memo-body"><p class="memo-para">In stark contrast to bear case scenarios, Apple's operational reality demonstrates the structural strength of its global ecosystem. The company's active installed base has expanded to over 2.5 billion active devices, representing a 4.2% year-over-year growth rate across all major product categories and geographic segments. This massive user base provides an unparalleled foundation for recurring cash generation, as reflected in TTM monetization yield of $186.73 per active device and quarterly Services net sales reaching $30.74 billion (+12.1% YoY).</p>
+<p class="memo-para">Financially, Apple continues to operate as an elite cash-generating compounder. In the latest quarter, the company achieved an all-time record gross margin of 50.1%, driven by a favorable mix shift toward Services and premium hardware tiers. On an annualized run-rate of $437,668.0 million in revenue, normalized Owner Earnings stand at $128,558.0 million ($8.74 per share), reconciling $13,223.0 million in stock-based compensation and $9,499.0 million in maintenance CapEx.</p>
+<p class="memo-para">Capital allocation remains highly disciplined. With $146,517.0 million in liquid cash and investments against $84,344.0 million in total debt, Apple maintains a net cash balance of $62,173.0 million ($4.23 per share). Management actively executes its net-cash-neutral mandate, channeling virtually 100% of free cash flow into share buybacks to drive steady per-share accretion.</p></div>
+                </section>
+                <section class="memo-section">
+                    <div class="section-header" style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                        <div style="display: flex; align-items: baseline; gap: 12px;">
+                            <span class="section-index">04</span>
+                            <h2 class="memo-title">What If It Keeps Going That Way</h2>
+                        </div>
+                        <div class="section-predictability-meta" style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-family: var(--font-sans);">
+                            <span class="pred-indicator" style="color: var(--accent-warm); font-weight: 600;">High Predictability</span>
+                            <span class="pred-sep" style="color: var(--text-dim);">·</span>
+                            <span class="pred-subtext" style="color: var(--text-secondary); font-weight: 400;">Essential Recurring Ecosystem Demand</span>
+                        </div>
+                    </div>
+                    <div class="memo-body"><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Unit Baseline</div>
+                        <div class="math-step-body">Apple currently operates with Over 2.5 billion active installed devices (+4.2% YoY across all major product categories and geographic segments), an annual monetization yield of $186.73 per active device (based on $466.8B TTM total revenue), quarterly Services net sales of $30.74B (+12.1% YoY), and an annualized revenue run-rate of $437,668.0M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">3-Year Unit Volume Extrapolation</div>
+                        <div class="math-step-body">Extrapolating current ecosystem growth, active devices expand at a 3.0% CAGR to reach 2.732 billion devices by Year</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Step 3</div>
+                        <div class="math-step-body">Concurrently, device monetization yield grows at a modest 2.0% annual pace to reach $198.16 per active device, driven by Services expansion.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Projected Year 3 Revenue</div>
+                        <div class="math-step-body">Multiplying Year 3 Active Volume Units (2.732 billion) by Year 3 Monetization Yield ($198.16) generates Projected Year 3 Revenue of $541,373.0M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
+                        <div class="math-step-body">Subtracting fully burdened cash operating costs (COGS, S&M, R&D, maintenance CapEx, and real SBC expenses) from Year 3 Revenue yields Projected Year 3 Total Owner Earnings of $154,291.0M (an Owner Cash Margin of 28.5%). Assuming a 2.5% annual reduction in diluted share count via buybacks, share count drops to 13,634.0M, resulting in Projected Year 3 Owner Earnings of $11.32 per share.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
+                        <div class="math-step-body">Starting Net Cash ($+62,173.0M) + Cumulative 3-Year FCF ($430,291.0M) - Cumulative Share Repurchases ($270,000.0M) - Total CapEx ($30,000.0M) = Ending Year 3 Net Cash of $192,464.0M, or $14.12 per share.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">7</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Intrinsic Fair Value Target & Expected 3-Year Return</div>
+                        <div class="math-step-body">Calculating Year 3 Owner Earnings YoY growth yields g₃ = 10.65%. Under the 2-Factor Buffett-Munger Matrix for Wide Moat businesses in Steady Compounding (g₃ of 8%–15%), we select an exit multiple of 19.5x P/OE. Capitalizing Year 3 Owner Earnings of $11.32/share at 19.5x ($220.74) + Ending Net Cash of $14.12/share yields an Intrinsic Fair Value Target of $234.86 per share. Measured against today's trading price of $309.35, this implies an expected 3-year annualized return (IRR) of -8.8% per annum.</div>
+                    </div>
+                </div></div></div>
+                </section>
+            </main>
+        </div>
+
+        <!-- TAB 2: Thesis Evolution & Version History -->
+        <div id="tab-evolution" class="tab-pane">
+            <div class="memo-container">
+                <h2 class="memo-title" style="margin-bottom: 24px;">Thesis Evolution & Historical Audits</h2>
+                <div class="evolution-timeline">
+                    
+        <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px 36px; text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text-title); margin-bottom: 6px;">Genesis Baseline Thesis Active (Version 1)</div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; max-width: 580px; margin: 0 auto;">No historical evolution revisions yet. When earnings results, guidance shifts, or major fundamental events trigger a model update, the previous baseline will be archived here with full metric diffs.</div>
+        </div>
+        
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Alerts & Catalyst Surveillance -->
+        <div id="tab-alerts" class="tab-pane">
+            <div class="alerts-hub">
+                <div class="corridor-grid">
+                    <div class="corridor-card">
+                        <span class="corridor-label">Lower Price Alert Floor</span>
+                        <span class="corridor-value">$74.10</span>
+                        <span class="corridor-sub">Triggers downside margin-of-safety review if breached</span>
+                    </div>
+                    <div class="corridor-card">
+                        <span class="corridor-label">Upper Price Alert Ceiling</span>
+                        <span class="corridor-value">$355.75</span>
+                        <span class="corridor-sub">Triggers valuation trim / fair value realization review</span>
+                    </div>
+                    <div class="corridor-card">
+                        <span class="corridor-label">Next Expected Catalyst</span>
+                        <span class="corridor-value" style="font-size: 1.1rem; color: var(--accent-warm);">2026-11-21</span>
+                        <span class="corridor-sub">Upcoming Quarterly Earnings Call & SEC Filing</span>
+                    </div>
+                </div>
+
+                <div class="memo-container" style="padding: 32px 36px;">
+                    <h3 class="memo-title" style="font-size: 1.15rem; margin-bottom: 18px;">Active & Historical Surveillance Alerts for AAPL</h3>
+                    <div class="alert-feed-list">
+                        
+        <div class="empty-alerts-box">
+            <div class="empty-alerts-title">No Active Alert Breaches</div>
+            <div class="empty-alerts-sub">Price is trading within calibrated corridors ($74.10 – $355.75). Weekly autonomous surveillance and earnings call monitor are active.</div>
+        </div>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Ownership & Regulatory Portals -->
+        <div id="tab-ownership" class="tab-pane">
+            <div class="ownership-wrap">
+                <div class="portals-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+                    <a href="http://openinsider.com/search?q=AAPL" target="_blank" rel="noopener noreferrer" class="portal-card">
+                        <div class="portal-header">
+                            <span class="portal-name">OpenInsider SEC Form 4 Tracker</span>
+                            <span class="portal-arrow">↗</span>
+                        </div>
+                        <div class="portal-desc">Direct statutory database of insider cluster buys, C-suite open market sales, and 10b5-1 executive plans for AAPL.</div>
+                    </a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=AAPL" target="_blank" rel="noopener noreferrer" class="portal-card">
+                        <div class="portal-header">
+                            <span class="portal-name">Dataroma Superinvestor Registry</span>
+                            <span class="portal-arrow">↗</span>
+                        </div>
+                        <div class="portal-desc">Live 13F superinvestor tracking showing top institutional value funds, Berkshire Hathaway, and hedge fund portfolio weightings for AAPL.</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic SVG Chart & Range Switching Script -->
+    <script>
+        const chartData = {"1D": [{"date": "01:30 PM", "price": 309.2, "time": "01:30 PM", "full_date": "Aug 21, 2026 01:30 PM"}, {"date": "01:32 PM", "price": 308.67, "time": "01:32 PM", "full_date": "Aug 21, 2026 01:32 PM"}, {"date": "01:34 PM", "price": 308.3, "time": "01:34 PM", "full_date": "Aug 21, 2026 01:34 PM"}, {"date": "01:36 PM", "price": 308.79, "time": "01:36 PM", "full_date": "Aug 21, 2026 01:36 PM"}, {"date": "01:38 PM", "price": 308.19, "time": "01:38 PM", "full_date": "Aug 21, 2026 01:38 PM"}, {"date": "01:40 PM", "price": 307.58, "time": "01:40 PM", "full_date": "Aug 21, 2026 01:40 PM"}, {"date": "01:42 PM", "price": 308.08, "time": "01:42 PM", "full_date": "Aug 21, 2026 01:42 PM"}, {"date": "01:44 PM", "price": 307.73, "time": "01:44 PM", "full_date": "Aug 21, 2026 01:44 PM"}, {"date": "01:46 PM", "price": 307.67, "time": "01:46 PM", "full_date": "Aug 21, 2026 01:46 PM"}, {"date": "01:48 PM", "price": 307.43, "time": "01:48 PM", "full_date": "Aug 21, 2026 01:48 PM"}, {"date": "01:50 PM", "price": 307.43, "time": "01:50 PM", "full_date": "Aug 21, 2026 01:50 PM"}, {"date": "01:52 PM", "price": 307.5, "time": "01:52 PM", "full_date": "Aug 21, 2026 01:52 PM"}, {"date": "01:54 PM", "price": 307.12, "time": "01:54 PM", "full_date": "Aug 21, 2026 01:54 PM"}, {"date": "01:56 PM", "price": 307.27, "time": "01:56 PM", "full_date": "Aug 21, 2026 01:56 PM"}, {"date": "01:58 PM", "price": 307.38, "time": "01:58 PM", "full_date": "Aug 21, 2026 01:58 PM"}, {"date": "02:00 PM", "price": 307.51, "time": "02:00 PM", "full_date": "Aug 21, 2026 02:00 PM"}, {"date": "02:02 PM", "price": 307.45, "time": "02:02 PM", "full_date": "Aug 21, 2026 02:02 PM"}, {"date": "02:04 PM", "price": 307.84, "time": "02:04 PM", "full_date": "Aug 21, 2026 02:04 PM"}, {"date": "02:06 PM", "price": 307.92, "time": "02:06 PM", "full_date": "Aug 21, 2026 02:06 PM"}, {"date": "02:08 PM", "price": 307.8, "time": "02:08 PM", "full_date": "Aug 21, 2026 02:08 PM"}, {"date": "02:10 PM", "price": 307.68, "time": "02:10 PM", "full_date": "Aug 21, 2026 02:10 PM"}, {"date": "02:12 PM", "price": 307.65, "time": "02:12 PM", "full_date": "Aug 21, 2026 02:12 PM"}, {"date": "02:14 PM", "price": 308.02, "time": "02:14 PM", "full_date": "Aug 21, 2026 02:14 PM"}, {"date": "02:16 PM", "price": 308.1, "time": "02:16 PM", "full_date": "Aug 21, 2026 02:16 PM"}, {"date": "02:18 PM", "price": 307.98, "time": "02:18 PM", "full_date": "Aug 21, 2026 02:18 PM"}, {"date": "02:20 PM", "price": 307.52, "time": "02:20 PM", "full_date": "Aug 21, 2026 02:20 PM"}, {"date": "02:22 PM", "price": 307.8, "time": "02:22 PM", "full_date": "Aug 21, 2026 02:22 PM"}, {"date": "02:24 PM", "price": 307.92, "time": "02:24 PM", "full_date": "Aug 21, 2026 02:24 PM"}, {"date": "02:26 PM", "price": 307.76, "time": "02:26 PM", "full_date": "Aug 21, 2026 02:26 PM"}, {"date": "02:28 PM", "price": 307.8, "time": "02:28 PM", "full_date": "Aug 21, 2026 02:28 PM"}, {"date": "02:30 PM", "price": 307.92, "time": "02:30 PM", "full_date": "Aug 21, 2026 02:30 PM"}, {"date": "02:32 PM", "price": 308.2, "time": "02:32 PM", "full_date": "Aug 21, 2026 02:32 PM"}, {"date": "02:34 PM", "price": 308.04, "time": "02:34 PM", "full_date": "Aug 21, 2026 02:34 PM"}, {"date": "02:36 PM", "price": 308.35, "time": "02:36 PM", "full_date": "Aug 21, 2026 02:36 PM"}, {"date": "02:38 PM", "price": 308.22, "time": "02:38 PM", "full_date": "Aug 21, 2026 02:38 PM"}, {"date": "02:40 PM", "price": 308.02, "time": "02:40 PM", "full_date": "Aug 21, 2026 02:40 PM"}, {"date": "02:42 PM", "price": 308.68, "time": "02:42 PM", "full_date": "Aug 21, 2026 02:42 PM"}, {"date": "02:44 PM", "price": 308.37, "time": "02:44 PM", "full_date": "Aug 21, 2026 02:44 PM"}, {"date": "02:46 PM", "price": 308.63, "time": "02:46 PM", "full_date": "Aug 21, 2026 02:46 PM"}, {"date": "02:48 PM", "price": 308.84, "time": "02:48 PM", "full_date": "Aug 21, 2026 02:48 PM"}, {"date": "02:50 PM", "price": 308.67, "time": "02:50 PM", "full_date": "Aug 21, 2026 02:50 PM"}, {"date": "02:52 PM", "price": 308.86, "time": "02:52 PM", "full_date": "Aug 21, 2026 02:52 PM"}, {"date": "02:54 PM", "price": 308.97, "time": "02:54 PM", "full_date": "Aug 21, 2026 02:54 PM"}, {"date": "02:56 PM", "price": 309.43, "time": "02:56 PM", "full_date": "Aug 21, 2026 02:56 PM"}, {"date": "02:58 PM", "price": 309.45, "time": "02:58 PM", "full_date": "Aug 21, 2026 02:58 PM"}, {"date": "03:00 PM", "price": 309.73, "time": "03:00 PM", "full_date": "Aug 21, 2026 03:00 PM"}, {"date": "03:02 PM", "price": 309.52, "time": "03:02 PM", "full_date": "Aug 21, 2026 03:02 PM"}, {"date": "03:04 PM", "price": 309.78, "time": "03:04 PM", "full_date": "Aug 21, 2026 03:04 PM"}, {"date": "03:06 PM", "price": 309.74, "time": "03:06 PM", "full_date": "Aug 21, 2026 03:06 PM"}, {"date": "03:08 PM", "price": 309.56, "time": "03:08 PM", "full_date": "Aug 21, 2026 03:08 PM"}, {"date": "03:10 PM", "price": 309.62, "time": "03:10 PM", "full_date": "Aug 21, 2026 03:10 PM"}, {"date": "03:12 PM", "price": 309.79, "time": "03:12 PM", "full_date": "Aug 21, 2026 03:12 PM"}, {"date": "03:14 PM", "price": 309.99, "time": "03:14 PM", "full_date": "Aug 21, 2026 03:14 PM"}, {"date": "03:16 PM", "price": 309.99, "time": "03:16 PM", "full_date": "Aug 21, 2026 03:16 PM"}, {"date": "03:18 PM", "price": 310.05, "time": "03:18 PM", "full_date": "Aug 21, 2026 03:18 PM"}, {"date": "03:20 PM", "price": 310.1, "time": "03:20 PM", "full_date": "Aug 21, 2026 03:20 PM"}, {"date": "03:22 PM", "price": 309.99, "time": "03:22 PM", "full_date": "Aug 21, 2026 03:22 PM"}, {"date": "03:24 PM", "price": 309.89, "time": "03:24 PM", "full_date": "Aug 21, 2026 03:24 PM"}, {"date": "03:26 PM", "price": 310.31, "time": "03:26 PM", "full_date": "Aug 21, 2026 03:26 PM"}, {"date": "03:28 PM", "price": 310.6, "time": "03:28 PM", "full_date": "Aug 21, 2026 03:28 PM"}, {"date": "03:30 PM", "price": 310.58, "time": "03:30 PM", "full_date": "Aug 21, 2026 03:30 PM"}, {"date": "03:32 PM", "price": 311.16, "time": "03:32 PM", "full_date": "Aug 21, 2026 03:32 PM"}, {"date": "03:34 PM", "price": 311.21, "time": "03:34 PM", "full_date": "Aug 21, 2026 03:34 PM"}, {"date": "03:36 PM", "price": 311.36, "time": "03:36 PM", "full_date": "Aug 21, 2026 03:36 PM"}, {"date": "03:38 PM", "price": 311.46, "time": "03:38 PM", "full_date": "Aug 21, 2026 03:38 PM"}, {"date": "03:40 PM", "price": 311.35, "time": "03:40 PM", "full_date": "Aug 21, 2026 03:40 PM"}, {"date": "03:42 PM", "price": 311.24, "time": "03:42 PM", "full_date": "Aug 21, 2026 03:42 PM"}, {"date": "03:44 PM", "price": 311.41, "time": "03:44 PM", "full_date": "Aug 21, 2026 03:44 PM"}, {"date": "03:46 PM", "price": 311.15, "time": "03:46 PM", "full_date": "Aug 21, 2026 03:46 PM"}, {"date": "03:48 PM", "price": 311.13, "time": "03:48 PM", "full_date": "Aug 21, 2026 03:48 PM"}, {"date": "03:50 PM", "price": 311.62, "time": "03:50 PM", "full_date": "Aug 21, 2026 03:50 PM"}, {"date": "03:52 PM", "price": 311.58, "time": "03:52 PM", "full_date": "Aug 21, 2026 03:52 PM"}, {"date": "03:54 PM", "price": 311.86, "time": "03:54 PM", "full_date": "Aug 21, 2026 03:54 PM"}, {"date": "03:56 PM", "price": 311.48, "time": "03:56 PM", "full_date": "Aug 21, 2026 03:56 PM"}, {"date": "03:58 PM", "price": 311.51, "time": "03:58 PM", "full_date": "Aug 21, 2026 03:58 PM"}, {"date": "04:00 PM", "price": 311.62, "time": "04:00 PM", "full_date": "Aug 21, 2026 04:00 PM"}, {"date": "04:02 PM", "price": 311.38, "time": "04:02 PM", "full_date": "Aug 21, 2026 04:02 PM"}, {"date": "04:04 PM", "price": 311.39, "time": "04:04 PM", "full_date": "Aug 21, 2026 04:04 PM"}, {"date": "04:06 PM", "price": 311.43, "time": "04:06 PM", "full_date": "Aug 21, 2026 04:06 PM"}, {"date": "04:08 PM", "price": 311.5, "time": "04:08 PM", "full_date": "Aug 21, 2026 04:08 PM"}, {"date": "04:10 PM", "price": 311.55, "time": "04:10 PM", "full_date": "Aug 21, 2026 04:10 PM"}, {"date": "04:12 PM", "price": 311.31, "time": "04:12 PM", "full_date": "Aug 21, 2026 04:12 PM"}, {"date": "04:14 PM", "price": 311.22, "time": "04:14 PM", "full_date": "Aug 21, 2026 04:14 PM"}, {"date": "04:16 PM", "price": 311.27, "time": "04:16 PM", "full_date": "Aug 21, 2026 04:16 PM"}, {"date": "04:18 PM", "price": 311.11, "time": "04:18 PM", "full_date": "Aug 21, 2026 04:18 PM"}, {"date": "04:20 PM", "price": 311.32, "time": "04:20 PM", "full_date": "Aug 21, 2026 04:20 PM"}, {"date": "04:22 PM", "price": 311.26, "time": "04:22 PM", "full_date": "Aug 21, 2026 04:22 PM"}, {"date": "04:24 PM", "price": 311.33, "time": "04:24 PM", "full_date": "Aug 21, 2026 04:24 PM"}, {"date": "04:26 PM", "price": 311.27, "time": "04:26 PM", "full_date": "Aug 21, 2026 04:26 PM"}, {"date": "04:28 PM", "price": 311.2, "time": "04:28 PM", "full_date": "Aug 21, 2026 04:28 PM"}, {"date": "04:30 PM", "price": 310.86, "time": "04:30 PM", "full_date": "Aug 21, 2026 04:30 PM"}, {"date": "04:32 PM", "price": 310.58, "time": "04:32 PM", "full_date": "Aug 21, 2026 04:32 PM"}, {"date": "04:34 PM", "price": 310.45, "time": "04:34 PM", "full_date": "Aug 21, 2026 04:34 PM"}, {"date": "04:36 PM", "price": 310.45, "time": "04:36 PM", "full_date": "Aug 21, 2026 04:36 PM"}, {"date": "04:38 PM", "price": 310.71, "time": "04:38 PM", "full_date": "Aug 21, 2026 04:38 PM"}, {"date": "04:40 PM", "price": 310.77, "time": "04:40 PM", "full_date": "Aug 21, 2026 04:40 PM"}, {"date": "04:42 PM", "price": 310.74, "time": "04:42 PM", "full_date": "Aug 21, 2026 04:42 PM"}, {"date": "04:44 PM", "price": 310.67, "time": "04:44 PM", "full_date": "Aug 21, 2026 04:44 PM"}, {"date": "04:46 PM", "price": 310.73, "time": "04:46 PM", "full_date": "Aug 21, 2026 04:46 PM"}, {"date": "04:48 PM", "price": 310.79, "time": "04:48 PM", "full_date": "Aug 21, 2026 04:48 PM"}, {"date": "04:50 PM", "price": 310.78, "time": "04:50 PM", "full_date": "Aug 21, 2026 04:50 PM"}, {"date": "04:52 PM", "price": 310.96, "time": "04:52 PM", "full_date": "Aug 21, 2026 04:52 PM"}, {"date": "04:54 PM", "price": 310.93, "time": "04:54 PM", "full_date": "Aug 21, 2026 04:54 PM"}, {"date": "04:56 PM", "price": 311.0, "time": "04:56 PM", "full_date": "Aug 21, 2026 04:56 PM"}, {"date": "04:58 PM", "price": 311.01, "time": "04:58 PM", "full_date": "Aug 21, 2026 04:58 PM"}, {"date": "05:00 PM", "price": 311.15, "time": "05:00 PM", "full_date": "Aug 21, 2026 05:00 PM"}, {"date": "05:02 PM", "price": 311.06, "time": "05:02 PM", "full_date": "Aug 21, 2026 05:02 PM"}, {"date": "05:04 PM", "price": 311.11, "time": "05:04 PM", "full_date": "Aug 21, 2026 05:04 PM"}, {"date": "05:06 PM", "price": 311.27, "time": "05:06 PM", "full_date": "Aug 21, 2026 05:06 PM"}, {"date": "05:08 PM", "price": 311.57, "time": "05:08 PM", "full_date": "Aug 21, 2026 05:08 PM"}, {"date": "05:10 PM", "price": 311.43, "time": "05:10 PM", "full_date": "Aug 21, 2026 05:10 PM"}, {"date": "05:12 PM", "price": 311.49, "time": "05:12 PM", "full_date": "Aug 21, 2026 05:12 PM"}, {"date": "05:14 PM", "price": 311.58, "time": "05:14 PM", "full_date": "Aug 21, 2026 05:14 PM"}, {"date": "05:16 PM", "price": 311.39, "time": "05:16 PM", "full_date": "Aug 21, 2026 05:16 PM"}, {"date": "05:18 PM", "price": 311.43, "time": "05:18 PM", "full_date": "Aug 21, 2026 05:18 PM"}, {"date": "05:20 PM", "price": 311.54, "time": "05:20 PM", "full_date": "Aug 21, 2026 05:20 PM"}, {"date": "05:22 PM", "price": 311.53, "time": "05:22 PM", "full_date": "Aug 21, 2026 05:22 PM"}, {"date": "05:24 PM", "price": 311.16, "time": "05:24 PM", "full_date": "Aug 21, 2026 05:24 PM"}, {"date": "05:26 PM", "price": 311.14, "time": "05:26 PM", "full_date": "Aug 21, 2026 05:26 PM"}, {"date": "05:28 PM", "price": 311.06, "time": "05:28 PM", "full_date": "Aug 21, 2026 05:28 PM"}, {"date": "05:30 PM", "price": 311.07, "time": "05:30 PM", "full_date": "Aug 21, 2026 05:30 PM"}, {"date": "05:32 PM", "price": 311.07, "time": "05:32 PM", "full_date": "Aug 21, 2026 05:32 PM"}, {"date": "05:34 PM", "price": 310.69, "time": "05:34 PM", "full_date": "Aug 21, 2026 05:34 PM"}, {"date": "05:36 PM", "price": 310.46, "time": "05:36 PM", "full_date": "Aug 21, 2026 05:36 PM"}, {"date": "05:38 PM", "price": 310.32, "time": "05:38 PM", "full_date": "Aug 21, 2026 05:38 PM"}, {"date": "05:40 PM", "price": 310.19, "time": "05:40 PM", "full_date": "Aug 21, 2026 05:40 PM"}, {"date": "05:42 PM", "price": 309.87, "time": "05:42 PM", "full_date": "Aug 21, 2026 05:42 PM"}, {"date": "05:44 PM", "price": 310.01, "time": "05:44 PM", "full_date": "Aug 21, 2026 05:44 PM"}, {"date": "05:46 PM", "price": 309.92, "time": "05:46 PM", "full_date": "Aug 21, 2026 05:46 PM"}, {"date": "05:48 PM", "price": 309.71, "time": "05:48 PM", "full_date": "Aug 21, 2026 05:48 PM"}, {"date": "05:50 PM", "price": 309.6, "time": "05:50 PM", "full_date": "Aug 21, 2026 05:50 PM"}, {"date": "05:52 PM", "price": 309.67, "time": "05:52 PM", "full_date": "Aug 21, 2026 05:52 PM"}, {"date": "05:54 PM", "price": 309.65, "time": "05:54 PM", "full_date": "Aug 21, 2026 05:54 PM"}, {"date": "05:56 PM", "price": 309.6, "time": "05:56 PM", "full_date": "Aug 21, 2026 05:56 PM"}, {"date": "05:58 PM", "price": 309.56, "time": "05:58 PM", "full_date": "Aug 21, 2026 05:58 PM"}, {"date": "06:00 PM", "price": 309.52, "time": "06:00 PM", "full_date": "Aug 21, 2026 06:00 PM"}, {"date": "06:02 PM", "price": 309.58, "time": "06:02 PM", "full_date": "Aug 21, 2026 06:02 PM"}, {"date": "06:04 PM", "price": 309.43, "time": "06:04 PM", "full_date": "Aug 21, 2026 06:04 PM"}, {"date": "06:06 PM", "price": 309.4, "time": "06:06 PM", "full_date": "Aug 21, 2026 06:06 PM"}, {"date": "06:08 PM", "price": 309.37, "time": "06:08 PM", "full_date": "Aug 21, 2026 06:08 PM"}, {"date": "06:10 PM", "price": 309.24, "time": "06:10 PM", "full_date": "Aug 21, 2026 06:10 PM"}, {"date": "06:12 PM", "price": 309.07, "time": "06:12 PM", "full_date": "Aug 21, 2026 06:12 PM"}, {"date": "06:14 PM", "price": 309.06, "time": "06:14 PM", "full_date": "Aug 21, 2026 06:14 PM"}, {"date": "06:16 PM", "price": 308.95, "time": "06:16 PM", "full_date": "Aug 21, 2026 06:16 PM"}, {"date": "06:18 PM", "price": 309.04, "time": "06:18 PM", "full_date": "Aug 21, 2026 06:18 PM"}, {"date": "06:20 PM", "price": 308.82, "time": "06:20 PM", "full_date": "Aug 21, 2026 06:20 PM"}, {"date": "06:22 PM", "price": 308.6, "time": "06:22 PM", "full_date": "Aug 21, 2026 06:22 PM"}, {"date": "06:24 PM", "price": 308.44, "time": "06:24 PM", "full_date": "Aug 21, 2026 06:24 PM"}, {"date": "06:26 PM", "price": 308.63, "time": "06:26 PM", "full_date": "Aug 21, 2026 06:26 PM"}, {"date": "06:28 PM", "price": 308.47, "time": "06:28 PM", "full_date": "Aug 21, 2026 06:28 PM"}, {"date": "06:30 PM", "price": 308.73, "time": "06:30 PM", "full_date": "Aug 21, 2026 06:30 PM"}, {"date": "06:32 PM", "price": 308.77, "time": "06:32 PM", "full_date": "Aug 21, 2026 06:32 PM"}, {"date": "06:34 PM", "price": 308.67, "time": "06:34 PM", "full_date": "Aug 21, 2026 06:34 PM"}, {"date": "06:36 PM", "price": 308.8, "time": "06:36 PM", "full_date": "Aug 21, 2026 06:36 PM"}, {"date": "06:38 PM", "price": 308.82, "time": "06:38 PM", "full_date": "Aug 21, 2026 06:38 PM"}, {"date": "06:40 PM", "price": 308.8, "time": "06:40 PM", "full_date": "Aug 21, 2026 06:40 PM"}, {"date": "06:42 PM", "price": 308.76, "time": "06:42 PM", "full_date": "Aug 21, 2026 06:42 PM"}, {"date": "06:44 PM", "price": 308.35, "time": "06:44 PM", "full_date": "Aug 21, 2026 06:44 PM"}, {"date": "06:46 PM", "price": 308.57, "time": "06:46 PM", "full_date": "Aug 21, 2026 06:46 PM"}, {"date": "06:48 PM", "price": 308.61, "time": "06:48 PM", "full_date": "Aug 21, 2026 06:48 PM"}, {"date": "06:50 PM", "price": 308.62, "time": "06:50 PM", "full_date": "Aug 21, 2026 06:50 PM"}, {"date": "06:52 PM", "price": 308.58, "time": "06:52 PM", "full_date": "Aug 21, 2026 06:52 PM"}, {"date": "06:54 PM", "price": 308.57, "time": "06:54 PM", "full_date": "Aug 21, 2026 06:54 PM"}, {"date": "06:56 PM", "price": 308.57, "time": "06:56 PM", "full_date": "Aug 21, 2026 06:56 PM"}, {"date": "06:58 PM", "price": 308.78, "time": "06:58 PM", "full_date": "Aug 21, 2026 06:58 PM"}, {"date": "07:00 PM", "price": 308.47, "time": "07:00 PM", "full_date": "Aug 21, 2026 07:00 PM"}, {"date": "07:02 PM", "price": 308.47, "time": "07:02 PM", "full_date": "Aug 21, 2026 07:02 PM"}, {"date": "07:04 PM", "price": 308.48, "time": "07:04 PM", "full_date": "Aug 21, 2026 07:04 PM"}, {"date": "07:06 PM", "price": 308.54, "time": "07:06 PM", "full_date": "Aug 21, 2026 07:06 PM"}, {"date": "07:08 PM", "price": 308.49, "time": "07:08 PM", "full_date": "Aug 21, 2026 07:08 PM"}, {"date": "07:10 PM", "price": 308.58, "time": "07:10 PM", "full_date": "Aug 21, 2026 07:10 PM"}, {"date": "07:12 PM", "price": 308.65, "time": "07:12 PM", "full_date": "Aug 21, 2026 07:12 PM"}, {"date": "07:14 PM", "price": 308.82, "time": "07:14 PM", "full_date": "Aug 21, 2026 07:14 PM"}, {"date": "07:16 PM", "price": 309.27, "time": "07:16 PM", "full_date": "Aug 21, 2026 07:16 PM"}, {"date": "07:18 PM", "price": 309.37, "time": "07:18 PM", "full_date": "Aug 21, 2026 07:18 PM"}, {"date": "07:20 PM", "price": 309.41, "time": "07:20 PM", "full_date": "Aug 21, 2026 07:20 PM"}, {"date": "07:22 PM", "price": 309.45, "time": "07:22 PM", "full_date": "Aug 21, 2026 07:22 PM"}, {"date": "07:24 PM", "price": 309.45, "time": "07:24 PM", "full_date": "Aug 21, 2026 07:24 PM"}, {"date": "07:26 PM", "price": 309.72, "time": "07:26 PM", "full_date": "Aug 21, 2026 07:26 PM"}, {"date": "07:28 PM", "price": 309.74, "time": "07:28 PM", "full_date": "Aug 21, 2026 07:28 PM"}, {"date": "07:30 PM", "price": 309.74, "time": "07:30 PM", "full_date": "Aug 21, 2026 07:30 PM"}, {"date": "07:32 PM", "price": 309.77, "time": "07:32 PM", "full_date": "Aug 21, 2026 07:32 PM"}, {"date": "07:34 PM", "price": 309.81, "time": "07:34 PM", "full_date": "Aug 21, 2026 07:34 PM"}, {"date": "07:36 PM", "price": 309.79, "time": "07:36 PM", "full_date": "Aug 21, 2026 07:36 PM"}, {"date": "07:38 PM", "price": 309.52, "time": "07:38 PM", "full_date": "Aug 21, 2026 07:38 PM"}, {"date": "07:40 PM", "price": 309.5, "time": "07:40 PM", "full_date": "Aug 21, 2026 07:40 PM"}, {"date": "07:42 PM", "price": 309.7, "time": "07:42 PM", "full_date": "Aug 21, 2026 07:42 PM"}, {"date": "07:44 PM", "price": 309.57, "time": "07:44 PM", "full_date": "Aug 21, 2026 07:44 PM"}, {"date": "07:46 PM", "price": 309.82, "time": "07:46 PM", "full_date": "Aug 21, 2026 07:46 PM"}, {"date": "07:48 PM", "price": 310.02, "time": "07:48 PM", "full_date": "Aug 21, 2026 07:48 PM"}, {"date": "07:50 PM", "price": 309.87, "time": "07:50 PM", "full_date": "Aug 21, 2026 07:50 PM"}, {"date": "07:52 PM", "price": 309.99, "time": "07:52 PM", "full_date": "Aug 21, 2026 07:52 PM"}, {"date": "07:54 PM", "price": 309.7, "time": "07:54 PM", "full_date": "Aug 21, 2026 07:54 PM"}, {"date": "07:56 PM", "price": 309.7, "time": "07:56 PM", "full_date": "Aug 21, 2026 07:56 PM"}, {"date": "07:58 PM", "price": 309.42, "time": "07:58 PM", "full_date": "Aug 21, 2026 07:58 PM"}, {"date": "08:00 PM", "price": 309.35, "time": "08:00 PM", "full_date": "Aug 21, 2026 08:00 PM"}], "1M": [{"date": "Jul 22, 2026", "price": 325.89, "time": "01:30 PM", "full_date": "Jul 22, 2026 01:30 PM"}, {"date": "Jul 23, 2026", "price": 321.66, "time": "01:30 PM", "full_date": "Jul 23, 2026 01:30 PM"}, {"date": "Jul 24, 2026", "price": 333.02, "time": "01:30 PM", "full_date": "Jul 24, 2026 01:30 PM"}, {"date": "Jul 27, 2026", "price": 336.91, "time": "01:30 PM", "full_date": "Jul 27, 2026 01:30 PM"}, {"date": "Jul 28, 2026", "price": 340.08, "time": "01:30 PM", "full_date": "Jul 28, 2026 01:30 PM"}, {"date": "Jul 29, 2026", "price": 338.19, "time": "01:30 PM", "full_date": "Jul 29, 2026 01:30 PM"}, {"date": "Jul 30, 2026", "price": 333.43, "time": "01:30 PM", "full_date": "Jul 30, 2026 01:30 PM"}, {"date": "Jul 31, 2026", "price": 308.91, "time": "01:30 PM", "full_date": "Jul 31, 2026 01:30 PM"}, {"date": "Aug 03, 2026", "price": 303.42, "time": "01:30 PM", "full_date": "Aug 03, 2026 01:30 PM"}, {"date": "Aug 04, 2026", "price": 309.38, "time": "01:30 PM", "full_date": "Aug 04, 2026 01:30 PM"}, {"date": "Aug 05, 2026", "price": 311.0, "time": "01:30 PM", "full_date": "Aug 05, 2026 01:30 PM"}, {"date": "Aug 06, 2026", "price": 312.41, "time": "01:30 PM", "full_date": "Aug 06, 2026 01:30 PM"}, {"date": "Aug 07, 2026", "price": 313.33, "time": "01:30 PM", "full_date": "Aug 07, 2026 01:30 PM"}, {"date": "Aug 10, 2026", "price": 308.26, "time": "01:30 PM", "full_date": "Aug 10, 2026 01:30 PM"}, {"date": "Aug 11, 2026", "price": 304.91, "time": "01:30 PM", "full_date": "Aug 11, 2026 01:30 PM"}, {"date": "Aug 12, 2026", "price": 302.25, "time": "01:30 PM", "full_date": "Aug 12, 2026 01:30 PM"}, {"date": "Aug 13, 2026", "price": 305.26, "time": "01:30 PM", "full_date": "Aug 13, 2026 01:30 PM"}, {"date": "Aug 14, 2026", "price": 305.93, "time": "01:30 PM", "full_date": "Aug 14, 2026 01:30 PM"}, {"date": "Aug 17, 2026", "price": 305.59, "time": "01:30 PM", "full_date": "Aug 17, 2026 01:30 PM"}, {"date": "Aug 18, 2026", "price": 310.03, "time": "01:30 PM", "full_date": "Aug 18, 2026 01:30 PM"}, {"date": "Aug 19, 2026", "price": 316.83, "time": "01:30 PM", "full_date": "Aug 19, 2026 01:30 PM"}, {"date": "Aug 20, 2026", "price": 311.3, "time": "01:30 PM", "full_date": "Aug 20, 2026 01:30 PM"}, {"date": "Aug 21, 2026", "price": 309.35, "time": "01:30 PM", "full_date": "Aug 21, 2026 01:30 PM"}], "1Y": [{"date": "Aug 22, 2025", "price": 227.76, "time": "01:30 PM", "full_date": "Aug 22, 2025 01:30 PM"}, {"date": "Aug 25, 2025", "price": 227.16, "time": "01:30 PM", "full_date": "Aug 25, 2025 01:30 PM"}, {"date": "Aug 26, 2025", "price": 229.31, "time": "01:30 PM", "full_date": "Aug 26, 2025 01:30 PM"}, {"date": "Aug 27, 2025", "price": 230.49, "time": "01:30 PM", "full_date": "Aug 27, 2025 01:30 PM"}, {"date": "Aug 28, 2025", "price": 232.56, "time": "01:30 PM", "full_date": "Aug 28, 2025 01:30 PM"}, {"date": "Aug 29, 2025", "price": 232.14, "time": "01:30 PM", "full_date": "Aug 29, 2025 01:30 PM"}, {"date": "Sep 02, 2025", "price": 229.72, "time": "01:30 PM", "full_date": "Sep 02, 2025 01:30 PM"}, {"date": "Sep 03, 2025", "price": 238.47, "time": "01:30 PM", "full_date": "Sep 03, 2025 01:30 PM"}, {"date": "Sep 04, 2025", "price": 239.78, "time": "01:30 PM", "full_date": "Sep 04, 2025 01:30 PM"}, {"date": "Sep 05, 2025", "price": 239.69, "time": "01:30 PM", "full_date": "Sep 05, 2025 01:30 PM"}, {"date": "Sep 08, 2025", "price": 237.88, "time": "01:30 PM", "full_date": "Sep 08, 2025 01:30 PM"}, {"date": "Sep 09, 2025", "price": 234.35, "time": "01:30 PM", "full_date": "Sep 09, 2025 01:30 PM"}, {"date": "Sep 10, 2025", "price": 226.79, "time": "01:30 PM", "full_date": "Sep 10, 2025 01:30 PM"}, {"date": "Sep 11, 2025", "price": 230.03, "time": "01:30 PM", "full_date": "Sep 11, 2025 01:30 PM"}, {"date": "Sep 12, 2025", "price": 234.07, "time": "01:30 PM", "full_date": "Sep 12, 2025 01:30 PM"}, {"date": "Sep 15, 2025", "price": 236.7, "time": "01:30 PM", "full_date": "Sep 15, 2025 01:30 PM"}, {"date": "Sep 16, 2025", "price": 238.15, "time": "01:30 PM", "full_date": "Sep 16, 2025 01:30 PM"}, {"date": "Sep 17, 2025", "price": 238.99, "time": "01:30 PM", "full_date": "Sep 17, 2025 01:30 PM"}, {"date": "Sep 18, 2025", "price": 237.88, "time": "01:30 PM", "full_date": "Sep 18, 2025 01:30 PM"}, {"date": "Sep 19, 2025", "price": 245.5, "time": "01:30 PM", "full_date": "Sep 19, 2025 01:30 PM"}, {"date": "Sep 22, 2025", "price": 256.08, "time": "01:30 PM", "full_date": "Sep 22, 2025 01:30 PM"}, {"date": "Sep 23, 2025", "price": 254.43, "time": "01:30 PM", "full_date": "Sep 23, 2025 01:30 PM"}, {"date": "Sep 24, 2025", "price": 252.31, "time": "01:30 PM", "full_date": "Sep 24, 2025 01:30 PM"}, {"date": "Sep 25, 2025", "price": 256.87, "time": "01:30 PM", "full_date": "Sep 25, 2025 01:30 PM"}, {"date": "Sep 26, 2025", "price": 255.46, "time": "01:30 PM", "full_date": "Sep 26, 2025 01:30 PM"}, {"date": "Sep 29, 2025", "price": 254.43, "time": "01:30 PM", "full_date": "Sep 29, 2025 01:30 PM"}, {"date": "Sep 30, 2025", "price": 254.63, "time": "01:30 PM", "full_date": "Sep 30, 2025 01:30 PM"}, {"date": "Oct 01, 2025", "price": 255.45, "time": "01:30 PM", "full_date": "Oct 01, 2025 01:30 PM"}, {"date": "Oct 02, 2025", "price": 257.13, "time": "01:30 PM", "full_date": "Oct 02, 2025 01:30 PM"}, {"date": "Oct 03, 2025", "price": 258.02, "time": "01:30 PM", "full_date": "Oct 03, 2025 01:30 PM"}, {"date": "Oct 06, 2025", "price": 256.69, "time": "01:30 PM", "full_date": "Oct 06, 2025 01:30 PM"}, {"date": "Oct 07, 2025", "price": 256.48, "time": "01:30 PM", "full_date": "Oct 07, 2025 01:30 PM"}, {"date": "Oct 08, 2025", "price": 258.06, "time": "01:30 PM", "full_date": "Oct 08, 2025 01:30 PM"}, {"date": "Oct 09, 2025", "price": 254.04, "time": "01:30 PM", "full_date": "Oct 09, 2025 01:30 PM"}, {"date": "Oct 10, 2025", "price": 245.27, "time": "01:30 PM", "full_date": "Oct 10, 2025 01:30 PM"}, {"date": "Oct 13, 2025", "price": 247.66, "time": "01:30 PM", "full_date": "Oct 13, 2025 01:30 PM"}, {"date": "Oct 14, 2025", "price": 247.77, "time": "01:30 PM", "full_date": "Oct 14, 2025 01:30 PM"}, {"date": "Oct 15, 2025", "price": 249.34, "time": "01:30 PM", "full_date": "Oct 15, 2025 01:30 PM"}, {"date": "Oct 16, 2025", "price": 247.45, "time": "01:30 PM", "full_date": "Oct 16, 2025 01:30 PM"}, {"date": "Oct 17, 2025", "price": 252.29, "time": "01:30 PM", "full_date": "Oct 17, 2025 01:30 PM"}, {"date": "Oct 20, 2025", "price": 262.24, "time": "01:30 PM", "full_date": "Oct 20, 2025 01:30 PM"}, {"date": "Oct 21, 2025", "price": 262.77, "time": "01:30 PM", "full_date": "Oct 21, 2025 01:30 PM"}, {"date": "Oct 22, 2025", "price": 258.45, "time": "01:30 PM", "full_date": "Oct 22, 2025 01:30 PM"}, {"date": "Oct 23, 2025", "price": 259.58, "time": "01:30 PM", "full_date": "Oct 23, 2025 01:30 PM"}, {"date": "Oct 24, 2025", "price": 262.82, "time": "01:30 PM", "full_date": "Oct 24, 2025 01:30 PM"}, {"date": "Oct 27, 2025", "price": 268.81, "time": "01:30 PM", "full_date": "Oct 27, 2025 01:30 PM"}, {"date": "Oct 28, 2025", "price": 269.0, "time": "01:30 PM", "full_date": "Oct 28, 2025 01:30 PM"}, {"date": "Oct 29, 2025", "price": 269.7, "time": "01:30 PM", "full_date": "Oct 29, 2025 01:30 PM"}, {"date": "Oct 30, 2025", "price": 271.4, "time": "01:30 PM", "full_date": "Oct 30, 2025 01:30 PM"}, {"date": "Oct 31, 2025", "price": 270.37, "time": "01:30 PM", "full_date": "Oct 31, 2025 01:30 PM"}, {"date": "Nov 03, 2025", "price": 269.05, "time": "02:30 PM", "full_date": "Nov 03, 2025 02:30 PM"}, {"date": "Nov 04, 2025", "price": 270.04, "time": "02:30 PM", "full_date": "Nov 04, 2025 02:30 PM"}, {"date": "Nov 05, 2025", "price": 270.14, "time": "02:30 PM", "full_date": "Nov 05, 2025 02:30 PM"}, {"date": "Nov 06, 2025", "price": 269.77, "time": "02:30 PM", "full_date": "Nov 06, 2025 02:30 PM"}, {"date": "Nov 07, 2025", "price": 268.47, "time": "02:30 PM", "full_date": "Nov 07, 2025 02:30 PM"}, {"date": "Nov 10, 2025", "price": 269.43, "time": "02:30 PM", "full_date": "Nov 10, 2025 02:30 PM"}, {"date": "Nov 11, 2025", "price": 275.25, "time": "02:30 PM", "full_date": "Nov 11, 2025 02:30 PM"}, {"date": "Nov 12, 2025", "price": 273.47, "time": "02:30 PM", "full_date": "Nov 12, 2025 02:30 PM"}, {"date": "Nov 13, 2025", "price": 272.95, "time": "02:30 PM", "full_date": "Nov 13, 2025 02:30 PM"}, {"date": "Nov 14, 2025", "price": 272.41, "time": "02:30 PM", "full_date": "Nov 14, 2025 02:30 PM"}, {"date": "Nov 17, 2025", "price": 267.46, "time": "02:30 PM", "full_date": "Nov 17, 2025 02:30 PM"}, {"date": "Nov 18, 2025", "price": 267.44, "time": "02:30 PM", "full_date": "Nov 18, 2025 02:30 PM"}, {"date": "Nov 19, 2025", "price": 268.56, "time": "02:30 PM", "full_date": "Nov 19, 2025 02:30 PM"}, {"date": "Nov 20, 2025", "price": 266.25, "time": "02:30 PM", "full_date": "Nov 20, 2025 02:30 PM"}, {"date": "Nov 21, 2025", "price": 271.49, "time": "02:30 PM", "full_date": "Nov 21, 2025 02:30 PM"}, {"date": "Nov 24, 2025", "price": 275.92, "time": "02:30 PM", "full_date": "Nov 24, 2025 02:30 PM"}, {"date": "Nov 25, 2025", "price": 276.97, "time": "02:30 PM", "full_date": "Nov 25, 2025 02:30 PM"}, {"date": "Nov 26, 2025", "price": 277.55, "time": "02:30 PM", "full_date": "Nov 26, 2025 02:30 PM"}, {"date": "Nov 28, 2025", "price": 278.85, "time": "02:30 PM", "full_date": "Nov 28, 2025 02:30 PM"}, {"date": "Dec 01, 2025", "price": 283.1, "time": "02:30 PM", "full_date": "Dec 01, 2025 02:30 PM"}, {"date": "Dec 02, 2025", "price": 286.19, "time": "02:30 PM", "full_date": "Dec 02, 2025 02:30 PM"}, {"date": "Dec 03, 2025", "price": 284.15, "time": "02:30 PM", "full_date": "Dec 03, 2025 02:30 PM"}, {"date": "Dec 04, 2025", "price": 280.7, "time": "02:30 PM", "full_date": "Dec 04, 2025 02:30 PM"}, {"date": "Dec 05, 2025", "price": 278.78, "time": "02:30 PM", "full_date": "Dec 05, 2025 02:30 PM"}, {"date": "Dec 08, 2025", "price": 277.89, "time": "02:30 PM", "full_date": "Dec 08, 2025 02:30 PM"}, {"date": "Dec 09, 2025", "price": 277.18, "time": "02:30 PM", "full_date": "Dec 09, 2025 02:30 PM"}, {"date": "Dec 10, 2025", "price": 278.78, "time": "02:30 PM", "full_date": "Dec 10, 2025 02:30 PM"}, {"date": "Dec 11, 2025", "price": 278.03, "time": "02:30 PM", "full_date": "Dec 11, 2025 02:30 PM"}, {"date": "Dec 12, 2025", "price": 278.28, "time": "02:30 PM", "full_date": "Dec 12, 2025 02:30 PM"}, {"date": "Dec 15, 2025", "price": 274.11, "time": "02:30 PM", "full_date": "Dec 15, 2025 02:30 PM"}, {"date": "Dec 16, 2025", "price": 274.61, "time": "02:30 PM", "full_date": "Dec 16, 2025 02:30 PM"}, {"date": "Dec 17, 2025", "price": 271.84, "time": "02:30 PM", "full_date": "Dec 17, 2025 02:30 PM"}, {"date": "Dec 18, 2025", "price": 272.19, "time": "02:30 PM", "full_date": "Dec 18, 2025 02:30 PM"}, {"date": "Dec 19, 2025", "price": 273.67, "time": "02:30 PM", "full_date": "Dec 19, 2025 02:30 PM"}, {"date": "Dec 22, 2025", "price": 270.97, "time": "02:30 PM", "full_date": "Dec 22, 2025 02:30 PM"}, {"date": "Dec 23, 2025", "price": 272.36, "time": "02:30 PM", "full_date": "Dec 23, 2025 02:30 PM"}, {"date": "Dec 24, 2025", "price": 273.81, "time": "02:30 PM", "full_date": "Dec 24, 2025 02:30 PM"}, {"date": "Dec 26, 2025", "price": 273.4, "time": "02:30 PM", "full_date": "Dec 26, 2025 02:30 PM"}, {"date": "Dec 29, 2025", "price": 273.76, "time": "02:30 PM", "full_date": "Dec 29, 2025 02:30 PM"}, {"date": "Dec 30, 2025", "price": 273.08, "time": "02:30 PM", "full_date": "Dec 30, 2025 02:30 PM"}, {"date": "Dec 31, 2025", "price": 271.86, "time": "02:30 PM", "full_date": "Dec 31, 2025 02:30 PM"}, {"date": "Jan 02, 2026", "price": 271.01, "time": "02:30 PM", "full_date": "Jan 02, 2026 02:30 PM"}, {"date": "Jan 05, 2026", "price": 267.26, "time": "02:30 PM", "full_date": "Jan 05, 2026 02:30 PM"}, {"date": "Jan 06, 2026", "price": 262.36, "time": "02:30 PM", "full_date": "Jan 06, 2026 02:30 PM"}, {"date": "Jan 07, 2026", "price": 260.33, "time": "02:30 PM", "full_date": "Jan 07, 2026 02:30 PM"}, {"date": "Jan 08, 2026", "price": 259.04, "time": "02:30 PM", "full_date": "Jan 08, 2026 02:30 PM"}, {"date": "Jan 09, 2026", "price": 259.37, "time": "02:30 PM", "full_date": "Jan 09, 2026 02:30 PM"}, {"date": "Jan 12, 2026", "price": 260.25, "time": "02:30 PM", "full_date": "Jan 12, 2026 02:30 PM"}, {"date": "Jan 13, 2026", "price": 261.05, "time": "02:30 PM", "full_date": "Jan 13, 2026 02:30 PM"}, {"date": "Jan 14, 2026", "price": 259.96, "time": "02:30 PM", "full_date": "Jan 14, 2026 02:30 PM"}, {"date": "Jan 15, 2026", "price": 258.21, "time": "02:30 PM", "full_date": "Jan 15, 2026 02:30 PM"}, {"date": "Jan 16, 2026", "price": 255.53, "time": "02:30 PM", "full_date": "Jan 16, 2026 02:30 PM"}, {"date": "Jan 20, 2026", "price": 246.7, "time": "02:30 PM", "full_date": "Jan 20, 2026 02:30 PM"}, {"date": "Jan 21, 2026", "price": 247.65, "time": "02:30 PM", "full_date": "Jan 21, 2026 02:30 PM"}, {"date": "Jan 22, 2026", "price": 248.35, "time": "02:30 PM", "full_date": "Jan 22, 2026 02:30 PM"}, {"date": "Jan 23, 2026", "price": 248.04, "time": "02:30 PM", "full_date": "Jan 23, 2026 02:30 PM"}, {"date": "Jan 26, 2026", "price": 255.41, "time": "02:30 PM", "full_date": "Jan 26, 2026 02:30 PM"}, {"date": "Jan 27, 2026", "price": 258.27, "time": "02:30 PM", "full_date": "Jan 27, 2026 02:30 PM"}, {"date": "Jan 28, 2026", "price": 256.44, "time": "02:30 PM", "full_date": "Jan 28, 2026 02:30 PM"}, {"date": "Jan 29, 2026", "price": 258.28, "time": "02:30 PM", "full_date": "Jan 29, 2026 02:30 PM"}, {"date": "Jan 30, 2026", "price": 259.48, "time": "02:30 PM", "full_date": "Jan 30, 2026 02:30 PM"}, {"date": "Feb 02, 2026", "price": 270.01, "time": "02:30 PM", "full_date": "Feb 02, 2026 02:30 PM"}, {"date": "Feb 03, 2026", "price": 269.48, "time": "02:30 PM", "full_date": "Feb 03, 2026 02:30 PM"}, {"date": "Feb 04, 2026", "price": 276.49, "time": "02:30 PM", "full_date": "Feb 04, 2026 02:30 PM"}, {"date": "Feb 05, 2026", "price": 275.91, "time": "02:30 PM", "full_date": "Feb 05, 2026 02:30 PM"}, {"date": "Feb 06, 2026", "price": 278.12, "time": "02:30 PM", "full_date": "Feb 06, 2026 02:30 PM"}, {"date": "Feb 09, 2026", "price": 274.62, "time": "02:30 PM", "full_date": "Feb 09, 2026 02:30 PM"}, {"date": "Feb 10, 2026", "price": 273.68, "time": "02:30 PM", "full_date": "Feb 10, 2026 02:30 PM"}, {"date": "Feb 11, 2026", "price": 275.5, "time": "02:30 PM", "full_date": "Feb 11, 2026 02:30 PM"}, {"date": "Feb 12, 2026", "price": 261.73, "time": "02:30 PM", "full_date": "Feb 12, 2026 02:30 PM"}, {"date": "Feb 13, 2026", "price": 255.78, "time": "02:30 PM", "full_date": "Feb 13, 2026 02:30 PM"}, {"date": "Feb 17, 2026", "price": 263.88, "time": "02:30 PM", "full_date": "Feb 17, 2026 02:30 PM"}, {"date": "Feb 18, 2026", "price": 264.35, "time": "02:30 PM", "full_date": "Feb 18, 2026 02:30 PM"}, {"date": "Feb 19, 2026", "price": 260.58, "time": "02:30 PM", "full_date": "Feb 19, 2026 02:30 PM"}, {"date": "Feb 20, 2026", "price": 264.58, "time": "02:30 PM", "full_date": "Feb 20, 2026 02:30 PM"}, {"date": "Feb 23, 2026", "price": 266.18, "time": "02:30 PM", "full_date": "Feb 23, 2026 02:30 PM"}, {"date": "Feb 24, 2026", "price": 272.14, "time": "02:30 PM", "full_date": "Feb 24, 2026 02:30 PM"}, {"date": "Feb 25, 2026", "price": 274.23, "time": "02:30 PM", "full_date": "Feb 25, 2026 02:30 PM"}, {"date": "Feb 26, 2026", "price": 272.95, "time": "02:30 PM", "full_date": "Feb 26, 2026 02:30 PM"}, {"date": "Feb 27, 2026", "price": 264.18, "time": "02:30 PM", "full_date": "Feb 27, 2026 02:30 PM"}, {"date": "Mar 02, 2026", "price": 264.72, "time": "02:30 PM", "full_date": "Mar 02, 2026 02:30 PM"}, {"date": "Mar 03, 2026", "price": 263.75, "time": "02:30 PM", "full_date": "Mar 03, 2026 02:30 PM"}, {"date": "Mar 04, 2026", "price": 262.52, "time": "02:30 PM", "full_date": "Mar 04, 2026 02:30 PM"}, {"date": "Mar 05, 2026", "price": 260.29, "time": "02:30 PM", "full_date": "Mar 05, 2026 02:30 PM"}, {"date": "Mar 06, 2026", "price": 257.46, "time": "02:30 PM", "full_date": "Mar 06, 2026 02:30 PM"}, {"date": "Mar 09, 2026", "price": 259.88, "time": "01:30 PM", "full_date": "Mar 09, 2026 01:30 PM"}, {"date": "Mar 10, 2026", "price": 260.83, "time": "01:30 PM", "full_date": "Mar 10, 2026 01:30 PM"}, {"date": "Mar 11, 2026", "price": 260.81, "time": "01:30 PM", "full_date": "Mar 11, 2026 01:30 PM"}, {"date": "Mar 12, 2026", "price": 255.76, "time": "01:30 PM", "full_date": "Mar 12, 2026 01:30 PM"}, {"date": "Mar 13, 2026", "price": 250.12, "time": "01:30 PM", "full_date": "Mar 13, 2026 01:30 PM"}, {"date": "Mar 16, 2026", "price": 252.82, "time": "01:30 PM", "full_date": "Mar 16, 2026 01:30 PM"}, {"date": "Mar 17, 2026", "price": 254.23, "time": "01:30 PM", "full_date": "Mar 17, 2026 01:30 PM"}, {"date": "Mar 18, 2026", "price": 249.94, "time": "01:30 PM", "full_date": "Mar 18, 2026 01:30 PM"}, {"date": "Mar 19, 2026", "price": 248.96, "time": "01:30 PM", "full_date": "Mar 19, 2026 01:30 PM"}, {"date": "Mar 20, 2026", "price": 247.99, "time": "01:30 PM", "full_date": "Mar 20, 2026 01:30 PM"}, {"date": "Mar 23, 2026", "price": 251.49, "time": "01:30 PM", "full_date": "Mar 23, 2026 01:30 PM"}, {"date": "Mar 24, 2026", "price": 251.64, "time": "01:30 PM", "full_date": "Mar 24, 2026 01:30 PM"}, {"date": "Mar 25, 2026", "price": 252.62, "time": "01:30 PM", "full_date": "Mar 25, 2026 01:30 PM"}, {"date": "Mar 26, 2026", "price": 252.89, "time": "01:30 PM", "full_date": "Mar 26, 2026 01:30 PM"}, {"date": "Mar 27, 2026", "price": 248.8, "time": "01:30 PM", "full_date": "Mar 27, 2026 01:30 PM"}, {"date": "Mar 30, 2026", "price": 246.63, "time": "01:30 PM", "full_date": "Mar 30, 2026 01:30 PM"}, {"date": "Mar 31, 2026", "price": 253.79, "time": "01:30 PM", "full_date": "Mar 31, 2026 01:30 PM"}, {"date": "Apr 01, 2026", "price": 255.63, "time": "01:30 PM", "full_date": "Apr 01, 2026 01:30 PM"}, {"date": "Apr 02, 2026", "price": 255.92, "time": "01:30 PM", "full_date": "Apr 02, 2026 01:30 PM"}, {"date": "Apr 06, 2026", "price": 258.86, "time": "01:30 PM", "full_date": "Apr 06, 2026 01:30 PM"}, {"date": "Apr 07, 2026", "price": 253.5, "time": "01:30 PM", "full_date": "Apr 07, 2026 01:30 PM"}, {"date": "Apr 08, 2026", "price": 258.9, "time": "01:30 PM", "full_date": "Apr 08, 2026 01:30 PM"}, {"date": "Apr 09, 2026", "price": 260.49, "time": "01:30 PM", "full_date": "Apr 09, 2026 01:30 PM"}, {"date": "Apr 10, 2026", "price": 260.48, "time": "01:30 PM", "full_date": "Apr 10, 2026 01:30 PM"}, {"date": "Apr 13, 2026", "price": 259.2, "time": "01:30 PM", "full_date": "Apr 13, 2026 01:30 PM"}, {"date": "Apr 14, 2026", "price": 258.83, "time": "01:30 PM", "full_date": "Apr 14, 2026 01:30 PM"}, {"date": "Apr 15, 2026", "price": 266.43, "time": "01:30 PM", "full_date": "Apr 15, 2026 01:30 PM"}, {"date": "Apr 16, 2026", "price": 263.4, "time": "01:30 PM", "full_date": "Apr 16, 2026 01:30 PM"}, {"date": "Apr 17, 2026", "price": 270.23, "time": "01:30 PM", "full_date": "Apr 17, 2026 01:30 PM"}, {"date": "Apr 20, 2026", "price": 273.05, "time": "01:30 PM", "full_date": "Apr 20, 2026 01:30 PM"}, {"date": "Apr 21, 2026", "price": 266.17, "time": "01:30 PM", "full_date": "Apr 21, 2026 01:30 PM"}, {"date": "Apr 22, 2026", "price": 273.17, "time": "01:30 PM", "full_date": "Apr 22, 2026 01:30 PM"}, {"date": "Apr 23, 2026", "price": 273.43, "time": "01:30 PM", "full_date": "Apr 23, 2026 01:30 PM"}, {"date": "Apr 24, 2026", "price": 271.06, "time": "01:30 PM", "full_date": "Apr 24, 2026 01:30 PM"}, {"date": "Apr 27, 2026", "price": 267.61, "time": "01:30 PM", "full_date": "Apr 27, 2026 01:30 PM"}, {"date": "Apr 28, 2026", "price": 270.71, "time": "01:30 PM", "full_date": "Apr 28, 2026 01:30 PM"}, {"date": "Apr 29, 2026", "price": 270.17, "time": "01:30 PM", "full_date": "Apr 29, 2026 01:30 PM"}, {"date": "Apr 30, 2026", "price": 271.35, "time": "01:30 PM", "full_date": "Apr 30, 2026 01:30 PM"}, {"date": "May 01, 2026", "price": 280.14, "time": "01:30 PM", "full_date": "May 01, 2026 01:30 PM"}, {"date": "May 04, 2026", "price": 276.83, "time": "01:30 PM", "full_date": "May 04, 2026 01:30 PM"}, {"date": "May 05, 2026", "price": 284.18, "time": "01:30 PM", "full_date": "May 05, 2026 01:30 PM"}, {"date": "May 06, 2026", "price": 287.51, "time": "01:30 PM", "full_date": "May 06, 2026 01:30 PM"}, {"date": "May 07, 2026", "price": 287.44, "time": "01:30 PM", "full_date": "May 07, 2026 01:30 PM"}, {"date": "May 08, 2026", "price": 293.32, "time": "01:30 PM", "full_date": "May 08, 2026 01:30 PM"}, {"date": "May 11, 2026", "price": 292.68, "time": "01:30 PM", "full_date": "May 11, 2026 01:30 PM"}, {"date": "May 12, 2026", "price": 294.8, "time": "01:30 PM", "full_date": "May 12, 2026 01:30 PM"}, {"date": "May 13, 2026", "price": 298.87, "time": "01:30 PM", "full_date": "May 13, 2026 01:30 PM"}, {"date": "May 14, 2026", "price": 298.21, "time": "01:30 PM", "full_date": "May 14, 2026 01:30 PM"}, {"date": "May 15, 2026", "price": 300.23, "time": "01:30 PM", "full_date": "May 15, 2026 01:30 PM"}, {"date": "May 18, 2026", "price": 297.84, "time": "01:30 PM", "full_date": "May 18, 2026 01:30 PM"}, {"date": "May 19, 2026", "price": 298.97, "time": "01:30 PM", "full_date": "May 19, 2026 01:30 PM"}, {"date": "May 20, 2026", "price": 302.25, "time": "01:30 PM", "full_date": "May 20, 2026 01:30 PM"}, {"date": "May 21, 2026", "price": 304.99, "time": "01:30 PM", "full_date": "May 21, 2026 01:30 PM"}, {"date": "May 22, 2026", "price": 308.82, "time": "01:30 PM", "full_date": "May 22, 2026 01:30 PM"}, {"date": "May 26, 2026", "price": 308.33, "time": "01:30 PM", "full_date": "May 26, 2026 01:30 PM"}, {"date": "May 27, 2026", "price": 310.85, "time": "01:30 PM", "full_date": "May 27, 2026 01:30 PM"}, {"date": "May 28, 2026", "price": 312.51, "time": "01:30 PM", "full_date": "May 28, 2026 01:30 PM"}, {"date": "May 29, 2026", "price": 312.06, "time": "01:30 PM", "full_date": "May 29, 2026 01:30 PM"}, {"date": "Jun 01, 2026", "price": 306.31, "time": "01:30 PM", "full_date": "Jun 01, 2026 01:30 PM"}, {"date": "Jun 02, 2026", "price": 315.2, "time": "01:30 PM", "full_date": "Jun 02, 2026 01:30 PM"}, {"date": "Jun 03, 2026", "price": 310.26, "time": "01:30 PM", "full_date": "Jun 03, 2026 01:30 PM"}, {"date": "Jun 04, 2026", "price": 311.23, "time": "01:30 PM", "full_date": "Jun 04, 2026 01:30 PM"}, {"date": "Jun 05, 2026", "price": 307.34, "time": "01:30 PM", "full_date": "Jun 05, 2026 01:30 PM"}, {"date": "Jun 08, 2026", "price": 301.54, "time": "01:30 PM", "full_date": "Jun 08, 2026 01:30 PM"}, {"date": "Jun 09, 2026", "price": 290.55, "time": "01:30 PM", "full_date": "Jun 09, 2026 01:30 PM"}, {"date": "Jun 10, 2026", "price": 291.58, "time": "01:30 PM", "full_date": "Jun 10, 2026 01:30 PM"}, {"date": "Jun 11, 2026", "price": 295.63, "time": "01:30 PM", "full_date": "Jun 11, 2026 01:30 PM"}, {"date": "Jun 12, 2026", "price": 291.13, "time": "01:30 PM", "full_date": "Jun 12, 2026 01:30 PM"}, {"date": "Jun 15, 2026", "price": 296.42, "time": "01:30 PM", "full_date": "Jun 15, 2026 01:30 PM"}, {"date": "Jun 16, 2026", "price": 299.24, "time": "01:30 PM", "full_date": "Jun 16, 2026 01:30 PM"}, {"date": "Jun 17, 2026", "price": 295.95, "time": "01:30 PM", "full_date": "Jun 17, 2026 01:30 PM"}, {"date": "Jun 18, 2026", "price": 298.01, "time": "01:30 PM", "full_date": "Jun 18, 2026 01:30 PM"}, {"date": "Jun 22, 2026", "price": 297.01, "time": "01:30 PM", "full_date": "Jun 22, 2026 01:30 PM"}, {"date": "Jun 23, 2026", "price": 294.3, "time": "01:30 PM", "full_date": "Jun 23, 2026 01:30 PM"}, {"date": "Jun 24, 2026", "price": 293.08, "time": "01:30 PM", "full_date": "Jun 24, 2026 01:30 PM"}, {"date": "Jun 25, 2026", "price": 275.15, "time": "01:30 PM", "full_date": "Jun 25, 2026 01:30 PM"}, {"date": "Jun 26, 2026", "price": 283.78, "time": "01:30 PM", "full_date": "Jun 26, 2026 01:30 PM"}, {"date": "Jun 29, 2026", "price": 281.74, "time": "01:30 PM", "full_date": "Jun 29, 2026 01:30 PM"}, {"date": "Jun 30, 2026", "price": 289.36, "time": "01:30 PM", "full_date": "Jun 30, 2026 01:30 PM"}, {"date": "Jul 01, 2026", "price": 294.38, "time": "01:30 PM", "full_date": "Jul 01, 2026 01:30 PM"}, {"date": "Jul 02, 2026", "price": 308.63, "time": "01:30 PM", "full_date": "Jul 02, 2026 01:30 PM"}, {"date": "Jul 06, 2026", "price": 312.66, "time": "01:30 PM", "full_date": "Jul 06, 2026 01:30 PM"}, {"date": "Jul 07, 2026", "price": 310.66, "time": "01:30 PM", "full_date": "Jul 07, 2026 01:30 PM"}, {"date": "Jul 08, 2026", "price": 313.39, "time": "01:30 PM", "full_date": "Jul 08, 2026 01:30 PM"}, {"date": "Jul 09, 2026", "price": 316.22, "time": "01:30 PM", "full_date": "Jul 09, 2026 01:30 PM"}, {"date": "Jul 10, 2026", "price": 315.32, "time": "01:30 PM", "full_date": "Jul 10, 2026 01:30 PM"}, {"date": "Jul 13, 2026", "price": 317.31, "time": "01:30 PM", "full_date": "Jul 13, 2026 01:30 PM"}, {"date": "Jul 14, 2026", "price": 314.86, "time": "01:30 PM", "full_date": "Jul 14, 2026 01:30 PM"}, {"date": "Jul 15, 2026", "price": 327.5, "time": "01:30 PM", "full_date": "Jul 15, 2026 01:30 PM"}, {"date": "Jul 16, 2026", "price": 333.26, "time": "01:30 PM", "full_date": "Jul 16, 2026 01:30 PM"}, {"date": "Jul 17, 2026", "price": 333.74, "time": "01:30 PM", "full_date": "Jul 17, 2026 01:30 PM"}, {"date": "Jul 20, 2026", "price": 326.59, "time": "01:30 PM", "full_date": "Jul 20, 2026 01:30 PM"}, {"date": "Jul 21, 2026", "price": 327.74, "time": "01:30 PM", "full_date": "Jul 21, 2026 01:30 PM"}, {"date": "Jul 22, 2026", "price": 325.89, "time": "01:30 PM", "full_date": "Jul 22, 2026 01:30 PM"}, {"date": "Jul 23, 2026", "price": 321.66, "time": "01:30 PM", "full_date": "Jul 23, 2026 01:30 PM"}, {"date": "Jul 24, 2026", "price": 333.02, "time": "01:30 PM", "full_date": "Jul 24, 2026 01:30 PM"}, {"date": "Jul 27, 2026", "price": 336.91, "time": "01:30 PM", "full_date": "Jul 27, 2026 01:30 PM"}, {"date": "Jul 28, 2026", "price": 340.08, "time": "01:30 PM", "full_date": "Jul 28, 2026 01:30 PM"}, {"date": "Jul 29, 2026", "price": 338.19, "time": "01:30 PM", "full_date": "Jul 29, 2026 01:30 PM"}, {"date": "Jul 30, 2026", "price": 333.43, "time": "01:30 PM", "full_date": "Jul 30, 2026 01:30 PM"}, {"date": "Jul 31, 2026", "price": 308.91, "time": "01:30 PM", "full_date": "Jul 31, 2026 01:30 PM"}, {"date": "Aug 03, 2026", "price": 303.42, "time": "01:30 PM", "full_date": "Aug 03, 2026 01:30 PM"}, {"date": "Aug 04, 2026", "price": 309.38, "time": "01:30 PM", "full_date": "Aug 04, 2026 01:30 PM"}, {"date": "Aug 05, 2026", "price": 311.0, "time": "01:30 PM", "full_date": "Aug 05, 2026 01:30 PM"}, {"date": "Aug 06, 2026", "price": 312.41, "time": "01:30 PM", "full_date": "Aug 06, 2026 01:30 PM"}, {"date": "Aug 07, 2026", "price": 313.33, "time": "01:30 PM", "full_date": "Aug 07, 2026 01:30 PM"}, {"date": "Aug 10, 2026", "price": 308.26, "time": "01:30 PM", "full_date": "Aug 10, 2026 01:30 PM"}, {"date": "Aug 11, 2026", "price": 304.91, "time": "01:30 PM", "full_date": "Aug 11, 2026 01:30 PM"}, {"date": "Aug 12, 2026", "price": 302.25, "time": "01:30 PM", "full_date": "Aug 12, 2026 01:30 PM"}, {"date": "Aug 13, 2026", "price": 305.26, "time": "01:30 PM", "full_date": "Aug 13, 2026 01:30 PM"}, {"date": "Aug 14, 2026", "price": 305.93, "time": "01:30 PM", "full_date": "Aug 14, 2026 01:30 PM"}, {"date": "Aug 17, 2026", "price": 305.59, "time": "01:30 PM", "full_date": "Aug 17, 2026 01:30 PM"}, {"date": "Aug 18, 2026", "price": 310.03, "time": "01:30 PM", "full_date": "Aug 18, 2026 01:30 PM"}, {"date": "Aug 19, 2026", "price": 316.83, "time": "01:30 PM", "full_date": "Aug 19, 2026 01:30 PM"}, {"date": "Aug 20, 2026", "price": 311.3, "time": "01:30 PM", "full_date": "Aug 20, 2026 01:30 PM"}, {"date": "Aug 21, 2026", "price": 309.35, "time": "01:30 PM", "full_date": "Aug 21, 2026 01:30 PM"}], "5Y": [{"date": "Aug 23, 2021", "price": 148.6, "time": "04:00 AM", "full_date": "Aug 23, 2021 04:00 AM"}, {"date": "Aug 30, 2021", "price": 154.3, "time": "04:00 AM", "full_date": "Aug 30, 2021 04:00 AM"}, {"date": "Sep 06, 2021", "price": 148.97, "time": "04:00 AM", "full_date": "Sep 06, 2021 04:00 AM"}, {"date": "Sep 13, 2021", "price": 146.06, "time": "04:00 AM", "full_date": "Sep 13, 2021 04:00 AM"}, {"date": "Sep 20, 2021", "price": 146.92, "time": "04:00 AM", "full_date": "Sep 20, 2021 04:00 AM"}, {"date": "Sep 27, 2021", "price": 142.65, "time": "04:00 AM", "full_date": "Sep 27, 2021 04:00 AM"}, {"date": "Oct 04, 2021", "price": 142.9, "time": "04:00 AM", "full_date": "Oct 04, 2021 04:00 AM"}, {"date": "Oct 11, 2021", "price": 144.84, "time": "04:00 AM", "full_date": "Oct 11, 2021 04:00 AM"}, {"date": "Oct 18, 2021", "price": 148.69, "time": "04:00 AM", "full_date": "Oct 18, 2021 04:00 AM"}, {"date": "Oct 25, 2021", "price": 149.8, "time": "04:00 AM", "full_date": "Oct 25, 2021 04:00 AM"}, {"date": "Nov 01, 2021", "price": 151.28, "time": "04:00 AM", "full_date": "Nov 01, 2021 04:00 AM"}, {"date": "Nov 08, 2021", "price": 149.99, "time": "05:00 AM", "full_date": "Nov 08, 2021 05:00 AM"}, {"date": "Nov 15, 2021", "price": 160.55, "time": "05:00 AM", "full_date": "Nov 15, 2021 05:00 AM"}, {"date": "Nov 22, 2021", "price": 156.81, "time": "05:00 AM", "full_date": "Nov 22, 2021 05:00 AM"}, {"date": "Nov 29, 2021", "price": 161.84, "time": "05:00 AM", "full_date": "Nov 29, 2021 05:00 AM"}, {"date": "Dec 06, 2021", "price": 179.45, "time": "05:00 AM", "full_date": "Dec 06, 2021 05:00 AM"}, {"date": "Dec 13, 2021", "price": 171.14, "time": "05:00 AM", "full_date": "Dec 13, 2021 05:00 AM"}, {"date": "Dec 20, 2021", "price": 176.28, "time": "05:00 AM", "full_date": "Dec 20, 2021 05:00 AM"}, {"date": "Dec 27, 2021", "price": 177.57, "time": "05:00 AM", "full_date": "Dec 27, 2021 05:00 AM"}, {"date": "Jan 03, 2022", "price": 172.17, "time": "05:00 AM", "full_date": "Jan 03, 2022 05:00 AM"}, {"date": "Jan 10, 2022", "price": 173.07, "time": "05:00 AM", "full_date": "Jan 10, 2022 05:00 AM"}, {"date": "Jan 17, 2022", "price": 162.41, "time": "05:00 AM", "full_date": "Jan 17, 2022 05:00 AM"}, {"date": "Jan 24, 2022", "price": 170.33, "time": "05:00 AM", "full_date": "Jan 24, 2022 05:00 AM"}, {"date": "Jan 31, 2022", "price": 172.39, "time": "05:00 AM", "full_date": "Jan 31, 2022 05:00 AM"}, {"date": "Feb 07, 2022", "price": 168.64, "time": "05:00 AM", "full_date": "Feb 07, 2022 05:00 AM"}, {"date": "Feb 14, 2022", "price": 167.3, "time": "05:00 AM", "full_date": "Feb 14, 2022 05:00 AM"}, {"date": "Feb 21, 2022", "price": 164.85, "time": "05:00 AM", "full_date": "Feb 21, 2022 05:00 AM"}, {"date": "Feb 28, 2022", "price": 163.17, "time": "05:00 AM", "full_date": "Feb 28, 2022 05:00 AM"}, {"date": "Mar 07, 2022", "price": 154.73, "time": "05:00 AM", "full_date": "Mar 07, 2022 05:00 AM"}, {"date": "Mar 14, 2022", "price": 163.98, "time": "04:00 AM", "full_date": "Mar 14, 2022 04:00 AM"}, {"date": "Mar 21, 2022", "price": 174.72, "time": "04:00 AM", "full_date": "Mar 21, 2022 04:00 AM"}, {"date": "Mar 28, 2022", "price": 174.31, "time": "04:00 AM", "full_date": "Mar 28, 2022 04:00 AM"}, {"date": "Apr 04, 2022", "price": 170.09, "time": "04:00 AM", "full_date": "Apr 04, 2022 04:00 AM"}, {"date": "Apr 11, 2022", "price": 165.29, "time": "04:00 AM", "full_date": "Apr 11, 2022 04:00 AM"}, {"date": "Apr 18, 2022", "price": 161.79, "time": "04:00 AM", "full_date": "Apr 18, 2022 04:00 AM"}, {"date": "Apr 25, 2022", "price": 157.65, "time": "04:00 AM", "full_date": "Apr 25, 2022 04:00 AM"}, {"date": "May 02, 2022", "price": 157.28, "time": "04:00 AM", "full_date": "May 02, 2022 04:00 AM"}, {"date": "May 09, 2022", "price": 147.11, "time": "04:00 AM", "full_date": "May 09, 2022 04:00 AM"}, {"date": "May 16, 2022", "price": 137.59, "time": "04:00 AM", "full_date": "May 16, 2022 04:00 AM"}, {"date": "May 23, 2022", "price": 149.64, "time": "04:00 AM", "full_date": "May 23, 2022 04:00 AM"}, {"date": "May 30, 2022", "price": 145.38, "time": "04:00 AM", "full_date": "May 30, 2022 04:00 AM"}, {"date": "Jun 06, 2022", "price": 137.13, "time": "04:00 AM", "full_date": "Jun 06, 2022 04:00 AM"}, {"date": "Jun 13, 2022", "price": 131.56, "time": "04:00 AM", "full_date": "Jun 13, 2022 04:00 AM"}, {"date": "Jun 20, 2022", "price": 141.66, "time": "04:00 AM", "full_date": "Jun 20, 2022 04:00 AM"}, {"date": "Jun 27, 2022", "price": 138.93, "time": "04:00 AM", "full_date": "Jun 27, 2022 04:00 AM"}, {"date": "Jul 04, 2022", "price": 147.04, "time": "04:00 AM", "full_date": "Jul 04, 2022 04:00 AM"}, {"date": "Jul 11, 2022", "price": 150.17, "time": "04:00 AM", "full_date": "Jul 11, 2022 04:00 AM"}, {"date": "Jul 18, 2022", "price": 154.09, "time": "04:00 AM", "full_date": "Jul 18, 2022 04:00 AM"}, {"date": "Jul 25, 2022", "price": 162.51, "time": "04:00 AM", "full_date": "Jul 25, 2022 04:00 AM"}, {"date": "Aug 01, 2022", "price": 165.35, "time": "04:00 AM", "full_date": "Aug 01, 2022 04:00 AM"}, {"date": "Aug 08, 2022", "price": 172.1, "time": "04:00 AM", "full_date": "Aug 08, 2022 04:00 AM"}, {"date": "Aug 15, 2022", "price": 171.52, "time": "04:00 AM", "full_date": "Aug 15, 2022 04:00 AM"}, {"date": "Aug 22, 2022", "price": 163.62, "time": "04:00 AM", "full_date": "Aug 22, 2022 04:00 AM"}, {"date": "Aug 29, 2022", "price": 155.81, "time": "04:00 AM", "full_date": "Aug 29, 2022 04:00 AM"}, {"date": "Sep 05, 2022", "price": 157.37, "time": "04:00 AM", "full_date": "Sep 05, 2022 04:00 AM"}, {"date": "Sep 12, 2022", "price": 150.7, "time": "04:00 AM", "full_date": "Sep 12, 2022 04:00 AM"}, {"date": "Sep 19, 2022", "price": 150.43, "time": "04:00 AM", "full_date": "Sep 19, 2022 04:00 AM"}, {"date": "Sep 26, 2022", "price": 138.2, "time": "04:00 AM", "full_date": "Sep 26, 2022 04:00 AM"}, {"date": "Oct 03, 2022", "price": 140.09, "time": "04:00 AM", "full_date": "Oct 03, 2022 04:00 AM"}, {"date": "Oct 10, 2022", "price": 138.38, "time": "04:00 AM", "full_date": "Oct 10, 2022 04:00 AM"}, {"date": "Oct 17, 2022", "price": 147.27, "time": "04:00 AM", "full_date": "Oct 17, 2022 04:00 AM"}, {"date": "Oct 24, 2022", "price": 155.74, "time": "04:00 AM", "full_date": "Oct 24, 2022 04:00 AM"}, {"date": "Oct 31, 2022", "price": 138.38, "time": "04:00 AM", "full_date": "Oct 31, 2022 04:00 AM"}, {"date": "Nov 07, 2022", "price": 149.7, "time": "05:00 AM", "full_date": "Nov 07, 2022 05:00 AM"}, {"date": "Nov 14, 2022", "price": 151.29, "time": "05:00 AM", "full_date": "Nov 14, 2022 05:00 AM"}, {"date": "Nov 21, 2022", "price": 148.11, "time": "05:00 AM", "full_date": "Nov 21, 2022 05:00 AM"}, {"date": "Nov 28, 2022", "price": 147.81, "time": "05:00 AM", "full_date": "Nov 28, 2022 05:00 AM"}, {"date": "Dec 05, 2022", "price": 142.16, "time": "05:00 AM", "full_date": "Dec 05, 2022 05:00 AM"}, {"date": "Dec 12, 2022", "price": 134.51, "time": "05:00 AM", "full_date": "Dec 12, 2022 05:00 AM"}, {"date": "Dec 19, 2022", "price": 131.86, "time": "05:00 AM", "full_date": "Dec 19, 2022 05:00 AM"}, {"date": "Dec 26, 2022", "price": 129.93, "time": "05:00 AM", "full_date": "Dec 26, 2022 05:00 AM"}, {"date": "Jan 02, 2023", "price": 129.62, "time": "05:00 AM", "full_date": "Jan 02, 2023 05:00 AM"}, {"date": "Jan 09, 2023", "price": 134.76, "time": "05:00 AM", "full_date": "Jan 09, 2023 05:00 AM"}, {"date": "Jan 16, 2023", "price": 137.87, "time": "05:00 AM", "full_date": "Jan 16, 2023 05:00 AM"}, {"date": "Jan 23, 2023", "price": 145.93, "time": "05:00 AM", "full_date": "Jan 23, 2023 05:00 AM"}, {"date": "Jan 30, 2023", "price": 154.5, "time": "05:00 AM", "full_date": "Jan 30, 2023 05:00 AM"}, {"date": "Feb 06, 2023", "price": 151.01, "time": "05:00 AM", "full_date": "Feb 06, 2023 05:00 AM"}, {"date": "Feb 13, 2023", "price": 152.55, "time": "05:00 AM", "full_date": "Feb 13, 2023 05:00 AM"}, {"date": "Feb 20, 2023", "price": 146.71, "time": "05:00 AM", "full_date": "Feb 20, 2023 05:00 AM"}, {"date": "Feb 27, 2023", "price": 151.03, "time": "05:00 AM", "full_date": "Feb 27, 2023 05:00 AM"}, {"date": "Mar 06, 2023", "price": 148.5, "time": "05:00 AM", "full_date": "Mar 06, 2023 05:00 AM"}, {"date": "Mar 13, 2023", "price": 155.0, "time": "04:00 AM", "full_date": "Mar 13, 2023 04:00 AM"}, {"date": "Mar 20, 2023", "price": 160.25, "time": "04:00 AM", "full_date": "Mar 20, 2023 04:00 AM"}, {"date": "Mar 27, 2023", "price": 164.9, "time": "04:00 AM", "full_date": "Mar 27, 2023 04:00 AM"}, {"date": "Apr 03, 2023", "price": 164.66, "time": "04:00 AM", "full_date": "Apr 03, 2023 04:00 AM"}, {"date": "Apr 10, 2023", "price": 165.21, "time": "04:00 AM", "full_date": "Apr 10, 2023 04:00 AM"}, {"date": "Apr 17, 2023", "price": 165.02, "time": "04:00 AM", "full_date": "Apr 17, 2023 04:00 AM"}, {"date": "Apr 24, 2023", "price": 169.68, "time": "04:00 AM", "full_date": "Apr 24, 2023 04:00 AM"}, {"date": "May 01, 2023", "price": 173.57, "time": "04:00 AM", "full_date": "May 01, 2023 04:00 AM"}, {"date": "May 08, 2023", "price": 172.57, "time": "04:00 AM", "full_date": "May 08, 2023 04:00 AM"}, {"date": "May 15, 2023", "price": 175.16, "time": "04:00 AM", "full_date": "May 15, 2023 04:00 AM"}, {"date": "May 22, 2023", "price": 175.43, "time": "04:00 AM", "full_date": "May 22, 2023 04:00 AM"}, {"date": "May 29, 2023", "price": 180.95, "time": "04:00 AM", "full_date": "May 29, 2023 04:00 AM"}, {"date": "Jun 05, 2023", "price": 180.96, "time": "04:00 AM", "full_date": "Jun 05, 2023 04:00 AM"}, {"date": "Jun 12, 2023", "price": 184.92, "time": "04:00 AM", "full_date": "Jun 12, 2023 04:00 AM"}, {"date": "Jun 19, 2023", "price": 186.68, "time": "04:00 AM", "full_date": "Jun 19, 2023 04:00 AM"}, {"date": "Jun 26, 2023", "price": 193.97, "time": "04:00 AM", "full_date": "Jun 26, 2023 04:00 AM"}, {"date": "Jul 03, 2023", "price": 190.68, "time": "04:00 AM", "full_date": "Jul 03, 2023 04:00 AM"}, {"date": "Jul 10, 2023", "price": 190.69, "time": "04:00 AM", "full_date": "Jul 10, 2023 04:00 AM"}, {"date": "Jul 17, 2023", "price": 191.94, "time": "04:00 AM", "full_date": "Jul 17, 2023 04:00 AM"}, {"date": "Jul 24, 2023", "price": 195.83, "time": "04:00 AM", "full_date": "Jul 24, 2023 04:00 AM"}, {"date": "Jul 31, 2023", "price": 181.99, "time": "04:00 AM", "full_date": "Jul 31, 2023 04:00 AM"}, {"date": "Aug 07, 2023", "price": 177.79, "time": "04:00 AM", "full_date": "Aug 07, 2023 04:00 AM"}, {"date": "Aug 14, 2023", "price": 174.49, "time": "04:00 AM", "full_date": "Aug 14, 2023 04:00 AM"}, {"date": "Aug 21, 2023", "price": 178.61, "time": "04:00 AM", "full_date": "Aug 21, 2023 04:00 AM"}, {"date": "Aug 28, 2023", "price": 189.46, "time": "04:00 AM", "full_date": "Aug 28, 2023 04:00 AM"}, {"date": "Sep 04, 2023", "price": 178.18, "time": "04:00 AM", "full_date": "Sep 04, 2023 04:00 AM"}, {"date": "Sep 11, 2023", "price": 175.01, "time": "04:00 AM", "full_date": "Sep 11, 2023 04:00 AM"}, {"date": "Sep 18, 2023", "price": 174.79, "time": "04:00 AM", "full_date": "Sep 18, 2023 04:00 AM"}, {"date": "Sep 25, 2023", "price": 171.21, "time": "04:00 AM", "full_date": "Sep 25, 2023 04:00 AM"}, {"date": "Oct 02, 2023", "price": 177.49, "time": "04:00 AM", "full_date": "Oct 02, 2023 04:00 AM"}, {"date": "Oct 09, 2023", "price": 178.85, "time": "04:00 AM", "full_date": "Oct 09, 2023 04:00 AM"}, {"date": "Oct 16, 2023", "price": 172.88, "time": "04:00 AM", "full_date": "Oct 16, 2023 04:00 AM"}, {"date": "Oct 23, 2023", "price": 168.22, "time": "04:00 AM", "full_date": "Oct 23, 2023 04:00 AM"}, {"date": "Oct 30, 2023", "price": 176.65, "time": "04:00 AM", "full_date": "Oct 30, 2023 04:00 AM"}, {"date": "Nov 06, 2023", "price": 186.4, "time": "05:00 AM", "full_date": "Nov 06, 2023 05:00 AM"}, {"date": "Nov 13, 2023", "price": 189.69, "time": "05:00 AM", "full_date": "Nov 13, 2023 05:00 AM"}, {"date": "Nov 20, 2023", "price": 189.97, "time": "05:00 AM", "full_date": "Nov 20, 2023 05:00 AM"}, {"date": "Nov 27, 2023", "price": 191.24, "time": "05:00 AM", "full_date": "Nov 27, 2023 05:00 AM"}, {"date": "Dec 04, 2023", "price": 195.71, "time": "05:00 AM", "full_date": "Dec 04, 2023 05:00 AM"}, {"date": "Dec 11, 2023", "price": 197.57, "time": "05:00 AM", "full_date": "Dec 11, 2023 05:00 AM"}, {"date": "Dec 18, 2023", "price": 193.6, "time": "05:00 AM", "full_date": "Dec 18, 2023 05:00 AM"}, {"date": "Dec 25, 2023", "price": 192.53, "time": "05:00 AM", "full_date": "Dec 25, 2023 05:00 AM"}, {"date": "Jan 01, 2024", "price": 181.18, "time": "05:00 AM", "full_date": "Jan 01, 2024 05:00 AM"}, {"date": "Jan 08, 2024", "price": 185.92, "time": "05:00 AM", "full_date": "Jan 08, 2024 05:00 AM"}, {"date": "Jan 15, 2024", "price": 191.56, "time": "05:00 AM", "full_date": "Jan 15, 2024 05:00 AM"}, {"date": "Jan 22, 2024", "price": 192.42, "time": "05:00 AM", "full_date": "Jan 22, 2024 05:00 AM"}, {"date": "Jan 29, 2024", "price": 185.85, "time": "05:00 AM", "full_date": "Jan 29, 2024 05:00 AM"}, {"date": "Feb 05, 2024", "price": 188.85, "time": "05:00 AM", "full_date": "Feb 05, 2024 05:00 AM"}, {"date": "Feb 12, 2024", "price": 182.31, "time": "05:00 AM", "full_date": "Feb 12, 2024 05:00 AM"}, {"date": "Feb 19, 2024", "price": 182.52, "time": "05:00 AM", "full_date": "Feb 19, 2024 05:00 AM"}, {"date": "Feb 26, 2024", "price": 179.66, "time": "05:00 AM", "full_date": "Feb 26, 2024 05:00 AM"}, {"date": "Mar 04, 2024", "price": 170.73, "time": "05:00 AM", "full_date": "Mar 04, 2024 05:00 AM"}, {"date": "Mar 11, 2024", "price": 172.62, "time": "04:00 AM", "full_date": "Mar 11, 2024 04:00 AM"}, {"date": "Mar 18, 2024", "price": 172.28, "time": "04:00 AM", "full_date": "Mar 18, 2024 04:00 AM"}, {"date": "Mar 25, 2024", "price": 171.48, "time": "04:00 AM", "full_date": "Mar 25, 2024 04:00 AM"}, {"date": "Apr 01, 2024", "price": 169.58, "time": "04:00 AM", "full_date": "Apr 01, 2024 04:00 AM"}, {"date": "Apr 08, 2024", "price": 176.55, "time": "04:00 AM", "full_date": "Apr 08, 2024 04:00 AM"}, {"date": "Apr 15, 2024", "price": 165.0, "time": "04:00 AM", "full_date": "Apr 15, 2024 04:00 AM"}, {"date": "Apr 22, 2024", "price": 169.3, "time": "04:00 AM", "full_date": "Apr 22, 2024 04:00 AM"}, {"date": "Apr 29, 2024", "price": 183.38, "time": "04:00 AM", "full_date": "Apr 29, 2024 04:00 AM"}, {"date": "May 06, 2024", "price": 183.05, "time": "04:00 AM", "full_date": "May 06, 2024 04:00 AM"}, {"date": "May 13, 2024", "price": 189.87, "time": "04:00 AM", "full_date": "May 13, 2024 04:00 AM"}, {"date": "May 20, 2024", "price": 189.98, "time": "04:00 AM", "full_date": "May 20, 2024 04:00 AM"}, {"date": "May 27, 2024", "price": 192.25, "time": "04:00 AM", "full_date": "May 27, 2024 04:00 AM"}, {"date": "Jun 03, 2024", "price": 196.89, "time": "04:00 AM", "full_date": "Jun 03, 2024 04:00 AM"}, {"date": "Jun 10, 2024", "price": 212.49, "time": "04:00 AM", "full_date": "Jun 10, 2024 04:00 AM"}, {"date": "Jun 17, 2024", "price": 207.49, "time": "04:00 AM", "full_date": "Jun 17, 2024 04:00 AM"}, {"date": "Jun 24, 2024", "price": 210.62, "time": "04:00 AM", "full_date": "Jun 24, 2024 04:00 AM"}, {"date": "Jul 01, 2024", "price": 226.34, "time": "04:00 AM", "full_date": "Jul 01, 2024 04:00 AM"}, {"date": "Jul 08, 2024", "price": 230.54, "time": "04:00 AM", "full_date": "Jul 08, 2024 04:00 AM"}, {"date": "Jul 15, 2024", "price": 224.31, "time": "04:00 AM", "full_date": "Jul 15, 2024 04:00 AM"}, {"date": "Jul 22, 2024", "price": 217.96, "time": "04:00 AM", "full_date": "Jul 22, 2024 04:00 AM"}, {"date": "Jul 29, 2024", "price": 219.86, "time": "04:00 AM", "full_date": "Jul 29, 2024 04:00 AM"}, {"date": "Aug 05, 2024", "price": 216.24, "time": "04:00 AM", "full_date": "Aug 05, 2024 04:00 AM"}, {"date": "Aug 12, 2024", "price": 226.05, "time": "04:00 AM", "full_date": "Aug 12, 2024 04:00 AM"}, {"date": "Aug 19, 2024", "price": 226.84, "time": "04:00 AM", "full_date": "Aug 19, 2024 04:00 AM"}, {"date": "Aug 26, 2024", "price": 229.0, "time": "04:00 AM", "full_date": "Aug 26, 2024 04:00 AM"}, {"date": "Sep 02, 2024", "price": 220.82, "time": "04:00 AM", "full_date": "Sep 02, 2024 04:00 AM"}, {"date": "Sep 09, 2024", "price": 222.5, "time": "04:00 AM", "full_date": "Sep 09, 2024 04:00 AM"}, {"date": "Sep 16, 2024", "price": 228.2, "time": "04:00 AM", "full_date": "Sep 16, 2024 04:00 AM"}, {"date": "Sep 23, 2024", "price": 227.79, "time": "04:00 AM", "full_date": "Sep 23, 2024 04:00 AM"}, {"date": "Sep 30, 2024", "price": 226.8, "time": "04:00 AM", "full_date": "Sep 30, 2024 04:00 AM"}, {"date": "Oct 07, 2024", "price": 227.55, "time": "04:00 AM", "full_date": "Oct 07, 2024 04:00 AM"}, {"date": "Oct 14, 2024", "price": 235.0, "time": "04:00 AM", "full_date": "Oct 14, 2024 04:00 AM"}, {"date": "Oct 21, 2024", "price": 231.41, "time": "04:00 AM", "full_date": "Oct 21, 2024 04:00 AM"}, {"date": "Oct 28, 2024", "price": 222.91, "time": "04:00 AM", "full_date": "Oct 28, 2024 04:00 AM"}, {"date": "Nov 04, 2024", "price": 226.96, "time": "05:00 AM", "full_date": "Nov 04, 2024 05:00 AM"}, {"date": "Nov 11, 2024", "price": 225.0, "time": "05:00 AM", "full_date": "Nov 11, 2024 05:00 AM"}, {"date": "Nov 18, 2024", "price": 229.87, "time": "05:00 AM", "full_date": "Nov 18, 2024 05:00 AM"}, {"date": "Nov 25, 2024", "price": 237.33, "time": "05:00 AM", "full_date": "Nov 25, 2024 05:00 AM"}, {"date": "Dec 02, 2024", "price": 242.84, "time": "05:00 AM", "full_date": "Dec 02, 2024 05:00 AM"}, {"date": "Dec 09, 2024", "price": 248.13, "time": "05:00 AM", "full_date": "Dec 09, 2024 05:00 AM"}, {"date": "Dec 16, 2024", "price": 254.49, "time": "05:00 AM", "full_date": "Dec 16, 2024 05:00 AM"}, {"date": "Dec 23, 2024", "price": 255.59, "time": "05:00 AM", "full_date": "Dec 23, 2024 05:00 AM"}, {"date": "Dec 30, 2024", "price": 243.36, "time": "05:00 AM", "full_date": "Dec 30, 2024 05:00 AM"}, {"date": "Jan 06, 2025", "price": 236.85, "time": "05:00 AM", "full_date": "Jan 06, 2025 05:00 AM"}, {"date": "Jan 13, 2025", "price": 229.98, "time": "05:00 AM", "full_date": "Jan 13, 2025 05:00 AM"}, {"date": "Jan 20, 2025", "price": 222.78, "time": "05:00 AM", "full_date": "Jan 20, 2025 05:00 AM"}, {"date": "Jan 27, 2025", "price": 236.0, "time": "05:00 AM", "full_date": "Jan 27, 2025 05:00 AM"}, {"date": "Feb 03, 2025", "price": 227.63, "time": "05:00 AM", "full_date": "Feb 03, 2025 05:00 AM"}, {"date": "Feb 10, 2025", "price": 244.6, "time": "05:00 AM", "full_date": "Feb 10, 2025 05:00 AM"}, {"date": "Feb 17, 2025", "price": 245.55, "time": "05:00 AM", "full_date": "Feb 17, 2025 05:00 AM"}, {"date": "Feb 24, 2025", "price": 241.84, "time": "05:00 AM", "full_date": "Feb 24, 2025 05:00 AM"}, {"date": "Mar 03, 2025", "price": 239.07, "time": "05:00 AM", "full_date": "Mar 03, 2025 05:00 AM"}, {"date": "Mar 10, 2025", "price": 213.49, "time": "04:00 AM", "full_date": "Mar 10, 2025 04:00 AM"}, {"date": "Mar 17, 2025", "price": 218.27, "time": "04:00 AM", "full_date": "Mar 17, 2025 04:00 AM"}, {"date": "Mar 24, 2025", "price": 217.9, "time": "04:00 AM", "full_date": "Mar 24, 2025 04:00 AM"}, {"date": "Mar 31, 2025", "price": 188.38, "time": "04:00 AM", "full_date": "Mar 31, 2025 04:00 AM"}, {"date": "Apr 07, 2025", "price": 198.15, "time": "04:00 AM", "full_date": "Apr 07, 2025 04:00 AM"}, {"date": "Apr 14, 2025", "price": 196.98, "time": "04:00 AM", "full_date": "Apr 14, 2025 04:00 AM"}, {"date": "Apr 21, 2025", "price": 209.28, "time": "04:00 AM", "full_date": "Apr 21, 2025 04:00 AM"}, {"date": "Apr 28, 2025", "price": 205.35, "time": "04:00 AM", "full_date": "Apr 28, 2025 04:00 AM"}, {"date": "May 05, 2025", "price": 198.53, "time": "04:00 AM", "full_date": "May 05, 2025 04:00 AM"}, {"date": "May 12, 2025", "price": 211.26, "time": "04:00 AM", "full_date": "May 12, 2025 04:00 AM"}, {"date": "May 19, 2025", "price": 195.27, "time": "04:00 AM", "full_date": "May 19, 2025 04:00 AM"}, {"date": "May 26, 2025", "price": 200.85, "time": "04:00 AM", "full_date": "May 26, 2025 04:00 AM"}, {"date": "Jun 02, 2025", "price": 203.92, "time": "04:00 AM", "full_date": "Jun 02, 2025 04:00 AM"}, {"date": "Jun 09, 2025", "price": 196.45, "time": "04:00 AM", "full_date": "Jun 09, 2025 04:00 AM"}, {"date": "Jun 16, 2025", "price": 201.0, "time": "04:00 AM", "full_date": "Jun 16, 2025 04:00 AM"}, {"date": "Jun 23, 2025", "price": 201.08, "time": "04:00 AM", "full_date": "Jun 23, 2025 04:00 AM"}, {"date": "Jun 30, 2025", "price": 213.55, "time": "04:00 AM", "full_date": "Jun 30, 2025 04:00 AM"}, {"date": "Jul 07, 2025", "price": 211.16, "time": "04:00 AM", "full_date": "Jul 07, 2025 04:00 AM"}, {"date": "Jul 14, 2025", "price": 211.18, "time": "04:00 AM", "full_date": "Jul 14, 2025 04:00 AM"}, {"date": "Jul 21, 2025", "price": 213.88, "time": "04:00 AM", "full_date": "Jul 21, 2025 04:00 AM"}, {"date": "Jul 28, 2025", "price": 202.38, "time": "04:00 AM", "full_date": "Jul 28, 2025 04:00 AM"}, {"date": "Aug 04, 2025", "price": 229.35, "time": "04:00 AM", "full_date": "Aug 04, 2025 04:00 AM"}, {"date": "Aug 11, 2025", "price": 231.59, "time": "04:00 AM", "full_date": "Aug 11, 2025 04:00 AM"}, {"date": "Aug 18, 2025", "price": 227.76, "time": "04:00 AM", "full_date": "Aug 18, 2025 04:00 AM"}, {"date": "Aug 25, 2025", "price": 232.14, "time": "04:00 AM", "full_date": "Aug 25, 2025 04:00 AM"}, {"date": "Sep 01, 2025", "price": 239.69, "time": "04:00 AM", "full_date": "Sep 01, 2025 04:00 AM"}, {"date": "Sep 08, 2025", "price": 234.07, "time": "04:00 AM", "full_date": "Sep 08, 2025 04:00 AM"}, {"date": "Sep 15, 2025", "price": 245.5, "time": "04:00 AM", "full_date": "Sep 15, 2025 04:00 AM"}, {"date": "Sep 22, 2025", "price": 255.46, "time": "04:00 AM", "full_date": "Sep 22, 2025 04:00 AM"}, {"date": "Sep 29, 2025", "price": 258.02, "time": "04:00 AM", "full_date": "Sep 29, 2025 04:00 AM"}, {"date": "Oct 06, 2025", "price": 245.27, "time": "04:00 AM", "full_date": "Oct 06, 2025 04:00 AM"}, {"date": "Oct 13, 2025", "price": 252.29, "time": "04:00 AM", "full_date": "Oct 13, 2025 04:00 AM"}, {"date": "Oct 20, 2025", "price": 262.82, "time": "04:00 AM", "full_date": "Oct 20, 2025 04:00 AM"}, {"date": "Oct 27, 2025", "price": 270.37, "time": "04:00 AM", "full_date": "Oct 27, 2025 04:00 AM"}, {"date": "Nov 03, 2025", "price": 268.47, "time": "05:00 AM", "full_date": "Nov 03, 2025 05:00 AM"}, {"date": "Nov 10, 2025", "price": 272.41, "time": "05:00 AM", "full_date": "Nov 10, 2025 05:00 AM"}, {"date": "Nov 17, 2025", "price": 271.49, "time": "05:00 AM", "full_date": "Nov 17, 2025 05:00 AM"}, {"date": "Nov 24, 2025", "price": 278.85, "time": "05:00 AM", "full_date": "Nov 24, 2025 05:00 AM"}, {"date": "Dec 01, 2025", "price": 278.78, "time": "05:00 AM", "full_date": "Dec 01, 2025 05:00 AM"}, {"date": "Dec 08, 2025", "price": 278.28, "time": "05:00 AM", "full_date": "Dec 08, 2025 05:00 AM"}, {"date": "Dec 15, 2025", "price": 273.67, "time": "05:00 AM", "full_date": "Dec 15, 2025 05:00 AM"}, {"date": "Dec 22, 2025", "price": 273.4, "time": "05:00 AM", "full_date": "Dec 22, 2025 05:00 AM"}, {"date": "Dec 29, 2025", "price": 271.01, "time": "05:00 AM", "full_date": "Dec 29, 2025 05:00 AM"}, {"date": "Jan 05, 2026", "price": 259.37, "time": "05:00 AM", "full_date": "Jan 05, 2026 05:00 AM"}, {"date": "Jan 12, 2026", "price": 255.53, "time": "05:00 AM", "full_date": "Jan 12, 2026 05:00 AM"}, {"date": "Jan 19, 2026", "price": 248.04, "time": "05:00 AM", "full_date": "Jan 19, 2026 05:00 AM"}, {"date": "Jan 26, 2026", "price": 259.48, "time": "05:00 AM", "full_date": "Jan 26, 2026 05:00 AM"}, {"date": "Feb 02, 2026", "price": 278.12, "time": "05:00 AM", "full_date": "Feb 02, 2026 05:00 AM"}, {"date": "Feb 09, 2026", "price": 255.78, "time": "05:00 AM", "full_date": "Feb 09, 2026 05:00 AM"}, {"date": "Feb 16, 2026", "price": 264.58, "time": "05:00 AM", "full_date": "Feb 16, 2026 05:00 AM"}, {"date": "Feb 23, 2026", "price": 264.18, "time": "05:00 AM", "full_date": "Feb 23, 2026 05:00 AM"}, {"date": "Mar 02, 2026", "price": 257.46, "time": "05:00 AM", "full_date": "Mar 02, 2026 05:00 AM"}, {"date": "Mar 09, 2026", "price": 250.12, "time": "04:00 AM", "full_date": "Mar 09, 2026 04:00 AM"}, {"date": "Mar 16, 2026", "price": 247.99, "time": "04:00 AM", "full_date": "Mar 16, 2026 04:00 AM"}, {"date": "Mar 23, 2026", "price": 248.8, "time": "04:00 AM", "full_date": "Mar 23, 2026 04:00 AM"}, {"date": "Mar 30, 2026", "price": 255.92, "time": "04:00 AM", "full_date": "Mar 30, 2026 04:00 AM"}, {"date": "Apr 06, 2026", "price": 260.48, "time": "04:00 AM", "full_date": "Apr 06, 2026 04:00 AM"}, {"date": "Apr 13, 2026", "price": 270.23, "time": "04:00 AM", "full_date": "Apr 13, 2026 04:00 AM"}, {"date": "Apr 20, 2026", "price": 271.06, "time": "04:00 AM", "full_date": "Apr 20, 2026 04:00 AM"}, {"date": "Apr 27, 2026", "price": 280.14, "time": "04:00 AM", "full_date": "Apr 27, 2026 04:00 AM"}, {"date": "May 04, 2026", "price": 293.32, "time": "04:00 AM", "full_date": "May 04, 2026 04:00 AM"}, {"date": "May 11, 2026", "price": 300.23, "time": "04:00 AM", "full_date": "May 11, 2026 04:00 AM"}, {"date": "May 18, 2026", "price": 308.82, "time": "04:00 AM", "full_date": "May 18, 2026 04:00 AM"}, {"date": "May 25, 2026", "price": 312.06, "time": "04:00 AM", "full_date": "May 25, 2026 04:00 AM"}, {"date": "Jun 01, 2026", "price": 307.34, "time": "04:00 AM", "full_date": "Jun 01, 2026 04:00 AM"}, {"date": "Jun 08, 2026", "price": 291.13, "time": "04:00 AM", "full_date": "Jun 08, 2026 04:00 AM"}, {"date": "Jun 15, 2026", "price": 298.01, "time": "04:00 AM", "full_date": "Jun 15, 2026 04:00 AM"}, {"date": "Jun 22, 2026", "price": 283.78, "time": "04:00 AM", "full_date": "Jun 22, 2026 04:00 AM"}, {"date": "Jun 29, 2026", "price": 308.63, "time": "04:00 AM", "full_date": "Jun 29, 2026 04:00 AM"}, {"date": "Jul 06, 2026", "price": 315.32, "time": "04:00 AM", "full_date": "Jul 06, 2026 04:00 AM"}, {"date": "Jul 13, 2026", "price": 333.74, "time": "04:00 AM", "full_date": "Jul 13, 2026 04:00 AM"}, {"date": "Jul 20, 2026", "price": 333.02, "time": "04:00 AM", "full_date": "Jul 20, 2026 04:00 AM"}, {"date": "Jul 27, 2026", "price": 308.91, "time": "04:00 AM", "full_date": "Jul 27, 2026 04:00 AM"}, {"date": "Aug 03, 2026", "price": 313.33, "time": "04:00 AM", "full_date": "Aug 03, 2026 04:00 AM"}, {"date": "Aug 10, 2026", "price": 305.93, "time": "04:00 AM", "full_date": "Aug 10, 2026 04:00 AM"}, {"date": "Aug 17, 2026", "price": 309.35, "time": "04:00 AM", "full_date": "Aug 17, 2026 04:00 AM"}, {"date": "Aug 21, 2026", "price": 309.35, "time": "08:00 PM", "full_date": "Aug 21, 2026 08:00 PM"}], "MAX": [{"date": "Dec 01, 1984", "price": 0.11, "time": "05:00 AM", "full_date": "Dec 01, 1984 05:00 AM"}, {"date": "Mar 01, 1985", "price": 0.08, "time": "05:00 AM", "full_date": "Mar 01, 1985 05:00 AM"}, {"date": "Jun 01, 1985", "price": 0.07, "time": "04:00 AM", "full_date": "Jun 01, 1985 04:00 AM"}, {"date": "Sep 01, 1985", "price": 0.09, "time": "04:00 AM", "full_date": "Sep 01, 1985 04:00 AM"}, {"date": "Dec 01, 1985", "price": 0.11, "time": "05:00 AM", "full_date": "Dec 01, 1985 05:00 AM"}, {"date": "Mar 01, 1986", "price": 0.17, "time": "05:00 AM", "full_date": "Mar 01, 1986 05:00 AM"}, {"date": "Jun 01, 1986", "price": 0.17, "time": "04:00 AM", "full_date": "Jun 01, 1986 04:00 AM"}, {"date": "Sep 01, 1986", "price": 0.18, "time": "04:00 AM", "full_date": "Sep 01, 1986 04:00 AM"}, {"date": "Dec 01, 1986", "price": 0.31, "time": "05:00 AM", "full_date": "Dec 01, 1986 05:00 AM"}, {"date": "Mar 01, 1987", "price": 0.35, "time": "05:00 AM", "full_date": "Mar 01, 1987 05:00 AM"}, {"date": "Jun 01, 1987", "price": 0.48, "time": "04:00 AM", "full_date": "Jun 01, 1987 04:00 AM"}, {"date": "Sep 01, 1987", "price": 0.29, "time": "04:00 AM", "full_date": "Sep 01, 1987 04:00 AM"}, {"date": "Dec 01, 1987", "price": 0.38, "time": "05:00 AM", "full_date": "Dec 01, 1987 05:00 AM"}, {"date": "Mar 01, 1988", "price": 0.37, "time": "05:00 AM", "full_date": "Mar 01, 1988 05:00 AM"}, {"date": "Jun 01, 1988", "price": 0.36, "time": "04:00 AM", "full_date": "Jun 01, 1988 04:00 AM"}, {"date": "Sep 01, 1988", "price": 0.34, "time": "04:00 AM", "full_date": "Sep 01, 1988 04:00 AM"}, {"date": "Dec 01, 1988", "price": 0.32, "time": "05:00 AM", "full_date": "Dec 01, 1988 05:00 AM"}, {"date": "Mar 01, 1989", "price": 0.43, "time": "05:00 AM", "full_date": "Mar 01, 1989 05:00 AM"}, {"date": "Jun 01, 1989", "price": 0.4, "time": "04:00 AM", "full_date": "Jun 01, 1989 04:00 AM"}, {"date": "Sep 01, 1989", "price": 0.4, "time": "04:00 AM", "full_date": "Sep 01, 1989 04:00 AM"}, {"date": "Dec 01, 1989", "price": 0.3, "time": "05:00 AM", "full_date": "Dec 01, 1989 05:00 AM"}, {"date": "Mar 01, 1990", "price": 0.37, "time": "05:00 AM", "full_date": "Mar 01, 1990 05:00 AM"}, {"date": "Jun 01, 1990", "price": 0.33, "time": "04:00 AM", "full_date": "Jun 01, 1990 04:00 AM"}, {"date": "Sep 01, 1990", "price": 0.33, "time": "04:00 AM", "full_date": "Sep 01, 1990 04:00 AM"}, {"date": "Dec 01, 1990", "price": 0.51, "time": "05:00 AM", "full_date": "Dec 01, 1990 05:00 AM"}, {"date": "Mar 01, 1991", "price": 0.42, "time": "05:00 AM", "full_date": "Mar 01, 1991 05:00 AM"}, {"date": "Jun 01, 1991", "price": 0.47, "time": "04:00 AM", "full_date": "Jun 01, 1991 04:00 AM"}, {"date": "Sep 01, 1991", "price": 0.45, "time": "04:00 AM", "full_date": "Sep 01, 1991 04:00 AM"}, {"date": "Dec 01, 1991", "price": 0.6, "time": "05:00 AM", "full_date": "Dec 01, 1991 05:00 AM"}, {"date": "Mar 01, 1992", "price": 0.53, "time": "05:00 AM", "full_date": "Mar 01, 1992 05:00 AM"}, {"date": "Jun 01, 1992", "price": 0.41, "time": "04:00 AM", "full_date": "Jun 01, 1992 04:00 AM"}, {"date": "Sep 01, 1992", "price": 0.51, "time": "04:00 AM", "full_date": "Sep 01, 1992 04:00 AM"}, {"date": "Dec 01, 1992", "price": 0.47, "time": "05:00 AM", "full_date": "Dec 01, 1992 05:00 AM"}, {"date": "Mar 01, 1993", "price": 0.51, "time": "05:00 AM", "full_date": "Mar 01, 1993 05:00 AM"}, {"date": "Jun 01, 1993", "price": 0.24, "time": "04:00 AM", "full_date": "Jun 01, 1993 04:00 AM"}, {"date": "Sep 01, 1993", "price": 0.28, "time": "04:00 AM", "full_date": "Sep 01, 1993 04:00 AM"}, {"date": "Dec 01, 1993", "price": 0.33, "time": "05:00 AM", "full_date": "Dec 01, 1993 05:00 AM"}, {"date": "Mar 01, 1994", "price": 0.26, "time": "05:00 AM", "full_date": "Mar 01, 1994 05:00 AM"}, {"date": "Jun 01, 1994", "price": 0.32, "time": "04:00 AM", "full_date": "Jun 01, 1994 04:00 AM"}, {"date": "Sep 01, 1994", "price": 0.33, "time": "04:00 AM", "full_date": "Sep 01, 1994 04:00 AM"}, {"date": "Dec 01, 1994", "price": 0.35, "time": "05:00 AM", "full_date": "Dec 01, 1994 05:00 AM"}, {"date": "Mar 01, 1995", "price": 0.37, "time": "05:00 AM", "full_date": "Mar 01, 1995 05:00 AM"}, {"date": "Jun 01, 1995", "price": 0.38, "time": "04:00 AM", "full_date": "Jun 01, 1995 04:00 AM"}, {"date": "Sep 01, 1995", "price": 0.34, "time": "04:00 AM", "full_date": "Sep 01, 1995 04:00 AM"}, {"date": "Dec 01, 1995", "price": 0.25, "time": "05:00 AM", "full_date": "Dec 01, 1995 05:00 AM"}, {"date": "Mar 01, 1996", "price": 0.23, "time": "05:00 AM", "full_date": "Mar 01, 1996 05:00 AM"}, {"date": "Jun 01, 1996", "price": 0.22, "time": "04:00 AM", "full_date": "Jun 01, 1996 04:00 AM"}, {"date": "Sep 01, 1996", "price": 0.22, "time": "04:00 AM", "full_date": "Sep 01, 1996 04:00 AM"}, {"date": "Dec 01, 1996", "price": 0.15, "time": "05:00 AM", "full_date": "Dec 01, 1996 05:00 AM"}, {"date": "Mar 01, 1997", "price": 0.15, "time": "05:00 AM", "full_date": "Mar 01, 1997 05:00 AM"}, {"date": "Jun 01, 1997", "price": 0.19, "time": "04:00 AM", "full_date": "Jun 01, 1997 04:00 AM"}, {"date": "Sep 01, 1997", "price": 0.16, "time": "04:00 AM", "full_date": "Sep 01, 1997 04:00 AM"}, {"date": "Dec 01, 1997", "price": 0.21, "time": "05:00 AM", "full_date": "Dec 01, 1997 05:00 AM"}, {"date": "Mar 01, 1998", "price": 0.24, "time": "05:00 AM", "full_date": "Mar 01, 1998 05:00 AM"}, {"date": "Jun 01, 1998", "price": 0.28, "time": "04:00 AM", "full_date": "Jun 01, 1998 04:00 AM"}, {"date": "Sep 01, 1998", "price": 0.29, "time": "04:00 AM", "full_date": "Sep 01, 1998 04:00 AM"}, {"date": "Dec 01, 1998", "price": 0.31, "time": "05:00 AM", "full_date": "Dec 01, 1998 05:00 AM"}, {"date": "Mar 01, 1999", "price": 0.39, "time": "05:00 AM", "full_date": "Mar 01, 1999 05:00 AM"}, {"date": "Jun 01, 1999", "price": 0.58, "time": "04:00 AM", "full_date": "Jun 01, 1999 04:00 AM"}, {"date": "Sep 01, 1999", "price": 0.87, "time": "04:00 AM", "full_date": "Sep 01, 1999 04:00 AM"}, {"date": "Dec 01, 1999", "price": 1.02, "time": "05:00 AM", "full_date": "Dec 01, 1999 05:00 AM"}, {"date": "Mar 01, 2000", "price": 0.75, "time": "05:00 AM", "full_date": "Mar 01, 2000 05:00 AM"}, {"date": "Jun 01, 2000", "price": 1.09, "time": "04:00 AM", "full_date": "Jun 01, 2000 04:00 AM"}, {"date": "Sep 01, 2000", "price": 0.29, "time": "04:00 AM", "full_date": "Sep 01, 2000 04:00 AM"}, {"date": "Dec 01, 2000", "price": 0.33, "time": "05:00 AM", "full_date": "Dec 01, 2000 05:00 AM"}, {"date": "Mar 01, 2001", "price": 0.36, "time": "05:00 AM", "full_date": "Mar 01, 2001 05:00 AM"}, {"date": "Jun 01, 2001", "price": 0.33, "time": "04:00 AM", "full_date": "Jun 01, 2001 04:00 AM"}, {"date": "Sep 01, 2001", "price": 0.38, "time": "04:00 AM", "full_date": "Sep 01, 2001 04:00 AM"}, {"date": "Dec 01, 2001", "price": 0.39, "time": "05:00 AM", "full_date": "Dec 01, 2001 05:00 AM"}, {"date": "Mar 01, 2002", "price": 0.42, "time": "05:00 AM", "full_date": "Mar 01, 2002 05:00 AM"}, {"date": "Jun 01, 2002", "price": 0.26, "time": "04:00 AM", "full_date": "Jun 01, 2002 04:00 AM"}, {"date": "Sep 01, 2002", "price": 0.28, "time": "04:00 AM", "full_date": "Sep 01, 2002 04:00 AM"}, {"date": "Dec 01, 2002", "price": 0.27, "time": "05:00 AM", "full_date": "Dec 01, 2002 05:00 AM"}, {"date": "Mar 01, 2003", "price": 0.32, "time": "05:00 AM", "full_date": "Mar 01, 2003 05:00 AM"}, {"date": "Jun 01, 2003", "price": 0.4, "time": "04:00 AM", "full_date": "Jun 01, 2003 04:00 AM"}, {"date": "Sep 01, 2003", "price": 0.37, "time": "04:00 AM", "full_date": "Sep 01, 2003 04:00 AM"}, {"date": "Dec 01, 2003", "price": 0.43, "time": "05:00 AM", "full_date": "Dec 01, 2003 05:00 AM"}, {"date": "Mar 01, 2004", "price": 0.5, "time": "05:00 AM", "full_date": "Mar 01, 2004 05:00 AM"}, {"date": "Jun 01, 2004", "price": 0.62, "time": "04:00 AM", "full_date": "Jun 01, 2004 04:00 AM"}, {"date": "Sep 01, 2004", "price": 1.2, "time": "04:00 AM", "full_date": "Sep 01, 2004 04:00 AM"}, {"date": "Dec 01, 2004", "price": 1.6, "time": "05:00 AM", "full_date": "Dec 01, 2004 05:00 AM"}, {"date": "Mar 01, 2005", "price": 1.42, "time": "05:00 AM", "full_date": "Mar 01, 2005 05:00 AM"}, {"date": "Jun 01, 2005", "price": 1.67, "time": "04:00 AM", "full_date": "Jun 01, 2005 04:00 AM"}, {"date": "Sep 01, 2005", "price": 2.42, "time": "04:00 AM", "full_date": "Sep 01, 2005 04:00 AM"}, {"date": "Dec 01, 2005", "price": 2.45, "time": "05:00 AM", "full_date": "Dec 01, 2005 05:00 AM"}, {"date": "Mar 01, 2006", "price": 2.13, "time": "05:00 AM", "full_date": "Mar 01, 2006 05:00 AM"}, {"date": "Jun 01, 2006", "price": 2.42, "time": "04:00 AM", "full_date": "Jun 01, 2006 04:00 AM"}, {"date": "Sep 01, 2006", "price": 3.27, "time": "04:00 AM", "full_date": "Sep 01, 2006 04:00 AM"}, {"date": "Dec 01, 2006", "price": 3.02, "time": "05:00 AM", "full_date": "Dec 01, 2006 05:00 AM"}, {"date": "Mar 01, 2007", "price": 4.33, "time": "05:00 AM", "full_date": "Mar 01, 2007 05:00 AM"}, {"date": "Jun 01, 2007", "price": 4.95, "time": "04:00 AM", "full_date": "Jun 01, 2007 04:00 AM"}, {"date": "Sep 01, 2007", "price": 6.51, "time": "04:00 AM", "full_date": "Sep 01, 2007 04:00 AM"}, {"date": "Dec 01, 2007", "price": 4.47, "time": "05:00 AM", "full_date": "Dec 01, 2007 05:00 AM"}, {"date": "Mar 01, 2008", "price": 6.74, "time": "05:00 AM", "full_date": "Mar 01, 2008 05:00 AM"}, {"date": "Jun 01, 2008", "price": 6.05, "time": "04:00 AM", "full_date": "Jun 01, 2008 04:00 AM"}, {"date": "Sep 01, 2008", "price": 3.31, "time": "04:00 AM", "full_date": "Sep 01, 2008 04:00 AM"}, {"date": "Dec 01, 2008", "price": 3.19, "time": "05:00 AM", "full_date": "Dec 01, 2008 05:00 AM"}, {"date": "Mar 01, 2009", "price": 4.85, "time": "05:00 AM", "full_date": "Mar 01, 2009 05:00 AM"}, {"date": "Jun 01, 2009", "price": 6.01, "time": "04:00 AM", "full_date": "Jun 01, 2009 04:00 AM"}, {"date": "Sep 01, 2009", "price": 7.14, "time": "04:00 AM", "full_date": "Sep 01, 2009 04:00 AM"}, {"date": "Dec 01, 2009", "price": 7.31, "time": "05:00 AM", "full_date": "Dec 01, 2009 05:00 AM"}, {"date": "Mar 01, 2010", "price": 9.17, "time": "05:00 AM", "full_date": "Mar 01, 2010 05:00 AM"}, {"date": "Jun 01, 2010", "price": 8.68, "time": "04:00 AM", "full_date": "Jun 01, 2010 04:00 AM"}, {"date": "Sep 01, 2010", "price": 11.11, "time": "04:00 AM", "full_date": "Sep 01, 2010 04:00 AM"}, {"date": "Dec 01, 2010", "price": 12.61, "time": "05:00 AM", "full_date": "Dec 01, 2010 05:00 AM"}, {"date": "Mar 01, 2011", "price": 12.42, "time": "05:00 AM", "full_date": "Mar 01, 2011 05:00 AM"}, {"date": "Jun 01, 2011", "price": 13.74, "time": "04:00 AM", "full_date": "Jun 01, 2011 04:00 AM"}, {"date": "Sep 01, 2011", "price": 13.65, "time": "04:00 AM", "full_date": "Sep 01, 2011 04:00 AM"}, {"date": "Dec 01, 2011", "price": 19.37, "time": "05:00 AM", "full_date": "Dec 01, 2011 05:00 AM"}, {"date": "Mar 01, 2012", "price": 20.63, "time": "05:00 AM", "full_date": "Mar 01, 2012 05:00 AM"}, {"date": "Jun 01, 2012", "price": 23.76, "time": "04:00 AM", "full_date": "Jun 01, 2012 04:00 AM"}, {"date": "Sep 01, 2012", "price": 20.9, "time": "04:00 AM", "full_date": "Sep 01, 2012 04:00 AM"}, {"date": "Dec 01, 2012", "price": 15.76, "time": "05:00 AM", "full_date": "Dec 01, 2012 05:00 AM"}, {"date": "Mar 01, 2013", "price": 16.06, "time": "05:00 AM", "full_date": "Mar 01, 2013 05:00 AM"}, {"date": "Jun 01, 2013", "price": 17.4, "time": "04:00 AM", "full_date": "Jun 01, 2013 04:00 AM"}, {"date": "Sep 01, 2013", "price": 19.86, "time": "04:00 AM", "full_date": "Sep 01, 2013 04:00 AM"}, {"date": "Dec 01, 2013", "price": 18.79, "time": "05:00 AM", "full_date": "Dec 01, 2013 05:00 AM"}, {"date": "Mar 01, 2014", "price": 22.61, "time": "05:00 AM", "full_date": "Mar 01, 2014 05:00 AM"}, {"date": "Jun 01, 2014", "price": 25.62, "time": "04:00 AM", "full_date": "Jun 01, 2014 04:00 AM"}, {"date": "Sep 01, 2014", "price": 29.73, "time": "04:00 AM", "full_date": "Sep 01, 2014 04:00 AM"}, {"date": "Dec 01, 2014", "price": 32.12, "time": "05:00 AM", "full_date": "Dec 01, 2014 05:00 AM"}, {"date": "Mar 01, 2015", "price": 32.57, "time": "05:00 AM", "full_date": "Mar 01, 2015 05:00 AM"}, {"date": "Jun 01, 2015", "price": 28.19, "time": "04:00 AM", "full_date": "Jun 01, 2015 04:00 AM"}, {"date": "Sep 01, 2015", "price": 29.58, "time": "04:00 AM", "full_date": "Sep 01, 2015 04:00 AM"}, {"date": "Dec 01, 2015", "price": 24.17, "time": "05:00 AM", "full_date": "Dec 01, 2015 05:00 AM"}, {"date": "Mar 01, 2016", "price": 24.97, "time": "05:00 AM", "full_date": "Mar 01, 2016 05:00 AM"}, {"date": "Jun 01, 2016", "price": 26.52, "time": "04:00 AM", "full_date": "Jun 01, 2016 04:00 AM"}, {"date": "Sep 01, 2016", "price": 27.63, "time": "04:00 AM", "full_date": "Sep 01, 2016 04:00 AM"}, {"date": "Dec 01, 2016", "price": 34.25, "time": "05:00 AM", "full_date": "Dec 01, 2016 05:00 AM"}, {"date": "Mar 01, 2017", "price": 38.19, "time": "05:00 AM", "full_date": "Mar 01, 2017 05:00 AM"}, {"date": "Jun 01, 2017", "price": 41.0, "time": "04:00 AM", "full_date": "Jun 01, 2017 04:00 AM"}, {"date": "Sep 01, 2017", "price": 42.96, "time": "04:00 AM", "full_date": "Sep 01, 2017 04:00 AM"}, {"date": "Dec 01, 2017", "price": 44.53, "time": "05:00 AM", "full_date": "Dec 01, 2017 05:00 AM"}, {"date": "Mar 01, 2018", "price": 46.72, "time": "05:00 AM", "full_date": "Mar 01, 2018 05:00 AM"}, {"date": "Jun 01, 2018", "price": 56.91, "time": "04:00 AM", "full_date": "Jun 01, 2018 04:00 AM"}, {"date": "Sep 01, 2018", "price": 44.65, "time": "04:00 AM", "full_date": "Sep 01, 2018 04:00 AM"}, {"date": "Dec 01, 2018", "price": 43.29, "time": "05:00 AM", "full_date": "Dec 01, 2018 05:00 AM"}, {"date": "Mar 01, 2019", "price": 43.77, "time": "05:00 AM", "full_date": "Mar 01, 2019 05:00 AM"}, {"date": "Jun 01, 2019", "price": 52.19, "time": "04:00 AM", "full_date": "Jun 01, 2019 04:00 AM"}, {"date": "Sep 01, 2019", "price": 66.81, "time": "04:00 AM", "full_date": "Sep 01, 2019 04:00 AM"}, {"date": "Dec 01, 2019", "price": 68.34, "time": "05:00 AM", "full_date": "Dec 01, 2019 05:00 AM"}, {"date": "Mar 01, 2020", "price": 79.49, "time": "05:00 AM", "full_date": "Mar 01, 2020 05:00 AM"}, {"date": "Jun 01, 2020", "price": 129.04, "time": "04:00 AM", "full_date": "Jun 01, 2020 04:00 AM"}, {"date": "Sep 01, 2020", "price": 119.05, "time": "04:00 AM", "full_date": "Sep 01, 2020 04:00 AM"}, {"date": "Dec 01, 2020", "price": 121.26, "time": "05:00 AM", "full_date": "Dec 01, 2020 05:00 AM"}, {"date": "Mar 01, 2021", "price": 124.61, "time": "05:00 AM", "full_date": "Mar 01, 2021 05:00 AM"}, {"date": "Jun 01, 2021", "price": 151.83, "time": "04:00 AM", "full_date": "Jun 01, 2021 04:00 AM"}, {"date": "Sep 01, 2021", "price": 165.3, "time": "04:00 AM", "full_date": "Sep 01, 2021 04:00 AM"}, {"date": "Dec 01, 2021", "price": 165.12, "time": "05:00 AM", "full_date": "Dec 01, 2021 05:00 AM"}, {"date": "Mar 01, 2022", "price": 148.84, "time": "05:00 AM", "full_date": "Mar 01, 2022 05:00 AM"}, {"date": "Jun 01, 2022", "price": 157.22, "time": "04:00 AM", "full_date": "Jun 01, 2022 04:00 AM"}, {"date": "Sep 01, 2022", "price": 148.03, "time": "04:00 AM", "full_date": "Sep 01, 2022 04:00 AM"}, {"date": "Dec 01, 2022", "price": 147.41, "time": "05:00 AM", "full_date": "Dec 01, 2022 05:00 AM"}, {"date": "Mar 01, 2023", "price": 177.25, "time": "05:00 AM", "full_date": "Mar 01, 2023 05:00 AM"}, {"date": "Jun 01, 2023", "price": 187.87, "time": "04:00 AM", "full_date": "Jun 01, 2023 04:00 AM"}, {"date": "Sep 01, 2023", "price": 189.95, "time": "04:00 AM", "full_date": "Sep 01, 2023 04:00 AM"}, {"date": "Dec 01, 2023", "price": 180.75, "time": "05:00 AM", "full_date": "Dec 01, 2023 05:00 AM"}, {"date": "Mar 01, 2024", "price": 192.25, "time": "05:00 AM", "full_date": "Mar 01, 2024 05:00 AM"}, {"date": "Jun 01, 2024", "price": 229.0, "time": "04:00 AM", "full_date": "Jun 01, 2024 04:00 AM"}, {"date": "Sep 01, 2024", "price": 237.33, "time": "04:00 AM", "full_date": "Sep 01, 2024 04:00 AM"}, {"date": "Dec 01, 2024", "price": 241.84, "time": "05:00 AM", "full_date": "Dec 01, 2024 05:00 AM"}, {"date": "Mar 01, 2025", "price": 200.85, "time": "05:00 AM", "full_date": "Mar 01, 2025 05:00 AM"}, {"date": "Jun 01, 2025", "price": 232.14, "time": "04:00 AM", "full_date": "Jun 01, 2025 04:00 AM"}, {"date": "Sep 01, 2025", "price": 278.85, "time": "04:00 AM", "full_date": "Sep 01, 2025 04:00 AM"}, {"date": "Dec 01, 2025", "price": 264.18, "time": "05:00 AM", "full_date": "Dec 01, 2025 05:00 AM"}, {"date": "Mar 01, 2026", "price": 312.06, "time": "05:00 AM", "full_date": "Mar 01, 2026 05:00 AM"}, {"date": "Jun 01, 2026", "price": 309.35, "time": "04:00 AM", "full_date": "Jun 01, 2026 04:00 AM"}, {"date": "Aug 21, 2026", "price": 309.35, "time": "08:00 PM", "full_date": "Aug 21, 2026 08:00 PM"}]};
+        let activeRange = '1Y';
+
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            el.classList.add('active');
+        }
+
+        function renderChart(rangeKey) {
+            activeRange = rangeKey;
+            const points = chartData[rangeKey] || [];
+            const svg = document.getElementById('interactive-svg');
+            const polyline = document.getElementById('chart-line');
+            const polygon = document.getElementById('chart-area');
+            const tooltipDate = document.getElementById('tooltip-date');
+            const tooltipPrice = document.getElementById('tooltip-price');
+
+            if (!points || points.length < 2) {
+                polyline.setAttribute('points', '');
+                polygon.setAttribute('points', '');
+                return;
+            }
+
+            const targetPrice = 234.86;
+            const prices = points.map(p => p.price);
+            let minP = Math.min(...prices);
+            let maxP = Math.max(...prices);
+            if (targetPrice && targetPrice > 0) {
+                maxP = Math.max(maxP, targetPrice * 1.04);
+                minP = Math.min(minP, targetPrice * 0.96);
+            }
+            if (minP === maxP) { minP *= 0.95; maxP *= 1.05; }
+            const rangeP = maxP - minP;
+
+            const width = 900;
+            const height = 200;
+            const padX = 10;
+            const padY = 12;
+            const drawW = width - (2 * padX);
+            const drawH = height - (2 * padY);
+
+            // Dynamically position 5Y Target line and label
+            const targetLine = document.getElementById('target-line');
+            const targetLabel = document.getElementById('target-label');
+            if (targetLine && targetPrice > 0) {
+                const targetY = padY + drawH - ((targetPrice - minP) / rangeP) * drawH;
+                targetLine.setAttribute('y1', targetY.toFixed(1));
+                targetLine.setAttribute('y2', targetY.toFixed(1));
+                if (targetLabel) {
+                    targetLabel.setAttribute('y', (targetY - 5).toFixed(1));
+                    targetLabel.textContent = '5Y Target: $' + targetPrice.toFixed(2);
+                }
+            }
+
+            const coords = points.map((p, idx) => {
+                const x = padX + (idx / (points.length - 1)) * drawW;
+                const y = padY + drawH - ((p.price - minP) / rangeP) * drawH;
+                return { x, y, price: p.price, date: p.date };
+            });
+
+            const polyPoints = coords.map(c => `${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(' ');
+            polyline.setAttribute('points', polyPoints);
+
+            const areaPoints = `${coords[0].x.toFixed(1)},${height} ` + polyPoints + ` ${coords[coords.length - 1].x.toFixed(1)},${height}`;
+            polygon.setAttribute('points', areaPoints);
+
+            // Default to latest point
+            const lastPt = coords[coords.length - 1];
+            tooltipDate.textContent = lastPt.date;
+            tooltipPrice.textContent = '$' + lastPt.price.toFixed(2);
+
+            // Update Y-Axis Prices
+            const highEl = document.getElementById('grid-price-high');
+            const midEl = document.getElementById('grid-price-mid');
+            const lowEl = document.getElementById('grid-price-low');
+            if (highEl) highEl.textContent = '$' + maxP.toFixed(2);
+            if (midEl) midEl.textContent = '$' + ((maxP + minP) / 2).toFixed(2);
+            if (lowEl) lowEl.textContent = '$' + minP.toFixed(2);
+
+            // Populate X-Axis Ticks
+            const xAxis = document.getElementById('chart-x-axis');
+            if (xAxis && points.length > 0) {
+                const tickCount = Math.min(5, points.length);
+                let ticksHtml = '';
+                for (let i = 0; i < tickCount; i++) {
+                    const ptIdx = Math.floor((i / (tickCount - 1)) * (points.length - 1));
+                    const dStr = points[ptIdx].date;
+                    ticksHtml += `<span class="chart-x-tick">${dStr}</span>`;
+                }
+                xAxis.innerHTML = ticksHtml;
+            }
+
+            // Interactive Crosshair Scrub
+            svg.onmousemove = function(e) {
+                const rect = svg.getBoundingClientRect();
+                const mouseX = (e.clientX - rect.left) * (width / rect.width);
+                
+                // Find closest point
+                let closest = coords[0];
+                let closestDist = Math.abs(coords[0].x - mouseX);
+                for (let i = 1; i < coords.length; i++) {
+                    const dist = Math.abs(coords[i].x - mouseX);
+                    if (dist < closestDist) {
+                        closest = coords[i];
+                        closestDist = dist;
+                    }
+                }
+
+                document.getElementById('hover-line').setAttribute('x1', closest.x);
+                document.getElementById('hover-line').setAttribute('x2', closest.x);
+                document.getElementById('hover-line').setAttribute('opacity', '1');
+
+                document.getElementById('hover-dot').setAttribute('cx', closest.x);
+                document.getElementById('hover-dot').setAttribute('cy', closest.y);
+                document.getElementById('hover-dot').setAttribute('opacity', '1');
+
+                tooltipDate.textContent = closest.date;
+                tooltipPrice.textContent = '$' + closest.price.toFixed(2);
+            };
+
+            svg.onmouseleave = function() {
+                document.getElementById('hover-line').setAttribute('opacity', '0');
+                document.getElementById('hover-dot').setAttribute('opacity', '0');
+                tooltipDate.textContent = lastPt.date;
+                tooltipPrice.textContent = '$' + lastPt.price.toFixed(2);
+            };
+        }
+
+        function switchRange(rangeKey) {
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.textContent === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            renderChart(rangeKey);
+        }
+
+        // Initial render
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChart('1Y');
+        });
+
+        function openCyclicalityModal(event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            const modal = document.getElementById('cyclicality-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeCyclicalityModal() {
+            const modal = document.getElementById('cyclicality-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function closeCyclicalityModalOutside(event) {
+            if (event.target.id === 'cyclicality-modal') {
+                closeCyclicalityModal();
+            }
+        }
+    </script>
+    
+    <!-- Cyclicality & Macro Cycle Intelligence Modal -->
+    <div id="cyclicality-modal" class="modal-shade" onclick="closeCyclicalityModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 580px; max-height: 88vh; overflow-y: auto; padding: 26px 28px; background: rgba(18, 17, 16, 0.98); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 16px; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75); font-family: var(--font-sans);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                <div>
+                    <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); letter-spacing: -0.02em; margin-bottom: 4px;">
+                        Business Cyclicality &amp; Cycle Stance
+                    </div>
+                    <div style="font-family: var(--font-sans); font-size: 0.78rem; color: var(--text-dim); line-height: 1.4;">
+                        Howard Marks &amp; Warren Buffett mental models for cycle positioning and earnings durability.
+                    </div>
+                </div>
+                <button class="modal-x" onclick="closeCyclicalityModal()" style="color: var(--text-dim); font-size: 1.1rem; cursor: pointer; background: transparent; border: none; padding: 2px 6px;">✕</button>
+            </div>
+
+            <!-- Section 1: Cyclicality Profile -->
+            <div style="margin-bottom: 20px;">
+                <div style="font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    1. Cyclicality Profile (The Nature of the Business)
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #82AE8C; font-size: 0.86rem; margin-bottom: 3px;">Secular Compounder</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Mission-critical software, tolls, or subscriptions (e.g. Microsoft, Visa, Apple). Revenue and cash flows compound steadily through economic downturns.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: var(--text-title); font-size: 0.86rem; margin-bottom: 3px;">Moderate Cyclical</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Consumer retail, merchant payments, or advertising (e.g. StoneCo, Amazon, Lululemon). Earnings fluctuate with interest rates and consumer spending, but long-term secular growth continues.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #D4A373; font-size: 0.86rem; margin-bottom: 3px;">Deep Cyclical</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Commodities, homebuilders, freight shipping, or manufacturing (e.g. NVR, Vale, GigaCloud). Earnings swing between extreme peaks and valleys. Never extrapolate peak earnings.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Cycle Position -->
+            <div style="margin-bottom: 22px;">
+                <div style="font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    2. Cycle Stance (Where the Business Sits Today)
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #D4A373; font-size: 0.86rem; margin-bottom: 3px;">Downcycle Contraction / Trough</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Operating under high interest rates, credit contractions, or inventory destocking. Starting earnings are depressed, offering asymmetric upside when conditions normalize.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: var(--text-title); font-size: 0.86rem; margin-bottom: 3px;">Mid-Cycle Run-Rate</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Operating near sustainable historical margins and normal unit economics. Reliable baseline for 5-year compounding calculations.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #C97A72; font-size: 0.86rem; margin-bottom: 3px;">Peak / Over-Earning Risk</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Generating temporary peak margins due to shortages or bubble pricing. Downside risk if margins mean-revert to historical levels.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end;">
+                <button onclick="closeCyclicalityModal()" style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 7px 18px; cursor: pointer; transition: all 0.15s;">Got It</button>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
