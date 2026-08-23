@@ -15,13 +15,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- Embedded Initial Live Quotes for 100% Guaranteed Zero-Lag Data Delivery -->
     <script id="embedded-live-quotes" type="application/json">{
+  "AMZN": {
+    "price": 258.63,
+    "prev_close": 258.63,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-23 02:31:35 UTC"
+  },
   "BMBL": {
     "price": 2.8,
     "prev_close": 2.8,
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-23 02:15:18 UTC"
+    "updated_at": "2026-08-23 02:31:35 UTC"
   },
   "GCT": {
     "price": 49.65,
@@ -29,7 +37,15 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-23 02:15:18 UTC"
+    "updated_at": "2026-08-23 02:31:35 UTC"
+  },
+  "GOOG": {
+    "price": 341.75,
+    "prev_close": 341.75,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-23 02:31:35 UTC"
   },
   "MTCH": {
     "price": 40.87,
@@ -37,7 +53,7 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-23 02:15:18 UTC"
+    "updated_at": "2026-08-23 02:31:35 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -815,7 +831,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">3</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">5</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -858,6 +874,44 @@
                     </thead>
                     <tbody>
                         
+        <tr class="table-row" data-ticker="AMZN" data-baseline="258.63" onclick="location.href='reports/AMZN.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMZN" alt="AMZN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AM</span></div>
+                        <span class="tbl-symbol">AMZN</span>
+                    </div>
+                    <span class="tbl-company-hover">Amazon.com, Inc.</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-AMZN">$258.63</span>
+                    <span class="tbl-return tbl-ret-AMZN pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <div class="tbl-labels-stack" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
+        <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+        <span class="pred-text-label" style="color: var(--accent-warm); font-size: 0.76rem; font-weight: 400; font-family: var(--font-sans); white-space: nowrap;">High Predictability</span>
+    </div>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$220.94</span>
+                    <span class="tbl-target-delta" style="color: #C97A72;">↘ -14.6%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 21, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" data-ticker="BMBL" data-baseline="2.8" onclick="location.href='reports/BMBL.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -934,6 +988,44 @@
             </td>
         </tr>
         
+        <tr class="table-row" data-ticker="GOOG" data-baseline="341.75" onclick="location.href='reports/GOOG.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GOOG" alt="GOOG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">GO</span></div>
+                        <span class="tbl-symbol">GOOG</span>
+                    </div>
+                    <span class="tbl-company-hover">Alphabet Inc.</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-GOOG">$341.75</span>
+                    <span class="tbl-return tbl-ret-GOOG pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <div class="tbl-labels-stack" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
+        <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+        <span class="pred-text-label" style="color: var(--accent-warm); font-size: 0.76rem; font-weight: 400; font-family: var(--font-sans); white-space: nowrap;">High Predictability</span>
+    </div>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-target-cell">
+                    <span class="tbl-target-price">$200.42</span>
+                    <span class="tbl-target-delta" style="color: #C97A72;">↘ -41.4%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-headline">Q3 '26 Earnings</span>
+                    <span class="tbl-cat-date">Nov 21, 2026</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" data-ticker="MTCH" data-baseline="40.87" onclick="location.href='reports/MTCH.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -979,6 +1071,42 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
+        <div class="grid-card" data-ticker="AMZN" data-baseline="258.63" onclick="location.href='reports/AMZN.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMZN" alt="AMZN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">AM</span></div>
+                    <span class="grid-symbol">AMZN</span>
+                </div>
+                <div class="grid-price grid-price-AMZN">$258.63</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <div class="tbl-labels-stack" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
+        <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+        <span class="pred-text-label" style="color: var(--accent-warm); font-size: 0.76rem; font-weight: 400; font-family: var(--font-sans); white-space: nowrap;">High Predictability</span>
+    </div>
+            </div>
+            <div class="grid-company">Amazon.com, Inc.</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-AMZN pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">3Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$220.94</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">3Y Delta</span>
+                    <span class="grid-stat-val" style="color: #C97A72; font-weight: 500;">↘ -14.6%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="grid-card" data-ticker="BMBL" data-baseline="2.8" onclick="location.href='reports/BMBL.html'">
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -1043,6 +1171,42 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">3Y Delta</span>
                     <span class="grid-stat-val" style="color: #82AE8C; font-weight: 500;">↗ +167.9%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">Q3 '26 Earnings</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="GOOG" data-baseline="341.75" onclick="location.href='reports/GOOG.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GOOG" alt="GOOG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">GO</span></div>
+                    <span class="grid-symbol">GOOG</span>
+                </div>
+                <div class="grid-price grid-price-GOOG">$341.75</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <div class="tbl-labels-stack" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
+        <span class="moat-text-label" style="color: var(--accent-green); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans); white-space: nowrap;">Wide Moat</span>
+        <span class="pred-text-label" style="color: var(--accent-warm); font-size: 0.76rem; font-weight: 400; font-family: var(--font-sans); white-space: nowrap;">High Predictability</span>
+    </div>
+            </div>
+            <div class="grid-company">Alphabet Inc.</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-GOOG pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">3Y Target</span>
+                    <span class="grid-stat-val" style="color: var(--text-title);">$200.42</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">3Y Delta</span>
+                    <span class="grid-stat-val" style="color: #C97A72; font-weight: 500;">↘ -41.4%</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
