@@ -2540,48 +2540,58 @@ def run_forensic_audit_agent(ticker: str, company_name: str, current_price: floa
             3. How Things Are Going Now (Story)
             4. What If It Keeps Going That Way (Continuation Math in Clean Editorial Steps)
     """
+    today_str = datetime.now().strftime("%B %d, %Y")
+    
     # ---------------------------------------------------------
     # Step 1-2: Deep Grounded Investigation of Headwinds, Risks, Reality & Valuation Frameworks
     # ---------------------------------------------------------
     headwinds_prompt = f"""You are a Senior Short-Seller & Forensic Risk Analyst researching {ticker} ({company_name}) at current market price ${current_price:.2f}.
+TODAY'S CALENDAR DATE: {today_str}
 
-LATEST EARNINGS & CALL TRANSCRIPTS MANDATE: You MUST search for and inspect the company's LATEST earnings release, LATEST 10-Q/10-K filing, and LATEST earnings call transcripts (especially tough analyst Q&A). Extract the latest active risks, management tone, guidance revisions, and unit headwinds.
+LATEST REAL-TIME EARNINGS RELEASES & TRANSCRIPTS MANDATE:
+You MUST search Google and inspect {ticker}'s ABSOLUTE MOST RECENT 3 to 4 CONSECUTIVE EARNINGS CALL TRANSCRIPTS (Prepared Remarks + Analyst Q&A sessions) reported up to {today_str}, latest 10-Q/10-K filings, short reports, and analyst downgrades. If {ticker} reported earnings today or recently, anchor on the fresh report:
+1. What specific operational unit breakdowns and risks are highlighted by short-sellers, skeptics, and sell-side analysts during recent earnings call Q&A?
+   - Unit Volumes: (e.g. active users/DAU/MAU churning, enterprise software seat downgrades, store comp declines, merchant attrition, TPV/GMV deceleration).
+   - Unit Monetization / Pricing Power: (e.g. ARPU compression, take-rate erosion, discounting, NPL default provisions, AI commoditization).
+2. What specific competitive threats, regulatory scrutiny, and structural margin headwinds did analysts press management on during the Q&A?
+3. Cite exact data points, figures, and direct quotes from the LATEST 3-4 earnings call transcripts and regulatory disclosures.
 
-Use Google Search to inspect the latest short reports, hedge fund bear theses, Substack deep dives, and analyst downgrades for {ticker}:
-1. What specific operational unit breakdowns and risks are highlighted by short-sellers and skeptics?
-   - Unit Volumes: (e.g. active users/DAU/MAU churning, enterprise software seat downgrades, store comp declines, merchant attrition, TPV/GMV deceleration)
-   - Unit Monetization / Pricing Power: (e.g. ARPU compression, take-rate erosion, discounting, NPL default provisions, AI commoditization)
-2. What specific competitive threats and structural headwinds are they warning about?
-3. Cite exact data points, figures, and quotes from the LATEST earnings reports, regulatory filings, and earnings call Q&A.
-
-Provide a concise, highly factual briefing of the core skeptical thesis and operational unit vulnerabilities."""
+Provide a concise, highly factual briefing of the core skeptical thesis, analyst pushback, and operational unit vulnerabilities."""
 
     reality_prompt = f"""You are a Senior Value Investor & Portfolio Manager auditing {ticker} ({company_name}).
+TODAY'S CALENDAR DATE: {today_str}
 
-LATEST EARNINGS & TRANSCRIPTS MANDATE: You MUST search for and extract data directly from {ticker}'s LATEST 3 to 4 CONSECUTIVE QUARTERLY EARNINGS REPORTS, the LATEST 10-Q/10-K statutory disclosures, and the LATEST earnings call transcripts:
+MANDATORY REAL-TIME 3-4 CONSECUTIVE QUARTERLY EARNINGS RELEASES & CALL TRANSCRIPTS INGESTION:
+You MUST search Google and inspect {ticker}'s ABSOLUTE MOST RECENT 3 to 4 CONSECUTIVE QUARTERLY EARNINGS RELEASES and EARNINGS CALL TRANSCRIPTS reported up to {today_str}, latest 10-Q/20-F filings, and CEO/CFO conference call remarks. If {ticker} reported earnings today or this quarter, you MUST include today's latest results:
 
-1. SEQUENTIAL 3-4 QUARTER OPERATIONAL UNIT TRAJECTORY (STATUTORY RELEASES & TRANSCRIPTS):
-   - Extract the exact statutory volume units and unit monetization reported in the latest 10-Q/10-K filings & transcripts:
-     * Physical/Digital Volume Units: (e.g. Active 3P Sellers, Active Buyers, GMV, Paying Users, Subscribers, Warehouses/Clubs, Enterprise Seats, Volume Shipped)
-     * Unit Monetization & Pricing Yield: (e.g. Spend per Buyer, ARPU $/mo, Marketplace Take-Rate %, Comp Sales per box, Price per Unit/ASP)
-     * Exact Revenue YoY progression across the last 3-4 consecutive quarters ($M)
-     * Cash Operating Cost Structure: Breakdown of COGS/Fulfillment, Sales & Marketing, R&D, Maintenance CapEx, and Stock-Based Compensation.
-     * Trailing Cash Flow & Capital Allocation: Operating Cash Flow (OCF), Free Cash Flow (FCF), share repurchases ($M), and net change in diluted share count YoY.
+1. SEQUENTIAL 3-4 QUARTER OPERATIONAL TRAJECTORY (STATUTORY RELEASES & CALL TRANSCRIPTS):
+   - Extract the chronological sequential progression across the last 3-4 quarters:
+     * Quarter-by-Quarter Revenue ($M) and YoY Growth % (e.g. Q3: $X.XB (+Y%), Q4: $X.XB (+Y%), Q1: $X.XB (+Y%), Q2: $X.XB (+Y%)).
+     * Quarter-by-Quarter Gross Margin % and Operating Margin % (tracking operating leverage or margin dilution from reinvestment cycles).
+     * Physical/Digital Primary Volume Units: (e.g. Active Buyers/Sellers, Paying Users, GMV, Subscribers, Enterprise Seats, Volume Shipped).
+     * Unit Monetization & Pricing Yield: (e.g. Take-Rate %, ARPU $/mo, Spend per Buyer, Comp Sales per unit).
+     * Operating Cash Flow & Free Cash Flow generation across the last 3-4 quarters.
+     * Capital Allocation Track Record: Share repurchases ($M), dividends paid ($M), and net change in diluted share count YoY.
+   - Comprehensive Earnings Transcript Synthesis across the last 3-4 calls:
+     * CEO Remarks: Strategic vision, ecosystem initiatives, pricing discipline, and competitive positioning.
+     * CFO Commentary: Margin color, cost pressures, maintenance vs growth CapEx split, and tax rate guidance.
+     * Analyst Q&A Disclosures: Direct answers to tough analyst questions on unit economics, retention, and return of capital.
 
 2. MICROECONOMIC MOAT & COMPETITIVE ADVANTAGE (HAMILTON HELMER 7 POWERS & BUFFETT/MUNGER):
    - What specific structural competitive advantage protects (or fails to protect) this business?
      * Network Effects: Is there a 2-sided marketplace, data network, or direct network effect? What is its geographic scope (Global, National, Regional, Local)?
      * Switching Costs: Are switching costs high (e.g. ERP integration, regulatory mandates, high consequence of failure) or $0 / frictionless (e.g. consumer dating apps, mobile games)?
-     * Cost Advantages / Scale Economies Shared: Does scale lower unit costs and get shared with customers (e.g. Costco)?
+     * Cost Advantages / Scale Economies Shared: Does scale lower unit costs and get shared with customers (e.g. Costco, PDD C2M)?
      * Intangibles & Pricing Power: Can the company hike prices above inflation without volume destruction?
      * Moat Decay / Commoditization: Are users multi-homing (using competitors simultaneously), is customer success causing churn (dating apps), or are switching barriers falling?
 
 3. PEER BENCHMARKING & MONETIZATION RUNWAY:
    - How does this company's unit monetization, gross margins, and operating efficiency compare to mature industry peers?
 
-Provide a concise, highly factual briefing synthesizing the exact sequential quarterly numbers, executive call commentary, and capital allocation pace."""
+Provide a concise, highly factual briefing synthesizing the exact sequential 3-4 quarter numbers, executive call transcripts, and capital allocation pace."""
 
     frameworks_prompt = f"""You are an Institutional Valuation Architect surveying investor methodologies for {ticker} ({company_name}) at ${current_price:.2f}.
+TODAY'S CALENDAR DATE: {today_str}
 
 Use Google Search to inspect at least 10 DISTINCT INVESTOR THESES, hedge fund letters, Substack deep dives (e.g. Scuttleblurb, Diffs, In Practise, MBI Deep Dives, Value Investors Club, Yet Another Value Blog, Punch Card Investor), Sell-Side institutional research notes (Morgan Stanley, Goldman Sachs, JPMorgan, MoffettNathanson), and VIC writeups for {ticker}.
 
@@ -2615,8 +2625,10 @@ Provide a concise, dense briefing synthesizing the collective valuation mechanic
     # ---------------------------------------------------------
     print(f"  [Step 3/5] Extracting statutory 10-K/20-F balance sheet and cash flow metrics for {ticker}...", flush=True)
     audit_prompt = f"""You are a senior forensic CPA and equity analyst conducting a statutory financial statement audit for {ticker} ({company_name}) at current real market price ${current_price:.2f}.
+TODAY'S CALENDAR DATE: {today_str}
 
-LATEST STATUTORY FILINGS MANDATE: You MUST retrieve numbers from the company's LATEST reported 10-Q / 20-F or 10-K filing and LATEST quarterly earnings releases. Use the latest reported quarter revenue, latest balance sheet cash & debt, and calculate TTM figures from the most recent 4 consecutive quarters.
+LATEST STATUTORY FILINGS MANDATE:
+You MUST search Google and retrieve numbers from the company's ABSOLUTE LATEST reported 10-Q / 20-F or 10-K filing and LATEST quarterly earnings releases reported up to {today_str}. If the company reported earnings today or this month, you MUST use the fresh numbers. Use the latest reported quarter revenue, latest balance sheet cash & debt, and calculate TTM figures from the most recent 4 consecutive quarters ending on or before {today_str}.
 
 CURRENCY & FINANCIAL SCALE MANDATE (CRITICAL FOR US & GLOBAL ADRs):
 - All reported financial numbers MUST be strictly in MILLIONS USD ($M USD).
@@ -2932,7 +2944,7 @@ DRAFT SECTIONS SUBMITTED FOR AUDIT:
 YOUR CIO AUDIT GOAL:
 Act as a skeptical, conservative peer reviewer:
 - Strip out any unearned optimism, corporate spin, or turnaround fantasies.
-- AUDIT AGAINST LATEST EARNINGS & TRANSCRIPTS: Verify all revenue numbers, volume units ({unit_desc}), gross margins, and forward commentary directly against the company's LATEST earnings release and LATEST earnings call transcript Q&A. Force-reject any outdated or stale figures.
+- AUDIT AGAINST 3-4 CONSECUTIVE QUARTERS: Verify that Section 3 ("How Things Are Going Now") and Section 4 ("What If It Keeps Going That Way") directly reflect the sequential trend of the LATEST 3-4 CONSECUTIVE QUARTERLY RELEASES and call transcripts (tracking revenue progression, gross/operating margin evolution, volume units ({unit_desc}), and capital allocation). Force-reject any outdated or stale figures.
 - STRICT BAN ON LAZY TOP-DOWN CAGRS: Check Section 4. If it contains generic hand-waving like "assuming a steady 10% CAGR" or "assuming top-line growth slows to X%", REJECT and replace it with explicit bottom-up multiplication across the 3-Year Visible Runway: Volume Units × Unit Yield ➔ Revenue − Cash Expenses ➔ Total Owner Earnings.
 - AUDIT BALANCE SHEET CASH BRIDGE: Ensure Section 4 contains an explicit 3-year cash bridge (Starting Net Cash + 3Y FCF - Buybacks - CapEx = Ending Net Cash). Verify that if Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), exactly $0.00 is allocated to share buybacks.
 - ENFORCE GROUNDED VALUATION TARGET: Output a single definitive Intrinsic Fair Value Target ("fair_value_target") based on disciplined continuation of "How Things Are Going Now" capitalized strictly using the 2-Factor Matrix ({moat} × g₃).
