@@ -3982,9 +3982,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         ret_class = "pos" if (a.price_change_pct or 0.0) >= 0 else "neg"
         labels_html = format_labels_pills(a.labels or [a.severity])
         alert_beacon = format_action_beacon(getattr(a, "action_signal", None))
-        alert_id = f"{a.ticker}_{a.timestamp.replace(' ', '_').replace(':', '')}"
+        alert_id = getattr(a, "id", None) or f"{a.ticker}_{a.timestamp.replace(' ', '_').replace(':', '')}"
+        fingerprint = f"{a.ticker}_{a.trigger_reason.strip()}_{a.timestamp[:10]}"
         safe_payload = json.dumps({
             "id": alert_id,
+            "fingerprint": fingerprint,
             "ticker": a.ticker,
             "title": a.title.rstrip("."),
             "timestamp": a.timestamp,
@@ -4004,7 +4006,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             clean_blurb = raw_blurb
 
         alerts_feed_html += f"""
-        <div class="alert-item" data-alert-id="{alert_id}" onclick='openAlertModal({safe_payload})'>
+        <div class="alert-item" data-alert-id="{alert_id}" data-alert-ticker="{a.ticker}" data-alert-fingerprint="{fingerprint}" onclick='openAlertModal({safe_payload})'>
             <div class="alert-left">
                 <div class="alert-badges">
                     <strong class="alert-ticker">{a.ticker}{alert_beacon}</strong>
@@ -4019,7 +4021,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     <div class="alert-price-val">${(a.price_at_alert if a.price_at_alert is not None else 0.0):.2f}</div>
                     <div class="alert-price-pct {ret_class}">{f"{a.price_change_pct:+.2f}%" if a.price_change_pct is not None else "+0.00%"}</div>
                 </div>
-                <button class="alert-dismiss-btn" title="Dismiss this alert" onclick="event.stopPropagation(); dismissAlert('{alert_id}')">✕</button>
+                <button class="alert-dismiss-btn" title="Dismiss this alert" onclick="event.stopPropagation(); dismissAlert('{alert_id}', '{a.ticker}', '{fingerprint}')">✕</button>
             </div>
         </div>
         """
@@ -4892,6 +4894,14 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
         <!-- ALERTS SECTION -->
         <section id="pane-alerts" class="tab-panel">
+            <div class="alerts-header-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 4px 2px;">
+                <div style="font-size: 0.85rem; color: var(--text-dim); font-family: var(--font-sans);">
+                    Real-time valuation alerts, corridor breaches, and material SEC filings.
+                </div>
+                <button class="btn-clear-all-alerts" onclick="dismissAllAlerts()" style="background: var(--bg-subpanel); border: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.78rem; font-family: var(--font-sans); padding: 6px 14px; border-radius: 6px; cursor: pointer; transition: all 0.15s;">
+                    Clear All Alerts
+                </button>
+            </div>
             <div class="alerts-feed">
                 {alerts_feed_html}
             </div>
@@ -4942,6 +4952,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
     <script>
         let currentAlertId = null;
+        let currentAlertTicker = null;
+        let currentAlertFingerprint = null;
 
         function getDismissedAlertIds() {{
             try {{
@@ -4951,22 +4963,39 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             }}
         }}
 
-        function dismissAlert(alertId) {{
-            if (!alertId) return;
-            const item = document.querySelector(`.alert-item[data-alert-id="${{alertId}}"]`);
-            if (item) {{
+        function dismissAlert(alertId, ticker, fingerprint) {{
+            if (!alertId && !ticker && !fingerprint) return;
+            const items = document.querySelectorAll(`.alert-item[data-alert-id="${{alertId}}"], .alert-item[data-alert-fingerprint="${{fingerprint}}"]`);
+            items.forEach(item => {{
                 item.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
                 item.style.opacity = '0';
                 item.style.transform = 'scale(0.96)';
-            }}
+            }});
             setTimeout(() => {{
                 const dismissed = getDismissedAlertIds();
-                if (!dismissed.includes(alertId)) {{
-                    dismissed.push(alertId);
-                    localStorage.setItem('alphathesis_dismissed_alerts', JSON.stringify(dismissed));
-                }}
+                const keysToAdd = [alertId, fingerprint];
+                if (ticker) keysToAdd.push(ticker + '_active');
+                keysToAdd.forEach(k => {{
+                    if (k && !dismissed.includes(k)) dismissed.push(k);
+                }});
+                localStorage.setItem('alphathesis_dismissed_alerts', JSON.stringify(dismissed));
                 refreshAlertsUI();
             }}, 200);
+        }}
+
+        function dismissAllAlerts() {{
+            const items = document.querySelectorAll('.alert-item');
+            const dismissed = getDismissedAlertIds();
+            items.forEach(el => {{
+                const id = el.getAttribute('data-alert-id');
+                const fp = el.getAttribute('data-alert-fingerprint');
+                const tk = el.getAttribute('data-alert-ticker');
+                if (id && !dismissed.includes(id)) dismissed.push(id);
+                if (fp && !dismissed.includes(fp)) dismissed.push(fp);
+                if (tk && !dismissed.includes(tk + '_active')) dismissed.push(tk + '_active');
+            }});
+            localStorage.setItem('alphathesis_dismissed_alerts', JSON.stringify(dismissed));
+            refreshAlertsUI();
         }}
 
         function refreshAlertsUI() {{
@@ -4976,7 +5005,13 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
             items.forEach(el => {{
                 const id = el.getAttribute('data-alert-id');
-                if (dismissed.includes(id)) {{
+                const fp = el.getAttribute('data-alert-fingerprint');
+                const tk = el.getAttribute('data-alert-ticker');
+                const isDismissed = (id && dismissed.includes(id)) ||
+                                    (fp && dismissed.includes(fp)) ||
+                                    (tk && dismissed.includes(tk + '_active'));
+
+                if (isDismissed) {{
                     el.style.display = 'none';
                 }} else {{
                     el.style.display = 'flex';
@@ -5031,6 +5066,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 viewCtrl.style.display = (tab === 'stocks') ? 'flex' : 'none';
             }}
 
+            if (tab === 'alerts') {{
+                refreshAlertsUI();
+            }}
+
             if (tab === 'portfolio-defensive' && typeof initPortfolioChart_defensive === 'function') {{
                 setTimeout(initPortfolioChart_defensive, 50);
             }} else if (tab === 'portfolio-aggressive' && typeof initPortfolioChart_aggressive === 'function') {{
@@ -5060,6 +5099,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
         function openAlertModal(payload) {{
             currentAlertId = payload.id || (payload.ticker + '_' + payload.timestamp);
+            currentAlertTicker = payload.ticker || '';
+            currentAlertFingerprint = payload.fingerprint || '';
             document.getElementById('modal-ticker').innerText = payload.ticker;
             document.getElementById('modal-title').innerText = payload.title;
             document.getElementById('modal-time').innerText = payload.timestamp;
@@ -5073,8 +5114,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         }}
 
         function dismissCurrentAlert() {{
-            if (currentAlertId) {{
-                dismissAlert(currentAlertId);
+            if (currentAlertId || currentAlertTicker || currentAlertFingerprint) {{
+                dismissAlert(currentAlertId, currentAlertTicker, currentAlertFingerprint);
             }}
             closeAlertModal();
         }}
