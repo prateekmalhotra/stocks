@@ -2768,12 +2768,6 @@ Return ONLY a valid JSON object matching this schema:
     print(f"  ├─ Balance Sheet: Cash=${cash:,.1f}M | Debt=${debt:,.1f}M -> Net Cash: ${net_cash_per_share:+.2f}/sh (${net_cash_total:+,.0f}M)", flush=True)
     print(f"  └─ Capital Efficiency: Owner ROIC={owner_roic:.1f}% | Moat={moat} | Rev Growth={rev_growth:+.1f}%\n", flush=True)
 
-    ttm_rev = float(audit_data.get("trailing_revenue_ttm_mil") or 0.0)
-    lq_rev = float(audit_data.get("latest_quarter_revenue_mil") or 0.0)
-    lq_gm = float(audit_data.get("latest_quarter_gross_margin_pct") or 0.0)
-    unit_desc = audit_data.get("latest_primary_units_description") or "Active commercial volume units"
-    monet_desc = audit_data.get("latest_unit_monetization_description") or "Unit monetization and take-rate yield"
-    annualized_runrate = lq_rev * 4.0 if lq_rev > 0 else (ttm_rev if ttm_rev > 0 else 1000.0)
     pred_tier = audit_data.get("predictability_tier") or "Moderate Predictability"
 
     # 2-Factor Buffett-Munger Valuation Matrix (Moat/ROIC Tier x Year 3 Growth Rate)
