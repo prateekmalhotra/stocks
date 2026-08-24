@@ -3992,12 +3992,16 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             "price": a.price_at_alert,
             "change": a.price_change_pct,
             "trigger_reason": a.trigger_reason.rstrip("."),
-            "what_was_before": a.what_was_before.rstrip("."),
-            "what_changes_now": a.what_changes_now.rstrip("."),
+            "what_was_before": a.what_was_before.strip(),
+            "what_changes_now": a.what_changes_now.strip(),
             "report_url": a.report_url
         }).replace("'", "&#39;").replace('"', "&quot;")
 
-        clean_blurb = a.what_changes_now[:220].rstrip(".")
+        raw_blurb = a.what_changes_now.strip()
+        if len(raw_blurb) > 220:
+            clean_blurb = raw_blurb[:220].rsplit(" ", 1)[0].rstrip(".,;") + "..."
+        else:
+            clean_blurb = raw_blurb
 
         alerts_feed_html += f"""
         <div class="alert-item" data-alert-id="{alert_id}" onclick='openAlertModal({safe_payload})'>

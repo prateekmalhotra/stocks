@@ -3134,7 +3134,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "expected_return_cagr": round(irr_3y * 100.0, 1),
         "irr_3y": round(irr_3y * 100.0, 1),
         "what_is_priced_in": f"{p_oe:.1f}x P/OE",
-        "executive_summary": info.get("how_things_are_going_now", "")[:250],
+        "executive_summary": info.get("how_things_are_going_now", "").strip(),
         "upper_alert_threshold": round(max(current_price * 1.15, target_3y), 2),
         "lower_alert_threshold": round(min(current_price * 0.85, bear_target_val), 2),
         "stories": [
