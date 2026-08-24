@@ -2758,15 +2758,37 @@ Return ONLY a valid JSON object matching this schema:
     if oe_total < oe_from_ni * 0.6 and oe_from_ni > 0:
         oe_total = oe_from_ni
         
-    oe_per_share = oe_total / shares if shares > 0 else 0.0
-    
     net_cash_total = cash - debt
     net_cash_per_share = net_cash_total / shares if shares > 0 else 0.0
     
-    # Invested Capital = Total Equity + Total Debt - Excess Cash
-    invested_capital = max(1.0, equity + debt - cash)
-    # Owner ROIC = True Normalized Owner Earnings / Invested Capital
-    owner_roic = (oe_total / invested_capital) * 100.0
+    # ---------------------------------------------------------
+    # Deterministic Invested Capital & Owner ROIC Normalization
+    # ---------------------------------------------------------
+    # Operating cash needed for day-to-day operations (typically 2-4% of revenue)
+    operating_cash_needed = max(5.0, ttm_rev * 0.03 if ttm_rev > 0 else annualized_runrate * 0.03)
+    excess_cash = max(0.0, cash - operating_cash_needed)
+    
+    # Standard Invested Capital = Equity + Debt - Excess Cash
+    raw_invested_capital = equity + debt - excess_cash
+    
+    # For asset-light businesses, software, marketplaces, or negative working capital platforms:
+    # If raw_invested_capital is negative or near zero, tangible operating capital is funded by supplier float/deferred revenue.
+    # Establish a realistic economic capital denominator based on tangible operating footprint:
+    if raw_invested_capital > 0:
+        invested_capital = raw_invested_capital
+    elif equity > 0:
+        invested_capital = max(equity * 0.25, (ttm_rev if ttm_rev > 0 else annualized_runrate) * 0.05, 50.0)
+    else:
+        invested_capital = max((ttm_rev if ttm_rev > 0 else annualized_runrate) * 0.05, debt, 50.0)
+        
+    # Calculate True Normalized Owner ROIC
+    if oe_total > 0:
+        raw_roic = (oe_total / max(10.0, invested_capital)) * 100.0
+        # Bound to realistic institutional reporting range (0.5% to 99.9%)
+        owner_roic = min(99.9, max(0.5, raw_roic))
+    else:
+        raw_roic = (oe_total / max(10.0, invested_capital)) * 100.0
+        owner_roic = max(-50.0, min(-0.1, raw_roic))
     
     mcap = current_price * shares
     ev = mcap - net_cash_total

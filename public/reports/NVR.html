@@ -957,7 +957,7 @@
                     <div class="chart-live-val">
                         <span id="tooltip-date">Aug 21, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$6358.51</strong>
                         <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
-                        <span style="color: var(--accent-warm); font-size: 0.80rem;">5Y Target: <strong>$181.70</strong></span>
+                        <span style="color: var(--accent-warm); font-size: 0.80rem;">5Y Target: <strong>$7240.00</strong></span>
                     </div>
                     <div class="chart-range-pills">
                         <button class="range-pill" onclick="switchRange('1D')">1D</button>
@@ -987,7 +987,7 @@
                         
                         <!-- 5Y Target Dotted Line & Tag -->
                         <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
-                        <text id="target-label" x="884" y="8" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $181.70</text>
+                        <text id="target-label" x="884" y="8" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $7240.00</text>
 
                         <!-- Dynamic Area & Stroke -->
                         <polygon id="chart-area" fill="url(#area-grad)" points="" />
@@ -1006,33 +1006,33 @@
             <div class="metrics-grid">
                 <div class="metric-card">
                     <span class="metric-label">Owner Earnings (TTM)</span>
-                    <span class="metric-value">$8.00 / sh</span>
-                    <span class="metric-sub">$8M total (ex-SBC)</span>
+                    <span class="metric-value" style="color: var(--text-title);">$526.67 / sh</span>
+                    <span class="metric-sub">$1,580M total (ex-SBC)</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">P / Owner Earnings</span>
-                    <span class="metric-value">794.8x</span>
-                    <span class="metric-sub">Market Cap: $6,359M</span>
+                    <span class="metric-value" style="color: var(--text-title);">12.1x</span>
+                    <span class="metric-sub">Market Cap: $19,075M</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">EV / Owner Earnings</span>
-                    <span class="metric-value">793.6x</span>
-                    <span class="metric-sub">Enterprise Value: $6,349M</span>
+                    <span class="metric-value" style="color: var(--text-title);">12.1x</span>
+                    <span class="metric-sub">Enterprise Value: $19,045M</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner Cash Yield</span>
-                    <span class="metric-value" style="color: var(--accent-green);">0.1%</span>
-                    <span class="metric-sub">Starting Free Cash Flow</span>
+                    <span class="metric-value" style="color: var(--accent-green);">8.3%</span>
+                    <span class="metric-sub">Starting Free Cash Flow Yield</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner ROIC</span>
-                    <span class="metric-value" style="color: var(--accent-green);">20.0%</span>
+                    <span class="metric-value" style="color: var(--accent-green);">38.5%</span>
                     <span class="metric-sub">OE / Invested Capital</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Net Cash / Share</span>
-                    <span class="metric-value" style="color: var(--accent-green);">$+10.00 / sh</span>
-                    <span class="metric-sub">$+10M Balance Sheet</span>
+                    <span class="metric-value" style="color: var(--accent-green);">+$10.00 / sh</span>
+                    <span class="metric-sub">+$30M Net Liquid Cash</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">
@@ -1282,7 +1282,7 @@
                 return;
             }
 
-            const targetPrice = 181.7;
+            const targetPrice = 7240.0;
             const prices = points.map(p => p.price);
             let minP = Math.min(...prices);
             let maxP = Math.max(...prices);

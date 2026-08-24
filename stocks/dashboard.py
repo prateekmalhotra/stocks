@@ -2056,25 +2056,30 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     p3 = getattr(stock, 'how_things_are_going_now', '') or (current_v.how_things_are_going_now if current_v else '')
     p4 = getattr(stock, 'what_if_it_keeps_going_that_way', '') or (current_v.what_if_it_keeps_going_that_way if current_v else '')
 
-    # Fallback calculations if legacy version
-    if oe_sh is None or oe_sh <= 0:
-        oe_sh = current_price / 12.0
-    if oe_tot is None or oe_tot <= 0:
-        oe_tot = oe_sh * 100.0
-    if p_oe is None or p_oe <= 0:
-        p_oe = current_price / oe_sh if oe_sh > 0 else 12.0
-    if ev_oe is None or ev_oe <= 0:
-        ev_oe = p_oe * 0.95
-    if yield_pct is None or yield_pct <= 0:
-        yield_pct = (oe_sh / current_price) * 100.0 if current_price > 0 else 8.0
-    if owner_roic is None or owner_roic <= 0:
-        owner_roic = 22.5
-    if net_cash_sh is None:
-        net_cash_sh = 0.0
+    # Ensure raw metrics are preserved accurately without fake overwrite fallbacks
+    shares_count = None
+    if oe_tot is not None and oe_sh is not None and abs(oe_sh) > 0:
+        shares_count = abs(oe_tot / oe_sh)
+    elif stock.market_cap_mil and current_price > 0:
+        shares_count = stock.market_cap_mil / current_price
+    else:
+        shares_count = 100.0
 
-    mcap = current_price * (oe_tot / oe_sh if oe_sh > 0 else 100.0)
-    ev = mcap - (net_cash_sh * (oe_tot / oe_sh if oe_sh > 0 else 100.0))
-    net_cash_tot = net_cash_sh * (oe_tot / oe_sh if oe_sh > 0 else 100.0)
+    mcap = current_price * shares_count if shares_count else (stock.market_cap_mil or 1000.0)
+    net_cash_tot = (net_cash_sh or 0.0) * shares_count
+    ev = mcap - net_cash_tot
+
+    # Metric normalization and bounds
+    if owner_roic is not None:
+        if owner_roic > 99.9:
+            owner_roic = 99.9
+        elif owner_roic < -50.0:
+            owner_roic = -50.0
+
+    if p_oe is not None and (p_oe <= 0 or (oe_sh is not None and oe_sh <= 0)):
+        p_oe = None
+    if ev_oe is not None and (ev_oe <= 0 or (oe_tot is not None and oe_tot <= 0)):
+        ev_oe = None
 
     # Moat text label with harmonious semantic color
     from stocks.gemini_agent import map_to_canonical_moat_label, map_to_canonical_predictability_tier
@@ -2430,6 +2435,88 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     else:
         cycle_badge_class = "cycle-badge-mid"
         cycle_color = "var(--text-title)"
+
+    # Format 8-Box Metric Grid Cards with bulletproof edge case handling
+    if oe_sh is not None and oe_sh > 0:
+        oe_card_val = f"${oe_sh:.2f} / sh"
+        oe_card_sub = f"${oe_tot:,.0f}M total (ex-SBC)" if oe_tot else "Normalized Owner Cash Flow"
+        oe_color = "var(--text-title)"
+    elif oe_sh is not None and oe_sh <= 0:
+        oe_card_val = f"-${abs(oe_sh):.2f} / sh"
+        oe_card_sub = f"-${abs(oe_tot):,.0f}M cash burn" if oe_tot else "Operating Cash Flow Deficit"
+        oe_color = "var(--accent-red)"
+    else:
+        oe_card_val = "—"
+        oe_card_sub = "Normalized Owner Earnings"
+        oe_color = "var(--text-title)"
+
+    if p_oe is not None and p_oe > 0:
+        poe_card_val = f"{p_oe:.1f}x" if p_oe <= 150.0 else ">150x"
+        poe_card_sub = f"Market Cap: ${mcap:,.0f}M"
+        poe_color = "var(--text-title)"
+    else:
+        poe_card_val = "N/M"
+        poe_card_sub = "Negative Owner Cash Flow"
+        poe_color = "var(--text-dim)"
+
+    if ev_oe is not None and ev_oe > 0:
+        evoe_card_val = f"{ev_oe:.1f}x" if ev_oe <= 150.0 else ">150x"
+        evoe_card_sub = f"Enterprise Value: ${ev:,.0f}M"
+        evoe_color = "var(--text-title)"
+    else:
+        evoe_card_val = "N/M"
+        evoe_card_sub = f"Enterprise Value: ${ev:,.0f}M"
+        evoe_color = "var(--text-dim)"
+
+    if yield_pct is not None and yield_pct > 0 and (oe_sh or 0) > 0:
+        yield_card_val = f"{yield_pct:.1f}%"
+        yield_card_sub = "Starting Free Cash Flow Yield"
+        yield_color = "var(--accent-green)"
+    elif yield_pct is not None and yield_pct <= 0:
+        yield_card_val = f"{yield_pct:.1f}%" if yield_pct > -50.0 else "Neg."
+        yield_card_sub = "Negative Owner Cash Yield"
+        yield_color = "var(--accent-red)"
+    else:
+        yield_card_val = "N/M"
+        yield_card_sub = "Unprofitable / Reinvesting"
+        yield_color = "var(--text-dim)"
+
+    if owner_roic is not None:
+        if owner_roic >= 99.9:
+            roic_card_val = ">99.9%"
+            roic_color = "var(--accent-green)"
+        elif owner_roic >= 20.0:
+            roic_card_val = f"{owner_roic:.1f}%"
+            roic_color = "var(--accent-green)"
+        elif owner_roic > 0:
+            roic_card_val = f"{owner_roic:.1f}%"
+            roic_color = "var(--text-title)"
+        else:
+            roic_card_val = f"{owner_roic:.1f}%"
+            roic_color = "var(--accent-red)"
+        roic_card_sub = "OE / Invested Capital"
+    else:
+        roic_card_val = "N/A"
+        roic_card_sub = "Invested Capital Return"
+        roic_color = "var(--text-dim)"
+
+    if net_cash_sh is not None:
+        if net_cash_sh > 0:
+            cash_card_val = f"+${net_cash_sh:.2f} / sh"
+            cash_card_sub = f"+${net_cash_tot:,.0f}M Net Liquid Cash"
+            cash_color = "var(--accent-green)"
+        elif net_cash_sh < 0:
+            cash_card_val = f"-${abs(net_cash_sh):.2f} / sh"
+            cash_card_sub = f"-${abs(net_cash_tot):,.0f}M Net Balance Debt"
+            cash_color = "var(--accent-warm)"
+        else:
+            cash_card_val = "$0.00 / sh"
+            cash_card_sub = "Balanced Cash / Debt"
+            cash_color = "var(--text-dim)"
+    else:
+        cash_card_val = "—"
+        cash_card_sub = "Balance Sheet Cash"
+        cash_color = "var(--text-dim)"
 
     logo_html = get_ticker_logo_html(ticker_clean, size=36)
     cyclicality_modal_html = build_cyclicality_legend_modal_html()
@@ -3446,33 +3533,33 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             <div class="metrics-grid">
                 <div class="metric-card">
                     <span class="metric-label">Owner Earnings (TTM)</span>
-                    <span class="metric-value">${oe_sh:.2f} / sh</span>
-                    <span class="metric-sub">${oe_tot:,.0f}M total (ex-SBC)</span>
+                    <span class="metric-value" style="color: {oe_color};">{oe_card_val}</span>
+                    <span class="metric-sub">{oe_card_sub}</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">P / Owner Earnings</span>
-                    <span class="metric-value">{p_oe:.1f}x</span>
-                    <span class="metric-sub">Market Cap: ${mcap:,.0f}M</span>
+                    <span class="metric-value" style="color: {poe_color};">{poe_card_val}</span>
+                    <span class="metric-sub">{poe_card_sub}</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">EV / Owner Earnings</span>
-                    <span class="metric-value">{ev_oe:.1f}x</span>
-                    <span class="metric-sub">Enterprise Value: ${ev:,.0f}M</span>
+                    <span class="metric-value" style="color: {evoe_color};">{evoe_card_val}</span>
+                    <span class="metric-sub">{evoe_card_sub}</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner Cash Yield</span>
-                    <span class="metric-value" style="color: var(--accent-green);">{yield_pct:.1f}%</span>
-                    <span class="metric-sub">Starting Free Cash Flow</span>
+                    <span class="metric-value" style="color: {yield_color};">{yield_card_val}</span>
+                    <span class="metric-sub">{yield_card_sub}</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner ROIC</span>
-                    <span class="metric-value" style="color: {'var(--accent-green)' if owner_roic >= 20.0 else 'var(--text-title)'};">{owner_roic:.1f}%</span>
-                    <span class="metric-sub">OE / Invested Capital</span>
+                    <span class="metric-value" style="color: {roic_color};">{roic_card_val}</span>
+                    <span class="metric-sub">{roic_card_sub}</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Net Cash / Share</span>
-                    <span class="metric-value" style="color: {'var(--accent-green)' if net_cash_sh > 0 else 'var(--text-title)'};">${net_cash_sh:+.2f} / sh</span>
-                    <span class="metric-sub">${net_cash_tot:+,.0f}M Balance Sheet</span>
+                    <span class="metric-value" style="color: {cash_color};">{cash_card_val}</span>
+                    <span class="metric-sub">{cash_card_sub}</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">
