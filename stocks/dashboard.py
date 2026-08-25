@@ -761,7 +761,7 @@ def build_cyclicality_legend_modal_html() -> str:
                     </div>
                     <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
                         <div style="font-weight: 600; color: var(--text-title); font-size: 0.86rem; margin-bottom: 3px;">Mid-Cycle Run-Rate</div>
-                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Operating near sustainable historical margins and normal unit economics. Reliable baseline for 5-year compounding calculations.</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Operating near sustainable historical margins and normal unit economics. Reliable baseline for 3-year compounding calculations.</div>
                     </div>
                     <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
                         <div style="font-weight: 600; color: #C97A72; font-size: 0.86rem; margin-bottom: 3px;">Peak / Over-Earning Risk</div>
@@ -995,7 +995,7 @@ def format_pro_forma_schedule_table_html(sched: Optional[Dict[str, Any]]) -> str
     return f"""
     <div style='margin-top: 14px;'>
         <div style='font-family: var(--font-sans); font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 6px;'>
-            5-Year Pro-Forma Financial Statement Model
+            3-Year Pro-Forma Financial Statement Model
         </div>
         <div style='overflow-x: auto; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 4px;'>
             <table style='width: 100%; border-collapse: collapse; font-size: 0.72rem;'>
@@ -1066,9 +1066,9 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         
         mos_color = "var(--accent-green)" if mos_pct >= 0 else "var(--accent-red)"
         
-        # 5-Year CAGR (IRR) calculation
+        # 3-Year CAGR (IRR) calculation
         if cur_p > 0 and val > 0:
-            cagr_val = ((val / cur_p) ** (1.0 / 5.0) - 1.0) * 100.0
+            cagr_val = ((val / cur_p) ** (1.0 / 3.0) - 1.0) * 100.0
             cagr_sign = "+" if cagr_val >= 0 else ""
             cagr_color = "var(--accent-green)" if cagr_val >= 0 else "var(--accent-red)"
             cagr_txt = f"{cagr_sign}{cagr_val:.1f}% / yr"
@@ -1114,7 +1114,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
             sentences = [sent.strip() for sent in re.split(r'(?<=[.!?])\s+', raw_summary) if sent.strip()]
             narrative = sentences[0] if sentences else raw_summary
 
-        pricing_in_clause = f"Prices in {oe_growth} 5Y OE CAGR to ${oe5:.2f}/sh at {oe_mult} exit."
+        pricing_in_clause = f"Prices in {oe_growth} 3Y OE CAGR to ${oe5:.2f}/sh at {oe_mult} exit."
         if "prices in" in narrative.lower() or "pricing in" in narrative.lower():
             summary = narrative
         else:
@@ -1122,7 +1122,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         
         meta_parts = []
         if oe_growth:
-            meta_parts.append(f'<span>5Y OE Growth: {oe_growth}</span>')
+            meta_parts.append(f'<span>3Y OE Growth: {oe_growth}</span>')
         if net_cash_sh is not None and abs(net_cash_sh) > 0.01:
             meta_parts.append(f'<span>Net Cash: {net_cash_sh:+.2f}/sh</span>')
         elif oe_per_sh and float(oe_per_sh) > 0.01:
@@ -1133,7 +1133,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         # Compute 3-Engine Return Attribution (Alta Fox Multibagger Decomposition)
         attribution_txt = ""
         attribution_label = "Return Source"
-        attr_tag = "5-Year Return Attribution"
+        attr_tag = "3-Year Return Attribution"
         attr_modal_title = f"Path {idx+1}: {title}"
         attr_modal_statement = ""
         attr_modal_body = ""
@@ -1176,11 +1176,11 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                         attribution_txt = "Steady State Capitalization"
                         p_rev, p_mrg, p_mult = 50, 25, 25
                     attribution_label = "Return Source"
-                    attr_tag = "5-Year Return Attribution"
+                    attr_tag = "3-Year Return Attribution"
                     attr_modal_statement = f"<strong style='color: var(--accent-green);'>Return Source:</strong> {attribution_txt}"
                     attr_modal_body = f"""
                     <p style='margin: 0; color: var(--text-secondary);'>
-                        Of the total expected stock price gain of <strong style='color: var(--text-title);'>+{ret_gain_pct:.1f}%</strong> (${cur_p:.2f} &rarr; ${val:.2f} over 5 years), this deconstructs exactly what drives that value creation:
+                        Of the total expected stock price gain of <strong style='color: var(--text-title);'>+{ret_gain_pct:.1f}%</strong> (${cur_p:.2f} &rarr; ${val:.2f} over 3 years), this deconstructs exactly what drives that value creation:
                     </p>
                     <div style='display: flex; flex-direction: column; gap: 8px;'>
                         <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
@@ -1227,11 +1227,11 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                         attribution_txt = "Steady State Capitalization"
                         p_rev_down, p_mrg_down, p_mult_down = 50, 25, 25
                     attribution_label = "Drag Source"
-                    attr_tag = "5-Year Downside Drag Breakdown"
+                    attr_tag = "3-Year Downside Drag Breakdown"
                     attr_modal_statement = f"<strong style='color: #F87171;'>Drag Source:</strong> {attribution_txt}"
                     attr_modal_body = f"""
                     <p style='margin: 0; color: var(--text-secondary);'>
-                        Of the total expected stock price decline of <strong style='color: #F87171;'>{ret_loss_pct:.1f}%</strong> (${cur_p:.2f} &rarr; ${val:.2f} over 5 years), this identifies the primary causes of capital impairment:
+                        Of the total expected stock price decline of <strong style='color: #F87171;'>{ret_loss_pct:.1f}%</strong> (${cur_p:.2f} &rarr; ${val:.2f} over 3 years), this identifies the primary causes of capital impairment:
                     </p>
                     <div style='display: flex; flex-direction: column; gap: 8px;'>
                         <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
@@ -1286,7 +1286,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                 <!-- Key Financial Metrics Strip -->
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 10px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 6px; font-family: var(--font-mono); margin: 2px 0;">
                     <div>
-                        <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">5Y Price IRR</div>
+                        <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">3Y Price IRR</div>
                         <div style="font-size: 0.80rem; font-weight: 600; color: {cagr_color}; white-space: nowrap;">{cagr_txt}</div>
                     </div>
                     <div>
@@ -1325,7 +1325,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         priced_in_footer_parts.append(f'<span>Baseline OE: ${float(oe_per_sh):.2f}/sh</span>')
     priced_in_footer_text = ' <span style="color: var(--text-dim); opacity: 0.5;">·</span> '.join(priced_in_footer_parts)
 
-    req_oe5_val = (cur_p * (1.095**5) - (net_cash_sh or 0.0)) / (cur_p / float(oe_per_sh)) if oe_per_sh and float(oe_per_sh) > 0 else 0.0
+    req_oe5_val = (cur_p * (1.095**3) - (net_cash_sh or 0.0)) / (cur_p / float(oe_per_sh)) if oe_per_sh and float(oe_per_sh) > 0 else 0.0
     market_attr_tag = "Market-Implied Reverse DCF"
     market_attr_title = "What Is Priced Into Today's Stock Price"
     market_attr_statement = "<strong style='color: var(--accent-warm);'>Implied Return Source:</strong> 100% Earnings Compounding (Constant Multiple)"
@@ -1336,7 +1336,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
     <div style='display: flex; flex-direction: column; gap: 8px;'>
         <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
             <div style='font-weight: 600; color: var(--text-title); margin-bottom: 2px;'>Constant Multiple Assumption ({m_mult})</div>
-            <div style='font-size: 0.76rem; color: var(--text-secondary);'>The reverse DCF model assumes zero speculative multiple expansion over 5 years. The multiple remains anchored at today's {m_mult}.</div>
+            <div style='font-size: 0.76rem; color: var(--text-secondary);'>The reverse DCF model assumes zero speculative multiple expansion over 3 years. The multiple remains anchored at today's {m_mult}.</div>
         </div>
         <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 10px 12px;'>
             <div style='font-weight: 600; color: var(--accent-warm); margin-bottom: 2px;'>Required Business Growth ({priced_in_info['implied_growth']})</div>
@@ -1380,7 +1380,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
             <!-- Key Market-Implied Metrics Strip -->
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 10px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 6px; font-family: var(--font-mono); margin: 2px 0;">
                 <div>
-                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Req. 5Y CAGR</div>
+                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Req. 3Y CAGR</div>
                     <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-title); white-space: nowrap;">{priced_in_info['implied_growth']}</div>
                 </div>
                 <div>
@@ -3478,13 +3478,13 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
             </div>
 
-            <!-- Native SVG Area Chart with 5Y Continuation Target Line -->
+            <!-- Native SVG Area Chart with 3Y Continuation Target Line -->
             <div class="native-chart-wrap">
                 <div class="chart-top-bar">
                     <div class="chart-live-val">
                         <span id="tooltip-date">{last_date}</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">${last_price:.2f}</strong>
                         <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
-                        <span style="color: var(--accent-warm); font-size: 0.80rem;">5Y Target: <strong>${target_price:.2f}</strong></span>
+                        <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>${target_price:.2f}</strong></span>
                     </div>
                     <div class="chart-range-pills">
                         <button class="range-pill" onclick="switchRange('1D')">1D</button>
@@ -3512,7 +3512,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                         <text id="grid-price-low" x="{width - padding_x - 6}" y="{height - padding_y - 4}" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
                         <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
                         
-                        <!-- 5Y Target Dotted Line & Tag -->
+                        <!-- 3Y Target Dotted Line & Tag -->
                         <line id="target-line" x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
                         <text id="target-label" x="{width - padding_x - 6}" y="{padding_y - 4}" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: ${target_price:.2f}</text>
 
@@ -3737,7 +3737,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             const drawW = width - (2 * padX);
             const drawH = height - (2 * padY);
 
-            // Dynamically position 5Y Target line and label
+            // Dynamically position 3Y Target line and label
             const targetLine = document.getElementById('target-line');
             const targetLabel = document.getElementById('target-label');
             if (targetLine && targetPrice > 0) {{
@@ -3746,7 +3746,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 targetLine.setAttribute('y2', targetY.toFixed(1));
                 if (targetLabel) {{
                     targetLabel.setAttribute('y', (targetY - 5).toFixed(1));
-                    targetLabel.textContent = '5Y Target: $' + targetPrice.toFixed(2);
+                    targetLabel.textContent = '3Y Target: $' + targetPrice.toFixed(2);
                 }}
             }}
 

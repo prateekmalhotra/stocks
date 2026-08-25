@@ -951,13 +951,13 @@
                 </div>
             </div>
 
-            <!-- Native SVG Area Chart with 5Y Continuation Target Line -->
+            <!-- Native SVG Area Chart with 3Y Continuation Target Line -->
             <div class="native-chart-wrap">
                 <div class="chart-top-bar">
                     <div class="chart-live-val">
                         <span id="tooltip-date">Aug 25, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$201.66</strong>
                         <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
-                        <span style="color: var(--accent-warm); font-size: 0.80rem;">5Y Target: <strong>$129.00</strong></span>
+                        <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$129.00</strong></span>
                     </div>
                     <div class="chart-range-pills">
                         <button class="range-pill" onclick="switchRange('1D')">1D</button>
@@ -985,7 +985,7 @@
                         <text id="grid-price-low" x="884" y="184" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
                         <line x1="10" y1="188" x2="890" y2="188" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
                         
-                        <!-- 5Y Target Dotted Line & Tag -->
+                        <!-- 3Y Target Dotted Line & Tag -->
                         <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
                         <text id="target-label" x="884" y="8" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $129.00</text>
 
@@ -1300,7 +1300,7 @@
             const drawW = width - (2 * padX);
             const drawH = height - (2 * padY);
 
-            // Dynamically position 5Y Target line and label
+            // Dynamically position 3Y Target line and label
             const targetLine = document.getElementById('target-line');
             const targetLabel = document.getElementById('target-label');
             if (targetLine && targetPrice > 0) {
@@ -1309,7 +1309,7 @@
                 targetLine.setAttribute('y2', targetY.toFixed(1));
                 if (targetLabel) {
                     targetLabel.setAttribute('y', (targetY - 5).toFixed(1));
-                    targetLabel.textContent = '5Y Target: $' + targetPrice.toFixed(2);
+                    targetLabel.textContent = '3Y Target: $' + targetPrice.toFixed(2);
                 }
             }
 
@@ -1472,7 +1472,7 @@
                     </div>
                     <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
                         <div style="font-weight: 600; color: var(--text-title); font-size: 0.86rem; margin-bottom: 3px;">Mid-Cycle Run-Rate</div>
-                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Operating near sustainable historical margins and normal unit economics. Reliable baseline for 5-year compounding calculations.</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Operating near sustainable historical margins and normal unit economics. Reliable baseline for 3-year compounding calculations.</div>
                     </div>
                     <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
                         <div style="font-weight: 600; color: #C97A72; font-size: 0.86rem; margin-bottom: 3px;">Peak / Over-Earning Risk</div>

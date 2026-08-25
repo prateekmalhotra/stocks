@@ -15,7 +15,7 @@ MANDATE PRINCIPLES:
    - Factors: Moat Durability (20%), Balance Sheet Fortress (15%), Organic Growth (15%).
    - STRICT INVARIANT: ZERO VALUE TRAPS / ZERO DISTRESSED TURNAROUNDS.
    - Requires Minimum Moat >= 8.5/10.0, Organic Growth >= 6.0%/yr, MoS >= 25.0%.
-   - Sizing: Exponential Kelly scaling on Margin of Safety Asymmetry & Expected 5-Year IRR.
+   - Sizing: Exponential Kelly scaling on Margin of Safety Asymmetry & Expected 3-Year IRR.
 
 COMPLIANCE & ETHICAL INVARIANTS:
 - GOOG / GOOGL: Direct Employer Affiliation.

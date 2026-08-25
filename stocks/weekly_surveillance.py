@@ -72,7 +72,7 @@ def get_ownership_factor(wl_item: dict, meta: dict) -> Tuple[float, float]:
     return whale_score, insider_score
 
 def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float, wl_item: Optional[Dict[str, Any]] = None) -> Dict[str, float]:
-    """Calculates Expected 5-Year IRR and Quality-Adjusted Kelly Edge for all existing and newly ingested stocks."""
+    """Calculates Expected 3-Year IRR and Quality-Adjusted Kelly Edge for all existing and newly ingested stocks."""
     wl_item = wl_item or {}
     meta = TAXONOMY_MAP.get(ticker)
     if not meta:
@@ -125,9 +125,9 @@ def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float, w
     whale_score, insider_score = get_ownership_factor(wl_item, meta)
     
     mos_pct = max(0.0, ((fair_value - current_price) / current_price) * 100.0) if current_price > 0 else 0.0
-    irr_5y = oe_y + cannibal + growth + (mos_pct / 5.0)
+    irr_3y = oe_y + cannibal + growth + (mos_pct / 3.0)
     
-    payoff_b = (mos_pct / 500.0) + (oe_y / 100.0) + (cannibal / 100.0) + (growth / 100.0)
+    payoff_b = (mos_pct / 300.0) + (oe_y / 100.0) + (cannibal / 100.0) + (growth / 100.0)
     q = 1.0 - p
     raw_kelly = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
     
@@ -138,7 +138,7 @@ def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float, w
     kelly_score = max(0.001, raw_kelly * quality_mult)
     
     return {
-        "expected_irr": round(irr_5y, 1),
+        "expected_irr": round(irr_3y, 1),
         "kelly_edge": round(kelly_score * 100.0, 2),
         "moat": moat,
         "bs": bs,

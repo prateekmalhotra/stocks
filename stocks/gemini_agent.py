@@ -1207,7 +1207,7 @@ PARALLEL_STORY_AND_VALUATION_PROMPT = """Target: {ticker} ({company_name})
 Story Archetype: Path {story_num} - {story_archetype}
 
 You are the Lead Equity Research Analyst & Valuation Modeler underwriting Path {story_num} for {company_name}.
-You must formulate this specific operational scenario narrative AND construct its 5-year pro-forma DCF model in complete isolation, 100% blind to market stock price.
+You must formulate this specific operational scenario narrative AND construct its 3-year pro-forma DCF model in complete isolation, 100% blind to market stock price.
 
 AUDITED COMPANY BASELINE (From Section 1 Ground Truth):
 ======================================================================
@@ -1226,15 +1226,15 @@ SECTION 1 CONTEXT EXCERPT:
 YOUR OPERATIONAL MANDATE FOR PATH {story_num} ({story_archetype}):
 1. THE LAW OF BUSINESS INERTIA & HISTORICAL TREND ANCHORING (REALISTIC BUSINESS CALIBRATION):
    - This story MUST start strictly from the exact Y0 audited baseline above (${revenue_mil_y0:.1f}M revenue, {operating_margin_pct_y0:.1f}% operating margin, {diluted_shares_mil_y0:.1f}M shares, ${owner_earnings_per_share_y0:.2f}/sh OE₀).
-   - Real businesses possess immense operational inertia; assumptions must NEVER wildly deviate from historical 3–5 year base trends:
-     * If Path 1 (Central Baseline Trend): Model steady continuation of trailing 3-5Y historical CAGR ({revenue_growth_yoy:+.1f}%) adjusted for natural scale maturation (-50 to -150 bps/yr). This represents the most probable base-case compounding path.
+   - Real businesses possess immense operational inertia; assumptions must NEVER wildly deviate from historical 3-year base trends:
+     * If Path 1 (Central Baseline Trend): Model steady continuation of trailing 3Y historical CAGR ({revenue_growth_yoy:+.1f}%) adjusted for natural scale maturation (-50 to -150 bps/yr). This represents the most probable base-case compounding path.
      * If Path 2 (Downside Friction / Macro Stress): Model realistic cyclical softening, competitor price pressure, and cost inflation (growth slowing by 30%–50% from trend, operating margins compressing by 100–300 bps). NEVER model apocalyptic collapse or negative revenue growth for profitable, entrenched wide-moat compounders!
      * If Path 3 (Upside Acceleration / High-Margin Leverage): Model achievable operating leverage and product adoption (growth accelerating by 20%–35% above trend, operating margins expanding by 100–250 bps). NEVER model speculative 3x hockey-stick fantasy projections!
    - CAPEX DISSECTION STANDARD (BUFFETT 1986): Do NOT subtract 100% of growth/AI data center/expansion CapEx as routine maintenance CapEx. Maintenance CapEx is approximately equal to D&A (~1.0x–1.2x D&A); the rest is discretionary growth capital that expands future cash generation.
-   - SUMMARY MANDATE: The `short_summary` must be a rich 2-sentence summary: Sentence 1 describes concrete operational/business dynamics (products, customers, pricing, competitors), and Sentence 2 states the exact pricing-in math (`Prices in +X.X% 5Y OE CAGR to $Y.YY/sh at Z.Zx exit (W.W%/yr 5Y IRR).`).
+   - SUMMARY MANDATE: The `short_summary` must be a rich 2-sentence summary: Sentence 1 describes concrete operational/business dynamics (products, customers, pricing, competitors), and Sentence 2 states the exact pricing-in math (`Prices in +X.X% 3Y OE CAGR to $Y.YY/sh at Z.Zx exit (W.W%/yr 3Y IRR).`).
 
-2. MANDATORY PYTHON CODE EXECUTION (YEARS 1 TO 5):
-   - You MUST execute Python code using your code execution tool to simulate all 6 periods (Y0 through Y5):
+2. MANDATORY PYTHON CODE EXECUTION (YEARS 1 TO 3):
+   - You MUST execute Python code using your code execution tool to simulate all 4 periods (Y0 through Y3):
      * Line 1: Revenue ($M) = Revenue_{{t-1}} * (1 + g_t)
      * Line 2: Gross Profit ($M) & Gross Margin %
      * Line 3: Operating Income (EBIT $M) & Operating Margin %
@@ -1242,9 +1242,9 @@ YOUR OPERATIONAL MANDATE FOR PATH {story_num} ({story_archetype}):
      * Line 5: True Owner Earnings ($M) = OCF - Maintenance CapEx - SBC
      * Line 6: Diluted Common Shares (M) reflecting net buyback retirement pace
      * Line 7: Per-Share Owner Earnings ($/share) = Owner Earnings_t / Shares_t
-     * Line 8: Year-5 ROIC (%) and Justified Terminal Multiple (M₅ = P/OE₅)
-     * Line 9: 5-Year Target Price / Share (P₅) = (OE₅ * M₅) + Net Cash (or - Net Debt)
-     * Line 10: Present Intrinsic Fair Value (P₀ at 9.5% Hurdle) = P₅ / (1.095)^5
+     * Line 8: Year-3 ROIC (%) and Justified Terminal Multiple (M₃ = P/OE₃)
+     * Line 9: 3-Year Target Price / Share (P₃) = (OE₃ * M₃) + Net Cash (or - Net Debt)
+     * Line 10: Present Intrinsic Fair Value (P₀ at 9.5% Hurdle) = P₃ / (1.095)^3
 
 OUTPUT FORMAT:
 Output:
@@ -1337,13 +1337,13 @@ YOUR CRITICAL SYNTHESIS MANDATE:
      * For secular monopolies with deep moats and stable management, Core Execution carries 50%–65%.
 3. MANDATORY PYTHON CODE EXECUTION FOR VERIFICATION & REVERSE DCF:
    - You MUST write and execute Python code using your code execution tool to compute all final synthesis numbers:
-     * In the 'Projected 5-Year Per-Share OE CAGR (Top-Line Rev CAGR)' row, explicitly format both the Per-Share Owner Earnings CAGR and the Top-Line Revenue CAGR (e.g. `+15.9% (+12.8% Rev)`).
-     * BALANCE SHEET ADJUSTMENT MANDATE: You MUST include the exact Net Balance Sheet Cash / (Debt) per share ({net_cash_str}) in the 'Net Balance Sheet Cash / (Debt) per share Adjustment' row for every path. 5-Year Target Price / Share MUST mathematically equal: (OE₅ * Multiple) + Net_Cash_per_share (or - Net_Debt_per_share).
-     * Probability-Weighted Expected 5Y Target (P₅_expected) = ∑ (p_i * P₅_i)
+     * In the 'Projected 3-Year Per-Share OE CAGR (Top-Line Rev CAGR)' row, explicitly format both the Per-Share Owner Earnings CAGR and the Top-Line Revenue CAGR (e.g. `+15.9% (+12.8% Rev)`).
+     * BALANCE SHEET ADJUSTMENT MANDATE: You MUST include the exact Net Balance Sheet Cash / (Debt) per share ({net_cash_str}) in the 'Net Balance Sheet Cash / (Debt) per share Adjustment' row for every path. 3-Year Target Price / Share MUST mathematically equal: (OE₃ * Multiple) + Net_Cash_per_share (or - Net_Debt_per_share).
+     * Probability-Weighted Expected 3Y Target (P₃_expected) = ∑ (p_i * P₃_i)
      * Probability-Weighted Present Fair Value (P₀_expected) = ∑ (p_i * P₀_i)
      * Probability-Weighted Expected Margin of Safety % = ((P₀_expected - ${current_price:.2f}) / ${current_price:.2f}) * 100%
-     * Probability-Weighted Expected 5Y Price CAGR % = ((P₅_expected / ${current_price:.2f})**(0.2) - 1) * 100%
-     * Reverse DCF: Exact implied 5Y Owner Earnings CAGR priced in at ${current_price:.2f} under market multiple (M₀ = ${current_price:.2f} / ${oe0_per_share:.2f}) and baseline multiple (M_base).
+     * Probability-Weighted Expected 3Y Price CAGR % = ((P₃_expected / ${current_price:.2f})**(1.0/3.0) - 1) * 100%
+     * Reverse DCF: Exact implied 3Y Owner Earnings CAGR priced in at ${current_price:.2f} under market multiple (M₀ = ${current_price:.2f} / ${oe0_per_share:.2f}) and baseline multiple (M_base).
 4. CAPITAL ALLOCATION RECOMMENDATION:
    - BUY (if Expected MoS >= +20%, or >= +25% if heavy insider selling/CEO churn is present), HOLD (if MoS 0% to +20%), CAUTION (if MoS -15% to 0%), AVOID (if MoS < -15%).
 
@@ -1351,7 +1351,7 @@ OUTPUT FORMAT:
 Provide pure semantic HTML containing Section 2 (the combined storyline callouts + Quarterly Monitoring Signposts) and Section 3 (with the complete {num_stories}-Path Valuation Table, Probability Weighting Rationale, Sensitivity Matrix, and Market Inversion & Valuation Synthesis), followed by the complete structured JSON block:
 
 <h2>Section 2: The Probable Future Paths</h2>
-<p>Based on the company's audited statutory filings, segment dynamics, 4-quarter earnings call commentary, and institutional counter-theses, here are the distinct, realistic operational paths covering 90%–95% of the fundamental probability space over the next 3–5 years:</p>
+<p>Based on the company's audited statutory filings, segment dynamics, 4-quarter earnings call commentary, and institutional counter-theses, here are the distinct, realistic operational paths covering 90%–95% of the fundamental probability space over the next 3 years:</p>
 [Assembled callout boxes for Path 1 through Path N]
 
 <div class="callout">
@@ -1388,14 +1388,14 @@ Provide pure semantic HTML containing Section 2 (the combined storyline callouts
   </thead>
   <tbody>
     <tr><td>Starting Normalized Owner Earnings (OE₀) / share</td>...</tr>
-    <tr><td>Projected 5-Year Per-Share OE CAGR (Top-Line Rev CAGR)</td>...</tr>
-    <tr><td>Projected Year-5 Normalized Owner Earnings (OE₅) / share</td>...</tr>
-    <tr><td>Target Terminal Multiple (P/OE₅)</td>...</tr>
+    <tr><td>Projected 3-Year Per-Share OE CAGR (Top-Line Rev CAGR)</td>...</tr>
+    <tr><td>Projected Year-3 Normalized Owner Earnings (OE₃) / share</td>...</tr>
+    <tr><td>Target Terminal Multiple (P/OE₃)</td>...</tr>
     <tr><td>Implied Terminal Owner Cash Yield (%)</td>...</tr>
     <tr><td>Net Balance Sheet Cash / (Debt) per share Adjustment</td>...</tr>
-    <tr><td><strong>5-Year Target Price / Share</strong></td>...</tr>
-    <tr><td>Expected 5-Year Annualized CAGR (vs. ${current_price:.2f})</td>...</tr>
-    <tr><td>Total 5-Year Expected Return (%)</td>...</tr>
+    <tr><td><strong>3-Year Target Price / Share</strong></td>...</tr>
+    <tr><td>Expected 3-Year Annualized CAGR (vs. ${current_price:.2f})</td>...</tr>
+    <tr><td>Total 3-Year Expected Return (%)</td>...</tr>
     <tr><td>Present Intrinsic Fair Value (at 9.5% hurdle rate)</td>...</tr>
     <tr><td>Margin of Safety vs. Current Price (${current_price:.2f})</td>...</tr>
     <tr><td>Probability Weight &amp; Empirical Basis (%)</td>...</tr>
@@ -1417,7 +1417,7 @@ Provide pure semantic HTML containing Section 2 (the combined storyline callouts
         <th>Path Distribution (Downside / Central / Upside)</th>
         <th>Expected Present Fair Value</th>
         <th>Margin of Safety (%)</th>
-        <th>5-Year Target Price</th>
+        <th>3-Year Target Price</th>
       </tr>
     </thead>
     <tbody>
@@ -1430,8 +1430,8 @@ Provide pure semantic HTML containing Section 2 (the combined storyline callouts
 
 <div class="callout">
   <h3>Market Inversion &amp; Valuation Synthesis</h3>
-  <p><strong>Implied Market Reality:</strong> At today's market price of <strong>${current_price:.2f}</strong>, the market is pricing {company_name} at <strong>XX.Xx Normalized Owner Earnings</strong> (an implied Owner Cash Yield of <strong>X.X%</strong>). This implies the market is pricing in an Owner Earnings CAGR of <strong>[+X.X% / -X.X%] / yr</strong> over the next 5 years.</p>
-  <p><strong>Probability-Weighted 5-Year Target Price:</strong> <strong>$XX.XX / share</strong> (Expected 5-Year CAGR: <strong>+X.X% / yr</strong>).</p>
+  <p><strong>Implied Market Reality:</strong> At today's market price of <strong>${current_price:.2f}</strong>, the market is pricing {company_name} at <strong>XX.Xx Normalized Owner Earnings</strong> (an implied Owner Cash Yield of <strong>X.X%</strong>). This implies the market is pricing in an Owner Earnings CAGR of <strong>[+X.X% / -X.X%] / yr</strong> over the next 3 years.</p>
+  <p><strong>Probability-Weighted 3-Year Target Price:</strong> <strong>$XX.XX / share</strong> (Expected 3-Year CAGR: <strong>+X.X% / yr</strong>).</p>
   <p><strong>Probability-Weighted Present Fair Value (9.5% Hurdle):</strong> <strong>$XX.XX / share</strong> (Margin of Safety: <strong>~XX%</strong> vs. today's market price).</p>
   <p><strong>Capital Allocation Recommendation:</strong> [Crisp buy-side verdict based on Graham-Buffett margin of safety hurdle...]</p>
 </div>
@@ -2279,32 +2279,32 @@ def parse_sec3_and_json(raw_text: str, company_name: str, current_price: float, 
                 "val": val,
                 "present_fair_value": pv_val,
                 "mos_pct": round(mos, 1),
-                "target_5y_return_pct": round(ret_5y, 1),
-                "target_5y_cagr_pct": round(cagr_5y, 1),
+                "target_3y_return_pct": round(ret_5y, 1),
+                "target_3y_cagr_pct": round(cagr_5y, 1),
                 "target": f"${val:.2f} ({ret_5y:+.1f}%)",
                 "prob_pct": round(prob * 100.0, 1),
                 "prob_weight": prob,
                 "net_cash_per_share": net_cash_sh,
                 "normalized_oe_per_share": oe_per_sh,
-                "projected_oe5_per_share": oe5_sh,
-                "projected_5y_cagr": cagr_str,
+                "projected_oe3_per_share": oe5_sh,
+                "projected_3y_cagr": cagr_str,
                 "pro_forma_schedule": pro_forma
             })
     else:
         # Fallback if stories JSON block was partial - compute strictly via Owner Earnings compounding
-        p1_oe5 = round(oe_per_sh * (1.08 ** 5), 2) if oe_per_sh > 0 else 0.0
-        p2_oe5 = round(oe_per_sh * (1.14 ** 5), 2) if oe_per_sh > 0 else 0.0
-        p3_oe5 = round(oe_per_sh * (0.98 ** 5), 2) if oe_per_sh > 0 else 0.0
-        p1_val = round(p1_oe5 * 16.0 + net_cash_sh, 2)
-        p2_val = round(p2_oe5 * 20.0 + net_cash_sh, 2)
-        p3_val = round(p3_oe5 * 11.0 + net_cash_sh, 2)
+        p1_oe3 = round(oe_per_sh * (1.08 ** 3), 2) if oe_per_sh > 0 else 0.0
+        p2_oe3 = round(oe_per_sh * (1.14 ** 3), 2) if oe_per_sh > 0 else 0.0
+        p3_oe3 = round(oe_per_sh * (0.98 ** 3), 2) if oe_per_sh > 0 else 0.0
+        p1_val = round(p1_oe3 * 16.0 + net_cash_sh, 2)
+        p2_val = round(p2_oe3 * 20.0 + net_cash_sh, 2)
+        p3_val = round(p3_oe3 * 11.0 + net_cash_sh, 2)
         
         p1_ret = round(((p1_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0
         p2_ret = round(((p2_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0
         p3_ret = round(((p3_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0
-        p1_cagr = round((((p1_val / current_price) ** 0.2 - 1.0) * 100.0), 1) if current_price > 0 else 0.0
-        p2_cagr = round((((p2_val / current_price) ** 0.2 - 1.0) * 100.0), 1) if current_price > 0 else 0.0
-        p3_cagr = round((((p3_val / current_price) ** 0.2 - 1.0) * 100.0), 1) if current_price > 0 else 0.0
+        p1_cagr = round((((p1_val / current_price) ** (1.0 / 3.0) - 1.0) * 100.0), 1) if current_price > 0 else 0.0
+        p2_cagr = round((((p2_val / current_price) ** (1.0 / 3.0) - 1.0) * 100.0), 1) if current_price > 0 else 0.0
+        p3_cagr = round((((p3_val / current_price) ** (1.0 / 3.0) - 1.0) * 100.0), 1) if current_price > 0 else 0.0
         
         stories_metadata = [
             {
@@ -2312,72 +2312,72 @@ def parse_sec3_and_json(raw_text: str, company_name: str, current_price: float, 
                 "id": 1,
                 "story_title": "Path 1: Baseline Compounding",
                 "title": "Path 1: Baseline Compounding",
-                "short_summary": f"Core platform execution and customer retention under guidance. Prices in +8.0% 5Y OE CAGR to ${p1_oe5:.2f}/sh at 16.0x exit ({p1_cagr:+.1f}%/yr 5Y IRR).",
-                "summary": f"Core platform execution and customer retention under guidance. Prices in +8.0% 5Y OE CAGR to ${p1_oe5:.2f}/sh at 16.0x exit ({p1_cagr:+.1f}%/yr 5Y IRR).",
+                "short_summary": f"Core platform execution and customer retention under guidance. Prices in +8.0% 3Y OE CAGR to ${p1_oe3:.2f}/sh at 16.0x exit ({p1_cagr:+.1f}%/yr 3Y IRR).",
+                "summary": f"Core platform execution and customer retention under guidance. Prices in +8.0% 3Y OE CAGR to ${p1_oe3:.2f}/sh at 16.0x exit ({p1_cagr:+.1f}%/yr 3Y IRR).",
                 "oe_multiple": "16.0x",
                 "oe_yield": "6.2%",
                 "terminal_multiple": "16.0x",
                 "val": p1_val,
-                "present_fair_value": round(p1_val / (1.095 ** 5), 2),
-                "mos_pct": round(((p1_val / (1.095 ** 5) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
-                "target_5y_return_pct": p1_ret,
-                "target_5y_cagr_pct": p1_cagr,
+                "present_fair_value": round(p1_val / (1.095 ** 3), 2),
+                "mos_pct": round(((p1_val / (1.095 ** 3) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
+                "target_3y_return_pct": p1_ret,
+                "target_3y_cagr_pct": p1_cagr,
                 "target": f"${p1_val:.2f} ({p1_ret:+.1f}%)",
                 "prob_pct": 65.0,
                 "prob_weight": 0.65,
                 "net_cash_per_share": net_cash_sh,
                 "normalized_oe_per_share": oe_per_sh,
-                "projected_oe5_per_share": p1_oe5,
-                "projected_5y_cagr": "+8.0%",
-                "pro_forma_schedule": synthesize_pro_forma_schedule(oe_per_sh, p1_oe5, p1_val, 16.0, sec1_text=sec1_text)
+                "projected_oe3_per_share": p1_oe3,
+                "projected_3y_cagr": "+8.0%",
+                "pro_forma_schedule": synthesize_pro_forma_schedule(oe_per_sh, p1_oe3, p1_val, 16.0, sec1_text=sec1_text)
             },
             {
                 "story_num": 2,
                 "id": 2,
                 "story_title": "Path 2: High-Margin Expansion",
                 "title": "Path 2: High-Margin Expansion",
-                "short_summary": f"Accelerated enterprise cross-sell and operating margin leverage. Prices in +14.0% 5Y OE CAGR to ${p2_oe5:.2f}/sh at 20.0x exit ({p2_cagr:+.1f}%/yr 5Y IRR).",
-                "summary": f"Accelerated enterprise cross-sell and operating margin leverage. Prices in +14.0% 5Y OE CAGR to ${p2_oe5:.2f}/sh at 20.0x exit ({p2_cagr:+.1f}%/yr 5Y IRR).",
+                "short_summary": f"Accelerated enterprise cross-sell and operating margin leverage. Prices in +14.0% 3Y OE CAGR to ${p2_oe3:.2f}/sh at 20.0x exit ({p2_cagr:+.1f}%/yr 3Y IRR).",
+                "summary": f"Accelerated enterprise cross-sell and operating margin leverage. Prices in +14.0% 3Y OE CAGR to ${p2_oe3:.2f}/sh at 20.0x exit ({p2_cagr:+.1f}%/yr 3Y IRR).",
                 "oe_multiple": "20.0x",
                 "oe_yield": "5.0%",
                 "terminal_multiple": "20.0x",
                 "val": p2_val,
-                "present_fair_value": round(p2_val / (1.095 ** 5), 2),
-                "mos_pct": round(((p2_val / (1.095 ** 5) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
-                "target_5y_return_pct": p2_ret,
-                "target_5y_cagr_pct": p2_cagr,
+                "present_fair_value": round(p2_val / (1.095 ** 3), 2),
+                "mos_pct": round(((p2_val / (1.095 ** 3) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
+                "target_3y_return_pct": p2_ret,
+                "target_3y_cagr_pct": p2_cagr,
                 "target": f"${p2_val:.2f} ({p2_ret:+.1f}%)",
                 "prob_pct": 20.0,
                 "prob_weight": 0.20,
                 "net_cash_per_share": net_cash_sh,
                 "normalized_oe_per_share": oe_per_sh,
-                "projected_oe5_per_share": p2_oe5,
-                "projected_5y_cagr": "+14.0%",
-                "pro_forma_schedule": synthesize_pro_forma_schedule(oe_per_sh, p2_oe5, p2_val, 20.0, sec1_text=sec1_text)
+                "projected_oe3_per_share": p2_oe3,
+                "projected_3y_cagr": "+14.0%",
+                "pro_forma_schedule": synthesize_pro_forma_schedule(oe_per_sh, p2_oe3, p2_val, 20.0, sec1_text=sec1_text)
             },
             {
                 "story_num": 3,
                 "id": 3,
                 "story_title": "Path 3: Margin Friction & Multiple Drag",
                 "title": "Path 3: Margin Friction & Multiple Drag",
-                "short_summary": f"Competitive friction, customer churn, and multiple contraction. Prices in -2.0% 5Y OE CAGR to ${p3_oe5:.2f}/sh at 11.0x exit ({p3_cagr:+.1f}%/yr 5Y IRR).",
-                "summary": f"Competitive friction, customer churn, and multiple contraction. Prices in -2.0% 5Y OE CAGR to ${p3_oe5:.2f}/sh at 11.0x exit ({p3_cagr:+.1f}%/yr 5Y IRR).",
+                "short_summary": f"Competitive friction, customer churn, and multiple contraction. Prices in -2.0% 3Y OE CAGR to ${p3_oe3:.2f}/sh at 11.0x exit ({p3_cagr:+.1f}%/yr 3Y IRR).",
+                "summary": f"Competitive friction, customer churn, and multiple contraction. Prices in -2.0% 3Y OE CAGR to ${p3_oe3:.2f}/sh at 11.0x exit ({p3_cagr:+.1f}%/yr 3Y IRR).",
                 "oe_multiple": "11.0x",
                 "oe_yield": "9.1%",
                 "terminal_multiple": "11.0x",
                 "val": p3_val,
-                "present_fair_value": round(p3_val / (1.095 ** 5), 2),
-                "mos_pct": round(((p3_val / (1.095 ** 5) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
-                "target_5y_return_pct": p3_ret,
-                "target_5y_cagr_pct": p3_cagr,
+                "present_fair_value": round(p3_val / (1.095 ** 3), 2),
+                "mos_pct": round(((p3_val / (1.095 ** 3) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
+                "target_3y_return_pct": p3_ret,
+                "target_3y_cagr_pct": p3_cagr,
                 "target": f"${p3_val:.2f} ({p3_ret:+.1f}%)",
                 "prob_pct": 15.0,
                 "prob_weight": 0.15,
                 "net_cash_per_share": net_cash_sh,
                 "normalized_oe_per_share": oe_per_sh,
-                "projected_oe5_per_share": p3_oe5,
-                "projected_5y_cagr": "-2.0%",
-                "pro_forma_schedule": synthesize_pro_forma_schedule(oe_per_sh, p3_oe5, p3_val, 11.0, sec1_text=sec1_text)
+                "projected_oe3_per_share": p3_oe3,
+                "projected_3y_cagr": "-2.0%",
+                "pro_forma_schedule": synthesize_pro_forma_schedule(oe_per_sh, p3_oe3, p3_val, 11.0, sec1_text=sec1_text)
             }
         ]
 
