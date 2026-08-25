@@ -14,11 +14,11 @@ load_dotenv()
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
-DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
+DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.7-flash")
 _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
 GEMINI_MODELS_LADDER = [
-    "gemini-3.6-flash",
     "gemini-3.7-flash",
+    "gemini-3.6-flash",
     "gemini-3.5-flash"
 ]
 if DEFAULT_GEMINI_MODEL not in GEMINI_MODELS_LADDER:
@@ -676,9 +676,8 @@ def call_gemini_with_search(
     if override_model and override_model in GEMINI_MODELS_LADDER:
         models_to_try = [override_model] + [m for m in GEMINI_MODELS_LADDER if m != override_model]
     else:
-        current_model = get_active_model()
-        start_idx = GEMINI_MODELS_LADDER.index(current_model) if current_model in GEMINI_MODELS_LADDER else 0
-        models_to_try = GEMINI_MODELS_LADDER[start_idx:]
+        # Prioritize primary 3.7-flash, then 3.6-flash, then 3.5-flash for every new request
+        models_to_try = list(GEMINI_MODELS_LADDER)
         
     last_err = None
     for model_name in models_to_try:
@@ -686,7 +685,7 @@ def call_gemini_with_search(
         max_retries = 3
         for attempt in range(1, max_retries + 1):
             try:
-                response = session.post(url, json=payload, timeout=180)
+                response = session.post(url, json=payload, timeout=90)
                 if response.status_code == 200:
                     res_json = response.json()
                     candidate = res_json.get("candidates", [{}])[0]
@@ -699,7 +698,7 @@ def call_gemini_with_search(
                         fallback_prompt = prompt + "\n\nCRITICAL: Paraphrase all data in your own original analytical words. Do NOT quote verbatim text."
                         payload["contents"] = [{"parts": [{"text": fallback_prompt}]}]
                         payload["generationConfig"]["temperature"] = 0.7
-                        retry_res = session.post(url, json=payload, timeout=180)
+                        retry_res = session.post(url, json=payload, timeout=60)
                         if retry_res.status_code == 200:
                             retry_json = retry_res.json()
                             retry_parts = retry_json.get("candidates", [{}])[0].get("content", {}).get("parts", [])
@@ -709,20 +708,25 @@ def call_gemini_with_search(
                                 
                     return "Analysis completed."
                 elif response.status_code in (500, 502, 503, 504, 429):
+                    last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
+                    if attempt < max_retries:
+                        sleep_s = (1.5 * attempt) + random.uniform(0.5, 1.5)
+                        time.sleep(sleep_s)
+                        continue
                     if model_name != models_to_try[-1]:
                         switch_to_fallback_model(f"HTTP {response.status_code}")
-                        break
-                    else:
-                        last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
                         break
                 else:
                     last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
             except (requests.RequestException, Exception) as req_err:
+                last_err = RuntimeError(f"Gemini API network error: {req_err}")
+                if attempt < max_retries:
+                    sleep_s = (1.5 * attempt) + random.uniform(0.5, 1.5)
+                    time.sleep(sleep_s)
+                    continue
                 if model_name != models_to_try[-1]:
                     switch_to_fallback_model(f"Exception: {req_err}")
                     break
-                last_err = RuntimeError(f"Gemini API network error: {req_err}")
-                break
 
     if last_err:
         raise last_err
@@ -2642,6 +2646,10 @@ CURRENCY & FINANCIAL SCALE MANDATE (CRITICAL FOR US & GLOBAL ADRs):
 - For European/UK/Japanese listings, convert EUR/GBP/JPY to USD.
 - DO NOT report single-digit millions or scaled-down figures for mega-cap enterprises! Verify that Market Cap roughly equals Current Price * Diluted Shares.
 
+RETRIEVED OPERATIONAL REALITY & SEQUENTIAL RESULTS:
+{reality_facts[:2500]}
+
+FINANCIAL FIELDS TO EXTRACT (in $M USD):
 - Market Capitalization ($M USD)
 - Diluted Shares Outstanding (Millions)
 - Trailing 12-Month Revenue ($M USD)
@@ -2758,6 +2766,8 @@ Return ONLY a valid JSON object matching this schema:
     if oe_total < oe_from_ni * 0.6 and oe_from_ni > 0:
         oe_total = oe_from_ni
         
+    oe_per_share = oe_total / shares if shares > 0 else 0.0
+    
     net_cash_total = cash - debt
     net_cash_per_share = net_cash_total / shares if shares > 0 else 0.0
     
