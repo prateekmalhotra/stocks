@@ -1,5 +1,107 @@
 [
   {
+    "id": "alert-nbis-1787764865",
+    "ticker": "NBIS",
+    "timestamp": "2026-08-26 17:21",
+    "title": "NBIS: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "SEC 6-K Filing (2026-08-26): FORM 6-K [Accession #0001104659-26-101076]",
+    "what_was_before": "In operational reality, Nebius is delivering massive top-line acceleration as demand for high-density AI compute remains severely supply-constrained globally. Operating at an annualized revenue run-rate of $1,000.0M (supported by Q2 2026 revenue of $",
+    "what_changes_now": "Operationally, Nebius is executing a rapid short-term infrastructure scale-up. In Q2 2026, consolidated revenue surged 454% YoY to $582.3M, representing an annualized revenue run-rate of $2,329.2M (and an exit ARR of $3.0B). Gross margins expanded to 77.0%, while Core AI Cloud Adjusted EBITDA margins reached 50.0%, driven by capacity sell-outs and uncommitted Blackwell cluster auctions clearing 15% above previous peak pricing.\n\nThe company has expanded its contracted power pipeline to 5.0 GW, with 800 MW to 1.0 GW on track to be fully connected by year-end 2026. Furthermore, Nebius has secured landmark long-term multi-year enterprise contracts, including a 5-year, ~$3.0B commitment with Meta and key capacity deliveries to Microsoft, expanding customer deferred prepayments to between $5.98B and $9.00B to self-fund roughly 50% to 60% of near-term GPU fleet CapEx.\n\nCapital allocation remains entirely focused on capacity buildout, with $0 dedicated to dividends or share buybacks. To supplement customer prepayments, Nebius recently completed a $5.75B private offering of convertible senior notes alongside ATM equity lines, closing Q2 2026 with $8,042.1M in liquid cash against $8,500.0M in total debt liabilities, yielding a net debt position of $-458M ($-1.68 per share).",
+    "price_at_alert": 215.11,
+    "price_change_pct": -1.83,
+    "report_url": "reports/NBIS.html"
+  },
+  {
+    "id": "alert-khc-1787764184",
+    "ticker": "KHC",
+    "timestamp": "2026-08-26 17:09",
+    "title": "KHC: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "SEC 8-K Filing (2026-08-26): Item 3.01: Notice of Delisting or Failure to Satisfy a Continued Listing Rule; Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001637459-26-000057]",
+    "what_was_before": "",
+    "what_changes_now": "Despite headline GAAP net losses driven by non-cash impairment charges, Kraft Heinz generates stable underlying free cash flow. In Q2 2026, net sales reached $6,262.0M (an annualized run-rate of $25,048.0M) with gross margin at 32.4% (adjusted gross margin at 34.1%). The operating profile exhibits clear category divergence: North America organic sales contracted -2.7% YoY due to center-store volume softness, while Emerging Markets delivered double-digit top-line momentum (+10.4% YoY) and Away-From-Home channels preserved positive volume trajectories.\n\nUnder CEO Steve Cahillane, corporate strategy has pivoted away from immediate structural separation to prioritize operational execution and brand equity restoration. Strategic commercial reinvestment was scaled to ~$700M in 2026, targeted at digital supply chain automation, packaging reformulations, and R&D across Taste Elevation pillars (Heinz, Philadelphia, Kraft Mac & Cheese). Category tracking indicates brand market share stability improved to 35% in early 2026, with Taste Elevation platforms maintaining or expanding retail share across 87% of core product lines.\n\nCash generation remains solid, with six-month operating cash flow of $2,100.0M and free cash flow of $1,700.0M, reflecting cash conversion exceeding 115%. While share repurchases remain paused to direct surplus cash toward balance sheet deleveraging, the $0.40 quarterly dividend ($1.60 per share annualized; ~$1,898.0M annual cash requirement) remains fully funded by recurring cash flow.",
+    "price_at_alert": 24.57,
+    "price_change_pct": -3.95,
+    "report_url": "reports/KHC.html"
+  },
+  {
+    "id": "alert-gsk-1787763602",
+    "ticker": "GSK",
+    "timestamp": "2026-08-26 17:00",
+    "title": "GSK: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 6-K Filing (2026-08-26): DIRECTOR/PDMR SHAREHOLDING [Accession #0001654954-26-007877]",
+    "what_was_before": "GSK's real-time commercial operations demonstrate robust near-term execution led by Specialty Medicines, offsetting mature segment drag. The business operates at an annualized run-rate of $44,601.3M in revenue with a reported gross margin of 78.5%. O",
+    "what_changes_now": "Despite widespread market skepticism, GSK's operational results across the last four consecutive quarters (Q3 2025 through Q2 2026) demonstrate robust fundamental momentum. In Q2 2026, total sales reached \u00a38.41B ($11.15B), reflecting +5% YoY growth at constant exchange rates (CER) and establishing a current real-time annualized run-rate of $44,600.0M. Gross margins expanded 250 basis points YoY to 74.0%, propelled by a favorable mix shift toward high-margin Specialty Medicines (+14% CER) and Vaccines (+8% CER), which now represent over 68% of total group turnover. Core operating margin remained firm at 33.3%.\n\nOperational volume units across core franchises show high-yield patient adoption. In Specialty Medicines, HIV long-acting regimens Cabenuva (+33% CER) and Apretude (+39% CER) achieved record conversions, holding a 77% switch capture rate among US patients moving off daily oral therapy. Oncology anchors Jemperli (+40% CER) and specialized respiratory asset Nucala (+19% CER) continue to gain market share in primary endometrial cancer and severe eosinophilic asthma/EGPA. While US Medicare Part D redesign pressured General Medicines (-9% CER), Vaccines demonstrated resilience as international Shingrix expansion (+8% CER) and Australian government tender wins for Arexvy offset US ACIP policy headwinds.\n\nCapital allocation has been executed with disciplined agility. GSK fully completed its \u00a32.0B share buyback program while maintaining positive operating cash generation (\u00a34.3B in H1 2026). On July 15, 2026, management closed the \u00a37.1B ($9.0B) cash acquisition of Nuvalent, acquiring high-selectivity ROS1/ALK targeted oncology candidates to secure post-2027 revenue. Concurrently, management launched its 'Accelerate Growth' program, targeting \u00a31.9B in annual structural cost savings by 2029 (\u00a32.1B cash cost) to fund 20+ Phase III clinical trial starts in 2026 without sacrificing operational profitability.",
+    "price_at_alert": 51.69,
+    "price_change_pct": -1.37,
+    "report_url": "reports/GSK.html"
+  },
+  {
+    "id": "alert-bti-1787763029",
+    "ticker": "BTI",
+    "timestamp": "2026-08-26 16:50",
+    "title": "BTI: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 6-K Filing (2026-08-26): PRESS RELEASE [Accession #0000950157-26-000955]",
+    "what_was_before": "British American Tobacco is currently delivering mixed sequential operational performance across its dual-engine portfolio. The legacy combustible engine generates steady short-term cash flow through pricing realization (+6.8% price/mix yield) offsetting global stick volume declines (-4.7% YoY). In APMEA, operating profit contracted sharply (-16.5% YoY), impacted by market disruption in Bangladesh and Australia. Gross margins hold at 59.1% on an annualized revenue run-rate of $64,880.0M ($16,220.0M in the latest quarter).\n\nIn Smokeless and New Categories, consumer reach expanded to 35.0 million active users. Modern Oral (Velo/Velo Plus) delivered strong momentum with 7.9 billion pouches shipped in H1 2026 (+52.5% YoY volume growth), and U.S. Vapour (Vuse) achieved 15.6% reported revenue growth behind expanded value share (55.9%). However, Heated Tobacco (glo) continues to lag, contracting -12% YoY due to aggressive competitive pressure from IQOS in Europe and Asia.\n\nTrailing free cash flow generation remains healthy, supporting H1 2026 operational cash conversion above 95% and funding a \u00a31.3B annual buyback program alongside steady dividend distributions. Net debt remains elevated at $40,950M ($-18.98/share), keeping leverage near the top of management's target corridor.",
+    "what_changes_now": "Despite public equity skepticism, British American Tobacco's real-time operational engine is delivering disciplined, cash-generative performance. The company is generating a current annualized revenue run-rate of $63,648.0M with gross margins expanding to 66.5% and adjusted operating margins holding firm at ~43.7%\u201344.0%. Group constant-currency revenue expanded +2.9%, anchored by a strong 8.5% revenue surge in the US market as multi-category commercial deployment gains structural momentum.\n\nOperational volume units demonstrate a business undergoing a deliberate portfolio transformation rather than terminal decay. BTI currently serves 35.0 Million active Smokeless product consumers (across Vuse, glo, and Velo) alongside 465 Billion annualized cigarette units. The Smokeless portfolio now represents 19.8% of group revenue, led by Modern Oral (Velo), which surged +65.9% in H1 2026 and captured ~90% of US category value growth via Velo Plus. Concurrently, heightened FDA and state-level enforcement against unauthorized Chinese disposable vapes has allowed Vuse to regain market share and return to double-digit growth in legal channels.\n\nFrom a financial and capital allocation standpoint, free cash flow rebounded strongly following the non-recurrence of upfront Canadian litigation settlement payments. Operating cash conversion remains trackable above 95%, fully supporting the \u00a31.3 billion annual share buyback program while steadily de-leveraging net balance sheet debt toward management's target corridor of 2.0x\u20132.5x net debt/EBITDA by year-end.",
+    "price_at_alert": 57.58,
+    "price_change_pct": 2.44,
+    "report_url": "reports/BTI.html"
+  },
+  {
+    "id": "alert-baba-1787762130",
+    "ticker": "BABA",
+    "timestamp": "2026-08-26 16:35",
+    "title": "BABA: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "SEC 6-K Filing (2026-08-26): FORM 6-K [Accession #0001104659-26-101020]",
+    "what_was_before": "Despite headline cash burn concerns, Alibaba's underlying operating engine demonstrates clear momentum in segment monetization and enterprise AI adoption across sequential quarters. Consolidated trailing 12-month revenue reached $146,148.0 million, with the latest quarter generating $37,615.8 million (up 9% YoY), establishing a current annualized run-rate of $150,463.2 million at a gross margin of 38.2%. The structural reorganization into four distinct business groups (Alibaba E-commerce Group, AI Cloud and Compute Services, AI Labs and Applications, and All Other) clarifies capital deployment.\n\nAI Cloud & Compute Services experienced rapid top-line acceleration, with external commercialization revenue expanding 45% YoY in the latest quarter (a 22-quarter high). AI-related product revenue achieved its 12th consecutive quarter of triple-digit growth, reaching an annualized run-rate of $7.3 billion (RMB 49.5 billion) and accounting for 35% of external cloud revenue, while Model-as-a-Service (MaaS) ARR surpassed RMB 16 billion. Operational leverage within Cloud Intelligence expanded segment Adjusted EBITA margins to 12.0% (RMB 5.63 billion EBITA).\n\nConcurrently, China Quick Commerce revenue surged 45% YoY to RMB 53.3 billion as order density improved unit economics, and International Digital Commerce (AIDC) narrowed operational losses. While aggressive AI hardware outlays (RMB 67.7 billion quarterly CapEx) drove quarterly FCF to -$6.58 billion (-RMB 44.7 billion), Alibaba maintains liquidity with cash and short-term investments of $66,363.6 million offset by $40,860.0 million in total debt, preserving net cash of $25,504 million ($10.56 per share).",
+    "what_changes_now": "Operationally, Alibaba presents two sharply diverging trajectories across its business units in the latest consecutive quarterly releases (Q2\u2013Q4 FY2026 through Q1 FY2027 / June 2026 quarter). On one hand, AI Cloud and Compute Services are demonstrating robust top-line momentum. External Cloud revenue growth accelerated to +45% YoY to RMB 48.44B ($7.14B) in the June 2026 quarter, driven by 12 consecutive quarters of triple-digit growth in AI-related products, which now operate at an annualized run-rate exceeding RMB 49.5B ($7.3B). Cloud EBITA margins expanded to 12.0%, supported by active enterprise compute instances and proprietary T-Head processor deployments.\n\nOn the other hand, the domestic commerce engine is bearing severe financial strain to defend transaction density across 1.0B active consumers and ~10M active merchants. Core Customer Management Revenue contracted 7% YoY (or +1% on a like-for-like basis) as Alibaba subsidized merchants and funded new business development programs to combat Douyin and PDD. Quick Commerce (Taobao Instant Commerce & Freshippo) surged +45% YoY to RMB 53.30B, but promotional campaigns and logistics subsidies continue to dilute consolidated profitability, holding gross margins at 34.0%.\n\nCapital allocation has shifted decisively toward capital expenditures and liquidity preservation. Driven by server procurement and hyperscale data center construction, quarterly CapEx surged 75% YoY to RMB 67.68B ($9.98B), driving quarterly consolidated Free Cash Flow into a negative RMB 44.67B (-$6.58B) outflow. Management effectively paused open-market share repurchases ($162M spent in Q1 FY27 vs. $4.1B quarterly historically) and issued an HK$80B ($10.2B) ordinary share placement at HK$112.70 per share (~3.6% dilution) to fund its 3-year RMB 380B AI buildout program.",
+    "price_at_alert": 120.42,
+    "price_change_pct": 0.9,
+    "report_url": "reports/BABA.html"
+  },
+  {
+    "id": "alert-anf-1787760565",
+    "ticker": "ANF",
+    "timestamp": "2026-08-26 16:09",
+    "title": "ANF: Valuation Re-evaluated (Weak Moat)",
+    "severity": "Weak Moat",
+    "labels": [
+      "Weak Moat"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 8-K Filing (2026-08-26): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001018840-26-000041]",
+    "what_was_before": "In operational reality, Abercrombie & Fitch is executing well above historical cyclical baselines. Real-time operations reflect an annualized revenue run-rate of $1,000.0M, driven by active commercial volume units maintaining high full-price realizat",
+    "what_changes_now": "Despite market skepticism regarding peak margins, Abercrombie & Fitch's real-time operational execution remains robust across its multi-brand portfolio. Over the last four consecutive quarters (Q3 FY25 through Q2 FY26), net sales progressed sequentially from $1,290.6M to $1,670.0M, $1,113.8M, and $1,266.7M, marking 15 consecutive quarters of top-line growth and establishing a real-time annualized revenue run-rate of $5,066.8M. Performance across banners is led by the core Abercrombie brand (+8.0% net sales growth, +4% comps in Q2 FY26), offsetting softer comp trends (-3%) at Hollister, while APAC sales surged +19% YoY.\n\nGross margin execution remains structurally strong at 65.5%, supported by disciplined inventory control (flat YoY at cost) and low clearance activity. While Q2 GAAP operating margin hit 19.9% due to the $100M IEEPA tariff refund, underlying core operating margin was healthy at ~12.0%. The company operates a clean balance sheet with zero funded debt and $638.0M in net cash ($14.48/share). Management has aggressively allocated capital to share repurchases, deploying $282M (~3.2M shares, or 7% of beginning shares) in 1H FY26 alone and raising full-year buyback targets to at least $500M. Combined with high audited ROIC (65.7%), management continues to optimize store footprint density across 750+ omnichannel retail stores.",
+    "price_at_alert": 153.23,
+    "price_change_pct": 40.57,
+    "report_url": "reports/ANF.html"
+  },
+  {
     "id": "alert-tsm-1787674189",
     "ticker": "TSM",
     "timestamp": "2026-08-25 16:09",
