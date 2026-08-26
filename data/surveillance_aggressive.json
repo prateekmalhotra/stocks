@@ -1,13 +1,13 @@
 {
   "portfolio_type": "aggressive",
   "portfolio_label": "Wealthsimple (Aggressive Alpha)",
-  "last_run_date": "2026-08-19",
-  "last_run_timestamp": "2026-08-19T18:38:17.596105",
+  "last_run_date": "2026-08-26",
+  "last_run_timestamp": "2026-08-26T17:27:42.941746",
   "status": "EXECUTED",
   "status_display": "SURVEILLANCE ACTIONS EXECUTED (1 ACTIONS)",
   "action_required": false,
   "verdict_summary": "Council executed 1 high-conviction decision(s): SURPLUS CASH DEPLOYMENT (BUY).",
-  "total_universe_scanned": 7,
+  "total_universe_scanned": 114,
   "active_holdings_verified": 0,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
@@ -28,46 +28,46 @@
     "cash_directive": "Cash reserves (100.00%) exceed target (18.56%). Ready for opportunistic deployment.",
     "formula_description": "Tactical Strike Reserve (18.56%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +20.00% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-08-26",
+  "next_scheduled_run": "2026-09-02",
   "holdings_health": [],
   "top_watchlist_on_radar": [
     {
-      "ticker": "LULU",
-      "company_name": "lululemon athletica inc.",
-      "price": 119.45,
-      "fair_value": 188.69,
-      "mos_pct": 57.97,
-      "expected_irr": 33.4,
-      "kelly_edge": 26.19,
-      "moat_score": 9.2
+      "ticker": "MELI",
+      "company_name": "MercadoLibre, Inc.",
+      "price": 1922.73,
+      "fair_value": 10123.88,
+      "mos_pct": 426.54,
+      "expected_irr": 167.3,
+      "kelly_edge": 64.38,
+      "moat_score": 9.5
     },
     {
-      "ticker": "JD",
-      "company_name": "JD.com, Inc.",
-      "price": 29.35,
-      "fair_value": 63.18,
-      "mos_pct": 115.26,
-      "expected_irr": 43.8,
-      "kelly_edge": 25.81,
-      "moat_score": 9.0
+      "ticker": "META",
+      "company_name": "Meta Platforms, Inc.",
+      "price": 549.9,
+      "fair_value": 1064.84,
+      "mos_pct": 93.64,
+      "expected_irr": 52.8,
+      "kelly_edge": 59.22,
+      "moat_score": 9.7
     },
     {
-      "ticker": "BMBL",
-      "company_name": "Bumble Inc.",
-      "price": 2.79,
-      "fair_value": 20.29,
-      "mos_pct": 627.24,
-      "expected_irr": 139.4,
-      "kelly_edge": 20.17,
-      "moat_score": 7.5
+      "ticker": "FICO",
+      "company_name": "Fair Isaac Corporation",
+      "price": 1172.67,
+      "fair_value": 1648.25,
+      "mos_pct": 40.56,
+      "expected_irr": 35.2,
+      "kelly_edge": 54.37,
+      "moat_score": 9.9
     }
   ],
   "rebalance_proposals": [
     {
-      "date": "2026-08-19",
+      "date": "2026-08-26",
       "action": "SURPLUS CASH DEPLOYMENT (BUY)",
-      "ticker": "LULU",
-      "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder LULU (Moat: 9.2/10, MoS: +58.0%, Kelly Edge: 26.19)",
+      "ticker": "MELI",
+      "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder MELI (Moat: 9.5/10, MoS: +426.5%, Kelly Edge: 64.38)",
       "weight_delta": "+8.0%",
       "verification_status": "Audited & Executed by Autonomous Surveillance Council"
     }
