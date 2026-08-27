@@ -3,8 +3,10 @@ stocks.moving_average_surveillance
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Autonomous Technical Reversal & Quad-Moving Average Breakout Surveillance Engine.
 
-Monitors all watchlist stocks for regime flips and bullish trend reversals where
-a stock breaks out and crosses UP ALL 4 moving averages (5-Day, 21-Day, 50-Day, and 200-Day SMAs).
+Features:
+- High-conviction Major Institutional MA Reclaim Filter (reclaiming 50D or 200D SMA).
+- 0.5% Minimum Breakout Clearance Buffer (eliminates hovering noise and whipsaws).
+- 14-Day Trailing Cooldown State Machine (prevents alert bombardment & duplicate alerts).
 """
 
 import json
@@ -13,9 +15,33 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 
 from stocks.models import AlertItem, TaskItem, WatchlistStock
-from stocks.data_store import load_watchlist, load_alerts, add_alert
+from stocks.data_store import load_watchlist, load_alerts, add_alert, DATA_DIR
 from stocks.queue_manager import enqueue_task
 from stocks.tracker import fetch_all_chart_ranges_cached
+
+REGIMES_FILE = DATA_DIR / "ma_regimes.json"
+COOLDOWN_DAYS = 14
+
+
+def load_ma_regimes() -> Dict[str, Any]:
+    """Loads persistent moving average regime and cooldown state."""
+    if not REGIMES_FILE.exists():
+        return {}
+    try:
+        with open(REGIMES_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def save_ma_regimes(regimes: Dict[str, Any]):
+    """Persists moving average regime and cooldown state."""
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    try:
+        with open(REGIMES_FILE, "w", encoding="utf-8") as f:
+            json.dump(regimes, f, indent=2)
+    except Exception:
+        pass
 
 
 def compute_sma(prices: List[float], period: int) -> float:
@@ -28,12 +54,12 @@ def compute_sma(prices: List[float], period: int) -> float:
 
 def detect_quad_ma_reversal(ticker: str, points: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
     """
-    Analyzes historical daily candles to detect a Bullish Quad-MA Reversal.
+    Analyzes historical daily candles to detect a High-Conviction Bullish Quad-MA Reversal.
     
     A stock qualifies if:
-    1. Current price is ABOVE ALL 4 moving averages: 5D, 21D, 50D, and 200D SMAs.
-    2. In the previous session (or within the last 1-3 trading days), price was
-       trading BELOW at least one of these moving averages (the 'Cross UP' breakout event).
+    1. Current price is ABOVE ALL 4 moving averages: 5D, 21D, 50D, and 200D SMAs with >= 0.5% clearance.
+    2. In recent sessions (T-1 to T-3), price was trading BELOW a MAJOR institutional moving average
+       (the 50-day SMA or 200-day SMA), representing a true regime breakout rather than a micro-wiggle.
     """
     if not points or len(points) < 10:
         return None
@@ -67,32 +93,19 @@ def detect_quad_ma_reversal(ticker: str, points: List[Dict[str, Any]]) -> Option
     sma50_prev3 = compute_sma(prev3_prices, 50)
     sma200_prev3 = compute_sma(prev3_prices, 200)
 
-    # Condition 1: Currently ABOVE ALL 4 Moving Averages
-    above_all_now = (
-        p_curr > sma5_curr and
-        p_curr > sma21_curr and
-        p_curr > sma50_curr and
-        p_curr > sma200_curr
-    )
+    max_ma_curr = max(sma5_curr, sma21_curr, sma50_curr, sma200_curr)
 
-    if not above_all_now:
+    # Condition 1: Currently ABOVE ALL 4 Moving Averages with >= 0.5% clearance buffer
+    if p_curr < max_ma_curr * 1.005:
         return None
 
-    # Condition 2: Recently (T-1 or T-3) was BELOW at least one Moving Average (Cross UP breakout)
-    below_at_prev1 = (
-        p_prev <= sma5_prev or
-        p_prev <= sma21_prev or
-        p_prev <= sma50_prev or
-        p_prev <= sma200_prev
-    )
-    below_at_prev3 = (
-        p_prev3 <= sma5_prev3 or
-        p_prev3 <= sma21_prev3 or
-        p_prev3 <= sma50_prev3 or
-        p_prev3 <= sma200_prev3
+    # Condition 2: Must be a MAJOR institutional reclaim (was below 50D SMA or 200D SMA in prior 3 sessions)
+    was_below_major = (
+        p_prev <= sma50_prev or p_prev <= sma200_prev or
+        p_prev3 <= sma50_prev3 or p_prev3 <= sma200_prev3
     )
 
-    if not (below_at_prev1 or below_at_prev3):
+    if not was_below_major:
         return None
 
     # Identify which specific moving averages were reclaimed during this reversal
@@ -107,9 +120,10 @@ def detect_quad_ma_reversal(ticker: str, points: List[Dict[str, Any]]) -> Option
         reclaimed.append("5D SMA")
 
     if not reclaimed:
-        reclaimed = ["5D SMA", "21D SMA"]
+        reclaimed = ["50D SMA", "21D SMA"]
 
     # Metrics & clearance margins
+    clearance_max_pct = ((p_curr - max_ma_curr) / max_ma_curr) * 100.0 if max_ma_curr > 0 else 0.0
     clearance_200_pct = ((p_curr - sma200_curr) / sma200_curr) * 100.0 if sma200_curr > 0 else 0.0
     clearance_50_pct = ((p_curr - sma50_curr) / sma50_curr) * 100.0 if sma50_curr > 0 else 0.0
     clearance_21_pct = ((p_curr - sma21_curr) / sma21_curr) * 100.0 if sma21_curr > 0 else 0.0
@@ -126,6 +140,7 @@ def detect_quad_ma_reversal(ticker: str, points: List[Dict[str, Any]]) -> Option
         "sma21": round(sma21_curr, 2),
         "sma50": round(sma50_curr, 2),
         "sma200": round(sma200_curr, 2),
+        "clearance_max_pct": round(clearance_max_pct, 2),
         "clearance_200_pct": round(clearance_200_pct, 2),
         "clearance_50_pct": round(clearance_50_pct, 2),
         "clearance_21_pct": round(clearance_21_pct, 2),
@@ -137,8 +152,8 @@ def detect_quad_ma_reversal(ticker: str, points: List[Dict[str, Any]]) -> Option
 def check_moving_average_reversal_triggers(watchlist: Optional[Dict[str, WatchlistStock]] = None) -> int:
     """
     Autonomous Surveillance Check:
-    Scans all watchlist stocks for Quad-MA Bullish Reversal Crossovers.
-    Emits formal AlertItems and enqueues tasks for any detected regime breakouts.
+    Scans all watchlist stocks for Quad-MA Bullish Reversal Crossovers with 14-day Cooldown.
+    Emits formal AlertItems only for fresh, high-conviction regime breakouts.
     """
     if watchlist is None:
         watchlist = load_watchlist()
@@ -147,29 +162,45 @@ def check_moving_average_reversal_triggers(watchlist: Optional[Dict[str, Watchli
         return 0
 
     triggered_count = 0
-    today_str = datetime.now().strftime("%Y-%m-%d")
+    now = datetime.now()
+    today_str = now.strftime("%Y-%m-%d")
+    existing_regimes = load_ma_regimes()
     existing_alerts = load_alerts()
 
-    # Fast set of already alerted tickers today for MA reversal
-    already_alerted_today = {
-        a.ticker.upper() for a in existing_alerts
-        if a.timestamp.startswith(today_str) and ("Quad-MA" in a.title or "Reversal" in a.title)
-    }
+    # Fast set of already alerted tickers in memory/history within cooldown
+    cooldown_tickers = set()
+    for tk, r_data in existing_regimes.items():
+        last_dt_str = r_data.get("last_alert_timestamp") or r_data.get("last_alert_date", "")
+        if last_dt_str:
+            try:
+                last_dt = datetime.fromisoformat(last_dt_str) if "T" in last_dt_str else datetime.strptime(last_dt_str[:10], "%Y-%m-%d")
+                if (now - last_dt).total_seconds() < (COOLDOWN_DAYS * 86400):
+                    cooldown_tickers.add(tk.upper())
+            except Exception:
+                pass
+
+    for a in existing_alerts:
+        if "Quad-MA" in a.title or "Reversal" in a.title:
+            try:
+                a_dt = datetime.strptime(a.timestamp[:10], "%Y-%m-%d")
+                if (now - a_dt).total_seconds() < (COOLDOWN_DAYS * 86400):
+                    cooldown_tickers.add(a.ticker.upper())
+            except Exception:
+                pass
 
     for ticker, stock in watchlist.items():
         ticker_clean = ticker.upper().strip()
+        if ticker_clean in cooldown_tickers:
+            continue
+
         current_price = stock.current_price or stock.baseline_price or 100.0
 
         try:
             chart_ranges = fetch_all_chart_ranges_cached(ticker_clean, current_price)
-            # Use 1Y dataset (or MAX) which has full daily candles
             daily_points = chart_ranges.get("1Y") or chart_ranges.get("MAX") or []
             
             reversal = detect_quad_ma_reversal(ticker_clean, daily_points)
             if not reversal:
-                continue
-
-            if ticker_clean in already_alerted_today:
                 continue
 
             p_curr = reversal["price"]
@@ -180,27 +211,30 @@ def check_moving_average_reversal_triggers(watchlist: Optional[Dict[str, Watchli
             sma50 = reversal["sma50"]
             sma200 = reversal["sma200"]
             vel_5d = reversal["vel_5d_pct"]
+            clearance_max = reversal["clearance_max_pct"]
 
             trigger_reason = (
                 f"Technical Trend Reversal: Price (${p_curr:.2f}) has reclaimed {reclaimed_str} "
                 f"and crossed UP ALL 4 Moving Averages (5D: ${sma5:.2f}, 21D: ${sma21:.2f}, "
-                f"50D: ${sma50:.2f}, 200D: ${sma200:.2f}) with {vel_5d:+.1f}% 5-day velocity."
+                f"50D: ${sma50:.2f}, 200D: ${sma200:.2f}) with +{clearance_max:.1f}% clearance and {vel_5d:+.1f}% 5-day velocity."
             )
             what_before = f"Consolidating or trading below {reclaimed_str} (Previous close: ${p_prev:.2f})."
             what_now = (
-                f"Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. "
+                f"Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). "
                 f"Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety."
             )
 
-            print(f"🚨 [MA REVERSAL BREAKOUT] {ticker_clean}: Bullish Reversal! Price (${p_curr:.2f}) crossed UP all 4 moving averages ({reclaimed_str})!")
+            print(f"🚨 [MA REVERSAL BREAKOUT] {ticker_clean}: Bullish Reversal! Price (${p_curr:.2f}) crossed UP all 4 moving averages ({reclaimed_str}) with +{clearance_max:.1f}% clearance!")
 
+            # Deterministic fingerprint & alert ID
+            year_week = now.strftime("%Y_W%W")
             alert = AlertItem(
-                id=f"ma_reversal_{ticker_clean}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+                id=f"ma_reversal_{ticker_clean}_{year_week}",
                 ticker=ticker_clean,
-                timestamp=datetime.now().strftime("%Y-%m-%d %H:%M"),
+                timestamp=now.strftime("%Y-%m-%d %H:%M"),
                 title=f"🚀 Quad-MA Bullish Reversal: {ticker_clean} Crossed UP All 4 Moving Averages",
                 severity="Breakout",
-                labels=["Technical Reversal", "Quad-MA Breakout", "Momentum Confirmation"],
+                labels=["Technical Reversal", "Quad-MA Breakout", "Major Reclaim"],
                 action_signal="BUY",
                 trigger_reason=trigger_reason,
                 what_was_before=what_before,
@@ -211,10 +245,19 @@ def check_moving_average_reversal_triggers(watchlist: Optional[Dict[str, Watchli
             )
 
             add_alert(alert)
-            already_alerted_today.add(ticker_clean)
+            cooldown_tickers.add(ticker_clean)
+
+            # Update regime state machine
+            existing_regimes[ticker_clean] = {
+                "last_alert_timestamp": now.isoformat(),
+                "last_alert_date": today_str,
+                "last_alert_price": p_curr,
+                "last_reclaimed": reversal["reclaimed"]
+            }
+            save_ma_regimes(existing_regimes)
 
             enqueue_task(TaskItem(
-                id=f"trigger_ma_{ticker_clean}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+                id=f"trigger_ma_{ticker_clean}_{year_week}",
                 task_type="MA_REVERSAL_TRIGGER",
                 ticker=ticker_clean,
                 notes=trigger_reason
@@ -222,14 +265,14 @@ def check_moving_average_reversal_triggers(watchlist: Optional[Dict[str, Watchli
 
             triggered_count += 1
 
-        except Exception as e:
+        except Exception:
             pass
 
     return triggered_count
 
 
 def get_all_ma_reversals(watchlist: Optional[Dict[str, WatchlistStock]] = None) -> List[Dict[str, Any]]:
-    """Scans and returns all watchlist stocks currently in a Quad-MA reversal breakout state."""
+    """Scans and returns all watchlist stocks currently in a high-conviction Quad-MA reversal breakout state."""
     if watchlist is None:
         watchlist = load_watchlist()
 
@@ -250,3 +293,4 @@ def get_all_ma_reversals(watchlist: Optional[Dict[str, WatchlistStock]] = None) 
             pass
 
     return sorted(reversals, key=lambda x: x.get("vel_5d_pct", 0.0), reverse=True)
+
