@@ -4368,6 +4368,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         labels_html = format_labels_pills(stock.labels or [stock.status_label])
         stock_beacon = format_action_beacon(getattr(stock, "action_signal", None)) if stock.total_versions > 1 else ""
         quad_beacon = get_quad_ma_beacon_html(stock.ticker, stock.current_price or 0.0)
+        # Unify: Quad-MA Radar Pulse takes priority over static action beacon to avoid dual-dot clutter
+        active_beacon = quad_beacon if quad_beacon else stock_beacon
         
         # Clean company name (preserve canonical full name like Amazon.com, Inc.)
         clean_company = get_canonical_company_name(stock.ticker, stock.company_name)
@@ -4385,7 +4387,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 <div class="tbl-ticker-cell">
                     <div style="display: flex; align-items: center; gap: 8px;">
                         {get_ticker_logo_html(stock.ticker, 20)}
-                        <span class="tbl-symbol">{stock.ticker}{stock_beacon}{quad_beacon}</span>
+                        <span class="tbl-symbol">{stock.ticker}{active_beacon}</span>
                     </div>
                     <span class="tbl-company-hover">{clean_company}</span>
                 </div>
@@ -4421,7 +4423,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     {get_ticker_logo_html(stock.ticker, 24)}
-                    <span class="grid-symbol">{stock.ticker}{stock_beacon}{quad_beacon}</span>
+                    <span class="grid-symbol">{stock.ticker}{active_beacon}</span>
                 </div>
                 <div class="grid-price grid-price-{stock.ticker}">${(stock.current_price if stock.current_price is not None else 0.0):.2f}</div>
             </div>
