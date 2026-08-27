@@ -990,7 +990,7 @@
                     </div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">$153.29</div>
+                    <div class="price-number" id="hero-market-price">$153.29</div>
                     <div class="price-sub">Market Price</div>
                 </div>
             </div>
@@ -1591,13 +1591,57 @@
                 document.getElementById('hover-dot').setAttribute('opacity', '1');
 
                 updateLiveValues(closestIdx);
+                const scrubPt = points[closestIdx];
+                if (scrubPt && scrubPt.price) {
+                    const heroEl = document.getElementById('hero-market-price');
+                    if (heroEl) heroEl.textContent = '$' + scrubPt.price.toFixed(2);
+                }
             };
 
             svg.onmouseleave = function() {
                 document.getElementById('hover-line').setAttribute('opacity', '0');
                 document.getElementById('hover-dot').setAttribute('opacity', '0');
                 updateLiveValues(lastIdx);
+                const latestPt = points[lastIdx];
+                if (latestPt && latestPt.price) {
+                    const heroEl = document.getElementById('hero-market-price');
+                    if (heroEl) heroEl.textContent = '$' + latestPt.price.toFixed(2);
+                }
             };
+        }
+
+        function animateRollingPrice(elem, targetVal, startOverride, duration = 900) {
+            if (!elem || isNaN(targetVal)) return;
+            const rawText = elem.textContent.replace(/[^0-9.-]/g, '');
+            const startVal = (startOverride !== undefined && !isNaN(startOverride)) ? startOverride : (parseFloat(rawText) || targetVal);
+            if (Math.abs(startVal - targetVal) < 0.005) {
+                elem.textContent = '$' + targetVal.toFixed(2);
+                return;
+            }
+            // Wealthsimple / Fidelity soft color pulse
+            if (targetVal > startVal) {
+                elem.style.transition = 'color 0.35s ease';
+                elem.style.color = '#82AE8C';
+                setTimeout(() => { elem.style.color = 'var(--text-title)'; }, 1000);
+            } else if (targetVal < startVal) {
+                elem.style.transition = 'color 0.35s ease';
+                elem.style.color = '#CC785C';
+                setTimeout(() => { elem.style.color = 'var(--text-title)'; }, 1000);
+            }
+            const startTime = performance.now();
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1.0);
+                const ease = 1 - Math.pow(1 - progress, 4); // Quartic ease-out
+                const current = startVal + (targetVal - startVal) * ease;
+                elem.textContent = '$' + current.toFixed(2);
+                if (progress < 1.0) {
+                    requestAnimationFrame(step);
+                } else {
+                    elem.textContent = '$' + targetVal.toFixed(2);
+                }
+            }
+            requestAnimationFrame(step);
         }
 
         function switchRange(rangeKey) {
@@ -1611,9 +1655,19 @@
             renderChart(rangeKey);
         }
 
-        // Initial render
+        // Initial render & real-time latest candle price sync
         document.addEventListener('DOMContentLoaded', () => {
             renderChart('1Y');
+            const livePoints = chartData['1D'] || chartData['1Y'] || [];
+            if (livePoints.length > 0) {
+                const latestPoint = livePoints[livePoints.length - 1];
+                if (latestPoint && latestPoint.price && latestPoint.price > 0) {
+                    const heroEl = document.getElementById('hero-market-price');
+                    if (heroEl) {
+                        animateRollingPrice(heroEl, latestPoint.price);
+                    }
+                }
+            }
         });
 
         function openCyclicalityModal(event) {
