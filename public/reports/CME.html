@@ -102,6 +102,52 @@
             letter-spacing: -0.03em;
             color: #F0ECE4;
             line-height: 1.05;
+            display: inline-flex;
+            align-items: center;
+        }
+        /* Quad-MA Subtle Emerald Radar Beacon */
+        .quad-beacon-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            margin-left: 8px;
+            vertical-align: middle;
+            cursor: help;
+        }
+        .quad-beacon-dot {
+            width: 6px;
+            height: 6px;
+            background: #82AE8C;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(130, 174, 140, 0.5);
+            z-index: 2;
+        }
+        .quad-beacon-ping {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(130, 174, 140, 0.4);
+            animation: quadRadarPing 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes quadRadarPing {
+            0% {
+                transform: scale(0.4);
+                opacity: 0.85;
+            }
+            70% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
         }
         .company-name-meta {
             color: #9E978C;
@@ -984,7 +1030,7 @@
                     <div class="ticker-logo-wrap" style="width:36px; height:36px; min-width:36px; min-height:36px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CME" alt="CME" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:15px;">CM</span></div>
                     <div class="hero-title-text">
                         <div class="ticker-header-line">
-                            <span class="ticker-symbol">CME</span>
+                            <span class="ticker-symbol">CME<span class="quad-beacon-wrap" title="Quad-MA Reversal: Crossed UP all 4 MAs (5D/21D/50D/200D) 2 sessions ago (+1.0% clearance)"><span class="quad-beacon-ping"></span><span class="quad-beacon-dot"></span></span></span>
                         </div>
                         <div class="company-name-meta">CME Group Inc. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-warm); font-weight: 500;">Narrow Moat</span></div>
                     </div>

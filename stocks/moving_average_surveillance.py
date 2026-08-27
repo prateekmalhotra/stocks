@@ -294,3 +294,64 @@ def get_all_ma_reversals(watchlist: Optional[Dict[str, WatchlistStock]] = None) 
 
     return sorted(reversals, key=lambda x: x.get("vel_5d_pct", 0.0), reverse=True)
 
+
+def get_recent_quad_ma_status(ticker: str, current_price: float = 0.0, max_days: int = 21) -> Optional[Dict[str, Any]]:
+    """
+    Checks if a stock has completed a Quad-MA cross UP within the last `max_days` sessions (default 21).
+    Returns metadata (days_ago, clearance_pct) if currently above all 4 MAs, else None.
+    """
+    clean_t = ticker.upper().strip()
+    try:
+        chart_ranges = fetch_all_chart_ranges_cached(clean_t, current_price or 100.0)
+        points = chart_ranges.get("1Y") or chart_ranges.get("MAX") or []
+        if not points or len(points) < 50:
+            return None
+            
+        prices = [float(p["price"]) for p in points if p.get("price") and float(p["price"]) > 0]
+        if len(prices) < 50:
+            return None
+            
+        p_curr = prices[-1]
+        sma5_curr = compute_sma(prices, 5)
+        sma21_curr = compute_sma(prices, 21)
+        sma50_curr = compute_sma(prices, 50)
+        n200 = min(200, len(prices))
+        sma200_curr = compute_sma(prices, n200)
+        
+        max_ma = max(sma5_curr, sma21_curr, sma50_curr, sma200_curr)
+        # Price must currently be above all 4 moving averages
+        if p_curr < max_ma * 1.002:
+            return None
+            
+        lookback = min(max_days, len(prices) - 50)
+        found_cross = None
+        for offset in range(1, lookback + 1):
+            sub_prices = prices[:-offset] if offset > 0 else prices
+            p_then = sub_prices[-1]
+            s50 = compute_sma(sub_prices, 50)
+            n_200 = min(200, len(sub_prices))
+            s200 = compute_sma(sub_prices, n_200)
+            s21 = compute_sma(sub_prices, 21)
+            s5 = compute_sma(sub_prices, 5)
+            
+            if p_then <= s50 or p_then <= s200 or p_then <= s21 or p_then <= s5:
+                found_cross = offset
+                break
+                
+        if found_cross is not None:
+            clearance_pct = round(((p_curr - max_ma) / max_ma) * 100.0, 1)
+            return {
+                "is_active": True,
+                "ticker": clean_t,
+                "days_ago": found_cross,
+                "clearance_pct": clearance_pct,
+                "current_price": p_curr,
+                "sma5": round(sma5_curr, 2),
+                "sma21": round(sma21_curr, 2),
+                "sma50": round(sma50_curr, 2),
+                "sma200": round(sma200_curr, 2)
+            }
+    except Exception:
+        pass
+    return None
+

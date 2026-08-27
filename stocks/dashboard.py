@@ -401,6 +401,21 @@ def format_action_beacon(signal: Optional[str] = None) -> str:
     return f'<span class="status-beacon {css}" title="{tooltip}"><span class="beacon-dot"></span></span>'
 
 
+def get_quad_ma_beacon_html(ticker: str, current_price: float = 0.0) -> str:
+    """Renders a subtle, beautiful emerald radar pulse beacon if the stock crossed UP all 4 MAs in the last 21 sessions."""
+    from stocks.moving_average_surveillance import get_recent_quad_ma_status
+    status = get_recent_quad_ma_status(ticker, current_price)
+    if not status or not status.get("is_active"):
+        return ""
+    
+    days_ago = status.get("days_ago", 1)
+    clearance = status.get("clearance_pct", 0.0)
+    day_str = f"{days_ago} session ago" if days_ago == 1 else f"{days_ago} sessions ago"
+    tooltip = f"Quad-MA Reversal: Crossed UP all 4 MAs (5D/21D/50D/200D) {day_str} (+{clearance:.1f}% clearance)"
+    
+    return f'<span class="quad-beacon-wrap" title="{tooltip}"><span class="quad-beacon-ping"></span><span class="quad-beacon-dot"></span></span>'
+
+
 def clean_fund_name(name: str) -> str:
     """Strips parentheticals and extra annotations for ultra-clean subtext display."""
     if not name:
@@ -2576,6 +2591,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
     logo_html = get_ticker_logo_html(ticker_clean, size=36)
     favicon_url = get_or_create_circular_favicon(ticker_clean)
+    quad_beacon = get_quad_ma_beacon_html(ticker_clean, current_price)
     cyclicality_modal_html = build_cyclicality_legend_modal_html()
     width = 900
     height = 200
@@ -2686,6 +2702,52 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             letter-spacing: -0.03em;
             color: #F0ECE4;
             line-height: 1.05;
+            display: inline-flex;
+            align-items: center;
+        }}
+        /* Quad-MA Subtle Emerald Radar Beacon */
+        .quad-beacon-wrap {{
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            margin-left: 8px;
+            vertical-align: middle;
+            cursor: help;
+        }}
+        .quad-beacon-dot {{
+            width: 6px;
+            height: 6px;
+            background: #82AE8C;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(130, 174, 140, 0.5);
+            z-index: 2;
+        }}
+        .quad-beacon-ping {{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(130, 174, 140, 0.4);
+            animation: quadRadarPing 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+            pointer-events: none;
+            z-index: 1;
+        }}
+        @keyframes quadRadarPing {{
+            0% {{
+                transform: scale(0.4);
+                opacity: 0.85;
+            }}
+            70% {{
+                transform: scale(1.6);
+                opacity: 0;
+            }}
+            100% {{
+                transform: scale(1.6);
+                opacity: 0;
+            }}
         }}
         .company-name-meta {{
             color: #9E978C;
@@ -3568,7 +3630,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     {logo_html}
                     <div class="hero-title-text">
                         <div class="ticker-header-line">
-                            <span class="ticker-symbol">{ticker_clean}</span>
+                            <span class="ticker-symbol">{ticker_clean}{quad_beacon}</span>
                         </div>
                         <div class="company-name-meta">{company_name} <span class="meta-sep">·</span> <span class="meta-moat" style="color: {moat_color}; font-weight: 500;">{moat_label}</span>{moat_type_html}</div>
                     </div>
@@ -4305,6 +4367,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         ret_class = "pos" if stock.return_pct >= 0 else "neg"
         labels_html = format_labels_pills(stock.labels or [stock.status_label])
         stock_beacon = format_action_beacon(getattr(stock, "action_signal", None)) if stock.total_versions > 1 else ""
+        quad_beacon = get_quad_ma_beacon_html(stock.ticker, stock.current_price or 0.0)
         
         # Clean company name (preserve canonical full name like Amazon.com, Inc.)
         clean_company = get_canonical_company_name(stock.ticker, stock.company_name)
@@ -4322,7 +4385,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 <div class="tbl-ticker-cell">
                     <div style="display: flex; align-items: center; gap: 8px;">
                         {get_ticker_logo_html(stock.ticker, 20)}
-                        <span class="tbl-symbol">{stock.ticker}{stock_beacon}</span>
+                        <span class="tbl-symbol">{stock.ticker}{stock_beacon}{quad_beacon}</span>
                     </div>
                     <span class="tbl-company-hover">{clean_company}</span>
                 </div>
@@ -4358,7 +4421,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     {get_ticker_logo_html(stock.ticker, 24)}
-                    <span class="grid-symbol">{stock.ticker}{stock_beacon}</span>
+                    <span class="grid-symbol">{stock.ticker}{stock_beacon}{quad_beacon}</span>
                 </div>
                 <div class="grid-price grid-price-{stock.ticker}">${(stock.current_price if stock.current_price is not None else 0.0):.2f}</div>
             </div>
@@ -4947,6 +5010,51 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             opacity: 0.65;
             line-height: 1.2;
             letter-spacing: 0.02em;
+        }}
+
+        /* Quad-MA Subtle Emerald Radar Beacon */
+        .quad-beacon-wrap {{
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            margin-left: 6px;
+            vertical-align: middle;
+            cursor: help;
+        }}
+        .quad-beacon-dot {{
+            width: 6px;
+            height: 6px;
+            background: #82AE8C;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(130, 174, 140, 0.5);
+            z-index: 2;
+        }}
+        .quad-beacon-ping {{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(130, 174, 140, 0.4);
+            animation: quadRadarPing 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+            pointer-events: none;
+            z-index: 1;
+        }}
+        @keyframes quadRadarPing {{
+            0% {{
+                transform: scale(0.4);
+                opacity: 0.85;
+            }}
+            70% {{
+                transform: scale(1.6);
+                opacity: 0;
+            }}
+            100% {{
+                transform: scale(1.6);
+                opacity: 0;
+            }}
         }}
 
         /* Grid View */
