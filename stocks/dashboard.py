@@ -277,19 +277,21 @@ def format_catalyst_display(event_str: Optional[str], date_str: Optional[str]) -
         else:
             date_display = clean_date
 
-    # Preserve High-Signal Business Milestone Headline
+    # Clean Headline: Concise 2-4 word milestone
     if clean_event and clean_event.upper() != "TBD" and not re.match(r"^Q[1-4]\s*'?\d{2}\s*Earnings$", clean_event, flags=re.IGNORECASE):
         ev = clean_event
-        # Strip redundant boilerplate prefixes/suffixes
         ev = re.sub(r"^(?:Upcoming\s+)?(?:Quarterly\s+)?(?:Earnings\s+Call\s+&\s+SEC\s+Filing|Earnings\s+Release|Quarterly\s+Results|Earnings)\s*[-:·]?\s*", "", ev, flags=re.IGNORECASE).strip()
+        words = ev.split()
+        if len(words) > 4:
+            ev = " ".join(words[:4])
         if not ev or ev.lower() in ["earnings", "earnings release", "earnings call"]:
-            ev = "Core Margin & Comp Inflection"
+            ev = "Operating Margin Inflection"
         headline = ev
     else:
-        headline = "Core Margin & Comp Inflection"
+        headline = "Operating Margin Inflection"
 
     if not date_display:
-        date_display = "Horizon 2026"
+        date_display = "Horizon '26"
 
     return headline, date_display
 
@@ -4916,26 +4918,28 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-weight: 400 !important;
         }}
 
-        /* Catalyst Column: Headline + Formatted Date */
+        /* Catalyst Column: Clean, Subtle, Micro-Typography */
         .tbl-catalyst-cell {{
             display: flex;
             flex-direction: column;
-            gap: 3px;
-            max-width: 220px;
-            line-height: 1.25;
+            gap: 2px;
+            max-width: 280px;
+            line-height: 1.3;
         }}
         .tbl-cat-headline {{
             font-family: var(--font-sans);
-            font-size: 0.90rem;
+            font-size: 0.80rem;
             font-weight: 500;
             color: var(--text-title);
-            line-height: 1.2;
-            white-space: nowrap;
+            line-height: 1.25;
+            white-space: normal;
+            word-break: break-word;
         }}
         .tbl-cat-date {{
             font-family: var(--font-mono);
-            font-size: 0.78rem;
+            font-size: 0.70rem;
             color: var(--text-dim);
+            opacity: 0.80;
             line-height: 1.2;
         }}
 
