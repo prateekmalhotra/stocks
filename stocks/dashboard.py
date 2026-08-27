@@ -2718,6 +2718,46 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-radius: 8px;
             border: 1px solid var(--border-color);
         }}
+        .ma-legend-bar {{
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }}
+        .ma-pill {{
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: 0.70rem;
+            font-weight: 500;
+            cursor: pointer;
+            user-select: none;
+            border: 1px solid transparent;
+            background: transparent;
+            transition: all 0.15s ease;
+        }}
+        .ma-pill:hover {{
+            filter: brightness(1.25);
+        }}
+        .ma-pill.disabled {{
+            opacity: 0.30 !important;
+            text-decoration: line-through;
+            filter: grayscale(0.7);
+        }}
+        .ma-dot {{
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }}
+        .ma-val {{
+            font-weight: 600;
+            margin-left: 2px;
+        }}
         .range-pill {{
             background: transparent;
             border: none;
@@ -3478,13 +3518,30 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
             </div>
 
-            <!-- Native SVG Area Chart with 3Y Continuation Target Line -->
+            <!-- Native SVG Area Chart with 3Y Continuation Target Line & Moving Averages -->
             <div class="native-chart-wrap">
                 <div class="chart-top-bar">
-                    <div class="chart-live-val">
-                        <span id="tooltip-date">{last_date}</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">${last_price:.2f}</strong>
-                        <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
-                        <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>${target_price:.2f}</strong></span>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <div class="chart-live-val">
+                            <span id="tooltip-date">{last_date}</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">${last_price:.2f}</strong>
+                            <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
+                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>${target_price:.2f}</strong></span>
+                        </div>
+                        <!-- Moving Average Toggles / Live Badges -->
+                        <div class="ma-legend-bar">
+                            <button type="button" class="ma-pill" id="ma5-btn" onclick="toggleMA(5)" title="Toggle 5-Day Moving Average" style="color: #38BDF8; border-color: rgba(56, 189, 248, 0.35); background: rgba(56, 189, 248, 0.08);">
+                                <span class="ma-dot" style="background: #38BDF8;"></span>5 MA<span id="ma5-val" class="ma-val"></span>
+                            </button>
+                            <button type="button" class="ma-pill" id="ma21-btn" onclick="toggleMA(21)" title="Toggle 21-Day Moving Average" style="color: #FBBF24; border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.08);">
+                                <span class="ma-dot" style="background: #FBBF24;"></span>21 MA<span id="ma21-val" class="ma-val"></span>
+                            </button>
+                            <button type="button" class="ma-pill" id="ma50-btn" onclick="toggleMA(50)" title="Toggle 50-Day Moving Average" style="color: #FB923C; border-color: rgba(251, 146, 60, 0.35); background: rgba(251, 146, 60, 0.08);">
+                                <span class="ma-dot" style="background: #FB923C;"></span>50 MA<span id="ma50-val" class="ma-val"></span>
+                            </button>
+                            <button type="button" class="ma-pill" id="ma200-btn" onclick="toggleMA(200)" title="Toggle 200-Day Moving Average" style="color: #E879F9; border-color: rgba(232, 121, 249, 0.35); background: rgba(232, 121, 249, 0.08);">
+                                <span class="ma-dot" style="background: #E879F9;"></span>200 MA<span id="ma200-val" class="ma-val"></span>
+                            </button>
+                        </div>
                     </div>
                     <div class="chart-range-pills">
                         <button class="range-pill" onclick="switchRange('1D')">1D</button>
@@ -3516,7 +3573,13 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                         <line id="target-line" x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
                         <text id="target-label" x="{width - padding_x - 6}" y="{padding_y - 4}" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: ${target_price:.2f}</text>
 
-                        <!-- Dynamic Area & Stroke -->
+                        <!-- Moving Average Lines (200, 50, 21, 5) -->
+                        <polyline id="chart-ma200" fill="none" stroke="#E879F9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+                        <polyline id="chart-ma50" fill="none" stroke="#FB923C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+                        <polyline id="chart-ma21" fill="none" stroke="#FBBF24" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+                        <polyline id="chart-ma5" fill="none" stroke="#38BDF8" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+
+                        <!-- Dynamic Area & Primary Price Stroke -->
                         <polygon id="chart-area" fill="url(#area-grad)" points="" />
                         <polyline id="chart-line" fill="none" stroke="#82AE8C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" points="" />
                         
@@ -3696,6 +3759,55 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <script>
         const chartData = {ranges_json};
         let activeRange = '1Y';
+        const maEnabled = {{ 5: true, 21: true, 50: true, 200: true }};
+
+        function toggleMA(period) {{
+            maEnabled[period] = !maEnabled[period];
+            const btn = document.getElementById('ma' + period + '-btn');
+            if (btn) {{
+                if (maEnabled[period]) {{
+                    btn.classList.remove('disabled');
+                }} else {{
+                    btn.classList.add('disabled');
+                }}
+            }}
+            renderChart(activeRange);
+        }}
+
+        // Pre-build continuous chronological daily lookup from historical datasets
+        const masterDailyMap = new Map();
+        ['MAX', '5Y', '1Y', '1M'].forEach(function(rk) {{
+            (chartData[rk] || []).forEach(function(pt) {{
+                if (pt && pt.price > 0 && pt.date) {{
+                    const dKey = pt.date;
+                    if (!masterDailyMap.has(dKey)) {{
+                        let ts = 0;
+                        if (pt.full_date) {{
+                            ts = new Date(pt.full_date).getTime();
+                        }} else {{
+                            ts = new Date(pt.date).getTime();
+                        }}
+                        masterDailyMap.set(dKey, {{ date: dKey, price: pt.price, ts: isNaN(ts) ? 0 : ts }});
+                    }}
+                }}
+            }});
+        }});
+        const sortedDailyPoints = Array.from(masterDailyMap.values()).sort((a, b) => a.ts - b.ts);
+
+        // Precompute master moving averages across continuous daily history
+        const masterMAs = {{ 5: new Map(), 21: new Map(), 50: new Map(), 200: new Map() }};
+        [5, 21, 50, 200].forEach(function(period) {{
+            let sum = 0;
+            for (let i = 0; i < sortedDailyPoints.length; i++) {{
+                sum += sortedDailyPoints[i].price;
+                if (i >= period) {{
+                    sum -= sortedDailyPoints[i - period].price;
+                    masterMAs[period].set(sortedDailyPoints[i].date, sum / period);
+                }} else {{
+                    masterMAs[period].set(sortedDailyPoints[i].date, sum / (i + 1));
+                }}
+            }}
+        }});
 
         function switchTab(tabId, el) {{
             document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
@@ -3716,13 +3828,59 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             if (!points || points.length < 2) {{
                 polyline.setAttribute('points', '');
                 polygon.setAttribute('points', '');
+                [5, 21, 50, 200].forEach(function(p) {{
+                    const el = document.getElementById('chart-ma' + p);
+                    if (el) el.setAttribute('points', '');
+                }});
                 return;
             }}
+
+            // Compute MA values for the active range
+            const currentMAVals = {{ 5: [], 21: [], 50: [], 200: [] }};
+            [5, 21, 50, 200].forEach(function(period) {{
+                if (rangeKey === '1D') {{
+                    let sum = 0;
+                    for (let i = 0; i < points.length; i++) {{
+                        sum += points[i].price;
+                        if (i >= period) {{
+                            sum -= points[i - period].price;
+                            currentMAVals[period].push(sum / period);
+                        }} else {{
+                            currentMAVals[period].push(sum / (i + 1));
+                        }}
+                    }}
+                }} else {{
+                    for (let i = 0; i < points.length; i++) {{
+                        const d = points[i].date;
+                        if (masterMAs[period].has(d)) {{
+                            currentMAVals[period].push(masterMAs[period].get(d));
+                        }} else {{
+                            let s = 0;
+                            let count = Math.min(period, i + 1);
+                            for (let k = i - count + 1; k <= i; k++) s += points[k].price;
+                            currentMAVals[period].push(s / count);
+                        }}
+                    }}
+                }}
+            }});
 
             const targetPrice = {target_price};
             const prices = points.map(p => p.price);
             let minP = Math.min(...prices);
             let maxP = Math.max(...prices);
+
+            // Expand bounds if enabled MA lines exceed current price range
+            [5, 21, 50, 200].forEach(function(period) {{
+                if (maEnabled[period] && currentMAVals[period].length > 0) {{
+                    currentMAVals[period].forEach(function(v) {{
+                        if (v > 0) {{
+                            minP = Math.min(minP, v);
+                            maxP = Math.max(maxP, v);
+                        }}
+                    }});
+                }}
+            }});
+
             if (targetPrice && targetPrice > 0) {{
                 maxP = Math.max(maxP, targetPrice * 1.04);
                 minP = Math.min(minP, targetPrice * 0.96);
@@ -3762,10 +3920,44 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             const areaPoints = `${{coords[0].x.toFixed(1)}},${{height}} ` + polyPoints + ` ${{coords[coords.length - 1].x.toFixed(1)}},${{height}}`;
             polygon.setAttribute('points', areaPoints);
 
+            // Render Moving Average Polylines
+            [5, 21, 50, 200].forEach(function(period) {{
+                const maPoly = document.getElementById('chart-ma' + period);
+                if (maPoly) {{
+                    if (!maEnabled[period]) {{
+                        maPoly.setAttribute('points', '');
+                        maPoly.style.display = 'none';
+                    }} else {{
+                        maPoly.style.display = '';
+                        const maCoords = currentMAVals[period].map((val, idx) => {{
+                            const x = padX + (idx / (points.length - 1)) * drawW;
+                            const y = padY + drawH - ((val - minP) / rangeP) * drawH;
+                            return `${{x.toFixed(1)}},${{y.toFixed(1)}}`;
+                        }});
+                        maPoly.setAttribute('points', maCoords.join(' '));
+                    }}
+                }}
+            }});
+
+            // Helper to update live displayed values on badges and top bar
+            function updateLiveValues(idx) {{
+                const pt = points[idx] || points[points.length - 1];
+                if (!pt) return;
+                tooltipDate.textContent = pt.date;
+                tooltipPrice.textContent = '$' + pt.price.toFixed(2);
+                [5, 21, 50, 200].forEach(function(period) {{
+                    const valEl = document.getElementById('ma' + period + '-val');
+                    if (valEl) {{
+                        const arr = currentMAVals[period];
+                        const v = (arr && arr[idx] !== undefined) ? arr[idx] : (arr ? arr[arr.length - 1] : 0);
+                        valEl.textContent = (v && v > 0) ? ': $' + v.toFixed(2) : '';
+                    }}
+                }});
+            }}
+
             // Default to latest point
-            const lastPt = coords[coords.length - 1];
-            tooltipDate.textContent = lastPt.date;
-            tooltipPrice.textContent = '$' + lastPt.price.toFixed(2);
+            const lastIdx = points.length - 1;
+            updateLiveValues(lastIdx);
 
             // Update Y-Axis Prices
             const highEl = document.getElementById('grid-price-high');
@@ -3793,16 +3985,16 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 const rect = svg.getBoundingClientRect();
                 const mouseX = (e.clientX - rect.left) * (width / rect.width);
                 
-                // Find closest point
-                let closest = coords[0];
+                let closestIdx = 0;
                 let closestDist = Math.abs(coords[0].x - mouseX);
                 for (let i = 1; i < coords.length; i++) {{
                     const dist = Math.abs(coords[i].x - mouseX);
                     if (dist < closestDist) {{
-                        closest = coords[i];
+                        closestIdx = i;
                         closestDist = dist;
                     }}
                 }}
+                const closest = coords[closestIdx];
 
                 document.getElementById('hover-line').setAttribute('x1', closest.x);
                 document.getElementById('hover-line').setAttribute('x2', closest.x);
@@ -3812,15 +4004,13 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 document.getElementById('hover-dot').setAttribute('cy', closest.y);
                 document.getElementById('hover-dot').setAttribute('opacity', '1');
 
-                tooltipDate.textContent = closest.date;
-                tooltipPrice.textContent = '$' + closest.price.toFixed(2);
+                updateLiveValues(closestIdx);
             }};
 
             svg.onmouseleave = function() {{
                 document.getElementById('hover-line').setAttribute('opacity', '0');
                 document.getElementById('hover-dot').setAttribute('opacity', '0');
-                tooltipDate.textContent = lastPt.date;
-                tooltipPrice.textContent = '$' + lastPt.price.toFixed(2);
+                updateLiveValues(lastIdx);
             }};
         }}
 

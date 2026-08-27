@@ -191,6 +191,46 @@
             border-radius: 8px;
             border: 1px solid var(--border-color);
         }
+        .ma-legend-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .ma-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: 0.70rem;
+            font-weight: 500;
+            cursor: pointer;
+            user-select: none;
+            border: 1px solid transparent;
+            background: transparent;
+            transition: all 0.15s ease;
+        }
+        .ma-pill:hover {
+            filter: brightness(1.25);
+        }
+        .ma-pill.disabled {
+            opacity: 0.30 !important;
+            text-decoration: line-through;
+            filter: grayscale(0.7);
+        }
+        .ma-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .ma-val {
+            font-weight: 600;
+            margin-left: 2px;
+        }
         .range-pill {
             background: transparent;
             border: none;
@@ -951,13 +991,30 @@
                 </div>
             </div>
 
-            <!-- Native SVG Area Chart with 3Y Continuation Target Line -->
+            <!-- Native SVG Area Chart with 3Y Continuation Target Line & Moving Averages -->
             <div class="native-chart-wrap">
                 <div class="chart-top-bar">
-                    <div class="chart-live-val">
-                        <span id="tooltip-date">Today</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$0.47</strong>
-                        <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
-                        <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$0.35</strong></span>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <div class="chart-live-val">
+                            <span id="tooltip-date">Today</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$0.47</strong>
+                            <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
+                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$0.35</strong></span>
+                        </div>
+                        <!-- Moving Average Toggles / Live Badges -->
+                        <div class="ma-legend-bar">
+                            <button type="button" class="ma-pill" id="ma5-btn" onclick="toggleMA(5)" title="Toggle 5-Day Moving Average" style="color: #38BDF8; border-color: rgba(56, 189, 248, 0.35); background: rgba(56, 189, 248, 0.08);">
+                                <span class="ma-dot" style="background: #38BDF8;"></span>5 MA<span id="ma5-val" class="ma-val"></span>
+                            </button>
+                            <button type="button" class="ma-pill" id="ma21-btn" onclick="toggleMA(21)" title="Toggle 21-Day Moving Average" style="color: #FBBF24; border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.08);">
+                                <span class="ma-dot" style="background: #FBBF24;"></span>21 MA<span id="ma21-val" class="ma-val"></span>
+                            </button>
+                            <button type="button" class="ma-pill" id="ma50-btn" onclick="toggleMA(50)" title="Toggle 50-Day Moving Average" style="color: #FB923C; border-color: rgba(251, 146, 60, 0.35); background: rgba(251, 146, 60, 0.08);">
+                                <span class="ma-dot" style="background: #FB923C;"></span>50 MA<span id="ma50-val" class="ma-val"></span>
+                            </button>
+                            <button type="button" class="ma-pill" id="ma200-btn" onclick="toggleMA(200)" title="Toggle 200-Day Moving Average" style="color: #E879F9; border-color: rgba(232, 121, 249, 0.35); background: rgba(232, 121, 249, 0.08);">
+                                <span class="ma-dot" style="background: #E879F9;"></span>200 MA<span id="ma200-val" class="ma-val"></span>
+                            </button>
+                        </div>
                     </div>
                     <div class="chart-range-pills">
                         <button class="range-pill" onclick="switchRange('1D')">1D</button>
@@ -989,7 +1046,13 @@
                         <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
                         <text id="target-label" x="884" y="8" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $0.35</text>
 
-                        <!-- Dynamic Area & Stroke -->
+                        <!-- Moving Average Lines (200, 50, 21, 5) -->
+                        <polyline id="chart-ma200" fill="none" stroke="#E879F9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+                        <polyline id="chart-ma50" fill="none" stroke="#FB923C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+                        <polyline id="chart-ma21" fill="none" stroke="#FBBF24" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+                        <polyline id="chart-ma5" fill="none" stroke="#38BDF8" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+
+                        <!-- Dynamic Area & Primary Price Stroke -->
                         <polygon id="chart-area" fill="url(#area-grad)" points="" />
                         <polyline id="chart-line" fill="none" stroke="#82AE8C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" points="" />
                         
@@ -1259,6 +1322,55 @@
     <script>
         const chartData = {"1D": [{"date": "Start", "price": 0.42, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 0.45, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 0.47, "time": "04:00 PM", "full_date": "Today"}], "1M": [{"date": "Start", "price": 0.42, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 0.45, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 0.47, "time": "04:00 PM", "full_date": "Today"}], "1Y": [{"date": "Start", "price": 0.42, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 0.45, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 0.47, "time": "04:00 PM", "full_date": "Today"}], "5Y": [{"date": "Start", "price": 0.42, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 0.45, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 0.47, "time": "04:00 PM", "full_date": "Today"}], "MAX": [{"date": "Jul 31, 1996", "price": 360.0, "time": "11:00 PM", "full_date": "Jul 31, 1996 11:00 PM"}, {"date": "Aug 31, 1996", "price": 558.0, "time": "11:00 PM", "full_date": "Aug 31, 1996 11:00 PM"}, {"date": "Sep 30, 1996", "price": 279.0, "time": "11:00 PM", "full_date": "Sep 30, 1996 11:00 PM"}, {"date": "Oct 31, 1996", "price": 306.0, "time": "11:00 PM", "full_date": "Oct 31, 1996 11:00 PM"}, {"date": "Nov 30, 1996", "price": 288.0, "time": "11:00 PM", "full_date": "Nov 30, 1996 11:00 PM"}, {"date": "Dec 31, 1996", "price": 333.0, "time": "11:00 PM", "full_date": "Dec 31, 1996 11:00 PM"}, {"date": "Jan 31, 1997", "price": 243.0, "time": "11:00 PM", "full_date": "Jan 31, 1997 11:00 PM"}, {"date": "Feb 28, 1997", "price": 270.0, "time": "11:00 PM", "full_date": "Feb 28, 1997 11:00 PM"}, {"date": "Mar 31, 1997", "price": 171.0, "time": "11:00 PM", "full_date": "Mar 31, 1997 11:00 PM"}, {"date": "Apr 30, 1997", "price": 135.0, "time": "11:00 PM", "full_date": "Apr 30, 1997 11:00 PM"}, {"date": "May 31, 1997", "price": 126.0, "time": "11:00 PM", "full_date": "May 31, 1997 11:00 PM"}, {"date": "Jun 30, 1997", "price": 108.0, "time": "11:00 PM", "full_date": "Jun 30, 1997 11:00 PM"}, {"date": "Jul 31, 1997", "price": 90.0, "time": "11:00 PM", "full_date": "Jul 31, 1997 11:00 PM"}, {"date": "Aug 31, 1997", "price": 90.0, "time": "11:00 PM", "full_date": "Aug 31, 1997 11:00 PM"}, {"date": "Sep 30, 1997", "price": 72.0, "time": "11:00 PM", "full_date": "Sep 30, 1997 11:00 PM"}, {"date": "Oct 31, 1997", "price": 63.0, "time": "11:00 PM", "full_date": "Oct 31, 1997 11:00 PM"}, {"date": "Nov 30, 1997", "price": 36.0, "time": "11:00 PM", "full_date": "Nov 30, 1997 11:00 PM"}, {"date": "Dec 31, 1997", "price": 72.0, "time": "11:00 PM", "full_date": "Dec 31, 1997 11:00 PM"}, {"date": "Jan 31, 1998", "price": 180.0, "time": "11:00 PM", "full_date": "Jan 31, 1998 11:00 PM"}, {"date": "Feb 28, 1998", "price": 81.0, "time": "11:00 PM", "full_date": "Feb 28, 1998 11:00 PM"}, {"date": "Mar 31, 1998", "price": 99.0, "time": "11:00 PM", "full_date": "Mar 31, 1998 11:00 PM"}, {"date": "Apr 30, 1998", "price": 72.0, "time": "11:00 PM", "full_date": "Apr 30, 1998 11:00 PM"}, {"date": "May 31, 1998", "price": 54.0, "time": "11:00 PM", "full_date": "May 31, 1998 11:00 PM"}, {"date": "Jun 30, 1998", "price": 36.0, "time": "11:00 PM", "full_date": "Jun 30, 1998 11:00 PM"}, {"date": "Jul 31, 1998", "price": 18.0, "time": "11:00 PM", "full_date": "Jul 31, 1998 11:00 PM"}, {"date": "Aug 31, 1998", "price": 27.0, "time": "11:00 PM", "full_date": "Aug 31, 1998 11:00 PM"}, {"date": "Sep 30, 1998", "price": 27.0, "time": "11:00 PM", "full_date": "Sep 30, 1998 11:00 PM"}, {"date": "Oct 31, 1998", "price": 27.0, "time": "11:00 PM", "full_date": "Oct 31, 1998 11:00 PM"}, {"date": "Nov 30, 1998", "price": 18.0, "time": "11:00 PM", "full_date": "Nov 30, 1998 11:00 PM"}, {"date": "Dec 31, 1998", "price": 36.0, "time": "11:00 PM", "full_date": "Dec 31, 1998 11:00 PM"}, {"date": "Jan 31, 1999", "price": 36.0, "time": "11:00 PM", "full_date": "Jan 31, 1999 11:00 PM"}, {"date": "Feb 28, 1999", "price": 45.0, "time": "11:00 PM", "full_date": "Feb 28, 1999 11:00 PM"}, {"date": "Mar 31, 1999", "price": 90.0, "time": "11:00 PM", "full_date": "Mar 31, 1999 11:00 PM"}, {"date": "Apr 30, 1999", "price": 90.0, "time": "11:00 PM", "full_date": "Apr 30, 1999 11:00 PM"}, {"date": "May 31, 1999", "price": 90.0, "time": "11:00 PM", "full_date": "May 31, 1999 11:00 PM"}, {"date": "Jun 30, 1999", "price": 108.0, "time": "11:00 PM", "full_date": "Jun 30, 1999 11:00 PM"}, {"date": "Jul 31, 1999", "price": 108.0, "time": "11:00 PM", "full_date": "Jul 31, 1999 11:00 PM"}, {"date": "Aug 31, 1999", "price": 108.0, "time": "11:00 PM", "full_date": "Aug 31, 1999 11:00 PM"}, {"date": "Sep 30, 1999", "price": 72.0, "time": "11:00 PM", "full_date": "Sep 30, 1999 11:00 PM"}, {"date": "Oct 31, 1999", "price": 36.0, "time": "11:00 PM", "full_date": "Oct 31, 1999 11:00 PM"}, {"date": "Nov 30, 1999", "price": 36.0, "time": "11:00 PM", "full_date": "Nov 30, 1999 11:00 PM"}, {"date": "Dec 31, 1999", "price": 27.0, "time": "11:00 PM", "full_date": "Dec 31, 1999 11:00 PM"}, {"date": "Jan 31, 2000", "price": 90.0, "time": "11:00 PM", "full_date": "Jan 31, 2000 11:00 PM"}, {"date": "Feb 29, 2000", "price": 63.0, "time": "11:00 PM", "full_date": "Feb 29, 2000 11:00 PM"}, {"date": "Mar 31, 2000", "price": 81.0, "time": "11:00 PM", "full_date": "Mar 31, 2000 11:00 PM"}, {"date": "Apr 30, 2000", "price": 81.0, "time": "11:00 PM", "full_date": "Apr 30, 2000 11:00 PM"}, {"date": "May 31, 2000", "price": 63.0, "time": "11:00 PM", "full_date": "May 31, 2000 11:00 PM"}, {"date": "Jun 30, 2000", "price": 45.0, "time": "11:00 PM", "full_date": "Jun 30, 2000 11:00 PM"}, {"date": "Jul 31, 2000", "price": 63.0, "time": "11:00 PM", "full_date": "Jul 31, 2000 11:00 PM"}, {"date": "Aug 31, 2000", "price": 72.0, "time": "11:00 PM", "full_date": "Aug 31, 2000 11:00 PM"}, {"date": "Sep 30, 2000", "price": 27.0, "time": "11:00 PM", "full_date": "Sep 30, 2000 11:00 PM"}, {"date": "Oct 31, 2000", "price": 926.1, "time": "11:00 PM", "full_date": "Oct 31, 2000 11:00 PM"}, {"date": "Nov 30, 2000", "price": 36.0, "time": "11:00 PM", "full_date": "Nov 30, 2000 11:00 PM"}, {"date": "Dec 31, 2000", "price": 1157.4, "time": "11:00 PM", "full_date": "Dec 31, 2000 11:00 PM"}, {"date": "Jan 31, 2001", "price": 1157.4, "time": "11:00 PM", "full_date": "Jan 31, 2001 11:00 PM"}, {"date": "Feb 28, 2001", "price": 1851.3, "time": "11:00 PM", "full_date": "Feb 28, 2001 11:00 PM"}, {"date": "Mar 31, 2001", "price": 926.1, "time": "11:00 PM", "full_date": "Mar 31, 2001 11:00 PM"}, {"date": "Apr 30, 2001", "price": 926.1, "time": "11:00 PM", "full_date": "Apr 30, 2001 11:00 PM"}, {"date": "May 31, 2001", "price": 693.9, "time": "11:00 PM", "full_date": "May 31, 2001 11:00 PM"}, {"date": "Jun 30, 2001", "price": 693.9, "time": "11:00 PM", "full_date": "Jun 30, 2001 11:00 PM"}, {"date": "Jul 31, 2001", "price": 693.9, "time": "11:00 PM", "full_date": "Jul 31, 2001 11:00 PM"}, {"date": "Aug 31, 2001", "price": 462.6, "time": "11:00 PM", "full_date": "Aug 31, 2001 11:00 PM"}, {"date": "Sep 30, 2001", "price": 18.0, "time": "11:00 PM", "full_date": "Sep 30, 2001 11:00 PM"}, {"date": "Oct 31, 2001", "price": 9.0, "time": "11:00 PM", "full_date": "Oct 31, 2001 11:00 PM"}, {"date": "Nov 30, 2001", "price": 231.3, "time": "11:00 PM", "full_date": "Nov 30, 2001 11:00 PM"}, {"date": "Dec 31, 2001", "price": 231.3, "time": "11:00 PM", "full_date": "Dec 31, 2001 11:00 PM"}, {"date": "Jan 31, 2002", "price": 18.0, "time": "11:00 PM", "full_date": "Jan 31, 2002 11:00 PM"}, {"date": "Feb 28, 2002", "price": 9.0, "time": "11:00 PM", "full_date": "Feb 28, 2002 11:00 PM"}, {"date": "Mar 31, 2002", "price": 462.6, "time": "11:00 PM", "full_date": "Mar 31, 2002 11:00 PM"}, {"date": "Apr 30, 2002", "price": 693.9, "time": "11:00 PM", "full_date": "Apr 30, 2002 11:00 PM"}, {"date": "May 31, 2002", "price": 926.1, "time": "11:00 PM", "full_date": "May 31, 2002 11:00 PM"}, {"date": "Jun 30, 2002", "price": 693.9, "time": "11:00 PM", "full_date": "Jun 30, 2002 11:00 PM"}, {"date": "Jul 31, 2002", "price": 693.9, "time": "11:00 PM", "full_date": "Jul 31, 2002 11:00 PM"}, {"date": "Aug 31, 2002", "price": 18.0, "time": "11:00 PM", "full_date": "Aug 31, 2002 11:00 PM"}, {"date": "Sep 30, 2002", "price": 18.0, "time": "11:00 PM", "full_date": "Sep 30, 2002 11:00 PM"}, {"date": "Oct 31, 2002", "price": 462.6, "time": "11:00 PM", "full_date": "Oct 31, 2002 11:00 PM"}, {"date": "Nov 30, 2002", "price": 693.9, "time": "11:00 PM", "full_date": "Nov 30, 2002 11:00 PM"}, {"date": "Dec 31, 2002", "price": 693.9, "time": "11:00 PM", "full_date": "Dec 31, 2002 11:00 PM"}, {"date": "Jan 31, 2003", "price": 693.9, "time": "11:00 PM", "full_date": "Jan 31, 2003 11:00 PM"}, {"date": "Feb 28, 2003", "price": 231.3, "time": "11:00 PM", "full_date": "Feb 28, 2003 11:00 PM"}, {"date": "Mar 31, 2003", "price": 231.3, "time": "11:00 PM", "full_date": "Mar 31, 2003 11:00 PM"}, {"date": "Apr 30, 2003", "price": 462.6, "time": "11:00 PM", "full_date": "Apr 30, 2003 11:00 PM"}, {"date": "May 31, 2003", "price": 693.9, "time": "11:00 PM", "full_date": "May 31, 2003 11:00 PM"}, {"date": "Jun 30, 2003", "price": 462.6, "time": "11:00 PM", "full_date": "Jun 30, 2003 11:00 PM"}, {"date": "Jul 31, 2003", "price": 231.3, "time": "11:00 PM", "full_date": "Jul 31, 2003 11:00 PM"}, {"date": "Aug 31, 2003", "price": 926.1, "time": "11:00 PM", "full_date": "Aug 31, 2003 11:00 PM"}, {"date": "Sep 30, 2003", "price": 926.1, "time": "11:00 PM", "full_date": "Sep 30, 2003 11:00 PM"}, {"date": "Oct 31, 2003", "price": 3240.0, "time": "11:00 PM", "full_date": "Oct 31, 2003 11:00 PM"}, {"date": "Nov 30, 2003", "price": 103.5, "time": "11:00 PM", "full_date": "Nov 30, 2003 11:00 PM"}, {"date": "Dec 31, 2003", "price": 126.0, "time": "11:00 PM", "full_date": "Dec 31, 2003 11:00 PM"}, {"date": "Jan 31, 2004", "price": 1851.3, "time": "11:00 PM", "full_date": "Jan 31, 2004 11:00 PM"}, {"date": "Feb 29, 2004", "price": 90.0, "time": "11:00 PM", "full_date": "Feb 29, 2004 11:00 PM"}, {"date": "Mar 31, 2004", "price": 94.5, "time": "11:00 PM", "full_date": "Mar 31, 2004 11:00 PM"}, {"date": "Apr 30, 2004", "price": 54.0, "time": "11:00 PM", "full_date": "Apr 30, 2004 11:00 PM"}, {"date": "May 31, 2004", "price": 2777.4, "time": "11:00 PM", "full_date": "May 31, 2004 11:00 PM"}, {"date": "Jun 30, 2004", "price": 94.5, "time": "11:00 PM", "full_date": "Jun 30, 2004 11:00 PM"}, {"date": "Jul 31, 2004", "price": 144.0, "time": "11:00 PM", "full_date": "Jul 31, 2004 11:00 PM"}, {"date": "Aug 31, 2004", "price": 3933.9, "time": "11:00 PM", "full_date": "Aug 31, 2004 11:00 PM"}, {"date": "Sep 30, 2004", "price": 126.0, "time": "11:00 PM", "full_date": "Sep 30, 2004 11:00 PM"}, {"date": "Oct 31, 2004", "price": 2198.7, "time": "11:00 PM", "full_date": "Oct 31, 2004 11:00 PM"}, {"date": "Nov 30, 2004", "price": 90.0, "time": "11:00 PM", "full_date": "Nov 30, 2004 11:00 PM"}, {"date": "Dec 31, 2004", "price": 1620.0, "time": "11:00 PM", "full_date": "Dec 31, 2004 11:00 PM"}, {"date": "Jan 31, 2005", "price": 1736.1, "time": "11:00 PM", "full_date": "Jan 31, 2005 11:00 PM"}, {"date": "Feb 28, 2005", "price": 1620.0, "time": "11:00 PM", "full_date": "Feb 28, 2005 11:00 PM"}, {"date": "Mar 31, 2005", "price": 72.0, "time": "11:00 PM", "full_date": "Mar 31, 2005 11:00 PM"}, {"date": "Apr 30, 2005", "price": 1851.3, "time": "11:00 PM", "full_date": "Apr 30, 2005 11:00 PM"}, {"date": "May 31, 2005", "price": 1388.7, "time": "11:00 PM", "full_date": "May 31, 2005 11:00 PM"}, {"date": "Jun 30, 2005", "price": 1620.0, "time": "11:00 PM", "full_date": "Jun 30, 2005 11:00 PM"}, {"date": "Jul 31, 2005", "price": 54.0, "time": "11:00 PM", "full_date": "Jul 31, 2005 11:00 PM"}, {"date": "Aug 31, 2005", "price": 54.0, "time": "11:00 PM", "full_date": "Aug 31, 2005 11:00 PM"}, {"date": "Sep 30, 2005", "price": 54.0, "time": "11:00 PM", "full_date": "Sep 30, 2005 11:00 PM"}, {"date": "Oct 31, 2005", "price": 54.0, "time": "11:00 PM", "full_date": "Oct 31, 2005 11:00 PM"}, {"date": "Nov 30, 2005", "price": 69.0, "time": "11:00 PM", "full_date": "Nov 30, 2005 11:00 PM"}, {"date": "Dec 31, 2005", "price": 64.5, "time": "11:00 PM", "full_date": "Dec 31, 2005 11:00 PM"}, {"date": "Jan 31, 2006", "price": 141.0, "time": "11:00 PM", "full_date": "Jan 31, 2006 11:00 PM"}, {"date": "Feb 28, 2006", "price": 120.0, "time": "11:00 PM", "full_date": "Feb 28, 2006 11:00 PM"}, {"date": "Mar 31, 2006", "price": 114.0, "time": "11:00 PM", "full_date": "Mar 31, 2006 11:00 PM"}, {"date": "Apr 30, 2006", "price": 132.0, "time": "11:00 PM", "full_date": "Apr 30, 2006 11:00 PM"}, {"date": "May 31, 2006", "price": 114.0, "time": "11:00 PM", "full_date": "May 31, 2006 11:00 PM"}, {"date": "Jun 30, 2006", "price": 88.5, "time": "11:00 PM", "full_date": "Jun 30, 2006 11:00 PM"}, {"date": "Jul 31, 2006", "price": 222.0, "time": "11:00 PM", "full_date": "Jul 31, 2006 11:00 PM"}, {"date": "Aug 31, 2006", "price": 148.5, "time": "11:00 PM", "full_date": "Aug 31, 2006 11:00 PM"}, {"date": "Sep 30, 2006", "price": 234.0, "time": "11:00 PM", "full_date": "Sep 30, 2006 11:00 PM"}, {"date": "Oct 31, 2006", "price": 267.0, "time": "11:00 PM", "full_date": "Oct 31, 2006 11:00 PM"}, {"date": "Nov 30, 2006", "price": 297.0, "time": "11:00 PM", "full_date": "Nov 30, 2006 11:00 PM"}, {"date": "Dec 31, 2006", "price": 195.0, "time": "11:00 PM", "full_date": "Dec 31, 2006 11:00 PM"}, {"date": "Jan 31, 2007", "price": 252.0, "time": "11:00 PM", "full_date": "Jan 31, 2007 11:00 PM"}, {"date": "Feb 28, 2007", "price": 210.0, "time": "11:00 PM", "full_date": "Feb 28, 2007 11:00 PM"}, {"date": "Mar 31, 2007", "price": 168.0, "time": "11:00 PM", "full_date": "Mar 31, 2007 11:00 PM"}, {"date": "Apr 30, 2007", "price": 165.0, "time": "11:00 PM", "full_date": "Apr 30, 2007 11:00 PM"}, {"date": "May 31, 2007", "price": 162.0, "time": "11:00 PM", "full_date": "May 31, 2007 11:00 PM"}, {"date": "Jun 30, 2007", "price": 162.0, "time": "11:00 PM", "full_date": "Jun 30, 2007 11:00 PM"}, {"date": "Jul 31, 2007", "price": 109.5, "time": "11:00 PM", "full_date": "Jul 31, 2007 11:00 PM"}, {"date": "Aug 31, 2007", "price": 162.0, "time": "11:00 PM", "full_date": "Aug 31, 2007 11:00 PM"}, {"date": "Sep 30, 2007", "price": 195.0, "time": "11:00 PM", "full_date": "Sep 30, 2007 11:00 PM"}, {"date": "Oct 31, 2007", "price": 186.0, "time": "11:00 PM", "full_date": "Oct 31, 2007 11:00 PM"}, {"date": "Nov 30, 2007", "price": 207.0, "time": "11:00 PM", "full_date": "Nov 30, 2007 11:00 PM"}, {"date": "Dec 31, 2007", "price": 180.0, "time": "11:00 PM", "full_date": "Dec 31, 2007 11:00 PM"}, {"date": "Jan 31, 2008", "price": 264.0, "time": "11:00 PM", "full_date": "Jan 31, 2008 11:00 PM"}, {"date": "Feb 29, 2008", "price": 195.0, "time": "11:00 PM", "full_date": "Feb 29, 2008 11:00 PM"}, {"date": "Mar 31, 2008", "price": 159.0, "time": "11:00 PM", "full_date": "Mar 31, 2008 11:00 PM"}, {"date": "Apr 30, 2008", "price": 156.0, "time": "11:00 PM", "full_date": "Apr 30, 2008 11:00 PM"}, {"date": "May 31, 2008", "price": 135.0, "time": "11:00 PM", "full_date": "May 31, 2008 11:00 PM"}, {"date": "Jun 30, 2008", "price": 0.18, "time": "11:00 PM", "full_date": "Jun 30, 2008 11:00 PM"}, {"date": "Jul 31, 2008", "price": 51.0, "time": "11:00 PM", "full_date": "Jul 31, 2008 11:00 PM"}, {"date": "Aug 31, 2008", "price": 27.0, "time": "11:00 PM", "full_date": "Aug 31, 2008 11:00 PM"}, {"date": "Sep 30, 2008", "price": 12.0, "time": "11:00 PM", "full_date": "Sep 30, 2008 11:00 PM"}, {"date": "Oct 31, 2008", "price": 9.0, "time": "11:00 PM", "full_date": "Oct 31, 2008 11:00 PM"}, {"date": "Nov 30, 2008", "price": 9.0, "time": "11:00 PM", "full_date": "Nov 30, 2008 11:00 PM"}, {"date": "Dec 31, 2008", "price": 7.5, "time": "11:00 PM", "full_date": "Dec 31, 2008 11:00 PM"}, {"date": "Jan 31, 2009", "price": 7.5, "time": "11:00 PM", "full_date": "Jan 31, 2009 11:00 PM"}, {"date": "Feb 28, 2009", "price": 3.0, "time": "11:00 PM", "full_date": "Feb 28, 2009 11:00 PM"}, {"date": "Mar 31, 2009", "price": 6.0, "time": "11:00 PM", "full_date": "Mar 31, 2009 11:00 PM"}, {"date": "Apr 30, 2009", "price": 3.6, "time": "11:00 PM", "full_date": "Apr 30, 2009 11:00 PM"}, {"date": "May 31, 2009", "price": 2.4, "time": "11:00 PM", "full_date": "May 31, 2009 11:00 PM"}, {"date": "Jun 30, 2009", "price": 2.3, "time": "11:00 PM", "full_date": "Jun 30, 2009 11:00 PM"}, {"date": "Jul 31, 2009", "price": 2.4, "time": "11:00 PM", "full_date": "Jul 31, 2009 11:00 PM"}, {"date": "Aug 31, 2009", "price": 2.6, "time": "11:00 PM", "full_date": "Aug 31, 2009 11:00 PM"}, {"date": "Sep 30, 2009", "price": 2.0, "time": "11:00 PM", "full_date": "Sep 30, 2009 11:00 PM"}, {"date": "Oct 31, 2009", "price": 3.1, "time": "11:00 PM", "full_date": "Oct 31, 2009 11:00 PM"}, {"date": "Nov 30, 2009", "price": 3.3, "time": "11:00 PM", "full_date": "Nov 30, 2009 11:00 PM"}, {"date": "Dec 31, 2009", "price": 0.09, "time": "11:00 PM", "full_date": "Dec 31, 2009 11:00 PM"}, {"date": "Jan 31, 2010", "price": 4.6, "time": "11:00 PM", "full_date": "Jan 31, 2010 11:00 PM"}, {"date": "Feb 28, 2010", "price": 0.07, "time": "11:00 PM", "full_date": "Feb 28, 2010 11:00 PM"}, {"date": "Mar 31, 2010", "price": 2.9, "time": "11:00 PM", "full_date": "Mar 31, 2010 11:00 PM"}, {"date": "Apr 30, 2010", "price": 0.08, "time": "11:00 PM", "full_date": "Apr 30, 2010 11:00 PM"}, {"date": "May 31, 2010", "price": 0.07, "time": "11:00 PM", "full_date": "May 31, 2010 11:00 PM"}, {"date": "Jun 30, 2010", "price": 2.1, "time": "11:00 PM", "full_date": "Jun 30, 2010 11:00 PM"}, {"date": "Jul 31, 2010", "price": 3.4, "time": "11:00 PM", "full_date": "Jul 31, 2010 11:00 PM"}, {"date": "Aug 31, 2010", "price": 3.4, "time": "11:00 PM", "full_date": "Aug 31, 2010 11:00 PM"}, {"date": "Sep 30, 2010", "price": 3.2, "time": "11:00 PM", "full_date": "Sep 30, 2010 11:00 PM"}, {"date": "Oct 31, 2010", "price": 3.5, "time": "11:00 PM", "full_date": "Oct 31, 2010 11:00 PM"}, {"date": "Nov 30, 2010", "price": 5.4, "time": "11:00 PM", "full_date": "Nov 30, 2010 11:00 PM"}, {"date": "Dec 31, 2010", "price": 6.2, "time": "11:00 PM", "full_date": "Dec 31, 2010 11:00 PM"}, {"date": "Jan 31, 2011", "price": 4.0, "time": "11:00 PM", "full_date": "Jan 31, 2011 11:00 PM"}, {"date": "Feb 28, 2011", "price": 3.7, "time": "11:00 PM", "full_date": "Feb 28, 2011 11:00 PM"}, {"date": "Mar 31, 2011", "price": 3.4, "time": "11:00 PM", "full_date": "Mar 31, 2011 11:00 PM"}, {"date": "Apr 30, 2011", "price": 3.3, "time": "11:00 PM", "full_date": "Apr 30, 2011 11:00 PM"}, {"date": "May 31, 2011", "price": 2.4, "time": "11:00 PM", "full_date": "May 31, 2011 11:00 PM"}, {"date": "Jun 30, 2011", "price": 3.5, "time": "11:00 PM", "full_date": "Jun 30, 2011 11:00 PM"}, {"date": "Jul 31, 2011", "price": 3.1, "time": "11:00 PM", "full_date": "Jul 31, 2011 11:00 PM"}, {"date": "Aug 31, 2011", "price": 1.4, "time": "11:00 PM", "full_date": "Aug 31, 2011 11:00 PM"}, {"date": "Sep 30, 2011", "price": 1.3, "time": "11:00 PM", "full_date": "Sep 30, 2011 11:00 PM"}, {"date": "Oct 31, 2011", "price": 0.15, "time": "11:00 PM", "full_date": "Oct 31, 2011 11:00 PM"}, {"date": "Nov 30, 2011", "price": 0.15, "time": "11:00 PM", "full_date": "Nov 30, 2011 11:00 PM"}, {"date": "Dec 31, 2011", "price": 0.15, "time": "11:00 PM", "full_date": "Dec 31, 2011 11:00 PM"}, {"date": "Jan 31, 2012", "price": 0.15, "time": "11:00 PM", "full_date": "Jan 31, 2012 11:00 PM"}, {"date": "Feb 29, 2012", "price": 0.15, "time": "11:00 PM", "full_date": "Feb 29, 2012 11:00 PM"}, {"date": "Mar 31, 2012", "price": 0.15, "time": "11:00 PM", "full_date": "Mar 31, 2012 11:00 PM"}, {"date": "Apr 30, 2012", "price": 0.15, "time": "11:00 PM", "full_date": "Apr 30, 2012 11:00 PM"}, {"date": "May 31, 2012", "price": 0.15, "time": "11:00 PM", "full_date": "May 31, 2012 11:00 PM"}, {"date": "Jun 30, 2012", "price": 0.15, "time": "11:00 PM", "full_date": "Jun 30, 2012 11:00 PM"}, {"date": "Jul 31, 2012", "price": 0.15, "time": "11:00 PM", "full_date": "Jul 31, 2012 11:00 PM"}, {"date": "Aug 31, 2012", "price": 0.3, "time": "11:00 PM", "full_date": "Aug 31, 2012 11:00 PM"}, {"date": "Sep 30, 2012", "price": 0.2, "time": "11:00 PM", "full_date": "Sep 30, 2012 11:00 PM"}, {"date": "Oct 31, 2012", "price": 0.3, "time": "11:00 PM", "full_date": "Oct 31, 2012 11:00 PM"}, {"date": "Nov 30, 2012", "price": 0.2, "time": "11:00 PM", "full_date": "Nov 30, 2012 11:00 PM"}, {"date": "Dec 31, 2012", "price": 0.15, "time": "11:00 PM", "full_date": "Dec 31, 2012 11:00 PM"}, {"date": "Jan 31, 2013", "price": 0.12, "time": "11:00 PM", "full_date": "Jan 31, 2013 11:00 PM"}, {"date": "Feb 28, 2013", "price": 0.09, "time": "11:00 PM", "full_date": "Feb 28, 2013 11:00 PM"}, {"date": "Mar 31, 2013", "price": 0.06, "time": "11:00 PM", "full_date": "Mar 31, 2013 11:00 PM"}, {"date": "Apr 30, 2013", "price": 0.05, "time": "11:00 PM", "full_date": "Apr 30, 2013 11:00 PM"}, {"date": "May 31, 2013", "price": 0.05, "time": "11:00 PM", "full_date": "May 31, 2013 11:00 PM"}, {"date": "Jun 30, 2013", "price": 0.05, "time": "11:00 PM", "full_date": "Jun 30, 2013 11:00 PM"}, {"date": "Jul 31, 2013", "price": 0.07, "time": "11:00 PM", "full_date": "Jul 31, 2013 11:00 PM"}, {"date": "Aug 31, 2013", "price": 0.07, "time": "11:00 PM", "full_date": "Aug 31, 2013 11:00 PM"}, {"date": "Sep 30, 2013", "price": 0.05, "time": "11:00 PM", "full_date": "Sep 30, 2013 11:00 PM"}, {"date": "Oct 31, 2013", "price": 0.04, "time": "11:00 PM", "full_date": "Oct 31, 2013 11:00 PM"}, {"date": "Nov 30, 2013", "price": 0.03, "time": "11:00 PM", "full_date": "Nov 30, 2013 11:00 PM"}, {"date": "Dec 31, 2013", "price": 0.04, "time": "11:00 PM", "full_date": "Dec 31, 2013 11:00 PM"}, {"date": "Jan 31, 2014", "price": 0.05, "time": "11:00 PM", "full_date": "Jan 31, 2014 11:00 PM"}, {"date": "Feb 28, 2014", "price": 0.05, "time": "11:00 PM", "full_date": "Feb 28, 2014 11:00 PM"}, {"date": "Mar 31, 2014", "price": 0.06, "time": "11:00 PM", "full_date": "Mar 31, 2014 11:00 PM"}, {"date": "Apr 30, 2014", "price": 0.06, "time": "11:00 PM", "full_date": "Apr 30, 2014 11:00 PM"}, {"date": "May 31, 2014", "price": 0.1, "time": "11:00 PM", "full_date": "May 31, 2014 11:00 PM"}, {"date": "Jun 30, 2014", "price": 35.0, "time": "11:00 PM", "full_date": "Jun 30, 2014 11:00 PM"}, {"date": "Jul 31, 2014", "price": 37.7, "time": "11:00 PM", "full_date": "Jul 31, 2014 11:00 PM"}, {"date": "Aug 31, 2014", "price": 40.7, "time": "11:00 PM", "full_date": "Aug 31, 2014 11:00 PM"}, {"date": "Sep 30, 2014", "price": 43.49, "time": "11:00 PM", "full_date": "Sep 30, 2014 11:00 PM"}, {"date": "Oct 31, 2014", "price": 42.4, "time": "11:00 PM", "full_date": "Oct 31, 2014 11:00 PM"}, {"date": "Nov 30, 2014", "price": 0.1, "time": "11:00 PM", "full_date": "Nov 30, 2014 11:00 PM"}, {"date": "Dec 31, 2014", "price": 47.79, "time": "11:00 PM", "full_date": "Dec 31, 2014 11:00 PM"}, {"date": "Jan 31, 2015", "price": 49.1, "time": "11:00 PM", "full_date": "Jan 31, 2015 11:00 PM"}, {"date": "Feb 28, 2015", "price": 53.9, "time": "11:00 PM", "full_date": "Feb 28, 2015 11:00 PM"}, {"date": "Mar 31, 2015", "price": 0.03, "time": "11:00 PM", "full_date": "Mar 31, 2015 11:00 PM"}, {"date": "Apr 30, 2015", "price": 0.04, "time": "11:00 PM", "full_date": "Apr 30, 2015 11:00 PM"}, {"date": "May 31, 2015", "price": 56.0, "time": "11:00 PM", "full_date": "May 31, 2015 11:00 PM"}, {"date": "Jun 30, 2015", "price": 0.02, "time": "11:00 PM", "full_date": "Jun 30, 2015 11:00 PM"}, {"date": "Jul 31, 2015", "price": 0.03, "time": "11:00 PM", "full_date": "Jul 31, 2015 11:00 PM"}, {"date": "Aug 31, 2015", "price": 0.01, "time": "11:00 PM", "full_date": "Aug 31, 2015 11:00 PM"}, {"date": "Sep 30, 2015", "price": 0.03, "time": "11:00 PM", "full_date": "Sep 30, 2015 11:00 PM"}, {"date": "Oct 31, 2015", "price": 0.01, "time": "11:00 PM", "full_date": "Oct 31, 2015 11:00 PM"}, {"date": "Nov 30, 2015", "price": 50.8, "time": "11:00 PM", "full_date": "Nov 30, 2015 11:00 PM"}, {"date": "Dec 31, 2015", "price": 49.5, "time": "11:00 PM", "full_date": "Dec 31, 2015 11:00 PM"}, {"date": "Jan 31, 2016", "price": 0.05, "time": "11:00 PM", "full_date": "Jan 31, 2016 11:00 PM"}, {"date": "Feb 29, 2016", "price": 0.06, "time": "11:00 PM", "full_date": "Feb 29, 2016 11:00 PM"}, {"date": "Mar 31, 2016", "price": 0.07, "time": "11:00 PM", "full_date": "Mar 31, 2016 11:00 PM"}, {"date": "Apr 30, 2016", "price": 0.07, "time": "11:00 PM", "full_date": "Apr 30, 2016 11:00 PM"}, {"date": "May 31, 2016", "price": 55.5, "time": "11:00 PM", "full_date": "May 31, 2016 11:00 PM"}, {"date": "Jun 30, 2016", "price": 0.08, "time": "11:00 PM", "full_date": "Jun 30, 2016 11:00 PM"}, {"date": "Jul 31, 2016", "price": 0.09, "time": "11:00 PM", "full_date": "Jul 31, 2016 11:00 PM"}, {"date": "Aug 31, 2016", "price": 66.5, "time": "11:00 PM", "full_date": "Aug 31, 2016 11:00 PM"}, {"date": "Sep 30, 2016", "price": 0.08, "time": "11:00 PM", "full_date": "Sep 30, 2016 11:00 PM"}, {"date": "Oct 31, 2016", "price": 57.0, "time": "11:00 PM", "full_date": "Oct 31, 2016 11:00 PM"}, {"date": "Nov 30, 2016", "price": 0.09, "time": "11:00 PM", "full_date": "Nov 30, 2016 11:00 PM"}, {"date": "Dec 31, 2016", "price": 66.1, "time": "11:00 PM", "full_date": "Dec 31, 2016 11:00 PM"}, {"date": "Jan 31, 2017", "price": 60.45, "time": "11:00 PM", "full_date": "Jan 31, 2017 11:00 PM"}, {"date": "Feb 28, 2017", "price": 61.0, "time": "11:00 PM", "full_date": "Feb 28, 2017 11:00 PM"}, {"date": "Mar 31, 2017", "price": 0.09, "time": "11:00 PM", "full_date": "Mar 31, 2017 11:00 PM"}, {"date": "Apr 30, 2017", "price": 0.11, "time": "11:00 PM", "full_date": "Apr 30, 2017 11:00 PM"}, {"date": "May 31, 2017", "price": 0.09, "time": "11:00 PM", "full_date": "May 31, 2017 11:00 PM"}, {"date": "Jun 30, 2017", "price": 45.0, "time": "11:00 PM", "full_date": "Jun 30, 2017 11:00 PM"}, {"date": "Jul 31, 2017", "price": 48.83, "time": "11:00 PM", "full_date": "Jul 31, 2017 11:00 PM"}, {"date": "Aug 31, 2017", "price": 0.11, "time": "11:00 PM", "full_date": "Aug 31, 2017 11:00 PM"}, {"date": "Sep 30, 2017", "price": 0.27, "time": "11:00 PM", "full_date": "Sep 30, 2017 11:00 PM"}, {"date": "Oct 31, 2017", "price": 0.43, "time": "11:00 PM", "full_date": "Oct 31, 2017 11:00 PM"}, {"date": "Nov 30, 2017", "price": 53.95, "time": "11:00 PM", "full_date": "Nov 30, 2017 11:00 PM"}, {"date": "Dec 31, 2017", "price": 56.5, "time": "11:00 PM", "full_date": "Dec 31, 2017 11:00 PM"}]};
         let activeRange = '1Y';
+        const maEnabled = { 5: true, 21: true, 50: true, 200: true };
+
+        function toggleMA(period) {
+            maEnabled[period] = !maEnabled[period];
+            const btn = document.getElementById('ma' + period + '-btn');
+            if (btn) {
+                if (maEnabled[period]) {
+                    btn.classList.remove('disabled');
+                } else {
+                    btn.classList.add('disabled');
+                }
+            }
+            renderChart(activeRange);
+        }
+
+        // Pre-build continuous chronological daily lookup from historical datasets
+        const masterDailyMap = new Map();
+        ['MAX', '5Y', '1Y', '1M'].forEach(function(rk) {
+            (chartData[rk] || []).forEach(function(pt) {
+                if (pt && pt.price > 0 && pt.date) {
+                    const dKey = pt.date;
+                    if (!masterDailyMap.has(dKey)) {
+                        let ts = 0;
+                        if (pt.full_date) {
+                            ts = new Date(pt.full_date).getTime();
+                        } else {
+                            ts = new Date(pt.date).getTime();
+                        }
+                        masterDailyMap.set(dKey, { date: dKey, price: pt.price, ts: isNaN(ts) ? 0 : ts });
+                    }
+                }
+            });
+        });
+        const sortedDailyPoints = Array.from(masterDailyMap.values()).sort((a, b) => a.ts - b.ts);
+
+        // Precompute master moving averages across continuous daily history
+        const masterMAs = { 5: new Map(), 21: new Map(), 50: new Map(), 200: new Map() };
+        [5, 21, 50, 200].forEach(function(period) {
+            let sum = 0;
+            for (let i = 0; i < sortedDailyPoints.length; i++) {
+                sum += sortedDailyPoints[i].price;
+                if (i >= period) {
+                    sum -= sortedDailyPoints[i - period].price;
+                    masterMAs[period].set(sortedDailyPoints[i].date, sum / period);
+                } else {
+                    masterMAs[period].set(sortedDailyPoints[i].date, sum / (i + 1));
+                }
+            }
+        });
 
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
@@ -1279,13 +1391,59 @@
             if (!points || points.length < 2) {
                 polyline.setAttribute('points', '');
                 polygon.setAttribute('points', '');
+                [5, 21, 50, 200].forEach(function(p) {
+                    const el = document.getElementById('chart-ma' + p);
+                    if (el) el.setAttribute('points', '');
+                });
                 return;
             }
+
+            // Compute MA values for the active range
+            const currentMAVals = { 5: [], 21: [], 50: [], 200: [] };
+            [5, 21, 50, 200].forEach(function(period) {
+                if (rangeKey === '1D') {
+                    let sum = 0;
+                    for (let i = 0; i < points.length; i++) {
+                        sum += points[i].price;
+                        if (i >= period) {
+                            sum -= points[i - period].price;
+                            currentMAVals[period].push(sum / period);
+                        } else {
+                            currentMAVals[period].push(sum / (i + 1));
+                        }
+                    }
+                } else {
+                    for (let i = 0; i < points.length; i++) {
+                        const d = points[i].date;
+                        if (masterMAs[period].has(d)) {
+                            currentMAVals[period].push(masterMAs[period].get(d));
+                        } else {
+                            let s = 0;
+                            let count = Math.min(period, i + 1);
+                            for (let k = i - count + 1; k <= i; k++) s += points[k].price;
+                            currentMAVals[period].push(s / count);
+                        }
+                    }
+                }
+            });
 
             const targetPrice = 0.35;
             const prices = points.map(p => p.price);
             let minP = Math.min(...prices);
             let maxP = Math.max(...prices);
+
+            // Expand bounds if enabled MA lines exceed current price range
+            [5, 21, 50, 200].forEach(function(period) {
+                if (maEnabled[period] && currentMAVals[period].length > 0) {
+                    currentMAVals[period].forEach(function(v) {
+                        if (v > 0) {
+                            minP = Math.min(minP, v);
+                            maxP = Math.max(maxP, v);
+                        }
+                    });
+                }
+            });
+
             if (targetPrice && targetPrice > 0) {
                 maxP = Math.max(maxP, targetPrice * 1.04);
                 minP = Math.min(minP, targetPrice * 0.96);
@@ -1325,10 +1483,44 @@
             const areaPoints = `${coords[0].x.toFixed(1)},${height} ` + polyPoints + ` ${coords[coords.length - 1].x.toFixed(1)},${height}`;
             polygon.setAttribute('points', areaPoints);
 
+            // Render Moving Average Polylines
+            [5, 21, 50, 200].forEach(function(period) {
+                const maPoly = document.getElementById('chart-ma' + period);
+                if (maPoly) {
+                    if (!maEnabled[period]) {
+                        maPoly.setAttribute('points', '');
+                        maPoly.style.display = 'none';
+                    } else {
+                        maPoly.style.display = '';
+                        const maCoords = currentMAVals[period].map((val, idx) => {
+                            const x = padX + (idx / (points.length - 1)) * drawW;
+                            const y = padY + drawH - ((val - minP) / rangeP) * drawH;
+                            return `${x.toFixed(1)},${y.toFixed(1)}`;
+                        });
+                        maPoly.setAttribute('points', maCoords.join(' '));
+                    }
+                }
+            });
+
+            // Helper to update live displayed values on badges and top bar
+            function updateLiveValues(idx) {
+                const pt = points[idx] || points[points.length - 1];
+                if (!pt) return;
+                tooltipDate.textContent = pt.date;
+                tooltipPrice.textContent = '$' + pt.price.toFixed(2);
+                [5, 21, 50, 200].forEach(function(period) {
+                    const valEl = document.getElementById('ma' + period + '-val');
+                    if (valEl) {
+                        const arr = currentMAVals[period];
+                        const v = (arr && arr[idx] !== undefined) ? arr[idx] : (arr ? arr[arr.length - 1] : 0);
+                        valEl.textContent = (v && v > 0) ? ': $' + v.toFixed(2) : '';
+                    }
+                });
+            }
+
             // Default to latest point
-            const lastPt = coords[coords.length - 1];
-            tooltipDate.textContent = lastPt.date;
-            tooltipPrice.textContent = '$' + lastPt.price.toFixed(2);
+            const lastIdx = points.length - 1;
+            updateLiveValues(lastIdx);
 
             // Update Y-Axis Prices
             const highEl = document.getElementById('grid-price-high');
@@ -1356,16 +1548,16 @@
                 const rect = svg.getBoundingClientRect();
                 const mouseX = (e.clientX - rect.left) * (width / rect.width);
                 
-                // Find closest point
-                let closest = coords[0];
+                let closestIdx = 0;
                 let closestDist = Math.abs(coords[0].x - mouseX);
                 for (let i = 1; i < coords.length; i++) {
                     const dist = Math.abs(coords[i].x - mouseX);
                     if (dist < closestDist) {
-                        closest = coords[i];
+                        closestIdx = i;
                         closestDist = dist;
                     }
                 }
+                const closest = coords[closestIdx];
 
                 document.getElementById('hover-line').setAttribute('x1', closest.x);
                 document.getElementById('hover-line').setAttribute('x2', closest.x);
@@ -1375,15 +1567,13 @@
                 document.getElementById('hover-dot').setAttribute('cy', closest.y);
                 document.getElementById('hover-dot').setAttribute('opacity', '1');
 
-                tooltipDate.textContent = closest.date;
-                tooltipPrice.textContent = '$' + closest.price.toFixed(2);
+                updateLiveValues(closestIdx);
             };
 
             svg.onmouseleave = function() {
                 document.getElementById('hover-line').setAttribute('opacity', '0');
                 document.getElementById('hover-dot').setAttribute('opacity', '0');
-                tooltipDate.textContent = lastPt.date;
-                tooltipPrice.textContent = '$' + lastPt.price.toFixed(2);
+                updateLiveValues(lastIdx);
             };
         }
 
