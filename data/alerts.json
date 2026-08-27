@@ -1,37 +1,231 @@
 [
   {
-    "id": "alert-nvda-1787800375",
-    "ticker": "NVDA",
-    "timestamp": "2026-08-27 03:12",
-    "title": "NVDA: Valuation Re-evaluated (Wide Moat)",
-    "severity": "Wide Moat",
+    "id": "ma_reversal_WIX_20260827_100438",
+    "ticker": "WIX",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: WIX Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
     "labels": [
-      "Wide Moat"
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
     ],
     "action_signal": "BUY",
-    "trigger_reason": "SEC 8-K Filing (2026-08-26): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001045810-26-000073]",
-    "what_was_before": "In operational reality, NVIDIA continues to exhibit extraordinary short-term operational execution and compounding momentum. In the latest reported quarter (Q2 FY2027), quarterly revenue reached a record $96,221.0M (+105.8% YoY, +17.9% QoQ), establishing a real-time annualized run-rate of $384,884.0M. Data Center segment revenue surged to $89,000.0M (92.5% of total sales), up 117% YoY, driven by full-capacity deployments of Hopper, Blackwell Ultra, and NVLink scale-up networking systems. GAAP gross margin remained elevated at 75.0% and GAAP operating margin reached 66.2% ($63,734.0M operating income). Management guided Q3 FY2027 revenue to $108.0B (\u00b12%), implying continued sequential expansion despite excluding China compute revenue and signaling gross margins around 74.0% due to surging HBM memory costs.\n\nTechnologically, the platform moat remains robust with the Vera Rubin architecture now entering full production to capture next-generation reasoning and agentic token generation workloads. Customer diversification is expanding beyond US hyperscalers: the AI Cloud, Enterprise, and Sovereign AI (ACIE) segment now generates over $40,000.0M per quarter. The balance sheet remains an unassailable fortress with $+54,500.0M in net cash ($2.24/share) supported by $65,500.0M in cash and marketable investments against $11,000.0M in debt.\n\nCapital returns are operating at historic scale: NVIDIA returned $26,000.0M to shareholders in Q2 FY2027 alone ($46,000.0M over the last two quarters) via share repurchases and dividends, raised its quarterly cash dividend to $0.25 per share, and maintains $99,000.0M in remaining buyback authorizations. Underlying economic cash conversion of net operating income to free cash flow remains highly disciplined at ~88% after deducting capitalized R&D and SBC dilution.",
-    "what_changes_now": "NVIDIA's actual operational performance demonstrates powerful top-line expansion and sustained profitability across four consecutive quarters. Quarterly revenue accelerated sequentially from $57.01 billion in Q3 FY26 to $68.13 billion in Q4 FY26, $81.62 billion in Q1 FY27, and reached $96.22 billion in Q2 FY27 (representing +106.0% YoY growth and an annualized run-rate of $384,884.0M). Operating income for Q2 FY27 hit $63.73 billion with GAAP operating margins reaching 66.2% and gross margins holding firm at 75.0%.\n\nThe core growth engine remains the Data Center platform, which generated $89.02 billion in Q2 FY27 (+117% YoY), driven by massive deployment of Data center accelerated computing platforms, Blackwell/Rubin GPU clusters, and high-performance networking nodes. Demand is broadening beyond hyperscalers into sovereign AI and industrial enterprise clusters, reinforced by the structural reality that agentic AI execution consumes 15x to 100x more compute tokens per task than standard search queries. Monetization remains exceptional across Full-stack AI hardware systems, NVLink/InfiniBand networking infrastructure, and CUDA enterprise software licensing.\n\nCash generation and balance sheet strength remain exceptional. Q2 FY27 free cash flow reached $21.3 billion despite substantial working capital prepayments to lock in TSMC advanced packaging (CoWoS) and memory supply commitments totaling $279 billion. Management demonstrated strong capital allocation discipline by returning $26.0 billion to shareholders in Q2 FY27 alone through repurchases and dividends while preserving liquid cash and investments of $56,600.0M against debt of $8,460.0M ($+48,140M net cash or $+1.98/share).",
-    "price_at_alert": 209.66,
-    "price_change_pct": -2.36,
+    "trigger_reason": "Technical Trend Reversal: Price ($85.41) has reclaimed 5D SMA and crossed UP ALL 4 Moving Averages (5D: $84.05, 21D: $71.64, 50D: $58.58, 200D: $76.56) with +3.7% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 5D SMA (Previous close: $82.29).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 85.41,
+    "price_change_pct": 3.79,
+    "report_url": "reports/WIX.html"
+  },
+  {
+    "id": "ma_reversal_WDAY_20260827_100438",
+    "ticker": "WDAY",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: WDAY Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($198.14) has reclaimed 5D SMA and crossed UP ALL 4 Moving Averages (5D: $196.49, 21D: $184.82, 50D: $155.77, 200D: $160.98) with +0.4% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 5D SMA (Previous close: $190.75).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 198.14,
+    "price_change_pct": 3.87,
+    "report_url": "reports/WDAY.html"
+  },
+  {
+    "id": "ma_reversal_TSM_20260827_100438",
+    "ticker": "TSM",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: TSM Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($424.99) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $417.83, 21D: $417.68, 50D: $423.68, 200D: $368.91) with +2.2% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $417.69).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 424.99,
+    "price_change_pct": 1.75,
+    "report_url": "reports/TSM.html"
+  },
+  {
+    "id": "ma_reversal_PYPL_20260827_100438",
+    "ticker": "PYPL",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: PYPL Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($61.97) has reclaimed 5D SMA and crossed UP ALL 4 Moving Averages (5D: $61.86, 21D: $60.06, 50D: $53.60, 200D: $51.35) with -0.5% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 5D SMA (Previous close: $61.81).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 61.97,
+    "price_change_pct": 0.26,
+    "report_url": "reports/PYPL.html"
+  },
+  {
+    "id": "ma_reversal_NVDA_20260827_100438",
+    "ticker": "NVDA",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: NVDA Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($224.64) has reclaimed 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $214.11, 21D: $215.99, 50D: $208.10, 200D: $195.72) with +3.6% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 21D SMA, 5D SMA (Previous close: $209.66).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 224.64,
+    "price_change_pct": 7.14,
     "report_url": "reports/NVDA.html"
   },
   {
-    "id": "alert-crm-1787799963",
-    "ticker": "CRM",
-    "timestamp": "2026-08-27 03:06",
-    "title": "CRM: Valuation Re-evaluated (Wide Moat)",
-    "severity": "Wide Moat",
+    "id": "ma_reversal_NOW_20260827_100438",
+    "ticker": "NOW",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: NOW Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
     "labels": [
-      "Wide Moat"
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
     ],
     "action_signal": "BUY",
-    "trigger_reason": "SEC 8-K Filing (2026-08-26): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001108524-26-000187]",
-    "what_was_before": "In stark contrast to market skepticism, Salesforce's operational engine continues to deliver substantial cash flow and rapid adoption of its AI infrastructure. Based on the latest quarterly statutory filings, the business generates an annualized reve",
-    "what_changes_now": "In stark contrast to bear concerns, Salesforce's real-time operational trajectory across Q3 FY26 through Q2 FY27 demonstrates disciplined execution and solid top-line momentum. Annualized run-rate revenue has reached $45,400.0M ($11,350.0M in Q2 FY27, up 11% YoY), supported by robust gross margins of 76.9% and non-GAAP operating margins of 34.1%. The core enterprise engine remains intact, with gross revenue retention holding firm at ~92% (attrition ~8%) and current remaining performance obligations (cRPO) expanding 14% YoY to $33.5 billion.\n\nThe commercial transition toward the \"Agentic Enterprise\" is showing tangible traction. Combined Agentforce and Data 360 Annual Recurring Revenue (ARR) surged to $3.9 billion in Q2 FY27 (with Agentforce stand-alone ARR reaching ~$1.5 billion, up 240% YoY). Cumulative Agentic Work Units (AWUs) delivered crossed 7.0 billion, with 3.2 billion processed in Q2 alone (+97% QoQ). Consumption-based billing for Data 360 (+20% YoY) and AWUs is expanding customer wallet share, proving that usage-based AI monetization is supplementing core subscription seats.\n\nOn balance sheet management and capital return, Salesforce generated $15.2 billion in TTM free cash flow. While long-term debt increased following the $25B senior notes offering, total cash and investments of $11.84 billion offset $11.88 billion in funded debt ($-40M net cash). Management's share retirement has reduced diluted share count significantly, while low maintenance CapEx (~1.4% of revenue) preserves high owner cash flow conversion.",
-    "price_at_alert": 205.62,
-    "price_change_pct": -1.7,
+    "trigger_reason": "Technical Trend Reversal: Price ($139.10) has reclaimed 5D SMA and crossed UP ALL 4 Moving Averages (5D: $129.69, 21D: $123.18, 50D: $111.11, 200D: $119.42) with +7.2% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 5D SMA (Previous close: $125.80).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 139.1,
+    "price_change_pct": 10.57,
+    "report_url": "reports/NOW.html"
+  },
+  {
+    "id": "ma_reversal_NBIS_20260827_100438",
+    "ticker": "NBIS",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: NBIS Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($225.10) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $218.21, 21D: $220.74, 50D: $220.94, 200D: $151.36) with +2.3% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $213.93).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 225.1,
+    "price_change_pct": 5.22,
+    "report_url": "reports/NBIS.html"
+  },
+  {
+    "id": "ma_reversal_FTNT_20260827_100438",
+    "ticker": "FTNT",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: FTNT Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($165.03) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $156.35, 21D: $159.20, 50D: $156.85, 200D: $107.65) with +9.4% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $157.54).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 165.03,
+    "price_change_pct": 4.75,
+    "report_url": "reports/FTNT.html"
+  },
+  {
+    "id": "ma_reversal_FLR_20260827_100438",
+    "ticker": "FLR",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: FLR Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($53.26) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $52.05, 21D: $52.13, 50D: $51.62, 200D: $47.52) with +2.1% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $52.03).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 53.26,
+    "price_change_pct": 2.36,
+    "report_url": "reports/FLR.html"
+  },
+  {
+    "id": "ma_reversal_CRM_20260827_100438",
+    "ticker": "CRM",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: CRM Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($248.84) has reclaimed 5D SMA and crossed UP ALL 4 Moving Averages (5D: $215.68, 21D: $198.91, 50D: $178.81, 200D: $200.24) with +21.1% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 5D SMA (Previous close: $205.62).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 248.84,
+    "price_change_pct": 21.02,
     "report_url": "reports/CRM.html"
+  },
+  {
+    "id": "ma_reversal_ADM_20260827_100438",
+    "ticker": "ADM",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: ADM Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($80.43) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $79.63, 21D: $79.77, 50D: $80.07, 200D: $71.36) with -1.6% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $80.09).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 80.43,
+    "price_change_pct": 0.42,
+    "report_url": "reports/ADM.html"
+  },
+  {
+    "id": "ma_reversal_ADBE_20260827_100438",
+    "ticker": "ADBE",
+    "timestamp": "2026-08-27 10:04",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: ADBE Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Momentum Confirmation"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($286.22) has reclaimed 5D SMA and crossed UP ALL 4 Moving Averages (5D: $277.04, 21D: $265.19, 50D: $238.22, 200D: $269.35) with +5.1% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 5D SMA (Previous close: $273.47).",
+    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 286.22,
+    "price_change_pct": 4.66,
+    "report_url": "reports/ADBE.html"
   },
   {
     "id": "alert-nbis-1787764865",

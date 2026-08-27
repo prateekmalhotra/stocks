@@ -2261,10 +2261,18 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     ticker_alerts_html = ""
     if ticker_alerts:
         for alt in ticker_alerts:
+            sev_lower = (alt.severity or "").lower()
+            if any(k in sev_lower for k in ["breakout", "positive", "bullish", "reversal", "catalyst"]):
+                badge_style = "background: rgba(130, 174, 140, 0.15); color: #82AE8C; border: 1px solid rgba(130, 174, 140, 0.35);"
+            elif any(k in sev_lower for k in ["warning", "risk", "avoid", "caution", "rebalance", "breach"]):
+                badge_style = "background: rgba(201, 122, 114, 0.15); color: #C97A72; border: 1px solid rgba(201, 122, 114, 0.35);"
+            else:
+                badge_style = "background: rgba(212, 163, 115, 0.15); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35);"
+
             ticker_alerts_html += f"""
             <div class="alert-feed-card">
                 <div class="alert-feed-header">
-                    <span class="alert-feed-badge">{alt.severity}</span>
+                    <span class="alert-feed-badge" style="{badge_style}">{alt.severity}</span>
                     <span class="alert-feed-time">{alt.timestamp}</span>
                 </div>
                 <div class="alert-feed-title">{alt.title}</div>

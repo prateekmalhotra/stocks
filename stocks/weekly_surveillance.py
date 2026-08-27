@@ -591,6 +591,14 @@ def run_portfolio_surveillance(portfolio_type: str = "defensive", auto_execute: 
         "formula_description": cash_rationale
     }
 
+    # Audit Quad-MA Bullish Reversal Crossovers across the watchlist
+    ma_reversals = []
+    try:
+        from stocks.moving_average_surveillance import get_all_ma_reversals
+        ma_reversals = get_all_ma_reversals(watchlist)
+    except Exception as e:
+        print(f"⚠️ MA reversal surveillance check warning: {e}")
+
     surveillance_report = {
         "portfolio_type": portfolio_type,
         "portfolio_label": port_label,
@@ -611,7 +619,8 @@ def run_portfolio_surveillance(portfolio_type: str = "defensive", auto_execute: 
         "next_scheduled_run": next_run_str,
         "holdings_health": holding_audits,
         "top_watchlist_on_radar": watchlist_candidates[:3],
-        "rebalance_proposals": executed_actions
+        "rebalance_proposals": executed_actions,
+        "ma_reversal_breakouts": ma_reversals[:10]
     }
 
     s_file = get_surveillance_filepath(portfolio_type)

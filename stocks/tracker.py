@@ -327,4 +327,12 @@ def check_watchlist_triggers() -> int:
     except Exception as e:
         print(f"⚠️ Beat & Retrace surveillance check warning: {e}")
 
+    # 4. Quad-Moving Average Bullish Reversal Surveillance (Crosses UP 5D, 21D, 50D, 200D SMAs)
+    try:
+        from stocks.moving_average_surveillance import check_moving_average_reversal_triggers
+        ma_triggered = check_moving_average_reversal_triggers(watchlist)
+        triggered_count += ma_triggered
+    except Exception as e:
+        print(f"⚠️ Moving average reversal surveillance warning: {e}")
+
     return triggered_count
