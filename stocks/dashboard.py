@@ -528,6 +528,70 @@ def format_cash_flow_predictability_card_html(stock: WatchlistStock) -> str:
     """
 
 
+def build_ticker_legend_modal_html() -> str:
+    """Builds the clean, minimalist modal explaining ticker beacons, Quad-MA radar signals, and surveillance stances."""
+    return f"""
+    <!-- Ticker & Beacon Legend Modal -->
+    <div id="ticker-legend-modal" class="modal-shade" onclick="closeTickerLegendModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 580px; max-height: 88vh; overflow-y: auto; padding: 22px 26px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeTickerLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer; background: transparent; border: none;">✕</button>
+            
+            <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); margin-bottom: 6px; letter-spacing: -0.02em;">
+                Ticker Beacons &amp; Signals
+            </div>
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 18px; line-height: 1.4;">
+                Visual indicators displayed alongside company ticker symbols for technical breakouts and portfolio surveillance stances.
+            </div>
+
+            <!-- Section 1: Technical Moving Average Reversal -->
+            <div style="margin-bottom: 16px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    Technical Moving Average Reversal (Active 21-Day Window)
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 14px;">
+                    <div style="display: grid; grid-template-columns: 24px 140px 1fr; align-items: center; gap: 10px; font-size: 0.76rem;">
+                        <span class="quad-beacon-wrap" style="margin: 0;"><span class="quad-beacon-ping"></span><span class="quad-beacon-dot"></span></span>
+                        <strong style="color: #82AE8C; white-space: nowrap;">Emerald Radar Ping</strong>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">Crossed UP all 4 Moving Averages (5D · 21D · 50D · 200D) within the last 21 sessions with &ge;0.5% clearance.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 1px; background: var(--border-color); margin: 16px 0;"></div>
+
+            <!-- Section 2: Surveillance Action Stances -->
+            <div>
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    Surveillance Stance Beacons
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px;">
+                    <div style="display: grid; grid-template-columns: 16px 60px 1fr; align-items: center; gap: 8px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-green);">BUY</strong>
+                        <span style="color: var(--text-secondary); white-space: nowrap;">Deep value zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 60px 1fr; align-items: center; gap: 8px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-hold"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-warm);">HOLD</strong>
+                        <span style="color: var(--text-secondary); white-space: nowrap;">Core thesis intact</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 60px 1fr; align-items: center; gap: 8px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-caution"><span class="beacon-dot"></span></span>
+                        <strong style="color: #D48858;">CAUTION</strong>
+                        <span style="color: var(--text-secondary); white-space: nowrap;">Execution trim zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 60px 1fr; align-items: center; gap: 8px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-avoid"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-red);">AVOID</strong>
+                        <span style="color: var(--text-secondary); white-space: nowrap;">Thesis broken</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    """
+
+
 def build_labels_legend_modal_html(include_pricing_power: bool = False) -> str:
     """Builds the clean, minimalist, subtle modal explaining investment taxonomy and surveillance signals."""
     pricing_power_section = ""
@@ -5402,7 +5466,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>Ticker</th>
+                            <th>Ticker <button type="button" class="btn-info-circle" onclick="openTickerLegendModal(event)" title="Ticker Beacons &amp; Signals Legend">ⓘ</button></th>
                             <th>Price</th>
                             <th>Labels <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="Legend">ⓘ</button></th>
                             <th>3Y Target</th>
@@ -5844,6 +5908,26 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             renderLatexEquations();
             streamWatchlistQuotes(true);
         }});
+        function openTickerLegendModal(event) {{
+            if (event) {{
+                event.stopPropagation();
+                event.preventDefault();
+            }}
+            const modal = document.getElementById('ticker-legend-modal');
+            if (modal) modal.style.display = 'flex';
+        }}
+
+        function closeTickerLegendModal() {{
+            const modal = document.getElementById('ticker-legend-modal');
+            if (modal) modal.style.display = 'none';
+        }}
+
+        function closeTickerLegendModalOutside(event) {{
+            if (event.target.id === 'ticker-legend-modal') {{
+                closeTickerLegendModal();
+            }}
+        }}
+
         function openMultibaggerModal(event) {{
             if (event) {{
                 event.stopPropagation();
@@ -5872,6 +5956,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             if (e.key === 'Escape') {{
                 closeAlertModal();
                 closeLabelsLegendModal();
+                closeTickerLegendModal();
                 closeMultibaggerModal();
             }}
             if (e.key === '/' && document.activeElement && document.activeElement.tagName !== 'INPUT') {{
@@ -5895,6 +5980,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             }});
         }}, 45000);
     </script>
+    {build_ticker_legend_modal_html()}
     {build_labels_legend_modal_html(include_pricing_power=False)}
     {build_multibagger_legend_modal_html()}
 </body>
