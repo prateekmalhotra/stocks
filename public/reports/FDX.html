@@ -1452,12 +1452,23 @@
                 }
             });
 
-            if (targetPrice && targetPrice > 0) {
-                maxP = Math.max(maxP, targetPrice * 1.04);
-                minP = Math.min(minP, targetPrice * 0.96);
+            const isShortTerm = (rangeKey === '1D' || rangeKey === '1M');
+
+            if (!isShortTerm && targetPrice && targetPrice > 0) {
+                // On multi-year horizons, incorporate target price into scale if within reasonable range (< 3x)
+                if (targetPrice <= maxP * 3.0 && targetPrice >= minP * 0.33) {
+                    maxP = Math.max(maxP, targetPrice * 1.04);
+                    minP = Math.min(minP, targetPrice * 0.96);
+                }
             }
+
+            // Add organic padding around minP and maxP so curves have full vertical expressiveness
+            const spanP = (maxP - minP);
+            const padSpan = (spanP < 0.05) ? Math.max(minP * 0.04, 0.40) : spanP * 0.05;
+            minP = Math.max(0, minP - padSpan);
+            maxP = maxP + padSpan;
             if (minP === maxP) { minP *= 0.95; maxP *= 1.05; }
-            const rangeP = maxP - minP;
+            const rangeP = Math.max(maxP - minP, 0.01);
 
             const width = 900;
             const height = 200;
@@ -1466,16 +1477,21 @@
             const drawW = width - (2 * padX);
             const drawH = height - (2 * padY);
 
-            // Dynamically position 3Y Target line and label
+            // Dynamically position 3Y Target line and label (show only if within visible Y range)
             const targetLine = document.getElementById('target-line');
             const targetLabel = document.getElementById('target-label');
-            if (targetLine && targetPrice > 0) {
-                const targetY = padY + drawH - ((targetPrice - minP) / rangeP) * drawH;
-                targetLine.setAttribute('y1', targetY.toFixed(1));
-                targetLine.setAttribute('y2', targetY.toFixed(1));
-                if (targetLabel) {
+            if (targetLine && targetLabel) {
+                if (targetPrice && targetPrice > 0 && targetPrice >= minP && targetPrice <= maxP) {
+                    const targetY = padY + drawH - ((targetPrice - minP) / rangeP) * drawH;
+                    targetLine.setAttribute('y1', targetY.toFixed(1));
+                    targetLine.setAttribute('y2', targetY.toFixed(1));
+                    targetLine.style.display = '';
                     targetLabel.setAttribute('y', (targetY - 5).toFixed(1));
                     targetLabel.textContent = '3Y Target: $' + targetPrice.toFixed(2);
+                    targetLabel.style.display = '';
+                } else {
+                    targetLine.style.display = 'none';
+                    targetLabel.style.display = 'none';
                 }
             }
 
