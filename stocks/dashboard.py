@@ -2303,7 +2303,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     else:
         funds_chips_html = '<span class="whale-chip" style="color: var(--text-dim);">Broad Institutional & Index Fund Coverage</span>'
 
-    from stocks.tracker import fetch_all_chart_ranges_cached
+    from stocks.tracker import fetch_all_chart_ranges_cached, fetch_dividend_yield_cached
+    annual_div, div_yield = fetch_dividend_yield_cached(ticker_clean, current_price)
     chart_data = {}
     try:
         chart_data = fetch_all_chart_ranges_cached(ticker_clean, current_price)
@@ -2478,15 +2479,24 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
     if yield_pct is not None and yield_pct > 0 and (oe_sh or 0) > 0:
         yield_card_val = f"{yield_pct:.1f}%"
-        yield_card_sub = "Starting Free Cash Flow Yield"
+        if annual_div > 0.05 and div_yield >= 0.2:
+            yield_card_sub = f"OE Yield · {div_yield:.1f}% Div Yield (${annual_div:.2f}/sh)"
+        else:
+            yield_card_sub = "Starting Free Cash Flow Yield"
         yield_color = "var(--accent-green)"
     elif yield_pct is not None and yield_pct <= 0:
         yield_card_val = f"{yield_pct:.1f}%" if yield_pct > -50.0 else "Neg."
-        yield_card_sub = "Negative Owner Cash Yield"
+        if annual_div > 0.05 and div_yield >= 0.2:
+            yield_card_sub = f"Negative OE · {div_yield:.1f}% Div Yield (${annual_div:.2f}/sh)"
+        else:
+            yield_card_sub = "Negative Owner Cash Yield"
         yield_color = "var(--accent-red)"
     else:
         yield_card_val = "N/M"
-        yield_card_sub = "Unprofitable / Reinvesting"
+        if annual_div > 0.05 and div_yield >= 0.2:
+            yield_card_sub = f"{div_yield:.1f}% Div Yield (${annual_div:.2f}/sh)"
+        else:
+            yield_card_sub = "Unprofitable / Reinvesting"
         yield_color = "var(--text-dim)"
 
     if owner_roic is not None:
@@ -2729,31 +2739,27 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .ma-legend-bar {{
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            letter-spacing: -0.01em;
             flex-wrap: wrap;
         }}
-        .ma-pill {{
+        .ma-text-item {{
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 2px 7px;
-            border-radius: 6px;
-            font-family: var(--font-mono);
-            font-size: 0.70rem;
-            font-weight: 500;
+            gap: 5px;
             cursor: pointer;
             user-select: none;
-            border: 1px solid transparent;
-            background: transparent;
-            transition: all 0.15s ease;
+            transition: opacity 0.15s ease, filter 0.15s ease;
         }}
-        .ma-pill:hover {{
+        .ma-text-item:hover {{
             filter: brightness(1.25);
         }}
-        .ma-pill.disabled {{
-            opacity: 0.30 !important;
+        .ma-text-item.disabled {{
+            opacity: 0.28 !important;
             text-decoration: line-through;
-            filter: grayscale(0.7);
+            filter: grayscale(0.8);
         }}
         .ma-dot {{
             display: inline-block;
@@ -2762,9 +2768,18 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-radius: 50%;
             flex-shrink: 0;
         }}
-        .ma-val {{
+        .ma-label {{
             font-weight: 600;
-            margin-left: 2px;
+        }}
+        .ma-val {{
+            font-weight: 500;
+            color: var(--text-title);
+        }}
+        .ma-sep {{
+            color: var(--text-dim);
+            opacity: 0.45;
+            user-select: none;
+            font-size: 0.72rem;
         }}
         .range-pill {{
             background: transparent;
@@ -3535,20 +3550,23 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                             <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
                             <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>${target_price:.2f}</strong></span>
                         </div>
-                        <!-- Moving Average Toggles / Live Badges -->
+                        <!-- Moving Average Live Indicators -->
                         <div class="ma-legend-bar">
-                            <button type="button" class="ma-pill" id="ma5-btn" onclick="toggleMA(5)" title="Toggle 5-Day Moving Average" style="color: #38BDF8; border-color: rgba(56, 189, 248, 0.35); background: rgba(56, 189, 248, 0.08);">
-                                <span class="ma-dot" style="background: #38BDF8;"></span>5 MA<span id="ma5-val" class="ma-val"></span>
-                            </button>
-                            <button type="button" class="ma-pill" id="ma21-btn" onclick="toggleMA(21)" title="Toggle 21-Day Moving Average" style="color: #FBBF24; border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.08);">
-                                <span class="ma-dot" style="background: #FBBF24;"></span>21 MA<span id="ma21-val" class="ma-val"></span>
-                            </button>
-                            <button type="button" class="ma-pill" id="ma50-btn" onclick="toggleMA(50)" title="Toggle 50-Day Moving Average" style="color: #FB923C; border-color: rgba(251, 146, 60, 0.35); background: rgba(251, 146, 60, 0.08);">
-                                <span class="ma-dot" style="background: #FB923C;"></span>50 MA<span id="ma50-val" class="ma-val"></span>
-                            </button>
-                            <button type="button" class="ma-pill" id="ma200-btn" onclick="toggleMA(200)" title="Toggle 200-Day Moving Average" style="color: #E879F9; border-color: rgba(232, 121, 249, 0.35); background: rgba(232, 121, 249, 0.08);">
-                                <span class="ma-dot" style="background: #E879F9;"></span>200 MA<span id="ma200-val" class="ma-val"></span>
-                            </button>
+                            <span class="ma-text-item" id="ma5-btn" onclick="toggleMA(5)" title="Click to toggle 5-Day MA">
+                                <span class="ma-dot" style="background: #38BDF8;"></span><span class="ma-label" style="color: #38BDF8;">5 MA</span><span id="ma5-val" class="ma-val"></span>
+                            </span>
+                            <span class="ma-sep">·</span>
+                            <span class="ma-text-item" id="ma21-btn" onclick="toggleMA(21)" title="Click to toggle 21-Day MA">
+                                <span class="ma-dot" style="background: #FBBF24;"></span><span class="ma-label" style="color: #FBBF24;">21 MA</span><span id="ma21-val" class="ma-val"></span>
+                            </span>
+                            <span class="ma-sep">·</span>
+                            <span class="ma-text-item" id="ma50-btn" onclick="toggleMA(50)" title="Click to toggle 50-Day MA">
+                                <span class="ma-dot" style="background: #FB923C;"></span><span class="ma-label" style="color: #FB923C;">50 MA</span><span id="ma50-val" class="ma-val"></span>
+                            </span>
+                            <span class="ma-sep">·</span>
+                            <span class="ma-text-item" id="ma200-btn" onclick="toggleMA(200)" title="Click to toggle 200-Day MA">
+                                <span class="ma-dot" style="background: #E879F9;"></span><span class="ma-label" style="color: #E879F9;">200 MA</span><span id="ma200-val" class="ma-val"></span>
+                            </span>
                         </div>
                     </div>
                     <div class="chart-range-pills">
@@ -3974,7 +3992,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     if (valEl) {{
                         const arr = currentMAVals[period];
                         const v = (arr && arr[idx] !== undefined) ? arr[idx] : (arr ? arr[arr.length - 1] : 0);
-                        valEl.textContent = (v && v > 0) ? ': $' + v.toFixed(2) : '';
+                        valEl.textContent = (v && v > 0) ? ' $' + v.toFixed(2) : '';
                     }}
                 }});
             }}

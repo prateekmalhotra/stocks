@@ -231,7 +231,60 @@ def fetch_all_chart_ranges_cached(ticker: str, current_price: float, max_age_hou
     except Exception:
         pass
 
-    return data
+def fetch_dividend_yield_cached(ticker: str, current_price: float, max_age_hours: int = 24) -> Tuple[float, float]:
+    """
+    Fetches verified trailing annual cash dividend ($/sh) and dividend yield (%) with disk caching (24h TTL).
+    Returns (annual_dividend_dollars, dividend_yield_pct).
+    """
+    from pathlib import Path
+    data_dir = Path(__file__).resolve().parent.parent / "data"
+    cache_dir = data_dir / "dividend_cache"
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    cache_file = cache_dir / f"{ticker.upper().strip()}.json"
+
+    if cache_file.exists():
+        try:
+            mtime = datetime.fromtimestamp(cache_file.stat().st_mtime)
+            if (datetime.now() - mtime).total_seconds() < max_age_hours * 3600:
+                with open(cache_file, "r", encoding="utf-8") as f:
+                    cached_data = json.load(f)
+                    if isinstance(cached_data, dict) and "annual_dividend" in cached_data:
+                        ann_div = float(cached_data.get("annual_dividend", 0.0))
+                        div_y = round((ann_div / current_price * 100.0), 2) if current_price > 0 else 0.0
+                        return ann_div, div_y
+        except Exception:
+            pass
+
+    # Fetch from Yahoo Finance chart dividend events
+    ticker_clean = ticker.upper().strip()
+    headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
+    candidates = get_ticker_candidates(ticker_clean)
+    annual_div = 0.0
+
+    for sym in candidates:
+        try:
+            url = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?events=div&interval=1mo&range=2y"
+            res = requests.get(url, headers=headers, timeout=5)
+            if res.status_code == 200:
+                data = res.json()
+                results = data.get("chart", {}).get("result")
+                if results:
+                    div_events = results[0].get("events", {}).get("dividends", {})
+                    if div_events:
+                        total_div_2y = sum(float(v.get("amount", 0.0)) for v in div_events.values())
+                        annual_div = round(total_div_2y / 2.0, 2)
+                        break
+        except Exception:
+            continue
+
+    div_yield = round((annual_div / current_price * 100.0), 2) if current_price > 0 else 0.0
+    try:
+        with open(cache_file, "w", encoding="utf-8") as f:
+            json.dump({"annual_dividend": annual_div, "dividend_yield_pct": div_yield, "updated_at": datetime.now().isoformat()}, f, indent=2)
+    except Exception:
+        pass
+
+    return annual_div, div_yield
 
 
 
