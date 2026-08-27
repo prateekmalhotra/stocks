@@ -277,41 +277,19 @@ def format_catalyst_display(event_str: Optional[str], date_str: Optional[str]) -
         else:
             date_display = clean_date
 
-    # Derive Event Headline
-    if clean_event and clean_event.upper() != "TBD":
+    # Preserve High-Signal Business Milestone Headline
+    if clean_event and clean_event.upper() != "TBD" and not re.match(r"^Q[1-4]\s*'?\d{2}\s*Earnings$", clean_event, flags=re.IGNORECASE):
         ev = clean_event
-        # Standardize Quarter + Year: Q3 FY2026 / Q3 2026 -> Q3 '26
-        ev = re.sub(r"\bQ([1-4])\s*(?:FY|FY\s*)?20(\d{2})\b", r"Q\1 '\2", ev, flags=re.IGNORECASE)
-        ev = re.sub(r"\bFY20(\d{2})\b", r"'\1", ev, flags=re.IGNORECASE)
-        ev = re.sub(r"\bFirst Quarter\b", "Q1", ev, flags=re.IGNORECASE)
-        ev = re.sub(r"\bSecond Quarter\b", "Q2", ev, flags=re.IGNORECASE)
-        ev = re.sub(r"\bThird Quarter\b", "Q3", ev, flags=re.IGNORECASE)
-        ev = re.sub(r"\bFourth Quarter\b", "Q4", ev, flags=re.IGNORECASE)
-        ev = re.sub(r"\bEarnings (?:Release|Report|Call|Results)\b", "Earnings", ev, flags=re.IGNORECASE)
-        ev = re.sub(r"\bQuarterly Earnings\b", "Earnings", ev, flags=re.IGNORECASE)
-        
-        if not re.search(r"(?:Earnings|Filing|Report|Day|Meeting|Call|Approval|Launch|20-F|10-K)", ev, flags=re.IGNORECASE):
-            ev = f"{ev} Earnings"
+        # Strip redundant boilerplate prefixes/suffixes
+        ev = re.sub(r"^(?:Upcoming\s+)?(?:Quarterly\s+)?(?:Earnings\s+Call\s+&\s+SEC\s+Filing|Earnings\s+Release|Quarterly\s+Results|Earnings)\s*[-:·]?\s*", "", ev, flags=re.IGNORECASE).strip()
+        if not ev or ev.lower() in ["earnings", "earnings release", "earnings call"]:
+            ev = "Core Margin & Comp Inflection"
         headline = ev
     else:
-        # If no event text was provided, deduce from the date!
-        if parsed_dt:
-            month = parsed_dt.month
-            year_short = parsed_dt.strftime("%y")
-            if month in (1, 2, 3):
-                q = "Q4" if month in (1, 2) else "Q1"
-            elif month in (4, 5, 6):
-                q = "Q1"
-            elif month in (7, 8, 9):
-                q = "Q2"
-            else:
-                q = "Q3"
-            headline = f"{q} '{year_short} Earnings"
-        else:
-            headline = "Next Earnings Call"
+        headline = "Core Margin & Comp Inflection"
 
     if not date_display:
-        date_display = "Expected 2026" if not clean_date else clean_date
+        date_display = "Horizon 2026"
 
     return headline, date_display
 

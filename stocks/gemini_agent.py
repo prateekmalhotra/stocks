@@ -3404,20 +3404,35 @@ Output ONLY a JSON object:
 
 
 def research_catalyst_intelligence(ticker: str, company_name: str) -> Dict[str, str]:
-    """Specialized Subagent: Searches live web for the exact next earnings release date and primary company catalyst."""
+    """Specialized Subagent: Identifies the exact next fundamental catalyst milestone and event date."""
     clean_t = ticker.upper().strip()
-    prompt = f"""You are an equity research calendar and corporate catalyst specialist.
-Search the live web (Yahoo Finance, SEC filings, Nasdaq, company IR page, Bloomberg, Reuters) for the exact next earnings release date and primary upcoming corporate catalyst for {clean_t} ({company_name}).
+    prompt = f"""You are a specialized institutional equity analyst and special situations researcher.
+Identify the primary upcoming fundamental business catalyst and its expected date for {clean_t} ({company_name}).
 
-Extract and return a JSON object with:
-- "next_catalyst_date": Exact date in strict "YYYY-MM-DD" format (e.g. "2026-11-12"). If exact day is unconfirmed, provide the consensus estimated date.
-- "next_catalyst_event": Specific, concise fundamental event name (max 4-5 words, e.g. "Q3 FY26 Earnings Release", "Singles Day GMV Report", "Investor Day Keynote", "FDA Advisory Committee Meeting").
+CRITICAL INSTRUCTIONS FOR CATALYST DEFINITION:
+1. NEVER provide generic filler like "Q3 Earnings", "Quarterly Earnings Call", "Next Earnings", or "SEC Filing".
+2. Identify the SPECIFIC FUNDAMENTAL INFLECTION POINT, MILESTONE, OR DECISION POINT that will prove/disprove the investment thesis on the horizon.
+   Examples of institutional high-signal catalysts:
+   - "Foot Locker Comp & Margin Turnaround" (for DKS)
+   - "Tinder Direct Payer Growth Stabilization" (for MTCH)
+   - "Blackwell B200 Volume Shipments & 75% Margin Floor" (for NVDA)
+   - "DOJ Search Monopoly Remedy Ruling" (for GOOGL)
+   - "AWS Margin Expansion & Project Kuiper CapEx" (for AMZN)
+   - "Velo Smokeless Nicotine >30% US Volume Growth" (for BTI)
+   - "B2B Score Tier Price Hike Implementation" (for FICO)
+   - "Temu EU Customs Rule Impact & Take Rate" (for PDD)
+   - "High-NA EUV Commercial Deliveries" (for ASML)
+   - "Oral GLP-1 Phase 3 Trial Data Readout" (for LLY)
+
+3. Return a JSON object with:
+   - "next_catalyst_date": Exact date in strict "YYYY-MM-DD" format (or consensus estimated event/earnings date).
+   - "next_catalyst_event": Specific, concise fundamental milestone (3 to 6 words maximum).
 
 Output ONLY the JSON object:
 ```json
 {{
   "next_catalyst_date": "YYYY-MM-DD",
-  "next_catalyst_event": "Q3 FY26 Earnings Release"
+  "next_catalyst_event": "Specific Business Inflection Milestone"
 }}
 ```
 """
@@ -3426,7 +3441,11 @@ Output ONLY the JSON object:
         parsed = extract_json_block(res)
         if isinstance(parsed, dict):
             c_date = normalize_catalyst_date(parsed.get("next_catalyst_date"))
-            c_event = str(parsed.get("next_catalyst_event") or "Q3 FY26 Earnings Release").strip()
+            c_event = str(parsed.get("next_catalyst_event") or "Core Business Margin & Unit Growth Milestone").strip()
+            # Clean any leftover generic earnings prefixes
+            c_event = re.sub(r"^(?:Q[1-4]\s*(?:FY\d{2,4}|\d{4})?\s*(?:Earnings|Results)?\s*[-:·]?\s*)", "", c_event, flags=re.IGNORECASE).strip()
+            if not c_event or c_event.lower() in ["earnings", "earnings release", "earnings call"]:
+                c_event = "Core Operating Margin & Volume Growth"
             return {
                 "next_catalyst_date": c_date,
                 "next_catalyst_event": c_event
@@ -3436,6 +3455,6 @@ Output ONLY the JSON object:
     
     return {
         "next_catalyst_date": (datetime.now() + timedelta(days=90)).strftime("%Y-%m-%d"),
-        "next_catalyst_event": "Q3 FY26 Earnings Release"
+        "next_catalyst_event": "Core Operating Margin & Volume Growth"
     }
 
