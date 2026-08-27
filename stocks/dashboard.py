@@ -4918,13 +4918,12 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-weight: 400 !important;
         }}
 
-        /* Catalyst Column: Quiet, Understated, Muted Micro-Typography */
+        /* Catalyst Column: Quiet, Understated, Muted Micro-Typography with Elegant Spacing */
         .tbl-catalyst-cell {{
             display: flex;
             flex-direction: column;
-            gap: 1px;
-            max-width: 220px;
-            line-height: 1.2;
+            gap: 5px;
+            max-width: 230px;
         }}
         .tbl-cat-headline {{
             font-family: var(--font-sans);
@@ -4932,7 +4931,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-weight: 400;
             color: var(--text-secondary);
             opacity: 0.85;
-            line-height: 1.2;
+            line-height: 1.35;
             white-space: normal;
             word-break: break-word;
             transition: color 0.15s ease, opacity 0.15s ease;
@@ -4943,10 +4942,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         }}
         .tbl-cat-date {{
             font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-size: 0.66rem;
             color: var(--text-dim);
             opacity: 0.65;
-            line-height: 1.1;
+            line-height: 1.2;
+            letter-spacing: 0.02em;
         }}
 
         /* Grid View */
