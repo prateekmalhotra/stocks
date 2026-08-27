@@ -339,6 +339,64 @@ def get_ticker_logo_html(ticker: str, size: int = 22) -> str:
     )
 
 
+def get_or_create_circular_favicon(ticker: str) -> str:
+    """Ensures a circular SVG favicon exists in public/favicons/{ticker}.svg and returns its relative path."""
+    if not ticker:
+        return "../favicons/favicon.svg"
+    clean_t = ticker.replace("USD_", "").strip().upper()
+    fav_dir = DATA_DIR.parent / "public" / "favicons"
+    fav_dir.mkdir(parents=True, exist_ok=True)
+    fav_file = fav_dir / f"{clean_t}.svg"
+    
+    if fav_file.exists():
+        return f"../favicons/{clean_t}.svg"
+        
+    try:
+        import requests
+        headers = {"User-Agent": "Mozilla/5.0"}
+        r = requests.get(f"https://assets.parqet.com/logos/symbol/{clean_t}", headers=headers, timeout=4)
+        if r.status_code == 200 and "<svg" in r.text:
+            svg_content = r.text
+            vb_match = re.search(r'viewBox=[\"\']([0-9\s\.\-]+)[\"\']', svg_content)
+            if vb_match:
+                parts = [float(x) for x in vb_match.group(1).split()]
+                w = parts[2] if len(parts) >= 4 else 60.0
+                h = parts[3] if len(parts) >= 4 else 60.0
+            else:
+                w, h = 60.0, 60.0
+            
+            cx, cy, r_rad = w / 2.0, h / 2.0, min(w, h) / 2.0
+            svg_tag_match = re.search(r'(<svg[^>]*>)(.*)(</svg>)', svg_content, re.DOTALL)
+            if svg_tag_match:
+                open_tag = svg_tag_match.group(1)
+                inner = svg_tag_match.group(2)
+                close_tag = svg_tag_match.group(3)
+                circular_svg = (
+                    f"{open_tag}\n"
+                    f"<defs>\n"
+                    f'  <clipPath id="circle-clip">\n'
+                    f'    <circle cx="{cx}" cy="{cy}" r="{r_rad}"/>\n'
+                    f"  </clipPath>\n"
+                    f"</defs>\n"
+                    f'<g clip-path="url(#circle-clip)">\n'
+                    f"{inner}\n"
+                    f"</g>\n"
+                    f"{close_tag}"
+                )
+                fav_file.write_text(circular_svg, encoding="utf-8")
+                return f"../favicons/{clean_t}.svg"
+    except Exception:
+        pass
+        
+    initials = clean_t[:3].upper()
+    fallback_svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <circle cx="30" cy="30" r="30" fill="#1B1A19" stroke="rgba(212,163,115,0.4)" stroke-width="2"/>
+  <text x="30" y="36" text-anchor="middle" fill="#D4A373" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="700">{initials}</text>
+</svg>"""
+    fav_file.write_text(fallback_svg, encoding="utf-8")
+    return f"../favicons/{clean_t}.svg"
+
+
 def format_action_beacon(signal: Optional[str] = None) -> str:
     """Renders a quiet, minimal dot beacon representing the surveillance stance."""
     if not signal:
@@ -2537,6 +2595,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         cash_color = "var(--text-dim)"
 
     logo_html = get_ticker_logo_html(ticker_clean, size=36)
+    favicon_url = get_or_create_circular_favicon(ticker_clean)
     cyclicality_modal_html = build_cyclicality_legend_modal_html()
     width = 900
     height = 200
@@ -2549,9 +2608,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{ticker_clean} · {company_name} · Forensic Valuation Dossier</title>
-    <link rel="icon" type="image/svg+xml" href="https://assets.parqet.com/logos/symbol/{ticker_clean}">
-    <link rel="icon" type="image/png" href="https://assets.parqet.com/logos/symbol/{ticker_clean}">
-    <link rel="apple-touch-icon" href="https://assets.parqet.com/logos/symbol/{ticker_clean}">
+    <link rel="icon" type="image/svg+xml" href="{favicon_url}">
+    <link rel="apple-touch-icon" href="{favicon_url}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
