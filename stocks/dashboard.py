@@ -4382,7 +4382,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
-                    <span class="grid-stat-val" style="font-size: 0.86rem; font-family: var(--font-sans);">{cat_headline}</span>
+                    <span class="grid-stat-val" style="font-size: 0.75rem; font-family: var(--font-sans); font-weight: 400; color: var(--text-secondary); line-height: 1.25;">{cat_headline}</span>
                 </div>
             </div>
         </div>
@@ -4918,29 +4918,35 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-weight: 400 !important;
         }}
 
-        /* Catalyst Column: Clean, Subtle, Micro-Typography */
+        /* Catalyst Column: Quiet, Understated, Muted Micro-Typography */
         .tbl-catalyst-cell {{
             display: flex;
             flex-direction: column;
-            gap: 2px;
-            max-width: 280px;
-            line-height: 1.3;
+            gap: 1px;
+            max-width: 220px;
+            line-height: 1.2;
         }}
         .tbl-cat-headline {{
             font-family: var(--font-sans);
-            font-size: 0.80rem;
-            font-weight: 500;
-            color: var(--text-title);
-            line-height: 1.25;
+            font-size: 0.74rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            opacity: 0.85;
+            line-height: 1.2;
             white-space: normal;
             word-break: break-word;
+            transition: color 0.15s ease, opacity 0.15s ease;
+        }}
+        .table-row:hover .tbl-cat-headline {{
+            color: var(--text-body);
+            opacity: 1.0;
         }}
         .tbl-cat-date {{
             font-family: var(--font-mono);
-            font-size: 0.70rem;
+            font-size: 0.65rem;
             color: var(--text-dim);
-            opacity: 0.80;
-            line-height: 1.2;
+            opacity: 0.65;
+            line-height: 1.1;
         }}
 
         /* Grid View */
