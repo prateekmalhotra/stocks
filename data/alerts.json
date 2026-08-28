@@ -1,5 +1,22 @@
 [
   {
+    "id": "alert-wday-1787875195",
+    "ticker": "WDAY",
+    "timestamp": "2026-08-27 23:59",
+    "title": "WDAY: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "SEC 8-K Filing (2026-08-27): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001327811-26-000042]",
+    "what_was_before": "In operational reality, Workday continues to demonstrate enterprise mission-criticality and high gross cash generation across its latest quarterly releases. Trailing twelve-month revenue reached $10,155.0M, with the latest quarter generating $2,649.0M in revenue (an annualized run-rate of $10,596.0M, up 12.8% YoY). GAAP gross margin held firm at 75.8%, while non-GAAP operating margins expanded to 31.1%. The company maintains an unassailable footprint, securing over 75 million users under contract across more than 10,500 enterprise organizations, including over 65% of the Fortune 500, with gross revenue retention consistently exceeding 97%.\n\nWhile total multi-year backlog growth moderated to 8.0% YoY ($27.403B) due to standardizing on 3-year contract durations, near-term committed visibility remains robust, with 12-month current remaining performance obligations (cRPO) expanding 14.2% YoY to $9.034B. Furthermore, organic AI adoption is accelerating rapidly: AI-specific ARR reached approximately $600M, contributing more than 25% of new ACV in the latest quarter with over 5,500 enterprise clients deploying Workday Illuminate agents.\n\nCapital allocation has shifted decisively toward shareholder value preservation. Workday deployed $2.91B in share repurchases over the first six months ($1.3B in the latest quarter), driving diluted share count down to 251.0M shares, backed by an authorized $4.0B share repurchase expansion. With $3,580M in net cash and capital expenditures held to just 2.5% of revenue, the core engine continues to generate substantial cash flow while funding anti-dilutive buybacks.",
+    "what_changes_now": "Despite broader macroeconomic headwinds and scrutiny over enterprise IT budgets, Workday's operating performance remains highly resilient across recent quarters. In Q2 FY2027, total revenue rose 12.8% YoY to $2,649.0M, establishing a real-time annualized run-rate of $10,596.0M. Subscription revenue expanded 13.9% YoY to $2,471.0M, supported by a healthy 75.6% gross margin. Non-GAAP operating margin expanded to 31.1%, reflecting strict GTM discipline and operating leverage, even as GAAP operating margin stood at 11.8% due to stock-based compensation.\n\nThe enterprise moat remains firmly intact, anchored by mission-critical switching costs across more than 11,500 enterprise customer organizations (>65% of the Fortune 500) and >75 million contracted core HCM/ERP seats, maintaining a gross revenue retention rate of ~97%. Monetization velocity is supported by organic Agentic AI adoption, which crossed a $500M ARR run-rate, accounted for >25% of net new ACV, and generated average bundled contract expansion deal sizes ~50% above baseline renewals.\n\nCapital allocation demonstrates proactive share count defense. Workday deployed $2.91B into share repurchases in H1 FY27 ($1.3B in Q2 alone) and authorized a new $4.0B repurchase program. The balance sheet remains solid with $3,403.0M in cash and marketable securities against $2,989.0M in total debt, yielding $+414M in net cash ($+1.68/share).",
+    "price_at_alert": 193.57,
+    "price_change_pct": -3.22,
+    "report_url": "reports/WDAY.html"
+  },
+  {
     "id": "ma_reversal_WIX_20260827_100438",
     "ticker": "WIX",
     "timestamp": "2026-08-27 10:04",
@@ -17,25 +34,6 @@
     "price_at_alert": 85.41,
     "price_change_pct": 3.79,
     "report_url": "reports/WIX.html"
-  },
-  {
-    "id": "ma_reversal_WDAY_20260827_100438",
-    "ticker": "WDAY",
-    "timestamp": "2026-08-27 10:04",
-    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: WDAY Crossed UP All 4 Moving Averages",
-    "severity": "Breakout",
-    "labels": [
-      "Technical Reversal",
-      "Quad-MA Breakout",
-      "Momentum Confirmation"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "Technical Trend Reversal: Price ($198.14) has reclaimed 5D SMA and crossed UP ALL 4 Moving Averages (5D: $196.49, 21D: $184.82, 50D: $155.77, 200D: $160.98) with +0.4% 5-day velocity.",
-    "what_was_before": "Consolidating or trading below 5D SMA (Previous close: $190.75).",
-    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
-    "price_at_alert": 198.14,
-    "price_change_pct": 3.87,
-    "report_url": "reports/WDAY.html"
   },
   {
     "id": "ma_reversal_TSM_20260827_100438",
