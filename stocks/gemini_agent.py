@@ -2658,12 +2658,12 @@ FINANCIAL FIELDS TO EXTRACT (in $M USD):
 - Latest Quarter Gross Margin (%)
 - Exact Latest Primary Unit Volume (e.g. "Active merchant volume and platform transaction density", or "Active buyers / payers")
 - Exact Latest Unit Monetization (e.g. "Online marketing services & transaction take-rate yield")
-- Trailing Operating Cash Flow (OCF) ($M USD)
+- Trailing Operating Cash Flow (OCF) ($M USD) [CRITICAL: Extract from Consolidated Statement of Cash Flows 'Net cash provided by operating activities', NEVER confuse with GAAP Net Income!]
 - Trailing Net Income ($M USD)
 - Trailing Depreciation & Amortization ($M USD)
 - Trailing Capital Expenditures ($M USD)
 - Trailing Stock-Based Compensation ($M USD)
-- Trailing One-Off Items net ($M USD)
+- Trailing One-Off Non-Cash Impairment Write-Offs / Restructuring Charges ($M USD) (e.g. goodwill write-downs, asset impairments)
 - Liquid Cash & Short-Term Investments ($M USD)
 - Total Debt ($M USD)
 - Total Stockholders' Equity ($M USD)
@@ -2755,17 +2755,19 @@ Return ONLY a valid JSON object matching this schema:
     # True Maintenance CapEx Anchor (empirically bounded by D&A for asset-light software/digital platforms):
     maint_capex = min(capex, dna * 1.05) if dna > 0 else min(capex, max(5.0, ttm_rev * 0.03))
     
-    # Buffett True Owner Earnings = Operating Cash Flow - SBC - Maintenance CapEx - OneOffs
-    # (Reconciled with Net Income + D&A - Maintenance CapEx - SBC - OneOffs to ensure non-cash accounting charges don't distort true cash generation)
+    # Buffett True Owner Earnings = Operating Cash Flow - SBC - Maintenance CapEx
+    # (Operating cash flow already adds back non-cash D&A and impairment charges)
     if ocf > 0:
-        oe_total = ocf - sbc - maint_capex - (one_offs if one_offs > 0 else 0.0)
+        oe_total = ocf - sbc - maint_capex
     else:
-        oe_total = net_income + dna - maint_capex - sbc - one_offs
+        # If OCF is unpopulated or distorted, normalize Net Income by adding back non-cash impairments/write-downs + D&A
+        normalized_ni = net_income + abs(one_offs)
+        oe_total = normalized_ni + dna - maint_capex - sbc
         
-    # Safety reconciliation: OE cannot be lower than 60% of normalized cash generation
-    oe_from_ni = net_income + dna - maint_capex - sbc - one_offs
-    if oe_total < oe_from_ni * 0.6 and oe_from_ni > 0:
-        oe_total = oe_from_ni
+    # Safety reconciliation: If OCF is positive, ensure non-cash accounting charges do not distort OE
+    oe_from_ni_norm = (net_income + abs(one_offs)) + dna - maint_capex - sbc
+    if oe_total < 0 and oe_from_ni_norm > 0:
+        oe_total = oe_from_ni_norm
         
     oe_per_share = oe_total / shares if shares > 0 else 0.0
     
