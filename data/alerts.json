@@ -1,5 +1,77 @@
 [
   {
+    "id": "alert-cme-1787961396",
+    "ticker": "CME",
+    "timestamp": "2026-08-28 23:56",
+    "title": "CME: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "Technical Trend Reversal: Price ($284.98) has reclaimed 200D SMA and crossed UP ALL 4 Moving Averages (5D: $280.68, 21D: $269.86, 50D: $253.98, 200D: $278.75) with +1.5% clearance and +3.6% 5-day velocity.",
+    "what_was_before": "In stark contrast to the bear case, CME Group's operational reality remains exceptionally robust. In the most recent quarter (Q2 2026), the company generated $1,706.0 million in revenue, representing a current annualized run-rate of $6,824.0 million. This performance was anchored by an Average Daily Volume (ADV) of 29.8 million contracts, the third-highest in the company's history, and a strong gross margin of 81.9%. The average rate per contract (RPC) improved sequentially to $0.678, while high-margin market data revenue surged by 20% year-over-year to $238.0 million, marking its 33rd consecutive quarter of year-over-year growth.\n\nThis robust performance is part of a sustained positive trend over the last four quarters. In Q1 2026, CME delivered the strongest quarter in its history with record revenue of $1.9 billion and record ADV of 36.2 million contracts, driven by heightened interest rate and equity volatility. This followed a strong Q4 2025 (ADV of 27.4 million contracts) and Q3 2025 (market data revenue of $203 million), demonstrating that CME's volume and data engines are firing on all cylinders across different market regimes.\n\nCME's capital-light business model continues to convert operating income into free cash flow with elite efficiency. The company's proprietary clearing house generated over $95 billion in daily margin efficiencies for its clients, reinforcing its massive competitive moat and ensuring deep customer stickiness. Capital expenditures remained extremely low at approximately $38 million for the quarter, representing less than 2.5% of revenue. This allowed CME to return substantial capital to shareholders, including $468 million in regular dividends and $695 million in share repurchases during the quarter, demonstrating the immense cash-generative power of its global liquidity network.",
+    "what_changes_now": "In stark contrast to the bearish narrative, CME's operational reality demonstrates robust performance and exceptional cash generation. In the latest quarter (Q2 2026), CME delivered record Q2 revenue of $1,706.2 million, representing a current annualized run-rate of $6,824.8 million, with a flawless 100.0% gross margin. This performance was anchored by an Average Daily Volume (ADV) of 29.8 million contracts per day, driven by 24.2 million in Financials, 5.7 million in Commodities, and 8.6 million in Equity Indexes. While this represents a sequential cooling from the all-time record Q1 2026 ADV of 36.2 million contracts, it remains the second-highest Q2 on record, demonstrating that macroeconomic volatility and hedging demand remain structurally elevated.\n\nFurthermore, CME's pricing power has shown resilience. After a mix-shift-driven dip to $0.652 RPC in Q1 2026, the average Rate Per Contract recovered to $0.678 in Q2 2026. Simultaneously, non-transaction revenue is accelerating, with Market Data Revenue hitting a record $238.0 million in Q2 2026, up 20% year-over-year, marking 33 consecutive quarters of growth. This high-margin data stream, combined with CME's minimal capital intensity (maintenance CapEx of only ~$90 million annually), allows the business to convert nearly 100% of its net income into free cash flow.\n\nOn the capital allocation front, CME continues to run its highly efficient shareholder return engine. In the first half of 2026 alone, the company generated $2,207.0 million in operating cash flow and returned $1.2 billion to shareholders via the repurchase of Class A shares, alongside $3,171.8 million in total common dividends (including the annual variable dividend). While the balance sheet carries a net debt position of $-1,149 million ($-3.20 per share), the company's immense cash-generative power and the upcoming $1.3 billion in net proceeds from the OSTTRA transaction provide ample liquidity to support ongoing buybacks and debt service.",
+    "price_at_alert": 285.8,
+    "price_change_pct": 0.23,
+    "report_url": "reports/CME.html"
+  },
+  {
+    "id": "alert-aapl-1787961043",
+    "ticker": "AAPL",
+    "timestamp": "2026-08-28 23:50",
+    "title": "AAPL: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Technical Trend Reversal: Price ($321.62) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $313.98, 21D: $309.91, 50D: $312.04, 200D: $282.61) with +2.4% clearance and +4.0% 5-day velocity.",
+    "what_was_before": "In stark contrast to bear case scenarios, Apple's operational reality demonstrates the structural strength of its global ecosystem. The company's active installed base has expanded to over 2.5 billion active devices, representing a 4.2% year-over-yea",
+    "what_changes_now": "In stark contrast to the bear case, Apple's recent operational performance demonstrates the immense resilience of its global ecosystem. The company's active installed base has surpassed a record 2.5 billion active devices, providing an unparalleled foundation for high-margin monetization. This massive user base has translated into over 1.5 billion paid subscriptions, driving the Services segment to record revenues of $30.7 billion in the latest quarter. While the headline gross margin of 50.1% was boosted by a 200 basis point tariff refund, the underlying normalized gross margin of 48.1% remains exceptionally strong, supported by a favorable mix shift toward Services and premium hardware tiering.\n\nFinancially, Apple continues to operate as an elite cash-generating machine, delivering $122,953.0M in normalized Owner Earnings after accounting for $13,706.0M in stock-based compensation and $10,041.0M in maintenance capital expenditures. The company's balance sheet remains fortress-like, boasting $146,517.0M in liquid cash and investments against $84,344.0M in total debt, resulting in a net cash position of $62,173M ($4.23 per share). Capital allocation remains highly shareholder-friendly, highlighted by a newly authorized $100 billion share buyback program and a 4% dividend increase, even as management transitions away from a strict \"net cash neutral\" target to retain strategic flexibility for AI investments.",
+    "price_at_alert": 319.7,
+    "price_change_pct": 3.35,
+    "report_url": "reports/AAPL.html"
+  },
+  {
+    "id": "alert-amrq-1787960849",
+    "ticker": "AMRQ",
+    "timestamp": "2026-08-28 23:47",
+    "title": "AMRQ: Valuation Re-evaluated (No Moat)",
+    "severity": "No Moat",
+    "labels": [
+      "No Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "International Corporate Wire (Thu, 06 Aug 2026 06:00:00 +0000): Notice of Q2 Results and Investor Presentation",
+    "what_was_before": "Amaroq is undergoing a major operational inflection across four consecutive quarters as it converts Nalunaq from a trial development project into commercial production. In Q3 2025, the company produced 3,536 ounces of gold during initial plant ramp-up. For full-year FY2025, production totaled 6.35 koz (5.31 koz sold), generating revenue of C$27.0 million and gross profit of C$11.1 million under Phase 1 gravity-only processing. In Q1 2026, production held steady at 3,694 oz (2,970 oz sold) at an average realized price of US$4,656/oz, with mill feed grades reaching 19.9 g/t Au.\n\nOperational performance accelerated significantly in Q2 2026, with Nalunaq producing 5,363 ounces of gold and selling 5,640 ounces of gold at an average realized price of US$4,678 per ounce. Quarterly revenue reached C$37.3 million (~$26.9 million USD), establishing a real-time annualized revenue run-rate of $107.7 million USD. Processed head grades reached 22.2 g/t Au in Q2 (H1 2026 average: 19.8 g/t Au), significantly beating mine plan guidance of 14\u201315 g/t Au. H1 2026 revenue rose to C$56.2 million with a net profit of C$13.6 million and operating cash flow of C$20.4 million, while latest gross margins reached 67.3%.\n\nThe completion and commissioning of the Phase 2 flotation circuit in late June 2026 lifted gold recovery rates from ~63% in H1 to ~90% by July, setting up a heavily back-end weighted H2 2026 toward full-year guidance of 25,000\u201335,000 ounces. Capital allocation remains focused on internal reinvestment; the company ended Q2 2026 with $28.5 million in cash and completed its corporate listing transition to the London Stock Exchange Main Market on July 31, 2026, enhancing institutional access.",
+    "what_changes_now": "In stark contrast to the bear narrative, Amaroq's operational reality reveals a highly successful transition into a cash-generating producer. In the latest quarter, the company generated $27.2M in revenue, representing a current annualized run-rate of $108.9M, with an exceptional gross margin of 67.0%. The company sold 5,640 ounces of gold (producing 5,363 ounces) at the Nalunaq Mine, capturing an extraordinary average realized gold price of US$4,678 per ounce sold. This high-grade profile has already begun to validate the economic potential of the Nanortalik Gold Belt.\n\nOperationally, the critical catalyst was the successful commissioning of the Phase 2 flotation circuit in June 2026, which immediately boosted gold recovery rates from ~60% to over 90% in July. This technological milestone dramatically de-risks the H2 2026 production ramp-up. Furthermore, the company generated positive operating cash flow of $20.4M in H1 2026, demonstrating that the business is rapidly inflecting toward self-sustainability.\n\nOn the capital allocation front, management is actively mitigating dilution risks. The strategic minerals portfolio has been insulated via the Gardaq JV, securing non-dilutive funding from ACAM LP, while the services subsidiary Suliaq ApS is seeking third-party equity. With peak CapEx now in the past and the transition to an owner-operator model underway, Amaroq is poised to rapidly compress its AISC toward the targeted US$1,250\u2013$1,450/oz range as throughput reaches nameplate capacity.",
+    "price_at_alert": 1.42,
+    "price_change_pct": -99.0,
+    "report_url": "reports/AMRQ.html"
+  },
+  {
+    "id": "alert-wmt-1787960472",
+    "ticker": "WMT",
+    "timestamp": "2026-08-28 23:41",
+    "title": "WMT: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "SEC 10-Q Filing (2026-08-28): 10-Q [Accession #0000104169-26-000154]",
+    "what_was_before": "Walmart's recent four consecutive quarters demonstrate resilient top-line operational execution and expanding ecosystem monetizations across its global footprint. Consolidated revenue reached $179.5B in Q3 FY26, $190.7B in Q4 FY26, $177.8B in Q1 FY27, and $187.9B in Q2 FY27, establishing a real-time annualized revenue run-rate of $751,748.0M. This massive scale is anchored by approximately 280 million weekly customer transactions and store-fulfilled delivery visits across 10,900+ global stores and digital channels. Gross profit margin reached 25.4% in Q2 FY27, driven by supply chain automation and rapid growth in high-margin alternative revenue streams: Walmart Connect advertising (+38% globally), global e-commerce net sales (+23%), and membership fee revenue (+17%).\n\nCash generation remains solid, with trailing twelve-month operating cash flow scaling to $41.6B and H1 FY27 free cash flow reaching $5.5B despite heavy capital reinvestment. Capital expenditures are guided at ~4.0% of net sales ($26B\u2013$30B annually), dedicated to automating 50% of e-commerce fulfillment and 60% of store distribution centers by FY27. Management continues to return capital to shareholders via a $30B buyback authorization and 53 consecutive years of dividend increases.\n\nWalmart's audited Owner ROIC sits at a strong 14.9% (with 12-month trailing ROI at 15.4%), confirming that its Wide Economic Moat remains intact. The company's massive buyer scale, negative cash conversion cycle, dense store network acting as local delivery hubs, and growing high-margin ad/marketplace monetization establish formidable competitive entry barriers.",
+    "what_changes_now": "Walmart's recent quarterly results expose a clear structural divergence between top-line digital metrics and core brick-and-mortar unit economics. On a real-time basis, the business operates at a $1,000.0M annualized revenue run-rate with a 0.0% gross margin on its latest cash reconciliation baseline, reflecting a aggressive reinvestment of gross profit into price leadership. U.S. comp sales slowed to 2.6% ex-fuel, impacted by a 125 bps drag from pharmacy price caps under MFP regulations, while Sam's Club average ticket size fell 2.5%.\n\nWhile high-margin digital streams continue to scale\u2014global e-commerce grew 23%, advertising rose 38%, and membership fees expanded 17%\u2014this growth requires intense capital expenditure. CapEx has expanded to ~4.0% of net sales to build supply chain automation and fulfillment density, driving a 20.4% year-over-year decline in first-half free cash flow. Furthermore, walk-in store traffic growth has slowed, leaving top-line expansion heavily dependent on lower-margin store-fulfilled delivery and digital pickup.",
+    "price_at_alert": 103.09,
+    "price_change_pct": -0.59,
+    "report_url": "reports/WMT.html"
+  },
+  {
     "id": "alert-wday-1787875195",
     "ticker": "WDAY",
     "timestamp": "2026-08-27 23:59",

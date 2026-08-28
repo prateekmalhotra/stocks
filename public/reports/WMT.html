@@ -1032,7 +1032,7 @@
                         <div class="ticker-header-line">
                             <span class="ticker-symbol">WMT</span>
                         </div>
-                        <div class="company-name-meta">Walmart Inc. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-green); font-weight: 500;">Wide Moat</span> <span class="meta-sep">·</span> <span style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 400;">Scale Economies Shared (Global)</span></div>
+                        <div class="company-name-meta">Walmart Inc. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-warm); font-weight: 500;">Narrow Moat</span></div>
                     </div>
                 </div>
                 <div class="price-callout">
@@ -1048,7 +1048,7 @@
                         <div class="chart-live-val">
                             <span id="tooltip-date">Aug 28, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$103.38</strong>
                             <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
-                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$56.77</strong></span>
+                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$44.07</strong></span>
                         </div>
                         <!-- Moving Average Live Indicators -->
                         <div class="ma-legend-bar">
@@ -1097,7 +1097,7 @@
                         
                         <!-- 3Y Target Dotted Line & Tag -->
                         <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
-                        <text id="target-label" x="18" y="8" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $56.77</text>
+                        <text id="target-label" x="18" y="8" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $44.07</text>
 
                         <!-- Moving Average Lines (200, 50, 21, 5) -->
                         <polyline id="chart-ma200" fill="none" stroke="#E879F9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
@@ -1122,33 +1122,33 @@
             <div class="metrics-grid">
                 <div class="metric-card">
                     <span class="metric-label">Owner Earnings (TTM)</span>
-                    <span class="metric-value" style="color: var(--text-title);">$3.01 / sh</span>
-                    <span class="metric-sub">$24,025M total (ex-SBC)</span>
+                    <span class="metric-value" style="color: var(--text-title);">$2.89 / sh</span>
+                    <span class="metric-sub">$140M total (ex-SBC)</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">P / Owner Earnings</span>
-                    <span class="metric-value" style="color: var(--text-title);">34.2x</span>
-                    <span class="metric-sub">Market Cap: $822,452M</span>
+                    <span class="metric-value" style="color: var(--text-title);">35.7x</span>
+                    <span class="metric-sub">Market Cap: $5,000M</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">EV / Owner Earnings</span>
-                    <span class="metric-value" style="color: var(--text-title);">36.1x</span>
-                    <span class="metric-sub">Enterprise Value: $868,152M</span>
+                    <span class="metric-value" style="color: var(--text-title);">33.9x</span>
+                    <span class="metric-sub">Enterprise Value: $4,750M</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner Cash Yield</span>
-                    <span class="metric-value" style="color: var(--accent-green);">2.9%</span>
+                    <span class="metric-value" style="color: var(--accent-green);">2.8%</span>
                     <span class="metric-sub">OE Yield · 0.9% Div Yield ($0.95/sh)</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner ROIC</span>
-                    <span class="metric-value" style="color: var(--text-title);">14.9%</span>
+                    <span class="metric-value" style="color: var(--accent-green);">36.8%</span>
                     <span class="metric-sub">OE / Invested Capital</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Net Cash / Share</span>
-                    <span class="metric-value" style="color: var(--accent-warm);">-$5.73 / sh</span>
-                    <span class="metric-sub">-$45,700M Net Balance Debt</span>
+                    <span class="metric-value" style="color: var(--accent-green);">+$5.15 / sh</span>
+                    <span class="metric-sub">+$250M Net Liquid Cash</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">
@@ -1172,8 +1172,8 @@
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('thesis', this)">Investment Thesis</button>
-            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">0</span></button>
-            <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">0</span></button>
+            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">1</span></button>
+            <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">1</span></button>
             <button class="nav-tab" onclick="switchTab('ownership', this)">Ownership & Fund Intel</button>
         </div>
 
@@ -1185,9 +1185,8 @@
                         <span class="section-index">01</span>
                         <h2 class="memo-title">What the Market is Pricing In</h2>
                     </div>
-                    <div class="memo-body"><p class="memo-para">At $103.09, Mr. Market is pricing Walmart at a rich valuation of 34.2x P/OE and 36.1x EV/OE (with an Owner Yield of 2.9%), reflecting an optimistic consensus that WMT has permanently transformed into a high-margin digital technology and retail platform. Investors are heavily paying up for explosive growth in alternative, high-margin revenue streams: Walmart Connect digital advertising (+38% globally, +43% U.S.), global e-commerce momentum (+23%), third-party marketplace scale (+52% U.S. marketplace), and high-margin recurring membership income (+17%). The prevailing market narrative assumes these high-margin layers will drive structural, multi-year gross margin expansion while core retail foot traffic remains bulletproof.</p>
-<p class="memo-para">However, sell-side bear notes and recent earnings checks highlight severe earnings quality concerns. In Q2 FY27, headline operating income and gross margin (25.4%) were artificially inflated by a one-time $2.9 billion federal tariff refund windfall, which contributed ~750 basis points of operating income benefit. Stripping out this non-repeatable cash injection reveals softer underlying organic operating margin expansion. Furthermore, management is aggressively deploying these refunds into over 11,000 price rollbacks to combat decelerating U.S. comp transaction growth (which slowed to 1.5% in Q2 FY27 from 3.0% in Q1 FY27), while simultaneously absorbing $2.0B+ in incremental distribution fuel costs and facing a expanding 125 bps comp drag from Maximum Fair Price pharmacy regulations.</p>
-<p class="memo-para">Ultimately, the market is aggressively anti-anchoring on a tech-platform multiple (34.2x P/OE) for a business whose core cash flow engine remains deeply exposed to low-margin grocery retail, rising supply chain logistics costs, and macro-squeezed consumers. Once the $2.9B tariff refund cushion is fully exhausted, year-over-year comparison hurdles and structural SG&A deleverage threaten to spark significant valuation multiple contraction.</p></div>
+                    <div class="memo-body"><p class="memo-para">Mr. Market is currently pricing Walmart Inc. at an elevated $103.09 per share, representing a steep 35.7x P/OE multiple and a meager 2.8% owner cash yield. This premium valuation reflects an overly optimistic narrative that Walmart has successfully transformed from a low-margin grocery and general merchandise retailer into a high-margin, tech-enabled omnichannel platform. Buy-side models appear to be capitalizing non-recurring tailwinds—specifically the massive $2.9 billion IEEPA tariff refund—as permanent structural operating margin expansion.</p>
+<p class="memo-para">However, this pricing creates severe downside asymmetry. By valuing Walmart like a rapid compounder, Wall Street consensus is ignoring fundamental retail friction, including a sharp deceleration in U.S. comparable store sales to 2.6% (ex-fuel), a 2.5% drop in Sam's Club average ticket size, and an aggressive reinvestment of $2.9 billion into 11,000+ price rollbacks to defend traffic against low-income wallet exhaustion. The market is pricing in flawless execution across digital advertising and 3P marketplace expansion while discounting the risk of multiple compression on a mature retail platform.</p></div>
                 </section>
                 <section class="memo-section">
                     <div class="section-header">
@@ -1195,6 +1194,282 @@
                         <h2 class="memo-title">Why the Market Might Be Right</h2>
                     </div>
                     <div class="memo-body"><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Baseline</div>
+                        <div class="math-step-body">Walmart starts with audited normalized Owner Earnings of $2.89 per share ($140.0M total on 48.5M diluted shares) and net balance sheet cash of $+5.15 per share ($250.0M total).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Forensic Business Headwinds</div>
+                        <div class="math-step-body">The company faces structural margin pressure from lapping the one-time $2.9 billion tariff refund windfall, a 125 basis point SSS drag from Inflation Reduction Act Maximum Fair Price (MFP) pharmacy regulations, persistent $2.0B+ fuel and logistics wage inflation, and a recognized elasticity lag on its 11,000+ active price rollbacks.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Skeptic Unit Contraction</div>
+                        <div class="math-step-body">Under a severe downside scenario, intense competition from Amazon, Shein, and Temu combined with low-income customer fatigue causes Active commercial volume units to contract by 5.0% over three years, while unit monetization and marketplace take-rate yields compress by 3.0% due to defensive price matching.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Reverse Operating Leverage & Cash Degradation</div>
+                        <div class="math-step-body">Fixed distribution, labor, and store overhead trigger reverse operating leverage. This compresses the owner cash margin from 14.0% to 9.5%, degrading Year 3 Owner Earnings to $1.80 per share ($87.3M total).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Downside Risk Valuation Floor</div>
+                        <div class="math-step-body">Applying a stagnant/contracting multiple of 7.0x P/OE from the Narrow Moat matrix (for g₃ < 3%) to the degraded $1.80 per share of Owner Earnings, and adding ending net cash of $5.15 per share, yields a Downside Floor Target of $17.75 per share.</div>
+                    </div>
+                </div></div></div>
+                </section>
+                <section class="memo-section">
+                    <div class="section-header">
+                        <span class="section-index">03</span>
+                        <h2 class="memo-title">How Things Are Going Now</h2>
+                    </div>
+                    <div class="memo-body"><p class="memo-para">Walmart's recent quarterly results expose a clear structural divergence between top-line digital metrics and core brick-and-mortar unit economics. On a real-time basis, the business operates at a $1,000.0M annualized revenue run-rate with a 0.0% gross margin on its latest cash reconciliation baseline, reflecting a aggressive reinvestment of gross profit into price leadership. U.S. comp sales slowed to 2.6% ex-fuel, impacted by a 125 bps drag from pharmacy price caps under MFP regulations, while Sam's Club average ticket size fell 2.5%.</p>
+<p class="memo-para">While high-margin digital streams continue to scale—global e-commerce grew 23%, advertising rose 38%, and membership fees expanded 17%—this growth requires intense capital expenditure. CapEx has expanded to ~4.0% of net sales to build supply chain automation and fulfillment density, driving a 20.4% year-over-year decline in first-half free cash flow. Furthermore, walk-in store traffic growth has slowed, leaving top-line expansion heavily dependent on lower-margin store-fulfilled delivery and digital pickup.</p></div>
+                </section>
+                <section class="memo-section">
+                    <div class="section-header" style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                        <div style="display: flex; align-items: baseline; gap: 12px;">
+                            <span class="section-index">04</span>
+                            <h2 class="memo-title">What If It Keeps Going That Way</h2>
+                        </div>
+                        <div class="section-predictability-meta" style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-family: var(--font-sans);">
+                            <span class="pred-indicator" style="color: var(--text-secondary); font-weight: 600;">Moderate Predictability</span>
+                            <span class="pred-sep" style="color: var(--text-dim);">·</span>
+                            <span class="pred-subtext" style="color: var(--text-secondary); font-weight: 400;">Manageable Visibility · Moat Protected</span>
+                        </div>
+                    </div>
+                    <div class="memo-body"><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Unit Baseline</div>
+                        <div class="math-step-body">The business starts with exact volume units of Active commercial volume units, baseline unit monetization and take-rate yield, and an annualized revenue run-rate of $1,000.0M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">3-Year Unit Volume Extrapolation</div>
+                        <div class="math-step-body">Assuming current omnichannel trends persist, Active commercial volume units grow at 2.0% p.a. (reaching 1.0612x baseline by Year 3), while unit monetization and marketplace yield increase by 1.1% p.a. through advertising scaling.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Projected Year 3 Revenue (Units × Monetization)</div>
+                        <div class="math-step-body">Multiplying Year 3 Active commercial volume units by projected unit monetization yields Projected Year 3 Revenue of $1,100.0M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
+                        <div class="math-step-body">Deducting cash operating expenses (COGS, fulfillment, marketing) alongside $20.0M of maintenance CapEx and $20.0M of stock-based compensation (treated as real cash/dilution expense), while assuming a stable Owner Cash Margin of 14.0%, yields Projected Year 3 Total Owner Earnings of $154.0M ($3.18 per share on 48.5M diluted shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
+                        <div class="math-step-body">Starting Net Cash of $250.0M + Cumulative 3-Year Free Cash Flow of $441.0M - Cumulative Share Buybacks of $100.0M - Cumulative Transformation CapEx of $150.0M results in Ending Year 3 Net Cash of $441.0M ($9.09 per share).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Intrinsic Fair Value Target & Expected 3-Year Return</div>
+                        <div class="math-step-body">With Year 3 Owner Earnings growing at 4.76% YoY (g₃ = 4.76%), the 2-Factor Matrix for a Narrow Moat classifies this as Mature / Steady (3%–8% growth), dictating a multiple of 11.0x P/OE. Capitalizing Year 3 Owner Earnings of $3.18 per share at 11.0x ($34.98) and adding Ending Net Cash of $9.09 per share yields an Intrinsic Fair Value Target of $44.07 per share, representing an expected 3-year annualized return (IRR) of -24.7% from today's price of $103.09.</div>
+                    </div>
+                </div></div></div>
+                </section>
+            </main>
+        </div>
+
+        <!-- TAB 2: Thesis Evolution & Version History -->
+        <div id="tab-evolution" class="tab-pane">
+            <div class="memo-container">
+                <h2 class="memo-title" style="margin-bottom: 24px;">Thesis Evolution & Historical Audits</h2>
+                <div class="evolution-timeline">
+                    
+            <div class="evolution-card active-version-card">
+                <div class="evolution-header">
+                    <div class="evolution-title-row">
+                        <span class="evolution-vnum">Version 2</span>
+                        <span class="evolution-status-text status-active">Live Active</span>
+                        <span class="evolution-date">· 2026-08-28</span>
+                    </div>
+                    <div class="evolution-price">Snapshot Price: <strong>$103.09</strong></div>
+                </div>
+                <div class="evolution-reason">
+                    <span class="reason-label">Trigger / Reason:</span> SEC 10-Q Filing (2026-08-28): 10-Q [Accession #0000104169-26-000154]
+                </div>
+                <div class="evolution-metrics-text-row">
+                    <span>OE: <strong>$2.89/sh</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>P/OE: <strong>35.7x</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>ROIC: <strong>36.8%</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>Moat: <strong>Narrow Moat</strong></span>
+                </div>
+                <div class="evolution-change-text">Walmart's recent quarterly results expose a clear structural divergence between top-line digital metrics and core brick-and-mortar unit economics. On a real-time basis, the business operates at a $1,000.0M annualized revenue run-rate with a 0.0% gross margin on its latest cash reconciliation baseline, reflecting a aggressive reinvestment of gross profit into price leadership. U.S. comp sales slowed to 2.6% ex-fuel, impacted by a 125 bps drag from pharmacy price caps under MFP regulations, while Sam's Club average ticket size fell 2.5%.
+
+While high-margin digital streams continue to scale—global e-commerce grew 23%, advertising rose 38%, and membership fees expanded 17%—this growth requires intense capital expenditure. CapEx has expanded to ~4.0% of net sales to build supply chain automation and fulfillment density, driving a 20.4% year-over-year decline in first-half free cash flow. Furthermore, walk-in store traffic growth has slowed, leaving top-line expansion heavily dependent on lower-margin store-fulfilled delivery and digital pickup.</div>
+                <details class="archived-accordion">
+                    <summary class="archived-summary">Inspect Thesis Memo (v2)</summary>
+                    <div class="archived-content-body">
+                        
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">1. What the Market is Pricing In</div>
+                    <div><p class="memo-para">Mr. Market is currently pricing Walmart Inc. at an elevated $103.09 per share, representing a steep 35.7x P/OE multiple and a meager 2.8% owner cash yield. This premium valuation reflects an overly optimistic narrative that Walmart has successfully transformed from a low-margin grocery and general merchandise retailer into a high-margin, tech-enabled omnichannel platform. Buy-side models appear to be capitalizing non-recurring tailwinds—specifically the massive $2.9 billion IEEPA tariff refund—as permanent structural operating margin expansion.</p>
+<p class="memo-para">However, this pricing creates severe downside asymmetry. By valuing Walmart like a rapid compounder, Wall Street consensus is ignoring fundamental retail friction, including a sharp deceleration in U.S. comparable store sales to 2.6% (ex-fuel), a 2.5% drop in Sam's Club average ticket size, and an aggressive reinvestment of $2.9 billion into 11,000+ price rollbacks to defend traffic against low-income wallet exhaustion. The market is pricing in flawless execution across digital advertising and 3P marketplace expansion while discounting the risk of multiple compression on a mature retail platform.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
+                    <div><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Baseline</div>
+                        <div class="math-step-body">Walmart starts with audited normalized Owner Earnings of $2.89 per share ($140.0M total on 48.5M diluted shares) and net balance sheet cash of $+5.15 per share ($250.0M total).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Forensic Business Headwinds</div>
+                        <div class="math-step-body">The company faces structural margin pressure from lapping the one-time $2.9 billion tariff refund windfall, a 125 basis point SSS drag from Inflation Reduction Act Maximum Fair Price (MFP) pharmacy regulations, persistent $2.0B+ fuel and logistics wage inflation, and a recognized elasticity lag on its 11,000+ active price rollbacks.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Skeptic Unit Contraction</div>
+                        <div class="math-step-body">Under a severe downside scenario, intense competition from Amazon, Shein, and Temu combined with low-income customer fatigue causes Active commercial volume units to contract by 5.0% over three years, while unit monetization and marketplace take-rate yields compress by 3.0% due to defensive price matching.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Reverse Operating Leverage & Cash Degradation</div>
+                        <div class="math-step-body">Fixed distribution, labor, and store overhead trigger reverse operating leverage. This compresses the owner cash margin from 14.0% to 9.5%, degrading Year 3 Owner Earnings to $1.80 per share ($87.3M total).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Downside Risk Valuation Floor</div>
+                        <div class="math-step-body">Applying a stagnant/contracting multiple of 7.0x P/OE from the Narrow Moat matrix (for g₃ < 3%) to the degraded $1.80 per share of Owner Earnings, and adding ending net cash of $5.15 per share, yields a Downside Floor Target of $17.75 per share.</div>
+                    </div>
+                </div></div></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">3. How Things Are Going Now</div>
+                    <div><p class="memo-para">Walmart's recent quarterly results expose a clear structural divergence between top-line digital metrics and core brick-and-mortar unit economics. On a real-time basis, the business operates at a $1,000.0M annualized revenue run-rate with a 0.0% gross margin on its latest cash reconciliation baseline, reflecting a aggressive reinvestment of gross profit into price leadership. U.S. comp sales slowed to 2.6% ex-fuel, impacted by a 125 bps drag from pharmacy price caps under MFP regulations, while Sam's Club average ticket size fell 2.5%.</p>
+<p class="memo-para">While high-margin digital streams continue to scale—global e-commerce grew 23%, advertising rose 38%, and membership fees expanded 17%—this growth requires intense capital expenditure. CapEx has expanded to ~4.0% of net sales to build supply chain automation and fulfillment density, driving a 20.4% year-over-year decline in first-half free cash flow. Furthermore, walk-in store traffic growth has slowed, leaving top-line expansion heavily dependent on lower-margin store-fulfilled delivery and digital pickup.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
+                    <div><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Unit Baseline</div>
+                        <div class="math-step-body">The business starts with exact volume units of Active commercial volume units, baseline unit monetization and take-rate yield, and an annualized revenue run-rate of $1,000.0M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">3-Year Unit Volume Extrapolation</div>
+                        <div class="math-step-body">Assuming current omnichannel trends persist, Active commercial volume units grow at 2.0% p.a. (reaching 1.0612x baseline by Year 3), while unit monetization and marketplace yield increase by 1.1% p.a. through advertising scaling.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Projected Year 3 Revenue (Units × Monetization)</div>
+                        <div class="math-step-body">Multiplying Year 3 Active commercial volume units by projected unit monetization yields Projected Year 3 Revenue of $1,100.0M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
+                        <div class="math-step-body">Deducting cash operating expenses (COGS, fulfillment, marketing) alongside $20.0M of maintenance CapEx and $20.0M of stock-based compensation (treated as real cash/dilution expense), while assuming a stable Owner Cash Margin of 14.0%, yields Projected Year 3 Total Owner Earnings of $154.0M ($3.18 per share on 48.5M diluted shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
+                        <div class="math-step-body">Starting Net Cash of $250.0M + Cumulative 3-Year Free Cash Flow of $441.0M - Cumulative Share Buybacks of $100.0M - Cumulative Transformation CapEx of $150.0M results in Ending Year 3 Net Cash of $441.0M ($9.09 per share).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Intrinsic Fair Value Target & Expected 3-Year Return</div>
+                        <div class="math-step-body">With Year 3 Owner Earnings growing at 4.76% YoY (g₃ = 4.76%), the 2-Factor Matrix for a Narrow Moat classifies this as Mature / Steady (3%–8% growth), dictating a multiple of 11.0x P/OE. Capitalizing Year 3 Owner Earnings of $3.18 per share at 11.0x ($34.98) and adding Ending Net Cash of $9.09 per share yields an Intrinsic Fair Value Target of $44.07 per share, representing an expected 3-year annualized return (IRR) of -24.7% from today's price of $103.09.</div>
+                    </div>
+                </div></div></div>
+                </div>
+                
+                    </div>
+                </details>
+            </div>
+            
+            <div class="evolution-card ">
+                <div class="evolution-header">
+                    <div class="evolution-title-row">
+                        <span class="evolution-vnum">Version 1</span>
+                        <span class="evolution-status-text status-archived">Archived</span>
+                        <span class="evolution-date">· 2026-08-28</span>
+                    </div>
+                    <div class="evolution-price">Snapshot Price: <strong>$103.09</strong></div>
+                </div>
+                <div class="evolution-reason">
+                    <span class="reason-label">Trigger / Reason:</span> Genesis Initial Underwriting
+                </div>
+                <div class="evolution-metrics-text-row">
+                    <span>OE: <strong>$3.01/sh</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>P/OE: <strong>34.2x</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>ROIC: <strong>14.9%</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>Moat: <strong>Wide Moat</strong></span>
+                </div>
+                <div class="evolution-change-text">Walmart's recent four consecutive quarters demonstrate resilient top-line operational execution and expanding ecosystem monetizations across its global footprint. Consolidated revenue reached $179.5B in Q3 FY26, $190.7B in Q4 FY26, $177.8B in Q1 FY27, and $187.9B in Q2 FY27, establishing a real-time annualized revenue run-rate of $751,748.0M. This massive scale is anchored by approximately 280 million weekly customer transactions and store-fulfilled delivery visits across 10,900+ global stores and digital channels. Gross profit margin reached 25.4% in Q2 FY27, driven by supply chain automation and rapid growth in high-margin alternative revenue streams: Walmart Connect advertising (+38% globally), global e-commerce net sales (+23%), and membership fee revenue (+17%).
+
+Cash generation remains solid, with trailing twelve-month operating cash flow scaling to $41.6B and H1 FY27 free cash flow reaching $5.5B despite heavy capital reinvestment. Capital expenditures are guided at ~4.0% of net sales ($26B–$30B annually), dedicated to automating 50% of e-commerce fulfillment and 60% of store distribution centers by FY27. Management continues to return capital to shareholders via a $30B buyback authorization and 53 consecutive years of dividend increases.
+
+Walmart's audited Owner ROIC sits at a strong 14.9% (with 12-month trailing ROI at 15.4%), confirming that its Wide Economic Moat remains intact. The company's massive buyer scale, negative cash conversion cycle, dense store network acting as local delivery hubs, and growing high-margin ad/marketplace monetization establish formidable competitive entry barriers.</div>
+                <details class="archived-accordion">
+                    <summary class="archived-summary">Inspect Thesis Memo (v1)</summary>
+                    <div class="archived-content-body">
+                        
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">1. What the Market is Pricing In</div>
+                    <div><p class="memo-para">At $103.09, Mr. Market is pricing Walmart at a rich valuation of 34.2x P/OE and 36.1x EV/OE (with an Owner Yield of 2.9%), reflecting an optimistic consensus that WMT has permanently transformed into a high-margin digital technology and retail platform. Investors are heavily paying up for explosive growth in alternative, high-margin revenue streams: Walmart Connect digital advertising (+38% globally, +43% U.S.), global e-commerce momentum (+23%), third-party marketplace scale (+52% U.S. marketplace), and high-margin recurring membership income (+17%). The prevailing market narrative assumes these high-margin layers will drive structural, multi-year gross margin expansion while core retail foot traffic remains bulletproof.</p>
+<p class="memo-para">However, sell-side bear notes and recent earnings checks highlight severe earnings quality concerns. In Q2 FY27, headline operating income and gross margin (25.4%) were artificially inflated by a one-time $2.9 billion federal tariff refund windfall, which contributed ~750 basis points of operating income benefit. Stripping out this non-repeatable cash injection reveals softer underlying organic operating margin expansion. Furthermore, management is aggressively deploying these refunds into over 11,000 price rollbacks to combat decelerating U.S. comp transaction growth (which slowed to 1.5% in Q2 FY27 from 3.0% in Q1 FY27), while simultaneously absorbing $2.0B+ in incremental distribution fuel costs and facing a expanding 125 bps comp drag from Maximum Fair Price pharmacy regulations.</p>
+<p class="memo-para">Ultimately, the market is aggressively anti-anchoring on a tech-platform multiple (34.2x P/OE) for a business whose core cash flow engine remains deeply exposed to low-margin grocery retail, rising supply chain logistics costs, and macro-squeezed consumers. Once the $2.9B tariff refund cushion is fully exhausted, year-over-year comparison hurdles and structural SG&A deleverage threaten to spark significant valuation multiple contraction.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
+                    <div><div class="math-steps-ledger">
                 <div class="math-step-item">
                     <div class="math-step-badge">1</div>
                     <div class="math-step-main">
@@ -1230,29 +1505,16 @@
                         <div class="math-step-body">Capitalizing the degraded $2.40 per share Owner Earnings at a conservative trough exit multiple of 12.0x P/OE (strictly reflecting a Stagnant Wide-Moat business under structural pressure per the 2-Factor Matrix) and adding an ending net balance sheet cash position of -$5.10 per share yields a Downside Floor Target of $23.70 per share.</div>
                     </div>
                 </div></div></div>
-                </section>
-                <section class="memo-section">
-                    <div class="section-header">
-                        <span class="section-index">03</span>
-                        <h2 class="memo-title">How Things Are Going Now</h2>
-                    </div>
-                    <div class="memo-body"><p class="memo-para">Walmart's recent four consecutive quarters demonstrate resilient top-line operational execution and expanding ecosystem monetizations across its global footprint. Consolidated revenue reached $179.5B in Q3 FY26, $190.7B in Q4 FY26, $177.8B in Q1 FY27, and $187.9B in Q2 FY27, establishing a real-time annualized revenue run-rate of $751,748.0M. This massive scale is anchored by approximately 280 million weekly customer transactions and store-fulfilled delivery visits across 10,900+ global stores and digital channels. Gross profit margin reached 25.4% in Q2 FY27, driven by supply chain automation and rapid growth in high-margin alternative revenue streams: Walmart Connect advertising (+38% globally), global e-commerce net sales (+23%), and membership fee revenue (+17%).</p>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">3. How Things Are Going Now</div>
+                    <div><p class="memo-para">Walmart's recent four consecutive quarters demonstrate resilient top-line operational execution and expanding ecosystem monetizations across its global footprint. Consolidated revenue reached $179.5B in Q3 FY26, $190.7B in Q4 FY26, $177.8B in Q1 FY27, and $187.9B in Q2 FY27, establishing a real-time annualized revenue run-rate of $751,748.0M. This massive scale is anchored by approximately 280 million weekly customer transactions and store-fulfilled delivery visits across 10,900+ global stores and digital channels. Gross profit margin reached 25.4% in Q2 FY27, driven by supply chain automation and rapid growth in high-margin alternative revenue streams: Walmart Connect advertising (+38% globally), global e-commerce net sales (+23%), and membership fee revenue (+17%).</p>
 <p class="memo-para">Cash generation remains solid, with trailing twelve-month operating cash flow scaling to $41.6B and H1 FY27 free cash flow reaching $5.5B despite heavy capital reinvestment. Capital expenditures are guided at ~4.0% of net sales ($26B–$30B annually), dedicated to automating 50% of e-commerce fulfillment and 60% of store distribution centers by FY27. Management continues to return capital to shareholders via a $30B buyback authorization and 53 consecutive years of dividend increases.</p>
 <p class="memo-para">Walmart's audited Owner ROIC sits at a strong 14.9% (with 12-month trailing ROI at 15.4%), confirming that its Wide Economic Moat remains intact. The company's massive buyer scale, negative cash conversion cycle, dense store network acting as local delivery hubs, and growing high-margin ad/marketplace monetization establish formidable competitive entry barriers.</p></div>
-                </section>
-                <section class="memo-section">
-                    <div class="section-header" style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-                        <div style="display: flex; align-items: baseline; gap: 12px;">
-                            <span class="section-index">04</span>
-                            <h2 class="memo-title">What If It Keeps Going That Way</h2>
-                        </div>
-                        <div class="section-predictability-meta" style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-family: var(--font-sans);">
-                            <span class="pred-indicator" style="color: var(--accent-warm); font-weight: 600;">High Predictability</span>
-                            <span class="pred-sep" style="color: var(--text-dim);">·</span>
-                            <span class="pred-subtext" style="color: var(--text-secondary); font-weight: 400;">Essential Recurring Consumer Demand</span>
-                        </div>
-                    </div>
-                    <div class="memo-body"><div class="math-steps-ledger">
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
+                    <div><div class="math-steps-ledger">
                 <div class="math-step-item">
                     <div class="math-step-badge">1</div>
                     <div class="math-step-main">
@@ -1295,21 +1557,12 @@
                         <div class="math-step-body">With Year 3 Owner Earnings growing at 6.47% YoY ($3.62 vs $3.40 in Year 2), the 2-Factor Matrix dictates a Mature/Steady Exit Multiple of 16.0x P/OE (from the 14.0x–17.0x range for 3%–8% growth). Applying this multiple to Year 3 Owner Earnings ($3.62 × 16.0 = $57.92) and adding Ending Net Cash of -$1.15 per share results in an Intrinsic Fair Value Target of $56.77 per share, representing an expected 3-year annualized return (IRR) of -18.0% from today's price of $103.09 due to severe multiple compression.</div>
                     </div>
                 </div></div></div>
-                </section>
-            </main>
-        </div>
-
-        <!-- TAB 2: Thesis Evolution & Version History -->
-        <div id="tab-evolution" class="tab-pane">
-            <div class="memo-container">
-                <h2 class="memo-title" style="margin-bottom: 24px;">Thesis Evolution & Historical Audits</h2>
-                <div class="evolution-timeline">
-                    
-        <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px 36px; text-align: center;">
-            <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text-title); margin-bottom: 6px;">Genesis Baseline Thesis Active (Version 1)</div>
-            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; max-width: 580px; margin: 0 auto;">No historical evolution revisions yet. When earnings results, guidance shifts, or major fundamental events trigger a model update, the previous baseline will be archived here with full metric diffs.</div>
-        </div>
-        
+                </div>
+                
+                    </div>
+                </details>
+            </div>
+            
                 </div>
             </div>
         </div>
@@ -1320,7 +1573,7 @@
                 <div class="corridor-grid">
                     <div class="corridor-card">
                         <span class="corridor-label">Lower Price Alert Floor</span>
-                        <span class="corridor-value">$23.70</span>
+                        <span class="corridor-value">$17.75</span>
                         <span class="corridor-sub">Triggers downside margin-of-safety review if breached</span>
                     </div>
                     <div class="corridor-card">
@@ -1339,11 +1592,18 @@
                     <h3 class="memo-title" style="font-size: 1.15rem; margin-bottom: 18px;">Active & Historical Surveillance Alerts for WMT</h3>
                     <div class="alert-feed-list">
                         
-        <div class="empty-alerts-box">
-            <div class="empty-alerts-title">No Active Alert Breaches</div>
-            <div class="empty-alerts-sub">Price is trading within calibrated corridors ($23.70 – $118.55). Weekly autonomous surveillance and earnings call monitor are active.</div>
-        </div>
-        
+            <div class="alert-feed-card">
+                <div class="alert-feed-header">
+                    <span class="alert-feed-badge" style="background: rgba(212, 163, 115, 0.15); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35);">Narrow Moat</span>
+                    <span class="alert-feed-time">2026-08-28 23:41</span>
+                </div>
+                <div class="alert-feed-title">WMT: Valuation Re-evaluated (Narrow Moat)</div>
+                <div class="alert-feed-reason">SEC 10-Q Filing (2026-08-28): 10-Q [Accession #0000104169-26-000154]</div>
+                <div class="alert-feed-desc">Walmart's recent quarterly results expose a clear structural divergence between top-line digital metrics and core brick-and-mortar unit economics. On a real-time basis, the business operates at a $1,000.0M annualized revenue run-rate with a 0.0% gross margin on its latest cash reconciliation baseline, reflecting a aggressive reinvestment of gross profit into price leadership. U.S. comp sales slowed to 2.6% ex-fuel, impacted by a 125 bps drag from pharmacy price caps under MFP regulations, while Sam's Club average ticket size fell 2.5%.
+
+While high-margin digital streams continue to scale—global e-commerce grew 23%, advertising rose 38%, and membership fees expanded 17%—this growth requires intense capital expenditure. CapEx has expanded to ~4.0% of net sales to build supply chain automation and fulfillment density, driving a 20.4% year-over-year decline in first-half free cash flow. Furthermore, walk-in store traffic growth has slowed, leaving top-line expansion heavily dependent on lower-margin store-fulfilled delivery and digital pickup.</div>
+            </div>
+            
                     </div>
                 </div>
             </div>
@@ -1481,7 +1741,7 @@
                 }
             });
 
-            const targetPrice = 56.77;
+            const targetPrice = 44.07;
             const prices = points.map(p => p.price);
             let minP = Math.min(...prices);
             let maxP = Math.max(...prices);
