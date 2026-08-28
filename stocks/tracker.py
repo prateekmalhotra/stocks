@@ -15,6 +15,8 @@ TICKER_ALIASES = {
     "BVHMF": ["BVHMF", "VTY.L"],
     "AML": ["AML.L", "ARGGY", "AMGDF", "AML"],
     "AMRQ": ["AMRQF", "AMRQ.L", "AMRQ"],
+    "SQ": ["XYZ", "SQ"],
+    "XYZ": ["XYZ", "SQ"],
 }
 
 

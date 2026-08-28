@@ -2177,14 +2177,15 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
     # Ensure raw metrics are preserved accurately without fake overwrite fallbacks
     shares_count = None
+    stock_mcap = getattr(stock, 'market_cap_mil', None) or getattr(stock, 'market_cap', None)
     if oe_tot is not None and oe_sh is not None and abs(oe_sh) > 0:
         shares_count = abs(oe_tot / oe_sh)
-    elif stock.market_cap_mil and current_price > 0:
-        shares_count = stock.market_cap_mil / current_price
+    elif stock_mcap and current_price > 0:
+        shares_count = stock_mcap / current_price
     else:
         shares_count = 100.0
 
-    mcap = current_price * shares_count if shares_count else (stock.market_cap_mil or 1000.0)
+    mcap = current_price * shares_count if shares_count else (stock_mcap or 1000.0)
     net_cash_tot = (net_cash_sh or 0.0) * shares_count
     ev = mcap - net_cash_tot
 
