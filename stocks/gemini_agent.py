@@ -14,12 +14,14 @@ load_dotenv()
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
-DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.7-flash")
+DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
 _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
 GEMINI_MODELS_LADDER = [
-    "gemini-3.7-flash",
+    "gemini-3.5-flash",
     "gemini-3.6-flash",
-    "gemini-3.5-flash"
+    "gemini-3.7-flash",
+    "gemini-3.5-flash-lite",
+    "gemini-flash-latest"
 ]
 if DEFAULT_GEMINI_MODEL not in GEMINI_MODELS_LADDER:
     GEMINI_MODELS_LADDER.insert(0, DEFAULT_GEMINI_MODEL)
@@ -620,18 +622,12 @@ _GEMINI_SESSION: Optional[requests.Session] = None
 def get_gemini_session() -> requests.Session:
     global _GEMINI_SESSION
     if _GEMINI_SESSION is None:
-        import urllib3
         from requests.adapters import HTTPAdapter
         s = requests.Session()
         adapter = HTTPAdapter(
             pool_connections=10,
             pool_maxsize=20,
-            max_retries=urllib3.util.Retry(
-                total=2,
-                backoff_factor=0.5,
-                status_forcelist=[500, 502, 503, 504],
-                raise_on_status=False
-            )
+            max_retries=0
         )
         s.mount("https://", adapter)
         s.mount("http://", adapter)
@@ -682,10 +678,10 @@ def call_gemini_with_search(
     last_err = None
     for model_name in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
-        max_retries = 3
+        max_retries = 1
         for attempt in range(1, max_retries + 1):
             try:
-                response = session.post(url, json=payload, timeout=90)
+                response = session.post(url, json=payload, timeout=75)
                 if response.status_code == 200:
                     res_json = response.json()
                     candidate = res_json.get("candidates", [{}])[0]

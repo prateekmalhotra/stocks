@@ -13,6 +13,8 @@ TICKER_ALIASES = {
     "CSU": ["CNSWF", "CSU.TO", "CSU"],
     "CSU.TO": ["CNSWF", "CSU.TO", "CSU"],
     "BVHMF": ["BVHMF", "VTY.L"],
+    "AML": ["AML.L", "ARGGY", "AMGDF", "AML"],
+    "AMRQ": ["AMRQF", "AMRQ.L", "AMRQ"],
 }
 
 
@@ -24,24 +26,43 @@ def get_ticker_candidates(ticker: str) -> List[str]:
     return [clean]
 
 
+_FX_CACHE = {}
+
+def get_fx_rate_to_usd(currency: str) -> float:
+    """Returns the exchange rate to convert 1 unit of foreign currency to USD."""
+    if not currency or currency.upper() in ("USD", ""):
+        return 1.0
+    
+    curr = currency.strip()
+    is_pence = curr in ("GBp", "GBX", "gbp", "gbx", "GBP_PENCE")
+    lookup_curr = "GBP" if is_pence else curr.upper()
+    
+    now = time.time()
+    if lookup_curr in _FX_CACHE and (now - _FX_CACHE[lookup_curr]["ts"]) < 300:
+        base_rate = _FX_CACHE[lookup_curr]["rate"]
+        return (base_rate / 100.0) if is_pence else base_rate
+
+    rate = 1.0
+    try:
+        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{lookup_curr}USD=X?interval=1d&range=1d"
+        res = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=3)
+        if res.status_code == 200:
+            meta = res.json()["chart"]["result"][0]["meta"]
+            rate = float(meta.get("regularMarketPrice", 1.0))
+            if rate > 0:
+                _FX_CACHE[lookup_curr] = {"rate": rate, "ts": now}
+    except Exception:
+        pass
+        
+    return (rate / 100.0) if is_pence else rate
+
+
 def convert_to_usd(amount: float, currency: str) -> float:
     """Guarantees conversion to USD for any international listing."""
     if not currency or currency.upper() == "USD" or amount <= 0:
         return amount
-    curr = currency.upper().strip()
-    try:
-        if curr in ["GBX", "GBP_PENCE", "GBPENCE", "GBp"]:
-            amount = amount / 100.0
-            curr = "GBP"
-        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{curr}USD=X?interval=1d&range=1d"
-        res = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=4)
-        if res.status_code == 200:
-            rate = float(res.json()["chart"]["result"][0]["meta"]["regularMarketPrice"])
-            if rate > 0:
-                return amount * rate
-    except Exception:
-        pass
-    return amount
+    rate = get_fx_rate_to_usd(currency)
+    return amount * rate
 
 
 def fetch_live_stock_info(ticker: str) -> Tuple[str, float]:
@@ -53,7 +74,7 @@ def fetch_live_stock_info(ticker: str) -> Tuple[str, float]:
     for sym in candidates:
         try:
             url = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?interval=1d&range=1d"
-            res = requests.get(url, headers=headers, timeout=6)
+            res = requests.get(url, headers=headers, timeout=4)
             if res.status_code == 200:
                 data = res.json()
                 results = data.get("chart", {}).get("result")
@@ -65,20 +86,6 @@ def fetch_live_stock_info(ticker: str) -> Tuple[str, float]:
                     name = meta.get("shortName") or meta.get("longName") or ticker_clean
                     if price > 0:
                         return name, round(price, 2)
-        except Exception:
-            continue
-
-    # Fallback 2: yfinance
-    for sym in candidates:
-        try:
-            t = yf.Ticker(sym)
-            info = t.info
-            name = info.get("shortName") or info.get("longName") or ticker_clean
-            raw_price = info.get("regularMarketPrice") or info.get("currentPrice")
-            currency = info.get("currency", "USD")
-            if raw_price and float(raw_price) > 0:
-                price = convert_to_usd(float(raw_price), currency)
-                return name, round(price, 2)
         except Exception:
             continue
 
@@ -105,7 +112,7 @@ def fetch_live_stock_info(ticker: str) -> Tuple[str, float]:
 
 
 def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict[str, Any]]:
-    """Fetches historical price series for chart plotting."""
+    """Fetches historical price series for chart plotting with automatic USD conversion."""
     ticker_clean = ticker.upper().strip()
     range_map = {
         "1d": ("2m", "1d"),
@@ -128,13 +135,16 @@ def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict
     for sym in candidates:
         try:
             url = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?interval={interval}&range={rng}"
-            res = requests.get(url, headers=headers, timeout=8)
+            res = requests.get(url, headers=headers, timeout=4)
             if res.status_code == 200:
                 data = res.json()
                 results = data.get("chart", {}).get("result")
                 if not results:
                     continue
                 result = results[0]
+                meta = result.get("meta", {})
+                currency = meta.get("currency", "USD")
+                fx_rate = get_fx_rate_to_usd(currency)
                 timestamps = result.get("timestamp", [])
                 quotes = result.get("indicators", {}).get("quote", [{}])[0].get("close", [])
                 points = []
@@ -143,36 +153,15 @@ def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict
                         dt_obj = datetime.fromtimestamp(ts)
                         d_str = dt_obj.strftime("%b %d, %Y")
                         t_str = dt_obj.strftime("%I:%M %p")
+                        price_usd = round(float(close) * fx_rate, 2)
                         points.append({
                             "date": d_str if range_str.lower() != "1d" else t_str,
-                            "price": round(float(close), 2),
+                            "price": price_usd,
                             "time": t_str,
                             "full_date": dt_obj.strftime("%b %d, %Y %I:%M %p")
                         })
                 if points:
                     return points
-        except Exception:
-            continue
-
-    # Fallback to yfinance history
-    for sym in candidates:
-        try:
-            t = yf.Ticker(sym)
-            hist = t.history(period=rng, interval=interval)
-            points = []
-            for dt, row in hist.iterrows():
-                close = row.get("Close")
-                if close and close > 0:
-                    d_str = dt.strftime("%b %d, %Y")
-                    t_str = dt.strftime("%I:%M %p")
-                    points.append({
-                        "date": d_str if range_str.lower() != "1d" else t_str,
-                        "price": round(float(close), 2),
-                        "time": t_str,
-                        "full_date": dt.strftime("%b %d, %Y %I:%M %p")
-                    })
-            if points:
-                return points
         except Exception:
             continue
 
