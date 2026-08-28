@@ -1639,7 +1639,7 @@ def build_native_svg_chart(
     for ct in chart_targets:
         svg_target_elements.append(
             f'<line id="target-s{ct["id"]}-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="{ct["color"]}" stroke-width="1.4" stroke-dasharray="8 6" stroke-opacity="0.9" style="display:none;" />\n'
-            f'<text id="target-s{ct["id"]}-label" x="{width - padding_x - 6}" y="0" fill="{ct["color"]}" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>'
+            f'<text id="target-s{ct["id"]}-label" x="{padding_x + 8}" y="0" fill="{ct["color"]}" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="start" style="display:none;"></text>'
         )
     svg_targets_html = "\n".join(svg_target_elements)
     targets_json = json.dumps(chart_targets)
@@ -1853,6 +1853,8 @@ def build_native_svg_chart(
                         lineEl.setAttribute('y2', y);
                         lineEl.style.display = 'block';
                         labelEl.setAttribute('y', y - 4);
+                        labelEl.setAttribute('x', padX + 8);
+                        labelEl.setAttribute('text-anchor', 'start');
                         labelEl.textContent = 'Path ' + t.id + ' · $' + t.val.toFixed(2);
                         labelEl.style.display = 'block';
                         anyVisibleTarget = true;
@@ -3761,7 +3763,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                         
                         <!-- 3Y Target Dotted Line & Tag -->
                         <line id="target-line" x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
-                        <text id="target-label" x="{width - padding_x - 6}" y="{padding_y - 4}" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: ${target_price:.2f}</text>
+                        <text id="target-label" x="{padding_x + 8}" y="{padding_y - 4}" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: ${target_price:.2f}</text>
 
                         <!-- Moving Average Lines (200, 50, 21, 5) -->
                         <polyline id="chart-ma200" fill="none" stroke="#E879F9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
@@ -4106,6 +4108,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     targetLine.setAttribute('y2', targetY.toFixed(1));
                     targetLine.style.display = '';
                     targetLabel.setAttribute('y', (targetY - 5).toFixed(1));
+                    targetLabel.setAttribute('x', ({padding_x} + 8).toFixed(1));
+                    targetLabel.setAttribute('text-anchor', 'start');
                     targetLabel.textContent = '3Y Target: $' + targetPrice.toFixed(2);
                     targetLabel.style.display = '';
                 }} else {{

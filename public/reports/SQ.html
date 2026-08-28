@@ -1046,7 +1046,7 @@
                 <div class="chart-top-bar">
                     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                         <div class="chart-live-val">
-                            <span id="tooltip-date">Aug 28, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$82.16</strong>
+                            <span id="tooltip-date">Today</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$82.16</strong>
                             <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
                             <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$180.33</strong></span>
                         </div>
@@ -1373,7 +1373,7 @@
 
     <!-- Dynamic SVG Chart & Range Switching Script -->
     <script>
-        const chartData = {"1D": [{"date": "Aug 28, 2026", "price": 82.16}], "1M": [{"date": "Aug 28, 2026", "price": 82.16}], "1Y": [{"date": "Aug 28, 2026", "price": 82.16}], "5Y": [{"date": "Aug 28, 2026", "price": 82.16}], "MAX": [{"date": "Aug 28, 2026", "price": 82.16}]};
+        const chartData = {"1D": [{"date": "Start", "price": 73.94, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 78.05, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 82.16, "time": "04:00 PM", "full_date": "Today"}], "1M": [{"date": "Start", "price": 73.94, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 78.05, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 82.16, "time": "04:00 PM", "full_date": "Today"}], "1Y": [{"date": "Start", "price": 73.94, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 78.05, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 82.16, "time": "04:00 PM", "full_date": "Today"}], "5Y": [{"date": "Start", "price": 73.94, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 78.05, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 82.16, "time": "04:00 PM", "full_date": "Today"}], "MAX": [{"date": "Start", "price": 73.94, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 78.05, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 82.16, "time": "04:00 PM", "full_date": "Today"}]};
         let activeRange = '1Y';
         const maEnabled = { 5: true, 21: true, 50: true, 200: true };
 
