@@ -167,18 +167,36 @@ def check_sec_filing_triggers() -> int:
             if acc in cached_accs:
                 continue
 
-            # We care about 8-K (US Material events), 6-K (Foreign Private Issuer Material events), 
-            # 10-Q/10-K (US Quarterly/Annual reports), 20-F/40-F (Foreign Annual reports)
+            # We care about material 8-K, 6-K (Foreign Private Issuer), 10-Q/10-K, 20-F/40-F
             if form in ["8-K", "8-K/A", "6-K", "6-K/A", "10-Q", "10-K", "20-F", "40-F"]:
                 # Parse Item labels
                 item_meanings = []
-                if raw_items:
-                    for itm in str(raw_items).split(","):
-                        itm_clean = itm.strip()
-                        if itm_clean in ITEM_DESCRIPTIONS:
-                            item_meanings.append(f"Item {itm_clean}: {ITEM_DESCRIPTIONS[itm_clean]}")
-                        elif itm_clean:
-                            item_meanings.append(f"Item {itm_clean}")
+                is_material = True
+                
+                if form in ["8-K", "8-K/A"]:
+                    if raw_items:
+                        for itm in str(raw_items).split(","):
+                            itm_clean = itm.strip()
+                            if itm_clean in ITEM_DESCRIPTIONS:
+                                item_meanings.append(f"Item {itm_clean}: {ITEM_DESCRIPTIONS[itm_clean]}")
+                            elif itm_clean:
+                                item_meanings.append(f"Item {itm_clean}")
+                    # If 8-K has only routine non-material exhibits (e.g. Item 9.01 only without other items)
+                    if raw_items and all(itm.strip() in ["9.01"] for itm in str(raw_items).split(",")):
+                        is_material = False
+                elif form in ["6-K", "6-K/A"]:
+                    # Foreign private issuer 6-K: filter out routine administrative filings
+                    desc_lower = (desc or "").lower()
+                    material_keywords = ["results", "earnings", "financial report", "quarter", "interim", "annual", "acquisition", "merger", "guidance", "restatement", "operating", "revenue"]
+                    if not any(kw in desc_lower for kw in material_keywords):
+                        # Administrative 6-K (e.g. proxy notice, voting tallies, AGM date) -> mark seen without review
+                        is_material = False
+
+                if not is_material:
+                    filings_cache.setdefault(ticker, []).append(acc)
+                    cached_accs.add(acc)
+                    updated_cache = True
+                    continue
 
                 item_summary = "; ".join(item_meanings) if item_meanings else (desc or "Foreign/Domestic Material Corporate Filing")
                 trigger_reason = f"SEC {form} Filing ({f_date}): {item_summary} [Accession #{acc}]"

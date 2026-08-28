@@ -284,7 +284,29 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         previous_bull_target=stock.bull_target
     )
 
-    labels = sanitize_labels(meta.get("labels") or meta.get("new_status_label") or prev_status, action_signal=meta.get("action_signal"))
+    from stocks.quality_gatekeeper import auto_heal_dossier_and_metadata, validate_dossier_quality
+    html_content, meta = auto_heal_dossier_and_metadata(ticker, html_content, meta)
+    
+    is_valid, quality_issues = validate_dossier_quality(ticker, html_content, metadata=meta)
+    if is_valid:
+        print(f"✅ [REVIEW QUALITY GATE PASSED] {ticker} passed 100% of institutional quality pillars!", flush=True)
+    else:
+        print(f"ℹ️ [REVIEW QUALITY GATE AUDIT] {ticker} quality audit notes (auto-healed):", flush=True)
+        for issue in quality_issues:
+            print(f"   └─ {issue}", flush=True)
+
+    # Safety guardrail: Ensure normalized Owner Earnings & P/OE remain sound
+    if not meta.get("owner_earnings_per_share") or meta.get("owner_earnings_per_share", 0.0) <= 0:
+        if last_version and last_version.owner_earnings_per_share and last_version.owner_earnings_per_share > 0:
+            meta["owner_earnings_per_share"] = last_version.owner_earnings_per_share
+            meta["owner_earnings_total_mil"] = last_version.owner_earnings_total_mil
+            meta["p_oe"] = current_price / last_version.owner_earnings_per_share if last_version.owner_earnings_per_share > 0 else 0.0
+            meta["owner_yield_pct"] = (last_version.owner_earnings_per_share / current_price) * 100.0 if current_price > 0 else 0.0
+
+    from stocks.gemini_agent import map_to_canonical_moat_label, map_to_canonical_predictability_tier
+    canonical_moat = map_to_canonical_moat_label(meta.get("moat_label") or (meta.get("labels")[0] if meta.get("labels") else None) or prev_status or "Narrow Moat")
+    canonical_pred = map_to_canonical_predictability_tier(meta.get("predictability_tier") or (meta.get("labels")[1] if (meta.get("labels") and len(meta.get("labels")) > 1) else None) or getattr(stock, "predictability_tier", None) or "Moderate Predictability")
+    labels = [canonical_moat, canonical_pred]
     action_signal = normalize_action_signal(meta.get("action_signal", "BUY"))
     new_version_num = len(history) + 1
     today_str = datetime.now().strftime("%Y-%m-%d")

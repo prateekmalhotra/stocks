@@ -2638,11 +2638,20 @@ You MUST search Google and retrieve numbers from the company's ABSOLUTE LATEST r
 CURRENCY & FINANCIAL SCALE MANDATE (CRITICAL FOR US & GLOBAL ADRs):
 - All reported financial numbers MUST be strictly in MILLIONS USD ($M USD).
 - For Chinese ADRs (e.g. PDD, BABA, JD, BYD), statements are reported in RMB/CNY. Convert RMB to USD at ~7.15 RMB/USD:
+  * For BABA: TTM Revenue of ~RMB 1,045B = ~$146,150M USD (Annualized Run-Rate = ~$150,500M USD).
+    - Diluted Shares Outstanding = ~2,350.0 Million ADS shares (Note: 1 ADS = 8 Ordinary Shares; ALWAYS report in ADS shares).
+    - Market Cap = ~$280,000M USD (${current_price:.2f} * 2,350M ADS).
+    - Operating Cash Flow = ~RMB 175,000M = ~$24,500M USD.
+    - Depreciation & Amortization = ~RMB 50,000M = ~$7,000M USD.
+    - Maintenance CapEx = ~RMB 45,000M = ~$6,300M USD (do NOT count the RMB 110B+ discretionary peak AI datacenter growth buildout as maintenance CapEx).
+    - Stock-Based Compensation = ~RMB 11,200M = ~$1,560M USD.
+    - Normalized Owner Earnings = ~$16,640M USD (~$7.08/ADS -> ~16.8x P/OE, ~13.5x EV/OE).
+    - Liquid Cash & Short-Term Investments = ~$66,360M USD, Total Debt = ~$37,280M USD -> Net Cash = ~$29,080M USD ($12.37/ADS).
   * For PDD: Q2 2026 Revenue of RMB 112.36B = $15,715M USD (Annualized Run-Rate = ~$62,860M USD).
-  * Q2 2026 Net Income of RMB 27.2B = $3,804M USD.
-  * Liquid Cash & Short-Term Investments = ~$41,000M USD (over RMB 290 Billion).
-  * Diluted Shares Outstanding = ~1,380.0 Million ADR shares.
-  * Market Cap = ~$119,700M USD (${current_price:.2f} * 1,380M).
+    - Q2 2026 Net Income of RMB 27.2B = $3,804M USD.
+    - Liquid Cash & Short-Term Investments = ~$41,000M USD (over RMB 290 Billion).
+    - Diluted Shares Outstanding = ~1,380.0 Million ADR shares.
+    - Market Cap = ~$119,700M USD (${current_price:.2f} * 1,380M).
 - For Brazilian ADRs (e.g. STNE, NU), convert BRL at ~5.6 BRL/USD.
 - For European/UK/Japanese listings, convert EUR/GBP/JPY to USD.
 - DO NOT report single-digit millions or scaled-down figures for mega-cap enterprises! Verify that Market Cap roughly equals Current Price * Diluted Shares.
