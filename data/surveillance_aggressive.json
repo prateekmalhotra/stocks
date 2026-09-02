@@ -1,13 +1,13 @@
 {
   "portfolio_type": "aggressive",
   "portfolio_label": "Wealthsimple (Aggressive Alpha)",
-  "last_run_date": "2026-08-26",
-  "last_run_timestamp": "2026-08-26T17:27:42.941746",
+  "last_run_date": "2026-09-02",
+  "last_run_timestamp": "2026-09-02T19:06:40.719156",
   "status": "EXECUTED",
   "status_display": "SURVEILLANCE ACTIONS EXECUTED (1 ACTIONS)",
   "action_required": false,
   "verdict_summary": "Council executed 1 high-conviction decision(s): SURPLUS CASH DEPLOYMENT (BUY).",
-  "total_universe_scanned": 114,
+  "total_universe_scanned": 119,
   "active_holdings_verified": 0,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
@@ -28,7 +28,7 @@
     "cash_directive": "Cash reserves (100.00%) exceed target (18.56%). Ready for opportunistic deployment.",
     "formula_description": "Tactical Strike Reserve (18.56%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +20.00% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-09-02",
+  "next_scheduled_run": "2026-09-09",
   "holdings_health": [],
   "top_watchlist_on_radar": [
     {
@@ -64,12 +64,13 @@
   ],
   "rebalance_proposals": [
     {
-      "date": "2026-08-26",
+      "date": "2026-09-02",
       "action": "SURPLUS CASH DEPLOYMENT (BUY)",
       "ticker": "MELI",
       "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder MELI (Moat: 9.5/10, MoS: +426.5%, Kelly Edge: 64.38)",
       "weight_delta": "+8.0%",
       "verification_status": "Audited & Executed by Autonomous Surveillance Council"
     }
-  ]
+  ],
+  "ma_reversal_breakouts": []
 }
