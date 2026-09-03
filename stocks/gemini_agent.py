@@ -14,12 +14,13 @@ load_dotenv()
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
-DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
+DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
 _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
 GEMINI_MODELS_LADDER = [
-    "gemini-3.5-flash",
-    "gemini-3.6-flash",
+    "gemini-3.8-flash",
     "gemini-3.7-flash",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash",
     "gemini-3.5-flash-lite",
     "gemini-flash-latest"
 ]
@@ -43,7 +44,7 @@ def switch_to_fallback_model(reason: str = "") -> str:
             print(f"  ⚡ [Model Failover] Switching active model for this workflow run to {next_model}. (Reason: {reason})")
             _CURRENT_ACTIVE_MODEL = next_model
     except Exception:
-        _CURRENT_ACTIVE_MODEL = "gemini-3.5-flash"
+        _CURRENT_ACTIVE_MODEL = GEMINI_MODELS_LADDER[0]
     return _CURRENT_ACTIVE_MODEL
 
 
@@ -672,7 +673,7 @@ def call_gemini_with_search(
     if override_model and override_model in GEMINI_MODELS_LADDER:
         models_to_try = [override_model] + [m for m in GEMINI_MODELS_LADDER if m != override_model]
     else:
-        # Prioritize primary 3.7-flash, then 3.6-flash, then 3.5-flash for every new request
+        # Prioritize primary 3.8-flash, then 3.7-flash, then 3.6-flash, then 3.5-flash for every new request
         models_to_try = list(GEMINI_MODELS_LADDER)
         
     last_err = None
@@ -2828,7 +2829,7 @@ Return ONLY a valid JSON object matching this schema:
     # ---------------------------------------------------------
     # Step 5: Draft Synthesis of The 4 Core Deep Forensic Sections
     # ---------------------------------------------------------
-    print(f"  [Step 5/6] Formulating draft forensic sections with Gemini 3.6 Flash...", flush=True)
+    print(f"  [Step 5/6] Formulating draft forensic sections with {get_active_model()}...", flush=True)
     paragraphs_prompt = f"""Target: {ticker} ({company_name})
 Current Market Price: ${current_price:.2f}
 Diluted Shares: {shares:.1f}M -> Market Cap: ${mcap:,.0f}M | Enterprise Value: ${ev:,.0f}M
