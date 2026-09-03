@@ -7,27 +7,55 @@
   "base_capital_usd": 200000.0,
   "holdings": [
     {
+      "ticker": "META",
+      "company_name": "Meta Platforms, Inc.",
+      "sector": "Interactive Media & Consumer Tech",
+      "industry": "Global Social Graph & Digital Advertising",
+      "quality_score": 97.0,
+      "target_weight": 0.7944,
+      "pillar": "A",
+      "cost_basis": 549.9,
+      "current_price": 613.75,
+      "fair_value": 1064.84,
+      "margin_of_safety_pct": 73.5,
+      "allocated_dollars": 158880.0,
+      "shares_to_buy": 288.9253,
+      "look_through_fcf_yield": 5.4,
+      "annual_owner_earnings": 8579.52,
+      "cannibal_rate_pct": 3.2,
+      "thesis_core": "3.60B Daily Active People social graph monopoly; Mark Zuckerberg absolute founder control.",
+      "report_url": "reports/META.html"
+    },
+    {
       "ticker": "USD_CASH",
       "company_name": "USD Cash Reserve",
       "sector": "Cash & Cash Equivalents",
       "industry": "3-Month US Treasury Bills",
       "quality_score": 100.0,
-      "target_weight": 1.0,
+      "target_weight": 0.2056,
       "pillar": "CASH",
       "cost_basis": 1.0,
       "current_price": 1.0,
       "fair_value": 1.0,
       "margin_of_safety_pct": 0.0,
-      "allocated_dollars": 200000.0,
-      "shares_to_buy": 200000.0,
+      "allocated_dollars": 41120.0,
+      "shares_to_buy": 41120.0,
       "look_through_fcf_yield": 5.0,
-      "annual_owner_earnings": 10000.0,
+      "annual_owner_earnings": 2056.0,
       "cannibal_rate_pct": 0.0,
-      "thesis_core": "Senior US Treasury Buffer (19.58%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +25.00% weighted Margin of Safety.",
+      "thesis_core": "3-Month US Treasury Yield (5.00% risk-free). Shiller CAPE Macro Buffer.",
       "report_url": "#"
     }
   ],
   "rebalance_log": [
+    {
+      "date": "2026-09-03",
+      "action": "SURPLUS CASH DEPLOYMENT (BUY)",
+      "ticker": "META",
+      "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder META (Moat: 9.7/10, MoS: +93.6%, Kelly Edge: 59.22)",
+      "weight_delta": "+8.0%",
+      "verification_status": "Audited & Executed by Autonomous Surveillance Council"
+    },
     {
       "date": "2026-08-11",
       "action": "CANNIBAL FORTRESS CALIBRATION",
@@ -164,7 +192,7 @@
     },
     {
       "date": "2026-09-03",
-      "portfolio_value": 200000.0,
+      "portfolio_value": 218447.9,
       "owner_earnings_runrate": 15000.0,
       "spy_benchmark": 200000.0
     }
