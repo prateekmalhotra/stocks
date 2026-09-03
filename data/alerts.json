@@ -1,5 +1,41 @@
 [
   {
+    "id": "alert-msft-1788394152",
+    "ticker": "MSFT",
+    "timestamp": "2026-09-03 00:09",
+    "title": "MSFT: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 8-K Filing (2026-09-02): Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-380280]",
+    "what_was_before": "Microsoft's operating engine is displaying strong momentum, underscored by recent quarterly prints. Total revenue for Q4 FY26 reached $90.0 billion, up 18% year-over-year, while full-year revenue scaled to $331.8 billion with operating income reaching $155.2 billion. Intelligent Cloud led the performance, driven by Azure and other cloud services surging 43% YoY in Q4 and crossing the historic $100 billion annual revenue milestone.\n\nCommercial remaining performance obligation (RPO) expanded dramatically to $678 billion (+84% YoY), providing elite multi-year revenue visibility. Productivity and Business Processes expanded steadily, with Microsoft 365 Copilot surpassing 30 million paid enterprise seats. Consolidated gross margins stood at 67.2% and operating margins held resilient at 45.1%, proving that core software pricing power continues to absorb heavy near-term AI infrastructure ramps.",
+    "what_changes_now": "Microsoft's operating engine continues to demonstrate high-velocity expansion across core enterprise segments. Full-year FY2026 revenue reached $331,840.0M, representing an 18.0% YoY growth rate, while the latest quarter's revenue of $90,010.0M pushes the current real-time annualized run-rate to $360,040.0M. Growth is anchored by over 450 million Microsoft 365 Commercial paid seats and Intelligent Cloud, where Azure TTM revenue officially surpassed the $100 Billion milestone while accelerating to 43% constant-currency growth in the latest quarter.\n\nTo meet unprecedented enterprise demand, Microsoft deployed $115,980.0M in cash CapEx during FY2026 ($145,300.0M including finance leases). This infrastructure push caused GAAP gross margin to compress slightly to 67.2% from 68.6% in the prior year, as short-lived GPU hardware depreciation impacted cloud margins. Operating cash flow of $130,069.3M resulted in GAAP free cash flow of $67,040.0M, reflecting temporary cash conversion compression during this capital buildout cycle.\n\nDespite heavy capital expenditures, Microsoft's balance sheet remains exceptionally strong, holding $76,843.0M in liquid cash and short-term investments against $40,294.0M in total debt, leaving net cash of $36,549.0M ($4.90 per share). Management maintained strict operating discipline, sustaining a 46.8% operating margin and expanding Commercial Remaining Performance Obligations (RPO) to $678 Billion, confirming high demand visibility across its enterprise ecosystem.",
+    "price_at_alert": 496.82,
+    "price_change_pct": -3.37,
+    "report_url": "reports/MSFT.html"
+  },
+  {
+    "id": "alert-avgo-1788393805",
+    "ticker": "AVGO",
+    "timestamp": "2026-09-03 00:03",
+    "title": "AVGO: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 8-K Filing (2026-09-02): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001730168-26-000076]",
+    "what_was_before": "Broadcom is currently executing on a rapid operational trajectory propelled by hyper-scale AI buildouts and VMware software transitions. In Q1 FY2026, consolidated revenue stood at $19,311.0M. By Q2 FY2026, revenue surged 48% YoY to $22,187.0M (an annualized run-rate of $88,748.0M), driven by AI semiconductor revenue scaling 143% YoY to $10,800.0M. Management issued guidance for Q3 FY2026 revenue of $29,400.0M (up 84% YoY) with AI semiconductor revenue expected to hit $16,000.0M. Latest consolidated gross margin reached 77.1%, supported by VMware Cloud Foundation (VCF) subscription transitions expanding the infrastructure software backlog to $73,000.0M.\n\nHowever, this top-line acceleration conceals structural margin friction and balance sheet leverage. Custom AI accelerators carry structurally lower gross margins (~68%) than proprietary Tomahawk/Jericho switching silicon due to high pass-through costs for High-Bandwidth Memory (HBM) and packaging. While Q2 FY2026 free cash flow reached $10,262.0M (46% FCF margin), the balance sheet remains burdened by $73,000.0M in gross debt against $10,200.0M in cash, resulting in net cash of $-62,800.0M. Furthermore, off-balance-sheet SPV vendor financing platforms (e.g., $35B in credit backstops for Anthropic and frontier labs) introduce growing contingent liabilities.",
+    "what_changes_now": "In stark contrast to bear thesis assumptions, Broadcom's operational engine continues to accelerate across its core semiconductor and infrastructure software divisions. Across the latest four consecutive quarters (Q4 FY25 to Q3 FY26), quarterly revenue progressed rapidly from $18.0B to $19.1B, $22.2B, and reached a record $29.59B in Q3 FY26 (+85.5% YoY), establishing a real-time annualized revenue run-rate of $118.36B. Forward management guidance for Q4 FY26 projects revenue of approximately $34.8B (+93% YoY), powered by custom AI accelerator (XPU) volume ramps including Google's TPU v8i and Meta's MTIA scaling alongside Tomahawk 6 / Jericho 3 AI Ethernet switching silicon.\n\nSimultaneously, the Infrastructure Software segment is generating record cash flows following the VMware acquisition. Software revenue reached $8.8B in Q3 FY26 (+29% YoY), driven by the rapid conversion of the top 20,000 sovereign cloud and large enterprise customers to VMware Cloud Foundation (VCF) multi-year subscription bundles. Software non-GAAP operating margins expanded toward 79%, while consolidated gross margins remained pristine at 78.6% and non-GAAP operating margins expanded to 67.9%.\n\nBroadcom's fabless, asset-light operating model required just $532M in Q3 CapEx (<1.8% of revenue), converting 46.3% of revenue into $13.7B of quarterly free cash flow ($14.2B operating cash flow). On capital allocation, management continues to prioritize post-VMware debt reduction, bringing net balance sheet debt down to $41.0B ($-8.78 per share), while returning $3.1B quarterly through dividends ($0.65/share quarterly dividend) and maintaining disciplined cash allocation.",
+    "price_at_alert": 367.24,
+    "price_change_pct": -0.28,
+    "report_url": "reports/AVGO.html"
+  },
+  {
     "id": "alert-aapl-1788306964",
     "ticker": "AAPL",
     "timestamp": "2026-09-01 23:56",
