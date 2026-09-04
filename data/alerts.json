@@ -1,5 +1,59 @@
 [
   {
+    "id": "alert-xpo-1788480183",
+    "ticker": "XPO",
+    "timestamp": "2026-09-04 00:03",
+    "title": "XPO: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "SEC 8-K Filing (2026-09-03): Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001104659-26-105055]",
+    "what_was_before": "In real-time operational performance, XPO is delivering strong execution on its network transformation. Latest quarterly results demonstrate an annualized revenue run-rate of $9,420.0M (up from trailing twelve-month revenue of $8,573.0M) with gross m",
+    "what_changes_now": "Operationally, XPO is executing an aggressive network efficiency playbook that has generated tangible sequential momentum across the past four quarters. North American LTL adjusted operating ratio improved to 79.9% in the latest quarter, marking a 300 basis point year-over-year improvement and crossing below the 80% threshold for the first time. Consolidated quarterly revenue reached $2,355.0M ($9,420.0M annualized run-rate), supported by gross margins expanding to 40.8% and daily LTL shipments advancing 2.8% year-over-year to 52,229 across its 586 service center locations.\n\nUnit monetization has demonstrated underlying pricing discipline, with gross yield per hundredweight (ex-fuel) increasing 4.4% year-over-year, despite average weight per shipment slipping 1.8% to 1,311 pounds. Management's deployment of proprietary load-building AI algorithms and in-house driver training academies has maintained cargo damage claims below 0.20%, facilitating contract renewal price increases in the 6% to 8% range.\n\nCash generation has also accelerated, with quarterly operating cash flow reaching $308.0M and free cash flow expanding to $207.0M. Management directed this cash flow toward balance sheet de-leveraging, retiring $200.0M in term debt through July 2026, while maintaining disciplined gross capital expenditures of $101.0M for the quarter.",
+    "price_at_alert": 184.8,
+    "price_change_pct": -6.54,
+    "report_url": "reports/XPO.html"
+  },
+  {
+    "id": "alert-mdt-1788479950",
+    "ticker": "MDT",
+    "timestamp": "2026-09-03 23:59",
+    "title": "MDT: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "SEC 10-Q Filing (2026-09-03): 10-Q [Accession #0001628280-26-060473]",
+    "what_was_before": "In operational reality, Medtronic's core medical device franchises are demonstrating solid operational momentum across the last four consecutive quarters (Q2 FY26 through Q1 FY27). The company's annualized revenue run-rate has reached $39,024.0M based on the latest quarterly revenue print of $9,756.0M, backed by a stable gross margin of 65.0%. Physical volume unit adoption remains robust across high-margin growth drivers, led by Electrophysiology/Cardiac Ablation Solutions where the Affera mapping system and Sphere-9 catheter platform surged 88% globally and 139% in the United States. Micra leadless pacemakers and EV-ICD defibrillators continue to post mid-to-high teens procedure volume expansion.\n\nCash flow generation remains a key pillar of strength. Medtronic generated $5.4B in full-year free cash flow in FY26, with operating cash flow reaching $1.79B in the most recent quarter. Management is taking deliberate structural actions to optimize capital efficiency, including the strategic IPO and split-off of the MiniMed Diabetes business (MiniMed raised $560M in its March 2026 IPO), which shifts capital allocation toward high-ROIC core medtech franchises.\n\nCapital allocation remains committed to defending the Dividend Aristocrat record ($0.72 quarterly dividend per share) while sustaining disciplined R&D reinvestment (8\u20139% of sales). Management raised full-year FY27 organic revenue growth guidance to 7.25%\u20137.75% and raised non-GAAP EPS guidance to $5.94\u2013$6.00, demonstrating confidence that commercial rollouts of Symplicity Spyral, Hugo robotics, and Stealth AXiS spine platforms will support mid-single-digit procedural growth.",
+    "what_changes_now": "Operationally, Medtronic is executing an organic turnaround driven by high-barrier therapeutic hardware. Over the last four quarters, revenue advanced sequentially from $8,961.0M in Q2 FY26 to $9,017.0M in Q3 FY26, $9,808.0M in Q4 FY26, and $9,756.0M in Q1 FY27, reaching a record annualized run-rate of $39,024.0M. Non-GAAP gross margins have remained firm at 65.2%, supported by premium procedural mix shifts in Cardiac Ablation Solutions and Structural Heart (Evolut FX+ TAVR valves).\n\nThe primary operational growth engine is the Affera Sphere-9 Pulsed Field Ablation platform, which drove an 88% YoY surge in Cardiac Ablation Solutions revenue and pushed trailing 12-month franchise revenue past $2.0 billion. Hospital procedure volumes for Micra leadless pacemakers and Percept deep brain stimulation devices remain resilient, insulated by high physician switching costs, specialized surgical training workflows, and Class-1 FDA PMA data hurdles.\n\nFrom a cash flow standpoint, Medtronic generated $5.43 billion in full-year FY26 Free Cash Flow (76% conversion of Non-GAAP net income). Capital allocation remains disciplined: the company increased its dividend for the 49th consecutive year ($2.88 annualized, 3.1% yield) and is actively executing the spin-off of its lower-margin MiniMed Diabetes business to eliminate structural margin drag.",
+    "price_at_alert": 93.1,
+    "price_change_pct": 2.12,
+    "report_url": "reports/MDT.html"
+  },
+  {
+    "id": "alert-lulu-1788479781",
+    "ticker": "LULU",
+    "timestamp": "2026-09-03 23:56",
+    "title": "LULU: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 8-K Filing (2026-09-03): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001397187-26-000126]",
+    "what_was_before": "The operational reality of Lululemon stands in sharp contrast to terminal decay narratives. Over the past four consecutive quarters, the business demonstrated durable cash generation and operational discipline, generating $2,371.0 million in net revenue in the latest quarter (+7.0% YoY) and anchoring an annualized revenue run-rate of $9,484.0 million. While North American comparable sales flattened and slipped to -3% YoY as management navigated specific merchandise assortment voids in core sizes and color palettes, international markets expanded rapidly, with international comps advancing +19% YoY (+22% in constant currency) led by +34% revenue growth in Mainland China.\n\nUnit economics remain among the strongest in global retail. Gross margin expanded 80 basis points YoY to 59.6% in the latest quarter, driven by lower inbound freight rates and favorable international average unit retail realization. Management maintained strict full-price discipline, refusing to dilute the franchise through broad-based promotional discounting and confining clearance cadence to its established 'We Made Too Much' digital portal. Inventories fell 14% YoY to $1,400.0 million, demonstrating healthy inventory turns and working capital control.\n\nThe company operates 721 company-operated retail stores globally (+35 net openings over the trailing four quarters), generating exceptional store productivity exceeding $1,500 per square foot alongside a high-margin direct-to-consumer channel that accounts for 42% of total sales. Capital allocation has been disciplined: with zero long-term funded debt and $1,600.0 million in cash and equivalents, Lululemon generated over $1.3 billion in trailing free cash flow and returned $1.6 billion to shareholders via open-market repurchases over the past four quarters ($583.7 million in the latest quarter alone), steadily shrinking the share base at depressed valuations.",
+    "what_changes_now": "lululemon athletica inc. currently operates at an annualized revenue run-rate of $9,680.0 million, anchored by its global network of 825 company-operated retail stores and a mature direct-to-consumer (DTC) digital guest platform. In the latest quarter (Q2 Fiscal 2026), reported net revenue contracted 4.0% year-over-year to $2,420.0 million, driven by a 9.0% decline in total comparable sales (including a 12.0% comp contraction in the Americas). While headline gross margin printed at 60.5%, underlying gross margin was approximately 54.9% after stripping out a non-recurring $134.5 million IEEPA tariff refund that contributed 560 basis points of one-time margin expansion.\n\nOperationally, the core business continues to generate solid cash flow despite merchandising headwinds and promotional discounting. First-half Fiscal 2026 operating cash flow reached $589.3 million compared to $209.7 million in the prior-year period, supported by disciplined unit inventory reductions (units down 7.0% YoY). However, core SG&A overhead rose to 41.7% of net revenue, burdened by higher brand marketing, retail wage density, and $24.8 million in non-operating proxy contest expenses.\n\nCapital allocation remains committed to opportunistic share retirement, with management repurchasing over $570 million of stock during the first half of Fiscal 2026, reducing diluted shares outstanding to 114.8 million. Incoming Chief Executive Officer Heidi O'Neill inherits an unencumbered balance sheet holding $1,390.0 million in liquid cash and zero long-term funded debt, providing sufficient liquidity runway to execute a domestic product assortment reset and reposition the brand's core performance categories.",
+    "price_at_alert": 121.77,
+    "price_change_pct": 0.58,
+    "report_url": "reports/LULU.html"
+  },
+  {
     "id": "alert-odfl-1788459088",
     "ticker": "ODFL",
     "timestamp": "2026-09-03 18:11",
