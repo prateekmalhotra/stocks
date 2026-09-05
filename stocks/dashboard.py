@@ -2278,10 +2278,53 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             is_current = (idx == 0)
             
             # Metrics at that version
-            v_oe = getattr(v, 'owner_earnings_per_share', None) or oe_sh
-            v_poe = getattr(v, 'p_oe', None) or (v_price / v_oe if v_oe and v_oe > 0 else p_oe)
-            v_roic = getattr(v, 'owner_roic_pct', None) or owner_roic
+            v_oe = getattr(v, 'owner_earnings_per_share', None)
+            if v_oe is None:
+                v_oe = oe_sh
+            v_poe = getattr(v, 'p_oe', None)
+            if v_poe is None:
+                v_poe = (v_price / v_oe if (v_price and v_oe and v_oe > 0) else p_oe)
+            v_roic = getattr(v, 'owner_roic_pct', None)
+            if v_roic is None:
+                v_roic = owner_roic
             v_moat = getattr(v, 'moat_label', None) or getattr(v, 'status_label', None) or moat_label
+            
+            # Bulletproof metric string formatting
+            v_price_str = f"${float(v_price):.2f}" if v_price is not None else "—"
+            if v_oe is not None:
+                try:
+                    v_oe_f = float(v_oe)
+                    v_oe_str = f"-${abs(v_oe_f):.2f}/sh" if v_oe_f < 0 else f"${v_oe_f:.2f}/sh"
+                except Exception:
+                    v_oe_str = f"${v_oe}/sh"
+            else:
+                v_oe_str = "—"
+
+            if v_poe is not None:
+                try:
+                    v_poe_f = float(v_poe)
+                    if v_poe_f > 0 and (v_oe is None or float(v_oe) > 0):
+                        v_poe_str = f"{v_poe_f:.1f}x"
+                    elif v_oe is not None and float(v_oe) <= 0:
+                        v_poe_str = "N/M"
+                    else:
+                        v_poe_str = "—"
+                except Exception:
+                    v_poe_str = "—"
+            elif v_oe is not None and safe_float(v_oe) <= 0:
+                v_poe_str = "N/M"
+            else:
+                v_poe_str = "—"
+
+            if v_roic is not None:
+                try:
+                    v_roic_str = f"{float(v_roic):.1f}%"
+                except Exception:
+                    v_roic_str = f"{v_roic}%"
+            else:
+                v_roic_str = "—"
+
+            v_moat_str = str(v_moat or "—")
             
             v_change_summary = getattr(v, 'summary_of_change', '') or getattr(v, 'what_changes_now', '') or ''
             if not v_change_summary and is_current:
@@ -2330,19 +2373,19 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                         {status_text}
                         <span class="evolution-date">· {v_date}</span>
                     </div>
-                    <div class="evolution-price">Snapshot Price: <strong>${v_price:.2f}</strong></div>
+                    <div class="evolution-price">Snapshot Price: <strong>{v_price_str}</strong></div>
                 </div>
                 <div class="evolution-reason">
                     <span class="reason-label">Trigger / Reason:</span> {v_reason}
                 </div>
                 <div class="evolution-metrics-text-row">
-                    <span>OE: <strong>${v_oe:.2f}/sh</strong></span>
+                    <span>OE: <strong>{v_oe_str}</strong></span>
                     <span class="meta-sep">·</span>
-                    <span>P/OE: <strong>{v_poe:.1f}x</strong></span>
+                    <span>P/OE: <strong>{v_poe_str}</strong></span>
                     <span class="meta-sep">·</span>
-                    <span>ROIC: <strong>{v_roic:.1f}%</strong></span>
+                    <span>ROIC: <strong>{v_roic_str}</strong></span>
                     <span class="meta-sep">·</span>
-                    <span>Moat: <strong>{v_moat}</strong></span>
+                    <span>Moat: <strong>{v_moat_str}</strong></span>
                 </div>
                 {f'<div class="evolution-change-text">{v_change_summary}</div>' if v_change_summary else ''}
                 <details class="archived-accordion">
@@ -2365,18 +2408,26 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     next_catalyst_d = getattr(stock, 'next_catalyst_date', '') or (current_v.next_catalyst_date if current_v else '') or "TBD"
     next_catalyst_e = getattr(stock, 'next_catalyst_event', '') or (current_v.next_catalyst_event if current_v else '') or "Upcoming Quarterly Earnings Call & SEC Filing"
     
-    # Calculate corridor distances
-    if lower_alert:
+    # Calculate corridor distances defensively
+    if lower_alert and current_price and current_price > 0:
         lower_dist_pct = ((current_price - lower_alert) / current_price) * 100.0
         lower_txt = f"${lower_alert:.2f} ({lower_dist_pct:+.1f}% drop triggers review)"
-    else:
+    elif lower_alert:
+        lower_txt = f"${lower_alert:.2f}"
+    elif current_price and current_price > 0:
         lower_txt = f"${current_price * 0.80:.2f} (-20.0% drop corridor)"
+    else:
+        lower_txt = "—"
         
-    if upper_alert:
+    if upper_alert and current_price and current_price > 0:
         upper_dist_pct = ((upper_alert - current_price) / current_price) * 100.0
         upper_txt = f"${upper_alert:.2f} ({upper_dist_pct:+.1f}% rally triggers review)"
-    else:
+    elif upper_alert:
+        upper_txt = f"${upper_alert:.2f}"
+    elif current_price and current_price > 0:
         upper_txt = f"${current_price * 1.30:.2f} (+30.0% rally corridor)"
+    else:
+        upper_txt = "—"
         
     ticker_alerts_html = ""
     if ticker_alerts:
