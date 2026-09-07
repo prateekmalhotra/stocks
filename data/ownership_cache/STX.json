@@ -2,6 +2,30 @@
   "ticker": "STX",
   "openinsider_trades": [
     {
+      "filing_date": "2026-09-03",
+      "trade_date": "2026-09-01",
+      "name": "Mosley William D",
+      "title": "CEO",
+      "trade_type": "S - Sale+OE",
+      "price": "$816.28",
+      "qty": "-30,000",
+      "owned": "295,168",
+      "delta_own": "-9%",
+      "value": "-$24,488,282"
+    },
+    {
+      "filing_date": "2026-09-03",
+      "trade_date": "2026-09-01",
+      "name": "Conyers Yolanda Lee",
+      "title": "Dir",
+      "trade_type": "S - Sale",
+      "price": "$815.11",
+      "qty": "-750",
+      "owned": "3,351",
+      "delta_own": "-18%",
+      "value": "-$611,333"
+    },
+    {
       "filing_date": "2026-08-26",
       "trade_date": "2026-08-24",
       "name": "Lee James Ci",
@@ -1176,30 +1200,6 @@
       "owned": "572,644",
       "delta_own": "-3%",
       "value": "-$2,031,474"
-    },
-    {
-      "filing_date": "2025-03-04",
-      "trade_date": "2025-03-03",
-      "name": "Conyers Yolanda Lee",
-      "title": "Dir",
-      "trade_type": "S - Sale",
-      "price": "$102.95",
-      "qty": "-750",
-      "owned": "5,805",
-      "delta_own": "-11%",
-      "value": "-$77,213"
-    },
-    {
-      "filing_date": "2025-02-05",
-      "trade_date": "2025-02-03",
-      "name": "Mosley William D",
-      "title": "CEO",
-      "trade_type": "S - Sale",
-      "price": "$94.13",
-      "qty": "-20,000",
-      "owned": "585,591",
-      "delta_own": "-3%",
-      "value": "-$1,882,678"
     }
   ],
   "dataroma_holders": [
@@ -1251,7 +1251,7 @@
       "date": "Independent Research",
       "summary": "Independent research publications, subscriber letters, and thesis breakdowns covering Seagate Technology Holdings PLC.",
       "url": "https://substack.com/search/STX%20investment%20thesis",
-      "btn_label": "Substack Memo \u2197"
+      "btn_label": "Substack Search \u2197"
     },
     {
       "title": "OpenInsider Real-Time Form 4 & Insider Ledger: STX",
@@ -1262,5 +1262,5 @@
       "btn_label": "OpenInsider \u2197"
     }
   ],
-  "updated_at": "2026-08-28 14:46:13"
+  "updated_at": "2026-09-07 18:56:36"
 }
