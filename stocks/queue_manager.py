@@ -398,6 +398,9 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.predictability_tier = new_version.predictability_tier
     stock.predictability_score = new_version.predictability_score
     stock.predictability_summary = new_version.predictability_summary
+    stock.cyclicality_type = new_version.cyclicality_type
+    stock.cycle_stance = new_version.cycle_stance
+    stock.cycle_summary = new_version.cycle_summary
     stock.owner_earnings_per_share = new_version.owner_earnings_per_share
     stock.owner_earnings_total_mil = new_version.owner_earnings_total_mil
     stock.p_oe = new_version.p_oe
