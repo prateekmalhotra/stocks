@@ -1,5 +1,41 @@
 [
   {
+    "id": "alert-bam-1788890529",
+    "ticker": "BAM",
+    "timestamp": "2026-09-08 18:02",
+    "title": "BAM: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "SEC 8-K Filing (2026-09-08): Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001171843-26-005900]",
+    "what_was_before": "Brookfield Asset Management is currently demonstrating strong operational momentum across its core alternative asset franchises. The business operates with $672 billion in Fee-Bearing Capital (+19.0% YoY) and over $1.0 trillion in total Assets Under ",
+    "what_changes_now": "Operationally, BAM continues to leverage its global scale, expanding Fee-Bearing Capital to $672B (+19% YoY) and Total Assets Under Management to $1.3T as of the latest quarter. Top-line revenue reached $1,750.0M, supporting an annualized revenue run-rate of $7,000.0M, powered by $77B in quarterly gross fundraising across infrastructure, private equity, and credit strategies. Long-duration capital lockups remain a structural advantage, with approximately 88% of fee-bearing capital locked in closed-end funds or perpetual vehicles.\n\nFee-Related Earnings (FRE) reached $808M for the quarter, supporting $707M in Distributable Earnings ($0.44 per share) and an annualized dividend payout of $2.01 per share. However, FRE margins have settled at 57.0%, down from previous peaks of 61.2% due to Oaktree consolidation expenses and mix shifts toward credit. With $149B of uncalled commitments\u2014over $60B of which activates fee billing immediately upon deployment\u2014contractual revenue visibility remains high as capital is channeled into AI data centers, clean power purchase agreements, and asset-backed finance.",
+    "price_at_alert": 49.26,
+    "price_change_pct": -5.81,
+    "report_url": "reports/BAM.html"
+  },
+  {
+    "id": "alert-nbis-1788890400",
+    "ticker": "NBIS",
+    "timestamp": "2026-09-08 18:00",
+    "title": "NBIS: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Upper Alert Threshold Breached ($247.40 >= $247.38)",
+    "what_was_before": "Operationally, Nebius is executing a rapid short-term infrastructure scale-up. In Q2 2026, consolidated revenue surged 454% YoY to $582.3M, representing an annualized revenue run-rate of $2,329.2M (and an exit ARR of $3.0B). Gross margins expanded to 77.0%, while Core AI Cloud Adjusted EBITDA margins reached 50.0%, driven by capacity sell-outs and uncommitted Blackwell cluster auctions clearing 15% above previous peak pricing.\n\nThe company has expanded its contracted power pipeline to 5.0 GW, with 800 MW to 1.0 GW on track to be fully connected by year-end 2026. Furthermore, Nebius has secured landmark long-term multi-year enterprise contracts, including a 5-year, ~$3.0B commitment with Meta and key capacity deliveries to Microsoft, expanding customer deferred prepayments to between $5.98B and $9.00B to self-fund roughly 50% to 60% of near-term GPU fleet CapEx.\n\nCapital allocation remains entirely focused on capacity buildout, with $0 dedicated to dividends or share buybacks. To supplement customer prepayments, Nebius recently completed a $5.75B private offering of convertible senior notes alongside ATM equity lines, closing Q2 2026 with $8,042.1M in liquid cash against $8,500.0M in total debt liabilities, yielding a net debt position of $-458M ($-1.68 per share).",
+    "what_changes_now": "Operationally, Nebius is demonstrating robust fundamental execution across its core AI Cloud ecosystem. Group revenue expanded sequentially over the last four consecutive quarters: $146.1M (Q3 2025), $227.7M (Q4 2025), $399.0M (Q1 2026), and $582.3M in Q2 2026 (+454% YoY), establishing a real-time annualized run-rate of $2,329.2M. The AI Cloud segment accounts for ~98% of total revenue, generating a 75.0% consolidated gross margin and 50.0% Adjusted EBITDA margins.\n\nPhysical and digital volume capacity continues to scale on schedule. Nebius has secured a 5.0 GW contracted power pipeline across North America and Europe, with 800 MW to 1.0 GW of connected capacity currently pacing into operational status. Demand is anchored by over $40B in contracted backlog\u2014bolstered by multi-billion-dollar hyperscaler commitments from Microsoft and Meta, alongside high-density deployments with Vantage Data Centers and a preferred sovereign AI partnership with Palantir. Unallocated spot cluster auctions have cleared at 15% premiums above previous highs, confirming persistent compute scarcity.\n\nCapital allocation remains self-reinforcing due to negative working capital dynamics. In FY 2026, customer upfront cash prepayments exceeded $9.0B, directly funding 50% to 60% of ongoing growth CapEx while sustaining a balance sheet buffer of $8,040.0M in liquidity against $8,570.0M in total debt. Dilution is contained through non-dilutive asset-backed facilities and long-tenor convertible debt, protecting equity compounding.",
+    "price_at_alert": 247.13,
+    "price_change_pct": 12.78,
+    "report_url": "reports/NBIS.html"
+  },
+  {
     "id": "alert-sq-1788807909",
     "ticker": "SQ",
     "timestamp": "2026-09-07 19:05",
