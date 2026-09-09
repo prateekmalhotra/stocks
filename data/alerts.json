@@ -1,5 +1,59 @@
 [
   {
+    "id": "alert-stx-1788977024",
+    "ticker": "STX",
+    "timestamp": "2026-09-09 18:03",
+    "title": "STX: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "SEC 8-K Filing (2026-09-09): Item 3.02; Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-385961]",
+    "what_was_before": "Seagate is operating at peak technological and cyclical efficiency. Over the past four consecutive quarters (Q1 FY26 through Q4 FY26), quarterly revenue expanded sequentially from $2,630M to $3,630M, establishing an annualized revenue run-rate of $14,520.0M (+48.5% YoY in Q4). Non-GAAP gross margins expanded 1,260 basis points across the fiscal year to an all-time record of 52.7%, while operating margins reached 44.6% as quarterly operating expenses were rigorously controlled at ~$295M.\n\nOperational execution in volume delivery has been robust. Total quarterly storage capacity shipped reached 218 Exabytes in Q4 FY26, with the high-margin Mass-Capacity Data Center segment accounting for 195 Exabytes (89.4% of total volume). The transition to Heat-Assisted Magnetic Recording (HAMR) Mozaic 3+ and Mozaic 4+ platforms exited the fiscal year representing approximately 40% of nearline volume, driving substantial areal density gains (over 3TB per platter) without requiring physical clean-room square-footage expansion.\n\nFull-year cash generation was exceptional, with operating cash flow reaching $3,700M and free cash flow reaching $3,100M. Capital allocation was directed toward balance sheet de-risking: management retired $1,400M in gross debt to reduce total debt to $3,600M against $1,700M in liquid cash (net debt of $-1,900M), while distributing $810M to shareholders via regular quarterly dividends ($0.74/share).",
+    "what_changes_now": "Seagate is executing at peak operational efficiency and capturing substantial operating leverage. Over the past four consecutive quarters, revenue progressed sequentially from $2,629.0M (Q1 FY26) to $2,825.0M (Q2 FY26), $3,112.0M (Q3 FY26), and $3,629.0M in Q4 FY26 (+48.5% YoY), lifting the annualized run-rate to $14,520.0M. GAAP gross margin expanded from 39.4% in Q1 FY26 to 52.3% in Q4 FY26 (52.7% non-GAAP), while operating margin reached 43.0% GAAP (44.6% non-GAAP), marking the 13th consecutive quarter of margin expansion.\n\nVolume execution has been driven entirely by cloud mass capacity. In Q4 FY26, total HDD exabyte shipments reached 218 Exabytes (+34% YoY), with cloud data center mass capacity accounting for 195 Exabytes (89% of total shipments) and generating $2,900.0M in revenue (+57% YoY). Commercialized Mozaic 3+ and 4+ HAMR drives exited FY26 representing approximately 40% of the nearline exabyte shipment run-rate, driving areal density cost savings without requiring physical factory footprint expansion.\n\nFull fiscal year 2026 cash flow from operations reached $3,674.0M, generating record Free Cash Flow of $3,105.0M after $569.0M in CapEx. Management deployed this cash generation to fortify the balance sheet, retiring $1,400.0M in gross debt during FY26 to end with $3,600.0M in gross debt and $1,700.0M in cash and cash equivalents (-$1,900.0M net debt, or -$8.37/share on 227.0M diluted shares), while returning $810.0M via dividends and repurchases. Guidance for Q1 FY27 projects revenue of $4,100.0M (\u00b1$100M) and non-GAAP EPS of $7.30 (\u00b1$0.20).",
+    "price_at_alert": 905.07,
+    "price_change_pct": 8.95,
+    "report_url": "reports/STX.html"
+  },
+  {
+    "id": "alert-cme-1788976878",
+    "ticker": "CME",
+    "timestamp": "2026-09-09 18:01",
+    "title": "CME: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "SEC 8-K Filing (2026-09-09): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-386091]",
+    "what_was_before": "In stark contrast to the bearish narrative, CME's operational reality demonstrates robust performance and exceptional cash generation. In the latest quarter (Q2 2026), CME delivered record Q2 revenue of $1,706.2 million, representing a current annualized run-rate of $6,824.8 million, with a flawless 100.0% gross margin. This performance was anchored by an Average Daily Volume (ADV) of 29.8 million contracts per day, driven by 24.2 million in Financials, 5.7 million in Commodities, and 8.6 million in Equity Indexes. While this represents a sequential cooling from the all-time record Q1 2026 ADV of 36.2 million contracts, it remains the second-highest Q2 on record, demonstrating that macroeconomic volatility and hedging demand remain structurally elevated.\n\nFurthermore, CME's pricing power has shown resilience. After a mix-shift-driven dip to $0.652 RPC in Q1 2026, the average Rate Per Contract recovered to $0.678 in Q2 2026. Simultaneously, non-transaction revenue is accelerating, with Market Data Revenue hitting a record $238.0 million in Q2 2026, up 20% year-over-year, marking 33 consecutive quarters of growth. This high-margin data stream, combined with CME's minimal capital intensity (maintenance CapEx of only ~$90 million annually), allows the business to convert nearly 100% of its net income into free cash flow.\n\nOn the capital allocation front, CME continues to run its highly efficient shareholder return engine. In the first half of 2026 alone, the company generated $2,207.0 million in operating cash flow and returned $1.2 billion to shareholders via the repurchase of Class A shares, alongside $3,171.8 million in total common dividends (including the annual variable dividend). While the balance sheet carries a net debt position of $-1,149 million ($-3.20 per share), the company's immense cash-generative power and the upcoming $1.3 billion in net proceeds from the OSTTRA transaction provide ample liquidity to support ongoing buybacks and debt service.",
+    "what_changes_now": "CME Group's operational reality reflects a highly cash-generative, wide-moat exchange enterprise operating near peak cyclical activity. In the latest quarterly results (Q2 2026), CME generated $1,706.2M in revenue (an annualized run-rate of $6,824.8M) with an elite gross margin of 86.3% and an adjusted operating margin of 69.5%. Clearing and transaction fees contributed $1,353.0M, while recurring Market Data and Information Services continued its robust trajectory, growing 20% year-over-year to a record $238.0M.\n\nTrading volume registered an Average Daily Volume (ADV) of 29.8 million contracts across futures and options at a blended Rate Per Contract (RPC) yield of $0.678. While ADV softened sequentially from Q1 2026's record peak of 36.2 million contracts due to tough volatility comparisons, institutional open interest and non-U.S. volume remain sound. CME's competitive advantage remains firmly anchored in its clearing infrastructure, which currently delivers over $95 billion in daily collateral margin savings to institutional clients through FICC cross-margining.\n\nCapital allocation remains disciplined and cash-return focused. Over the trailing four quarters, CME converted nearly 100% of adjusted net income into free cash flow, funding its base quarterly dividend ($468.5M in Q2 2026), an annual variable special dividend of $2,240M, and disciplined debt management while progressing its phased Google Cloud Globex migration.",
+    "price_at_alert": 275.11,
+    "price_change_pct": -3.52,
+    "report_url": "reports/CME.html"
+  },
+  {
+    "id": "alert-aso-1788976688",
+    "ticker": "ASO",
+    "timestamp": "2026-09-09 17:58",
+    "title": "ASO: Valuation Re-evaluated (Weak Moat)",
+    "severity": "Weak Moat",
+    "labels": [
+      "Weak Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 8-K Filing (2026-09-09): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001817358-26-000146]",
+    "what_was_before": "In recent quarters, Academy Sports and Outdoors has demonstrated top-line stabilization alongside disciplined unit expansion, even as underlying same-store sales remain choppy. Latest quarterly net sales reached $1,442.0M (+6.7% YoY), translating to ",
+    "what_changes_now": "In contrast to the market's dire predictions, the operational reality reveals a highly resilient cash-generating engine. Academy Sports and Outdoors currently operates 327 retail store locations across 19 US states, generating a robust annualized revenue run-rate of $6,589.2M. While organic same-store comps have fluctuated\u2014rebounding to +2.9% in Q1 2026 before settling at -0.4% in Q2 2026\u2014the top line remains supported by steady new store productivity and a powerful shift in customer demographics. High-income households earning over $100,000 now represent 40% of the customer base, effectively offsetting the inflationary pressures felt by lower-income cohorts.\n\nOn the margin front, the company reported a stellar 40.4% gross margin in its latest quarter. Although this figure was bolstered by an $83.7 million retroactive tariff refund, the underlying baseline merchandise margin remains stable around 34.5% to 35.0% due to disciplined inventory management, with per-store units down 5.6% YoY. This tight inventory control has accelerated cash flow conversion, allowing the company to generate $349.0M in year-to-date operating cash flow and project $300M to $350M in full-year Adjusted Free Cash Flow.\n\nCapital allocation remains highly shareholder-friendly. Rather than hoarding cash or over-expanding into unprofitable territories, management is executing a balanced capital return program. Year-to-date share repurchases have reached $182.1M, representing an 82.3% year-over-year increase, which has successfully shrunk the diluted share count to 62.0M. This aggressive buyback program, combined with a steady dividend, ensures that owner earnings per share continue to compound even during periods of flat organic sales growth.",
+    "price_at_alert": 49.84,
+    "price_change_pct": 8.75,
+    "report_url": "reports/ASO.html"
+  },
+  {
     "id": "alert-unh-1788912198",
     "ticker": "UNH",
     "timestamp": "2026-09-09 00:03",
