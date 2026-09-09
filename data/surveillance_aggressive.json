@@ -1,56 +1,50 @@
 {
   "portfolio_type": "aggressive",
   "portfolio_label": "Wealthsimple (Aggressive Alpha)",
-  "last_run_date": "2026-09-02",
-  "last_run_timestamp": "2026-09-02T19:06:40.719156",
+  "last_run_date": "2026-09-09",
+  "last_run_timestamp": "2026-09-09T18:56:53.662660",
   "status": "EXECUTED",
-  "status_display": "SURVEILLANCE ACTIONS EXECUTED (1 ACTIONS)",
+  "status_display": "SURVEILLANCE ACTIONS EXECUTED (2 ACTIONS)",
   "action_required": false,
-  "verdict_summary": "Council executed 1 high-conviction decision(s): SURPLUS CASH DEPLOYMENT (BUY).",
+  "verdict_summary": "Council executed 2 high-conviction decision(s): VALUATION FROTH (TRIM), SURPLUS CASH DEPLOYMENT (BUY).",
   "total_universe_scanned": 119,
-  "active_holdings_verified": 0,
+  "active_holdings_verified": 1,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 20.0,
-  "cash_cushion_pct": 18.56,
+  "portfolio_average_mos_pct": 426.54,
+  "cash_cushion_pct": 4.94,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 20.0,
+    "portfolio_weighted_mos_pct": 426.54,
     "mandate_structural_floor_pct": 3.0,
-    "calculated_target_cash_pct": 18.56,
-    "current_actual_cash_pct": 100.0,
+    "calculated_target_cash_pct": 4.94,
+    "current_actual_cash_pct": 18.56,
     "cash_status": "SURPLUS_STRIKE_READY",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
-    "cash_directive": "Cash reserves (100.00%) exceed target (18.56%). Ready for opportunistic deployment.",
-    "formula_description": "Tactical Strike Reserve (18.56%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +20.00% weighted Margin of Safety."
+    "cash_directive": "Cash reserves (18.56%) exceed target (4.94%). Ready for opportunistic deployment.",
+    "formula_description": "Tactical Strike Reserve (4.94%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +426.54% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-09-09",
-  "holdings_health": [],
-  "top_watchlist_on_radar": [
+  "next_scheduled_run": "2026-09-16",
+  "holdings_health": [
     {
       "ticker": "MELI",
       "company_name": "MercadoLibre, Inc.",
       "price": 1922.73,
       "fair_value": 10123.88,
       "mos_pct": 426.54,
+      "signal": "BUY",
+      "moat_score": 9.5,
       "expected_irr": 167.3,
       "kelly_edge": 64.38,
-      "moat_score": 9.5
-    },
-    {
-      "ticker": "META",
-      "company_name": "Meta Platforms, Inc.",
-      "price": 549.9,
-      "fair_value": 1064.84,
-      "mos_pct": 93.64,
-      "expected_irr": 52.8,
-      "kelly_edge": 59.22,
-      "moat_score": 9.7
-    },
+      "health_status": "FROTHY",
+      "thesis_core": "Marcos Galperin founder leadership; dominant Latin America e-commerce & fintech logistics ecosystem."
+    }
+  ],
+  "top_watchlist_on_radar": [
     {
       "ticker": "FICO",
       "company_name": "Fair Isaac Corporation",
@@ -60,14 +54,42 @@
       "expected_irr": 35.2,
       "kelly_edge": 54.37,
       "moat_score": 9.9
+    },
+    {
+      "ticker": "ADBE",
+      "company_name": "Adobe Inc.",
+      "price": 257.26,
+      "fair_value": 608.81,
+      "mos_pct": 136.65,
+      "expected_irr": 64.8,
+      "kelly_edge": 53.19,
+      "moat_score": 9.5
+    },
+    {
+      "ticker": "PDD",
+      "company_name": "PDD Holdings Inc.",
+      "price": 87.34,
+      "fair_value": 247.18,
+      "mos_pct": 183.01,
+      "expected_irr": 90.8,
+      "kelly_edge": 52.27,
+      "moat_score": 9.2
     }
   ],
   "rebalance_proposals": [
     {
-      "date": "2026-09-02",
-      "action": "SURPLUS CASH DEPLOYMENT (BUY)",
+      "date": "2026-09-09",
+      "action": "VALUATION FROTH (TRIM)",
       "ticker": "MELI",
-      "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder MELI (Moat: 9.5/10, MoS: +426.5%, Kelly Edge: 64.38)",
+      "reason": "Trimmed frothy position MELI from 81.4% to 40.0% (Price $1922.73 vs Fair Value $10123.88)",
+      "weight_delta": "-41.4%",
+      "verification_status": "Audited & Executed by Autonomous Surveillance Council"
+    },
+    {
+      "date": "2026-09-09",
+      "action": "SURPLUS CASH DEPLOYMENT (BUY)",
+      "ticker": "FICO",
+      "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder FICO (Moat: 9.9/10, MoS: +40.6%, Kelly Edge: 54.37)",
       "weight_delta": "+8.0%",
       "verification_status": "Audited & Executed by Autonomous Surveillance Council"
     }
