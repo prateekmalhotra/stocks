@@ -1,55 +1,59 @@
 {
   "portfolio_type": "defensive",
   "portfolio_label": "Fidelity (Defensive Fortress)",
-  "last_run_date": "2026-09-03",
-  "last_run_timestamp": "2026-09-03T19:10:57.983639",
+  "last_run_date": "2026-09-10",
+  "last_run_timestamp": "2026-09-10T19:00:46.745039",
   "status": "EXECUTED",
-  "status_display": "SURVEILLANCE ACTIONS EXECUTED (1 ACTIONS)",
+  "status_display": "SURVEILLANCE ACTIONS EXECUTED (2 ACTIONS)",
   "action_required": false,
-  "verdict_summary": "Council executed 1 high-conviction decision(s): SURPLUS CASH DEPLOYMENT (BUY).",
-  "total_universe_scanned": 119,
-  "active_holdings_verified": 0,
+  "verdict_summary": "Council executed 2 high-conviction decision(s): VALUATION FROTH (TRIM), SURPLUS CASH DEPLOYMENT (BUY).",
+  "total_universe_scanned": 120,
+  "active_holdings_verified": 1,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 20.0,
-  "cash_cushion_pct": 20.56,
+  "portfolio_average_mos_pct": 93.64,
+  "cash_cushion_pct": 6.94,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 20.0,
+    "portfolio_weighted_mos_pct": 93.64,
     "mandate_structural_floor_pct": 5.0,
-    "calculated_target_cash_pct": 20.56,
-    "current_actual_cash_pct": 100.0,
+    "calculated_target_cash_pct": 6.94,
+    "current_actual_cash_pct": 20.560000000000002,
     "cash_status": "SURPLUS_STRIKE_READY",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
-    "cash_directive": "Cash reserves (100.00%) exceed target (20.56%). Ready for opportunistic deployment.",
-    "formula_description": "Senior US Treasury Buffer (20.56%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +20.00% weighted Margin of Safety."
+    "cash_directive": "Cash reserves (20.56%) exceed target (6.94%). Ready for opportunistic deployment.",
+    "formula_description": "Senior US Treasury Buffer (6.94%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +93.64% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-09-10",
-  "holdings_health": [],
-  "top_watchlist_on_radar": [
+  "next_scheduled_run": "2026-09-17",
+  "holdings_health": [
     {
       "ticker": "META",
       "company_name": "Meta Platforms, Inc.",
       "price": 549.9,
       "fair_value": 1064.84,
       "mos_pct": 93.64,
+      "signal": "BUY",
+      "moat_score": 9.7,
       "expected_irr": 52.8,
       "kelly_edge": 59.22,
-      "moat_score": 9.7
-    },
+      "health_status": "FROTHY",
+      "thesis_core": "3.60B Daily Active People social graph monopoly; Mark Zuckerberg absolute founder control."
+    }
+  ],
+  "top_watchlist_on_radar": [
     {
-      "ticker": "FICO",
-      "company_name": "Fair Isaac Corporation",
-      "price": 1172.67,
-      "fair_value": 1648.25,
-      "mos_pct": 40.56,
-      "expected_irr": 35.2,
-      "kelly_edge": 54.37,
-      "moat_score": 9.9
+      "ticker": "ADBE",
+      "company_name": "Adobe Inc.",
+      "price": 257.26,
+      "fair_value": 608.81,
+      "mos_pct": 136.65,
+      "expected_irr": 64.8,
+      "kelly_edge": 53.19,
+      "moat_score": 9.5
     },
     {
       "ticker": "PDD",
@@ -60,14 +64,32 @@
       "expected_irr": 90.8,
       "kelly_edge": 52.27,
       "moat_score": 9.2
+    },
+    {
+      "ticker": "NFLX",
+      "company_name": "Netflix, Inc.",
+      "price": 81.74,
+      "fair_value": 114.5,
+      "mos_pct": 40.08,
+      "expected_irr": 33.7,
+      "kelly_edge": 49.93,
+      "moat_score": 9.5
     }
   ],
   "rebalance_proposals": [
     {
-      "date": "2026-09-03",
-      "action": "SURPLUS CASH DEPLOYMENT (BUY)",
+      "date": "2026-09-10",
+      "action": "VALUATION FROTH (TRIM)",
       "ticker": "META",
-      "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder META (Moat: 9.7/10, MoS: +93.6%, Kelly Edge: 59.22)",
+      "reason": "Trimmed frothy position META from 79.4% to 35.0% (Price $549.9 vs Fair Value $1064.84)",
+      "weight_delta": "-44.4%",
+      "verification_status": "Audited & Executed by Autonomous Surveillance Council"
+    },
+    {
+      "date": "2026-09-10",
+      "action": "SURPLUS CASH DEPLOYMENT (BUY)",
+      "ticker": "ADBE",
+      "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder ADBE (Moat: 9.5/10, MoS: +136.7%, Kelly Edge: 53.19)",
       "weight_delta": "+8.0%",
       "verification_status": "Audited & Executed by Autonomous Surveillance Council"
     }
