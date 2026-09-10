@@ -1,5 +1,77 @@
 [
   {
+    "id": "alert-wpc-1789063247",
+    "ticker": "WPC",
+    "timestamp": "2026-09-10 18:00",
+    "title": "WPC: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "High Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "SEC 8-K Filing (2026-09-10): Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001025378-26-000121]",
+    "what_was_before": "Contrary to extreme bear narratives, W. P. Carey's operational execution across the last four consecutive quarters demonstrates durable cash flow stability and aggressive balance sheet positioning. In Q2 2026, management raised full-year AFFO guidance to $5.19\u2013$5.27 per share (midpoint $5.23) and increased full-year investment guidance to $1.7B\u2013$2.1B, driven by $1.3B of completed YTD acquisitions at an attractive 7.4% initial cash cap rate. Gross margin remains exceptionally strong at 87.6% on an annualized revenue run-rate of $1,844.4M, supported by 98.5% portfolio occupancy and a 12.2-year WALT.\n\nTenant credit events are being managed with minimal cash flow disruption. Following Hellweg's June 2026 insolvency filing, WPC swiftly executed binding re-leasing agreements for 8 of the 16 stores ($7.4M ABR) with replacement home improvement operators at comparable rents, supported by 3 months of bank guarantees and pre-funded rent loss allowances ($8M\u2013$12M) already embedded in guidance. Contractual same-store rent growth held firm at 2.6% YoY, backed by CPI-linked escalators covering 48% of ABR.\n\nCapital allocation and balance sheet management remain highly disciplined. WPC eliminated all remaining 2026 debt maturities by issuing $350M of 10-year senior notes at 5.20% to retire expiring 4.25% notes. Supported by $2.7B in total liquidity, $691M in unsettled forward equity, and a conservative 70.6% dividend payout ratio ($3.76 annualized dividend), WPC retains over $110M in annual cash flow to fund its industrial deal pipeline without forced dilutive market equity sales.",
+    "what_changes_now": "Despite bear anxieties, W. P. Carey's operational core remains resilient following the completed spin-off of its office portfolio (NLOP) and the final exit from operating self-storage assets. In Q2 2026, total revenue reached $461.1M (+8.2% YoY), supporting an annualized run-rate of $1,844.4M with a 90.6% gross margin. AFFO generation reached $1.34/share ($305.4M), prompting management to raise full-year 2026 AFFO guidance to $5.19\u2013$5.27/share (~5.2% YoY growth) and project full-year deal volume above $1.9B.\n\nThe operating footprint spans 1,748 net lease properties comprising ~188 million square feet across the U.S. and Europe, sustaining 98.5% occupancy and a 12.2-year weighted average lease term (WALT). Tenant risk mitigation has accelerated: WPC executed binding leases and sales on 16 Hellweg stores with near 100% rent recapture while drawing on 3-month bank guarantees.\n\nBalance sheet liquidity stands at $2.8B with zero remaining 2026 debt maturities and net debt-to-EBITDA at 5.1x on a settled basis. Internal growth remains anchored by 47.8% CPI-linked ABR, driving 2.6% contractual same-store rent growth, while acquisitions continue to close at initial cash cap rates of 7.4%\u20137.6%.",
+    "price_at_alert": 69.52,
+    "price_change_pct": -1.4,
+    "report_url": "reports/WPC.html"
+  },
+  {
+    "id": "alert-meli-1789062986",
+    "ticker": "MELI",
+    "timestamp": "2026-09-10 17:56",
+    "title": "MELI: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 8-K Filing (2026-09-10): Item 1.01: Entry into a Material Definitive Agreement (M&A / Commercial Contract); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001140361-26-036136]",
+    "what_was_before": "In operational reality, MercadoLibre is compounding its dominant ecosystem moat at a rapid pace across Latin America. In the latest quarterly performance, net revenue surged 50% YoY to $10.17B, establishing an annualized revenue run-rate of $40,676.0",
+    "what_changes_now": "MercadoLibre's underlying operational reality shows expanding scale, deepening network effects, and robust user engagement. In Q2 2026, net revenue surged 50% YoY in USD terms to hit $10,169.0M ($10.17B), establishing a real-time annualized run-rate of $40,676.0M. Volume growth was exceptionally strong across the entire flywheel: quarterly items sold reached 795.4 million (+45% YoY), unique active marketplace buyers grew 26% YoY to 88.9 million (~89M), and Mercado Pago monthly active users expanded 30% YoY to 88.0 million. Total Payment Volume (TPV) crossed $101.0 billion in a single quarter.\n\nWhile reported operating margin diluted to 6.7% due to strategic reinvestments, unit economics demonstrate efficiency gains. Lowering Brazil's free-shipping threshold to BRL 19 drove local currency shipping cost per unit down 17% YoY via density gains, while items per buyer surged 19%. In fintech, despite $1.24B in quarterly CECL credit loss provisions, credit card cohorts show strong repayment trends, pushing NIMAL up to 21%. High-margin Mercado Ads revenue grew over 60% YoY FX-neutral. Management continues funding growth internally while maintaining $+39.23/sh ($1,991M) in net cash.",
+    "price_at_alert": 1913.55,
+    "price_change_pct": -0.48,
+    "report_url": "reports/MELI.html"
+  },
+  {
+    "id": "alert-elv-1789062735",
+    "ticker": "ELV",
+    "timestamp": "2026-09-10 17:52",
+    "title": "ELV: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "SEC 8-K Filing (2026-09-10): Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update) [Accession #0001156039-26-000063]",
+    "what_was_before": "Elevance Health's recent operational results demonstrate a business undertaking deliberate top-line volume pruning to protect baseline profitability amidst elevated utilization. Q2 2026 operating revenue reached $49.83B (+0.8% YoY), yielding an annua",
+    "what_changes_now": "Elevance Health is currently operating at an annualized revenue pace of $199,304.0M across 44.9 million medical members. Over the last 3\u20134 quarters, top-line revenue has demonstrated defensive resilience (up ~0.8%\u20131.5% YoY), driven by commercial risk premium repricing and expansion in CarelonRx services, which have successfully cushioned expected volume attrition from state Medicaid redeterminations and MA plan rationalization.\n\nUnderwriting profitability reflects cyclical trough conditions, with gross margin at 10.3% and the full-year BER tracking at 90.2% \u00b1 50 bps (Q2 BER at 89.7%). However, the Carelon ecosystem (CarelonRx and Carelon Services) operates as a critical internal shock absorber, capturing internal claims spend while expanding non-regulated external fee revenue. Days in Claims Payable (DCP) remains stable at 45.4 days, confirming that reserve buffers are being prudently maintained without artificial earnings release.\n\nCash conversion remains solid, with full-year operating cash flow guided to at least $6.0 billion ($6.25 billion generated in the first half of 2026). Elevance continues to execute disciplined capital allocation, sustaining its $1.71 quarterly dividend ($6.84 annualized) while deploying HoldCo cash into accretive share repurchases.",
+    "price_at_alert": 417.3,
+    "price_change_pct": 4.18,
+    "report_url": "reports/ELV.html"
+  },
+  {
+    "id": "alert-avgo-1789062570",
+    "ticker": "AVGO",
+    "timestamp": "2026-09-10 17:49",
+    "title": "AVGO: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 10-Q Filing (2026-09-10): 10-Q [Accession #0001730168-26-000080]",
+    "what_was_before": "In stark contrast to bear thesis assumptions, Broadcom's operational engine continues to accelerate across its core semiconductor and infrastructure software divisions. Across the latest four consecutive quarters (Q4 FY25 to Q3 FY26), quarterly revenue progressed rapidly from $18.0B to $19.1B, $22.2B, and reached a record $29.59B in Q3 FY26 (+85.5% YoY), establishing a real-time annualized revenue run-rate of $118.36B. Forward management guidance for Q4 FY26 projects revenue of approximately $34.8B (+93% YoY), powered by custom AI accelerator (XPU) volume ramps including Google's TPU v8i and Meta's MTIA scaling alongside Tomahawk 6 / Jericho 3 AI Ethernet switching silicon.\n\nSimultaneously, the Infrastructure Software segment is generating record cash flows following the VMware acquisition. Software revenue reached $8.8B in Q3 FY26 (+29% YoY), driven by the rapid conversion of the top 20,000 sovereign cloud and large enterprise customers to VMware Cloud Foundation (VCF) multi-year subscription bundles. Software non-GAAP operating margins expanded toward 79%, while consolidated gross margins remained pristine at 78.6% and non-GAAP operating margins expanded to 67.9%.\n\nBroadcom's fabless, asset-light operating model required just $532M in Q3 CapEx (<1.8% of revenue), converting 46.3% of revenue into $13.7B of quarterly free cash flow ($14.2B operating cash flow). On capital allocation, management continues to prioritize post-VMware debt reduction, bringing net balance sheet debt down to $41.0B ($-8.78 per share), while returning $3.1B quarterly through dividends ($0.65/share quarterly dividend) and maintaining disciplined cash allocation.",
+    "what_changes_now": "Operationally, Broadcom is executing at an extraordinary cadence across its latest 3-4 consecutive quarterly releases. In fiscal Q3 2026, net revenue surged 85.5% year-over-year to $29,591.0M (an annualized run-rate of $118,364.0M), accelerating from $18,015.0M in Q4 FY25 and $22,187.0M in Q2 FY26. Growth is spearheaded by custom AI accelerators (XPUs for Google TPU, Meta MTIA, and OpenAI Jalape\u00f1o) alongside Tomahawk 5/6 and Jericho3-AI Ethernet switching silicon. AI semiconductor revenue alone reached $16,700.0M (+221% YoY, representing over 56% of total revenue) and management guided Q4 AI chip sales to accelerate further to $21,700.0M.\n\nConsolidated gross margin settled at 75.0%, reflecting predictable mix dilution as high-volume custom ASIC packaging and pass-through HBM memory scale faster than proprietary standalone IP. However, relentless SG&A efficiency (2.7% of revenue) and disciplined R&D execution expanded non-GAAP operating margins to 67.9% ($20,100.0M operating profit). Infrastructure software delivered $8,752.0M (+29% YoY), driven by enterprise adoption of unified multi-year VMware Cloud Foundation (VCF) subscription suites.\n\nCash generation remains exceptional. Broadcom generated $13,665.0M in quarterly free cash flow (a 46.2% FCF margin) while maintaining low capital intensity of under 2% of sales. The board returned $3,100.0M via quarterly dividends ($0.65 per share) and repurchased $3,500.0M of stock, continuing its steady capital allocation strategy while reducing total debt principal down to $61,079.0M.",
+    "price_at_alert": 362.86,
+    "price_change_pct": -1.47,
+    "report_url": "reports/AVGO.html"
+  },
+  {
     "id": "alert-tsm-1788998812",
     "ticker": "TSM",
     "timestamp": "2026-09-10 00:06",
