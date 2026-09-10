@@ -1,5 +1,95 @@
 [
   {
+    "id": "alert-tsm-1788998812",
+    "ticker": "TSM",
+    "timestamp": "2026-09-10 00:06",
+    "title": "TSM: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Technical Trend Reversal: Price ($428.91) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $418.15, 21D: $419.94, 50D: $420.41, 200D: $372.83) with +2.0% clearance and +2.7% 5-day velocity.",
+    "what_was_before": "In stark contrast to short-seller skepticism, TSMC's operational performance across the past four consecutive quarters demonstrates accelerating competitive dominance and immense pricing power. Quarterly revenue expanded sequentially from $33.10B in Q3 2025 to $33.73B in Q4 2025, $35.90B in Q1 2026, and hit an all-time high of $40.20B in Q2 2026 (+33.7% YoY), translating to a current annualized run-rate of $160,800.0M. Gross margin reached a record 67.7% in Q2 2026, while operating margin surged to 60.3% and net profit margin expanded to 55.6%.\n\nOperational volume units hit approximately 4,210k 12-inch equivalent wafers in Q2 2026, with advanced technologies (<=7nm) accounting for 77% of total wafer revenue. High-Performance Computing (HPC) now represents 66% of overall sales, propelled by demand for leading-edge N3 (30% mix) and N5 (33% mix) nodes as well as CoWoS advanced packaging. Early N2 shipments contributed 3% of revenue in Q2 2026, establishing an initial foothold ahead of full mass production in H2 2026.\n\nBalance sheet cash generation remains exceptional, with Q2 2026 operating cash flow reaching NT$783.4B (~$24.8B). Total liquid cash and investments stand at $111,329.0M against $32,500.0M in total debt, yielding a rock-solid net cash position of $+78,829M ($+15.20/share). Executive management raised full-year 2026 revenue growth guidance to slightly above 40% YoY and upgraded long-term gross margin targets to '56% and higher', confirming that customer demand for leading-edge silicon remains insatiable.",
+    "what_changes_now": "TSMC is currently operating at peak operational intensity, driven by insatiable demand for leading-edge logic across AI and high-performance computing. In the most recent quarter, net revenue reached $40,200.0M (a $160,800.0M annualized run-rate), up 33.7% year-over-year. Wafer shipments expanded to 4,336 thousand 12-inch equivalent wafers (+16.6% YoY), while blended monetization reached an all-time high of $9,271 per wafer, driven by rich node mix where sub-7nm technologies accounted for 77% of total wafer revenues (3nm at 30%, 5nm at 33%, and initial 2nm commercial volume contributing 3%).\n\nOperational profitability remains exceptional. Gross margin expanded sequentially to 67.7% and operating margin reached 60.3%, fueled by capacity utilization exceeding 100% across advanced nodes and value-based pricing pass-throughs. The balance sheet remains pristine, with $111,324.0M in liquid cash and investments against $34,175.0M in total debt, yielding $+77,149.0M ($+14.88 per share) in net cash. Management demonstrated disciplined capital stewardship by maintaining a flat diluted share count and raising the quarterly cash dividend to NT$7.00 per share.\n\nHowever, operational bottlenecks and capital commitments are mounting. CEO C.C. Wei noted that advanced packaging (CoWoS) capacity remains completely sold out and is throttling customer shipments. To meet demand and accelerate the N2 and A16 roadmaps, management raised full-year CapEx to $60.0B\u2013$64.0B. While forward guidance calls for another record revenue quarter ($44.6B\u2013$45.8B), gross margin is guided down 170 basis points sequentially to 66.0% at the midpoint, marking the initial onset of the anticipated N2 cost dilution.",
+    "price_at_alert": 435.36,
+    "price_change_pct": 3.92,
+    "report_url": "reports/TSM.html"
+  },
+  {
+    "id": "alert-nbis-1788998689",
+    "ticker": "NBIS",
+    "timestamp": "2026-09-10 00:04",
+    "title": "NBIS: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($226.39) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $209.39, 21D: $221.86, 50D: $213.08, 200D: $154.79) with +2.0% clearance and +8.2% 5-day velocity.",
+    "what_was_before": "Operationally, Nebius is demonstrating robust fundamental execution across its core AI Cloud ecosystem. Group revenue expanded sequentially over the last four consecutive quarters: $146.1M (Q3 2025), $227.7M (Q4 2025), $399.0M (Q1 2026), and $582.3M in Q2 2026 (+454% YoY), establishing a real-time annualized run-rate of $2,329.2M. The AI Cloud segment accounts for ~98% of total revenue, generating a 75.0% consolidated gross margin and 50.0% Adjusted EBITDA margins.\n\nPhysical and digital volume capacity continues to scale on schedule. Nebius has secured a 5.0 GW contracted power pipeline across North America and Europe, with 800 MW to 1.0 GW of connected capacity currently pacing into operational status. Demand is anchored by over $40B in contracted backlog\u2014bolstered by multi-billion-dollar hyperscaler commitments from Microsoft and Meta, alongside high-density deployments with Vantage Data Centers and a preferred sovereign AI partnership with Palantir. Unallocated spot cluster auctions have cleared at 15% premiums above previous highs, confirming persistent compute scarcity.\n\nCapital allocation remains self-reinforcing due to negative working capital dynamics. In FY 2026, customer upfront cash prepayments exceeded $9.0B, directly funding 50% to 60% of ongoing growth CapEx while sustaining a balance sheet buffer of $8,040.0M in liquidity against $8,570.0M in total debt. Dilution is contained through non-dilutive asset-backed facilities and long-tenor convertible debt, protecting equity compounding.",
+    "what_changes_now": "In stark contrast to short-seller skepticism, Nebius's sequential trajectory over the trailing four quarters reveals rapid operational expansion. Group revenue accelerated from $146.1M in Q3 2025 to $227.7M in Q4 2025, $399.0M in Q1 2026, and $582.3M in Q2 2026\u2014delivering +454.0% YoY growth and reaching an annualized revenue run-rate of $2,329.2M ($582.3M \u00d7 4). Reported gross margins exclusive of depreciation expanded to 77.0%, while Core AI Cloud Adjusted EBITDA margins reached 50.0% (40.6% consolidated), demonstrating substantial unit profitability before non-cash silicon amortization.\n\nPhysical unit capacity delivery has scaled without operational bottleneck. Active connected AI compute capacity expanded from ~110 MW in Q3 2025 to 390 MW by Q2 2026, while the contracted power pipeline reached 5.0 GW across 16 global sites. Commercial yields have strengthened: long-term enterprise contracts clear at annualized contract values (ACVs) of $20M to $25M per MW, while initial Blackwell capacity auctions commanded over $40M per MW in short-duration clusters. Capital payback cycles on deployed GPU clusters have compressed to 1 year and 10 months.\n\nFrom a balance sheet and liquidity perspective, the business generated $2,300.0M in quarterly operating cash flow in Q2 2026, heavily driven by $9B+ in full-year customer prepayment commitments that fund 50% to 60% of associated buildout costs. Total liquid cash and equivalents reached $8,042.1M against $8,570.0M in funded liabilities. GPU fleet utilization remains essentially 100% sold out across Finnish, US, and European hubs, fortified by the proprietary Aether platform stack and sovereign cloud partnerships.",
+    "price_at_alert": 240.35,
+    "price_change_pct": 9.68,
+    "report_url": "reports/NBIS.html"
+  },
+  {
+    "id": "alert-t-1788998561",
+    "ticker": "T",
+    "timestamp": "2026-09-10 00:02",
+    "title": "T: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "High Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 8-K Filing (2026-09-09): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-386534]",
+    "what_was_before": "Auditing AT&T's latest quarterly earnings release and transcript Q&A reveals robust operational momentum across its dual connectivity engines, confirming that execution is outperforming market skepticism. On an annualized run-rate of $126,240.0M in t",
+    "what_changes_now": "Operationally, AT&T's latest quarterly results demonstrate consistent execution across 5G mobility and fiber broadband. In the most recent reported quarter, the company generated $31,558.0M in consolidated revenue (representing a real-time annualized run-rate of $126,232.0M) with gross margins expanding to 61.8% and GAAP operating income reaching $7,000.0M (22.2% operating margin). Postpaid phone net additions accelerated to 432,000 with a low churn rate of 0.86%, while consumer broadband added 367,000 net fiber subscribers, backed by an expanding footprint of 38.6 million total fiber passings.\n\nMonetization trends confirm pricing power and convergence retention benefits. Fiber ARPU reached $75.50 per month (up 4.4% YoY), while the convergence penetration rate rose to 42.5% (and 45% excluding acquired mass-market footprints). Customers who bundle AT&T Fiber with postpaid mobile service exhibit significantly lower wireless churn (<0.70%), proving that convergence expands customer lifetime value (LTV) and lowers acquisition costs.\n\nCash flow generation remains strong. Quarterly cash flow from operations reached $10,801.0M against capital expenditures of $5,700.0M, generating $4,670.0M in quarterly Free Cash Flow. Management returned substantial cash to shareholders, funding $2,200.0M in share repurchases alongside $1,950.0M in quarterly dividend distributions, while accelerating planned share repurchases to $10.0 billion for the full year 2026 and reaffirming multi-year guidance.",
+    "price_at_alert": 25.15,
+    "price_change_pct": -0.55,
+    "report_url": "reports/T.html"
+  },
+  {
+    "id": "alert-aso-1788998363",
+    "ticker": "ASO",
+    "timestamp": "2026-09-09 23:59",
+    "title": "ASO: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 10-Q Filing (2026-09-09): 10-Q [Accession #0001817358-26-000149]",
+    "what_was_before": "In contrast to the market's dire predictions, the operational reality reveals a highly resilient cash-generating engine. Academy Sports and Outdoors currently operates 327 retail store locations across 19 US states, generating a robust annualized revenue run-rate of $6,589.2M. While organic same-store comps have fluctuated\u2014rebounding to +2.9% in Q1 2026 before settling at -0.4% in Q2 2026\u2014the top line remains supported by steady new store productivity and a powerful shift in customer demographics. High-income households earning over $100,000 now represent 40% of the customer base, effectively offsetting the inflationary pressures felt by lower-income cohorts.\n\nOn the margin front, the company reported a stellar 40.4% gross margin in its latest quarter. Although this figure was bolstered by an $83.7 million retroactive tariff refund, the underlying baseline merchandise margin remains stable around 34.5% to 35.0% due to disciplined inventory management, with per-store units down 5.6% YoY. This tight inventory control has accelerated cash flow conversion, allowing the company to generate $349.0M in year-to-date operating cash flow and project $300M to $350M in full-year Adjusted Free Cash Flow.\n\nCapital allocation remains highly shareholder-friendly. Rather than hoarding cash or over-expanding into unprofitable territories, management is executing a balanced capital return program. Year-to-date share repurchases have reached $182.1M, representing an 82.3% year-over-year increase, which has successfully shrunk the diluted share count to 62.0M. This aggressive buyback program, combined with a steady dividend, ensures that owner earnings per share continue to compound even during periods of flat organic sales growth.",
+    "what_changes_now": "A sequential forensic review of the last 3\u20134 quarters (Q3 FY2025 through Q2 FY2026) demonstrates operational stabilization, disciplined inventory control, and resilient cash generation despite choppy discretionary spending. Over the past four quarters, net sales progressed from $1.50 billion in Q3 FY2025 to an annualized run-rate of $6,589.2 million in Q2 FY2026 ($1,647.3 million quarterly, +3.0% YoY). Year-to-date net sales expanded 4.7% to $3.09 billion, while comparable sales held at +1.1% YTD (-0.4% in Q2, where a +4.9% ticket size partially offset a -5.3% transaction decline). Omnichannel penetration accelerated sequentially, with e-commerce surging +12.8% YoY to reach 12.1% of total merchandise sales, bolstered by expedited regional delivery partnerships and mobile app adoption.\n\nUnderlying cash profitability has expanded significantly. Operating cash flow grew 47.9% year-to-date to $349.0 million, supporting over $270 million in adjusted free cash flow. While reported Q2 gross margin expanded to 40.4% due to an $83.7 million IEEPA tariff refund, management reinvested $10.9 million into strategic value pricing, yielding a net tariff benefit of 440 bps and lifting full-year normalized gross margin guidance to 34.5%\u201335.0%. The active store network reached 327 stores across 21 states spanning 22.19 million gross square feet (opening 3 stores in Q2, with 11 on deck for Q3). Capital allocation remains focused on per-share compounding: diluted share count shrank 4.4% YoY to 63.50 million shares via $182.1 million in YTD repurchases, while the balance sheet was derisked by refinancing funded debt into $500 million of 5.875% senior secured notes due 2031, leaving the $1.0 billion ABL credit facility completely undrawn.",
+    "price_at_alert": 51.15,
+    "price_change_pct": 11.61,
+    "report_url": "reports/ASO.html"
+  },
+  {
+    "id": "alert-amzn-1788998180",
+    "ticker": "AMZN",
+    "timestamp": "2026-09-09 23:56",
+    "title": "AMZN: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 8-K Filing (2026-09-09): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change) [Accession #0001018724-26-000036]",
+    "what_was_before": "In stark contrast to the bearish narrative, Amazon's operational engine is currently firing on all cylinders. The company's latest quarter revenue reached $200,606.0M, representing an annualized run-rate of $802,424.0M, supported by a robust gross margin of 52.3%. This growth is anchored by a powerful reacceleration in AWS, which grew 36.7% YoY to $42.23 billion in Q2 2026, boasting a stellar 39.4% operating margin. The enterprise cloud backlog (RPO) has surged to an astronomical $496 billion, demonstrating deep customer lock-in and long-term demand visibility.\n\nFurthermore, Amazon's high-margin segments are scaling rapidly. The digital advertising business grew 26.0% YoY to $19.8 billion in the latest quarter, providing a highly profitable cash stream that helps offset heavy infrastructure investments. On the volume front, worldwide paid units accelerated to +17% YoY growth, and the third-party marketplace mix remains highly stable at 61%\u201363%. Crucially, Amazon's custom silicon division (Trainium/Graviton) and its generative AI business have both surpassed a $25 billion annual run-rate, proving that its massive capital investments are translating into rapid, high-value commercial adoption.",
+    "what_changes_now": "Amazon's operating engine is delivering exceptional top-line expansion across its three core pillars. For the second quarter of 2026, net sales hit a record $200.6B (+20% YoY), bringing the annualized run-rate to $802.4B. Operating income grew 43% YoY to $27.5B, driven by AWS segment operating profit of $16.6B (+63% YoY) on an operating margin of 39.4%. Gross margin reached 50.1%, benefiting from the ongoing mix shift toward high-margin digital advertising ($19.8B, +26% YoY) and 3P seller fulfillment services. AWS revenue accelerated for the fifth consecutive quarter to $42.2B (+36.7% YoY), supported by an annualized custom chip run-rate (Trainium/Graviton) exceeding $25B and a contracted backlog reaching $496B.\n\nOperational volume metrics reflect strong physical efficiency and platform lock-in. Amazon currently supports over 320M active customer accounts and 260M+ Prime members globally, with global paid units shipped expanding 13% YoY. Regionalization across 8 fulfillment zones and the deployment of more than 1 million warehouse robotics units have systematically lowered click-to-deliver fulfillment unit costs. In Q2 2026, delivery speed hit record highs with over 40% of Prime customer orders arriving same-day or overnight.\n\nHowever, this operational acceleration has triggered unprecedented capital intensity. Trailing twelve-month Free Cash Flow collapsed to an outflow of $(7.6)B as full-year 2026 cash CapEx guidance was raised to $220B (+76% YoY vs. 2025). Crucially, while reported GAAP net income printed at $62.6B ($5.75/sh) in Q2 2026, $53.4B of pre-tax income resulted entirely from non-operating fair-value marks on Anthropic equity. Stripping out non-operating gains leaves normalized core Owner Earnings anchored at $5.80 per share, highlighting that genuine cash profitability remains heavily burdened by AI infrastructure deployment.",
+    "price_at_alert": 252.4,
+    "price_change_pct": -4.87,
+    "report_url": "reports/AMZN.html"
+  },
+  {
     "id": "alert-stx-1788977024",
     "ticker": "STX",
     "timestamp": "2026-09-09 18:03",
@@ -34,24 +124,6 @@
     "price_at_alert": 275.11,
     "price_change_pct": -3.52,
     "report_url": "reports/CME.html"
-  },
-  {
-    "id": "alert-aso-1788976688",
-    "ticker": "ASO",
-    "timestamp": "2026-09-09 17:58",
-    "title": "ASO: Valuation Re-evaluated (Weak Moat)",
-    "severity": "Weak Moat",
-    "labels": [
-      "Weak Moat",
-      "Moderate Predictability"
-    ],
-    "action_signal": "CAUTION",
-    "trigger_reason": "SEC 8-K Filing (2026-09-09): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001817358-26-000146]",
-    "what_was_before": "In recent quarters, Academy Sports and Outdoors has demonstrated top-line stabilization alongside disciplined unit expansion, even as underlying same-store sales remain choppy. Latest quarterly net sales reached $1,442.0M (+6.7% YoY), translating to ",
-    "what_changes_now": "In contrast to the market's dire predictions, the operational reality reveals a highly resilient cash-generating engine. Academy Sports and Outdoors currently operates 327 retail store locations across 19 US states, generating a robust annualized revenue run-rate of $6,589.2M. While organic same-store comps have fluctuated\u2014rebounding to +2.9% in Q1 2026 before settling at -0.4% in Q2 2026\u2014the top line remains supported by steady new store productivity and a powerful shift in customer demographics. High-income households earning over $100,000 now represent 40% of the customer base, effectively offsetting the inflationary pressures felt by lower-income cohorts.\n\nOn the margin front, the company reported a stellar 40.4% gross margin in its latest quarter. Although this figure was bolstered by an $83.7 million retroactive tariff refund, the underlying baseline merchandise margin remains stable around 34.5% to 35.0% due to disciplined inventory management, with per-store units down 5.6% YoY. This tight inventory control has accelerated cash flow conversion, allowing the company to generate $349.0M in year-to-date operating cash flow and project $300M to $350M in full-year Adjusted Free Cash Flow.\n\nCapital allocation remains highly shareholder-friendly. Rather than hoarding cash or over-expanding into unprofitable territories, management is executing a balanced capital return program. Year-to-date share repurchases have reached $182.1M, representing an 82.3% year-over-year increase, which has successfully shrunk the diluted share count to 62.0M. This aggressive buyback program, combined with a steady dividend, ensures that owner earnings per share continue to compound even during periods of flat organic sales growth.",
-    "price_at_alert": 49.84,
-    "price_change_pct": 8.75,
-    "report_url": "reports/ASO.html"
   },
   {
     "id": "alert-unh-1788912198",
