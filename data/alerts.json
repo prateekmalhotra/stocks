@@ -1,5 +1,41 @@
 [
   {
+    "id": "alert-key-1789415337",
+    "ticker": "KEY",
+    "timestamp": "2026-09-14 19:48",
+    "title": "KEY: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "SEC 8-K Filing (2026-09-14): Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001628280-26-061680]",
+    "what_was_before": "In stark contrast to market skepticism, KeyCorp's recent Q2 2026 earnings release and transcript confirm robust operational execution and accelerating profitability. Total deposits reached $153.1B (up 4% YoY), while total portfolio loans grew to $110",
+    "what_changes_now": "In operational reality, KeyCorp is executing a steady recovery following its post-2024 balance sheet restructuring enabled by Scotiabank\u2019s ~$2.8B equity injection (14.9% stake, with regulatory filings submitted to move up to 19.99%). In Q2 2026, KeyCorp generated net income of $472.0M ($0.44 per diluted share, +26% YoY), driven by taxable-equivalent revenue of $1,960.0M (+6.8% YoY) and net interest income of $1,260.0M. Average loans expanded to $110.1B (+10.3% YoY in commercial C&I), while period-end client deposits reached $153.1B with a healthy 75% loan-to-deposit ratio.\n\nAlthough Q2 sequential NIM expansion moderated to +2 bps (2.89%) due to short-term wholesale funding used to bridge rapid commercial loan growth during a seasonal deposit dip, underlying asset repricing remains intact. Non-interest fee income proved resilient at $700.0M, supported by record Wealth Management AUM of $74.2B (+15.5% YoY) and targeted middle-market bolt-on M&A (such as Clearwater Corporate Finance LLP). Net charge-offs were well-controlled at 42 bps, at the lower end of full-year 40\u201345 bps guidance.\n\nManagement re-affirmed and upgraded full-year 2026 guidance at the September 14, 2026 Barclays Conference: total revenue growth of ~8% YoY (over $7.5B baseline), NII growth of 9%\u201311%, average loan growth of 4%\u20135% (led by 8%\u201310% commercial growth), and an exit 4Q 2026 NIM of 3.00%\u20133.05%. With a GAAP CET1 ratio of 11.2%, KeyCorp repurchased $341M of shares in Q2 2026 under its $3.0B buyback authorization while maintaining its $0.205 quarterly dividend.",
+    "price_at_alert": 21.9,
+    "price_change_pct": 0.14,
+    "report_url": "reports/KEY.html"
+  },
+  {
+    "id": "alert-bam-1789414892",
+    "ticker": "BAM",
+    "timestamp": "2026-09-14 19:41",
+    "title": "BAM: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 8-K Filing (2026-09-14): Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001171843-26-006022]",
+    "what_was_before": "Operationally, BAM continues to leverage its global scale, expanding Fee-Bearing Capital to $672B (+19% YoY) and Total Assets Under Management to $1.3T as of the latest quarter. Top-line revenue reached $1,750.0M, supporting an annualized revenue run-rate of $7,000.0M, powered by $77B in quarterly gross fundraising across infrastructure, private equity, and credit strategies. Long-duration capital lockups remain a structural advantage, with approximately 88% of fee-bearing capital locked in closed-end funds or perpetual vehicles.\n\nFee-Related Earnings (FRE) reached $808M for the quarter, supporting $707M in Distributable Earnings ($0.44 per share) and an annualized dividend payout of $2.01 per share. However, FRE margins have settled at 57.0%, down from previous peaks of 61.2% due to Oaktree consolidation expenses and mix shifts toward credit. With $149B of uncalled commitments\u2014over $60B of which activates fee billing immediately upon deployment\u2014contractual revenue visibility remains high as capital is channeled into AI data centers, clean power purchase agreements, and asset-backed finance.",
+    "what_changes_now": "Brookfield Asset Management is executing aggressively on its primary volume metrics, anchored by fee-bearing capital (FBC) expanding to $672 billion and total assets under management (AUM) reaching $1.30 trillion across real assets, credit, and private wealth. Recent sequential quarterly reports demonstrate robust fundraising cadence, punctuated by a record $77 billion of inflows driven by major institutional insurance mandates such as the UK Just Group, alongside scaled closes in flagship infrastructure and credit vehicles.\n\nOperationally, revenue generation tracks closely with a current annualized run-rate of $7,012.0M, supported by a healthy 71.5% gross margin and stable fee-related earnings (FRE) margins hovering around 58%. While management has flagged that credit consolidation and mix shifts will introduce mild structural margin dilution, the asset-light pure-play model continues to generate strong cash conversion with near-zero maintenance capital expenditure requirements, allowing BAM to return roughly 90% of distributable earnings to shareholders via a growing dividend.",
+    "price_at_alert": 46.31,
+    "price_change_pct": -11.45,
+    "report_url": "reports/BAM.html"
+  },
+  {
     "id": "alert-exel-1789149171",
     "ticker": "EXEL",
     "timestamp": "2026-09-11 17:52",
