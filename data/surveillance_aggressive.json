@@ -1,70 +1,63 @@
 {
   "portfolio_type": "aggressive",
   "portfolio_label": "Wealthsimple (Aggressive Alpha)",
-  "last_run_date": "2026-09-09",
-  "last_run_timestamp": "2026-09-09T18:56:53.662660",
+  "last_run_date": "2026-09-16",
+  "last_run_timestamp": "2026-09-16T19:13:13.701300",
   "status": "EXECUTED",
-  "status_display": "SURVEILLANCE ACTIONS EXECUTED (2 ACTIONS)",
+  "status_display": "SURVEILLANCE ACTIONS EXECUTED (1 ACTIONS)",
   "action_required": false,
-  "verdict_summary": "Council executed 2 high-conviction decision(s): VALUATION FROTH (TRIM), SURPLUS CASH DEPLOYMENT (BUY).",
-  "total_universe_scanned": 119,
-  "active_holdings_verified": 1,
+  "verdict_summary": "Council executed 1 high-conviction decision(s): VALUATION FROTH (TRIM).",
+  "total_universe_scanned": 122,
+  "active_holdings_verified": 2,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 426.54,
+  "portfolio_average_mos_pct": 312.36,
   "cash_cushion_pct": 4.94,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 426.54,
+    "portfolio_weighted_mos_pct": 312.36,
     "mandate_structural_floor_pct": 3.0,
     "calculated_target_cash_pct": 4.94,
-    "current_actual_cash_pct": 18.56,
-    "cash_status": "SURPLUS_STRIKE_READY",
+    "current_actual_cash_pct": 4.9399999999999995,
+    "cash_status": "OPTIMAL_DRY_POWDER_MAINTAINED",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
-    "cash_directive": "Cash reserves (18.56%) exceed target (4.94%). Ready for opportunistic deployment.",
-    "formula_description": "Tactical Strike Reserve (4.94%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +426.54% weighted Margin of Safety."
+    "cash_directive": "Maintain 3M US Treasury float yielding 5.00% risk-free. Stand ready for fat pitch market dislocations.",
+    "formula_description": "Tactical Strike Reserve (4.94%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +312.36% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-09-16",
+  "next_scheduled_run": "2026-09-23",
   "holdings_health": [
     {
       "ticker": "MELI",
       "company_name": "MercadoLibre, Inc.",
-      "price": 1922.73,
-      "fair_value": 10123.88,
-      "mos_pct": 426.54,
+      "price": 1900.24,
+      "fair_value": 8868.56,
+      "mos_pct": 366.71,
       "signal": "BUY",
       "moat_score": 9.5,
-      "expected_irr": 167.3,
-      "kelly_edge": 64.38,
+      "expected_irr": 147.3,
+      "kelly_edge": 63.26,
       "health_status": "FROTHY",
       "thesis_core": "Marcos Galperin founder leadership; dominant Latin America e-commerce & fintech logistics ecosystem."
-    }
-  ],
-  "top_watchlist_on_radar": [
+    },
     {
       "ticker": "FICO",
       "company_name": "Fair Isaac Corporation",
       "price": 1172.67,
       "fair_value": 1648.25,
       "mos_pct": 40.56,
+      "signal": "BUY",
+      "moat_score": 9.9,
       "expected_irr": 35.2,
       "kelly_edge": 54.37,
-      "moat_score": 9.9
-    },
-    {
-      "ticker": "ADBE",
-      "company_name": "Adobe Inc.",
-      "price": 257.26,
-      "fair_value": 608.81,
-      "mos_pct": 136.65,
-      "expected_irr": 64.8,
-      "kelly_edge": 53.19,
-      "moat_score": 9.5
-    },
+      "health_status": "PRISTINE",
+      "thesis_core": "Sovereign monopoly on US consumer credit scoring; extreme pricing power, zero CapEx."
+    }
+  ],
+  "top_watchlist_on_radar": [
     {
       "ticker": "PDD",
       "company_name": "PDD Holdings Inc.",
@@ -74,23 +67,35 @@
       "expected_irr": 90.8,
       "kelly_edge": 52.27,
       "moat_score": 9.2
+    },
+    {
+      "ticker": "NFLX",
+      "company_name": "Netflix, Inc.",
+      "price": 81.74,
+      "fair_value": 114.5,
+      "mos_pct": 40.08,
+      "expected_irr": 33.7,
+      "kelly_edge": 49.93,
+      "moat_score": 9.5
+    },
+    {
+      "ticker": "KSPI",
+      "company_name": "Joint Stock Company Kaspi.kz - ",
+      "price": 106.29,
+      "fair_value": 281.95,
+      "mos_pct": 165.26,
+      "expected_irr": 70.1,
+      "kelly_edge": 49.81,
+      "moat_score": 9.6
     }
   ],
   "rebalance_proposals": [
     {
-      "date": "2026-09-09",
+      "date": "2026-09-16",
       "action": "VALUATION FROTH (TRIM)",
       "ticker": "MELI",
-      "reason": "Trimmed frothy position MELI from 81.4% to 40.0% (Price $1922.73 vs Fair Value $10123.88)",
-      "weight_delta": "-41.4%",
-      "verification_status": "Audited & Executed by Autonomous Surveillance Council"
-    },
-    {
-      "date": "2026-09-09",
-      "action": "SURPLUS CASH DEPLOYMENT (BUY)",
-      "ticker": "FICO",
-      "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder FICO (Moat: 9.9/10, MoS: +40.6%, Kelly Edge: 54.37)",
-      "weight_delta": "+8.0%",
+      "reason": "Trimmed frothy position MELI from 79.2% to 40.0% (Price $1900.24 vs Fair Value $8868.56)",
+      "weight_delta": "-39.2%",
       "verification_status": "Audited & Executed by Autonomous Surveillance Council"
     }
   ],
