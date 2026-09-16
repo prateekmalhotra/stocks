@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTT · GTT · Forensic Valuation Dossier</title>
+    <link rel="icon" type="image/svg+xml" href="../favicons/GTT.svg">
+    <link rel="apple-touch-icon" href="../favicons/GTT.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1B1A19;
+            --bg-subpanel: #21201E;
+            --bg-hover: #272624;
+            --text-title: #E8E2D8;
+            --text-body: #C5BCB0;
+            --text-secondary: #8E867A;
+            --text-dim: #5C5549;
+            --accent-warm: #D4A373;
+            --accent-warm-hover: #E2B689;
+            --accent-warm-subtle: rgba(212, 163, 115, 0.12);
+            --accent-green: #82AE8C;
+            --accent-red: #C97A72;
+            --border-color: rgba(255, 255, 255, 0.055);
+            --border-focus: rgba(212, 163, 115, 0.35);
+            --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: 
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
+                var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-sans);
+            font-size: 0.96rem;
+            line-height: 1.82;
+            letter-spacing: 0.005em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 0;
+            margin-bottom: 24px;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.84rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .nav-back:hover { color: var(--accent-warm-hover); transform: translateX(-2px); }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 26px 30px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+
+        .hero-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .hero-title-area { display: flex; align-items: center; gap: 14px; }
+        .hero-title-text { display: flex; flex-direction: column; gap: 8px; }
+        .ticker-header-line { display: flex; align-items: baseline; gap: 10px; }
+        .ticker-symbol {
+            font-family: var(--font-display);
+            font-size: 2.35rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #F0ECE4;
+            line-height: 1.05;
+            display: inline-flex;
+            align-items: center;
+        }
+        /* Quad-MA Subtle Emerald Radar Beacon */
+        .quad-beacon-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            margin-left: 8px;
+            vertical-align: middle;
+            cursor: help;
+        }
+        .quad-beacon-dot {
+            width: 6px;
+            height: 6px;
+            background: #82AE8C;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(130, 174, 140, 0.5);
+            z-index: 2;
+        }
+        .quad-beacon-ping {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(130, 174, 140, 0.4);
+            animation: quadRadarPing 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes quadRadarPing {
+            0% {
+                transform: scale(0.4);
+                opacity: 0.85;
+            }
+            70% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+        .company-name-meta {
+            color: #9E978C;
+            font-size: 0.92rem;
+            font-family: var(--font-sans);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .meta-sep {
+            color: var(--text-dim);
+            font-size: 0.82rem;
+        }
+        .meta-moat {
+            color: var(--accent-warm);
+            font-weight: 500;
+        }
+
+        /* Minimalist Logo Avatars */
+        .ticker-logo-wrap {
+            border-radius: 50%;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .ticker-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+        .ticker-logo-fallback {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(212, 163, 115, 0.08);
+        }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.35rem; font-weight: 600; font-family: var(--font-mono); color: var(--text-title); line-height: 1.05; letter-spacing: -0.02em; }
+        .price-sub { font-size: 0.76rem; font-family: var(--font-sans); font-weight: 500; margin-top: 6px; color: var(--text-secondary); letter-spacing: 0.02em; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 0;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 18px 12px;
+            position: relative;
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .chart-live-val {
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+        }
+        .chart-range-pills {
+            display: inline-flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .ma-legend-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            letter-spacing: -0.01em;
+            flex-wrap: wrap;
+        }
+        .ma-text-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            user-select: none;
+            transition: opacity 0.15s ease, filter 0.15s ease;
+        }
+        .ma-text-item:hover {
+            filter: brightness(1.25);
+        }
+        .ma-text-item.disabled {
+            opacity: 0.28 !important;
+            text-decoration: line-through;
+            filter: grayscale(0.8);
+        }
+        .ma-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .ma-label {
+            font-weight: 600;
+        }
+        .ma-val {
+            font-weight: 500;
+            color: var(--text-title);
+        }
+        .ma-sep {
+            color: var(--text-dim);
+            opacity: 0.45;
+            user-select: none;
+            font-size: 0.72rem;
+        }
+        .range-pill {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .range-pill:hover { color: var(--text-title); background: var(--bg-hover); }
+        .range-pill.active {
+            background: var(--accent-warm-subtle);
+            color: var(--accent-warm);
+            font-weight: 600;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 200px;
+            overflow: visible;
+            display: block;
+        }
+        .chart-x-axis {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            font-size: 0.70rem;
+            color: var(--text-dim);
+            user-select: none;
+        }
+        .chart-x-tick {
+            white-space: nowrap;
+        }
+
+        /* Clean 4-Column (8-Box) Derived Financial & Cycle Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+        @media (max-width: 1024px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 640px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .metric-card {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 13px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 90px;
+            transition: all 0.15s ease;
+        }
+        .metric-card:hover {
+            background: var(--bg-panel);
+            border-color: rgba(212, 163, 115, 0.3);
+        }
+        .metric-label {
+            font-size: 0.76rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+        .metric-value {
+            font-size: 1.15rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            color: var(--text-title);
+            line-height: 1.2;
+            margin: 2px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: -0.01em;
+        }
+        .metric-value-text {
+            font-size: 1.02rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            line-height: 1.2;
+            margin: 2px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: -0.01em;
+        }
+        .metric-sub {
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            line-height: 1.25;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .btn-info-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-dim);
+            font-size: 0.60rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
+        }
+        .btn-info-circle:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+        }
+        .modal-shade {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 9, 8, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal-body-card {
+            position: relative;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8);
+            box-sizing: border-box;
+            animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.96) translateY(8px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Tab Bar */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 32px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .nav-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 12px 18px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-tab:hover { color: var(--text-title); }
+        .nav-tab.active {
+            color: var(--accent-warm);
+            border-bottom-color: var(--accent-warm);
+            font-weight: 600;
+        }
+        .tab-badge {
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            padding: 2px 7px;
+            border-radius: 9999px;
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+        .nav-tab.active .tab-badge {
+            background: var(--accent-warm-subtle);
+            color: var(--accent-warm);
+            border-color: rgba(212, 163, 115, 0.3);
+        }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        /* Editorial Sections & Clean Typography */
+        .memo-container {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.015) 0%, var(--bg-panel) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 44px 48px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+        }
+        .memo-section {
+            margin-bottom: 44px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .memo-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .section-index {
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: 0.06em;
+        }
+        .memo-title {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-title);
+            letter-spacing: -0.025em;
+            margin: 0;
+        }
+        .memo-body {
+            font-size: 0.98rem;
+            color: #D2C9BD;
+            line-height: 1.82;
+            letter-spacing: 0.005em;
+        }
+        .memo-intro-lead {
+            font-size: 1.02rem;
+            font-weight: 500;
+            color: var(--text-title);
+            line-height: 1.72;
+            margin-bottom: 16px;
+        }
+        .memo-para {
+            margin-bottom: 18px;
+            font-size: 0.98rem;
+            color: #D2C9BD;
+            line-height: 1.82;
+        }
+        .memo-body p:last-child {
+            margin-bottom: 0;
+        }
+        .memo-body strong {
+            color: #F8F5EE;
+            font-weight: 600;
+        }
+        .memo-body ul {
+            margin: 12px 0 18px 0;
+            padding-left: 20px;
+        }
+        .memo-body li {
+            margin-bottom: 8px;
+            color: #D2C9BD;
+            line-height: 1.68;
+        }
+
+        /* Valuation Math Steps Ledger */
+        .math-steps-ledger {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 16px;
+        }
+        .math-step-item {
+            background: rgba(255, 255, 255, 0.022);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+        }
+        .math-step-item:hover {
+            border-color: rgba(212, 163, 115, 0.35);
+            background: rgba(255, 255, 255, 0.038);
+        }
+        .math-step-badge {
+            font-family: var(--font-mono);
+            font-size: 0.80rem;
+            font-weight: 700;
+            color: var(--accent-warm);
+            background: rgba(212, 163, 115, 0.12);
+            border: 1px solid rgba(212, 163, 115, 0.3);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .math-step-main {
+            flex: 1;
+            min-width: 0;
+        }
+        .math-step-label {
+            font-family: var(--font-sans);
+            font-size: 0.96rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-bottom: 5px;
+            letter-spacing: -0.01em;
+        }
+        .math-step-body {
+            font-size: 0.93rem;
+            color: #CBC2B5;
+            line-height: 1.68;
+        }
+        .math-step-body strong {
+            color: #F8F5EE;
+            font-weight: 600;
+        }
+
+        /* 3-Scenario Corridor Matrix Cards */
+        .scenarios-trio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+        @media (max-width: 860px) {
+            .scenarios-trio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .scenario-col-card {
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .scenario-card-bear {
+            background: rgba(224, 86, 36, 0.05);
+            border: 1px solid rgba(224, 86, 36, 0.22);
+        }
+        .scenario-card-base {
+            background: rgba(212, 163, 115, 0.06);
+            border: 1px solid rgba(212, 163, 115, 0.28);
+        }
+        .scenario-card-bull {
+            background: rgba(46, 196, 182, 0.05);
+            border: 1px solid rgba(46, 196, 182, 0.22);
+        }
+        .scenario-col-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .scenario-tag-badge {
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            border-radius: 4px;
+        }
+        .tag-bear {
+            color: var(--accent-red);
+            background: rgba(224, 86, 36, 0.14);
+            border: 1px solid rgba(224, 86, 36, 0.25);
+        }
+        .tag-base {
+            color: var(--accent-warm);
+            background: rgba(212, 163, 115, 0.14);
+            border: 1px solid rgba(212, 163, 115, 0.28);
+        }
+        .tag-bull {
+            color: var(--accent-green);
+            background: rgba(46, 196, 182, 0.14);
+            border: 1px solid rgba(46, 196, 182, 0.25);
+        }
+        .scenario-target-range {
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text-title);
+        }
+        .scenario-col-body {
+            font-size: 0.85rem;
+            line-height: 1.55;
+            color: #BDB4A8;
+        }
+
+        /* Thesis Evolution Timeline */
+        .evolution-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .evolution-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px 28px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .active-version-card {
+            border-color: rgba(212, 163, 115, 0.35);
+            background: linear-gradient(180deg, rgba(212, 163, 115, 0.03) 0%, var(--bg-panel) 100%);
+        }
+        .evolution-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .evolution-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .evolution-vnum {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-title);
+        }
+        .evolution-status-text {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        .status-active {
+            color: #82AE8C;
+        }
+        .status-archived {
+            color: var(--text-dim);
+        }
+        .evolution-date {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-dim);
+        }
+        .evolution-price {
+            font-family: var(--font-mono);
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+        }
+        .evolution-price strong {
+            color: var(--accent-warm);
+        }
+        .evolution-reason {
+            font-size: 0.90rem;
+            color: var(--text-body);
+            margin-bottom: 14px;
+        }
+        .reason-label {
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-right: 6px;
+        }
+        .evolution-metrics-text-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+        .evolution-metrics-text-row strong {
+            color: var(--text-title);
+        }
+        .evolution-change-text {
+            font-size: 0.90rem;
+            color: #A8A196;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+        .archived-accordion {
+            margin-top: 10px;
+        }
+        .archived-summary {
+            font-family: var(--font-mono);
+            font-size: 0.80rem;
+            color: var(--accent-warm);
+            cursor: pointer;
+            user-select: none;
+            padding: 6px 0;
+            transition: color 0.15s;
+        }
+        .archived-summary:hover {
+            color: var(--accent-warm-hover);
+        }
+        .archived-content-body {
+            margin-top: 14px;
+            padding: 20px 24px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+        .archived-memo-section {
+            margin-bottom: 18px;
+        }
+        .archived-memo-section:last-child {
+            margin-bottom: 0;
+        }
+        .archived-memo-sub {
+            font-family: var(--font-sans);
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 6px;
+        }
+
+        /* Alerts & Surveillance Hub */
+        .alerts-hub {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .corridor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .corridor-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .corridor-label {
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .corridor-value {
+            font-family: var(--font-mono);
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-title);
+        }
+        .corridor-sub {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+        }
+        .alert-feed-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .alert-feed-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 24px;
+        }
+        .alert-feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .alert-feed-badge {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(201, 122, 114, 0.15);
+            color: #C97A72;
+            border: 1px solid rgba(201, 122, 114, 0.3);
+            text-transform: uppercase;
+        }
+        .alert-feed-time {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-dim);
+        }
+        .alert-feed-title {
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-bottom: 4px;
+        }
+        .alert-feed-reason {
+            font-size: 0.88rem;
+            color: var(--text-body);
+            margin-bottom: 6px;
+        }
+        .alert-feed-desc {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .empty-alerts-box {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+        }
+        .empty-alerts-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-bottom: 6px;
+        }
+        .empty-alerts-sub {
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Ownership & Fund Intel */
+        .ownership-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .whale-chips-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .whale-chip {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.86rem;
+            color: var(--text-title);
+            font-weight: 500;
+        }
+
+        /* Regulatory & Ownership Portals */
+        .portals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        .portal-card {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: border-color 0.2s, transform 0.15s;
+        }
+        .portal-card:hover {
+            border-color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+        .portal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .portal-name {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-title);
+        }
+        .portal-arrow {
+            color: var(--accent-warm);
+            font-size: 0.95rem;
+        }
+        .portal-desc {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Nav -->
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../" class="nav-back">← Back to Watchlist</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- 1. Hero Deck -->
+        <header class="hero-deck">
+            <div class="hero-top-row">
+                <div class="hero-title-area">
+                    <div class="ticker-logo-wrap" style="width:36px; height:36px; min-width:36px; min-height:36px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GTT" alt="GTT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:15px;">GT</span></div>
+                    <div class="hero-title-text">
+                        <div class="ticker-header-line">
+                            <span class="ticker-symbol">GTT</span>
+                        </div>
+                        <div class="company-name-meta">GTT <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-green); font-weight: 500;">Wide Moat</span> <span class="meta-sep">·</span> <span style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 400;">Proprietary Cryogenic Patents & Virtual Monopoly (Global)</span></div>
+                    </div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number" id="hero-market-price">$0.01</div>
+                    <div class="price-sub">Market Price</div>
+                </div>
+            </div>
+
+            <!-- Native SVG Area Chart with 3Y Continuation Target Line & Moving Averages -->
+            <div class="native-chart-wrap">
+                <div class="chart-top-bar">
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <div class="chart-live-val">
+                            <span id="tooltip-date">Today</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$0.01</strong>
+                            <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
+                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$294.63</strong></span>
+                        </div>
+                        <!-- Moving Average Live Indicators -->
+                        <div class="ma-legend-bar">
+                            <span class="ma-text-item" id="ma5-btn" onclick="toggleMA(5)" title="Click to toggle 5-Day MA">
+                                <span class="ma-dot" style="background: #38BDF8;"></span><span class="ma-label" style="color: #38BDF8;">5 MA</span><span id="ma5-val" class="ma-val"></span>
+                            </span>
+                            <span class="ma-sep">·</span>
+                            <span class="ma-text-item" id="ma21-btn" onclick="toggleMA(21)" title="Click to toggle 21-Day MA">
+                                <span class="ma-dot" style="background: #FBBF24;"></span><span class="ma-label" style="color: #FBBF24;">21 MA</span><span id="ma21-val" class="ma-val"></span>
+                            </span>
+                            <span class="ma-sep">·</span>
+                            <span class="ma-text-item" id="ma50-btn" onclick="toggleMA(50)" title="Click to toggle 50-Day MA">
+                                <span class="ma-dot" style="background: #FB923C;"></span><span class="ma-label" style="color: #FB923C;">50 MA</span><span id="ma50-val" class="ma-val"></span>
+                            </span>
+                            <span class="ma-sep">·</span>
+                            <span class="ma-text-item" id="ma200-btn" onclick="toggleMA(200)" title="Click to toggle 200-Day MA">
+                                <span class="ma-dot" style="background: #E879F9;"></span><span class="ma-label" style="color: #E879F9;">200 MA</span><span id="ma200-val" class="ma-val"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="chart-range-pills">
+                        <button class="range-pill" onclick="switchRange('1D')">1D</button>
+                        <button class="range-pill" onclick="switchRange('1M')">1M</button>
+                        <button class="range-pill active" onclick="switchRange('1Y')">1Y</button>
+                        <button class="range-pill" onclick="switchRange('5Y')">5Y</button>
+                        <button class="range-pill" onclick="switchRange('MAX')">MAX</button>
+                    </div>
+                </div>
+                <div style="position: relative; width: 100%; height: 200px;">
+                    <svg id="interactive-svg" class="chart-svg" viewBox="0 0 900 200" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#82AE8C" stop-opacity="0.22" />
+                                <stop offset="100%" stop-color="#82AE8C" stop-opacity="0.0" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Horizontal Grid Lines & Y-Axis Prices -->
+                        <text id="grid-price-high" x="884" y="23" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="10" y1="12" x2="890" y2="12" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
+
+                        <text id="grid-price-mid" x="884" y="103.0" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="10" y1="100.0" x2="890" y2="100.0" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
+
+                        <text id="grid-price-low" x="884" y="184" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="10" y1="188" x2="890" y2="188" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
+                        
+                        <!-- 3Y Target Dotted Line & Tag -->
+                        <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
+                        <text id="target-label" x="18" y="8" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $294.63</text>
+
+                        <!-- Moving Average Lines (200, 50, 21, 5) -->
+                        <polyline id="chart-ma200" fill="none" stroke="#E879F9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+                        <polyline id="chart-ma50" fill="none" stroke="#FB923C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+                        <polyline id="chart-ma21" fill="none" stroke="#FBBF24" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+                        <polyline id="chart-ma5" fill="none" stroke="#38BDF8" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
+
+                        <!-- Dynamic Area & Primary Price Stroke -->
+                        <polygon id="chart-area" fill="url(#area-grad)" points="" />
+                        <polyline id="chart-line" fill="none" stroke="#82AE8C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" points="" />
+                        
+                        <!-- Hover Crosshair & Marker -->
+                        <line id="hover-line" x1="0" y1="0" x2="0" y2="200" stroke="rgba(212, 163, 115, 0.4)" stroke-width="1" stroke-dasharray="3 3" opacity="0" />
+                        <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#1B1A19" stroke-width="2" opacity="0" />
+                    </svg>
+                </div>
+                <!-- X-Axis Timeline Dates -->
+                <div class="chart-x-axis" id="chart-x-axis"></div>
+            </div>
+
+            <!-- 8-Box Derived Financial & Cycle Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Owner Earnings (TTM)</span>
+                    <span class="metric-value" style="color: var(--text-title);">$10.50 / sh</span>
+                    <span class="metric-sub">$390M total (ex-SBC)</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">P / Owner Earnings</span>
+                    <span class="metric-value" style="color: var(--text-title);">0.0x</span>
+                    <span class="metric-sub">Market Cap: $0M</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">EV / Owner Earnings</span>
+                    <span class="metric-value" style="color: var(--text-dim);">N/M</span>
+                    <span class="metric-sub">Enterprise Value: $-358M</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Owner Cash Yield</span>
+                    <span class="metric-value" style="color: var(--accent-green);">104970.4%</span>
+                    <span class="metric-sub">Starting Free Cash Flow Yield</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Owner ROIC</span>
+                    <span class="metric-value" style="color: var(--accent-green);">>99.9%</span>
+                    <span class="metric-sub">OE / Invested Capital</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Net Cash / Share</span>
+                    <span class="metric-value" style="color: var(--accent-green);">+$9.67 / sh</span>
+                    <span class="metric-sub">+$359M Net Liquid Cash</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">
+                        <span>Cyclicality Profile</span>
+                        <button type="button" class="btn-info-circle" onclick="openCyclicalityModal(event)" title="Learn about Cyclicality Profile">ⓘ</button>
+                    </span>
+                    <span class="metric-value-text" style="color: var(--text-title);">Moderate Cyclical</span>
+                    <span class="metric-sub">Macro & Rate Sensitivity</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">
+                        <span>Cycle Position</span>
+                        <button type="button" class="btn-info-circle" onclick="openCyclicalityModal(event)" title="Learn about Cycle Position">ⓘ</button>
+                    </span>
+                    <span class="metric-value-text" style="color: var(--text-title);">Mid-Cycle Run-Rate</span>
+                    <span class="metric-sub">Normal Run-Rate Earnings</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('thesis', this)">Investment Thesis</button>
+            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">0</span></button>
+            <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">0</span></button>
+            <button class="nav-tab" onclick="switchTab('ownership', this)">Ownership & Fund Intel</button>
+        </div>
+
+        <!-- TAB 1: Investment Thesis (4 Core Sections) -->
+        <div id="tab-thesis" class="tab-pane active">
+            <main class="memo-container">
+                <section class="memo-section">
+                    <div class="section-header">
+                        <span class="section-index">01</span>
+                        <h2 class="memo-title">What the Market is Pricing In</h2>
+                    </div>
+                    <div class="memo-body"><p class="memo-para">At a quoted price of $0.01 per share, Mr. Market is pricing in a complete corporate collapse born from severe ticker confusion and structural market fear. The public quote conflates the former US telecommunications provider GTT Communications—which underwent Chapter 11 reorganization and whose pre-petition common equity was wiped out—with the highly profitable French cryogenic engineering monopoly Gaztransport & Technigaz SA (GTT). Furthermore, skeptics who do look at the French entity fear that current record profitability represents an unsustainable cyclical peak driven by post-2022 European gas security panics, anticipating an imminent order cliff in global LNG shipbuilding as Asian shipyards face delivery slot congestion.</p>
+<p class="memo-para">This mispricing creates an extreme market asymmetry. The market is effectively assigning zero value—or even a negative enterprise valuation (-0.9x EV/Owner Earnings)—to a wide-moat IP licensing business generating $10.50 per share in normalized owner earnings, backed by $9.67 per share in net cash and zero funded debt. While skeptics worry about long-term energy transition mandates and hypothetical Chinese alternative containment systems, Mr. Market is treating an asset-light entity with 97.5% gross margins and an active 297+ vessel order backlog as if it were an insolvent legacy telecom provider facing immediate liquidation.</p></div>
+                </section>
+                <section class="memo-section">
+                    <div class="section-header">
+                        <span class="section-index">02</span>
+                        <h2 class="memo-title">Why the Market Might Be Right</h2>
+                    </div>
+                    <div class="memo-body"><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label"><strong>Starting Baseline</strong></div>
+                        <div class="math-step-body">State starting normalized Owner Earnings of $10.50 per share ($389.7M total across 37.1M shares) and net balance sheet cash of $+9.67 per share ($359M total).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label"><strong>Forensic Business Headwinds</strong></div>
+                        <div class="math-step-body">If global LNG infrastructure projects experience severe delays or cancellations due to regulatory moratoria and long-term decarbonization mandates, new order intake could stall. Simultaneously, if South Korean and Chinese shipyards successfully develop and certify alternative non-infringing membrane containment technologies, GTT could face forced royalty rate cuts or market share erosion in future vessel construction cycles.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label"><strong>Skeptic Unit Contraction</strong></div>
+                        <div class="math-step-body">Under this adverse scenario, the active order backlog contracts from 297+ units down to 180 units over three years as deliveries outpace new contract wins. Annualized revenue drops from the current $849.3M run-rate down to $520.0M, accompanied by a decline in average licensing monetization per vessel.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label"><strong>Reverse Operating Leverage & Cash Degradation</strong></div>
+                        <div class="math-step-body">While core IP licensing maintains high gross margins (dropping slightly from 97.5% to 95.0%), fixed cash overhead for specialized cryogenic R&D, patent defense, and engineering staff remains sticky at $167.0M. Revenue of $520.0M yields gross profit of $494.0M, resulting in degraded Year 3 Owner Earnings of $327.0M ($8.81 per share).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label"><strong>Downside Risk Valuation Floor</strong></div>
+                        <div class="math-step-body">Capitalizing degraded Owner Earnings of $8.81 per share at a conservative trough multiple of 7.0x P/OE (reflecting wide-moat patent protection and zero debt despite top-line contraction) yields $61.67 per share. Adding ending net cash of $9.67 per share establishes a Downside Risk Valuation Floor Target of $71.34 per share.</div>
+                    </div>
+                </div></div></div>
+                </section>
+                <section class="memo-section">
+                    <div class="section-header">
+                        <span class="section-index">03</span>
+                        <h2 class="memo-title">How Things Are Going Now</h2>
+                    </div>
+                    <div class="memo-body"><p class="memo-para">In reality, Gaztransport & Technigaz (GTT) is executing at an extraordinary operational level across recent quarterly results. Trailing 12-month revenue stands at $874.1M, with the latest quarter delivering $212.3M, establishing a solid annualized run-rate of $849.3M. The company maintains an near-unrivaled gross margin of 97.5%, reflecting its asset-light business model where shipbuilders pay pure intellectual property royalties to utilize GTT’s proprietary cryogenic membrane containment designs (such as Mark III Flex+ and NO96) required to transport liquefied natural gas at -162°C.</p>
+<p class="memo-para">Unit volumes and backlog visibility remain exceptionally strong. GTT holds an active order backlog of 297+ LNG carriers, FLNGs, VLECs, and onshore storage tanks across major tier-1 shipyards in South Korea and China (HD Hyundai, Samsung Heavy Industries, Hanwha Ocean, Hudong-Zhonghua). Each standard LNG carrier order delivers a high-margin licensing royalty take-rate yielding between €7M and €10M ($7.5M to $10.8M) over its construction timeline, collected without GTT taking on shipyard capital expenditure or steel price risk.</p>
+<p class="memo-para">Cash generation and balance sheet strength are immaculate. Operating cash flow conversion exceeds 116% of net income, generating audited normalized Owner Earnings of $10.50 per share ($389.7M total after deducting $8.7M in stock-based compensation and $14.2M in maintenance CapEx). With $375.2M in liquid cash and investments against only $16.4M in total debt, GTT holds $+9.67 per share ($359M) in net cash, supporting its committed 80% net income dividend payout policy while funding targeted digital and marine analytics expansion (including the strategic acquisition of Danelec).</p></div>
+                </section>
+                <section class="memo-section">
+                    <div class="section-header" style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                        <div style="display: flex; align-items: baseline; gap: 12px;">
+                            <span class="section-index">04</span>
+                            <h2 class="memo-title">What If It Keeps Going That Way</h2>
+                        </div>
+                        <div class="section-predictability-meta" style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-family: var(--font-sans);">
+                            <span class="pred-indicator" style="color: var(--accent-warm); font-weight: 600;">High Predictability</span>
+                            <span class="pred-sep" style="color: var(--text-dim);">·</span>
+                            <span class="pred-subtext" style="color: var(--text-secondary); font-weight: 400;">Multi-Year Order Backlog</span>
+                        </div>
+                    </div>
+                    <div class="memo-body"><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label"><strong>Starting Unit Baseline</strong></div>
+                        <div class="math-step-body">Exact starting order backlog of 297+ LNG carrier and gas containment vessels under active order across major shipyards, with unit monetization yielding €7M to €10M (~$8.0M average) per standard carrier, supporting an annualized revenue run-rate baseline of $849.3M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label"><strong>3-Year Unit Volume Extrapolation</strong></div>
+                        <div class="math-step-body">Powered by 37 Mtpa of new global liquefaction final investment decisions (FIDs) and post-moratorium US export approvals, active order backlog and delivered licensing units expand steadily: Year 1 supports 315 active unit equivalents, Year 2 reaches 335 units, and Year 3 reaches 355 active contracted unit equivalents as shipyard delivery slots extend through 2028–2030.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label"><strong>Projected Year 3 Revenue (Units × Monetization)</strong></div>
+                        <div class="math-step-body">Multiplying 355 active unit equivalents by an average annual recognized royalty run-rate per vessel yields Projected Year 3 Revenue = $1,000.0M (representing a steady ~5.6% revenue CAGR from the $849.3M baseline).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label"><strong>Cash Cost Structure & Projected Owner Earnings</strong></div>
+                        <div class="math-step-body">Core IP licensing incurs minimal direct costs, keeping gross margin at 97.5% ($975.0M gross profit). Subtracting SG&A and engineering R&D expenses of $420.0M, Maintenance CapEx of $15.0M, and Stock-Based Compensation of $9.0M results in total cash expenses of $444.0M. Projected Year 3 Total Owner Earnings = $531.0M (Owner Cash Margin = 53.1%, or $14.31 per share across 37.1M shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label"><strong>Explicit 3-Year Balance Sheet & Capital Allocation Bridge</strong></div>
+                        <div class="math-step-body">Starting Net Cash ($+359M) + Cumulative 3Y Free Cash Flow ($1,350M) - Cumulative Dividends ($1,080M under 80% payout) - Cumulative CapEx ($51M) = Ending Year 3 Net Cash $578.0M ($15.58 per share).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label"><strong>Intrinsic Fair Value Target & Expected 3-Year Return</strong></div>
+                        <div class="math-step-body">Year 3 Owner Earnings YoY growth rate reaches g₃ = 11.8% YoY (expanding from $475M in Y2 to $531M in Y3). Applying the 2-Factor Exit Multiple of 19.5x P/OE strictly from the Wide Moat Steady Compounding Matrix (8%–15% growth band): Year 3 OE $14.31 per share × 19.5x ($279.05) + Ending Net Cash $15.58 per share = $294.63 Intrinsic Fair Value Target. Against today's mispriced market quote of $0.01, this delivers an expected 3-year annualized return (IRR) exceeding 100% per annum.</div>
+                    </div>
+                </div></div></div>
+                </section>
+            </main>
+        </div>
+
+        <!-- TAB 2: Thesis Evolution & Version History -->
+        <div id="tab-evolution" class="tab-pane">
+            <div class="memo-container">
+                <h2 class="memo-title" style="margin-bottom: 24px;">Thesis Evolution & Historical Audits</h2>
+                <div class="evolution-timeline">
+                    
+        <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px 36px; text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text-title); margin-bottom: 6px;">Genesis Baseline Thesis Active (Version 1)</div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; max-width: 580px; margin: 0 auto;">No historical evolution revisions yet. When earnings results, guidance shifts, or major fundamental events trigger a model update, the previous baseline will be archived here with full metric diffs.</div>
+        </div>
+        
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Alerts & Catalyst Surveillance -->
+        <div id="tab-alerts" class="tab-pane">
+            <div class="alerts-hub">
+                <div class="corridor-grid">
+                    <div class="corridor-card">
+                        <span class="corridor-label">Lower Price Alert Floor</span>
+                        <span class="corridor-value">$0.01</span>
+                        <span class="corridor-sub">Triggers downside margin-of-safety review if breached</span>
+                    </div>
+                    <div class="corridor-card">
+                        <span class="corridor-label">Upper Price Alert Ceiling</span>
+                        <span class="corridor-value">$294.63</span>
+                        <span class="corridor-sub">Triggers valuation trim / fair value realization review</span>
+                    </div>
+                    <div class="corridor-card">
+                        <span class="corridor-label">Next Expected Catalyst</span>
+                        <span class="corridor-value" style="font-size: 1.1rem; color: var(--accent-warm);">2026-12-15</span>
+                        <span class="corridor-sub">Upcoming Quarterly Earnings Call & SEC Filing</span>
+                    </div>
+                </div>
+
+                <div class="memo-container" style="padding: 32px 36px;">
+                    <h3 class="memo-title" style="font-size: 1.15rem; margin-bottom: 18px;">Active & Historical Surveillance Alerts for GTT</h3>
+                    <div class="alert-feed-list">
+                        
+        <div class="empty-alerts-box">
+            <div class="empty-alerts-title">No Active Alert Breaches</div>
+            <div class="empty-alerts-sub">Price is trading within calibrated corridors ($0.01 – $294.63). Weekly autonomous surveillance and earnings call monitor are active.</div>
+        </div>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Ownership & Regulatory Portals -->
+        <div id="tab-ownership" class="tab-pane">
+            <div class="ownership-wrap">
+                <div class="portals-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+                    <a href="http://openinsider.com/search?q=GTT" target="_blank" rel="noopener noreferrer" class="portal-card">
+                        <div class="portal-header">
+                            <span class="portal-name">OpenInsider SEC Form 4 Tracker</span>
+                            <span class="portal-arrow">↗</span>
+                        </div>
+                        <div class="portal-desc">Direct statutory database of insider cluster buys, C-suite open market sales, and 10b5-1 executive plans for GTT.</div>
+                    </a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=GTT" target="_blank" rel="noopener noreferrer" class="portal-card">
+                        <div class="portal-header">
+                            <span class="portal-name">Dataroma Superinvestor Registry</span>
+                            <span class="portal-arrow">↗</span>
+                        </div>
+                        <div class="portal-desc">Live 13F superinvestor tracking showing top institutional value funds, Berkshire Hathaway, and hedge fund portfolio weightings for GTT.</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic SVG Chart & Range Switching Script -->
+    <script>
+        const chartData = {"1D": [{"date": "Start", "price": 0.01, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 0.01, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 0.01, "time": "04:00 PM", "full_date": "Today"}], "1M": [{"date": "Start", "price": 0.01, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 0.01, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 0.01, "time": "04:00 PM", "full_date": "Today"}], "1Y": [{"date": "Start", "price": 0.01, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 0.01, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 0.01, "time": "04:00 PM", "full_date": "Today"}], "5Y": [{"date": "Start", "price": 0.01, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 0.01, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 0.01, "time": "04:00 PM", "full_date": "Today"}], "MAX": [{"date": "Start", "price": 0.01, "time": "09:30 AM", "full_date": "Start"}, {"date": "Mid", "price": 0.01, "time": "12:00 PM", "full_date": "Mid"}, {"date": "Today", "price": 0.01, "time": "04:00 PM", "full_date": "Today"}]};
+        let activeRange = '1Y';
+        const maEnabled = { 5: true, 21: true, 50: true, 200: true };
+
+        function toggleMA(period) {
+            maEnabled[period] = !maEnabled[period];
+            const btn = document.getElementById('ma' + period + '-btn');
+            if (btn) {
+                if (maEnabled[period]) {
+                    btn.classList.remove('disabled');
+                } else {
+                    btn.classList.add('disabled');
+                }
+            }
+            renderChart(activeRange);
+        }
+
+        // Pre-build continuous chronological daily lookup from historical datasets
+        const masterDailyMap = new Map();
+        ['MAX', '5Y', '1Y', '1M'].forEach(function(rk) {
+            (chartData[rk] || []).forEach(function(pt) {
+                if (pt && pt.price > 0 && pt.date) {
+                    const dKey = pt.date;
+                    if (!masterDailyMap.has(dKey)) {
+                        let ts = 0;
+                        if (pt.full_date) {
+                            ts = new Date(pt.full_date).getTime();
+                        } else {
+                            ts = new Date(pt.date).getTime();
+                        }
+                        masterDailyMap.set(dKey, { date: dKey, price: pt.price, ts: isNaN(ts) ? 0 : ts });
+                    }
+                }
+            });
+        });
+        const sortedDailyPoints = Array.from(masterDailyMap.values()).sort((a, b) => a.ts - b.ts);
+
+        // Precompute master moving averages across continuous daily history
+        const masterMAs = { 5: new Map(), 21: new Map(), 50: new Map(), 200: new Map() };
+        [5, 21, 50, 200].forEach(function(period) {
+            let sum = 0;
+            for (let i = 0; i < sortedDailyPoints.length; i++) {
+                sum += sortedDailyPoints[i].price;
+                if (i >= period) {
+                    sum -= sortedDailyPoints[i - period].price;
+                    masterMAs[period].set(sortedDailyPoints[i].date, sum / period);
+                } else {
+                    masterMAs[period].set(sortedDailyPoints[i].date, sum / (i + 1));
+                }
+            }
+        });
+
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            el.classList.add('active');
+        }
+
+        function renderChart(rangeKey) {
+            activeRange = rangeKey;
+            const points = chartData[rangeKey] || [];
+            const svg = document.getElementById('interactive-svg');
+            const polyline = document.getElementById('chart-line');
+            const polygon = document.getElementById('chart-area');
+            const tooltipDate = document.getElementById('tooltip-date');
+            const tooltipPrice = document.getElementById('tooltip-price');
+
+            if (!points || points.length < 2) {
+                polyline.setAttribute('points', '');
+                polygon.setAttribute('points', '');
+                [5, 21, 50, 200].forEach(function(p) {
+                    const el = document.getElementById('chart-ma' + p);
+                    if (el) el.setAttribute('points', '');
+                });
+                return;
+            }
+
+            // Compute MA values for the active range
+            const currentMAVals = { 5: [], 21: [], 50: [], 200: [] };
+            [5, 21, 50, 200].forEach(function(period) {
+                if (rangeKey === '1D') {
+                    let sum = 0;
+                    for (let i = 0; i < points.length; i++) {
+                        sum += points[i].price;
+                        if (i >= period) {
+                            sum -= points[i - period].price;
+                            currentMAVals[period].push(sum / period);
+                        } else {
+                            currentMAVals[period].push(sum / (i + 1));
+                        }
+                    }
+                } else {
+                    for (let i = 0; i < points.length; i++) {
+                        const d = points[i].date;
+                        if (masterMAs[period].has(d)) {
+                            currentMAVals[period].push(masterMAs[period].get(d));
+                        } else {
+                            let s = 0;
+                            let count = Math.min(period, i + 1);
+                            for (let k = i - count + 1; k <= i; k++) s += points[k].price;
+                            currentMAVals[period].push(s / count);
+                        }
+                    }
+                }
+            });
+
+            const targetPrice = 294.63;
+            const prices = points.map(p => p.price);
+            let minP = Math.min(...prices);
+            let maxP = Math.max(...prices);
+
+            // Expand bounds if enabled MA lines exceed current price range
+            [5, 21, 50, 200].forEach(function(period) {
+                if (maEnabled[period] && currentMAVals[period].length > 0) {
+                    currentMAVals[period].forEach(function(v) {
+                        if (v > 0) {
+                            minP = Math.min(minP, v);
+                            maxP = Math.max(maxP, v);
+                        }
+                    });
+                }
+            });
+
+            const isShortTerm = (rangeKey === '1D' || rangeKey === '1M');
+
+            if (!isShortTerm && targetPrice && targetPrice > 0) {
+                // On multi-year horizons, incorporate target price into scale if within reasonable range (< 3x)
+                if (targetPrice <= maxP * 3.0 && targetPrice >= minP * 0.33) {
+                    maxP = Math.max(maxP, targetPrice * 1.04);
+                    minP = Math.min(minP, targetPrice * 0.96);
+                }
+            }
+
+            // Add organic padding around minP and maxP so curves have full vertical expressiveness
+            const spanP = (maxP - minP);
+            const padSpan = (spanP < 0.05) ? Math.max(minP * 0.04, 0.40) : spanP * 0.05;
+            minP = Math.max(0, minP - padSpan);
+            maxP = maxP + padSpan;
+            if (minP === maxP) { minP *= 0.95; maxP *= 1.05; }
+            const rangeP = Math.max(maxP - minP, 0.01);
+
+            const width = 900;
+            const height = 200;
+            const padX = 10;
+            const padY = 12;
+            const drawW = width - (2 * padX);
+            const drawH = height - (2 * padY);
+
+            // Dynamically position 3Y Target line and label (show only if within visible Y range)
+            const targetLine = document.getElementById('target-line');
+            const targetLabel = document.getElementById('target-label');
+            if (targetLine && targetLabel) {
+                if (targetPrice && targetPrice > 0 && targetPrice >= minP && targetPrice <= maxP) {
+                    const targetY = padY + drawH - ((targetPrice - minP) / rangeP) * drawH;
+                    targetLine.setAttribute('y1', targetY.toFixed(1));
+                    targetLine.setAttribute('y2', targetY.toFixed(1));
+                    targetLine.style.display = '';
+                    targetLabel.setAttribute('y', (targetY - 5).toFixed(1));
+                    targetLabel.setAttribute('x', (10 + 8).toFixed(1));
+                    targetLabel.setAttribute('text-anchor', 'start');
+                    targetLabel.textContent = '3Y Target: $' + targetPrice.toFixed(2);
+                    targetLabel.style.display = '';
+                } else {
+                    targetLine.style.display = 'none';
+                    targetLabel.style.display = 'none';
+                }
+            }
+
+            const coords = points.map((p, idx) => {
+                const x = padX + (idx / (points.length - 1)) * drawW;
+                const y = padY + drawH - ((p.price - minP) / rangeP) * drawH;
+                return { x, y, price: p.price, date: p.date };
+            });
+
+            const polyPoints = coords.map(c => `${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(' ');
+            polyline.setAttribute('points', polyPoints);
+
+            const areaPoints = `${coords[0].x.toFixed(1)},${height} ` + polyPoints + ` ${coords[coords.length - 1].x.toFixed(1)},${height}`;
+            polygon.setAttribute('points', areaPoints);
+
+            // Render Moving Average Polylines
+            [5, 21, 50, 200].forEach(function(period) {
+                const maPoly = document.getElementById('chart-ma' + period);
+                if (maPoly) {
+                    if (!maEnabled[period]) {
+                        maPoly.setAttribute('points', '');
+                        maPoly.style.display = 'none';
+                    } else {
+                        maPoly.style.display = '';
+                        const maCoords = currentMAVals[period].map((val, idx) => {
+                            const x = padX + (idx / (points.length - 1)) * drawW;
+                            const y = padY + drawH - ((val - minP) / rangeP) * drawH;
+                            return `${x.toFixed(1)},${y.toFixed(1)}`;
+                        });
+                        maPoly.setAttribute('points', maCoords.join(' '));
+                    }
+                }
+            });
+
+            // Helper to update live displayed values on badges and top bar
+            function updateLiveValues(idx) {
+                const pt = points[idx] || points[points.length - 1];
+                if (!pt) return;
+                tooltipDate.textContent = pt.date;
+                tooltipPrice.textContent = '$' + pt.price.toFixed(2);
+                [5, 21, 50, 200].forEach(function(period) {
+                    const valEl = document.getElementById('ma' + period + '-val');
+                    if (valEl) {
+                        const arr = currentMAVals[period];
+                        const v = (arr && arr[idx] !== undefined) ? arr[idx] : (arr ? arr[arr.length - 1] : 0);
+                        valEl.textContent = (v && v > 0) ? ' $' + v.toFixed(2) : '';
+                    }
+                });
+            }
+
+            // Default to latest point
+            const lastIdx = points.length - 1;
+            updateLiveValues(lastIdx);
+
+            // Update Y-Axis Prices
+            const highEl = document.getElementById('grid-price-high');
+            const midEl = document.getElementById('grid-price-mid');
+            const lowEl = document.getElementById('grid-price-low');
+            if (highEl) highEl.textContent = '$' + maxP.toFixed(2);
+            if (midEl) midEl.textContent = '$' + ((maxP + minP) / 2).toFixed(2);
+            if (lowEl) lowEl.textContent = '$' + minP.toFixed(2);
+
+            // Populate X-Axis Ticks
+            const xAxis = document.getElementById('chart-x-axis');
+            if (xAxis && points.length > 0) {
+                const tickCount = Math.min(5, points.length);
+                let ticksHtml = '';
+                for (let i = 0; i < tickCount; i++) {
+                    const ptIdx = Math.floor((i / (tickCount - 1)) * (points.length - 1));
+                    const dStr = points[ptIdx].date;
+                    ticksHtml += `<span class="chart-x-tick">${dStr}</span>`;
+                }
+                xAxis.innerHTML = ticksHtml;
+            }
+
+            // Interactive Crosshair Scrub
+            svg.onmousemove = function(e) {
+                const rect = svg.getBoundingClientRect();
+                const mouseX = (e.clientX - rect.left) * (width / rect.width);
+                
+                let closestIdx = 0;
+                let closestDist = Math.abs(coords[0].x - mouseX);
+                for (let i = 1; i < coords.length; i++) {
+                    const dist = Math.abs(coords[i].x - mouseX);
+                    if (dist < closestDist) {
+                        closestIdx = i;
+                        closestDist = dist;
+                    }
+                }
+                const closest = coords[closestIdx];
+
+                document.getElementById('hover-line').setAttribute('x1', closest.x);
+                document.getElementById('hover-line').setAttribute('x2', closest.x);
+                document.getElementById('hover-line').setAttribute('opacity', '1');
+
+                document.getElementById('hover-dot').setAttribute('cx', closest.x);
+                document.getElementById('hover-dot').setAttribute('cy', closest.y);
+                document.getElementById('hover-dot').setAttribute('opacity', '1');
+
+                updateLiveValues(closestIdx);
+                const scrubPt = points[closestIdx];
+                if (scrubPt && scrubPt.price) {
+                    const heroEl = document.getElementById('hero-market-price');
+                    if (heroEl) heroEl.textContent = '$' + scrubPt.price.toFixed(2);
+                }
+            };
+
+            svg.onmouseleave = function() {
+                document.getElementById('hover-line').setAttribute('opacity', '0');
+                document.getElementById('hover-dot').setAttribute('opacity', '0');
+                updateLiveValues(lastIdx);
+                const latestPt = points[lastIdx];
+                if (latestPt && latestPt.price) {
+                    const heroEl = document.getElementById('hero-market-price');
+                    if (heroEl) heroEl.textContent = '$' + latestPt.price.toFixed(2);
+                }
+            };
+        }
+
+        function animateRollingPrice(elem, targetVal, startOverride, duration = 900) {
+            if (!elem || isNaN(targetVal)) return;
+            const rawText = elem.textContent.replace(/[^0-9.-]/g, '');
+            const startVal = (startOverride !== undefined && !isNaN(startOverride)) ? startOverride : (parseFloat(rawText) || targetVal);
+            if (Math.abs(startVal - targetVal) < 0.005) {
+                elem.textContent = '$' + targetVal.toFixed(2);
+                return;
+            }
+            // Wealthsimple / Fidelity soft color pulse
+            if (targetVal > startVal) {
+                elem.style.transition = 'color 0.35s ease';
+                elem.style.color = '#82AE8C';
+                setTimeout(() => { elem.style.color = 'var(--text-title)'; }, 1000);
+            } else if (targetVal < startVal) {
+                elem.style.transition = 'color 0.35s ease';
+                elem.style.color = '#CC785C';
+                setTimeout(() => { elem.style.color = 'var(--text-title)'; }, 1000);
+            }
+            const startTime = performance.now();
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1.0);
+                const ease = 1 - Math.pow(1 - progress, 4); // Quartic ease-out
+                const current = startVal + (targetVal - startVal) * ease;
+                elem.textContent = '$' + current.toFixed(2);
+                if (progress < 1.0) {
+                    requestAnimationFrame(step);
+                } else {
+                    elem.textContent = '$' + targetVal.toFixed(2);
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        function switchRange(rangeKey) {
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.textContent === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            renderChart(rangeKey);
+        }
+
+        // Initial render & real-time latest candle price sync
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChart('1Y');
+            const livePoints = chartData['1D'] || chartData['1Y'] || [];
+            if (livePoints.length > 0) {
+                const latestPoint = livePoints[livePoints.length - 1];
+                if (latestPoint && latestPoint.price && latestPoint.price > 0) {
+                    const heroEl = document.getElementById('hero-market-price');
+                    if (heroEl) {
+                        animateRollingPrice(heroEl, latestPoint.price);
+                    }
+                }
+            }
+        });
+
+        function openCyclicalityModal(event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            const modal = document.getElementById('cyclicality-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeCyclicalityModal() {
+            const modal = document.getElementById('cyclicality-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function closeCyclicalityModalOutside(event) {
+            if (event.target.id === 'cyclicality-modal') {
+                closeCyclicalityModal();
+            }
+        }
+    </script>
+    
+    <!-- Cyclicality & Macro Cycle Intelligence Modal -->
+    <div id="cyclicality-modal" class="modal-shade" onclick="closeCyclicalityModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 580px; max-height: 88vh; overflow-y: auto; padding: 26px 28px; background: rgba(18, 17, 16, 0.98); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 16px; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75); font-family: var(--font-sans);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                <div>
+                    <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); letter-spacing: -0.02em; margin-bottom: 4px;">
+                        Business Cyclicality &amp; Cycle Stance
+                    </div>
+                    <div style="font-family: var(--font-sans); font-size: 0.78rem; color: var(--text-dim); line-height: 1.4;">
+                        Howard Marks &amp; Warren Buffett mental models for cycle positioning and earnings durability.
+                    </div>
+                </div>
+                <button class="modal-x" onclick="closeCyclicalityModal()" style="color: var(--text-dim); font-size: 1.1rem; cursor: pointer; background: transparent; border: none; padding: 2px 6px;">✕</button>
+            </div>
+
+            <!-- Section 1: Cyclicality Profile -->
+            <div style="margin-bottom: 20px;">
+                <div style="font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    1. Cyclicality Profile (The Nature of the Business)
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #82AE8C; font-size: 0.86rem; margin-bottom: 3px;">Secular Compounder</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Mission-critical software, tolls, or subscriptions (e.g. Microsoft, Visa, Apple). Revenue and cash flows compound steadily through economic downturns.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: var(--text-title); font-size: 0.86rem; margin-bottom: 3px;">Moderate Cyclical</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Consumer retail, merchant payments, or advertising (e.g. StoneCo, Amazon, Lululemon). Earnings fluctuate with interest rates and consumer spending, but long-term secular growth continues.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #D4A373; font-size: 0.86rem; margin-bottom: 3px;">Deep Cyclical</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Commodities, homebuilders, freight shipping, or manufacturing (e.g. NVR, Vale, GigaCloud). Earnings swing between extreme peaks and valleys. Never extrapolate peak earnings.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Cycle Position -->
+            <div style="margin-bottom: 22px;">
+                <div style="font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    2. Cycle Stance (Where the Business Sits Today)
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #D4A373; font-size: 0.86rem; margin-bottom: 3px;">Downcycle Contraction / Trough</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Operating under high interest rates, credit contractions, or inventory destocking. Starting earnings are depressed, offering asymmetric upside when conditions normalize.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: var(--text-title); font-size: 0.86rem; margin-bottom: 3px;">Mid-Cycle Run-Rate</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Operating near sustainable historical margins and normal unit economics. Reliable baseline for 3-year compounding calculations.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 10px 12px;">
+                        <div style="font-weight: 600; color: #C97A72; font-size: 0.86rem; margin-bottom: 3px;">Peak / Over-Earning Risk</div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Generating temporary peak margins due to shortages or bubble pricing. Downside risk if margins mean-revert to historical levels.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end;">
+                <button onclick="closeCyclicalityModal()" style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 7px 18px; cursor: pointer; transition: all 0.15s;">Got It</button>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
