@@ -1,5 +1,59 @@
 [
   {
+    "id": "alert-uber-1789517452",
+    "ticker": "UBER",
+    "timestamp": "2026-09-16 00:10",
+    "title": "UBER: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "High Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "SEC 8-K Filing (2026-09-15): Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001552781-26-000486]",
+    "what_was_before": "In stark contrast to the bear thesis, Uber's operational engine is currently firing on all cylinders, demonstrating robust sequential growth and unprecedented cash generation. In the latest quarter (Q2 2026), Uber's Monthly Active Platform Consumers (MAPCs) scaled to 208 million globally, while total trips reached a record 3.9 billion, representing an 18% year-over-year increase. This volume drove Gross Bookings of $58.02 billion, yielding a reported revenue take-rate of approximately 24.5% and translating to a quarterly revenue of $14,191.0M. On an annualized basis, Uber is operating at a revenue run-rate of $56,764.0M, with a stable gross margin of 35.4%.\n\nFinancially, Uber has successfully transitioned into a highly cash-generative enterprise, with trailing twelve-month free cash flow surpassing $10.0 billion for the first time. While reported revenue growth was optically compressed by about 800 basis points due to the UK mobility business model restructuring, the underlying unit economics remain highly profitable, with mobility operating margins holding steady at 7.6% of gross bookings. This cash flow has allowed management to aggressively repurchase shares, reducing the diluted share count by approximately 2% year-over-year, while simultaneously funding strategic initiatives.\n\nHowever, capital allocation is becoming increasingly complex. Uber has committed to a massive $10 billion autonomous vehicle partnership and investment framework to secure its position as the primary software orchestration layer for self-driving fleets. Additionally, the company announced a voluntary public takeover of Delivery Hero for \u20ac13 billion, which will require significant cash outlay and integration effort. While these moves solidify Uber's market dominance, they also introduce capital-intensive elements that challenge its historical asset-light platform narrative.",
+    "what_changes_now": "In operational reality, Uber's multi-sided network continues to demonstrate resilient scale economies and high cash conversion across both core pillars. In the latest audited quarterly cycle, the platform facilitated 3.87 billion completed trips (+18% YoY) across 208 million Monthly Active Platform Consumers (+16% YoY). Gross bookings expanded 22% in constant currency to $58,022.0M, generating $14,191.0M in quarterly net revenue (an annualized run-rate of $56,764.0M) while defending a 44.9% gross margin.\n\nWhile reported revenue growth of 12.2% was optically dampened by UK statutory driver payment reclassifications (~400 bps drag on reported Mobility take-rate), underlying marketplace profitability expanded sharply. Uber One membership surpassed 53 million subscribers (driving over 50% of consolidated bookings and 70% of delivery volume), dramatically dampening customer acquisition costs and lifting frequency. Concurrently, high-margin advertising revenue surpassed a $1.2 billion run-rate at ~75%+ incremental margins, insulating overall take-rates.\n\nOn true cash generation, normalized trailing twelve-month Free Cash Flow surpassed $10.0 billion. Constraining physical CapEx strictly below 1.5% of net revenue enabled the business to generate $8,160.0M in normalized Owner Earnings (fully expensing $2,080.0M in SBC dilution), confirming that marketplace liquidity and demand density continue to outpace commercial insurance friction.",
+    "price_at_alert": 71.43,
+    "price_change_pct": -9.35,
+    "report_url": "reports/UBER.html"
+  },
+  {
+    "id": "alert-dhi-1789517283",
+    "ticker": "DHI",
+    "timestamp": "2026-09-16 00:08",
+    "title": "DHI: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "SEC 8-K Filing (2026-09-15): Item 8.01: Other Material Events [Accession #0000882184-26-000108]",
+    "what_was_before": "D.R. Horton's operational execution over the last three to four quarters demonstrates remarkable volume resilience and strict cost control despite a challenging macroeconomic backdrop. During Q3 FY26, the company closed 23,983 homes, representing a 3.6% increase YoY, bringing total 9M FY26 closings to 61,287 units. While average selling prices softened slightly by 2.0% YoY to $362,000, the company's entry-level focus allowed it to capture the deepest pool of buyer demand, pushing annualized revenue run-rates to $36,908.4M.\n\nCrucially, home sales gross margins stabilized at 20.7% in Q3 FY26 as stick-and-brick construction costs fell 5% YoY, offsetting persistent mid-single-digit lot cost inflation. Management has maintained disciplined overhead control, holding homebuilding SG&A to 8.3% of revenue while generating steady operating cash flows. Capital allocation remains shareholder-friendly, with DHI deploying over $2.2 billion into share repurchases across the first nine months of FY26 alone, driving book value per share up 5% YoY to $84.85.",
+    "what_changes_now": "Operationally, D.R. Horton demonstrated resilient volume throughput in Q3 FY2026, closing 23,983 homes and generating $9,200.0M in consolidated revenue (-0.3% YoY), representing an annualized revenue run-rate of $36,800.0M. Trailing twelve-month revenue stands at $33,330.0M. Consolidated home sales gross margin held at 20.7%, supported by stick-and-brick cost reductions (-2% YoY) and shorter construction cycle times (down to 4.2 months), which offset persistent mortgage buydown incentives.\n\nUnit monetization reflects measured deflation, with average closing price (ASP) at $362,900 per home closed (-2% YoY) as DHI strategically pivots to smaller, affordable floor plans. Net sales orders were flat at 23,084 homes (~23,000 units), while quarterly cancellation rates rose to 20% due to qualification hurdles. Operating cash flow remains strong, generating $3,400.0M on a trailing twelve-month basis.\n\nManagement continues disciplined balance sheet management. DHI repurchased $615.7M of stock in Q3 FY2026 ($2.2B over nine months) and paid $127.1M in dividends ($0.45/share quarterly), reducing share count to 283.0M. Book value per share rose 5% YoY to $84.85. DHI's land-light pivot is robust, with 78% of total pipeline lots controlled via purchase contracts rather than owned, securing an audited Owner ROIC of 10.5%.",
+    "price_at_alert": 140.2,
+    "price_change_pct": -4.25,
+    "report_url": "reports/DHI.html"
+  },
+  {
+    "id": "alert-deck-1789517107",
+    "ticker": "DECK",
+    "timestamp": "2026-09-16 00:05",
+    "title": "DECK: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 8-K Filing (2026-09-15): Item 5.07 [Accession #0000910521-26-000026]",
+    "what_was_before": "Despite intense macroeconomic scrutiny, Deckers' operational reality demonstrates steady execution and resilient brand equity. In Q1 FY27, net sales reached $1,020.0M (+5.7% YoY), establishing a real-time annualized run-rate baseline of $4,078.1M. HOKA generated $703.5M (+7.7% YoY) propelled by international wholesale and DTC strength, while UGG delivered $278.0M (+4.9% YoY) via non-seasonal lifestyle diversification. Direct-to-consumer outpaced wholesale across the portfolio (+13.0% DTC vs. +2.2% wholesale), lifting DTC channel mix to ~35%.\n\nProfitability remains exceptionally solid, with gross margins holding at 56.4% due to disciplined full-price sell-through and a 5% YoY reduction in channel inventory to $808.0M. Operating cash flow generation reached $128.5M, supporting an audited Owner ROIC of 99.9%. Deckers maintains a fortress balance sheet with $1,602.6M in cash and zero funded debt, deploying $338.2M to repurchase 3.3 million shares in Q1 alone ($1.4B repurchased over the trailing four quarters). International markets continue posting double-digit gains, offsetting normalized domestic wholesale reorders.",
+    "what_changes_now": "Deckers' sequential operational delivery directly contradicts the narrative of fundamental impairment. In Q1 FY2027, the company surpassed the $1B revenue milestone for its seasonally smallest quarter, generating $1,019.5M in net sales (+5.7% YoY). HOKA generated $703.5M (+7.7% YoY) and UGG generated $278.0M (+4.9% YoY). Channel mix proved exceptionally resilient: Direct-to-Consumer (DTC) sales expanded +13.0% YoY to $352.8M (with DTC comp sales up +6.8%), confirming that organic consumer pull and full-price realization remain intact despite controlled wholesale allocation (+2.2% YoY to $666.7M).\n\nProfitability and cash conversion remain at the top tier of global consumer franchises. Consolidated gross margin expanded +60 bps YoY in Q1 FY2027 to 56.4%, driven by favorable DTC channel mix and tight inventory management, with total inventory declining 4.9% YoY to $807.6M. Deckers produced $155.3M in quarterly operating income (15.2% operating margin in a seasonally low period), sustaining a trailing twelve-month operating margin of 22.6%\u2014dramatically outpacing legacy peers such as Nike (11.8%) and On Holding (11.5%).\n\nCapital allocation continues to accelerate per-share compounding. Deckers holds $1.603B in cash and equivalents with zero funded debt. Management deployed $338.2M to repurchase shares during Q1 FY2027 alone, reducing the diluted share count to 138.56M. Full-year FY2027 revenue guidance was reaffirmed at high-single-digit growth ($5.86B\u2013$5.91B) while diluted EPS guidance was raised to $7.35\u2013$7.50, demonstrating that the operational baseline is stabilizing at healthy compounder levels.",
+    "price_at_alert": 77.51,
+    "price_change_pct": -3.28,
+    "report_url": "reports/DECK.html"
+  },
+  {
     "id": "alert-ttd-1789497294",
     "ticker": "TTD",
     "timestamp": "2026-09-15 18:34",
