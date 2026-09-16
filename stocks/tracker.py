@@ -1,5 +1,6 @@
 """Real-time market price tracker and alert surveillance engine."""
 
+import time
 import requests
 import json
 from datetime import datetime, timezone
@@ -17,6 +18,8 @@ TICKER_ALIASES = {
     "AMRQ": ["AMRQF", "AMRQ.L", "AMRQ"],
     "SQ": ["XYZ", "SQ"],
     "XYZ": ["XYZ", "SQ"],
+    "GTT": ["GTT.PA", "GTTZF", "GTT"],
+    "GTT.PA": ["GTT.PA", "GTTZF", "GTT"],
 }
 
 
@@ -263,7 +266,8 @@ def fetch_dividend_yield_cached(ticker: str, current_price: float, max_age_hours
                     div_events = results[0].get("events", {}).get("dividends", {})
                     if div_events:
                         total_div_2y = sum(float(v.get("amount", 0.0)) for v in div_events.values())
-                        annual_div = round(total_div_2y / 2.0, 2)
+                        curr = results[0].get("meta", {}).get("currency", "USD")
+                        annual_div = round(convert_to_usd(total_div_2y / 2.0, curr), 2)
                         break
         except Exception:
             continue
