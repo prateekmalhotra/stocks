@@ -1,5 +1,41 @@
 [
   {
+    "id": "alert-crm-1789670496",
+    "ticker": "CRM",
+    "timestamp": "2026-09-17 18:41",
+    "title": "CRM: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 8-K Filing (2026-09-17): Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001108524-26-000210]",
+    "what_was_before": "Operationally, Salesforce continues to demonstrate massive cash generation and rapid early adoption of its agentic enterprise architecture. In Q2 FY27, total revenue reached $11,345.0M (+11% YoY; 7.5%\u20138.0% organic constant currency), establishing a record annualized run-rate of $45,380.0M. Current Remaining Performance Obligation (cRPO) expanded 14% YoY in constant currency to $33.5 billion, underscoring resilient 12-month enterprise commitments even as multi-year Total RPO experienced a slight sequential pause at $66.3 billion.\n\nThe volume transition to agentic compute is ramping ahead of expectations. Salesforce delivered 3.2 billion Agentic Work Units (AWUs) in Q2 FY27 alone (+97% QoQ), taking cumulative deployments across Agentforce and Slack past 7.0 billion units. Combined AI and Data Cloud ARR reached $3.9 billion (+210% YoY), driven by standalone Agentforce ARR exceeding $1.5 billion. Data 360 ingested 104 trillion enterprise records during the quarter (82 trillion via Zero Copy integrations), reinforcing Salesforce's status as the indispensable transactional system of record.\n\nProfitability and cash flow remain exceptionally solid. Despite 150 basis points of compute-driven gross margin compression (GAAP Gross Margin at 76.6%), non-GAAP operating margin held firm at 34.1%. Management directed its cash generation into aggressive capital returns, completing a $25 billion Accelerated Share Repurchase (ASR) that contracted diluted shares by 15% YoY to 823.0 million, while maintaining regular quarterly dividend distributions of $0.44 per share ($364.0M paid in Q2).",
+    "what_changes_now": "In operational reality, Salesforce is delivering resilient financial performance and accelerating unit consumption across its AI platform. Over the last four consecutive quarters, total revenue expanded from $10,260.0M in Q3 FY26 to $11,345.0M in Q2 FY27, establishing a record annualized revenue run-rate of $45,380.0M. Non-GAAP operating margins remain robust at 34.1%, while current remaining performance obligations (cRPO) grew 14% constant currency YoY to $33.5B, confirming steady enterprise contract momentum.\n\nUnit volume metrics demonstrate rapid adoption of Salesforce's agentic ecosystem. In Q2 FY27 alone, Salesforce delivered 3.2 billion Agentic Work Units (AWUs)\u2014reaching 7.0 billion AWUs cumulative all-time\u2014while token consumption reached 28.6 trillion tokens. Monetization is scaling rapidly, with Agentforce ARR exceeding $1.5B (+240% YoY) and combined AI & Data ARR (Agentforce + Data 360) reaching $3.9B. Enterprise gross retention remains anchored at ~92%, proving that AI capabilities are driving multi-cloud account expansion rather than net seat attrition.\n\nCapital allocation has been aggressively focused on per-share cash flow accretion. The execution of a $25.0B Accelerated Share Repurchase (ASR) program reduced diluted share count from 962M to 821M shares YoY (-14.7%). Despite higher interest expense from debt financing, trailing 12-month free cash flow generation remains elite at over $12.0B, comfortably covering interest obligations and dividend payments.",
+    "price_at_alert": 244.87,
+    "price_change_pct": 17.07,
+    "report_url": "reports/CRM.html"
+  },
+  {
+    "id": "alert-amd-1789669969",
+    "ticker": "AMD",
+    "timestamp": "2026-09-17 18:32",
+    "title": "AMD: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($546.22 >= $538.03)",
+    "what_was_before": "AMD's sequential quarterly performance tracks an aggressive pivot into Data Center compute. Over the last four quarters, revenue expanded from $9,250.0M (Q3 2025) to $10,300.0M (Q4 2025), $10,253.0M (Q1 2026), and reached a record $11,536.0M in Q2 2026 (+50.1% YoY). This yields a real-time annualized run-rate of $46,144.0M. Data Center revenue reached $6,720.0M (+107% YoY), representing 58% of consolidated top-line, driven by 5th Gen EPYC \"Turin\" server CPU adoption and Instinct MI350 accelerator node shipments. Client (Ryzen) grew 23% YoY to $3,100.0M, and Embedded stabilized at $977.0M (+19% YoY), offsetting a 31% YoY drop in Gaming to $779.0M.\n\nOperational cash flows reflect significant working capital absorption. Latest quarter GAAP gross margin landed at 54.0% (56.0% non-GAAP), burdened by lower-margin GPU ramps and High Bandwidth Memory (HBM3e) wafer costs. Q2 2026 operating cash flow of $2,370.0M yielded $1,558.0M in Free Cash Flow as working capital absorbed heavy prepayments for TSMC CoWoS packaging capacity. Management guided Q3 2026 revenue to approximately $13,000.0M (+41% YoY). The balance sheet maintains $13,111.0M in cash and short-term investments against $3,226.0M in total debt, netting $+9,885.0M in net cash ($+5.95 per share).",
+    "what_changes_now": "In operational reality, AMD is executing a fundamental structural pivot into enterprise AI infrastructure. Over the past 3-4 consecutive quarters, consolidated quarterly revenue expanded from $7,685M to $11,536M ($46,144.0M annualized run-rate, up 50% YoY), with GAAP gross margin reaching 54.0% and non-GAAP gross margin reaching 56.0%.\n\nThe expansion is anchored by the Data Center segment, which delivered a record $6,700M in the latest quarter\u2014representing 58% of total company revenue and growing 107% year-over-year. Growth is driven by accelerating cloud/enterprise socket adoption of 5th-Gen EPYC Turin server CPUs alongside scaling shipments of Instinct MI300 and MI350 series AI accelerators. The Client PC segment generated $3,100M (+23% YoY) behind premium Ryzen AI PRO commercial processors. Embedded segment revenue stabilized at $977M, while Gaming contracted 31% YoY to $779M due to console hardware lifecycle maturation.\n\nTo support this hardware and system expansion\u2014including next-generation Helios rack-scale deployments\u2014AMD is reinvesting aggressively. Quarterly cash operating expenses surged 40% YoY to $3.4 Billion, while quarterly CapEx expanded to $808M to secure leading-edge TSMC advanced packaging (CoWoS-L/SoIC) and HBM3E memory supply buffers. The balance sheet maintains $+9,885M in net cash ($+5.95/share), providing solid liquidity against capital-intensive supply commitments.",
+    "price_at_alert": 546.34,
+    "price_change_pct": 16.78,
+    "report_url": "reports/AMD.html"
+  },
+  {
     "id": "alert-nke-1789604211",
     "ticker": "NKE",
     "timestamp": "2026-09-17 00:16",

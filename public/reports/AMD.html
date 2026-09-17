@@ -1032,11 +1032,11 @@
                         <div class="ticker-header-line">
                             <span class="ticker-symbol">AMD</span>
                         </div>
-                        <div class="company-name-meta">Advanced Micro Devices, Inc. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-warm); font-weight: 500;">Narrow Moat</span> <span class="meta-sep">·</span> <span style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 400;">Procedural Switching Costs & Architecture Scale Economies (Global)</span></div>
+                        <div class="company-name-meta">Advanced Micro Devices, Inc. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-warm); font-weight: 500;">Narrow Moat</span></div>
                     </div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number" id="hero-market-price">$467.85</div>
+                    <div class="price-number" id="hero-market-price">$546.34</div>
                     <div class="price-sub">Market Price</div>
                 </div>
             </div>
@@ -1048,7 +1048,7 @@
                         <div class="chart-live-val">
                             <span id="tooltip-date">Sep 15, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$504.20</strong>
                             <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
-                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$158.79</strong></span>
+                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$130.42</strong></span>
                         </div>
                         <!-- Moving Average Live Indicators -->
                         <div class="ma-legend-bar">
@@ -1097,7 +1097,7 @@
                         
                         <!-- 3Y Target Dotted Line & Tag -->
                         <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
-                        <text id="target-label" x="18" y="8" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $158.79</text>
+                        <text id="target-label" x="18" y="8" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $130.42</text>
 
                         <!-- Moving Average Lines (200, 50, 21, 5) -->
                         <polyline id="chart-ma200" fill="none" stroke="#E879F9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
@@ -1122,27 +1122,27 @@
             <div class="metrics-grid">
                 <div class="metric-card">
                     <span class="metric-label">Owner Earnings (TTM)</span>
-                    <span class="metric-value" style="color: var(--text-title);">$3.94 / sh</span>
-                    <span class="metric-sub">$6,548M total (ex-SBC)</span>
+                    <span class="metric-value" style="color: var(--text-title);">$3.51 / sh</span>
+                    <span class="metric-sub">$5,824M total (ex-SBC)</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">P / Owner Earnings</span>
-                    <span class="metric-value" style="color: var(--text-title);">118.7x</span>
-                    <span class="metric-sub">Market Cap: $777,099M</span>
+                    <span class="metric-value" style="color: var(--text-title);">>150x</span>
+                    <span class="metric-sub">Market Cap: $906,924M</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">EV / Owner Earnings</span>
-                    <span class="metric-value" style="color: var(--text-title);">117.2x</span>
-                    <span class="metric-sub">Enterprise Value: $767,214M</span>
+                    <span class="metric-value" style="color: var(--text-title);">>150x</span>
+                    <span class="metric-sub">Enterprise Value: $897,039M</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner Cash Yield</span>
-                    <span class="metric-value" style="color: var(--accent-green);">0.8%</span>
+                    <span class="metric-value" style="color: var(--accent-green);">0.6%</span>
                     <span class="metric-sub">Starting Free Cash Flow Yield</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner ROIC</span>
-                    <span class="metric-value" style="color: var(--text-title);">11.2%</span>
+                    <span class="metric-value" style="color: var(--text-title);">9.9%</span>
                     <span class="metric-sub">OE / Invested Capital</span>
                 </div>
                 <div class="metric-card">
@@ -1172,8 +1172,8 @@
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('thesis', this)">Investment Thesis</button>
-            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">0</span></button>
-            <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">0</span></button>
+            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">1</span></button>
+            <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">1</span></button>
             <button class="nav-tab" onclick="switchTab('ownership', this)">Ownership & Fund Intel</button>
         </div>
 
@@ -1185,15 +1185,300 @@
                         <span class="section-index">01</span>
                         <h2 class="memo-title">What the Market is Pricing In</h2>
                     </div>
-                    <div class="memo-body"><p class="memo-para">At the quoted price of $467.85 per share, Mr. Market is pricing AMD at 118.7x Normalized Owner Earnings (0.8% Owner Cash Yield) and 117.2x Enterprise Value to Owner Earnings. This extraordinary multiple implies an unblemished multi-year hyper-growth path where AMD frictionlessly captures dominant market share in Data Center AI hardware and server CPUs, expands gross margins beyond 65%, and scales revenue past $100 billion without encountering structural foundry bottlenecks or competitive retaliation.</p>
-<p class="memo-para">This valuation completely ignores severe underlying operational frictions. The market is capitalizing top-line hyperscaler rack announcements as pure high-margin profit, while brushing aside lower-margin Instinct GPU node ramps, escalating TSMC 2-nanometer wafer costs, double-digit revenue decay in semi-custom gaming consoles, and potential share dilution from customer performance warrants (such as the 160-million-share warrant grant structure). Furthermore, Wall Street is pricing zero risk of disintermediation from internal customer custom ASICs (AWS Trainium, Google TPU, Meta MTIA) or Nvidia's integrated Grace/Vera CPUs.</p></div>
+                    <div class="memo-body"><p class="memo-para">At today's quoted price of $546.34 (155.7x P/OE and 154.0x EV/OE), Mr. Market is pricing in flawless long-term execution, unconstrained market share gains against NVIDIA in frontier AI accelerators, and dramatic corporate margin expansion. The stock trades at an implied Owner Cash Yield of just 0.6%, signaling that investors expect AMD to capture a massive portion of the projected $1.4 Trillion AI data center addressable market while maintaining hyper-growth across its core EPYC server and Ryzen PC platforms.</p>
+<p class="memo-para">However, sell-side bear notes and institutional analysts view this valuation as dangerously detached from fundamental unit economics. Skeptics highlight that non-GAAP gross margins remain capped at 56.0% because lower-margin Instinct AI GPU platforms and complex rack-scale Helios designs dilute corporate profitability. Simultaneously, non-AI segments face macro structural drag, with Gaming collapsing 31% YoY due to late-cycle console decay, while annual operating expenses expand 40% YoY to support non-discretionary tape-outs. Hyperscalers are also aggressively deploying custom internal ASICs (Google TPU, AWS Trainium, Meta MTIA), directly threatening merchant GPU long-term wallet share.</p></div>
                 </section>
                 <section class="memo-section">
                     <div class="section-header">
                         <span class="section-index">02</span>
                         <h2 class="memo-title">Why the Market Might Be Right</h2>
                     </div>
-                    <div class="memo-body"><div class="math-steps-ledger">
+                    <div class="memo-body"><p class="memo-para">A rigorous downside audit requires examining the structural bear case, where hyperscaler custom silicon disintermediation accelerates and merchant accelerator pricing power compresses.</p>
+<p class="memo-para">Under this scenario, operational deleverage compresses owner cash flows, driving multiples back to mature hardware cycles.</p>
+<div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Baseline</div>
+                        <div class="math-step-body">Starting normalized Owner Earnings of $3.51/share ($5,824.0M total based on OCF cash reconciliation, treating SBC as real dilution expense) after subtracting $1,912.0M in stock-based compensation and $1,677.0M in maintenance CapEx, backed by net balance sheet cash of $+5.95/share ($+9,885M total).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Forensic Business Headwinds</div>
+                        <div class="math-step-body">Materialization of hyperscaler disintermediation as major cloud providers shift inference workloads to custom internal ASICs (designed with Broadcom and Marvell), combined with aggressive price discounting by NVIDIA and severe structural contraction in semi-custom console gaming SoC volumes.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Skeptic Unit Contraction</div>
+                        <div class="math-step-body">Instinct AI GPU and EPYC server CPU volume expansion stalls under custom ASIC competition, while Gaming revenue contracts further. Consolidated revenue shrinks from the current $46,144.0M annualized run-rate down to $38,000.0M in Year</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">4. Reverse Operating Leverage & Cash Degradation</div>
+                        <div class="math-step-body">Fixed R&D and software operating expenses prove sticky, compressing non-GAAP gross margins down to 51.0% ($19,380.0M gross profit). With cash OpEx absorbing $14,000.0M, pre-tax operating income falls to $5,380.0M. After 15% statutory tax ($807.0M), $1,400.0M in stock-based compensation, and $1,347.0M in non-discretionary maintenance CapEx, degraded Skeptic Year-3 Owner Earnings fall to $1.10/share ($1,826.0M total across 1,660.0M diluted shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Downside Risk Valuation Floor</div>
+                        <div class="math-step-body">Capitalizing degraded Year-3 Owner Earnings of $1.10/share at an 8.0x P/OE multiple (strictly following the Narrow Moat matrix for Stagnant/Contracting growth g₃ < 3%) yields $8.80/share in capitalized business operating value. Adding ending net balance sheet cash of $6.20/share results in a Downside Floor Target of $15.00/share.</div>
+                    </div>
+                </div></div></div>
+                </section>
+                <section class="memo-section">
+                    <div class="section-header">
+                        <span class="section-index">03</span>
+                        <h2 class="memo-title">How Things Are Going Now</h2>
+                    </div>
+                    <div class="memo-body"><p class="memo-para">In operational reality, AMD is executing a fundamental structural pivot into enterprise AI infrastructure. Over the past 3-4 consecutive quarters, consolidated quarterly revenue expanded from $7,685M to $11,536M ($46,144.0M annualized run-rate, up 50% YoY), with GAAP gross margin reaching 54.0% and non-GAAP gross margin reaching 56.0%.</p>
+<p class="memo-para">The expansion is anchored by the Data Center segment, which delivered a record $6,700M in the latest quarter—representing 58% of total company revenue and growing 107% year-over-year. Growth is driven by accelerating cloud/enterprise socket adoption of 5th-Gen EPYC Turin server CPUs alongside scaling shipments of Instinct MI300 and MI350 series AI accelerators. The Client PC segment generated $3,100M (+23% YoY) behind premium Ryzen AI PRO commercial processors. Embedded segment revenue stabilized at $977M, while Gaming contracted 31% YoY to $779M due to console hardware lifecycle maturation.</p>
+<p class="memo-para">To support this hardware and system expansion—including next-generation Helios rack-scale deployments—AMD is reinvesting aggressively. Quarterly cash operating expenses surged 40% YoY to $3.4 Billion, while quarterly CapEx expanded to $808M to secure leading-edge TSMC advanced packaging (CoWoS-L/SoIC) and HBM3E memory supply buffers. The balance sheet maintains $+9,885M in net cash ($+5.95/share), providing solid liquidity against capital-intensive supply commitments.</p></div>
+                </section>
+                <section class="memo-section">
+                    <div class="section-header" style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                        <div style="display: flex; align-items: baseline; gap: 12px;">
+                            <span class="section-index">04</span>
+                            <h2 class="memo-title">What If It Keeps Going That Way</h2>
+                        </div>
+                        <div class="section-predictability-meta" style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-family: var(--font-sans);">
+                            <span class="pred-indicator" style="color: var(--text-secondary); font-weight: 600;">Moderate Predictability</span>
+                            <span class="pred-sep" style="color: var(--text-dim);">·</span>
+                            <span class="pred-subtext" style="color: var(--text-secondary); font-weight: 400;">Manageable Visibility · Moat Protected</span>
+                        </div>
+                    </div>
+                    <div class="memo-body"><p class="memo-para">Extrapolating current operational momentum through a disciplined bottom-up unit model provides a realistic visible runway for revenue, cash conversion, and intrinsic fair value.</p>
+<p class="memo-para">This framework avoids generic top-down CAGR assumptions and enforces strict valuation discipline based on audited owner return metrics.</p>
+<div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Unit Baseline</div>
+                        <div class="math-step-body">Exact starting annualized run-rate revenue of $46,144.0M, anchored by Data Center segment quarterly revenue of $6,700.0M ($26,800.0M annualized, 58% of total), Client segment revenue of $3,100.0M ($12,400.0M annualized), Embedded revenue of $977.0M ($3,908.0M annualized), and Gaming revenue of $779.0M ($3,116.0M annualized).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">3-Year Unit Volume Extrapolation</div>
+                        <div class="math-step-body">Over the 3-Year Visible Runway, Data Center revenue expands from $26,800.0M run-rate to $54,000.0M in Year 3 as EPYC server CPUs and Instinct MI350/MI450 accelerators ramp across hyperscalers. Client grows to $14,500.0M, Embedded recovers to $4,800.0M, and Gaming stabilizes at $2,700.0M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Projected Year 3 Revenue (Units × Monetization)</div>
+                        <div class="math-step-body">Summing all operational segments yields Projected Year 3 Total Revenue of $76,000.0M ($54,000M + $14,500M + $4,800M + $2,700M).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
+                        <div class="math-step-body">Applying a non-GAAP gross margin of 55.5% yields $42,180.0M in gross profit. Deducting $22,500.0M in cash operating expenses leaves $19,680.0M in pre-tax operating income. Subtracting 15% statutory taxes ($2,952.0M), $3,100.0M in real stock-based compensation dilution expense, and $2,700.0M in non-discretionary maintenance CapEx results in Projected Year 3 Total Owner Earnings of $10,928.0M (14.4% Owner Cash Margin, or $6.58/share on 1,660.0M diluted shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
+                        <div class="math-step-body">Starting Net Cash of $+9,885.0M + Cumulative 3Y Free Cash Flow of $23,500.0M - Cumulative Share Buybacks of $5,000.0M - Cumulative Growth CapEx of $8,500.0M = Ending Year 3 Net Cash of $19,885.0M ($11.98/share).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Intrinsic Fair Value Target & Expected 3-Year Return</div>
+                        <div class="math-step-body">Year 3 Owner Earnings YoY growth rate reaches g₃ = +18.8% YoY (expanding from $9,200.0M in Year 2 to $10,928.0M in Year 3). Applying the 2-Factor Exit Multiple Matrix for a Narrow Moat business with Rapid Compounding (g₃ > 15%) dictates an 18.0x P/OE exit multiple. Capitalizing Year 3 Owner Earnings of $6.58/share at 18.0x yields $118.44/share in capitalized operating value. Adding Ending Net Cash of $11.98/share delivers an Intrinsic Expected Fair Value Target of $130.42/share. At today's market price of $546.34, this implies an expected 3-year annualized return (IRR) of -37.8% per annum, triggering an unambiguous AVOID rating.</div>
+                    </div>
+                </div></div></div>
+                </section>
+            </main>
+        </div>
+
+        <!-- TAB 2: Thesis Evolution & Version History -->
+        <div id="tab-evolution" class="tab-pane">
+            <div class="memo-container">
+                <h2 class="memo-title" style="margin-bottom: 24px;">Thesis Evolution & Historical Audits</h2>
+                <div class="evolution-timeline">
+                    
+            <div class="evolution-card active-version-card">
+                <div class="evolution-header">
+                    <div class="evolution-title-row">
+                        <span class="evolution-vnum">Version 2</span>
+                        <span class="evolution-status-text status-active">Live Active</span>
+                        <span class="evolution-date">· 2026-09-17</span>
+                    </div>
+                    <div class="evolution-price">Snapshot Price: <strong>$546.34</strong></div>
+                </div>
+                <div class="evolution-reason">
+                    <span class="reason-label">Trigger / Reason:</span> Upper Alert Threshold Breached ($546.22 >= $538.03)
+                </div>
+                <div class="evolution-metrics-text-row">
+                    <span>OE: <strong>$3.51/sh</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>P/OE: <strong>155.7x</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>ROIC: <strong>9.9%</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>Moat: <strong>Narrow Moat</strong></span>
+                </div>
+                <div class="evolution-change-text">In operational reality, AMD is executing a fundamental structural pivot into enterprise AI infrastructure. Over the past 3-4 consecutive quarters, consolidated quarterly revenue expanded from $7,685M to $11,536M ($46,144.0M annualized run-rate, up 50% YoY), with GAAP gross margin reaching 54.0% and non-GAAP gross margin reaching 56.0%.
+
+The expansion is anchored by the Data Center segment, which delivered a record $6,700M in the latest quarter—representing 58% of total company revenue and growing 107% year-over-year. Growth is driven by accelerating cloud/enterprise socket adoption of 5th-Gen EPYC Turin server CPUs alongside scaling shipments of Instinct MI300 and MI350 series AI accelerators. The Client PC segment generated $3,100M (+23% YoY) behind premium Ryzen AI PRO commercial processors. Embedded segment revenue stabilized at $977M, while Gaming contracted 31% YoY to $779M due to console hardware lifecycle maturation.
+
+To support this hardware and system expansion—including next-generation Helios rack-scale deployments—AMD is reinvesting aggressively. Quarterly cash operating expenses surged 40% YoY to $3.4 Billion, while quarterly CapEx expanded to $808M to secure leading-edge TSMC advanced packaging (CoWoS-L/SoIC) and HBM3E memory supply buffers. The balance sheet maintains $+9,885M in net cash ($+5.95/share), providing solid liquidity against capital-intensive supply commitments.</div>
+                <details class="archived-accordion">
+                    <summary class="archived-summary">Inspect Thesis Memo (v2)</summary>
+                    <div class="archived-content-body">
+                        
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">1. What the Market is Pricing In</div>
+                    <div><p class="memo-para">At today's quoted price of $546.34 (155.7x P/OE and 154.0x EV/OE), Mr. Market is pricing in flawless long-term execution, unconstrained market share gains against NVIDIA in frontier AI accelerators, and dramatic corporate margin expansion. The stock trades at an implied Owner Cash Yield of just 0.6%, signaling that investors expect AMD to capture a massive portion of the projected $1.4 Trillion AI data center addressable market while maintaining hyper-growth across its core EPYC server and Ryzen PC platforms.</p>
+<p class="memo-para">However, sell-side bear notes and institutional analysts view this valuation as dangerously detached from fundamental unit economics. Skeptics highlight that non-GAAP gross margins remain capped at 56.0% because lower-margin Instinct AI GPU platforms and complex rack-scale Helios designs dilute corporate profitability. Simultaneously, non-AI segments face macro structural drag, with Gaming collapsing 31% YoY due to late-cycle console decay, while annual operating expenses expand 40% YoY to support non-discretionary tape-outs. Hyperscalers are also aggressively deploying custom internal ASICs (Google TPU, AWS Trainium, Meta MTIA), directly threatening merchant GPU long-term wallet share.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
+                    <div><p class="memo-para">A rigorous downside audit requires examining the structural bear case, where hyperscaler custom silicon disintermediation accelerates and merchant accelerator pricing power compresses.</p>
+<p class="memo-para">Under this scenario, operational deleverage compresses owner cash flows, driving multiples back to mature hardware cycles.</p>
+<div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Baseline</div>
+                        <div class="math-step-body">Starting normalized Owner Earnings of $3.51/share ($5,824.0M total based on OCF cash reconciliation, treating SBC as real dilution expense) after subtracting $1,912.0M in stock-based compensation and $1,677.0M in maintenance CapEx, backed by net balance sheet cash of $+5.95/share ($+9,885M total).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Forensic Business Headwinds</div>
+                        <div class="math-step-body">Materialization of hyperscaler disintermediation as major cloud providers shift inference workloads to custom internal ASICs (designed with Broadcom and Marvell), combined with aggressive price discounting by NVIDIA and severe structural contraction in semi-custom console gaming SoC volumes.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Skeptic Unit Contraction</div>
+                        <div class="math-step-body">Instinct AI GPU and EPYC server CPU volume expansion stalls under custom ASIC competition, while Gaming revenue contracts further. Consolidated revenue shrinks from the current $46,144.0M annualized run-rate down to $38,000.0M in Year</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">4. Reverse Operating Leverage & Cash Degradation</div>
+                        <div class="math-step-body">Fixed R&D and software operating expenses prove sticky, compressing non-GAAP gross margins down to 51.0% ($19,380.0M gross profit). With cash OpEx absorbing $14,000.0M, pre-tax operating income falls to $5,380.0M. After 15% statutory tax ($807.0M), $1,400.0M in stock-based compensation, and $1,347.0M in non-discretionary maintenance CapEx, degraded Skeptic Year-3 Owner Earnings fall to $1.10/share ($1,826.0M total across 1,660.0M diluted shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Downside Risk Valuation Floor</div>
+                        <div class="math-step-body">Capitalizing degraded Year-3 Owner Earnings of $1.10/share at an 8.0x P/OE multiple (strictly following the Narrow Moat matrix for Stagnant/Contracting growth g₃ < 3%) yields $8.80/share in capitalized business operating value. Adding ending net balance sheet cash of $6.20/share results in a Downside Floor Target of $15.00/share.</div>
+                    </div>
+                </div></div></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">3. How Things Are Going Now</div>
+                    <div><p class="memo-para">In operational reality, AMD is executing a fundamental structural pivot into enterprise AI infrastructure. Over the past 3-4 consecutive quarters, consolidated quarterly revenue expanded from $7,685M to $11,536M ($46,144.0M annualized run-rate, up 50% YoY), with GAAP gross margin reaching 54.0% and non-GAAP gross margin reaching 56.0%.</p>
+<p class="memo-para">The expansion is anchored by the Data Center segment, which delivered a record $6,700M in the latest quarter—representing 58% of total company revenue and growing 107% year-over-year. Growth is driven by accelerating cloud/enterprise socket adoption of 5th-Gen EPYC Turin server CPUs alongside scaling shipments of Instinct MI300 and MI350 series AI accelerators. The Client PC segment generated $3,100M (+23% YoY) behind premium Ryzen AI PRO commercial processors. Embedded segment revenue stabilized at $977M, while Gaming contracted 31% YoY to $779M due to console hardware lifecycle maturation.</p>
+<p class="memo-para">To support this hardware and system expansion—including next-generation Helios rack-scale deployments—AMD is reinvesting aggressively. Quarterly cash operating expenses surged 40% YoY to $3.4 Billion, while quarterly CapEx expanded to $808M to secure leading-edge TSMC advanced packaging (CoWoS-L/SoIC) and HBM3E memory supply buffers. The balance sheet maintains $+9,885M in net cash ($+5.95/share), providing solid liquidity against capital-intensive supply commitments.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
+                    <div><p class="memo-para">Extrapolating current operational momentum through a disciplined bottom-up unit model provides a realistic visible runway for revenue, cash conversion, and intrinsic fair value.</p>
+<p class="memo-para">This framework avoids generic top-down CAGR assumptions and enforces strict valuation discipline based on audited owner return metrics.</p>
+<div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Unit Baseline</div>
+                        <div class="math-step-body">Exact starting annualized run-rate revenue of $46,144.0M, anchored by Data Center segment quarterly revenue of $6,700.0M ($26,800.0M annualized, 58% of total), Client segment revenue of $3,100.0M ($12,400.0M annualized), Embedded revenue of $977.0M ($3,908.0M annualized), and Gaming revenue of $779.0M ($3,116.0M annualized).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">3-Year Unit Volume Extrapolation</div>
+                        <div class="math-step-body">Over the 3-Year Visible Runway, Data Center revenue expands from $26,800.0M run-rate to $54,000.0M in Year 3 as EPYC server CPUs and Instinct MI350/MI450 accelerators ramp across hyperscalers. Client grows to $14,500.0M, Embedded recovers to $4,800.0M, and Gaming stabilizes at $2,700.0M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Projected Year 3 Revenue (Units × Monetization)</div>
+                        <div class="math-step-body">Summing all operational segments yields Projected Year 3 Total Revenue of $76,000.0M ($54,000M + $14,500M + $4,800M + $2,700M).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
+                        <div class="math-step-body">Applying a non-GAAP gross margin of 55.5% yields $42,180.0M in gross profit. Deducting $22,500.0M in cash operating expenses leaves $19,680.0M in pre-tax operating income. Subtracting 15% statutory taxes ($2,952.0M), $3,100.0M in real stock-based compensation dilution expense, and $2,700.0M in non-discretionary maintenance CapEx results in Projected Year 3 Total Owner Earnings of $10,928.0M (14.4% Owner Cash Margin, or $6.58/share on 1,660.0M diluted shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
+                        <div class="math-step-body">Starting Net Cash of $+9,885.0M + Cumulative 3Y Free Cash Flow of $23,500.0M - Cumulative Share Buybacks of $5,000.0M - Cumulative Growth CapEx of $8,500.0M = Ending Year 3 Net Cash of $19,885.0M ($11.98/share).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Intrinsic Fair Value Target & Expected 3-Year Return</div>
+                        <div class="math-step-body">Year 3 Owner Earnings YoY growth rate reaches g₃ = +18.8% YoY (expanding from $9,200.0M in Year 2 to $10,928.0M in Year 3). Applying the 2-Factor Exit Multiple Matrix for a Narrow Moat business with Rapid Compounding (g₃ > 15%) dictates an 18.0x P/OE exit multiple. Capitalizing Year 3 Owner Earnings of $6.58/share at 18.0x yields $118.44/share in capitalized operating value. Adding Ending Net Cash of $11.98/share delivers an Intrinsic Expected Fair Value Target of $130.42/share. At today's market price of $546.34, this implies an expected 3-year annualized return (IRR) of -37.8% per annum, triggering an unambiguous AVOID rating.</div>
+                    </div>
+                </div></div></div>
+                </div>
+                
+                    </div>
+                </details>
+            </div>
+            
+            <div class="evolution-card ">
+                <div class="evolution-header">
+                    <div class="evolution-title-row">
+                        <span class="evolution-vnum">Version 1</span>
+                        <span class="evolution-status-text status-archived">Archived</span>
+                        <span class="evolution-date">· 2026-08-28</span>
+                    </div>
+                    <div class="evolution-price">Snapshot Price: <strong>$467.85</strong></div>
+                </div>
+                <div class="evolution-reason">
+                    <span class="reason-label">Trigger / Reason:</span> Genesis Initial Underwriting
+                </div>
+                <div class="evolution-metrics-text-row">
+                    <span>OE: <strong>$3.94/sh</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>P/OE: <strong>118.7x</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>ROIC: <strong>11.2%</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>Moat: <strong>Narrow Moat</strong></span>
+                </div>
+                <div class="evolution-change-text">AMD's sequential quarterly performance tracks an aggressive pivot into Data Center compute. Over the last four quarters, revenue expanded from $9,250.0M (Q3 2025) to $10,300.0M (Q4 2025), $10,253.0M (Q1 2026), and reached a record $11,536.0M in Q2 2026 (+50.1% YoY). This yields a real-time annualized run-rate of $46,144.0M. Data Center revenue reached $6,720.0M (+107% YoY), representing 58% of consolidated top-line, driven by 5th Gen EPYC "Turin" server CPU adoption and Instinct MI350 accelerator node shipments. Client (Ryzen) grew 23% YoY to $3,100.0M, and Embedded stabilized at $977.0M (+19% YoY), offsetting a 31% YoY drop in Gaming to $779.0M.
+
+Operational cash flows reflect significant working capital absorption. Latest quarter GAAP gross margin landed at 54.0% (56.0% non-GAAP), burdened by lower-margin GPU ramps and High Bandwidth Memory (HBM3e) wafer costs. Q2 2026 operating cash flow of $2,370.0M yielded $1,558.0M in Free Cash Flow as working capital absorbed heavy prepayments for TSMC CoWoS packaging capacity. Management guided Q3 2026 revenue to approximately $13,000.0M (+41% YoY). The balance sheet maintains $13,111.0M in cash and short-term investments against $3,226.0M in total debt, netting $+9,885.0M in net cash ($+5.95 per share).</div>
+                <details class="archived-accordion">
+                    <summary class="archived-summary">Inspect Thesis Memo (v1)</summary>
+                    <div class="archived-content-body">
+                        
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">1. What the Market is Pricing In</div>
+                    <div><p class="memo-para">At the quoted price of $467.85 per share, Mr. Market is pricing AMD at 118.7x Normalized Owner Earnings (0.8% Owner Cash Yield) and 117.2x Enterprise Value to Owner Earnings. This extraordinary multiple implies an unblemished multi-year hyper-growth path where AMD frictionlessly captures dominant market share in Data Center AI hardware and server CPUs, expands gross margins beyond 65%, and scales revenue past $100 billion without encountering structural foundry bottlenecks or competitive retaliation.</p>
+<p class="memo-para">This valuation completely ignores severe underlying operational frictions. The market is capitalizing top-line hyperscaler rack announcements as pure high-margin profit, while brushing aside lower-margin Instinct GPU node ramps, escalating TSMC 2-nanometer wafer costs, double-digit revenue decay in semi-custom gaming consoles, and potential share dilution from customer performance warrants (such as the 160-million-share warrant grant structure). Furthermore, Wall Street is pricing zero risk of disintermediation from internal customer custom ASICs (AWS Trainium, Google TPU, Meta MTIA) or Nvidia's integrated Grace/Vera CPUs.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
+                    <div><div class="math-steps-ledger">
                 <div class="math-step-item">
                     <div class="math-step-badge">1</div>
                     <div class="math-step-main">
@@ -1229,28 +1514,15 @@
                         <div class="math-step-body">Capitalizing degraded Owner Earnings of $1.80 per share at a conservative trough multiple of 7.0x P/OE (reflecting Narrow Moat cyclicality) plus $6.50 per share in ending net cash yields a Downside Floor Target of $19.10 per share.</div>
                     </div>
                 </div></div></div>
-                </section>
-                <section class="memo-section">
-                    <div class="section-header">
-                        <span class="section-index">03</span>
-                        <h2 class="memo-title">How Things Are Going Now</h2>
-                    </div>
-                    <div class="memo-body"><p class="memo-para">AMD's sequential quarterly performance tracks an aggressive pivot into Data Center compute. Over the last four quarters, revenue expanded from $9,250.0M (Q3 2025) to $10,300.0M (Q4 2025), $10,253.0M (Q1 2026), and reached a record $11,536.0M in Q2 2026 (+50.1% YoY). This yields a real-time annualized run-rate of $46,144.0M. Data Center revenue reached $6,720.0M (+107% YoY), representing 58% of consolidated top-line, driven by 5th Gen EPYC "Turin" server CPU adoption and Instinct MI350 accelerator node shipments. Client (Ryzen) grew 23% YoY to $3,100.0M, and Embedded stabilized at $977.0M (+19% YoY), offsetting a 31% YoY drop in Gaming to $779.0M.</p>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">3. How Things Are Going Now</div>
+                    <div><p class="memo-para">AMD's sequential quarterly performance tracks an aggressive pivot into Data Center compute. Over the last four quarters, revenue expanded from $9,250.0M (Q3 2025) to $10,300.0M (Q4 2025), $10,253.0M (Q1 2026), and reached a record $11,536.0M in Q2 2026 (+50.1% YoY). This yields a real-time annualized run-rate of $46,144.0M. Data Center revenue reached $6,720.0M (+107% YoY), representing 58% of consolidated top-line, driven by 5th Gen EPYC "Turin" server CPU adoption and Instinct MI350 accelerator node shipments. Client (Ryzen) grew 23% YoY to $3,100.0M, and Embedded stabilized at $977.0M (+19% YoY), offsetting a 31% YoY drop in Gaming to $779.0M.</p>
 <p class="memo-para">Operational cash flows reflect significant working capital absorption. Latest quarter GAAP gross margin landed at 54.0% (56.0% non-GAAP), burdened by lower-margin GPU ramps and High Bandwidth Memory (HBM3e) wafer costs. Q2 2026 operating cash flow of $2,370.0M yielded $1,558.0M in Free Cash Flow as working capital absorbed heavy prepayments for TSMC CoWoS packaging capacity. Management guided Q3 2026 revenue to approximately $13,000.0M (+41% YoY). The balance sheet maintains $13,111.0M in cash and short-term investments against $3,226.0M in total debt, netting $+9,885.0M in net cash ($+5.95 per share).</p></div>
-                </section>
-                <section class="memo-section">
-                    <div class="section-header" style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-                        <div style="display: flex; align-items: baseline; gap: 12px;">
-                            <span class="section-index">04</span>
-                            <h2 class="memo-title">What If It Keeps Going That Way</h2>
-                        </div>
-                        <div class="section-predictability-meta" style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-family: var(--font-sans);">
-                            <span class="pred-indicator" style="color: var(--text-secondary); font-weight: 600;">Moderate Predictability</span>
-                            <span class="pred-sep" style="color: var(--text-dim);">·</span>
-                            <span class="pred-subtext" style="color: var(--text-secondary); font-weight: 400;">Datacenter AI Investment Cycle</span>
-                        </div>
-                    </div>
-                    <div class="memo-body"><div class="math-steps-ledger">
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
+                    <div><div class="math-steps-ledger">
                 <div class="math-step-item">
                     <div class="math-step-badge">1</div>
                     <div class="math-step-main">
@@ -1293,21 +1565,12 @@
                         <div class="math-step-body">With a Year 3 YoY Owner Earnings growth rate of g₃ = 17.5% (>15% Rapid Compounding), the 2-Factor Matrix for Narrow Moat dictates an exit multiple range of 15.0x–18.0x P/OE. Applying the midpoint multiple of 16.5x P/OE to Year 3 OE of $8.88/sh yields $146.52/sh, plus $12.27/sh ending net cash, resulting in an Expected Fair Value Target of $158.79 per share. Compared to today's market price of $467.85, this delivers an expected 3-year annualized return (IRR) of -30.3% per annum, mandating an absolute AVOID signal due to massive multiple compression risk.</div>
                     </div>
                 </div></div></div>
-                </section>
-            </main>
-        </div>
-
-        <!-- TAB 2: Thesis Evolution & Version History -->
-        <div id="tab-evolution" class="tab-pane">
-            <div class="memo-container">
-                <h2 class="memo-title" style="margin-bottom: 24px;">Thesis Evolution & Historical Audits</h2>
-                <div class="evolution-timeline">
-                    
-        <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px 36px; text-align: center;">
-            <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text-title); margin-bottom: 6px;">Genesis Baseline Thesis Active (Version 1)</div>
-            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; max-width: 580px; margin: 0 auto;">No historical evolution revisions yet. When earnings results, guidance shifts, or major fundamental events trigger a model update, the previous baseline will be archived here with full metric diffs.</div>
-        </div>
-        
+                </div>
+                
+                    </div>
+                </details>
+            </div>
+            
                 </div>
             </div>
         </div>
@@ -1318,12 +1581,12 @@
                 <div class="corridor-grid">
                     <div class="corridor-card">
                         <span class="corridor-label">Lower Price Alert Floor</span>
-                        <span class="corridor-value">$19.10</span>
+                        <span class="corridor-value">$15.00</span>
                         <span class="corridor-sub">Triggers downside margin-of-safety review if breached</span>
                     </div>
                     <div class="corridor-card">
                         <span class="corridor-label">Upper Price Alert Ceiling</span>
-                        <span class="corridor-value">$538.03</span>
+                        <span class="corridor-value">$628.29</span>
                         <span class="corridor-sub">Triggers valuation trim / fair value realization review</span>
                     </div>
                     <div class="corridor-card">
@@ -1337,11 +1600,20 @@
                     <h3 class="memo-title" style="font-size: 1.15rem; margin-bottom: 18px;">Active & Historical Surveillance Alerts for AMD</h3>
                     <div class="alert-feed-list">
                         
-        <div class="empty-alerts-box">
-            <div class="empty-alerts-title">No Active Alert Breaches</div>
-            <div class="empty-alerts-sub">Price is trading within calibrated corridors ($19.10 – $538.03). Weekly autonomous surveillance and earnings call monitor are active.</div>
-        </div>
-        
+            <div class="alert-feed-card">
+                <div class="alert-feed-header">
+                    <span class="alert-feed-badge" style="background: rgba(212, 163, 115, 0.15); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35);">Narrow Moat</span>
+                    <span class="alert-feed-time">2026-09-17 18:32</span>
+                </div>
+                <div class="alert-feed-title">AMD: Valuation Re-evaluated (Narrow Moat)</div>
+                <div class="alert-feed-reason">Upper Alert Threshold Breached ($546.22 >= $538.03)</div>
+                <div class="alert-feed-desc">In operational reality, AMD is executing a fundamental structural pivot into enterprise AI infrastructure. Over the past 3-4 consecutive quarters, consolidated quarterly revenue expanded from $7,685M to $11,536M ($46,144.0M annualized run-rate, up 50% YoY), with GAAP gross margin reaching 54.0% and non-GAAP gross margin reaching 56.0%.
+
+The expansion is anchored by the Data Center segment, which delivered a record $6,700M in the latest quarter—representing 58% of total company revenue and growing 107% year-over-year. Growth is driven by accelerating cloud/enterprise socket adoption of 5th-Gen EPYC Turin server CPUs alongside scaling shipments of Instinct MI300 and MI350 series AI accelerators. The Client PC segment generated $3,100M (+23% YoY) behind premium Ryzen AI PRO commercial processors. Embedded segment revenue stabilized at $977M, while Gaming contracted 31% YoY to $779M due to console hardware lifecycle maturation.
+
+To support this hardware and system expansion—including next-generation Helios rack-scale deployments—AMD is reinvesting aggressively. Quarterly cash operating expenses surged 40% YoY to $3.4 Billion, while quarterly CapEx expanded to $808M to secure leading-edge TSMC advanced packaging (CoWoS-L/SoIC) and HBM3E memory supply buffers. The balance sheet maintains $+9,885M in net cash ($+5.95/share), providing solid liquidity against capital-intensive supply commitments.</div>
+            </div>
+            
                     </div>
                 </div>
             </div>
@@ -1479,7 +1751,7 @@
                 }
             });
 
-            const targetPrice = 158.79;
+            const targetPrice = 130.42;
             const prices = points.map(p => p.price);
             let minP = Math.min(...prices);
             let maxP = Math.max(...prices);
