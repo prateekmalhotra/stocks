@@ -1,5 +1,41 @@
 [
   {
+    "id": "alert-nke-1789604211",
+    "ticker": "NKE",
+    "timestamp": "2026-09-17 00:16",
+    "title": "NKE: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 8-K Filing (2026-09-16): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0000320187-26-000170]",
+    "what_was_before": "Nike's current operational reality reflects an unvarnished rebalancing act. Trailing twelve-month revenue stands at $46,398.0M, but the latest quarter annualized run-rate has slowed to $43,888.0M. Revenue trajectory shows clear channel divergence: Wh",
+    "what_changes_now": "Nike is currently navigating a major strategic pivot under CEO Elliott Hill's 'Win Now' strategy, attempting to repair legacy wholesale distributor relationships while resetting bloated classic sneaker allocations. In the latest quarterly results, Nike generated $11,000.0M in revenue (-1.1% YoY, representing an annualized run-rate of $44,000.0M). While statutory gross margin printed at an elevated 49.2%, this figure was heavily distorted by a one-time ~900 bps benefit from an expected IEEPA tariff recovery; underlying operational gross margin remained compressed at approximately 40.2% due to elevated promotional clearance and U.S. tariff headwinds.\n\nOperationally, wholesale revenues showed resilience (+4.0% to +8.0% YoY across recent quarters) as wholesale partners re-engaged with expanded shelf allocations. Conversely, Nike Direct contracted 7.0% YoY, with digital channels falling sharply as management deliberately pulled back on unprofitable digital promotions. Geographically, North America demonstrated modest stabilization in performance footwear categories (e.g., Vomero 18, Pegasus 41), while Greater China continued to contract double-digits (-11% to -17% currency-neutral), driven by cautious consumer sentiment and aggressive local competition.\n\nCapital allocation remains steady, with Nike distributing approximately $600.0M per quarter in dividends ($2.4B annualized) and curtailing share repurchases to preserve liquidity. The balance sheet holds $11,200.0M in liquid cash and short-term investments against $12,100.0M in total debt, leaving the enterprise with net debt of $-900.0M ($-0.60 per share).",
+    "price_at_alert": 35.78,
+    "price_change_pct": -12.22,
+    "report_url": "reports/NKE.html"
+  },
+  {
+    "id": "alert-len-1789604058",
+    "ticker": "LEN",
+    "timestamp": "2026-09-17 00:14",
+    "title": "LEN: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 8-K Filing (2026-09-16): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001628280-26-062287]",
+    "what_was_before": "Lennar's operational execution across the latest 3-4 consecutive quarters reveals a management team rigidly committed to volume pace over unit pricing power. In Q2 FY2026, the company delivered 20,519 single-family homes (up 2% YoY), generating $7.9B in quarterly revenue and establishing a real-time annualized revenue run-rate of $31,760.0M. Gross margin on home sales stabilized sequentially at 15.6% (up from 15.2% in Q1 FY2026 but down from 17.8% in Q2 FY2025), driven by an aggressive sales incentive rate of 12.9%. While incentives moderated from 14.1% in Q1 FY2026, management acknowledged on the Q2 earnings call that stubborn 6.5% mortgage rates and 4.2% CPI inflation continue to stretch buyer affordability.\n\nTo compensate for gross margin drag, Lennar has optimized internal manufacturing, achieving a record-low construction cycle time of 121 days and improving inventory turnover to 2.5x. However, capital allocation metrics reveal clear underlying pressure: operating cash flow turned negative at -$284M in Q2 FY2026 due to working capital accumulation and rising off-balance-sheet option commitments. The balance sheet maintains $1.8B in liquid cash against $6,250.0M in total debt (net debt of $-4,450M) after redeeming $400M of 5.25% senior notes in June 2026 and allocating $447M to repurchase 5.0M shares. Management trimmed full-year FY2026 delivery guidance to 82,000\u201383,000 homes, signaling that volume growth remains constrained by macro affordability.",
+    "what_changes_now": "Operationally, Lennar is executing its production-first mandate in a challenging macro environment. In Q3 2026, the company delivered 20,840 homes (-3.4% YoY) and generated $8,050M in quarterly revenue ($32,200M annualized run-rate). Homebuilding gross margins stabilized at 15.8%, ticking up slightly from 15.2% in Q1 and 15.6% in Q2, as direct construction costs fell 6% YoY and offset persistent price concessions. Net new orders contracted 9.2% YoY to 20,879 homes, leaving a contracted backlog of 16,857 homes valued at $6.3B.\n\nAverage Sales Price (ASP) stood at $372,000 per delivered unit, reflecting continued rate buydowns and community-level base price adjustments to support sales pace. Financial Services contributed $129M in quarterly operating profit, serving as a steady high-margin cash contributor. Meanwhile, Lennar maintained its asset-light pivot with 98% of land controlled via option contracts, avoiding speculative land holding risk.\n\nFrom a capital allocation standpoint, Lennar repurchased $256M in stock (3.0M shares) in Q3, bringing trailing four-quarter capital returns to roughly $2.4B. The balance sheet closed the period with $1,200M in liquid cash and $4,950M in total debt ($3,750M net debt, or 16.6% homebuilding debt-to-capital), preserving adequate operational liquidity to manage production flow.",
+    "price_at_alert": 78.36,
+    "price_change_pct": -9.95,
+    "report_url": "reports/LEN.html"
+  },
+  {
     "id": "alert-ftnt-1789583660",
     "ticker": "FTNT",
     "timestamp": "2026-09-16 18:34",
