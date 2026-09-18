@@ -1,5 +1,59 @@
 [
   {
+    "id": "alert-txn-1789690040",
+    "ticker": "TXN",
+    "timestamp": "2026-09-18 00:07",
+    "title": "TXN: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "SEC 8-K Filing (2026-09-17): Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0000950103-26-014118]",
+    "what_was_before": "Texas Instruments is demonstrating a robust operational recovery in its real-time statutory metrics. Latest quarter (Q2) revenue reached $5,463.0M (+23% YoY and +13% sequentially), establishing an annualized revenue run-rate of $21,852.0M. Gross marg",
+    "what_changes_now": "Texas Instruments is executing near peak cyclical efficiency across its manufacturing and distribution infrastructure. Over the trailing four quarters, quarterly revenue expanded from $4.15B in late 2025 to $5.46B in Q2 2026, translating to a current annualized run-rate of $21,852.0M (+23.0% YoY). Gross margins expanded sequentially from 56.8% to 61.4%, driven by rising 300mm fab utilization and direct catalog pricing adjustments on TI.com. Operating margins have rebounded sharply to 42.3%, demonstrating the operating leverage of internal 300mm wafer processing, which delivers a structural 40% unpackaged die-cost advantage over standard 200mm foundry peers.\n\nUnit volume shipments across TI's 80,000+ catalog SKUs and 100,000+ global customer accounts have inflected positively, led by broad-market industrial channel replenishment, rising electronic content in automotive powertrains, and doubling demand for high-efficiency analog power management in AI data center server racks. Furthermore, modular capital expenditures have passed their cyclical peak, stepping down from an annual run-rate of $4.8B to $3.3B, which accelerated trailing twelve-month free cash flow to $6.53B.\n\nCapital allocation remains focused on shareholder distributions and disciplined vertical scale. The company returned $5.8B to shareholders over the past year through its 22-year dividend growth record and selective buybacks, while announcing a $7.5B all-cash acquisition of Silicon Laboratories to consolidate low-power wireless IoT connectivity onto TI's 300mm manufacturing footprint. Total debt stands at $14.05B against $7.00B in cash ($7.05B net debt), with robust operating cash flows ($8.67B TTM) providing ample balance sheet liquidity.",
+    "price_at_alert": 258.14,
+    "price_change_pct": -2.35,
+    "report_url": "reports/TXN.html"
+  },
+  {
+    "id": "alert-pep-1789689870",
+    "ticker": "PEP",
+    "timestamp": "2026-09-18 00:04",
+    "title": "PEP: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 8-K Filing (2026-09-17): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change) [Accession #0000077476-26-000042]",
+    "what_was_before": "PepsiCo's recent quarterly performance reveals a bifurcated business model navigating significant North American friction. Trailing twelve-month revenue stands at $96,904.0M with an annualized run-rate of $96,724.0M and gross margins stabilizing at 54.2%. While domestic snack volumes in PFNA remained flat despite aggressive pricing architecture recalibrations, international markets served as a vital volume buffer, driving consolidated convenient food and beverage unit case volumes up 3% and 2% year-over-year in the first half of 2026.\n\nFrom a cash flow reconciliation standpoint, free cash flow rebounded to $1.17B in H1 2026 following prior working capital and tax headwinds. Capital allocation remains constrained by the balance sheet: management maintained its 54-year dividend track record ($7.9B annual payout) and announced a $10.0B share repurchase authorization through 2030, but substantial leverage ($42.5B net debt) severely restricts near-term unconstrained buybacks.",
+    "what_changes_now": "PepsiCo's current operational reality across the last 3 to 4 reported quarters demonstrates resilient top-line scale alongside clear microeconomic margin friction. The business is generating net revenue at an annualized run-rate of $96,724.0M, with latest reported quarterly revenue of $24,181.0M (+6.4% YoY reported growth). Gross margins have stabilized at 54.2%, supported by supply chain productivity programs delivering over $1.0B in annualized gross savings that offset agricultural input costs and packaging inflation.\n\nUnit delivery across convenient food and beverage networks shows a fragile recovery. After sequential quarters of snack volume contraction, North American snack volumes inflected to flat (0.0% YoY in Q2 2026) following targeted promotional price-pack adjustments and bonus bag offerings, while international snacks maintained +2% to +4% volume growth. North American beverage liquid volume remained muted (-1% to 0%), but net revenue was sustained through positive price/mix realization in zero-sugar formulations and high-margin mini-can formats.\n\nFree cash flow generation remains healthy at approximately $9.3B on a trailing twelve-month basis, fully supporting the 54-year Dividend King status with $7.8B paid in dividends ($5.92 annualized per share). Maintenance capital expenditures remain strictly managed at approximately $4.1B (<4.5% of revenue), while share repurchases remain modest at ~$1.0B annualized, serving strictly to offset share dilution from equity compensation.",
+    "price_at_alert": 133.66,
+    "price_change_pct": -4.96,
+    "report_url": "reports/PEP.html"
+  },
+  {
+    "id": "alert-mdt-1789689729",
+    "ticker": "MDT",
+    "timestamp": "2026-09-18 00:02",
+    "title": "MDT: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "SEC 8-K Filing (2026-09-17): Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001628280-26-062505]",
+    "what_was_before": "Operationally, Medtronic is executing an organic turnaround driven by high-barrier therapeutic hardware. Over the last four quarters, revenue advanced sequentially from $8,961.0M in Q2 FY26 to $9,017.0M in Q3 FY26, $9,808.0M in Q4 FY26, and $9,756.0M in Q1 FY27, reaching a record annualized run-rate of $39,024.0M. Non-GAAP gross margins have remained firm at 65.2%, supported by premium procedural mix shifts in Cardiac Ablation Solutions and Structural Heart (Evolut FX+ TAVR valves).\n\nThe primary operational growth engine is the Affera Sphere-9 Pulsed Field Ablation platform, which drove an 88% YoY surge in Cardiac Ablation Solutions revenue and pushed trailing 12-month franchise revenue past $2.0 billion. Hospital procedure volumes for Micra leadless pacemakers and Percept deep brain stimulation devices remain resilient, insulated by high physician switching costs, specialized surgical training workflows, and Class-1 FDA PMA data hurdles.\n\nFrom a cash flow standpoint, Medtronic generated $5.43 billion in full-year FY26 Free Cash Flow (76% conversion of Non-GAAP net income). Capital allocation remains disciplined: the company increased its dividend for the 49th consecutive year ($2.88 annualized, 3.1% yield) and is actively executing the spin-off of its lower-margin MiniMed Diabetes business to eliminate structural margin drag.",
+    "what_changes_now": "In operational reality, Medtronic's fundamental performance across the last four quarters demonstrates solid sequential momentum, supported by genuine clinical innovation in its highest-margin categories. Trailing twelve-month revenue reached $37,543.0 million, with the latest quarter generating $9,756.0 million for an annualized run-rate of $39,024.0 million. Even after stripping out the ~$570 million 53rd-week calendar anomaly in Q1 FY27, underlying core organic revenue expanded by ~6.8% YoY, matching the raised full-year guidance corridor of 7.25% to 7.75%.\n\nThe Cardiac Ablation Solutions (CAS) franchise continues to serve as the primary growth engine, accelerating +88% YoY in Q1 FY27 on rapid global uptake of the Sphere-9 catheter and Affera mapping system. The broader Cardiovascular portfolio delivered strong volume across Micra leadless pacemakers and OmniaSecure defibrillator leads, while Cranial/Spinal Technologies maintained high-single-digit momentum anchored by the Spine-AiBLE robotics and navigation ecosystem. Medical Surgical expanded +10.2% organic as Hugo robotic instrumentation gained regulatory clearances.\n\nGross margin has stabilized at 65.0% GAAP (65.4% non-GAAP), and operating cash generation remains robust. Medtronic generated $5.4 billion in Free Cash Flow in FY26, supporting $4.2 billion in shareholder returns through its 49th consecutive year of dividend increases ($2.88 annualized payout). The planned separation of the lower-margin Diabetes division is progressing on schedule via an exchange split-off, which management expects will structurally lift enterprise gross margins by ~50 bps and operating margins by ~100 bps upon completion.",
+    "price_at_alert": 92.77,
+    "price_change_pct": 1.75,
+    "report_url": "reports/MDT.html"
+  },
+  {
     "id": "alert-crm-1789670496",
     "ticker": "CRM",
     "timestamp": "2026-09-17 18:41",
