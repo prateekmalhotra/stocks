@@ -1,5 +1,23 @@
 [
   {
+    "id": "alert-rklb-1790275087",
+    "ticker": "RKLB",
+    "timestamp": "2026-09-24 18:38",
+    "title": "RKLB: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($74.25 >= $73.75)",
+    "what_was_before": "Top-line revenue reached $234.1M in Q2 2026 (+62.0% YoY), translating to a current annualized run-rate of $936.4M. Growth is heavily driven by Space Systems, which surged 94% YoY to $189.5M, accounting for 81% of consolidated top-line revenue. Contracted backlog expanded to $2.36B, supported by major satellite bus production contracts and missile-tracking programs with the Space Development Agency (SDA) and the Department of War's Space Based Interceptor (SBI) program.\n\nLaunch Services demonstrated quarterly revenue volatility, dropping 30% QoQ in Q2 2026 to $44.6M due to revenue-recognition timing between Electron commercial flights and suborbital HASTE hypersonic missions. Operational cadence remains solid with 16 Electron missions completed YTD in 2026 (95 overall) and a manifest exceeding 90 contracted missions. Q2 GAAP gross margin was 36.1% (41.5% non-GAAP), but management guided Q3 GAAP gross margins down to 29%\u201331% due to satellite hardware mix variations and M&A integration friction.\n\nCapital allocation remains focused on Neutron R&D, Archimedes engine testing at Stennis, pad LC-3 construction at Wallops Island, and strategic roll-up acquisitions. Balance sheet liquidity stands at $2.13B ($2,115M net cash, or +$3.54/share) following $1.53B in ATM equity proceeds to fund operations and the pending Iridium Communications acquisition. Non-GAAP Free Cash Flow burn remains elevated due to growth CapEx and hardware assembly tooling.",
+    "what_changes_now": "The operational reality of Rocket Lab over the last four quarters reveals a company experiencing rapid top-line expansion driven almost entirely by inorganic roll-ups and heavy government contracting, masking underlying operational friction. Total revenue reached an annualized run-rate of $936.4M ($234.1M in Q2 2026, up 62% YoY), yet segment performance diverged sharply: Space Systems surged to represent over 80% of total revenue via acquisitions like GEOST and Mynaric, while Launch Services revenue suffered a 30% sequential contraction in Q2 2026 due to milestone timing and payload manifest slippage.\n\nOperationally, the company achieved its 16th Electron mission of the year by mid-September, maintaining its position as the premier small-lift launch provider, and pushed its total backlog to a record $2.36B underpinned by major Space Development Agency and Space Force awards. However, GAAP gross margins drifted down to 36.1% in Q2, GAAP net losses widened to $(49.3)M, and non-GAAP free cash flow burn accelerated to $(110.1)M for the quarter. Management guided third-quarter gross margins down significantly to 29-31% due to product mix and integration headwinds, while executives and insiders continued substantial share dispositions.",
+    "price_at_alert": 74.23,
+    "price_change_pct": 2.29,
+    "report_url": "reports/RKLB.html"
+  },
+  {
     "id": "alert-v-1790209566",
     "ticker": "V",
     "timestamp": "2026-09-24 00:26",
