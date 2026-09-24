@@ -1,34 +1,34 @@
 {
   "portfolio_type": "defensive",
   "portfolio_label": "Fidelity (Defensive Fortress)",
-  "last_run_date": "2026-09-17",
-  "last_run_timestamp": "2026-09-17T19:36:53.086414",
+  "last_run_date": "2026-09-24",
+  "last_run_timestamp": "2026-09-24T19:52:48.903789",
   "status": "EXECUTED",
   "status_display": "SURVEILLANCE ACTIONS EXECUTED (1 ACTIONS)",
   "action_required": false,
   "verdict_summary": "Council executed 1 high-conviction decision(s): VALUATION FROTH (TRIM).",
-  "total_universe_scanned": 122,
+  "total_universe_scanned": 123,
   "active_holdings_verified": 2,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 104.56,
+  "portfolio_average_mos_pct": 117.94,
   "cash_cushion_pct": 6.94,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 104.56,
+    "portfolio_weighted_mos_pct": 117.94,
     "mandate_structural_floor_pct": 5.0,
     "calculated_target_cash_pct": 6.94,
     "current_actual_cash_pct": 6.94,
     "cash_status": "OPTIMAL_DRY_POWDER_MAINTAINED",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
     "cash_directive": "Maintain 3M US Treasury float yielding 5.00% risk-free. Stand ready for fat pitch market dislocations.",
-    "formula_description": "Senior US Treasury Buffer (6.94%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +104.56% weighted Margin of Safety."
+    "formula_description": "Senior US Treasury Buffer (6.94%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +117.94% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-09-24",
+  "next_scheduled_run": "2026-10-01",
   "holdings_health": [
     {
       "ticker": "META",
@@ -46,13 +46,13 @@
     {
       "ticker": "ADBE",
       "company_name": "Adobe Inc.",
-      "price": 248.83,
-      "fair_value": 627.91,
-      "mos_pct": 152.34,
+      "price": 238.25,
+      "fair_value": 636.3,
+      "mos_pct": 167.07,
       "signal": "BUY",
       "moat_score": 9.5,
-      "expected_irr": 70.0,
-      "kelly_edge": 47.06,
+      "expected_irr": 74.9,
+      "kelly_edge": 55.11,
       "health_status": "PRISTINE",
       "thesis_core": "Creative Cloud monopoly; 85%+ gross margins, $3.5B+ annual share buybacks."
     }
@@ -91,11 +91,11 @@
   ],
   "rebalance_proposals": [
     {
-      "date": "2026-09-17",
+      "date": "2026-09-24",
       "action": "VALUATION FROTH (TRIM)",
       "ticker": "META",
-      "reason": "Trimmed frothy position META from 75.8% to 35.0% (Price $549.9 vs Fair Value $1064.84)",
-      "weight_delta": "-40.8%",
+      "reason": "Trimmed frothy position META from 62.3% to 35.0% (Price $549.9 vs Fair Value $1064.84)",
+      "weight_delta": "-27.3%",
       "verification_status": "Audited & Executed by Autonomous Surveillance Council"
     }
   ],

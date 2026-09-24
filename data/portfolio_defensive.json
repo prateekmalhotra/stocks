@@ -12,16 +12,16 @@
       "sector": "Interactive Media & Consumer Tech",
       "industry": "Global Social Graph & Digital Advertising",
       "quality_score": 97.0,
-      "target_weight": 0.6227,
+      "target_weight": 0.4951,
       "pillar": "A",
       "cost_basis": 549.9,
-      "current_price": 775.78,
+      "current_price": 777.33,
       "fair_value": 1064.84,
-      "margin_of_safety_pct": 37.3,
-      "allocated_dollars": 124540.0,
-      "shares_to_buy": 226.4775,
+      "margin_of_safety_pct": 37.0,
+      "allocated_dollars": 99020.0,
+      "shares_to_buy": 180.0691,
       "look_through_fcf_yield": 5.4,
-      "annual_owner_earnings": 6725.16,
+      "annual_owner_earnings": 5347.08,
       "cannibal_rate_pct": 3.2,
       "thesis_core": "3.60B Daily Active People social graph monopoly; Mark Zuckerberg absolute founder control.",
       "report_url": "reports/META.html"
@@ -32,16 +32,16 @@
       "sector": "Enterprise Software",
       "industry": "Digital Media & Creative Cloud",
       "quality_score": 95.0,
-      "target_weight": 0.3079,
+      "target_weight": 0.4355,
       "pillar": "A",
       "cost_basis": 257.26,
-      "current_price": 237.29,
+      "current_price": 238.75,
       "fair_value": 608.81,
-      "margin_of_safety_pct": 156.6,
-      "allocated_dollars": 61580.0,
-      "shares_to_buy": 239.3687,
+      "margin_of_safety_pct": 155.0,
+      "allocated_dollars": 87100.0,
+      "shares_to_buy": 338.568,
       "look_through_fcf_yield": 5.5,
-      "annual_owner_earnings": 3386.9,
+      "annual_owner_earnings": 4790.5,
       "cannibal_rate_pct": 3.2,
       "thesis_core": "Creative Cloud monopoly; 85%+ gross margins, $3.5B+ annual share buybacks.",
       "report_url": "reports/ADBE.html"
@@ -68,6 +68,14 @@
     }
   ],
   "rebalance_log": [
+    {
+      "date": "2026-09-24",
+      "action": "VALUATION FROTH (TRIM)",
+      "ticker": "META",
+      "reason": "Trimmed frothy position META from 62.3% to 35.0% (Price $549.9 vs Fair Value $1064.84)",
+      "weight_delta": "-27.3%",
+      "verification_status": "Audited & Executed by Autonomous Surveillance Council"
+    },
     {
       "date": "2026-09-17",
       "action": "VALUATION FROTH (TRIM)",
@@ -356,7 +364,7 @@
     },
     {
       "date": "2026-09-24",
-      "portfolio_value": 246376.51,
+      "portfolio_value": 234686.22,
       "owner_earnings_runrate": 15000.0,
       "spy_benchmark": 200000.0
     }
