@@ -1,5 +1,59 @@
 [
   {
+    "id": "alert-vst-1790296327",
+    "ticker": "VST",
+    "timestamp": "2026-09-25 00:32",
+    "title": "VST: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "SEC 8-K Filing (2026-09-24): Item 1.01: Entry into a Material Definitive Agreement (M&A / Commercial Contract); Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001140361-26-037577]",
+    "what_was_before": "Across the trailing four quarters (Q3 2025 through Q2 2026), Vistra has demonstrated strong operational execution across its integrated portfolio of 38,700 MW of generation capacity and ~4.3 million retail customer accounts. Ongoing Operations Adjusted EBITDA grew 30.8% YoY in Q2 2026 to $1,767 million, building on Q1 2026 Adjusted EBITDA of $1,494 million and full-year 2025 Adjusted EBITDA of $5,912 million. Management has reaffirmed full-year 2026 Adjusted EBITDA guidance of $6.8B\u2013$7.6B and Adjusted FCFbG of $3.925B\u2013$4.725B, underpinned by ~100% hedge coverage for 2026 and ~94% for 2027.\n\nOperational momentum is reinforced by major strategic transactions: closing the 2,600 MW Lotus gas acquisition in late 2025, announcing the $4.0B net purchase of the 5,500 MW Cogentrix gas fleet (targeting mid-to-late 2026 close), securing long-term nuclear PPAs with Amazon Web Services (up to 1,200 MW at Comanche Peak) and Meta (PJM fleet uprates/renewals), and launching the Helix Digital Infrastructure JV with KKR and NVIDIA. Balance sheet strength has been formally validated by credit upgrades to Investment Grade (BBB-/Baa3) from both S&P and Fitch.",
+    "what_changes_now": "Vistra's operational engine continues to run at elevated utilization, generating $4,020.0M in quarterly revenue (an annualized run-rate of $16,080.0M) with gross margins of 38.3% across its ~44,000 MW generation portfolio and ~5.0 million retail accounts. Fleet commercial availability across the zero-carbon nuclear fleet (Comanche Peak, Perry, Davis-Besse, Beaver Valley) and flexible natural gas peakers remains above 97% during peak seasonal load periods. The company's integrated 'Gen-Tail' structure has cushioned against regional weather volatility, allowing commercial desks to re-route unconsumed retail power to capture merchant wholesale price spikes.\n\nLong-term commercial momentum is supported by contracted bilateral agreements with hyperscalers, including the 20-year, 1,200 MW nuclear offtake agreement with AWS and the 2,176 MW agreement with Meta spanning energy, capacity, and planned nuclear uprates in PJM. Additionally, Vistra has integrated 2,600 MW of flexible gas capacity from Lotus Infrastructure and executed transactions for Cogentrix Energy to expand its dispatchable natural gas footprint.\n\nHowever, sequential financial analysis highlights critical pressure points between headline Adjusted EBITDA and tangible equity cash flow. Net income continues to experience substantial mark-to-market volatility from unrealized derivative hedges. More critically, management has acknowledged that softening ERCOT forward power curves have skewed 2027 EBITDA opportunities toward the lower bound of the $7.4B\u2013$7.8B range. With net debt standing at $20,705.0M and ongoing growth capital requirements, discretionary cash generation is heavily directed toward debt service and capital commitments rather than unrestricted equity distribution.",
+    "price_at_alert": 137.94,
+    "price_change_pct": 0.58,
+    "report_url": "reports/VST.html"
+  },
+  {
+    "id": "alert-lgcy-1790296109",
+    "ticker": "LGCY",
+    "timestamp": "2026-09-25 00:28",
+    "title": "LGCY: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 10-K Filing (2026-09-24): 10-K [Accession #0001493152-26-044147]",
+    "what_was_before": "Despite market skepticism regarding M&A deceleration, Legacy Education's underlying operational engine continues to demonstrate steady underlying volume expansion. In the most recent quarter (Q3 FY2026), active student enrollment expanded +9.4% YoY t",
+    "what_changes_now": "Despite quarterly volatility in new student starts due to vocational nursing entry requirements, Legacy Education's operational core continues to demonstrate resilience. TTM revenue reached $80.1M (+24.8% YoY), supported by a current annualized run-rate of $80.4M based on $20.1M in Q4 FY26 revenue. The total active student population stands at 3,377 across accredited allied healthcare programs (+8.9% YoY), generating an average unit monetization yield of ~$5,950 per student per quarter (~$23,800 annualized). Gross margins remain solid at 47.5%, reflecting efficient campus-level staffing and lab utilization.\n\nCorporate overhead is scaling moderately as adjusted EBITDA expanded 24.1% YoY to $13.6M (17.0% margin). The balance sheet remains well-capitalized with $22.7M in cash and cash equivalents ($+1.79/share net cash), providing ample liquidity to self-fund the 28,000-square-foot Houston, Texas campus launch (targeting 400\u2013600 students) without debt or dilutive equity financing.\n\nWhile operating cash flow was temporarily suppressed by the $9.0M Title IV and student receivables build, management's bad debt containment and expanding facility capacity at HDMC Lancaster and Temecula provide steady support for enrollment conversion as new programmatic approvals (e.g., Surgical Technology, Ultrasound, RN-to-BSN) ramp into FY27.",
+    "price_at_alert": 10.64,
+    "price_change_pct": 0.85,
+    "report_url": "reports/LGCY.html"
+  },
+  {
+    "id": "alert-amd-1790295864",
+    "ticker": "AMD",
+    "timestamp": "2026-09-25 00:24",
+    "title": "AMD: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($629.26 >= $628.29)",
+    "what_was_before": "In operational reality, AMD is executing a fundamental structural pivot into enterprise AI infrastructure. Over the past 3-4 consecutive quarters, consolidated quarterly revenue expanded from $7,685M to $11,536M ($46,144.0M annualized run-rate, up 50% YoY), with GAAP gross margin reaching 54.0% and non-GAAP gross margin reaching 56.0%.\n\nThe expansion is anchored by the Data Center segment, which delivered a record $6,700M in the latest quarter\u2014representing 58% of total company revenue and growing 107% year-over-year. Growth is driven by accelerating cloud/enterprise socket adoption of 5th-Gen EPYC Turin server CPUs alongside scaling shipments of Instinct MI300 and MI350 series AI accelerators. The Client PC segment generated $3,100M (+23% YoY) behind premium Ryzen AI PRO commercial processors. Embedded segment revenue stabilized at $977M, while Gaming contracted 31% YoY to $779M due to console hardware lifecycle maturation.\n\nTo support this hardware and system expansion\u2014including next-generation Helios rack-scale deployments\u2014AMD is reinvesting aggressively. Quarterly cash operating expenses surged 40% YoY to $3.4 Billion, while quarterly CapEx expanded to $808M to secure leading-edge TSMC advanced packaging (CoWoS-L/SoIC) and HBM3E memory supply buffers. The balance sheet maintains $+9,885M in net cash ($+5.95/share), providing solid liquidity against capital-intensive supply commitments.",
+    "what_changes_now": "Operationally, AMD is delivering strong top-line momentum, driven primarily by its enterprise server CPU franchise and high-volume shipments of AI accelerators. Over the past four quarters, revenue expanded from $9,246.0M (Q3 2025) to $10,270.0M (Q4 2025), $10,253.0M (Q1 2026), and reached $11,536.0M in Q2 2026 (+50.1% YoY), establishing a record annualized run-rate of $46,144.0M. Growth is heavily concentrated in the Data Center segment, which surged 107% YoY in Q2 to $6,718.0M (58% of consolidated revenue) as 5th Gen EPYC server CPUs (Turin) captured enterprise socket share above 35% and Instinct MI350 deployments ramped across cloud clusters.\n\nHowever, operational performance across non-datacenter units shows pronounced divergence. Client PC revenue grew steadily to $3,060.0M (+23% YoY) behind commercial Zen 5 Ryzen adoption, but the Gaming segment remains in secular decline, dropping 31% YoY to $779.0M due to late-cycle PlayStation 5 and Xbox Series console fatigue. Gross margin stabilized at 54.0% GAAP (56.0% Non-GAAP), physically bounded by leading-edge foundry packaging costs and high-bandwidth memory (HBM3e) integration. First-half 2026 operating cash flow reached $5,321.0M, supporting a liquid balance sheet of $13,111.0M in cash and short-term investments against $2,652.0M in debt ($10,459.0M net cash).\n\nCapital allocation reflects strategic investments in rack-scale systems. AMD completed the acquisition of ZT Systems' design engineering arm while divesting its contract manufacturing assets to Sanmina, accelerating deployment of integrated Helios rack architectures. Diluted share count expanded modestly to 1,659.0M. Overall, operational execution in high-performance compute remains solid, but cash generation is tethered to the physical margin ceilings of merchant fabless manufacturing.",
+    "price_at_alert": 629.26,
+    "price_change_pct": 34.5,
+    "report_url": "reports/AMD.html"
+  },
+  {
     "id": "alert-rklb-1790275087",
     "ticker": "RKLB",
     "timestamp": "2026-09-24 18:38",
