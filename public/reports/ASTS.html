@@ -1032,11 +1032,11 @@
                         <div class="ticker-header-line">
                             <span class="ticker-symbol">ASTS</span>
                         </div>
-                        <div class="company-name-meta">AST SpaceMobile, Inc. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-warm); font-weight: 500;">Narrow Moat</span> <span class="meta-sep">·</span> <span style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 400;">Procedural Switching Costs & Proprietary Tech Standards (Global)</span></div>
+                        <div class="company-name-meta">AST SpaceMobile, Inc. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-warm); font-weight: 500;">Narrow Moat</span></div>
                     </div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number" id="hero-market-price">$57.98</div>
+                    <div class="price-number" id="hero-market-price">$61.00</div>
                     <div class="price-sub">Market Price</div>
                 </div>
             </div>
@@ -1048,7 +1048,7 @@
                         <div class="chart-live-val">
                             <span id="tooltip-date">Sep 15, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$58.77</strong>
                             <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
-                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$0.39</strong></span>
+                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$14.50</strong></span>
                         </div>
                         <!-- Moving Average Live Indicators -->
                         <div class="ma-legend-bar">
@@ -1097,7 +1097,7 @@
                         
                         <!-- 3Y Target Dotted Line & Tag -->
                         <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
-                        <text id="target-label" x="18" y="8" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $0.39</text>
+                        <text id="target-label" x="18" y="8" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $14.50</text>
 
                         <!-- Moving Average Lines (200, 50, 21, 5) -->
                         <polyline id="chart-ma200" fill="none" stroke="#E879F9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
@@ -1122,8 +1122,8 @@
             <div class="metrics-grid">
                 <div class="metric-card">
                     <span class="metric-label">Owner Earnings (TTM)</span>
-                    <span class="metric-value" style="color: var(--accent-red);">-$2.12 / sh</span>
-                    <span class="metric-sub">-$637M cash burn</span>
+                    <span class="metric-value" style="color: var(--accent-red);">-$2.17 / sh</span>
+                    <span class="metric-sub">-$690M cash burn</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">P / Owner Earnings</span>
@@ -1133,22 +1133,22 @@
                 <div class="metric-card">
                     <span class="metric-label">EV / Owner Earnings</span>
                     <span class="metric-value" style="color: var(--text-dim);">N/M</span>
-                    <span class="metric-sub">Enterprise Value: $17,622M</span>
+                    <span class="metric-sub">Enterprise Value: $19,638M</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner Cash Yield</span>
-                    <span class="metric-value" style="color: var(--accent-red);">-3.7%</span>
+                    <span class="metric-value" style="color: var(--accent-red);">-3.6%</span>
                     <span class="metric-sub">Negative Owner Cash Yield</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner ROIC</span>
-                    <span class="metric-value" style="color: var(--accent-red);">-24.1%</span>
+                    <span class="metric-value" style="color: var(--accent-red);">-25.0%</span>
                     <span class="metric-sub">OE / Invested Capital</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Net Cash / Share</span>
-                    <span class="metric-value" style="color: var(--accent-warm);">-$0.80 / sh</span>
-                    <span class="metric-sub">-$241M Net Balance Debt</span>
+                    <span class="metric-value" style="color: var(--accent-warm);">-$0.75 / sh</span>
+                    <span class="metric-sub">-$240M Net Balance Debt</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">
@@ -1172,8 +1172,8 @@
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('thesis', this)">Investment Thesis</button>
-            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">0</span></button>
-            <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">0</span></button>
+            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">1</span></button>
+            <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">1</span></button>
             <button class="nav-tab" onclick="switchTab('ownership', this)">Ownership & Fund Intel</button>
         </div>
 
@@ -1185,28 +1185,66 @@
                         <span class="section-index">01</span>
                         <h2 class="memo-title">What the Market is Pricing In</h2>
                     </div>
-                    <div class="memo-body"><p class="memo-para">Mr. Market is currently pricing in an extreme disconnect between AST SpaceMobile's massive $17.4 billion market capitalization and its deeply negative owner earnings. At a stock price of $57.98, the market discounts a frictionless, binary success scenario where the company completely scales its space-based cellular broadband network to capture multi-billion-dollar cash flows globally. This valuation assumes a high-growth technological monopoly premium, completely bypassing the near-term realities of high capital intensity, multi-million-dollar quarterly cash burns, and a pre-revenue scaling model.</p>
-<p class="memo-para">Skeptics argue that this pricing reflects a dangerous speculative mania, driven by retail momentum and unverified projections rather than hard unit economics. Bears highlight that achieving commercial viability requires deploying 45 to 60 massive BlueBird satellites, each carrying heavy capital expenditures, while facing fierce competition from well-capitalized terrestrial and direct-to-device rivals like SpaceX's Starlink. With widening net losses and substantial ongoing funding requirements, the current market price leaves zero margin of safety for operational slip-ups, launch delays, or regulatory hurdles.</p></div>
+                    <div class="memo-body"><p class="memo-para">At a current market quote of $61.00 per share and an Enterprise Value of approximately $19.6 billion, Mr. Market is pricing in an immaculate, frictionless industrial transition from an early-stage developmental satellite operator into a high-margin global telecommunications monopoly. The prevailing quote completely looks through current operational realities—where the business generates an annualized run-rate revenue of just $126.1 million against normalized annual owner earnings of negative $689.8 million—and assumes that AST SpaceMobile will effortlessly scale its constellation to continuous global commercial service without further launch delays, technical anomalies, or customer acquisition pushback from terrestrial partners.</p>
+<p class="memo-para">Furthermore, the valuation assumes that ASTS will achieve unconstrained 75% to 85% steady-state EBITDA margins while completely bypassing the severe economics of Low Earth Orbit (LEO) replenishment cycles. Investors paying over 150 times forward sales are treating the company as an operational SaaS utility with zero launch dependencies, despite the fact that commercial direct-to-device cellular service activation has been postponed to 2027 and the business remains entirely reliant on third-party rockets, including those of its primary existential competitor, SpaceX.</p></div>
                 </section>
                 <section class="memo-section">
                     <div class="section-header">
                         <span class="section-index">02</span>
                         <h2 class="memo-title">Why the Market Might Be Right</h2>
                     </div>
-                    <div class="memo-body"><p class="memo-para">Starting Baseline: State starting normalized Owner Earnings of -$2.12/share (-$636.7M total) and net balance sheet cash/debt of -$0.80/share (-$241M).</p>
-<p class="memo-para">Forensic Business Headwinds: Identify critical structural vulnerabilities, including high satellite manufacturing costs, potential launch cadence bottlenecks, heavy reliance on third-party rockets, and intense direct-to-cell competition from dominant constellations.</p>
-<p class="memo-para">Skeptic Unit Contraction: Model downside volume/unit attrition where launch delays cap the active satellite count below commercial thresholds, leaving gateway hardware sales intermittent and MNO partner revenue shares unrealized.</p>
-<p class="memo-para">Reverse Operating Leverage & Cash Degradation: Deduct sticky cash fixed costs from degraded revenue. If annual revenue stalls at a nominal $50.0 million while operating expenses remain elevated at $400.0 million and interest obligations consume $150.0 million, the resulting Skeptic Year-3 Owner Earnings plummet to -$2.50/share (-$750.0M total).</p>
-<p class="memo-para">Downside Risk Valuation Floor: Capitalizing negative owner earnings is mathematically invalid; instead, modeling a distressed financing scenario where severe equity dilution of 300% is required to service debt and fund mandatory CapEx, combined with liquidation constraints, establishes a Downside Floor Target of $0.10/share.</p></div>
+                    <div class="memo-body"><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Baseline</div>
+                        <div class="math-step-body">Audited normalized Owner Earnings stand at -$2.17 per share (-$689.8 million total), accounting for -$193.9 million in stock-based compensation dilution and -$67.5 million in baseline maintenance capital expenditures. The balance sheet carries net debt of -$240.0 million (-$0.75 per share), with $2,720.0 million in cash and short-term investments offset by $2,960.0 million in total debt obligations.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Forensic Business Headwinds</div>
+                        <div class="math-step-body">Skeptics correctly observe that AST SpaceMobile faces immense capital intensity, recurring deployment friction, and structural customer capture risks. Commercial direct-to-device service has slipped into 2027, leaving recognized revenues dependent on lumpy, non-recurring government milestone contracts and ground gateway deliveries. The company relies entirely on third-party launch providers like SpaceX and Blue Origin, exposing it to manifest delays and catastrophic hardware insertion failures such as the $125.9 million involuntary conversion loss on BlueBird</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Step 3</div>
+                        <div class="math-step-body">Crucially, partner mobile network operators (MNOs) control end-user billing relationships, creating severe take-rate compression risks if direct-to-cell access is packaged as a standard zero-margin baseline safety feature rather than an expensive, premium broadband tier.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Skeptic Unit Contraction</div>
+                        <div class="math-step-body">Under prolonged operational friction, satellite orbital deployment slows to a crawl, reaching only 30 operational BlueBirds by Year 3 due to launch vehicle congestion and component yield bottlenecks. Continuous domestic broadband coverage fails to materialize, restricting commercial utility to intermittent messaging and emergency services. Monetization yield collapses as MNOs resist premium wholesale fees, capping recognized commercial revenue at $180.0 million while government R&D contract milestones taper off.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Reverse Operating Leverage & Cash Degradation</div>
+                        <div class="math-step-body">Fixed cash overhead—including orbital tracking, satellite telemetry operations, ground gateway fiber leases, regulatory filings, and corporate overhead—remains intensely sticky at $260.0 million annually. Compounded by heavy debt interest service of ~$165.0 million, ongoing stock-based compensation of $220.0 million, and satellite replenishment CapEx of $120.0 million, degraded Year 3 Owner Earnings fall to -$585.0 million. On an expanded diluted share count of 390.0 million shares following continuous at-the-market (ATM) equity issuance, degraded Owner Earnings stand at -$1.50 per share.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Downside Risk Valuation Floor</div>
+                        <div class="math-step-body">With continuous negative cash flows and persistent capital depletion, traditional multiple capitalization fails. Under a distressed capital floor where constellation assets are capitalized at a trough distressed multiple of 4.0x on a salvage/tangible asset basis combined with an ending net debt burden of -$1.75 per share, the Downside Risk Valuation Floor settles at $4.25 per share.</div>
+                    </div>
+                </div></div></div>
                 </section>
                 <section class="memo-section">
                     <div class="section-header">
                         <span class="section-index">03</span>
                         <h2 class="memo-title">How Things Are Going Now</h2>
                     </div>
-                    <div class="memo-body"><p class="memo-para">Operationally, AST SpaceMobile is navigating a high-stakes transition from early technology demonstration to scaled constellation manufacturing and commercialization. In its Q2 2026 financial report, the company posted quarterly revenue of $31.5 million, more than doubling its Q1 output and bringing its annualized run-rate to $126.1 million. This top-line progression was powered by commercial gateway deliveries across multiple continents and milestone achievements under U.S. government defense contracts, which now exceed $125 million in total awards. The latest quarterly gross margin stood at 25.2%, burdened by initial hardware manufacturing inefficiencies and pre-service deployment overhead.</p>
-<p class="memo-para">The physical constellation currently comprises 13 BlueBird satellites in low Earth orbit, featuring a combined phased array aperture of approximately 20,000 square feet, backed by roughly 50 commercial gateways globally. Commercially, ASTS maintains agreements with over 60 mobile network operators (MNOs) reaching a cumulative subscriber base exceeding 3 billion users. However, cash burn remains severe, with Q2 capital expenditures hitting $610 million and full-year 2026 CapEx guided between $350 million and $650 million to support Block 2 manufacturing.</p>
-<p class="memo-para">On the balance sheet, ASTS reported liquid cash and investments of $2,722.8 million against total debt principal of $3,022.2 million, resulting in a net debt position of $241 million (-$0.80 per share). Following subsequent convertible debt transactions, pro forma cash reserves exceed $3.7 billion, providing a temporary runway as management targets deploying roughly 45 satellites by early 2027 to initiate continuous commercial service.</p></div>
+                    <div class="memo-body"><p class="memo-para">AST SpaceMobile's recent quarterly performance illustrates a stark bifurcation between long-term strategic engineering progress and immediate financial burn. Trailing twelve-month revenue stands at $115.3 million, with the latest quarter delivering $31.5 million (an annualized run-rate of $126.1 million). While top-line figures show triple-digit year-over-year percentage increases off a negligible baseline, gross margins have compressed sequentially from 62.6% in Q3 2025 to 25.2% in Q2 2026. Over 85% of recognized revenue continues to stem from terrestrial gateway equipment manufacturing and Department of Defense/Space Development Agency development milestones rather than recurring, high-margin commercial direct-to-cell subscriber traffic.</p>
+<p class="memo-para">Operationally, the company has scaled its in-orbit aperture, growing from 5 prototype spacecraft to 13 operational BlueBird satellites in orbit across 3,000 digital cells activated over the United States. Its contracted network encompasses agreements with over 60 mobile network operators representing a theoretical reach of more than 3.0 billion cellular subscribers, supported by a reported contracted backlog of ~$1.3 billion. Manufacturing integration at the Midland, Texas facility has accelerated, targeting a production cadence capable of supporting multi-satellite batch launches.</p>
+<p class="memo-para">However, this manufacturing progress has demanded extraordinary capital consumption. Quarterly operating expenses in Q2 2026 surged past $329 million, burdened by a $125.9 million net loss on the BlueBird 7 launch anomaly and escalating cash engineering services. Free cash flow burn approached -$503 million in the latest quarter alone, driving cumulative 1H 2026 investing cash outflows near $980 million. The company closed a $1.15 billion convertible senior debt offering in mid-2026 to stabilize its cash balance at $2,720 million, but total debt expanded to $2,960 million alongside steady equity dilution from quarterly ATM draws.</p></div>
                 </section>
                 <section class="memo-section">
                     <div class="section-header" style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
@@ -1215,12 +1253,268 @@
                             <h2 class="memo-title">What If It Keeps Going That Way</h2>
                         </div>
                         <div class="section-predictability-meta" style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-family: var(--font-sans);">
-                            <span class="pred-indicator" style="color: var(--accent-red); font-weight: 600;">Highly Unpredictable</span>
+                            <span class="pred-indicator" style="color: var(--text-secondary); font-weight: 600;">Moderate Predictability</span>
                             <span class="pred-sep" style="color: var(--text-dim);">·</span>
-                            <span class="pred-subtext" style="color: var(--text-secondary); font-weight: 400;">Pre-Commercial Reinvestment Cycle</span>
+                            <span class="pred-subtext" style="color: var(--text-secondary); font-weight: 400;">Manageable Visibility · Moat Protected</span>
                         </div>
                     </div>
                     <div class="memo-body"><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Unit Baseline</div>
+                        <div class="math-step-body">AST SpaceMobile enters the projection window with 13 operational BlueBird satellites in orbit across 3,000 activated digital cells, reaching a contracted partner ecosystem of >3.0 billion cellular subscribers across >60 MNOs. Monetization is anchored to wholesale gateway equipment milestone billings and pre-commercial R&D testing across a ~$1.3 billion backlog, establishing an audited baseline revenue run-rate of $126.1 million and normalized Owner Earnings of -$2.17 per share (-$689.8 million total).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">3-Year Unit Volume Extrapolation</div>
+                        <div class="math-step-body">Assuming manufacturing momentum at the Midland facility proceeds without catastrophic disruption, ASTS deploys 16 satellites in Year 1 (reaching 29 satellites and partial non-continuous commercial beta), 20 satellites in Year 2 (reaching 49 satellites and achieving initial continuous coverage over key continental US corridors), and 18 satellites in Year</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Step 3</div>
+                        <div class="math-step-body">By Year 3, the operational fleet reaches 67 BlueBirds in orbit, enabling nationwide continuous 4G/5G broadband coverage across 18,000 activated digital cells.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Projected Year 3 Revenue</div>
+                        <div class="math-step-body">By Year 3, commercial direct-to-device revenue finally inflects as commercial billing goes live across anchor carriers (AT&T, Verizon, Rakuten). With 67 satellites, ASTS captures an active wholesale base of 18.0 million regular subscribers (a modest ~1.8% penetration of addressable partner postpaid tiers) at a net wholesale revenue share of $2.25 per active subscriber per month ($486.0 million annualized), complemented by $114.0 million in ongoing government services and secondary gateway support contracts. Total Projected Year 3 Revenue reaches $600.0 million.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
+                        <div class="math-step-body">On $600.0 million of Year 3 Revenue, network operating expenses and ground operations absorb $90.0 million (85.0% gross margin on service revenue). Fixed cash operating overhead (G&A, engineering maintenance, operations) requires $145.0 million. Net interest expense consumes $140.0 million. Stock-based compensation accounts for $150.0 million in equity dilution. Factoring in normalized orbital replenishment maintenance CapEx of $165.0 million (capitalizing a 5-year replacement cycle on 67 satellites at ~$12.3 million each), Projected Year 3 Owner Earnings reach -$90.0 million. Accounting for ATM issuances and convertible adjustments, diluted share count expands to 375.0 million shares, yielding Year 3 Owner Earnings of -$0.24 per share.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
+                        <div class="math-step-body">Starting Net Cash is -$240.0 million (-$0.75 per share). Over the 3-year construction runway, cumulative operating cash outflows equal -$420.0 million, while satellite manufacturing and launch growth CapEx drains -$1,950.0 million, resulting in a Cumulative 3-Year Free Cash Flow deficit of -$2,370.0 million. Capital allocation directs exactly $0.00 to share repurchases or dividends due to the negative net cash position. To preserve solvency, ASTS utilizes $900.0 million from its starting cash balance and secures $1,470.0 million through a combination of net debt issuances and ATM equity facilities. Ending Year 3 Net Cash sits at -$1,710.0 million (-$4.56 per share on 375.0 million diluted shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">7</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Intrinsic Fair Value Target & Expected 3-Year Return</div>
+                        <div class="math-step-body">Year 3 Owner Earnings YoY growth (g₃) remains negative (g₃ < 3%) as constellation replacement CapEx offsets early operational cash flow. Applying the 2-Factor Matrix for a Narrow Moat asset with Stagnant/Negative Owner Earnings growth (g₃ < 3%) dictates capitalizing Year 3 run-rate revenue of $600.0 million at a telecommunications infrastructure multiple of 12.0x EV/Sales (reflecting the upper-bound mature infrastructure rating once commercial service achieves global reach). This yields an implied Enterprise Value of $7,200.0 million. Deducting Ending Year 3 Net Debt of $1,710.0 million results in an equity valuation of $5,490.0 million, or $14.64 per share. Rounding to a disciplined Intrinsic Fair Value Target yields $14.50 per share. Comparing this $14.50 target against today's market price of $61.00 indicates that the stock is severely overvalued, producing an expected 3-year annualized return (IRR) of -37.8% per annum.</div>
+                    </div>
+                </div></div></div>
+                </section>
+            </main>
+        </div>
+
+        <!-- TAB 2: Thesis Evolution & Version History -->
+        <div id="tab-evolution" class="tab-pane">
+            <div class="memo-container">
+                <h2 class="memo-title" style="margin-bottom: 24px;">Thesis Evolution & Historical Audits</h2>
+                <div class="evolution-timeline">
+                    
+            <div class="evolution-card active-version-card">
+                <div class="evolution-header">
+                    <div class="evolution-title-row">
+                        <span class="evolution-vnum">Version 2</span>
+                        <span class="evolution-status-text status-active">Live Active</span>
+                        <span class="evolution-date">· 2026-09-29</span>
+                    </div>
+                    <div class="evolution-price">Snapshot Price: <strong>$61.00</strong></div>
+                </div>
+                <div class="evolution-reason">
+                    <span class="reason-label">Trigger / Reason:</span> SEC 8-K Filing (2026-09-28): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 9.01: Financial Statements and Exhibits [Accession #0001493152-26-044647]
+                </div>
+                <div class="evolution-metrics-text-row">
+                    <span>OE: <strong>-$2.17/sh</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>P/OE: <strong>N/M</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>ROIC: <strong>-25.0%</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>Moat: <strong>Narrow Moat</strong></span>
+                </div>
+                <div class="evolution-change-text">AST SpaceMobile's recent quarterly performance illustrates a stark bifurcation between long-term strategic engineering progress and immediate financial burn. Trailing twelve-month revenue stands at $115.3 million, with the latest quarter delivering $31.5 million (an annualized run-rate of $126.1 million). While top-line figures show triple-digit year-over-year percentage increases off a negligible baseline, gross margins have compressed sequentially from 62.6% in Q3 2025 to 25.2% in Q2 2026. Over 85% of recognized revenue continues to stem from terrestrial gateway equipment manufacturing and Department of Defense/Space Development Agency development milestones rather than recurring, high-margin commercial direct-to-cell subscriber traffic.
+
+Operationally, the company has scaled its in-orbit aperture, growing from 5 prototype spacecraft to 13 operational BlueBird satellites in orbit across 3,000 digital cells activated over the United States. Its contracted network encompasses agreements with over 60 mobile network operators representing a theoretical reach of more than 3.0 billion cellular subscribers, supported by a reported contracted backlog of ~$1.3 billion. Manufacturing integration at the Midland, Texas facility has accelerated, targeting a production cadence capable of supporting multi-satellite batch launches.
+
+However, this manufacturing progress has demanded extraordinary capital consumption. Quarterly operating expenses in Q2 2026 surged past $329 million, burdened by a $125.9 million net loss on the BlueBird 7 launch anomaly and escalating cash engineering services. Free cash flow burn approached -$503 million in the latest quarter alone, driving cumulative 1H 2026 investing cash outflows near $980 million. The company closed a $1.15 billion convertible senior debt offering in mid-2026 to stabilize its cash balance at $2,720 million, but total debt expanded to $2,960 million alongside steady equity dilution from quarterly ATM draws.</div>
+                <details class="archived-accordion">
+                    <summary class="archived-summary">Inspect Thesis Memo (v2)</summary>
+                    <div class="archived-content-body">
+                        
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">1. What the Market is Pricing In</div>
+                    <div><p class="memo-para">At a current market quote of $61.00 per share and an Enterprise Value of approximately $19.6 billion, Mr. Market is pricing in an immaculate, frictionless industrial transition from an early-stage developmental satellite operator into a high-margin global telecommunications monopoly. The prevailing quote completely looks through current operational realities—where the business generates an annualized run-rate revenue of just $126.1 million against normalized annual owner earnings of negative $689.8 million—and assumes that AST SpaceMobile will effortlessly scale its constellation to continuous global commercial service without further launch delays, technical anomalies, or customer acquisition pushback from terrestrial partners.</p>
+<p class="memo-para">Furthermore, the valuation assumes that ASTS will achieve unconstrained 75% to 85% steady-state EBITDA margins while completely bypassing the severe economics of Low Earth Orbit (LEO) replenishment cycles. Investors paying over 150 times forward sales are treating the company as an operational SaaS utility with zero launch dependencies, despite the fact that commercial direct-to-device cellular service activation has been postponed to 2027 and the business remains entirely reliant on third-party rockets, including those of its primary existential competitor, SpaceX.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
+                    <div><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Baseline</div>
+                        <div class="math-step-body">Audited normalized Owner Earnings stand at -$2.17 per share (-$689.8 million total), accounting for -$193.9 million in stock-based compensation dilution and -$67.5 million in baseline maintenance capital expenditures. The balance sheet carries net debt of -$240.0 million (-$0.75 per share), with $2,720.0 million in cash and short-term investments offset by $2,960.0 million in total debt obligations.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Forensic Business Headwinds</div>
+                        <div class="math-step-body">Skeptics correctly observe that AST SpaceMobile faces immense capital intensity, recurring deployment friction, and structural customer capture risks. Commercial direct-to-device service has slipped into 2027, leaving recognized revenues dependent on lumpy, non-recurring government milestone contracts and ground gateway deliveries. The company relies entirely on third-party launch providers like SpaceX and Blue Origin, exposing it to manifest delays and catastrophic hardware insertion failures such as the $125.9 million involuntary conversion loss on BlueBird</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Step 3</div>
+                        <div class="math-step-body">Crucially, partner mobile network operators (MNOs) control end-user billing relationships, creating severe take-rate compression risks if direct-to-cell access is packaged as a standard zero-margin baseline safety feature rather than an expensive, premium broadband tier.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Skeptic Unit Contraction</div>
+                        <div class="math-step-body">Under prolonged operational friction, satellite orbital deployment slows to a crawl, reaching only 30 operational BlueBirds by Year 3 due to launch vehicle congestion and component yield bottlenecks. Continuous domestic broadband coverage fails to materialize, restricting commercial utility to intermittent messaging and emergency services. Monetization yield collapses as MNOs resist premium wholesale fees, capping recognized commercial revenue at $180.0 million while government R&D contract milestones taper off.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Reverse Operating Leverage & Cash Degradation</div>
+                        <div class="math-step-body">Fixed cash overhead—including orbital tracking, satellite telemetry operations, ground gateway fiber leases, regulatory filings, and corporate overhead—remains intensely sticky at $260.0 million annually. Compounded by heavy debt interest service of ~$165.0 million, ongoing stock-based compensation of $220.0 million, and satellite replenishment CapEx of $120.0 million, degraded Year 3 Owner Earnings fall to -$585.0 million. On an expanded diluted share count of 390.0 million shares following continuous at-the-market (ATM) equity issuance, degraded Owner Earnings stand at -$1.50 per share.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Downside Risk Valuation Floor</div>
+                        <div class="math-step-body">With continuous negative cash flows and persistent capital depletion, traditional multiple capitalization fails. Under a distressed capital floor where constellation assets are capitalized at a trough distressed multiple of 4.0x on a salvage/tangible asset basis combined with an ending net debt burden of -$1.75 per share, the Downside Risk Valuation Floor settles at $4.25 per share.</div>
+                    </div>
+                </div></div></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">3. How Things Are Going Now</div>
+                    <div><p class="memo-para">AST SpaceMobile's recent quarterly performance illustrates a stark bifurcation between long-term strategic engineering progress and immediate financial burn. Trailing twelve-month revenue stands at $115.3 million, with the latest quarter delivering $31.5 million (an annualized run-rate of $126.1 million). While top-line figures show triple-digit year-over-year percentage increases off a negligible baseline, gross margins have compressed sequentially from 62.6% in Q3 2025 to 25.2% in Q2 2026. Over 85% of recognized revenue continues to stem from terrestrial gateway equipment manufacturing and Department of Defense/Space Development Agency development milestones rather than recurring, high-margin commercial direct-to-cell subscriber traffic.</p>
+<p class="memo-para">Operationally, the company has scaled its in-orbit aperture, growing from 5 prototype spacecraft to 13 operational BlueBird satellites in orbit across 3,000 digital cells activated over the United States. Its contracted network encompasses agreements with over 60 mobile network operators representing a theoretical reach of more than 3.0 billion cellular subscribers, supported by a reported contracted backlog of ~$1.3 billion. Manufacturing integration at the Midland, Texas facility has accelerated, targeting a production cadence capable of supporting multi-satellite batch launches.</p>
+<p class="memo-para">However, this manufacturing progress has demanded extraordinary capital consumption. Quarterly operating expenses in Q2 2026 surged past $329 million, burdened by a $125.9 million net loss on the BlueBird 7 launch anomaly and escalating cash engineering services. Free cash flow burn approached -$503 million in the latest quarter alone, driving cumulative 1H 2026 investing cash outflows near $980 million. The company closed a $1.15 billion convertible senior debt offering in mid-2026 to stabilize its cash balance at $2,720 million, but total debt expanded to $2,960 million alongside steady equity dilution from quarterly ATM draws.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
+                    <div><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Unit Baseline</div>
+                        <div class="math-step-body">AST SpaceMobile enters the projection window with 13 operational BlueBird satellites in orbit across 3,000 activated digital cells, reaching a contracted partner ecosystem of >3.0 billion cellular subscribers across >60 MNOs. Monetization is anchored to wholesale gateway equipment milestone billings and pre-commercial R&D testing across a ~$1.3 billion backlog, establishing an audited baseline revenue run-rate of $126.1 million and normalized Owner Earnings of -$2.17 per share (-$689.8 million total).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">3-Year Unit Volume Extrapolation</div>
+                        <div class="math-step-body">Assuming manufacturing momentum at the Midland facility proceeds without catastrophic disruption, ASTS deploys 16 satellites in Year 1 (reaching 29 satellites and partial non-continuous commercial beta), 20 satellites in Year 2 (reaching 49 satellites and achieving initial continuous coverage over key continental US corridors), and 18 satellites in Year</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Step 3</div>
+                        <div class="math-step-body">By Year 3, the operational fleet reaches 67 BlueBirds in orbit, enabling nationwide continuous 4G/5G broadband coverage across 18,000 activated digital cells.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Projected Year 3 Revenue</div>
+                        <div class="math-step-body">By Year 3, commercial direct-to-device revenue finally inflects as commercial billing goes live across anchor carriers (AT&T, Verizon, Rakuten). With 67 satellites, ASTS captures an active wholesale base of 18.0 million regular subscribers (a modest ~1.8% penetration of addressable partner postpaid tiers) at a net wholesale revenue share of $2.25 per active subscriber per month ($486.0 million annualized), complemented by $114.0 million in ongoing government services and secondary gateway support contracts. Total Projected Year 3 Revenue reaches $600.0 million.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
+                        <div class="math-step-body">On $600.0 million of Year 3 Revenue, network operating expenses and ground operations absorb $90.0 million (85.0% gross margin on service revenue). Fixed cash operating overhead (G&A, engineering maintenance, operations) requires $145.0 million. Net interest expense consumes $140.0 million. Stock-based compensation accounts for $150.0 million in equity dilution. Factoring in normalized orbital replenishment maintenance CapEx of $165.0 million (capitalizing a 5-year replacement cycle on 67 satellites at ~$12.3 million each), Projected Year 3 Owner Earnings reach -$90.0 million. Accounting for ATM issuances and convertible adjustments, diluted share count expands to 375.0 million shares, yielding Year 3 Owner Earnings of -$0.24 per share.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
+                        <div class="math-step-body">Starting Net Cash is -$240.0 million (-$0.75 per share). Over the 3-year construction runway, cumulative operating cash outflows equal -$420.0 million, while satellite manufacturing and launch growth CapEx drains -$1,950.0 million, resulting in a Cumulative 3-Year Free Cash Flow deficit of -$2,370.0 million. Capital allocation directs exactly $0.00 to share repurchases or dividends due to the negative net cash position. To preserve solvency, ASTS utilizes $900.0 million from its starting cash balance and secures $1,470.0 million through a combination of net debt issuances and ATM equity facilities. Ending Year 3 Net Cash sits at -$1,710.0 million (-$4.56 per share on 375.0 million diluted shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">7</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Intrinsic Fair Value Target & Expected 3-Year Return</div>
+                        <div class="math-step-body">Year 3 Owner Earnings YoY growth (g₃) remains negative (g₃ < 3%) as constellation replacement CapEx offsets early operational cash flow. Applying the 2-Factor Matrix for a Narrow Moat asset with Stagnant/Negative Owner Earnings growth (g₃ < 3%) dictates capitalizing Year 3 run-rate revenue of $600.0 million at a telecommunications infrastructure multiple of 12.0x EV/Sales (reflecting the upper-bound mature infrastructure rating once commercial service achieves global reach). This yields an implied Enterprise Value of $7,200.0 million. Deducting Ending Year 3 Net Debt of $1,710.0 million results in an equity valuation of $5,490.0 million, or $14.64 per share. Rounding to a disciplined Intrinsic Fair Value Target yields $14.50 per share. Comparing this $14.50 target against today's market price of $61.00 indicates that the stock is severely overvalued, producing an expected 3-year annualized return (IRR) of -37.8% per annum.</div>
+                    </div>
+                </div></div></div>
+                </div>
+                
+                    </div>
+                </details>
+            </div>
+            
+            <div class="evolution-card ">
+                <div class="evolution-header">
+                    <div class="evolution-title-row">
+                        <span class="evolution-vnum">Version 1</span>
+                        <span class="evolution-status-text status-archived">Archived</span>
+                        <span class="evolution-date">· 2026-08-28</span>
+                    </div>
+                    <div class="evolution-price">Snapshot Price: <strong>$57.98</strong></div>
+                </div>
+                <div class="evolution-reason">
+                    <span class="reason-label">Trigger / Reason:</span> Genesis Initial Underwriting
+                </div>
+                <div class="evolution-metrics-text-row">
+                    <span>OE: <strong>-$2.12/sh</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>P/OE: <strong>N/M</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>ROIC: <strong>-24.1%</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>Moat: <strong>Narrow Moat</strong></span>
+                </div>
+                <div class="evolution-change-text">Operationally, AST SpaceMobile is navigating a high-stakes transition from early technology demonstration to scaled constellation manufacturing and commercialization. In its Q2 2026 financial report, the company posted quarterly revenue of $31.5 million, more than doubling its Q1 output and bringing its annualized run-rate to $126.1 million. This top-line progression was powered by commercial gateway deliveries across multiple continents and milestone achievements under U.S. government defense contracts, which now exceed $125 million in total awards. The latest quarterly gross margin stood at 25.2%, burdened by initial hardware manufacturing inefficiencies and pre-service deployment overhead.
+
+The physical constellation currently comprises 13 BlueBird satellites in low Earth orbit, featuring a combined phased array aperture of approximately 20,000 square feet, backed by roughly 50 commercial gateways globally. Commercially, ASTS maintains agreements with over 60 mobile network operators (MNOs) reaching a cumulative subscriber base exceeding 3 billion users. However, cash burn remains severe, with Q2 capital expenditures hitting $610 million and full-year 2026 CapEx guided between $350 million and $650 million to support Block 2 manufacturing.
+
+On the balance sheet, ASTS reported liquid cash and investments of $2,722.8 million against total debt principal of $3,022.2 million, resulting in a net debt position of $241 million (-$0.80 per share). Following subsequent convertible debt transactions, pro forma cash reserves exceed $3.7 billion, providing a temporary runway as management targets deploying roughly 45 satellites by early 2027 to initiate continuous commercial service.</div>
+                <details class="archived-accordion">
+                    <summary class="archived-summary">Inspect Thesis Memo (v1)</summary>
+                    <div class="archived-content-body">
+                        
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">1. What the Market is Pricing In</div>
+                    <div><p class="memo-para">Mr. Market is currently pricing in an extreme disconnect between AST SpaceMobile's massive $17.4 billion market capitalization and its deeply negative owner earnings. At a stock price of $57.98, the market discounts a frictionless, binary success scenario where the company completely scales its space-based cellular broadband network to capture multi-billion-dollar cash flows globally. This valuation assumes a high-growth technological monopoly premium, completely bypassing the near-term realities of high capital intensity, multi-million-dollar quarterly cash burns, and a pre-revenue scaling model.</p>
+<p class="memo-para">Skeptics argue that this pricing reflects a dangerous speculative mania, driven by retail momentum and unverified projections rather than hard unit economics. Bears highlight that achieving commercial viability requires deploying 45 to 60 massive BlueBird satellites, each carrying heavy capital expenditures, while facing fierce competition from well-capitalized terrestrial and direct-to-device rivals like SpaceX's Starlink. With widening net losses and substantial ongoing funding requirements, the current market price leaves zero margin of safety for operational slip-ups, launch delays, or regulatory hurdles.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
+                    <div><p class="memo-para">Starting Baseline: State starting normalized Owner Earnings of -$2.12/share (-$636.7M total) and net balance sheet cash/debt of -$0.80/share (-$241M).</p>
+<p class="memo-para">Forensic Business Headwinds: Identify critical structural vulnerabilities, including high satellite manufacturing costs, potential launch cadence bottlenecks, heavy reliance on third-party rockets, and intense direct-to-cell competition from dominant constellations.</p>
+<p class="memo-para">Skeptic Unit Contraction: Model downside volume/unit attrition where launch delays cap the active satellite count below commercial thresholds, leaving gateway hardware sales intermittent and MNO partner revenue shares unrealized.</p>
+<p class="memo-para">Reverse Operating Leverage & Cash Degradation: Deduct sticky cash fixed costs from degraded revenue. If annual revenue stalls at a nominal $50.0 million while operating expenses remain elevated at $400.0 million and interest obligations consume $150.0 million, the resulting Skeptic Year-3 Owner Earnings plummet to -$2.50/share (-$750.0M total).</p>
+<p class="memo-para">Downside Risk Valuation Floor: Capitalizing negative owner earnings is mathematically invalid; instead, modeling a distressed financing scenario where severe equity dilution of 300% is required to service debt and fund mandatory CapEx, combined with liquidation constraints, establishes a Downside Floor Target of $0.10/share.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">3. How Things Are Going Now</div>
+                    <div><p class="memo-para">Operationally, AST SpaceMobile is navigating a high-stakes transition from early technology demonstration to scaled constellation manufacturing and commercialization. In its Q2 2026 financial report, the company posted quarterly revenue of $31.5 million, more than doubling its Q1 output and bringing its annualized run-rate to $126.1 million. This top-line progression was powered by commercial gateway deliveries across multiple continents and milestone achievements under U.S. government defense contracts, which now exceed $125 million in total awards. The latest quarterly gross margin stood at 25.2%, burdened by initial hardware manufacturing inefficiencies and pre-service deployment overhead.</p>
+<p class="memo-para">The physical constellation currently comprises 13 BlueBird satellites in low Earth orbit, featuring a combined phased array aperture of approximately 20,000 square feet, backed by roughly 50 commercial gateways globally. Commercially, ASTS maintains agreements with over 60 mobile network operators (MNOs) reaching a cumulative subscriber base exceeding 3 billion users. However, cash burn remains severe, with Q2 capital expenditures hitting $610 million and full-year 2026 CapEx guided between $350 million and $650 million to support Block 2 manufacturing.</p>
+<p class="memo-para">On the balance sheet, ASTS reported liquid cash and investments of $2,722.8 million against total debt principal of $3,022.2 million, resulting in a net debt position of $241 million (-$0.80 per share). Following subsequent convertible debt transactions, pro forma cash reserves exceed $3.7 billion, providing a temporary runway as management targets deploying roughly 45 satellites by early 2027 to initiate continuous commercial service.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
+                    <div><div class="math-steps-ledger">
                 <div class="math-step-item">
                     <div class="math-step-badge">1</div>
                     <div class="math-step-main">
@@ -1270,21 +1564,12 @@
                         <div class="math-step-body">Calculate projected Year 3 Owner Earnings YoY growth rate. Since Year 0 Owner Earnings were negative (-$2.12/sh) and Year 3 Owner Earnings are positive ($0.315/sh), the growth rate represents a rapid compounding phase (g₃ > 15% YoY). Strictly applying the 2-Factor Exit Multiple for Narrow Moat under Rapid Compounding yields a multiple of 15.0x to 18.0x P/OE. Applying the midpoint multiple of 16.5x to Year 3 Owner Earnings of $0.315/share yields an operating value of $5.20/share. Adding Ending Net Cash of -$4.81/share yields an Intrinsic Fair Value Target of $0.39 per share. This represents an expected 3-year annualized return (IRR) of -85.2% per annum from today's $57.98 price.</div>
                     </div>
                 </div></div></div>
-                </section>
-            </main>
-        </div>
-
-        <!-- TAB 2: Thesis Evolution & Version History -->
-        <div id="tab-evolution" class="tab-pane">
-            <div class="memo-container">
-                <h2 class="memo-title" style="margin-bottom: 24px;">Thesis Evolution & Historical Audits</h2>
-                <div class="evolution-timeline">
-                    
-        <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px 36px; text-align: center;">
-            <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text-title); margin-bottom: 6px;">Genesis Baseline Thesis Active (Version 1)</div>
-            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; max-width: 580px; margin: 0 auto;">No historical evolution revisions yet. When earnings results, guidance shifts, or major fundamental events trigger a model update, the previous baseline will be archived here with full metric diffs.</div>
-        </div>
-        
+                </div>
+                
+                    </div>
+                </details>
+            </div>
+            
                 </div>
             </div>
         </div>
@@ -1295,12 +1580,12 @@
                 <div class="corridor-grid">
                     <div class="corridor-card">
                         <span class="corridor-label">Lower Price Alert Floor</span>
-                        <span class="corridor-value">$0.10</span>
+                        <span class="corridor-value">$4.25</span>
                         <span class="corridor-sub">Triggers downside margin-of-safety review if breached</span>
                     </div>
                     <div class="corridor-card">
                         <span class="corridor-label">Upper Price Alert Ceiling</span>
-                        <span class="corridor-value">$66.68</span>
+                        <span class="corridor-value">$70.15</span>
                         <span class="corridor-sub">Triggers valuation trim / fair value realization review</span>
                     </div>
                     <div class="corridor-card">
@@ -1314,11 +1599,20 @@
                     <h3 class="memo-title" style="font-size: 1.15rem; margin-bottom: 18px;">Active & Historical Surveillance Alerts for ASTS</h3>
                     <div class="alert-feed-list">
                         
-        <div class="empty-alerts-box">
-            <div class="empty-alerts-title">No Active Alert Breaches</div>
-            <div class="empty-alerts-sub">Price is trading within calibrated corridors ($0.10 – $66.68). Weekly autonomous surveillance and earnings call monitor are active.</div>
-        </div>
-        
+            <div class="alert-feed-card">
+                <div class="alert-feed-header">
+                    <span class="alert-feed-badge" style="background: rgba(212, 163, 115, 0.15); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35);">Narrow Moat</span>
+                    <span class="alert-feed-time">2026-09-29 01:46</span>
+                </div>
+                <div class="alert-feed-title">ASTS: Valuation Re-evaluated (Narrow Moat)</div>
+                <div class="alert-feed-reason">SEC 8-K Filing (2026-09-28): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 9.01: Financial Statements and Exhibits [Accession #0001493152-26-044647]</div>
+                <div class="alert-feed-desc">AST SpaceMobile's recent quarterly performance illustrates a stark bifurcation between long-term strategic engineering progress and immediate financial burn. Trailing twelve-month revenue stands at $115.3 million, with the latest quarter delivering $31.5 million (an annualized run-rate of $126.1 million). While top-line figures show triple-digit year-over-year percentage increases off a negligible baseline, gross margins have compressed sequentially from 62.6% in Q3 2025 to 25.2% in Q2 2026. Over 85% of recognized revenue continues to stem from terrestrial gateway equipment manufacturing and Department of Defense/Space Development Agency development milestones rather than recurring, high-margin commercial direct-to-cell subscriber traffic.
+
+Operationally, the company has scaled its in-orbit aperture, growing from 5 prototype spacecraft to 13 operational BlueBird satellites in orbit across 3,000 digital cells activated over the United States. Its contracted network encompasses agreements with over 60 mobile network operators representing a theoretical reach of more than 3.0 billion cellular subscribers, supported by a reported contracted backlog of ~$1.3 billion. Manufacturing integration at the Midland, Texas facility has accelerated, targeting a production cadence capable of supporting multi-satellite batch launches.
+
+However, this manufacturing progress has demanded extraordinary capital consumption. Quarterly operating expenses in Q2 2026 surged past $329 million, burdened by a $125.9 million net loss on the BlueBird 7 launch anomaly and escalating cash engineering services. Free cash flow burn approached -$503 million in the latest quarter alone, driving cumulative 1H 2026 investing cash outflows near $980 million. The company closed a $1.15 billion convertible senior debt offering in mid-2026 to stabilize its cash balance at $2,720 million, but total debt expanded to $2,960 million alongside steady equity dilution from quarterly ATM draws.</div>
+            </div>
+            
                     </div>
                 </div>
             </div>
@@ -1456,7 +1750,7 @@
                 }
             });
 
-            const targetPrice = 0.39;
+            const targetPrice = 14.5;
             const prices = points.map(p => p.price);
             let minP = Math.min(...prices);
             let maxP = Math.max(...prices);
