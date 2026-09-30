@@ -12,16 +12,16 @@
       "sector": "Commerce & Logistics",
       "industry": "Latin America E-Commerce & Fintech Platform",
       "quality_score": 95.0,
-      "target_weight": 0.5678,
+      "target_weight": 0.4857,
       "pillar": "B",
       "cost_basis": 1922.73,
-      "current_price": 1735.54,
+      "current_price": 1728.53,
       "fair_value": 10123.88,
-      "margin_of_safety_pct": 483.3,
-      "allocated_dollars": 113560.0,
-      "shares_to_buy": 59.0619,
+      "margin_of_safety_pct": 485.7,
+      "allocated_dollars": 97140.0,
+      "shares_to_buy": 50.5219,
       "look_through_fcf_yield": 6.1,
-      "annual_owner_earnings": 6927.16,
+      "annual_owner_earnings": 5925.54,
       "cannibal_rate_pct": 0.0,
       "thesis_core": "Marcos Galperin founder leadership; dominant Latin America e-commerce & fintech logistics ecosystem.",
       "report_url": "reports/MELI.html"
@@ -32,16 +32,16 @@
       "sector": "Financial Infrastructure",
       "industry": "Credit Scoring & Decision Analytics",
       "quality_score": 99.0,
-      "target_weight": 0.3828,
+      "target_weight": 0.4649,
       "pillar": "B",
       "cost_basis": 1172.67,
-      "current_price": 596.25,
+      "current_price": 592.47,
       "fair_value": 1648.25,
-      "margin_of_safety_pct": 176.4,
-      "allocated_dollars": 76560.0,
-      "shares_to_buy": 65.2869,
+      "margin_of_safety_pct": 178.2,
+      "allocated_dollars": 92980.0,
+      "shares_to_buy": 79.2891,
       "look_through_fcf_yield": 4.2,
-      "annual_owner_earnings": 3215.52,
+      "annual_owner_earnings": 3905.16,
       "cannibal_rate_pct": 2.5,
       "thesis_core": "Sovereign monopoly on US consumer credit scoring; extreme pricing power, zero CapEx.",
       "report_url": "reports/FICO.html"
@@ -68,6 +68,14 @@
     }
   ],
   "rebalance_log": [
+    {
+      "date": "2026-09-30",
+      "action": "VALUATION FROTH (TRIM)",
+      "ticker": "MELI",
+      "reason": "Trimmed frothy position MELI from 56.8% to 40.0% (Price $1900.24 vs Fair Value $8868.56)",
+      "weight_delta": "-16.8%",
+      "verification_status": "Audited & Executed by Autonomous Surveillance Council"
+    },
     {
       "date": "2026-09-23",
       "action": "VALUATION FROTH (TRIM)",
@@ -400,7 +408,7 @@
     },
     {
       "date": "2026-09-30",
-      "portfolio_value": 151311.6,
+      "portfolio_value": 144185.03,
       "owner_earnings_runrate": 15000.0,
       "spy_benchmark": 200000.0
     }
