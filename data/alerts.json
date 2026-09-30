@@ -1,5 +1,77 @@
 [
   {
+    "id": "alert-wday-1790731774",
+    "ticker": "WDAY",
+    "timestamp": "2026-09-30 01:29",
+    "title": "WDAY: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "SEC 8-K Filing (2026-09-29): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 2.05: Costs Associated with Exit or Disposal Activities (Restructuring / Layoffs) [Accession #0001327811-26-000048]",
+    "what_was_before": "Despite broader macroeconomic headwinds and scrutiny over enterprise IT budgets, Workday's operating performance remains highly resilient across recent quarters. In Q2 FY2027, total revenue rose 12.8% YoY to $2,649.0M, establishing a real-time annualized run-rate of $10,596.0M. Subscription revenue expanded 13.9% YoY to $2,471.0M, supported by a healthy 75.6% gross margin. Non-GAAP operating margin expanded to 31.1%, reflecting strict GTM discipline and operating leverage, even as GAAP operating margin stood at 11.8% due to stock-based compensation.\n\nThe enterprise moat remains firmly intact, anchored by mission-critical switching costs across more than 11,500 enterprise customer organizations (>65% of the Fortune 500) and >75 million contracted core HCM/ERP seats, maintaining a gross revenue retention rate of ~97%. Monetization velocity is supported by organic Agentic AI adoption, which crossed a $500M ARR run-rate, accounted for >25% of net new ACV, and generated average bundled contract expansion deal sizes ~50% above baseline renewals.\n\nCapital allocation demonstrates proactive share count defense. Workday deployed $2.91B into share repurchases in H1 FY27 ($1.3B in Q2 alone) and authorized a new $4.0B repurchase program. The balance sheet remains solid with $3,403.0M in cash and marketable securities against $2,989.0M in total debt, yielding $+414M in net cash ($+1.68/share).",
+    "what_changes_now": "In operational reality, Workday continues to generate robust underlying cash flow and consistent enterprise backlog growth. In the latest quarter (Q2 FY27), Workday generated $2,649.0M in total revenue (+12.8% YoY), bringing its current annualized run-rate to $10,600.0M with strong overall gross margins of 75.6%. The company's core volume engine remains supported by a 12-Month Subscription Revenue Backlog (cRPO) of $9.03B (+14.2% YoY) and Total Subscription Backlog of $27.40B across 10,500+ enterprise core HCM and Financials customers, anchored by a gross revenue retention rate exceeding 97%.\n\nUnit monetization is supported by enterprise seat expansions, cross-selling Financial Management, and early traction with native AI modules. Workday Illuminate agentic AI products contributed over 25% of new Annual Contract Value (ACV) in Q2 FY27, with more than 5,500 customers adopting at least one AI agent SKU (+35% QoQ). Non-GAAP operating margins expanded to 31.1% in Q2 FY27, demonstrating effective expense discipline alongside continued top-line expansion in international markets like EMEA and Japan.\n\nWorkday's capital allocation remains disciplined and shareholder-oriented. With $3,403.0M in liquid cash and investments against $2,000.0M in total debt ($+1,403.0M net cash, or $+5.29/share), the company completed its previous $5.0B share repurchase program ahead of schedule and authorized a new $4.0B buyback program, effectively repurchasing shares to manage dilution from stock-based compensation. However, management's recent September 2026 decision to trim 2.5% of staff highlights persistent friction in scaling product teams efficiently.",
+    "price_at_alert": 189.17,
+    "price_change_pct": -5.42,
+    "report_url": "reports/WDAY.html"
+  },
+  {
+    "id": "alert-vz-1790731388",
+    "ticker": "VZ",
+    "timestamp": "2026-09-30 01:23",
+    "title": "VZ: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "High Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 8-K Filing (2026-09-29): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change) [Accession #0001193125-26-407520]",
+    "what_was_before": "",
+    "what_changes_now": "Contrary to short-seller narratives, Verizon's recent operational trajectory across the past four consecutive quarters (Q3 2025 through Q2 2026) demonstrates clear execution under CEO Dan Schulman's turnaround strategy. In Q2 2026, Verizon generated $34,300.0M in quarterly revenue ($137,200.0M annualized run-rate) while achieving a record Adjusted EBITDA margin of 40.1% (+120 bps YoY). Customer retention reached multi-year strength, with consumer postpaid phone churn dropping to 0.84% and postpaid phone net additions reaching +184,000\u2014the highest Q2 result in five years.\n\nThe company's dual-track broadband strategy is expanding its total footprint to 17.1M broadband connections, supported by 155,000 fiber net adds in Q2 2026 following the successful integration of Frontier Communications in January 2026. Free cash flow generation reached $6,426M in Q2 2026 (+24.4% YoY), bringing full-year FCF guidance up to $22.0B\u2013$22.5B. Management has reallocated capital discipline away from wasteful device subsidies and toward high-margin recurring service cash flow, expanding FY 2026 Adjusted EPS growth targets to 5.0%\u20136.0%.\n\nMonetization trends are stabilizing through converged offerings like Verizon One ($70\u2013$170/month) and standalone Simplicity plans ($45/month), which drive higher customer lifetime value and 30%\u201340% lower churn among bundled accounts. Incremental monetization upside is emerging from the AI Connect initiative, including a $1B+ dark fiber agreement with Google to commercialize underutilized fiber routes.",
+    "price_at_alert": 45.98,
+    "price_change_pct": -7.02,
+    "report_url": "reports/VZ.html"
+  },
+  {
+    "id": "alert-lgcy-1790731072",
+    "ticker": "LGCY",
+    "timestamp": "2026-09-30 01:17",
+    "title": "LGCY: Valuation Re-evaluated (Weak Moat)",
+    "severity": "Weak Moat",
+    "labels": [
+      "Weak Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "SEC 8-K Filing (2026-09-29): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001493152-26-044865]",
+    "what_was_before": "Despite quarterly volatility in new student starts due to vocational nursing entry requirements, Legacy Education's operational core continues to demonstrate resilience. TTM revenue reached $80.1M (+24.8% YoY), supported by a current annualized run-rate of $80.4M based on $20.1M in Q4 FY26 revenue. The total active student population stands at 3,377 across accredited allied healthcare programs (+8.9% YoY), generating an average unit monetization yield of ~$5,950 per student per quarter (~$23,800 annualized). Gross margins remain solid at 47.5%, reflecting efficient campus-level staffing and lab utilization.\n\nCorporate overhead is scaling moderately as adjusted EBITDA expanded 24.1% YoY to $13.6M (17.0% margin). The balance sheet remains well-capitalized with $22.7M in cash and cash equivalents ($+1.79/share net cash), providing ample liquidity to self-fund the 28,000-square-foot Houston, Texas campus launch (targeting 400\u2013600 students) without debt or dilutive equity financing.\n\nWhile operating cash flow was temporarily suppressed by the $9.0M Title IV and student receivables build, management's bad debt containment and expanding facility capacity at HDMC Lancaster and Temecula provide steady support for enrollment conversion as new programmatic approvals (e.g., Surgical Technology, Ultrasound, RN-to-BSN) ramp into FY27.",
+    "what_changes_now": "Operationally, Legacy Education generated $80.06 million in full-year FY2026 revenue (+24.8% YoY), exiting Q4 FY2026 with $20.10 million in revenue (+12.0% YoY, or an $80.4 million annualized run-rate) and gross margins of 44.0%. The active student census closed the fiscal year at 3,377 enrolled students across six physical campuses, generating an annualized tuition yield of approximately $23,700 per student. On the surface, the business appears to be expanding into high-demand allied health disciplines such as vocational nursing, ultrasound, and surgical technology.\n\nHowever, a forensic inspection of sequential operational metrics reveals sharp top-line deceleration and working capital stress. Topline growth slowed markedly from +40.7% in Q2 FY2026 to +12.0% in Q4 FY2026 as the acquisition of Contra Costa Medical Career College fully entered baseline comps. Crucially, new student starts turned negative in the second half of the year, falling -12.0% YoY in Q3 and -4.0% YoY in Q4. Furthermore, full-year operating cash flow plunged to $4.03 million against reported GAAP net income of $9.14 million due to accounts receivable swelling to $19.90 million, while bad debt provisioning remained stubbornly high at 5.0% of revenue ($4.0 million).\n\nCapital allocation has centered on capital expenditures to expand physical capacity at the Lancaster and Temecula campuses and fund lease commitments for a new 28,000 square foot branch in Houston, Texas (130-month lease term, $6.9 million base rent commitment). While the balance sheet retains $22.73 million in gross cash and no revolving credit facility borrowings, no capital was returned to shareholders via buybacks or dividends, and true normalized owner cash generation remains heavily burdened by working capital absorption and internal credit extension.",
+    "price_at_alert": 9.5,
+    "price_change_pct": -9.95,
+    "report_url": "reports/LGCY.html"
+  },
+  {
+    "id": "alert-fdx-1790730800",
+    "ticker": "FDX",
+    "timestamp": "2026-09-30 01:13",
+    "title": "FDX: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "SEC 8-K Filing (2026-09-29): Item 5.07; Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001104659-26-111970]",
+    "what_was_before": "FedEx is demonstrating disciplined operational execution against a choppy industrial freight backdrop. For the latest quarter, revenue reached $25,000.0M, representing an annualized run-rate of $100,000.0M (+12.6% YoY). Consolidated gross margin stood at 27.4%, while adjusted operating margin expanded sequentially to 8.4%, supported by cumulative structural cost-out milestones under DRIVE and the phased rollout of Network 2.0 hub co-locations.\n\nOperationally, U.S. Domestic average daily package volume showed low-single-digit YoY expansion, while International Priority export volume stabilized across transatlantic routes. Composite yields improved sequentially via disciplined 5.9% general rate increases and surcharge optimization, which partially counterbalanced softer Freight LTL daily tonnage and lower weight per shipment.\n\nCapital discipline remains stringent. Maintenance and growth CapEx were held at $3,800.0M annualized (3.8% of revenue), reflecting aircraft modernization deferrals and fleet rationalization. Free cash flow supported $1,500.0M in share repurchases and regular quarterly dividends of $1.45 per share, though the balance sheet carries $25,714.0M in total debt against $7,150.0M in cash, maintaining net debt at -$18,564.0M.",
+    "what_changes_now": "Operationally, FedEx is executing an intensive network rationalization while navigating a sluggish macro freight environment. In the latest statutorily reported period (Q4 FY2026), consolidated revenue reached $25,000.0M, establishing a current annualized run-rate of $100,000.0M (+12.5% YoY in the final fiscal quarter and +7.7% TTM). Consolidated average daily package volume stabilized at approximately 18.0 million shipments, supported by a 5.0% YoY expansion in International Priority export packages and twelve consecutive quarters of European market share gains.\n\nUnit monetization has held firm on the surface, with Q4 parcel yield benefiting from a 5.9% General Rate Increase, indexed dynamic fuel surcharges, and high-margin specialized freight mix, including healthcare cold-chain logistics approaching a $10.0B run-rate. Reported gross margin stood at 23.5%, while adjusted operating margin reached 8.4% (6.2% GAAP) as structural DRIVE program savings exceeded $1.0B for the fiscal year.\n\nCapital allocation has pivoted toward balance sheet conservation and return on invested capital. Full-year capital expenditures dropped to $3.9B (<4.2% of revenue) as management strictly curtailed aircraft CapEx below $1.0B by accelerating the retirement of MD-11 tri-jets in favor of optimized surface routing. Trailing twelve-month adjusted Free Cash Flow rose to $4.7B, funding $4.0B in shareholder returns via buybacks and dividends. However, following the June 1, 2026 spinoff of FedEx Freight, RemainCo faces temporary stranded corporate overhead of $205M to $600M across G&A and facilities, which management is working to rationalize under its CY2026 adjusted EPS guidance of $16.90 to $18.10.",
+    "price_at_alert": 287.47,
+    "price_change_pct": -11.57,
+    "report_url": "reports/FDX.html"
+  },
+  {
     "id": "alert-cprt-1790710657",
     "ticker": "CPRT",
     "timestamp": "2026-09-29 19:37",
