@@ -1,5 +1,23 @@
 [
   {
+    "id": "alert-ftnt-1790797202",
+    "ticker": "FTNT",
+    "timestamp": "2026-09-30 19:40",
+    "title": "FTNT: Valuation Re-evaluated (Wide Moat)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Technical Trend Reversal: Price ($172.37) has reclaimed 50D SMA and crossed UP ALL 4 Moving Averages (5D: $162.94, 21D: $159.29, 50D: $159.46, 200D: $112.53) with +5.8% clearance and +9.5% 5-day velocity.",
+    "what_was_before": "Fortinet continues to demonstrate powerful operational execution, operating as the undisputed global volume leader in cybersecurity with over 50% unit market share in firewall shipments and an active installed base of over 800,000 enterprise customers. In Q2 2026, total revenue reached $2,047.9M (+25.6% YoY), establishing a current annualized run-rate of $8,191.6M. Growth was catalyzed by a rapid acceleration in hardware product sales (+51.9% YoY to $773.0M), as enterprises upgraded to FortiGate G-Series appliances powered by custom FortiASIC silicon.\n\nFinancial quality remains exceptional. Non-GAAP gross margin stood at 80.9%, while non-GAAP operating margin expanded to a record 38.0% in Q2 2026, generating $965.6M in quarterly free cash flow (47.2% FCF margin). Unlike high-dilution software peers, Fortinet maintains rigorous stock-based compensation discipline at just ~3.9% of revenue. Strategic growth vectors showed strong momentum, with Unified SASE billings surpassing a $2.0B annual run-rate (+35% YoY) and Operational Technology (OT) security billings expanding over 55% YoY.\n\nManagement has deployed cash aggressively, retiring senior debt ($500M repaid in Q2 2026) while maintaining share buybacks ($972.8M in 1H 2026). Fortinet carries $+3,573M in net balance sheet cash ($+4.83 per share) with an audited Owner ROIC of 99.9%, supported by its wide moat rooted in proprietary ASIC cost advantages and deep FortiOS switching costs.",
+    "what_changes_now": "Fortinet's actual sequential operating performance reflects strong momentum at the surface, driven by an aggressive hardware product refresh cycle. In the latest quarter (Q2 2026), revenue expanded 25.6% year-over-year to $2,047.9M, establishing an annualized run-rate of $8,191.6M, while total billings accelerated 33.0% YoY to $2,370M. Product revenue was the standout engine, surging 51.8% YoY to $773.0M as enterprise clients upgraded legacy Gen-6 appliances to secure AI boundary connectivity, high-throughput OT perimeter operations, and multi-gigabit campus architectures. Non-GAAP gross margin remained resilient at 80.9%, and GAAP operating margin expanded to 34.0% (38.0% Non-GAAP), demonstrating the operating leverage inherent in Fortinet's proprietary custom ASIC silicon.\n\nOperationally, Fortinet retains dominant unit distribution, shipping more physical units than Palo Alto Networks, Check Point, and Cisco combined, with global firewall unit shipment market share holding firmly above 50% to 55%. The company's architectural moat\u2014anchored by custom FortiASIC processors (such as the SP6 co-designed with Intel) and the unified FortiOS 8.0 code base\u2014delivers a 50% to 70% total cost of ownership discount compared to off-the-shelf x86 CPU firewalls. Dedicated FortiSASE billings expanded over 100% YoY, and Operational Technology security grew over 55% YoY, validating that the platform's reach extends beyond traditional on-premise appliances.\n\nCash flow generation and capital discipline remain robust. Trailing cash flow from operations reached $1,040M in the most recent quarter, supported by positive working capital float from upfront multi-year subscription contracts. Management repurchased $146M of common stock in Q2 2026 under its expanded buyback program, keeping share count tightly controlled at 739.9M diluted shares and closing the period with $3,573M in liquid net cash ($+4.83 per share).",
+    "price_at_alert": 179.68,
+    "price_change_pct": 17.05,
+    "report_url": "reports/FTNT.html"
+  },
+  {
     "id": "alert-wday-1790731774",
     "ticker": "WDAY",
     "timestamp": "2026-09-30 01:29",
@@ -629,24 +647,6 @@
     "price_at_alert": 78.36,
     "price_change_pct": -9.95,
     "report_url": "reports/LEN.html"
-  },
-  {
-    "id": "alert-ftnt-1789583660",
-    "ticker": "FTNT",
-    "timestamp": "2026-09-16 18:34",
-    "title": "FTNT: Valuation Re-evaluated (Wide Moat)",
-    "severity": "Wide Moat",
-    "labels": [
-      "Wide Moat",
-      "High Predictability"
-    ],
-    "action_signal": "CAUTION",
-    "trigger_reason": "Technical Trend Reversal: Price ($172.37) has reclaimed 50D SMA and crossed UP ALL 4 Moving Averages (5D: $162.94, 21D: $159.29, 50D: $159.46, 200D: $112.53) with +5.8% clearance and +9.5% 5-day velocity.",
-    "what_was_before": "Fortinet continues to demonstrate robust current operational execution, generating an annualized revenue run-rate of $8,191.6M based on latest quarterly results. Gross margins remain world-class at 80.2%, driven by custom ASIC chip architecture (SP5,",
-    "what_changes_now": "Fortinet continues to demonstrate powerful operational execution, operating as the undisputed global volume leader in cybersecurity with over 50% unit market share in firewall shipments and an active installed base of over 800,000 enterprise customers. In Q2 2026, total revenue reached $2,047.9M (+25.6% YoY), establishing a current annualized run-rate of $8,191.6M. Growth was catalyzed by a rapid acceleration in hardware product sales (+51.9% YoY to $773.0M), as enterprises upgraded to FortiGate G-Series appliances powered by custom FortiASIC silicon.\n\nFinancial quality remains exceptional. Non-GAAP gross margin stood at 80.9%, while non-GAAP operating margin expanded to a record 38.0% in Q2 2026, generating $965.6M in quarterly free cash flow (47.2% FCF margin). Unlike high-dilution software peers, Fortinet maintains rigorous stock-based compensation discipline at just ~3.9% of revenue. Strategic growth vectors showed strong momentum, with Unified SASE billings surpassing a $2.0B annual run-rate (+35% YoY) and Operational Technology (OT) security billings expanding over 55% YoY.\n\nManagement has deployed cash aggressively, retiring senior debt ($500M repaid in Q2 2026) while maintaining share buybacks ($972.8M in 1H 2026). Fortinet carries $+3,573M in net balance sheet cash ($+4.83 per share) with an audited Owner ROIC of 99.9%, supported by its wide moat rooted in proprietary ASIC cost advantages and deep FortiOS switching costs.",
-    "price_at_alert": 172.4,
-    "price_change_pct": 12.31,
-    "report_url": "reports/FTNT.html"
   },
   {
     "id": "alert-bam-1789583123",

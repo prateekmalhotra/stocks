@@ -2,6 +2,30 @@
   "ticker": "FTNT",
   "openinsider_trades": [
     {
+      "filing_date": "2026-09-25",
+      "trade_date": "2026-09-24",
+      "name": "Ohlgart Christiane",
+      "title": "CFO",
+      "trade_type": "S - Sale",
+      "price": "$180.00",
+      "qty": "-48",
+      "owned": "10,345",
+      "delta_own": "0%",
+      "value": "-$8,640"
+    },
+    {
+      "filing_date": "2026-09-16",
+      "trade_date": "2026-09-14",
+      "name": "Whittle John",
+      "title": "COO",
+      "trade_type": "S - Sale+OE",
+      "price": "$165.61",
+      "qty": "-56,700",
+      "owned": "96,987",
+      "delta_own": "-37%",
+      "value": "-$9,389,808"
+    },
+    {
       "filing_date": "2026-08-04",
       "trade_date": "2026-08-03",
       "name": "Xie Michael",
@@ -528,21 +552,18 @@
       "owned": "63,915,530",
       "delta_own": "0%",
       "value": "-$3,834,222"
-    },
-    {
-      "filing_date": "2024-09-18",
-      "trade_date": "2024-09-17",
-      "name": "Xie Ken",
-      "title": "Pres, CEO",
-      "trade_type": "S - Sale+OE",
-      "price": "$75.34",
-      "qty": "-47,049",
-      "owned": "63,878,806",
-      "delta_own": "0%",
-      "value": "-$3,544,807"
     }
   ],
-  "dataroma_holders": [],
+  "dataroma_holders": [
+    {
+      "manager": "Terry Smith - Fundsmith",
+      "pct_of_portfolio": "4.09",
+      "recent_activity": "Reduce 41.04%",
+      "shares": "3,629,938",
+      "value_usd": "557,631,000",
+      "source_url": "https://www.dataroma.com/m/stock.php?sym=FTNT"
+    }
+  ],
   "researched_writeups": [
     {
       "title": "Dataroma 13F Superinvestor Whale File: FTNT",
@@ -550,7 +571,7 @@
       "date": "13F Whale Audit",
       "summary": "Historical accumulation patterns, portfolio concentration, and recent buy/sell activity across premier value hedge funds for Fortinet, Inc..",
       "url": "https://www.dataroma.com/m/stock.php?sym=FTNT",
-      "btn_label": "Dataroma 13F \u2197"
+      "btn_label": "13F Whale File \u2197"
     },
     {
       "title": "SEC EDGAR Official Filings & Regulatory File: FTNT",
@@ -577,5 +598,5 @@
       "btn_label": "OpenInsider \u2197"
     }
   ],
-  "updated_at": "2026-09-16 18:34:20"
+  "updated_at": "2026-09-30 19:40:02"
 }
