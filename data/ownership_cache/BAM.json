@@ -1,6 +1,91 @@
 {
   "ticker": "BAM",
-  "openinsider_trades": [],
+  "openinsider_trades": [
+    {
+      "filing_date": "2025-04-24",
+      "trade_date": "FY25 Audit",
+      "name": "Brookfield Corporation (BN)",
+      "title": "Parent Entity / Controlling Shareholder",
+      "trade_type": "Class A Shares / Controlling Ownership",
+      "price": "$53.00",
+      "qty": "1,195,225,866",
+      "owned": "73.0% (Controlling Interest)",
+      "delta_own": "Controlling Stake",
+      "value": "$63,346,970,898"
+    },
+    {
+      "filing_date": "2026-03-23",
+      "trade_date": "FY25 Audit",
+      "name": "J. Bruce Flatt",
+      "title": "Chair of the Board & CEO of Brookfield Corporation",
+      "trade_type": "Direct & Indirect Class A Shares",
+      "price": "$53.00",
+      "qty": "1,706,843",
+      "owned": "0.10%",
+      "delta_own": "Vested Holding",
+      "value": "$90,462,679"
+    },
+    {
+      "filing_date": "2026-03-23",
+      "trade_date": "FY25 Audit",
+      "name": "Connor Teskey",
+      "title": "Chief Executive Officer & President",
+      "trade_type": "Direct Class A Shares & Escrowed Share Plan Awards",
+      "price": "$53.00",
+      "qty": "870,870",
+      "owned": "< 0.1%",
+      "delta_own": "Vested & Unvested Holding",
+      "value": "$46,156,110"
+    },
+    {
+      "filing_date": "2026-03-23",
+      "trade_date": "FY25 Audit",
+      "name": "Barry Blattman",
+      "title": "Vice Chairman of the Board",
+      "trade_type": "Direct & Indirect Class A Shares",
+      "price": "$53.00",
+      "qty": "693,515",
+      "owned": "< 0.1%",
+      "delta_own": "Vested Holding",
+      "value": "$36,756,295"
+    },
+    {
+      "filing_date": "2026-03-23",
+      "trade_date": "FY25 Audit",
+      "name": "Justin B. Beber",
+      "title": "Chief Operating Officer",
+      "trade_type": "Direct & Indirect Class A Shares",
+      "price": "$53.00",
+      "qty": "310,000",
+      "owned": "< 0.1%",
+      "delta_own": "Vested Holding",
+      "value": "$16,430,000"
+    },
+    {
+      "filing_date": "2026-03-23",
+      "trade_date": "FY25 Audit",
+      "name": "Hadley Peer Marshall",
+      "title": "Chief Financial Officer",
+      "trade_type": "Class A Shares & Executive Equity Plan Awards",
+      "price": "$53.00",
+      "qty": "250,000",
+      "owned": "< 0.1%",
+      "delta_own": "Vested & Unvested Holding",
+      "value": "$13,250,000"
+    },
+    {
+      "filing_date": "2026-03-23",
+      "trade_date": "FY25 Audit",
+      "name": "Olivia Garfield",
+      "title": "Independent Board Director",
+      "trade_type": "Deferred Share Units (DSUs) & Class A Shares",
+      "price": "$53.00",
+      "qty": "21,469",
+      "owned": "< 0.1%",
+      "delta_own": "Director Equity Holding",
+      "value": "$1,137,857"
+    }
+  ],
   "dataroma_holders": [
     {
       "manager": "Thomas Gayner - Markel Group",
@@ -53,5 +138,5 @@
       "btn_label": "OpenInsider \u2197"
     }
   ],
-  "updated_at": "2026-09-28 20:51:21"
+  "updated_at": "2026-10-01 19:56:14"
 }

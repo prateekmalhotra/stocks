@@ -1036,7 +1036,7 @@
                     </div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number" id="hero-market-price">$1.42</div>
+                    <div class="price-number" id="hero-market-price">$1.54</div>
                     <div class="price-sub">Market Price</div>
                 </div>
             </div>
@@ -1048,7 +1048,7 @@
                         <div class="chart-live-val">
                             <span id="tooltip-date">Sep 15, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$1.45</strong>
                             <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
-                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$2.93</strong></span>
+                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$1.61</strong></span>
                         </div>
                         <!-- Moving Average Live Indicators -->
                         <div class="ma-legend-bar">
@@ -1097,7 +1097,7 @@
                         
                         <!-- 3Y Target Dotted Line & Tag -->
                         <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
-                        <text id="target-label" x="18" y="8" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $2.93</text>
+                        <text id="target-label" x="18" y="8" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $1.61</text>
 
                         <!-- Moving Average Lines (200, 50, 21, 5) -->
                         <polyline id="chart-ma200" fill="none" stroke="#E879F9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
@@ -1122,33 +1122,33 @@
             <div class="metrics-grid">
                 <div class="metric-card">
                     <span class="metric-label">Owner Earnings (TTM)</span>
-                    <span class="metric-value" style="color: var(--text-title);">$0.00 / sh</span>
-                    <span class="metric-sub">$2M total (ex-SBC)</span>
+                    <span class="metric-value" style="color: var(--text-title);">$0.04 / sh</span>
+                    <span class="metric-sub">$12M total (ex-SBC)</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">P / Owner Earnings</span>
-                    <span class="metric-value" style="color: var(--text-title);">>150x</span>
-                    <span class="metric-sub">Market Cap: $662M</span>
+                    <span class="metric-value" style="color: var(--text-title);">42.6x</span>
+                    <span class="metric-sub">Market Cap: $527M</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">EV / Owner Earnings</span>
-                    <span class="metric-value" style="color: var(--text-title);">>150x</span>
-                    <span class="metric-sub">Enterprise Value: $683M</span>
+                    <span class="metric-value" style="color: var(--text-title);">40.3x</span>
+                    <span class="metric-sub">Enterprise Value: $498M</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner Cash Yield</span>
-                    <span class="metric-value" style="color: var(--accent-green);">0.3%</span>
+                    <span class="metric-value" style="color: var(--accent-green);">2.3%</span>
                     <span class="metric-sub">Starting Free Cash Flow Yield</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner ROIC</span>
-                    <span class="metric-value" style="color: var(--text-title);">0.7%</span>
+                    <span class="metric-value" style="color: var(--text-title);">4.6%</span>
                     <span class="metric-sub">OE / Invested Capital</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Net Cash / Share</span>
-                    <span class="metric-value" style="color: var(--accent-warm);">-$0.04 / sh</span>
-                    <span class="metric-sub">-$21M Net Balance Debt</span>
+                    <span class="metric-value" style="color: var(--accent-green);">+$0.08 / sh</span>
+                    <span class="metric-sub">+$28M Net Liquid Cash</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">
@@ -1172,8 +1172,8 @@
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('thesis', this)">Investment Thesis</button>
-            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">1</span></button>
-            <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">1</span></button>
+            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">2</span></button>
+            <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">2</span></button>
             <button class="nav-tab" onclick="switchTab('ownership', this)">Ownership & Fund Intel</button>
         </div>
 
@@ -1185,8 +1185,9 @@
                         <span class="section-index">01</span>
                         <h2 class="memo-title">What the Market is Pricing In</h2>
                     </div>
-                    <div class="memo-body"><p class="memo-para">Mr. Market is currently pricing Amaroq Ltd. at a steep valuation of 373.5x P/OE and 385.2x EV/OE, reflecting deep skepticism regarding the company's ability to transition from a high-cost developer to a highly profitable, steady-state producer in the harsh Arctic environment of Greenland. The market is heavily anchoring to the historical and H1 2026 All-In Sustaining Costs (AISC) of ~$4,000 per ounce, fearing that the structural complexities of operating in South Greenland will permanently impair margins. Furthermore, the back-end-weighted nature of the FY2026 production guidance—requiring a massive 2x to 3x acceleration in H2 to meet the 25,000 to 35,000-ounce target—is viewed by skeptics as an accident waiting to happen.</p>
-<p class="memo-para">Additionally, the market is pricing in severe dilution fatigue and capital overreach. With a massive multi-project pipeline spanning Nalunaq, Nanoq, and Black Angel, and a rapidly depleting cash balance that has forced the company to draw down $57 million of its $70 million revolving credit facility, investors fear that another massive equity raise is imminent. This overhang, combined with fragmented liquidity across multiple listings and selling pressure from Icelandic mutual funds, has kept the stock depressed at $1.42, pricing the business as a speculative junior miner rather than an emerging high-grade cash compounder.</p></div>
+                    <div class="memo-body"><p class="memo-para">Mr. Market is currently grappling with a severe valuation disconnect at Amaroq's current price of $1.54 (42.6x normalized Owner Earnings and 40.3x EV/OE). While headline revenue exploded YoY following commercial production at the Nalunaq Gold Mine, the market harbors deep skepticism regarding the sustainability of current profitability. Skeptics fear that the company's recent high-grade reconciliation (mining ~20 g/t versus the guided 14–15 g/t) is merely transient high-grading of localized pockets, subject to extreme nugget-effect volatility and narrow-vein dilution that could derail cash generation once stoping expands.</p>
+<p class="memo-para">Furthermore, the market is pricing in substantial execution headwinds unique to sub-Arctic Greenland, including seasonal logistics bottlenecks, an aggressive cash drawdown of 66.8% YoY that forced an expansion of credit lines to US$70 million with Landsbankinn and Gunvor, and severe capital dispersion into non-mining ventures like the Suliaq maritime fleet and Imeq hydroelectric development. As a consequence, investors are treating current cash flow as a cyclical peak rather than a durable compounding platform, demanding a large discount for single-asset operational fragility in an isolated operating theatre.</p>
+<p class="memo-para">Ultimately, Wall Street treats Amaroq's low audited ROIC of 4.6% as indicative of a Weak Moat mining asset. Without a long-term cost advantage or pricing power, equity markets are assigning a steep execution discount, pricing in potential cost overruns and logistics disruptions inherent to sub-Arctic resource extraction.</p></div>
                 </section>
                 <section class="memo-section">
                     <div class="section-header">
@@ -1198,35 +1199,35 @@
                     <div class="math-step-badge">1</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Starting Baseline</div>
-                        <div class="math-step-body">Amaroq starts with a normalized Owner Earnings of $0.00/share ($1.8M total) and a net balance sheet cash position of $-0.04/share ($-21M net debt).</div>
+                        <div class="math-step-body">Amaroq generates audited normalized Owner Earnings of $0.04 per share ($12.4M total) against a current net cash balance of $+0.08 per share ($28.0M).</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">2</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Forensic Business Headwinds</div>
-                        <div class="math-step-body">The primary structural vulnerabilities include extreme Arctic logistical bottlenecks, high fixed overhead, single-asset dependency on the Nalunaq mine, and metallurgical uncertainties at the Nanoq satellite deposit.</div>
+                        <div class="math-step-body">If skeptical headwinds materialize, Nalunaq's head grades revert from temporary 20 g/t highs to a diluted 11–12 g/t, plant throughput remains bottlenecked near 250 tpd due to underground development delays, and realized gold prices normalize downward from peak levels. Concurrently, non-core overhead in maritime logistics (Suliaq) and regional greenfield exploration (Gardaq JV, Black Angel) continues to drain liquid reserves.</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">3</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Skeptic Unit Contraction</div>
-                        <div class="math-step-body">If the newly commissioned Phase 2 flotation circuit suffers mechanical or chemical integration failures, recovery rates will remain bottlenecked at 60%, causing gold sales to contract to just 12,000 ounces per year instead of ramping up.</div>
+                        <div class="math-step-body">Annual gold sales contract from the annualized ~22,560 oz pace down to 15,000 oz per year, while realized Canadian dollar gold pricing softens to $3,200/oz, driving total annualized revenue down to $48.0M.</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">4</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Reverse Operating Leverage & Cash Degradation</div>
-                        <div class="math-step-body">With sticky fixed costs and high debt service on the $57M drawn RCF, AISC spikes to $4,200/oz. At a realized gold price of $4,678/oz, the operating margin collapses to $478/oz, generating only $5.7M in gross cash flow. After accounting for corporate G&A, interest expenses, and maintenance CapEx, Year 3 Owner Earnings degrade to $0.004/share ($2.0M total) on an expanded share count of 500M due to dilutive emergency equity raises.</div>
+                        <div class="math-step-body">Due to rigid Arctic fixed overheads (camp logistics, heavy fuel generation, underground ventilation), operating cash costs remain sticky at $36.0M. Subtracting $8.0M in sustaining maintenance CapEx, $2.0M in stock-based compensation, and $1.5M in interest/administrative expense leaves degraded Skeptic Year 3 Owner Earnings of just $0.5M ($0.001 per share).</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">5</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Downside Risk Valuation Floor</div>
-                        <div class="math-step-body">Capitalizing the degraded $0.004/share Owner Earnings at a stagnant 3.0x P/OE multiple yields $0.012/share. Adding an ending net cash position that has deteriorated to $-0.15/share due to persistent cash burn results in a negative equity value, establishing a tangible liquidation and option value floor of $0.15/share.</div>
+                        <div class="math-step-body">Capitalizing degraded trough Owner Earnings of $0.02 per share (normalized multi-year average of $6.8M) at a trough Weak Moat multiple of 4.0x P/OE yields $0.08 per share in business value. Adding a depleted net cash reserve of $+0.08 per share (after sustained exploration CapEx burn) establishes a Downside Cash Floor Target of $0.16 per share (an 89.6% decline from current market prices).</div>
                     </div>
                 </div></div></div>
                 </section>
@@ -1235,9 +1236,9 @@
                         <span class="section-index">03</span>
                         <h2 class="memo-title">How Things Are Going Now</h2>
                     </div>
-                    <div class="memo-body"><p class="memo-para">In stark contrast to the bear narrative, Amaroq's operational reality reveals a highly successful transition into a cash-generating producer. In the latest quarter, the company generated $27.2M in revenue, representing a current annualized run-rate of $108.9M, with an exceptional gross margin of 67.0%. The company sold 5,640 ounces of gold (producing 5,363 ounces) at the Nalunaq Mine, capturing an extraordinary average realized gold price of US$4,678 per ounce sold. This high-grade profile has already begun to validate the economic potential of the Nanortalik Gold Belt.</p>
-<p class="memo-para">Operationally, the critical catalyst was the successful commissioning of the Phase 2 flotation circuit in June 2026, which immediately boosted gold recovery rates from ~60% to over 90% in July. This technological milestone dramatically de-risks the H2 2026 production ramp-up. Furthermore, the company generated positive operating cash flow of $20.4M in H1 2026, demonstrating that the business is rapidly inflecting toward self-sustainability.</p>
-<p class="memo-para">On the capital allocation front, management is actively mitigating dilution risks. The strategic minerals portfolio has been insulated via the Gardaq JV, securing non-dilutive funding from ACAM LP, while the services subsidiary Suliaq ApS is seeking third-party equity. With peak CapEx now in the past and the transition to an owner-operator model underway, Amaroq is poised to rapidly compress its AISC toward the targeted US$1,250–$1,450/oz range as throughput reaches nameplate capacity.</p></div>
+                    <div class="memo-body"><p class="memo-para">Amaroq's underlying operational engine is delivering a rapid production ramp-up following the commissioning of its processing infrastructure. In the latest operating quarter (Q2 2026), the company generated $37.3M in revenue (an annualized run-rate of $149.2M) with gross margins expanding significantly to 67.0%. Nalunaq produced 5,363 ounces and sold 5,640 ounces of gold at an average realized price of $4,678 per ounce CAD, driven by exceptional processed head grades of 20.1 g/t that comfortably exceeded original mine plan models.</p>
+<p class="memo-para">The commissioning of the Phase 2 flotation circuit in June 2026 resolved historical gravity-only recovery bottlenecks, elevating total metallurgical recoveries from ~61% to over 90%. Operating cash flow inflected positively across H1 2026, enabling Amaroq to fund initial underground stope development and complete regional exploration campaigns, including a 33-hole (4,729 meter) resource drilling campaign at the Nanoq satellite deposit that demonstrated 97–99% metallurgical gold recoveries.</p>
+<p class="memo-para">Capital allocation remains intensely focused on internal reinvestment. While cash contracted to $28.5M due to peak construction CapEx, Amaroq upsized its revolving credit facility with Landsbankinn and Gunvor to US$70M to preserve liquidity, transitioned its primary listing to the London Stock Exchange Main Market to broaden institutional access, and avoided dilutive equity issuances while maintaining zero funded long-term debentures on its balance sheet.</p></div>
                 </section>
                 <section class="memo-section">
                     <div class="section-header" style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
@@ -1256,42 +1257,42 @@
                     <div class="math-step-badge">1</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Starting Unit Baseline</div>
-                        <div class="math-step-body">Amaroq's current operational baseline is anchored to 5,640 ounces of gold sold (5,363 ounces produced) at the Nalunaq Mine, an average realized gold price of US$4,678 per ounce sold, and an annualized revenue run-rate of $108.9M.</div>
+                        <div class="math-step-body">Current quarterly volume stands at 5,640 ounces of gold sold (annualized run-rate of 22,560 oz) at a realized monetization yield of $4,678 per ounce CAD, yielding an annualized revenue run-rate baseline of $149.2M.</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">2</div>
                     <div class="math-step-main">
                         <div class="math-step-label">3-Year Unit Volume Extrapolation</div>
-                        <div class="math-step-body">Driven by the fully operational Phase 2 flotation circuit and the transition to steady-state owner-operator mining, gold sales are projected to scale from 25,000 ounces in Year 1, to 40,000 ounces in Year 2, and finally to 55,000 ounces in Year 3 as satellite deposits begin to feed the central Nalunaq mill.</div>
+                        <div class="math-step-body">As the Phase 2 flotation circuit operates at steady-state and underground stoping expands into the Mountain Block and Target Valley, annual gold sales expand to 28,000 ounces in Year 1, 34,000 ounces in Year 2, and 40,000 ounces in Year 3 as Nalunaq reaches steady-state 300–350 tpd throughput.</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">3</div>
                     <div class="math-step-main">
-                        <div class="math-step-label">Projected Year 3 Revenue (Units × Monetization)</div>
-                        <div class="math-step-body">Multiplying Year 3 volume of 55,000 ounces sold by the stable realized gold price of US$4,678 per ounce yields a Projected Year 3 Revenue of $257.29M.</div>
+                        <div class="math-step-label">Projected Year 3 Revenue</div>
+                        <div class="math-step-body">Multiplying Year 3 volume of 40,000 ounces by a normalized realized gold price of $4,200 per ounce CAD yields Projected Year 3 Revenue of $168.0M.</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">4</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
-                        <div class="math-step-body">As throughput scales, AISC compresses to a steady-state $1,350/oz, resulting in $74.25M in cash operating costs. Subtracting corporate G&A (fully absorbed in AISC), SBC ($2.0M), and maintenance CapEx ($6.0M) yields a Projected Year 3 Total Owner Earnings of $175.04M, representing an Owner Cash Margin of 68.0%, or $0.375/share on 466.2M diluted shares.</div>
+                        <div class="math-step-body">Deducting cash production costs of $64.0M ($1,600/oz AISC cash baseline), administrative and logistics expenses of $22.0M, sustaining maintenance CapEx of $18.0M, stock-based compensation of $3.0M, and mineral royalties/taxes of $13.0M results in Projected Year 3 Total Owner Earnings of $48.0M (28.6% owner cash margin, or $0.140 per share across 342.0M diluted shares).</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">5</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
-                        <div class="math-step-body">Starting Net Cash of $-21M + Cumulative 3-Year Free Cash Flow of $210M - Cumulative Buybacks of $0.00 - Cumulative CapEx of $45M results in an Ending Year 3 Net Cash position of $144M, or $0.309/share.</div>
+                        <div class="math-step-body">Starting Net Cash of $+28.0M + Cumulative 3-Year Free Cash Flow of $105.0M - Discretionary Growth CapEx for Nanoq/Suliaq infrastructure of $45.0M - Zero Share Buybacks ($0.0M) - Working Capital/Debt Facility Buffers of $15.0M = Ending Year 3 Net Cash of $73.0M ($0.213 per share).</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">6</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Intrinsic Fair Value Target & Expected 3-Year Return</div>
-                        <div class="math-step-body">Year 2 Owner Earnings are modeled at $121.12M ($0.260/share) on 40,000 ounces sold at $4,678/oz with a $1,450/oz AISC. Year 3 Owner Earnings of $175.04M ($0.375/share) represent a Year 3 YoY growth rate (g₃) of 44.5%. Because g₃ > 10%, we strictly apply a 7.0x P/OE multiple from the No Moat Compounding matrix. Capitalizing Year 3 Owner Earnings of $0.375/share at 7.0x ($2.625) and adding Ending Net Cash of $0.309/share yields an Intrinsic Fair Value Target of $2.93. This represents an expected 3-year annualized return (IRR) of 27.3% from today's market price of $1.42.</div>
+                        <div class="math-step-body">With Year 3 Owner Earnings growing +37.1% YoY over Year 2 ($48.0M vs $35.0M), Amaroq qualifies for the Rapid Compounding tier (g₃ > 15%). Applying a disciplined Weak Moat exit multiple of 10.0x P/OE strictly from the Buffett-Munger Matrix yields a business capitalization of $1.40 per share ($0.140 × 10.0x). Adding Ending Net Cash of $0.213 per share results in an Intrinsic Fair Value Target of $1.61 per share, representing a 3-year annualized return (IRR) of 1.49% per annum from today's $1.54 price, signaling that current market prices already reflect the bulk of operational execution.</div>
                     </div>
                 </div></div></div>
                 </section>
@@ -1307,8 +1308,140 @@
             <div class="evolution-card active-version-card">
                 <div class="evolution-header">
                     <div class="evolution-title-row">
-                        <span class="evolution-vnum">Version 2</span>
+                        <span class="evolution-vnum">Version 3</span>
                         <span class="evolution-status-text status-active">Live Active</span>
+                        <span class="evolution-date">· 2026-10-01</span>
+                    </div>
+                    <div class="evolution-price">Snapshot Price: <strong>$1.54</strong></div>
+                </div>
+                <div class="evolution-reason">
+                    <span class="reason-label">Trigger / Reason:</span> International Corporate Wire (Thu, 01 Oct 2026 06:00:00 +0000): 2026 Nanoq Drilling Programme Completed and Initial Positive Metallurgical Test Work Results
+                </div>
+                <div class="evolution-metrics-text-row">
+                    <span>OE: <strong>$0.04/sh</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>P/OE: <strong>42.6x</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>ROIC: <strong>4.6%</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>Moat: <strong>Narrow Moat</strong></span>
+                </div>
+                <div class="evolution-change-text">Amaroq's underlying operational engine is delivering a rapid production ramp-up following the commissioning of its processing infrastructure. In the latest operating quarter (Q2 2026), the company generated $37.3M in revenue (an annualized run-rate of $149.2M) with gross margins expanding significantly to 67.0%. Nalunaq produced 5,363 ounces and sold 5,640 ounces of gold at an average realized price of $4,678 per ounce CAD, driven by exceptional processed head grades of 20.1 g/t that comfortably exceeded original mine plan models.
+
+The commissioning of the Phase 2 flotation circuit in June 2026 resolved historical gravity-only recovery bottlenecks, elevating total metallurgical recoveries from ~61% to over 90%. Operating cash flow inflected positively across H1 2026, enabling Amaroq to fund initial underground stope development and complete regional exploration campaigns, including a 33-hole (4,729 meter) resource drilling campaign at the Nanoq satellite deposit that demonstrated 97–99% metallurgical gold recoveries.
+
+Capital allocation remains intensely focused on internal reinvestment. While cash contracted to $28.5M due to peak construction CapEx, Amaroq upsized its revolving credit facility with Landsbankinn and Gunvor to US$70M to preserve liquidity, transitioned its primary listing to the London Stock Exchange Main Market to broaden institutional access, and avoided dilutive equity issuances while maintaining zero funded long-term debentures on its balance sheet.</div>
+                <details class="archived-accordion">
+                    <summary class="archived-summary">Inspect Thesis Memo (v3)</summary>
+                    <div class="archived-content-body">
+                        
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">1. What the Market is Pricing In</div>
+                    <div><p class="memo-para">Mr. Market is currently grappling with a severe valuation disconnect at Amaroq's current price of $1.54 (42.6x normalized Owner Earnings and 40.3x EV/OE). While headline revenue exploded YoY following commercial production at the Nalunaq Gold Mine, the market harbors deep skepticism regarding the sustainability of current profitability. Skeptics fear that the company's recent high-grade reconciliation (mining ~20 g/t versus the guided 14–15 g/t) is merely transient high-grading of localized pockets, subject to extreme nugget-effect volatility and narrow-vein dilution that could derail cash generation once stoping expands.</p>
+<p class="memo-para">Furthermore, the market is pricing in substantial execution headwinds unique to sub-Arctic Greenland, including seasonal logistics bottlenecks, an aggressive cash drawdown of 66.8% YoY that forced an expansion of credit lines to US$70 million with Landsbankinn and Gunvor, and severe capital dispersion into non-mining ventures like the Suliaq maritime fleet and Imeq hydroelectric development. As a consequence, investors are treating current cash flow as a cyclical peak rather than a durable compounding platform, demanding a large discount for single-asset operational fragility in an isolated operating theatre.</p>
+<p class="memo-para">Ultimately, Wall Street treats Amaroq's low audited ROIC of 4.6% as indicative of a Weak Moat mining asset. Without a long-term cost advantage or pricing power, equity markets are assigning a steep execution discount, pricing in potential cost overruns and logistics disruptions inherent to sub-Arctic resource extraction.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
+                    <div><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Baseline</div>
+                        <div class="math-step-body">Amaroq generates audited normalized Owner Earnings of $0.04 per share ($12.4M total) against a current net cash balance of $+0.08 per share ($28.0M).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Forensic Business Headwinds</div>
+                        <div class="math-step-body">If skeptical headwinds materialize, Nalunaq's head grades revert from temporary 20 g/t highs to a diluted 11–12 g/t, plant throughput remains bottlenecked near 250 tpd due to underground development delays, and realized gold prices normalize downward from peak levels. Concurrently, non-core overhead in maritime logistics (Suliaq) and regional greenfield exploration (Gardaq JV, Black Angel) continues to drain liquid reserves.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Skeptic Unit Contraction</div>
+                        <div class="math-step-body">Annual gold sales contract from the annualized ~22,560 oz pace down to 15,000 oz per year, while realized Canadian dollar gold pricing softens to $3,200/oz, driving total annualized revenue down to $48.0M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Reverse Operating Leverage & Cash Degradation</div>
+                        <div class="math-step-body">Due to rigid Arctic fixed overheads (camp logistics, heavy fuel generation, underground ventilation), operating cash costs remain sticky at $36.0M. Subtracting $8.0M in sustaining maintenance CapEx, $2.0M in stock-based compensation, and $1.5M in interest/administrative expense leaves degraded Skeptic Year 3 Owner Earnings of just $0.5M ($0.001 per share).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Downside Risk Valuation Floor</div>
+                        <div class="math-step-body">Capitalizing degraded trough Owner Earnings of $0.02 per share (normalized multi-year average of $6.8M) at a trough Weak Moat multiple of 4.0x P/OE yields $0.08 per share in business value. Adding a depleted net cash reserve of $+0.08 per share (after sustained exploration CapEx burn) establishes a Downside Cash Floor Target of $0.16 per share (an 89.6% decline from current market prices).</div>
+                    </div>
+                </div></div></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">3. How Things Are Going Now</div>
+                    <div><p class="memo-para">Amaroq's underlying operational engine is delivering a rapid production ramp-up following the commissioning of its processing infrastructure. In the latest operating quarter (Q2 2026), the company generated $37.3M in revenue (an annualized run-rate of $149.2M) with gross margins expanding significantly to 67.0%. Nalunaq produced 5,363 ounces and sold 5,640 ounces of gold at an average realized price of $4,678 per ounce CAD, driven by exceptional processed head grades of 20.1 g/t that comfortably exceeded original mine plan models.</p>
+<p class="memo-para">The commissioning of the Phase 2 flotation circuit in June 2026 resolved historical gravity-only recovery bottlenecks, elevating total metallurgical recoveries from ~61% to over 90%. Operating cash flow inflected positively across H1 2026, enabling Amaroq to fund initial underground stope development and complete regional exploration campaigns, including a 33-hole (4,729 meter) resource drilling campaign at the Nanoq satellite deposit that demonstrated 97–99% metallurgical gold recoveries.</p>
+<p class="memo-para">Capital allocation remains intensely focused on internal reinvestment. While cash contracted to $28.5M due to peak construction CapEx, Amaroq upsized its revolving credit facility with Landsbankinn and Gunvor to US$70M to preserve liquidity, transitioned its primary listing to the London Stock Exchange Main Market to broaden institutional access, and avoided dilutive equity issuances while maintaining zero funded long-term debentures on its balance sheet.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
+                    <div><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Unit Baseline</div>
+                        <div class="math-step-body">Current quarterly volume stands at 5,640 ounces of gold sold (annualized run-rate of 22,560 oz) at a realized monetization yield of $4,678 per ounce CAD, yielding an annualized revenue run-rate baseline of $149.2M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">3-Year Unit Volume Extrapolation</div>
+                        <div class="math-step-body">As the Phase 2 flotation circuit operates at steady-state and underground stoping expands into the Mountain Block and Target Valley, annual gold sales expand to 28,000 ounces in Year 1, 34,000 ounces in Year 2, and 40,000 ounces in Year 3 as Nalunaq reaches steady-state 300–350 tpd throughput.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Projected Year 3 Revenue</div>
+                        <div class="math-step-body">Multiplying Year 3 volume of 40,000 ounces by a normalized realized gold price of $4,200 per ounce CAD yields Projected Year 3 Revenue of $168.0M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
+                        <div class="math-step-body">Deducting cash production costs of $64.0M ($1,600/oz AISC cash baseline), administrative and logistics expenses of $22.0M, sustaining maintenance CapEx of $18.0M, stock-based compensation of $3.0M, and mineral royalties/taxes of $13.0M results in Projected Year 3 Total Owner Earnings of $48.0M (28.6% owner cash margin, or $0.140 per share across 342.0M diluted shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
+                        <div class="math-step-body">Starting Net Cash of $+28.0M + Cumulative 3-Year Free Cash Flow of $105.0M - Discretionary Growth CapEx for Nanoq/Suliaq infrastructure of $45.0M - Zero Share Buybacks ($0.0M) - Working Capital/Debt Facility Buffers of $15.0M = Ending Year 3 Net Cash of $73.0M ($0.213 per share).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Intrinsic Fair Value Target & Expected 3-Year Return</div>
+                        <div class="math-step-body">With Year 3 Owner Earnings growing +37.1% YoY over Year 2 ($48.0M vs $35.0M), Amaroq qualifies for the Rapid Compounding tier (g₃ > 15%). Applying a disciplined Weak Moat exit multiple of 10.0x P/OE strictly from the Buffett-Munger Matrix yields a business capitalization of $1.40 per share ($0.140 × 10.0x). Adding Ending Net Cash of $0.213 per share results in an Intrinsic Fair Value Target of $1.61 per share, representing a 3-year annualized return (IRR) of 1.49% per annum from today's $1.54 price, signaling that current market prices already reflect the bulk of operational execution.</div>
+                    </div>
+                </div></div></div>
+                </div>
+                
+                    </div>
+                </details>
+            </div>
+            
+            <div class="evolution-card ">
+                <div class="evolution-header">
+                    <div class="evolution-title-row">
+                        <span class="evolution-vnum">Version 2</span>
+                        <span class="evolution-status-text status-archived">Archived</span>
                         <span class="evolution-date">· 2026-08-28</span>
                     </div>
                     <div class="evolution-price">Snapshot Price: <strong>$1.42</strong></div>
@@ -1576,12 +1709,12 @@ The completion and commissioning of the Phase 2 flotation circuit in late June 2
                 <div class="corridor-grid">
                     <div class="corridor-card">
                         <span class="corridor-label">Lower Price Alert Floor</span>
-                        <span class="corridor-value">$0.15</span>
+                        <span class="corridor-value">$0.16</span>
                         <span class="corridor-sub">Triggers downside margin-of-safety review if breached</span>
                     </div>
                     <div class="corridor-card">
                         <span class="corridor-label">Upper Price Alert Ceiling</span>
-                        <span class="corridor-value">$2.93</span>
+                        <span class="corridor-value">$1.77</span>
                         <span class="corridor-sub">Triggers valuation trim / fair value realization review</span>
                     </div>
                     <div class="corridor-card">
@@ -1595,6 +1728,20 @@ The completion and commissioning of the Phase 2 flotation circuit in late June 2
                     <h3 class="memo-title" style="font-size: 1.15rem; margin-bottom: 18px;">Active & Historical Surveillance Alerts for AMRQ</h3>
                     <div class="alert-feed-list">
                         
+            <div class="alert-feed-card">
+                <div class="alert-feed-header">
+                    <span class="alert-feed-badge" style="background: rgba(212, 163, 115, 0.15); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35);">Weak Moat</span>
+                    <span class="alert-feed-time">2026-10-01 20:16</span>
+                </div>
+                <div class="alert-feed-title">AMRQ: Valuation Re-evaluated (Weak Moat)</div>
+                <div class="alert-feed-reason">International Corporate Wire (Thu, 01 Oct 2026 06:00:00 +0000): 2026 Nanoq Drilling Programme Completed and Initial Positive Metallurgical Test Work Results</div>
+                <div class="alert-feed-desc">Amaroq's underlying operational engine is delivering a rapid production ramp-up following the commissioning of its processing infrastructure. In the latest operating quarter (Q2 2026), the company generated $37.3M in revenue (an annualized run-rate of $149.2M) with gross margins expanding significantly to 67.0%. Nalunaq produced 5,363 ounces and sold 5,640 ounces of gold at an average realized price of $4,678 per ounce CAD, driven by exceptional processed head grades of 20.1 g/t that comfortably exceeded original mine plan models.
+
+The commissioning of the Phase 2 flotation circuit in June 2026 resolved historical gravity-only recovery bottlenecks, elevating total metallurgical recoveries from ~61% to over 90%. Operating cash flow inflected positively across H1 2026, enabling Amaroq to fund initial underground stope development and complete regional exploration campaigns, including a 33-hole (4,729 meter) resource drilling campaign at the Nanoq satellite deposit that demonstrated 97–99% metallurgical gold recoveries.
+
+Capital allocation remains intensely focused on internal reinvestment. While cash contracted to $28.5M due to peak construction CapEx, Amaroq upsized its revolving credit facility with Landsbankinn and Gunvor to US$70M to preserve liquidity, transitioned its primary listing to the London Stock Exchange Main Market to broaden institutional access, and avoided dilutive equity issuances while maintaining zero funded long-term debentures on its balance sheet.</div>
+            </div>
+            
             <div class="alert-feed-card">
                 <div class="alert-feed-header">
                     <span class="alert-feed-badge" style="background: rgba(212, 163, 115, 0.15); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35);">No Moat</span>
@@ -1746,7 +1893,7 @@ On the capital allocation front, management is actively mitigating dilution risk
                 }
             });
 
-            const targetPrice = 2.93;
+            const targetPrice = 1.61;
             const prices = points.map(p => p.price);
             let minP = Math.min(...prices);
             let maxP = Math.max(...prices);
