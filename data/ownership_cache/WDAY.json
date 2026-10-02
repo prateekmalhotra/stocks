@@ -2,6 +2,18 @@
   "ticker": "WDAY",
   "openinsider_trades": [
     {
+      "filing_date": "2026-09-30",
+      "trade_date": "2026-09-28",
+      "name": "Duffield David A",
+      "title": "10%",
+      "trade_type": "S - Sale+OE",
+      "price": "$188.55",
+      "qty": "-98,971",
+      "owned": "105,049",
+      "delta_own": "-49%",
+      "value": "-$18,661,307"
+    },
+    {
       "filing_date": "2026-09-24",
       "trade_date": "2026-09-23",
       "name": "Duffield David A",
@@ -1190,21 +1202,37 @@
   ],
   "researched_writeups": [
     {
-      "title": "harvard.edu",
-      "fund": "Shareholder Letter PDF",
-      "date": "Verified Due Diligence",
-      "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Workday, Inc..",
-      "url": "https://pcg.law.harvard.edu/wp-content/uploads/2026/01/Barclays-2025-Review-of-Shareholder-Activism_vF.pdf",
-      "btn_label": "Read Source \u2197"
+      "title": "Dataroma 13F Superinvestor Whale File: WDAY",
+      "fund": "Dataroma Superinvestors",
+      "date": "13F Whale Audit",
+      "summary": "Historical accumulation patterns, portfolio concentration, and recent buy/sell activity across premier value hedge funds for Workday, Inc..",
+      "url": "https://www.dataroma.com/m/stock.php?sym=WDAY",
+      "btn_label": "13F Whale File \u2197"
     },
     {
-      "title": "railway.app",
-      "fund": "Independent Research",
-      "date": "Verified Due Diligence",
-      "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Workday, Inc..",
-      "url": "https://bsdpdfapi-production.up.railway.app/letters/file/e6e38fb0-b834-4d90-956c-8a51175860d3/",
-      "btn_label": "Read Source \u2197"
+      "title": "SEC EDGAR Official Filings & Regulatory File: WDAY",
+      "fund": "SEC EDGAR Official Registry",
+      "date": "Regulatory Archive",
+      "summary": "Official regulatory depository of 10-K/20-F annual reports, 10-Q/6-K quarterlies, and beneficial ownership filings for Workday, Inc..",
+      "url": "https://www.sec.gov/edgar/browse/?CIK=WDAY",
+      "btn_label": "SEC EDGAR \u2197"
+    },
+    {
+      "title": "Substack Investment Research & Deep Dives: WDAY",
+      "fund": "Substack Deep Value",
+      "date": "Independent Research",
+      "summary": "Independent research publications, subscriber letters, and thesis breakdowns covering Workday, Inc..",
+      "url": "https://substack.com/search/WDAY%20investment%20thesis",
+      "btn_label": "Substack Search \u2197"
+    },
+    {
+      "title": "OpenInsider Real-Time Form 4 & Insider Ledger: WDAY",
+      "fund": "OpenInsider Real-Time",
+      "date": "Insider Audit",
+      "summary": "Live stream of officer, director, and 10% beneficial owner purchases, sales, and option grants for Workday, Inc..",
+      "url": "http://openinsider.com/search?q=WDAY",
+      "btn_label": "OpenInsider \u2197"
     }
   ],
-  "updated_at": "2026-09-30 01:29:34"
+  "updated_at": "2026-10-02 01:36:49"
 }
