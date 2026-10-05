@@ -1,5 +1,42 @@
 [
   {
+    "id": "retrace_ACN_20261005_2140",
+    "ticker": "ACN",
+    "timestamp": "2026-10-05 21:40",
+    "title": "\ud83c\udfaf Beat & Retrace Buy Alert: ACN (75%+ Pop Eroded)",
+    "severity": "Opportunity",
+    "labels": [
+      "Beat & Retrace",
+      "75% Eroded",
+      "Value Entry"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Post-earnings pop of +13.6% ($215.07) has eroded by 77.9% back to $195.05 (Entry Baseline: $189.36)",
+    "what_was_before": "ACN surged +13.6% to a peak of $215.07 following strong earnings execution.",
+    "what_changes_now": "Macro / market selling pressure has erased 77.9% of the earnings pop gains without compromising fundamental business quality. High margin-of-safety entry window active.",
+    "price_at_alert": 195.05,
+    "price_change_pct": -9.31,
+    "report_url": "reports/ACN.html"
+  },
+  {
+    "id": "alert-vst-1791236357",
+    "ticker": "VST",
+    "timestamp": "2026-10-05 21:39",
+    "title": "VST: Valuation Re-evaluated (Narrow Moat)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 8-K Filing (2026-10-05): Item 1.01: Entry into a Material Definitive Agreement (M&A / Commercial Contract); Item 2.03; Item 9.01: Financial Statements and Exhibits [Accession #0001140361-26-038468]",
+    "what_was_before": "Vistra's operational engine continues to run at elevated utilization, generating $4,020.0M in quarterly revenue (an annualized run-rate of $16,080.0M) with gross margins of 38.3% across its ~44,000 MW generation portfolio and ~5.0 million retail accounts. Fleet commercial availability across the zero-carbon nuclear fleet (Comanche Peak, Perry, Davis-Besse, Beaver Valley) and flexible natural gas peakers remains above 97% during peak seasonal load periods. The company's integrated 'Gen-Tail' structure has cushioned against regional weather volatility, allowing commercial desks to re-route unconsumed retail power to capture merchant wholesale price spikes.\n\nLong-term commercial momentum is supported by contracted bilateral agreements with hyperscalers, including the 20-year, 1,200 MW nuclear offtake agreement with AWS and the 2,176 MW agreement with Meta spanning energy, capacity, and planned nuclear uprates in PJM. Additionally, Vistra has integrated 2,600 MW of flexible gas capacity from Lotus Infrastructure and executed transactions for Cogentrix Energy to expand its dispatchable natural gas footprint.\n\nHowever, sequential financial analysis highlights critical pressure points between headline Adjusted EBITDA and tangible equity cash flow. Net income continues to experience substantial mark-to-market volatility from unrealized derivative hedges. More critically, management has acknowledged that softening ERCOT forward power curves have skewed 2027 EBITDA opportunities toward the lower bound of the $7.4B\u2013$7.8B range. With net debt standing at $20,705.0M and ongoing growth capital requirements, discretionary cash generation is heavily directed toward debt service and capital commitments rather than unrestricted equity distribution.",
+    "what_changes_now": "Vistra's operational execution remains resilient across its integrated platform, supported by 97% gas fleet availability and 100% nuclear commercial availability. Real-time annualized run-rate revenue is $16,068.0M (derived from latest quarterly revenue of $4,017.0M), producing a 55.8% gross margin. Operating cash flow reached $1,023M for the quarter, up 126.8% YoY.\n\nThe company operates 38,700 MW of generation capacity and services 5.0 million retail customer accounts primarily through TXU Energy. Vistra's physical and financial hedging program insulates near-term cash generation, with ~100% of 2026 volumes and ~94% of 2027 volumes hedged, mitigating the reported GAAP volatility from unrealized mark-to-market derivative losses ($472M).\n\nManagement continues its cannibal capital allocation framework, returning $337M via share repurchases in the latest quarter (retiring ~30% of total share count since late 2021). Strategic growth initiatives remain active via the pending 5,500 MW Cogentrix gas fleet acquisition and the launch of the Helix Digital Infrastructure platform alongside KKR, KIA, and NVIDIA.",
+    "price_at_alert": 144.89,
+    "price_change_pct": 5.64,
+    "report_url": "reports/VST.html"
+  },
+  {
     "id": "alert-sq-1790989815",
     "ticker": "SQ",
     "timestamp": "2026-10-03 01:10",
