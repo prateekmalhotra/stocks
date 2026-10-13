@@ -18,10 +18,11 @@ DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
 _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
 GEMINI_MODELS_LADDER = [
     "gemini-3.8-flash",
-    "gemini-3.7-flash",
     "gemini-3.6-flash",
-    "gemini-3.5-flash",
     "gemini-3.5-flash-lite",
+    "gemini-3.1-pro-preview",
+    "gemini-3.1-flash-lite",
+    "gemini-3-flash-preview",
     "gemini-flash-latest"
 ]
 if DEFAULT_GEMINI_MODEL not in GEMINI_MODELS_LADDER:
@@ -872,13 +873,17 @@ def normalize_latex_typography(html: str) -> str:
     
     html = re.sub(r'\\\((.*?)\\\)', save_inline, html, flags=re.DOTALL)
 
+    # Step 3b: Normalize $-123.45 -> -$123.45, $+123.45 -> +$123.45, and $(123.45) -> -$123.45
+    html = re.sub(r'\$([-+])\s*(?=\d|\.\d)', r'\1$', html)
+    html = re.sub(r'\$\((\d+(?:,\d{3})*(?:\.\d+)?)\)', r'-$\1', html)
+
     # Step 4: Protect all currency amounts ($568.97, $50, $1,200.50, $25B, $19.31 billion, ~$252.00, -$8.65B, -$9.29/sh, +$2.59/sh, etc.)
     currencies = []
     def save_currency(m):
         currencies.append(m.group(0))
         return f"««CURRENCY_{len(currencies)-1}»»"
     
-    curr_pattern = r'(?:~|-|\+)?\$(?=\d|\.\d)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?(?:\s*(?:billion|million|trillion|[kKmMbBtT]))?(?:/(?:share|sh))?'
+    curr_pattern = r'(?:~|-|\+)?\$[-+]?(?=\d|\.\d)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?(?:\s*(?:billion|million|trillion|[kKmMbBtT]))?(?:/(?:share|sh))?'
     html = re.sub(curr_pattern, save_currency, html)
 
     # Step 5: Convert dollar-wrapped math $...$ into saved inline blocks
@@ -2481,11 +2486,42 @@ def markdown_to_memo_html(text: str) -> str:
     # Strip any emojis
     emoji_pattern = re.compile("[\U00010000-\U0010ffff\U00002600-\U000027ff\U00002300-\U000023ff\U00002b50-\U00002b55\U0000200d\U0000fe0f]", flags=re.UNICODE)
     clean_text = emoji_pattern.sub("", text).strip()
+    clean_text = re.sub(r'\$([-+])\s*(?=\d|\.\d)', r'\1$', clean_text)
+    clean_text = re.sub(r'\$\((\d+(?:,\d{3})*(?:\.\d+)?)\)', r'-$\1', clean_text)
     clean_text = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", clean_text)
     
     blocks = clean_text.split("\n\n")
     html_parts = []
+    pending_numbered_lines = []
     
+    def flush_numbered():
+        nonlocal pending_numbered_lines
+        if not pending_numbered_lines:
+            return
+        cards = []
+        for idx, line in enumerate(pending_numbered_lines, start=1):
+            cleaned_line = re.sub(r"^(?:\d+[\.\)]|step\s+\d+:?|•|-|\*)\s*", "", line, flags=re.IGNORECASE).strip()
+            if not cleaned_line:
+                continue
+            if ":" in cleaned_line:
+                lbl, val = cleaned_line.split(":", 1)
+                lbl = lbl.strip()
+                val = val.strip()
+            else:
+                lbl = f"Step {idx}"
+                val = cleaned_line
+            cards.append(f"""
+                <div class="math-step-item">
+                    <div class="math-step-badge">{idx}</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">{lbl}</div>
+                        <div class="math-step-body">{val}</div>
+                    </div>
+                </div>""")
+        if cards:
+            html_parts.append(f'<div class="math-steps-ledger">{"".join(cards)}</div>')
+        pending_numbered_lines = []
+
     for block in blocks:
         lines = [line.strip() for line in block.split("\n") if line.strip()]
         if not lines:
@@ -2495,29 +2531,9 @@ def markdown_to_memo_html(text: str) -> str:
         is_bullet = bool(lines[0].startswith("- ") or lines[0].startswith("• ") or lines[0].startswith("* "))
         
         if is_numbered:
-            cards = []
-            for idx, line in enumerate(lines, start=1):
-                cleaned_line = re.sub(r"^(?:\d+[\.\)]|step\s+\d+:?|•|-|\*)\s*", "", line, flags=re.IGNORECASE).strip()
-                if not cleaned_line:
-                    continue
-                if ":" in cleaned_line:
-                    lbl, val = cleaned_line.split(":", 1)
-                    lbl = lbl.strip()
-                    val = val.strip()
-                else:
-                    lbl = f"Step {idx}"
-                    val = cleaned_line
-                cards.append(f"""
-                <div class="math-step-item">
-                    <div class="math-step-badge">{idx}</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">{lbl}</div>
-                        <div class="math-step-body">{val}</div>
-                    </div>
-                </div>""")
-            if cards:
-                html_parts.append(f'<div class="math-steps-ledger">{"".join(cards)}</div>')
+            pending_numbered_lines.extend(lines)
         elif is_bullet:
+            flush_numbered()
             items = []
             for line in lines:
                 cleaned_line = re.sub(r"^(?:•|-|\*)\s*", "", line).strip()
@@ -2526,10 +2542,13 @@ def markdown_to_memo_html(text: str) -> str:
             if items:
                 html_parts.append(f"<ul>{''.join(items)}</ul>")
         else:
+            flush_numbered()
             para_text = " ".join(lines)
             html_parts.append(f"<p>{para_text}</p>")
             
-    return "\n".join(html_parts) if html_parts else f"<p>{clean_text}</p>"
+    flush_numbered()
+    raw_out = "\n".join(html_parts) if html_parts else f"<p>{clean_text}</p>"
+    return normalize_latex_typography(raw_out)
 
 
 def run_forensic_audit_agent(ticker: str, company_name: str, current_price: float) -> Dict[str, Any]:
@@ -2716,6 +2735,12 @@ Return ONLY a valid JSON object matching this schema:
         use_search=True
     )
     audit_data = parse_json_robust(raw_audit) or {}
+    if not audit_data.get("trailing_revenue_ttm_mil") and not audit_data.get("market_cap_mil"):
+        raw_audit = call_gemini_direct(
+            prompt=audit_prompt + "\n\nCRITICAL: Output ONLY valid JSON inside ```json ... ```.",
+            use_search=True
+        )
+        audit_data = parse_json_robust(raw_audit) or audit_data
     
     ttm_rev = float(audit_data.get("trailing_revenue_ttm_mil") or 0.0)
     lq_rev = float(audit_data.get("latest_quarter_revenue_mil") or 0.0)
@@ -3012,6 +3037,8 @@ Respond STRICTLY in valid JSON matching this schema:
         use_search=True
     )
     p_data = parse_json_robust(raw_final) or draft_data or {}
+    if not p_data.get("market_pricing_in"):
+        p_data = draft_data or p_data
 
     print(f"\n  🎯 [Final Perfected Sections Audited by CIO for {ticker}]:", flush=True)
     print(f"  ├─ Fair Value Target: ${p_data.get('fair_value_target')} (IRR: {p_data.get('irr_3y_pct')}%) | Action: {p_data.get('action_signal')}", flush=True)
@@ -3103,16 +3130,20 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     default_mult = lookup_2factor_fundamental_multiple(moat_lbl, info.get("revenue_growth_yoy_pct", 8.0))
     fundamental_target = round((oe_sh * default_mult) + net_cash_sh, 2)
     if fundamental_target <= 0:
-        fundamental_target = round(max(oe_sh * 5.0, 1.0), 2)
+        fundamental_target = round(max(oe_sh * 5.0, current_price * 0.40, 0.50), 2)
 
     raw_fv = safe_float(info.get("fair_value_target"))
     target_3y = raw_fv if (raw_fv and raw_fv > 0) else round(fundamental_target, 2)
     
     raw_bear = safe_float(info.get("bear_floor_target"))
     bear_target_val = raw_bear if (raw_bear and raw_bear > 0) else round((oe_sh * (default_mult * 0.65)) + (net_cash_sh if net_cash_sh > 0 else net_cash_sh * 1.2), 2)
+    if bear_target_val <= 0:
+        bear_target_val = round(max(min(target_3y * 0.50, current_price * 0.40), 0.10), 2)
     
     raw_bull = safe_float(info.get("bull_upside_target"))
     bull_target_val = raw_bull if (raw_bull and raw_bull > 0) else round((oe_sh * (default_mult * 1.30)) + net_cash_sh, 2)
+    if bull_target_val <= 0:
+        bull_target_val = round(max(target_3y * 1.30, current_price * 0.80, 0.50), 2)
 
     raw_irr = info.get("irr_3y_pct")
     if raw_irr is not None and isinstance(raw_irr, (int, float)):
@@ -3165,7 +3196,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "story3_target": f"${bull_target_val:.2f}",
         "expected_return_cagr": round(irr_3y * 100.0, 1),
         "irr_3y": round(irr_3y * 100.0, 1),
-        "what_is_priced_in": f"{p_oe:.1f}x P/OE",
+        "what_is_priced_in": f"{p_oe:.1f}x P/OE" if (oe_sh and oe_sh > 0 and p_oe and p_oe > 0) else "N/M (Neg. OE)",
         "executive_summary": info.get("how_things_are_going_now", "").strip(),
         "upper_alert_threshold": round(max(current_price * 1.15, target_3y), 2),
         "lower_alert_threshold": round(min(current_price * 0.85, bear_target_val), 2),

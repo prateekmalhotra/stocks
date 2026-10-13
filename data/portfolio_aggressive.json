@@ -3,7 +3,7 @@
   "portfolio_type": "aggressive",
   "target_audience": "Aggressive Alpha, High-Velocity Cannibal Compounders (No Value Traps)",
   "inception_date": "2026-08-11",
-  "last_rebalance_date": "2026-10-06",
+  "last_rebalance_date": "2026-10-13",
   "base_capital_usd": 200000.0,
   "holdings": [
     {
@@ -15,9 +15,9 @@
       "target_weight": 0.4857,
       "pillar": "B",
       "cost_basis": 1922.73,
-      "current_price": 1845.07,
+      "current_price": 1891.42,
       "fair_value": 10123.88,
-      "margin_of_safety_pct": 448.7,
+      "margin_of_safety_pct": 435.3,
       "allocated_dollars": 97140.0,
       "shares_to_buy": 50.5219,
       "look_through_fcf_yield": 6.1,
@@ -35,9 +35,9 @@
       "target_weight": 0.4649,
       "pillar": "B",
       "cost_basis": 1172.67,
-      "current_price": 687.96,
+      "current_price": 730.9,
       "fair_value": 1648.25,
-      "margin_of_safety_pct": 139.6,
+      "margin_of_safety_pct": 125.5,
       "allocated_dollars": 92980.0,
       "shares_to_buy": 79.2891,
       "look_through_fcf_yield": 4.2,
@@ -439,6 +439,12 @@
     {
       "date": "2026-10-06",
       "portfolio_value": 157644.17,
+      "owner_earnings_runrate": 15000.0,
+      "spy_benchmark": 200000.0
+    },
+    {
+      "date": "2026-10-13",
+      "portfolio_value": 163390.54,
       "owner_earnings_runrate": 15000.0,
       "spy_benchmark": 200000.0
     }

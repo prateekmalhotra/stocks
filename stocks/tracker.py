@@ -5,7 +5,6 @@ import requests
 import json
 from datetime import datetime, timezone
 from typing import Tuple, Dict, Any, List, Optional
-import yfinance as yf
 from stocks.models import WatchlistStock, TaskItem
 from stocks.data_store import load_watchlist, save_watchlist, get_stock
 
@@ -20,6 +19,7 @@ TICKER_ALIASES = {
     "XYZ": ["XYZ", "SQ"],
     "GTT": ["GTT.PA", "GTTZF", "GTT"],
     "GTT.PA": ["GTT.PA", "GTTZF", "GTT"],
+    "LVMH": ["LVMUY", "MC.PA", "LVMHF", "LVMH"],
 }
 
 
@@ -214,7 +214,8 @@ def fetch_all_chart_ranges_cached(ticker: str, current_price: float, max_age_hou
                 with open(cache_file, "r", encoding="utf-8") as f:
                     cached_data = json.load(f)
                     if isinstance(cached_data, dict) and all(k in cached_data for k in ["1D", "1M", "1Y", "5Y", "MAX"]):
-                        return cached_data
+                        if len(cached_data.get("1Y", [])) > 3:
+                            return cached_data
         except Exception:
             pass
 
@@ -224,6 +225,7 @@ def fetch_all_chart_ranges_cached(ticker: str, current_price: float, max_age_hou
             json.dump(data, f, indent=2)
     except Exception:
         pass
+    return data
 
 def fetch_dividend_yield_cached(ticker: str, current_price: float, max_age_hours: int = 24) -> Tuple[float, float]:
     """
@@ -301,6 +303,19 @@ def check_watchlist_triggers() -> int:
             stock.current_price = current_price
             if stock.baseline_price > 0:
                 stock.return_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
+            oe_sh = getattr(stock, "owner_earnings_per_share", None)
+            nc_sh = getattr(stock, "net_cash_per_share", 0.0) or 0.0
+            if oe_sh is not None and oe_sh > 0:
+                stock.p_oe = round(current_price / oe_sh, 1)
+                ev_sh = max(0.01, current_price - nc_sh)
+                stock.ev_oe = round(ev_sh / oe_sh, 1)
+                stock.owner_yield_pct = round((oe_sh / current_price) * 100.0, 1)
+                stock.what_is_priced_in = f"{stock.p_oe:.1f}x P/OE"
+            else:
+                stock.p_oe = 0.0
+                stock.ev_oe = 0.0
+                stock.owner_yield_pct = round(((oe_sh or 0.0) / current_price) * 100.0, 1) if current_price > 0 else 0.0
+                stock.what_is_priced_in = "N/M (Neg. OE)"
 
     save_watchlist(watchlist)
 

@@ -134,6 +134,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         version=1,
         date=today_str,
         price_at_version=current_price,
+        company_name=company_name,
         status_label=canonical_moat,
         moat_label=canonical_moat,
         moat_type=meta.get("moat_type", "Economic Moat Advantage"),
@@ -338,13 +339,18 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         version=new_version_num,
         date=today_str,
         price_at_version=current_price,
-        status_label=labels[0] if labels else (prev_status if prev_status in CANONICAL_MOAT_LABELS else "Narrow Moat"),
+        company_name=company_name or getattr(stock, "company_name", "") or ticker,
+        status_label=canonical_moat,
+        moat_label=canonical_moat,
+        moat_type=meta.get("moat_type") or getattr(stock, "moat_type", None) or (last_version.moat_type if last_version else "Economic Moat Advantage"),
+        moat_scope=meta.get("moat_scope") or getattr(stock, "moat_scope", None) or (last_version.moat_scope if last_version else "Global"),
         labels=labels,
         action_signal=action_signal,
         summary_of_change=meta.get("what_changes_now", "Living thesis updated with recent market developments."),
         what_was_before=meta.get("what_was_before", prev_summary),
         fair_value_estimate=meta.get("fair_value_estimate") or meta.get("new_fair_value") or stock.fair_value_estimate,
         expected_fair_value=meta.get("expected_fair_value") or getattr(stock, "expected_fair_value", ""),
+        expected_val=safe_float(meta.get("expected_val") or meta.get("expected_fair_value") or meta.get("fair_value_estimate"), None),
         stories=meta.get("stories") or getattr(stock, "stories", []),
         story1_target=meta.get("story1_target", stock.story1_target or ""),
         story2_target=meta.get("story2_target", stock.story2_target or ""),
@@ -368,6 +374,8 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         pricing_power_tier=meta.get("pricing_power_tier") or stock.pricing_power_tier or "Strong Pricing Power",
         pricing_power_score=meta.get("pricing_power_score") or stock.pricing_power_score or "Inelastic Demand · Low Churn",
         pricing_power_summary=meta.get("pricing_power_summary") or stock.pricing_power_summary or "",
+        predictability_tier=canonical_pred,
+        predictability_score=meta.get("predictability_score") or getattr(stock, "predictability_score", None) or (last_version.predictability_score if last_version else "Manageable Visibility · Moat Protected"),
         predictability_summary=meta.get("predictability_summary") or getattr(stock, "predictability_summary", None) or "",
         cyclicality_type=meta.get("cyclicality_type") or getattr(stock, "cyclicality_type", None) or "Moderate Cyclical",
         cycle_stance=meta.get("cycle_stance") or getattr(stock, "cycle_stance", None) or "Mid-Cycle Run-Rate",
@@ -392,6 +400,8 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.return_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
     stock.status_label = new_version.status_label
     stock.moat_label = new_version.moat_label
+    stock.moat_type = new_version.moat_type
+    stock.moat_scope = new_version.moat_scope
     stock.pricing_power_tier = new_version.pricing_power_tier
     stock.pricing_power_score = new_version.pricing_power_score
     stock.pricing_power_summary = new_version.pricing_power_summary

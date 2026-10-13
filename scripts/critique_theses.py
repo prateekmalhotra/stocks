@@ -2,7 +2,7 @@
 """Standalone Local Thesis Critique & Feedback Auditor.
 
 Iterates through all stocks on the watchlist (and data/theses/),
-extracts only the investment thesis, and queries Gemini 3.7 Flash (with fallback to 3.6 Flash)
+extracts only the investment thesis, and queries Gemini 3.8 Flash (with fallback to 3.6 Flash)
 with the simple feedback prompt: 'Can you please give feedback on my investment thesis?'
 Saves all feedback to data/critiques/{ticker}_critique.md.
 """

@@ -18,6 +18,8 @@ REPORTS_DIR = PUBLIC_DIR / "reports"
 THESES_DIR = DATA_DIR / "theses"
 
 CANONICAL_COMPANY_NAMES = {
+    "AML": "Aston Martin Lagonda Global Holdings plc",
+    "AMRQ": "Amaroq Minerals Ltd.",
     "AMZN": "Amazon.com, Inc.",
     "APP": "AppLovin Corporation",
     "BABA": "Alibaba Group Holding Ltd.",
@@ -28,14 +30,18 @@ CANONICAL_COMPANY_NAMES = {
     "CELH": "Celsius Holdings, Inc.",
     "CPRT": "Copart, Inc.",
     "CROX": "Crocs, Inc.",
+    "CSU": "Constellation Software Inc.",
     "EDU": "New Oriental Education & Tech",
     "FICO": "Fair Isaac Corporation",
     "GCT": "GigaCloud Technology Inc.",
     "GOOG": "Alphabet Inc.",
     "GOOGL": "Alphabet Inc.",
+    "GTT": "Gaztransport & Technigaz SA",
     "JD": "JD.com, Inc.",
+    "KSPI": "Joint Stock Company Kaspi.kz",
     "LGCY": "Legacy Education Inc.",
     "LULU": "Lululemon Athletica Inc.",
+    "LVMH": "LVMH Moët Hennessy Louis Vuitton SE",
     "MELI": "MercadoLibre, Inc.",
     "META": "Meta Platforms, Inc.",
     "MSFT": "Microsoft Corporation",
@@ -43,7 +49,9 @@ CANONICAL_COMPANY_NAMES = {
     "PDD": "PDD Holdings Inc. (Temu)",
     "PYPL": "PayPal Holdings, Inc.",
     "RDDT": "Reddit, Inc.",
-    "STNE": "StoneCo Ltd."
+    "SQ": "Block, Inc.",
+    "STNE": "StoneCo Ltd.",
+    "WBD": "Warner Bros. Discovery, Inc."
 }
 
 
@@ -52,7 +60,7 @@ def get_canonical_company_name(ticker: str, fallback_name: str = "") -> str:
     if clean_t in CANONICAL_COMPANY_NAMES:
         return CANONICAL_COMPANY_NAMES[clean_t]
     if fallback_name and fallback_name.upper().strip() != clean_t:
-        return fallback_name.strip().rstrip(".")
+        return fallback_name.strip().rstrip("- ").rstrip(".").strip()
     return clean_t
 
 
@@ -93,13 +101,17 @@ def normalize_latex_typography(html: str) -> str:
     
     html = re.sub(r'\\\((.*?)\\\)', save_inline, html, flags=re.DOTALL)
 
+    # Step 3b: Normalize $-123.45 -> -$123.45, $+123.45 -> +$123.45, and $(123.45) -> -$123.45
+    html = re.sub(r'\$([-+])\s*(?=\d|\.\d)', r'\1$', html)
+    html = re.sub(r'\$\((\d+(?:,\d{3})*(?:\.\d+)?)\)', r'-$\1', html)
+
     # Step 4: Protect all currency amounts ($568.97, $50, $1,200.50, $25B, $19.31 billion, ~$252.00, -$8.65B, etc.)
     currencies = []
     def save_currency(m):
         currencies.append(m.group(0))
         return f"««CURRENCY_{len(currencies)-1}»»"
     
-    curr_pattern = r'(?:~|-|\+)?\$(?=\d|\.\d)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?(?:\s*(?:billion|million|trillion|[kKmMbBtT]))?'
+    curr_pattern = r'(?:~|-|\+)?\$[-+]?(?=\d|\.\d)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?(?:\s*(?:billion|million|trillion|[kKmMbBtT]))?(?:/(?:share|sh))?'
     html = re.sub(curr_pattern, save_currency, html)
 
     # Step 5: Convert dollar-wrapped math $...$ into saved inline blocks
@@ -309,10 +321,20 @@ def get_ticker_logo_html(ticker: str, size: int = 22) -> str:
     if ticker == "USD_CASH" or clean_t == "CASH":
         return f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px;"><span class="ticker-logo-fallback" style="color:var(--accent-green); font-size:{int(size*0.55)}px;">$</span></div>'
     
+    logo_overrides = {
+        "LVMH": "https://assets.parqet.com/logos/symbol/LVMUY",
+        "AML": "https://assets.parqet.com/logos/symbol/AML.L",
+        "GSK": "https://assets.parqet.com/logos/symbol/GSK.L",
+        "AMRQ": "https://www.google.com/s2/favicons?domain=amaroqminerals.com&sz=128",
+        "LGCY": "https://www.google.com/s2/favicons?domain=legacyed.com&sz=128",
+        "SOFI": "https://www.google.com/s2/favicons?domain=sofi.com&sz=128",
+        "TPL": "https://www.google.com/s2/favicons?domain=texaspacific.com&sz=128",
+    }
+    logo_url = logo_overrides.get(clean_t, f"https://assets.parqet.com/logos/symbol/{clean_t}")
     fallback_char = clean_t[:2]
     return (
         f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px;">'
-        f'<img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/{clean_t}" alt="{clean_t}" loading="lazy" '
+        f'<img class="ticker-logo" src="{logo_url}" alt="{clean_t}" loading="lazy" '
         f'onerror="this.style.display=\'none\'; if(this.nextElementSibling) this.nextElementSibling.style.display=\'flex\';">'
         f'<span class="ticker-logo-fallback" style="display:none; font-size:{int(size*0.42)}px;">{fallback_char}</span>'
         f'</div>'
@@ -334,7 +356,9 @@ def get_or_create_circular_favicon(ticker: str) -> str:
     try:
         import requests
         headers = {"User-Agent": "Mozilla/5.0"}
-        r = requests.get(f"https://assets.parqet.com/logos/symbol/{clean_t}", headers=headers, timeout=4)
+        parqet_aliases = {"LVMH": "LVMUY", "AML": "AML.L", "GSK": "GSK.L"}
+        lookup_sym = parqet_aliases.get(clean_t, clean_t)
+        r = requests.get(f"https://assets.parqet.com/logos/symbol/{lookup_sym}", headers=headers, timeout=4)
         if r.status_code == 200 and "<svg" in r.text:
             svg_content = r.text
             vb_match = re.search(r'viewBox=[\"\']([0-9\s\.\-]+)[\"\']', svg_content)
@@ -638,7 +662,7 @@ def build_labels_legend_modal_html(include_pricing_power: bool = False) -> str:
                     <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">High Predictability</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Contractual recurring cash flows; in the circle of competence</span>
 
-                    <span style="font-weight: 600; color: var(--accent-green); white-space: nowrap;">Moderate Predictability</span>
+                    <span style="font-weight: 600; color: var(--text-secondary); white-space: nowrap;">Moderate Predictability</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Durable moat with macro cycle or platform transition exposure</span>
 
                     <span style="font-weight: 600; color: #D48858; white-space: nowrap;">Low Predictability</span>
@@ -702,10 +726,10 @@ def build_labels_legend_modal_html(include_pricing_power: bool = False) -> str:
                     </div>
                 </div>
                 <div style="display: grid; grid-template-columns: 135px 1fr; row-gap: 7px; column-gap: 14px; font-size: 0.74rem; align-items: center;">
-                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">Wide Moat</span>
+                    <span style="font-weight: 600; color: var(--accent-green); white-space: nowrap;">Wide Moat</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Dominant structural advantage sustaining excess returns for 20+ years (mega &amp; niche monopolies)</span>
 
-                    <span style="font-weight: 600; color: var(--accent-green); white-space: nowrap;">Narrow Moat</span>
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">Narrow Moat</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Durable competitive advantage sustaining excess returns for 10+ years</span>
 
                     <span style="font-weight: 600; color: #D48858; white-space: nowrap;">Weak Moat</span>
@@ -2048,6 +2072,7 @@ def markdown_to_memo_html(text: str) -> str:
     # Strip any emojis
     emoji_pattern = re.compile("[\U00010000-\U0010ffff\U00002600-\U000027ff\U00002300-\U000023ff\U00002b50-\U00002b55\U0000200d\U0000fe0f]", flags=re.UNICODE)
     clean_text = emoji_pattern.sub("", text).strip()
+    clean_text = re.sub(r'\$([-+])\s*(?=\d|\.\d)', r'\1$', clean_text)
     clean_text = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", clean_text)
     
     # 1. Pre-process inline numbered steps: split ': 1) ... 2) ...' or ' 1. ... 2. ...' into separate lines
@@ -6065,11 +6090,31 @@ def render_all():
         
         if history:
             current_v = history[-1]
-            comp_name = current_v.company_name or (stock.company_name if stock else "") or ticker
-            cur_price = current_v.price_at_version or (stock.current_price if stock else 0.0)
-            base_price = (stock.baseline_price if stock else cur_price) or cur_price
+            comp_name = get_canonical_company_name(ticker, current_v.company_name or (stock.company_name if stock else "") or ticker)
+            cur_price = (stock.current_price if (stock and stock.current_price and stock.current_price > 0) else current_v.price_at_version) or 0.0
+            base_price = (stock.baseline_price if (stock and stock.baseline_price and stock.baseline_price > 0) else (current_v.price_at_version or cur_price)) or cur_price
             ret_pct = ((cur_price - base_price) / base_price * 100.0) if base_price > 0 else 0.0
-            
+
+            oe_sh = current_v.owner_earnings_per_share
+            net_c = current_v.net_cash_per_share
+            if oe_sh and oe_sh > 0 and cur_price > 0:
+                p_oe_val = round(cur_price / oe_sh, 1)
+                ev_per_sh = max(cur_price - net_c, cur_price * 0.05)
+                ev_oe_val = round(ev_per_sh / oe_sh, 1)
+                oy_val = round((oe_sh / cur_price) * 100.0, 1)
+                req_g = max(0.0, min(50.0, round(10.0 - oy_val, 1)))
+                priced_in_str = f"{p_oe_val:.1f}x P/OE ({oy_val:.1f}% OY; ~{req_g:.1f}% growth)"
+            elif oe_sh is not None and oe_sh <= 0:
+                p_oe_val = 0.0
+                ev_oe_val = 0.0
+                oy_val = round((oe_sh / cur_price) * 100.0, 1) if cur_price > 0 else 0.0
+                priced_in_str = "N/M (Neg. OE)"
+            else:
+                p_oe_val = current_v.p_oe
+                ev_oe_val = current_v.ev_oe
+                oy_val = current_v.owner_yield_pct
+                priced_in_str = current_v.what_is_priced_in or ""
+
             stock = WatchlistStock(
                 ticker=ticker,
                 company_name=comp_name,
@@ -6078,6 +6123,8 @@ def render_all():
                 return_pct=ret_pct,
                 status_label=current_v.status_label or "Narrow Moat",
                 moat_label=current_v.moat_label or current_v.status_label or "Narrow Moat",
+                moat_type=current_v.moat_type or (stock.moat_type if stock else "Switching Costs"),
+                moat_scope=current_v.moat_scope or (stock.moat_scope if stock else "Core Franchise"),
                 labels=current_v.labels or [current_v.status_label or "Narrow Moat"],
                 action_signal=current_v.action_signal or "BUY",
                 fair_value_estimate=current_v.fair_value_estimate or "$0.00",
@@ -6093,7 +6140,7 @@ def render_all():
                 bear_target=current_v.bear_target or "$0.00",
                 base_target=current_v.base_target or "$0.00",
                 bull_target=current_v.bull_target or "$0.00",
-                what_is_priced_in=current_v.what_is_priced_in or "",
+                what_is_priced_in=priced_in_str,
                 upper_alert_threshold=current_v.upper_alert_threshold,
                 lower_alert_threshold=current_v.lower_alert_threshold,
                 next_catalyst_date=current_v.next_catalyst_date or "",
@@ -6108,13 +6155,16 @@ def render_all():
                 predictability_tier=current_v.predictability_tier or "Moderate Predictability",
                 predictability_score=current_v.predictability_score or "",
                 predictability_summary=current_v.predictability_summary or "",
-                owner_earnings_per_share=current_v.owner_earnings_per_share,
+                cyclicality_type=current_v.cyclicality_type or (stock.cyclicality_type if stock else "Secular Compounder"),
+                cycle_stance=current_v.cycle_stance or (stock.cycle_stance if stock else "Mid-Cycle"),
+                cycle_summary=current_v.cycle_summary or (stock.cycle_summary if stock else ""),
+                owner_earnings_per_share=oe_sh,
                 owner_earnings_total_mil=current_v.owner_earnings_total_mil,
-                p_oe=current_v.p_oe,
-                ev_oe=current_v.ev_oe,
-                owner_yield_pct=current_v.owner_yield_pct,
+                p_oe=p_oe_val,
+                ev_oe=ev_oe_val,
+                owner_yield_pct=oy_val,
                 owner_roic_pct=current_v.owner_roic_pct,
-                net_cash_per_share=current_v.net_cash_per_share,
+                net_cash_per_share=net_c,
                 market_pricing_in=current_v.market_pricing_in,
                 why_it_might_be_right=current_v.why_it_might_be_right,
                 how_things_are_going_now=current_v.how_things_are_going_now,

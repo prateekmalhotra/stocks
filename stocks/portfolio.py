@@ -93,11 +93,26 @@ def sync_live_market_data() -> Dict[str, Any]:
     for ticker, item in watchlist.items():
         try:
             name, live_p = fetch_live_stock_info(ticker)
+            if live_p <= 0:
+                live_p = float(item.get("current_price", 0.0))
             old_p = float(item.get("current_price", live_p))
             item["current_price"] = round(live_p, 2)
             base_p = float(item.get("baseline_price", live_p))
             if base_p > 0:
                 item["return_pct"] = round(((live_p - base_p) / base_p) * 100, 2)
+            oe_sh = item.get("owner_earnings_per_share")
+            nc_sh = item.get("net_cash_per_share") or 0.0
+            if oe_sh is not None and float(oe_sh) > 0 and live_p > 0:
+                oe_f = float(oe_sh)
+                nc_f = float(nc_sh)
+                item["p_oe"] = round(live_p / oe_f, 1)
+                item["ev_oe"] = round(max(0.01, live_p - nc_f) / oe_f, 1)
+                item["owner_yield_pct"] = round((oe_f / live_p) * 100.0, 1)
+                item["what_is_priced_in"] = f"{item['p_oe']:.1f}x P/OE"
+            else:
+                item["p_oe"] = 0.0
+                item["ev_oe"] = 0.0
+                item["what_is_priced_in"] = "N/M (Neg. OE)"
                 
             live_quotes[ticker] = {
                 "price": round(live_p, 2),
@@ -357,10 +372,20 @@ def get_ticker_logo_html(ticker: str, size: int = 20) -> str:
     if ticker == "USD_CASH" or clean_t == "CASH":
         return f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px; transform:translateY(-1.5px);"><span class="ticker-logo-fallback" style="color:var(--accent-green); font-size:{int(size*0.55)}px;">$</span></div>'
     
+    logo_overrides = {
+        "LVMH": "https://assets.parqet.com/logos/symbol/LVMUY",
+        "AML": "https://assets.parqet.com/logos/symbol/AML.L",
+        "GSK": "https://assets.parqet.com/logos/symbol/GSK.L",
+        "AMRQ": "https://www.google.com/s2/favicons?domain=amaroqminerals.com&sz=128",
+        "LGCY": "https://www.google.com/s2/favicons?domain=legacyed.com&sz=128",
+        "SOFI": "https://www.google.com/s2/favicons?domain=sofi.com&sz=128",
+        "TPL": "https://www.google.com/s2/favicons?domain=texaspacific.com&sz=128",
+    }
+    logo_url = logo_overrides.get(clean_t, f"https://assets.parqet.com/logos/symbol/{clean_t}")
     fallback_char = clean_t[:2]
     return (
         f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px; transform:translateY(-1.5px);">'
-        f'<img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/{clean_t}" alt="{clean_t}" loading="lazy" '
+        f'<img class="ticker-logo" src="{logo_url}" alt="{clean_t}" loading="lazy" '
         f'onerror="this.style.display=\'none\'; if(this.nextElementSibling) this.nextElementSibling.style.display=\'flex\';">'
         f'<span class="ticker-logo-fallback" style="display:none; font-size:{int(size*0.42)}px;">{fallback_char}</span>'
         f'</div>'
