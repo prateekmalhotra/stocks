@@ -37,11 +37,24 @@ def load_watchlist() -> Dict[str, WatchlistStock]:
         return {}
 
 
+import threading
+
+_WRITE_LOCK = threading.RLock()
+
+
+def _atomic_write_json(path: Path, payload: Any):
+    """Write JSON via temp file + rename so readers never observe a partially written file."""
+    tmp = path.with_suffix(path.suffix + f".tmp{os.getpid()}.{threading.get_ident()}")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2)
+    os.replace(tmp, path)
+
+
 def save_watchlist(watchlist: Dict[str, WatchlistStock]):
     _ensure_dirs()
     serializable = {k: v.model_dump() for k, v in watchlist.items()}
-    with open(WATCHLIST_FILE, "w", encoding="utf-8") as f:
-        json.dump(serializable, f, indent=2)
+    with _WRITE_LOCK:
+        _atomic_write_json(WATCHLIST_FILE, serializable)
 
 
 def get_stock(ticker: str) -> Optional[WatchlistStock]:
@@ -49,9 +62,12 @@ def get_stock(ticker: str) -> Optional[WatchlistStock]:
 
 
 def save_stock(stock: WatchlistStock):
-    wl = load_watchlist()
-    wl[stock.ticker.upper()] = stock
-    save_watchlist(wl)
+    with _WRITE_LOCK:
+        wl = load_watchlist()
+        if not wl and WATCHLIST_FILE.exists() and WATCHLIST_FILE.stat().st_size > 100:
+            raise RuntimeError("Refusing to overwrite a non-empty watchlist that failed to load.")
+        wl[stock.ticker.upper()] = stock
+        save_watchlist(wl)
 
 
 def delete_stock(ticker: str) -> bool:
@@ -205,18 +221,43 @@ def load_thesis_history(ticker: str) -> List[ThesisVersion]:
 def save_thesis_history(ticker: str, history: List[ThesisVersion]):
     _ensure_dirs()
     file_path = get_thesis_file(ticker)
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump([v.model_dump() for v in history], f, indent=2)
+    with _WRITE_LOCK:
+        _atomic_write_json(file_path, [v.model_dump() for v in history])
 
 
 def save_thesis_version(ticker: str, version: ThesisVersion, reset: bool = False):
     _ensure_dirs()
-    if reset or version.version == 1:
-        history = [version]
-    else:
-        history = load_thesis_history(ticker)
-        history.append(version)
-    save_thesis_history(ticker, history)
+    from stocks.thesis_qa import ThesisQAError, validate_thesis_output, validate_rendered_html, implied_irr_pct, _num
+    v_dict = version.model_dump()
+    if v_dict.get("qa_passed") is not True:
+        raise ThesisQAError(f"{ticker}: Refusing to save thesis version without qa_passed=True", ["qa_passed != True"])
+    price = _num(v_dict.get("price_at_version")) or 0.0
+    fv = _num(v_dict.get("expected_val")) or _num(v_dict.get("fair_value_estimate"))
+    info = {
+        "market_pricing_in": v_dict.get("market_pricing_in"),
+        "why_it_might_be_right": v_dict.get("why_it_might_be_right"),
+        "how_things_are_going_now": v_dict.get("how_things_are_going_now"),
+        "what_if_it_keeps_going_that_way": v_dict.get("what_if_it_keeps_going_that_way"),
+        "fair_value_target": fv,
+        "bear_floor_target": _num(v_dict.get("bear_target")),
+        "bull_upside_target": _num(v_dict.get("bull_target")),
+        "irr_3y_pct": implied_irr_pct(fv or 0, price) if fv else None,
+        "normalized_oe_per_share": v_dict.get("owner_earnings_per_share"),
+        "diluted_shares_mil": v_dict.get("diluted_shares_mil"),
+        "p_oe": v_dict.get("p_oe"),
+        "net_cash_per_share": v_dict.get("net_cash_per_share"),
+    }
+    qa_issues = validate_thesis_output(info, price) + validate_rendered_html(v_dict.get("full_html_content") or "")
+    if qa_issues:
+        raise ThesisQAError(f"{ticker}: Refusing to save thesis version failing QA", qa_issues)
+
+    with _WRITE_LOCK:
+        if reset or version.version == 1:
+            history = [version]
+        else:
+            history = load_thesis_history(ticker)
+            history.append(version)
+        save_thesis_history(ticker, history)
 
 
 # ==================== TASK QUEUE ====================

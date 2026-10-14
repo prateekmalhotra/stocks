@@ -2,6 +2,30 @@
   "ticker": "NFLX",
   "openinsider_trades": [
     {
+      "filing_date": "2026-09-10",
+      "trade_date": "2026-09-09",
+      "name": "Barton Richard N",
+      "title": "Dir",
+      "trade_type": "S - Sale+OE",
+      "price": "$75.77",
+      "qty": "-1,440",
+      "owned": "3,260",
+      "delta_own": "-31%",
+      "value": "-$109,102"
+    },
+    {
+      "filing_date": "2026-09-09",
+      "trade_date": "2026-09-08",
+      "name": "Barton Richard N",
+      "title": "Dir",
+      "trade_type": "S - Sale+OE",
+      "price": "$77.60",
+      "qty": "-720",
+      "owned": "3,260",
+      "delta_own": "-18%",
+      "value": "-$55,872"
+    },
+    {
       "filing_date": "2026-08-10",
       "trade_date": "2026-08-10",
       "name": "Neumann Spencer Adam",
@@ -1176,30 +1200,6 @@
       "owned": "0",
       "delta_own": "-100%",
       "value": "-$2,609,586"
-    },
-    {
-      "filing_date": "2025-02-04",
-      "trade_date": "2025-02-03",
-      "name": "Hastings Reed",
-      "title": "Exec COB",
-      "trade_type": "S - Sale+OE",
-      "price": "$978.39",
-      "qty": "-32,067",
-      "owned": "2,154,590",
-      "delta_own": "-1%",
-      "value": "-$31,373,997"
-    },
-    {
-      "filing_date": "2025-02-03",
-      "trade_date": "2025-01-30",
-      "name": "Peters Gregory K",
-      "title": "Co-CEO",
-      "trade_type": "S - Sale",
-      "price": "$980.74",
-      "qty": "-102,228",
-      "owned": "12,950",
-      "delta_own": "-89%",
-      "value": "-$100,258,797"
     }
   ],
   "dataroma_holders": [
@@ -1294,37 +1294,37 @@
   ],
   "researched_writeups": [
     {
-      "title": "Dataroma 13F Superinvestor Whale File: NFLX",
-      "fund": "Dataroma Superinvestors",
-      "date": "13F Whale Audit",
-      "summary": "Historical accumulation patterns, portfolio concentration, and recent buy/sell activity across premier value hedge funds for Netflix, Inc..",
-      "url": "https://www.dataroma.com/m/stock.php?sym=NFLX",
-      "btn_label": "13F Whale File \u2197"
-    },
-    {
-      "title": "SEC EDGAR Official Filings & Regulatory File: NFLX",
-      "fund": "SEC EDGAR Official Registry",
-      "date": "Regulatory Archive",
-      "summary": "Official regulatory depository of 10-K/20-F annual reports, 10-Q/6-K quarterlies, and beneficial ownership filings for Netflix, Inc..",
-      "url": "https://www.sec.gov/edgar/browse/?CIK=NFLX",
-      "btn_label": "SEC EDGAR \u2197"
-    },
-    {
-      "title": "Substack Investment Research & Deep Dives: NFLX",
-      "fund": "Substack Deep Value",
-      "date": "Independent Research",
-      "summary": "Independent research publications, subscriber letters, and thesis breakdowns covering Netflix, Inc..",
-      "url": "https://substack.com/search/NFLX%20investment%20thesis",
+      "title": "Netflix Inc $NFLX Comprehensive Investment Thesis",
+      "fund": "Substack / Anandcapital",
+      "date": "Verified Due Diligence",
+      "summary": "In-depth Substack memo detailing Netflix, Inc.'s business moat, unit monetization, and margin trajectory.",
+      "url": "https://anandcapital.substack.com/p/netflix-inc-nflx-comprehensive-investment",
       "btn_label": "Substack Memo \u2197"
     },
     {
-      "title": "OpenInsider Real-Time Form 4 & Insider Ledger: NFLX",
-      "fund": "OpenInsider Real-Time",
-      "date": "Insider Audit",
-      "summary": "Live stream of officer, director, and 10% beneficial owner purchases, sales, and option grants for Netflix, Inc..",
-      "url": "http://openinsider.com/search?q=NFLX",
-      "btn_label": "OpenInsider \u2197"
+      "title": "uiowa.edu",
+      "fund": "Shareholder Letter PDF",
+      "date": "Verified Due Diligence",
+      "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Netflix, Inc..",
+      "url": "https://henryfund.tippie.uiowa.edu/sites/henryfund.tippie.uiowa.edu/files/2025-09/s25_NFLX.pdf",
+      "btn_label": "Read Source \u2197"
+    },
+    {
+      "title": "squarespace.com",
+      "fund": "Shareholder Letter PDF",
+      "date": "Verified Due Diligence",
+      "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Netflix, Inc..",
+      "url": "https://static1.squarespace.com/static/63c4889290c60760d19b4d03/t/6919cfdf5bc6c875d354292e/1763299295272/%24NFLX+Investment+Memo+%281%29.pdf",
+      "btn_label": "Read Source \u2197"
+    },
+    {
+      "title": "pershingsquareholdings.com",
+      "fund": "Shareholder Letter PDF",
+      "date": "Verified Due Diligence",
+      "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Netflix, Inc..",
+      "url": "https://assets.pershingsquareholdings.com/2022/01/26170421/Pershing-Square-Capital-Management-L.P.-Releases-Letter-to-Investors-01-26-2022.pdf",
+      "btn_label": "Read Source \u2197"
     }
   ],
-  "updated_at": "2026-08-28 14:14:07"
+  "updated_at": "2026-10-13 16:28:55"
 }

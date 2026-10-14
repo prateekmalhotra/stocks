@@ -2,6 +2,30 @@
   "ticker": "BMY",
   "openinsider_trades": [
     {
+      "filing_date": "2026-09-10",
+      "trade_date": "2026-09-09",
+      "name": "Massacesi Cristian",
+      "title": "EVP,Chief Med Offr,Head of Dev",
+      "trade_type": "S - Sale",
+      "price": "$64.57",
+      "qty": "-6,249",
+      "owned": "18,748",
+      "delta_own": "-25%",
+      "value": "-$403,498"
+    },
+    {
+      "filing_date": "2026-08-26",
+      "trade_date": "2026-08-25",
+      "name": "Holzer Phil M",
+      "title": "SVP, Controller",
+      "trade_type": "S - Sale",
+      "price": "$67.50",
+      "qty": "-500",
+      "owned": "16,862",
+      "delta_own": "-3%",
+      "value": "-$33,750"
+    },
+    {
       "filing_date": "2026-04-02",
       "trade_date": "2026-04-01",
       "name": "Elkins David V",
@@ -178,21 +202,37 @@
   ],
   "researched_writeups": [
     {
-      "title": "Baron Health Care Fund | Q2 2025 | Baron Funds",
-      "fund": "Independent Research",
-      "date": "Verified Due Diligence",
-      "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Bristol-Myers Squibb Company.",
-      "url": "https://www.baroncapitalgroup.com/article/quarterly-letter-baron-health-care-fund-q2-2025",
-      "btn_label": "Read Source \u2197"
+      "title": "Dataroma 13F Superinvestor Whale File: BMY",
+      "fund": "Dataroma Superinvestors",
+      "date": "13F Whale Audit",
+      "summary": "Historical accumulation patterns, portfolio concentration, and recent buy/sell activity across premier value hedge funds for Bristol-Myers Squibb Company.",
+      "url": "https://www.dataroma.com/m/stock.php?sym=BMY",
+      "btn_label": "13F Whale File \u2197"
     },
     {
-      "title": "Baron Health Care Fund | Q1 2026 | Baron Capital",
-      "fund": "Independent Research",
-      "date": "Verified Due Diligence",
-      "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Bristol-Myers Squibb Company.",
-      "url": "https://www.baroncapitalgroup.com/article/quarterly-letter-baron-health-care-fund-q1-2026",
-      "btn_label": "Read Source \u2197"
+      "title": "SEC EDGAR Official Filings & Regulatory File: BMY",
+      "fund": "SEC EDGAR Official Registry",
+      "date": "Regulatory Archive",
+      "summary": "Official regulatory depository of 10-K/20-F annual reports, 10-Q/6-K quarterlies, and beneficial ownership filings for Bristol-Myers Squibb Company.",
+      "url": "https://www.sec.gov/edgar/browse/?CIK=BMY",
+      "btn_label": "SEC EDGAR \u2197"
+    },
+    {
+      "title": "Substack Investment Research & Deep Dives: BMY",
+      "fund": "Substack Deep Value",
+      "date": "Independent Research",
+      "summary": "Independent research publications, subscriber letters, and thesis breakdowns covering Bristol-Myers Squibb Company.",
+      "url": "https://substack.com/search/BMY%20investment%20thesis",
+      "btn_label": "Substack Memo \u2197"
+    },
+    {
+      "title": "OpenInsider Real-Time Form 4 & Insider Ledger: BMY",
+      "fund": "OpenInsider Real-Time",
+      "date": "Insider Audit",
+      "summary": "Live stream of officer, director, and 10% beneficial owner purchases, sales, and option grants for Bristol-Myers Squibb Company.",
+      "url": "http://openinsider.com/search?q=BMY",
+      "btn_label": "OpenInsider \u2197"
     }
   ],
-  "updated_at": "2026-08-23 20:28:35"
+  "updated_at": "2026-10-13 11:37:13"
 }

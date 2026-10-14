@@ -65,6 +65,10 @@ class ThesisVersion(BaseModel):
     why_it_might_be_right: Optional[str] = ""
     how_things_are_going_now: Optional[str] = ""
     what_if_it_keeps_going_that_way: Optional[str] = ""
+    diluted_shares_mil: Optional[float] = None
+    oe_basis: Optional[str] = ""
+    qa_passed: Optional[bool] = None  # True only if produced by the strict QA-gated pipeline
+    qa_attempts: Optional[str] = ""
     full_html_content: str = ""
 
 

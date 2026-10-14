@@ -2,6 +2,18 @@
   "ticker": "MSFT",
   "openinsider_trades": [
     {
+      "filing_date": "2026-09-15",
+      "trade_date": "2026-09-14",
+      "name": "Hood Amy",
+      "title": "EVP, CFO",
+      "trade_type": "S - Sale",
+      "price": "$498.27",
+      "qty": "-41,674",
+      "owned": "533,624",
+      "delta_own": "-7%",
+      "value": "-$20,764,845"
+    },
+    {
       "filing_date": "2026-09-02",
       "trade_date": "2026-09-01",
       "name": "Nadella Satya",
@@ -336,66 +348,6 @@
       "owned": "104,866",
       "delta_own": "-6%",
       "value": "-$3,050,340"
-    },
-    {
-      "filing_date": "2024-09-11",
-      "trade_date": "2024-09-10",
-      "name": "Numoto Takeshi",
-      "title": "EVP, CMO",
-      "trade_type": "S - Sale",
-      "price": "$411.04",
-      "qty": "-2,500",
-      "owned": "50,000",
-      "delta_own": "-5%",
-      "value": "-$1,027,608"
-    },
-    {
-      "filing_date": "2024-09-11",
-      "trade_date": "2024-09-10",
-      "name": "Hogan Kathleen T",
-      "title": "EVP, Chief HR Off",
-      "trade_type": "S - Sale",
-      "price": "$411.85",
-      "qty": "-17,378",
-      "owned": "150,161",
-      "delta_own": "-10%",
-      "value": "-$7,156,892"
-    },
-    {
-      "filing_date": "2024-09-11",
-      "trade_date": "2024-09-09",
-      "name": "Smith Bradford L",
-      "title": "Vice Chair, Pres",
-      "trade_type": "S - Sale",
-      "price": "$402.59",
-      "qty": "-40,000",
-      "owned": "532,347",
-      "delta_own": "-7%",
-      "value": "-$16,103,553"
-    },
-    {
-      "filing_date": "2024-09-06",
-      "trade_date": "2024-09-05",
-      "name": "Hood Amy",
-      "title": "EVP, CFO",
-      "trade_type": "S - Sale",
-      "price": "$410.55",
-      "qty": "-38,000",
-      "owned": "496,369",
-      "delta_own": "-7%",
-      "value": "-$15,600,794"
-    },
-    {
-      "filing_date": "2024-09-05",
-      "trade_date": "2024-09-04",
-      "name": "Nadella Satya",
-      "title": "CEO",
-      "trade_type": "S - Sale",
-      "price": "$408.63",
-      "qty": "-78,353",
-      "owned": "864,327",
-      "delta_own": "-8%",
-      "value": "-$32,017,224"
     }
   ],
   "dataroma_holders": [
@@ -440,6 +392,14 @@
       "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
     },
     {
+      "manager": "David Katz - Matrix Asset Advisors",
+      "pct_of_portfolio": "7.31",
+      "recent_activity": "Add 0.08%",
+      "shares": "173,012",
+      "value_usd": "88,738,000",
+      "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
+    },
+    {
       "manager": "David Rolfe - Wedgewood Partners",
       "pct_of_portfolio": "6.89",
       "recent_activity": "Add 21.10%",
@@ -477,14 +437,6 @@
       "recent_activity": "Reduce 14.55%",
       "shares": "628,224",
       "value_usd": "234,340,000",
-      "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
-    },
-    {
-      "manager": "David Katz - Matrix Asset Advisors",
-      "pct_of_portfolio": "5.24",
-      "recent_activity": "Add 0.89%",
-      "shares": "172,878",
-      "value_usd": "64,487,000",
       "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
     },
     {
@@ -632,11 +584,11 @@
       "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
     },
     {
-      "manager": "Bill Nygren - Oakmark Funds",
+      "manager": "Glenn Greenberg - Brave Warrior Advisors",
       "pct_of_portfolio": "0.03",
-      "recent_activity": "Add 915.42%",
-      "shares": "68,612",
-      "value_usd": "25,594,000",
+      "recent_activity": "Add 111.11%",
+      "shares": "4,275",
+      "value_usd": "1,595,000",
       "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
     },
     {
@@ -648,11 +600,11 @@
       "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
     },
     {
-      "manager": "Glenn Greenberg - Brave Warrior Advisors",
+      "manager": "Bill Nygren - Oakmark Funds",
       "pct_of_portfolio": "0.03",
-      "recent_activity": "Add 111.11%",
-      "shares": "4,275",
-      "value_usd": "1,595,000",
+      "recent_activity": "Add 915.42%",
+      "shares": "68,612",
+      "value_usd": "25,594,000",
       "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
     },
     {
@@ -672,14 +624,6 @@
       "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
     },
     {
-      "manager": "Ruane Cunniff LP",
-      "pct_of_portfolio": "0.00",
-      "recent_activity": "",
-      "shares": "737",
-      "value_usd": "275,000",
-      "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
-    },
-    {
       "manager": "Richard Pzena - Pzena Investment Management",
       "pct_of_portfolio": "0.00",
       "recent_activity": "Reduce 0.92%",
@@ -694,41 +638,49 @@
       "shares": "600",
       "value_usd": "224,000",
       "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
+    },
+    {
+      "manager": "Ruane Cunniff LP",
+      "pct_of_portfolio": "0.00",
+      "recent_activity": "",
+      "shares": "737",
+      "value_usd": "275,000",
+      "source_url": "https://www.dataroma.com/m/stock.php?sym=MSFT"
     }
   ],
   "researched_writeups": [
     {
-      "title": "Dataroma 13F Superinvestor Whale File: MSFT",
-      "fund": "Dataroma Superinvestors",
-      "date": "13F Whale Audit",
-      "summary": "Historical accumulation patterns, portfolio concentration, and recent buy/sell activity across premier value hedge funds for Microsoft Corporation.",
-      "url": "https://www.dataroma.com/m/stock.php?sym=MSFT",
-      "btn_label": "13F Whale File \u2197"
+      "title": "cattolicainvestmentclub.it",
+      "fund": "Shareholder Letter PDF",
+      "date": "Verified Due Diligence",
+      "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Microsoft Corporation.",
+      "url": "https://www.cattolicainvestmentclub.it/wp-content/uploads/2025/03/Microsoft-Co_Investment-Analysis_CIC.pdf",
+      "btn_label": "Read Source \u2197"
     },
     {
-      "title": "SEC EDGAR Official Filings & Regulatory File: MSFT",
-      "fund": "SEC EDGAR Official Registry",
-      "date": "Regulatory Archive",
-      "summary": "Official regulatory depository of 10-K/20-F annual reports, 10-Q/6-K quarterlies, and beneficial ownership filings for Microsoft Corporation.",
-      "url": "https://www.sec.gov/edgar/browse/?CIK=MSFT",
-      "btn_label": "SEC EDGAR \u2197"
+      "title": "uiowa.edu",
+      "fund": "Shareholder Letter PDF",
+      "date": "Verified Due Diligence",
+      "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Microsoft Corporation.",
+      "url": "https://www.biz.uiowa.edu/henry/download/f23_MSFT.pdf",
+      "btn_label": "Read Source \u2197"
     },
     {
-      "title": "Substack Investment Research & Deep Dives: MSFT",
-      "fund": "Substack Deep Value",
-      "date": "Independent Research",
-      "summary": "Independent research publications, subscriber letters, and thesis breakdowns covering Microsoft Corporation.",
-      "url": "https://substack.com/search/MSFT%20investment%20thesis",
-      "btn_label": "Substack Search \u2197"
+      "title": "\ud83d\udcbe\ud83c\udfae Microsoft: Deep Dive Company Analysis",
+      "fund": "Substack / Humpdays",
+      "date": "Verified Due Diligence",
+      "summary": "In-depth Substack memo detailing Microsoft Corporation's business moat, unit monetization, and margin trajectory.",
+      "url": "https://humpdays.substack.com/p/microsoft-deep-dive-company-analysis",
+      "btn_label": "Substack Memo \u2197"
     },
     {
-      "title": "OpenInsider Real-Time Form 4 & Insider Ledger: MSFT",
-      "fund": "OpenInsider Real-Time",
-      "date": "Insider Audit",
-      "summary": "Live stream of officer, director, and 10% beneficial owner purchases, sales, and option grants for Microsoft Corporation.",
-      "url": "http://openinsider.com/search?q=MSFT",
-      "btn_label": "OpenInsider \u2197"
+      "title": "Deep Dive: Microsoft ($MSFT) - Rebound Capital",
+      "fund": "Substack / Reboundcapital",
+      "date": "Verified Due Diligence",
+      "summary": "In-depth Substack memo detailing Microsoft Corporation's business moat, unit monetization, and margin trajectory.",
+      "url": "https://reboundcapital.substack.com/p/deep-dive-microsoft-msft",
+      "btn_label": "Substack Memo \u2197"
     }
   ],
-  "updated_at": "2026-09-03 00:09:12"
+  "updated_at": "2026-10-13 16:15:58"
 }

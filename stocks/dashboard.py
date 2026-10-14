@@ -3923,6 +3923,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <!-- TAB 1: Investment Thesis (4 Core Sections) -->
         <div id="tab-thesis" class="tab-pane active">
             <main class="memo-container">
+                {(f'<p style="margin:0 0 20px;font-size:0.82rem;color:#6b7280;letter-spacing:0.01em;">Underwritten at ${current_v.price_at_version:,.2f} on {current_v.date}. Figures in the memo reflect that price; the header shows the live quote.</p>') if (current_v and current_v.price_at_version) else ''}
                 <section class="memo-section">
                     <div class="section-header">
                         <span class="section-index">01</span>

@@ -2,6 +2,30 @@
   "ticker": "GOOG",
   "openinsider_trades": [
     {
+      "filing_date": "2026-10-02",
+      "trade_date": "2026-09-30",
+      "name": "Arnold Frances",
+      "title": "Dir",
+      "trade_type": "S - Sale",
+      "price": "$340.45",
+      "qty": "-83",
+      "owned": "22,787",
+      "delta_own": "0%",
+      "value": "-$28,257"
+    },
+    {
+      "filing_date": "2026-08-31",
+      "trade_date": "2026-08-28",
+      "name": "Arnold Frances",
+      "title": "Dir",
+      "trade_type": "S - Sale",
+      "price": "$337.71",
+      "qty": "-82",
+      "owned": "22,867",
+      "delta_own": "0%",
+      "value": "-$27,692"
+    },
+    {
       "filing_date": "2026-07-30",
       "trade_date": "2026-07-30",
       "name": "Arnold Frances",
@@ -1176,30 +1200,6 @@
       "owned": "4,930,046",
       "delta_own": "-1%",
       "value": "-$13,413,721"
-    },
-    {
-      "filing_date": "2024-12-02",
-      "trade_date": "2024-12-02",
-      "name": "O'Toole Amie Thuener",
-      "title": "VP, Chief Accounting Officer",
-      "trade_type": "S - Sale",
-      "price": "$170.41",
-      "qty": "-1,367",
-      "owned": "65,091",
-      "delta_own": "-2%",
-      "value": "-$232,950"
-    },
-    {
-      "filing_date": "2024-12-02",
-      "trade_date": "2024-11-29",
-      "name": "Arnold Frances",
-      "title": "Dir",
-      "trade_type": "S - Sale",
-      "price": "$169.98",
-      "qty": "-111",
-      "owned": "21,854",
-      "delta_own": "-1%",
-      "value": "-$18,868"
     }
   ],
   "dataroma_holders": [
@@ -1373,7 +1373,7 @@
     },
     {
       "manager": "First Eagle Investment Management",
-      "pct_of_portfolio": "4.32",
+      "pct_of_portfolio": "4.26",
       "recent_activity": "Reduce 1.19%",
       "shares": "7,316,252",
       "value_usd": "2,585,052,000",
@@ -1381,10 +1381,10 @@
     },
     {
       "manager": "David Katz - Matrix Asset Advisors",
-      "pct_of_portfolio": "3.90",
-      "recent_activity": "Reduce 5.59%",
-      "shares": "135,829",
-      "value_usd": "47,992,000",
+      "pct_of_portfolio": "3.85",
+      "recent_activity": "Add 1.01%",
+      "shares": "137,196",
+      "value_usd": "46,748,000",
       "source_url": "https://www.dataroma.com/m/stock.php?sym=GOOG"
     },
     {
@@ -1478,21 +1478,37 @@
   ],
   "researched_writeups": [
     {
-      "title": "Alphabet (GOOGL) - Fundamental Analysis Report 2026 (Updated)",
-      "fund": "Independent Research",
-      "date": "Verified Due Diligence",
-      "summary": "Fundamental equity research study examining Alphabet Inc.'s cash generation, market share durability, and valuation.",
-      "url": "https://www.deepresearchglobal.com/p/alphabet-googl-fundamental-analysis-report",
-      "btn_label": "Read Source \u2197"
-    },
-    {
       "title": "uiowa.edu",
       "fund": "Shareholder Letter PDF",
       "date": "Verified Due Diligence",
       "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Alphabet Inc..",
       "url": "https://students.tippie.uiowa.edu/sites/students.tippie.uiowa.edu/files/2023-11/f23_GOOG.pdf",
       "btn_label": "Read Source \u2197"
+    },
+    {
+      "title": "Deep Dive: Alphabet ($GOOG)",
+      "fund": "Independent Research",
+      "date": "Verified Due Diligence",
+      "summary": "Fundamental equity research study examining Alphabet Inc.'s cash generation, market share durability, and valuation.",
+      "url": "https://www.compoundwithrene.com/p/google-has-been-disrupted-now-what",
+      "btn_label": "Read Source \u2197"
+    },
+    {
+      "title": "Deep Dive: Alphabet Inc. ($GOOG) - Rebound Capital",
+      "fund": "Substack / Reboundcapital",
+      "date": "Verified Due Diligence",
+      "summary": "In-depth Substack memo detailing Alphabet Inc.'s business moat, unit monetization, and margin trajectory.",
+      "url": "https://reboundcapital.substack.com/p/deep-dive-alphabet-inc-goog",
+      "btn_label": "Substack Memo \u2197"
+    },
+    {
+      "title": "\ud83e\udd16 Alphabet Already Delivered One Deep Dive Winner. Now GOOG Is Back on My Radar.",
+      "fund": "Substack / Optionsoracle",
+      "date": "Verified Due Diligence",
+      "summary": "In-depth Substack memo detailing Alphabet Inc.'s business moat, unit monetization, and margin trajectory.",
+      "url": "https://optionsoracle.substack.com/p/alphabet-already-delivered-one-deep",
+      "btn_label": "Substack Memo \u2197"
     }
   ],
-  "updated_at": "2026-08-23 02:25:57"
+  "updated_at": "2026-10-13 15:41:36"
 }

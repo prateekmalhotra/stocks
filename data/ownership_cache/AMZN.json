@@ -2,6 +2,18 @@
   "ticker": "AMZN",
   "openinsider_trades": [
     {
+      "filing_date": "2026-10-05",
+      "trade_date": "2026-10-01",
+      "name": "Herrington Douglas J",
+      "title": "CEO Worldwide Amazon Stores",
+      "trade_type": "S - Sale",
+      "price": "$251.50",
+      "qty": "-1,000",
+      "owned": "481,290",
+      "delta_own": "0%",
+      "value": "-$251,500"
+    },
+    {
       "filing_date": "2026-08-25",
       "trade_date": "2026-08-21",
       "name": "Jassy Andrew R",
@@ -1188,18 +1200,6 @@
       "owned": "3,860",
       "delta_own": "-19%",
       "value": "-$176,733"
-    },
-    {
-      "filing_date": "2024-11-05",
-      "trade_date": "2024-11-01",
-      "name": "Rubinstein Jonathan",
-      "title": "Dir",
-      "trade_type": "S - Sale",
-      "price": "$199.85",
-      "qty": "-5,004",
-      "owned": "99,396",
-      "delta_own": "-5%",
-      "value": "-$1,000,049"
     }
   ],
   "dataroma_holders": [
@@ -1499,7 +1499,7 @@
       "date": "Independent Research",
       "summary": "Independent research publications, subscriber letters, and thesis breakdowns covering Amazon.com, Inc..",
       "url": "https://substack.com/search/AMZN%20investment%20thesis",
-      "btn_label": "Substack Search \u2197"
+      "btn_label": "Substack Memo \u2197"
     },
     {
       "title": "OpenInsider Real-Time Form 4 & Insider Ledger: AMZN",
@@ -1510,5 +1510,5 @@
       "btn_label": "OpenInsider \u2197"
     }
   ],
-  "updated_at": "2026-09-15 00:29:30"
+  "updated_at": "2026-10-13 10:17:05"
 }

@@ -1032,7 +1032,7 @@
                         <div class="ticker-header-line">
                             <span class="ticker-symbol">AMRQ</span>
                         </div>
-                        <div class="company-name-meta">Amaroq Minerals Ltd. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-warm); font-weight: 500;">Narrow Moat</span> <span class="meta-sep">·</span> <span style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 400;">Switching Costs (Core Franchise)</span></div>
+                        <div class="company-name-meta">Amaroq Minerals Ltd. <span class="meta-sep">·</span> <span class="meta-moat" style="color: var(--accent-red); font-weight: 500;">No Moat</span> <span class="meta-sep">·</span> <span style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 400;">Commodity Cost Curve Advantage (Regional)</span></div>
                     </div>
                 </div>
                 <div class="price-callout">
@@ -1046,9 +1046,9 @@
                 <div class="chart-top-bar">
                     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                         <div class="chart-live-val">
-                            <span id="tooltip-date">Oct 12, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$1.55</strong>
+                            <span id="tooltip-date">Oct 13, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$1.55</strong>
                             <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
-                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$1.61</strong></span>
+                            <span style="color: var(--accent-warm); font-size: 0.80rem;">3Y Target: <strong>$0.57</strong></span>
                         </div>
                         <!-- Moving Average Live Indicators -->
                         <div class="ma-legend-bar">
@@ -1097,7 +1097,7 @@
                         
                         <!-- 3Y Target Dotted Line & Tag -->
                         <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
-                        <text id="target-label" x="18" y="8" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $1.61</text>
+                        <text id="target-label" x="18" y="8" text-anchor="start" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">3Y Target: $0.57</text>
 
                         <!-- Moving Average Lines (200, 50, 21, 5) -->
                         <polyline id="chart-ma200" fill="none" stroke="#E879F9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" points="" />
@@ -1122,33 +1122,33 @@
             <div class="metrics-grid">
                 <div class="metric-card">
                     <span class="metric-label">Owner Earnings (TTM)</span>
-                    <span class="metric-value" style="color: var(--text-title);">$0.04 / sh</span>
-                    <span class="metric-sub">$12M total (ex-SBC)</span>
+                    <span class="metric-value" style="color: var(--accent-red);">-$0.05 / sh</span>
+                    <span class="metric-sub">-$21M cash burn</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">P / Owner Earnings</span>
-                    <span class="metric-value" style="color: var(--text-title);">42.8x</span>
-                    <span class="metric-sub">Market Cap: $530M</span>
+                    <span class="metric-value" style="color: var(--text-dim);">N/M</span>
+                    <span class="metric-sub">Negative Owner Cash Flow</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">EV / Owner Earnings</span>
-                    <span class="metric-value" style="color: var(--text-title);">40.5x</span>
-                    <span class="metric-sub">Enterprise Value: $502M</span>
+                    <span class="metric-value" style="color: var(--text-dim);">N/M</span>
+                    <span class="metric-sub">Enterprise Value: $751M</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner Cash Yield</span>
-                    <span class="metric-value" style="color: var(--accent-green);">2.3%</span>
-                    <span class="metric-sub">Starting Free Cash Flow Yield</span>
+                    <span class="metric-value" style="color: var(--accent-red);">-3.0%</span>
+                    <span class="metric-sub">Negative Owner Cash Yield</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Owner ROIC</span>
-                    <span class="metric-value" style="color: var(--text-title);">4.6%</span>
+                    <span class="metric-value" style="color: var(--accent-red);">-5.9%</span>
                     <span class="metric-sub">OE / Invested Capital</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">Net Cash / Share</span>
-                    <span class="metric-value" style="color: var(--accent-green);">+$0.08 / sh</span>
-                    <span class="metric-sub">+$28M Net Liquid Cash</span>
+                    <span class="metric-value" style="color: var(--accent-warm);">-$0.12 / sh</span>
+                    <span class="metric-sub">-$53M Net Balance Debt</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">
@@ -1172,7 +1172,7 @@
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('thesis', this)">Investment Thesis</button>
-            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">2</span></button>
+            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">3</span></button>
             <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">2</span></button>
             <button class="nav-tab" onclick="switchTab('ownership', this)">Ownership & Fund Intel</button>
         </div>
@@ -1180,14 +1180,14 @@
         <!-- TAB 1: Investment Thesis (4 Core Sections) -->
         <div id="tab-thesis" class="tab-pane active">
             <main class="memo-container">
+                <p style="margin:0 0 20px;font-size:0.82rem;color:#6b7280;letter-spacing:0.01em;">Underwritten at $1.55 on 2026-10-13. Figures in the memo reflect that price; the header shows the live quote.</p>
                 <section class="memo-section">
                     <div class="section-header">
                         <span class="section-index">01</span>
                         <h2 class="memo-title">What the Market is Pricing In</h2>
                     </div>
-                    <div class="memo-body"><p class="memo-para">Mr. Market is currently grappling with a severe valuation disconnect at Amaroq's current price of $1.54 (42.6x normalized Owner Earnings and 40.3x EV/OE). While headline revenue exploded YoY following commercial production at the Nalunaq Gold Mine, the market harbors deep skepticism regarding the sustainability of current profitability. Skeptics fear that the company's recent high-grade reconciliation (mining ~20 g/t versus the guided 14–15 g/t) is merely transient high-grading of localized pockets, subject to extreme nugget-effect volatility and narrow-vein dilution that could derail cash generation once stoping expands.</p>
-<p class="memo-para">Furthermore, the market is pricing in substantial execution headwinds unique to sub-Arctic Greenland, including seasonal logistics bottlenecks, an aggressive cash drawdown of 66.8% YoY that forced an expansion of credit lines to US$70 million with Landsbankinn and Gunvor, and severe capital dispersion into non-mining ventures like the Suliaq maritime fleet and Imeq hydroelectric development. As a consequence, investors are treating current cash flow as a cyclical peak rather than a durable compounding platform, demanding a large discount for single-asset operational fragility in an isolated operating theatre.</p>
-<p class="memo-para">Ultimately, Wall Street treats Amaroq's low audited ROIC of 4.6% as indicative of a Weak Moat mining asset. Without a long-term cost advantage or pricing power, equity markets are assigning a steep execution discount, pricing in potential cost overruns and logistics disruptions inherent to sub-Arctic resource extraction.</p></div>
+                    <div class="memo-body"><p class="memo-para">At the current market price of $1.55 per share, representing an enterprise value of $751M and diluted equity capitalization of $698M across 450.6M diluted shares, Mr. Market is pricing Amaroq as an unblemished production turnaround. Despite trailing twelve-month normalized Owner Earnings sitting in negative territory at -$0.05 per share (-$20.9M total), the stock trades at elevated implied future multiples because the market is capitalizing an uninterrupted ramp-up of the Nalunaq gold mine in Southern Greenland. Investors are aggressively discounting recent quarterly operational momentum, projecting that annualized revenue run-rates of $149.2M and gross margins near 67.0% will permanently insulate the business from the brutal capital intensity of Arctic resource extraction.</p>
+<p class="memo-para">The skepticism, however, centers on extreme geographic vulnerability and geological grade risk. Operating in remote sub-Arctic Greenland imposes harsh weather shutdowns, reliance on captive diesel power, complex coastal maritime logistics, and elevated sustaining capital requirements. With net debt standing at -$53M (-$0.12 per share) and cash reserves drawn down to $28.5M against heavy ongoing infrastructure commitments, the current quote leaves zero margin of safety for operational hiccups or commodity normalization.</p></div>
                 </section>
                 <section class="memo-section">
                     <div class="section-header">
@@ -1199,35 +1199,42 @@
                     <div class="math-step-badge">1</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Starting Baseline</div>
-                        <div class="math-step-body">Amaroq generates audited normalized Owner Earnings of $0.04 per share ($12.4M total) against a current net cash balance of +$0.08 per share ($28.0M).</div>
+                        <div class="math-step-body">Amaroq enters this assessment with trailing normalized Owner Earnings of -$0.05 per share (-$20.9M total), cash of $28.5M, total debt of $81.4M, and net balance sheet debt of -$53M (-$0.12 per share across 450.6M diluted shares).</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">2</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Forensic Business Headwinds</div>
-                        <div class="math-step-body">If skeptical headwinds materialize, Nalunaq's head grades revert from temporary 20 g/t highs to a diluted 11–12 g/t, plant throughput remains bottlenecked near 250 tpd due to underground development delays, and realized gold prices normalize downward from peak levels. Concurrently, non-core overhead in maritime logistics (Suliaq) and regional greenfield exploration (Gardaq JV, Black Angel) continues to drain liquid reserves.</div>
+                        <div class="math-step-body">Skeptics emphasize that Nalunaq's narrow-vein high-grade deposit carries severe structural grade volatility, high sustaining capital expenditure, and harsh Arctic operational friction. If realized gold pricing normalizes from cyclical records, or if underground stoping encounters grade dilution toward historical baseline averages, operational costs will remain inflexible due to remote island infrastructure, freight dependencies, and captive camp maintenance.</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">3</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Skeptic Unit Contraction</div>
-                        <div class="math-step-body">Annual gold sales contract from the annualized ~22,560 oz pace down to 15,000 oz per year, while realized Canadian dollar gold pricing softens to $3,200/oz, driving total annualized revenue down to $48.0M.</div>
+                        <div class="math-step-body">Under an operational disruption and commodity reversion scenario, annualized production falls from the current 22,560-ounce run-rate down to 14,000 ounces sold annually by Year</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">4</div>
                     <div class="math-step-main">
-                        <div class="math-step-label">Reverse Operating Leverage & Cash Degradation</div>
-                        <div class="math-step-body">Due to rigid Arctic fixed overheads (camp logistics, heavy fuel generation, underground ventilation), operating cash costs remain sticky at $36.0M. Subtracting $8.0M in sustaining maintenance CapEx, $2.0M in stock-based compensation, and $1.5M in interest/administrative expense leaves degraded Skeptic Year 3 Owner Earnings of just $0.5M ($0.001 per share).</div>
+                        <div class="math-step-label">Step 4</div>
+                        <div class="math-step-body">Simultaneously, realized unit pricing compresses to $2,200 per ounce, generating contracted annual gross revenue of $30.8M.</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">5</div>
                     <div class="math-step-main">
+                        <div class="math-step-label">Reverse Operating Leverage & Cash Degradation</div>
+                        <div class="math-step-body">Fixed site overhead, remote maritime freight logistics, processing circuits, and general administrative overhead demand approximately $26.0M in sticky annual cash operating expenses, while ongoing sustaining CapEx absorbs $4.0M annually. Under this reverse operating leverage, degraded Skeptic Year 3 Owner Earnings sink to -$0.01 per share (-$4.5M total), exhausting liquid cash and forcing dilutive equity financing.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
                         <div class="math-step-label">Downside Risk Valuation Floor</div>
-                        <div class="math-step-body">Capitalizing degraded trough Owner Earnings of $0.02 per share (normalized multi-year average of $6.8M) at a trough Weak Moat multiple of 4.0x P/OE yields $0.08 per share in business value. Adding a depleted net cash reserve of +$0.08 per share (after sustained exploration CapEx burn) establishes a Downside Cash Floor Target of $0.16 per share (an 89.6% decline from current market prices).</div>
+                        <div class="math-step-body">In an operational contraction where the enterprise fails to generate sustainable positive owner cash flow, equity value is constrained to net salvage value. With cumulative cash burn widening net debt to -$76.6M (-$0.17 per share), and assigning a residual liquidation recovery of $0.52 per share to capitalized processing assets, the resulting Downside Risk Valuation Floor settles at $0.35 per share.</div>
                     </div>
                 </div></div></div>
                 </section>
@@ -1236,9 +1243,9 @@
                         <span class="section-index">03</span>
                         <h2 class="memo-title">How Things Are Going Now</h2>
                     </div>
-                    <div class="memo-body"><p class="memo-para">Amaroq's underlying operational engine is delivering a rapid production ramp-up following the commissioning of its processing infrastructure. In the latest operating quarter (Q2 2026), the company generated $37.3M in revenue (an annualized run-rate of $149.2M) with gross margins expanding significantly to 67.0%. Nalunaq produced 5,363 ounces and sold 5,640 ounces of gold at an average realized price of $4,678 per ounce CAD, driven by exceptional processed head grades of 20.1 g/t that comfortably exceeded original mine plan models.</p>
-<p class="memo-para">The commissioning of the Phase 2 flotation circuit in June 2026 resolved historical gravity-only recovery bottlenecks, elevating total metallurgical recoveries from ~61% to over 90%. Operating cash flow inflected positively across H1 2026, enabling Amaroq to fund initial underground stope development and complete regional exploration campaigns, including a 33-hole (4,729 meter) resource drilling campaign at the Nanoq satellite deposit that demonstrated 97–99% metallurgical gold recoveries.</p>
-<p class="memo-para">Capital allocation remains intensely focused on internal reinvestment. While cash contracted to $28.5M due to peak construction CapEx, Amaroq upsized its revolving credit facility with Landsbankinn and Gunvor to US$70M to preserve liquidity, transitioned its primary listing to the London Stock Exchange Main Market to broaden institutional access, and avoided dilutive equity issuances while maintaining zero funded long-term debentures on its balance sheet.</p></div>
+                    <div class="memo-body"><p class="memo-para">Amaroq has completed an operational inflection over the past four quarters, transitioning from a pre-revenue exploration vehicle into an active gold producer. Quarterly revenue progressed sequentially from $12.8M in Q3 2025 (2,636 ounces sold) to $10.7M in Q4 2025 (1,949 ounces sold), $18.9M in Q1 2026 (2,970 ounces sold), and reached $37.3M in Q2 2026 from 5,640 ounces sold. This yields a real-time annualized revenue run-rate of $149.2M, propelled by exceptional mined grades averaging approximately 20 g/t at Nalunaq and realized gold prices reaching $4,678 per ounce in the latest quarter.</p>
+<p class="memo-para">Operational margins have expanded alongside plant commissioning. Gross profit rose to $25.0M in Q2 2026, delivering an audited gross margin of 67.0%. Cash flow from operations turned positive at $20.4M for the first half of 2026, compared to an operating cash burn of -$13.4M in the prior-year period. Net income for Q2 2026 reached $11.1M, bolstered by operational ramp-up of the Phase 2 flotation circuit aimed at achieving 90% to 95% plant recoveries.</p>
+<p class="memo-para">Capital allocation remains strictly captive to mine development and site engineering. The company closed Q2 2026 with $28.5M in liquid cash against $81.4M in total debt, resulting in a net debt balance of -$53M. Capital assets climbed to $298.5M as management advanced processing equipment and underground development. No capital was distributed via common dividends or share repurchases, reflecting tight reinvestment constraints to deliver on full-year 2026 guidance.</p></div>
                 </section>
                 <section class="memo-section">
                     <div class="section-header" style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
@@ -1247,9 +1254,9 @@
                             <h2 class="memo-title">What If It Keeps Going That Way</h2>
                         </div>
                         <div class="section-predictability-meta" style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-family: var(--font-sans);">
-                            <span class="pred-indicator" style="color: var(--text-secondary); font-weight: 600;">Moderate Predictability</span>
+                            <span class="pred-indicator" style="color: #D48858; font-weight: 600;">Low Predictability</span>
                             <span class="pred-sep" style="color: var(--text-dim);">·</span>
-                            <span class="pred-subtext" style="color: var(--text-secondary); font-weight: 400;">Manageable Visibility · Moat Protected</span>
+                            <span class="pred-subtext" style="color: var(--text-secondary); font-weight: 400;">Commodity Ramp Volatility</span>
                         </div>
                     </div>
                     <div class="memo-body"><div class="math-steps-ledger">
@@ -1257,42 +1264,49 @@
                     <div class="math-step-badge">1</div>
                     <div class="math-step-main">
                         <div class="math-step-label">Starting Unit Baseline</div>
-                        <div class="math-step-body">Current quarterly volume stands at 5,640 ounces of gold sold (annualized run-rate of 22,560 oz) at a realized monetization yield of $4,678 per ounce CAD, yielding an annualized revenue run-rate baseline of $149.2M.</div>
+                        <div class="math-step-body">Current production volume sold stands at 5,640 ounces in Q2 2026, with an average realized gold monetization yield of $4,678 per ounce sold, establishing an annualized revenue run-rate baseline of $149.2M.</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">2</div>
                     <div class="math-step-main">
                         <div class="math-step-label">3-Year Unit Volume Extrapolation</div>
-                        <div class="math-step-body">As the Phase 2 flotation circuit operates at steady-state and underground stoping expands into the Mountain Block and Target Valley, annual gold sales expand to 28,000 ounces in Year 1, 34,000 ounces in Year 2, and 40,000 ounces in Year 3 as Nalunaq reaches steady-state 300–350 tpd throughput.</div>
+                        <div class="math-step-body">As the Phase 2 flotation circuit reaches steady-state throughput and underground stoping expands across Nalunaq, production volume progresses from 22,560 annualized ounces in Year 1 to 26,000 ounces in Year 2, and 28,500 ounces in Year</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">3</div>
                     <div class="math-step-main">
-                        <div class="math-step-label">Projected Year 3 Revenue</div>
-                        <div class="math-step-body">Multiplying Year 3 volume of 40,000 ounces by a normalized realized gold price of $4,200 per ounce CAD yields Projected Year 3 Revenue of $168.0M.</div>
+                        <div class="math-step-label">Step 3</div>
+                        <div class="math-step-body">Meanwhile, unit monetization normalizes toward an institutional mid-cycle gold price assumption of $3,500 per ounce by Year</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">4</div>
                     <div class="math-step-main">
-                        <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
-                        <div class="math-step-body">Deducting cash production costs of $64.0M ($1,600/oz AISC cash baseline), administrative and logistics expenses of $22.0M, sustaining maintenance CapEx of $18.0M, stock-based compensation of $3.0M, and mineral royalties/taxes of $13.0M results in Projected Year 3 Total Owner Earnings of $48.0M (28.6% owner cash margin, or $0.140 per share across 342.0M diluted shares).</div>
+                        <div class="math-step-label">3. Projected Year 3 Revenue</div>
+                        <div class="math-step-body">Multiplying projected Year 3 volume of 28,500 ounces sold by normalized unit monetization of $3,500 per ounce yields Projected Year 3 Revenue of $99.75M.</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">5</div>
                     <div class="math-step-main">
-                        <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
-                        <div class="math-step-body">Starting Net Cash of +$28.0M + Cumulative 3-Year Free Cash Flow of $105.0M - Discretionary Growth CapEx for Nanoq/Suliaq infrastructure of $45.0M - Zero Share Buybacks ($0.0M) - Working Capital/Debt Facility Buffers of $15.0M = Ending Year 3 Net Cash of $73.0M ($0.213 per share).</div>
+                        <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
+                        <div class="math-step-body">Deducting annual cash production costs of $39.9M (guided AISC of approximately $1,400 per ounce), corporate G&A and compliance expenses of $10.5M, exploration maintenance of $3.0M, cash taxes of $2.5M, and maintenance CapEx of $2.0M (with $0.0M SBC), Projected Year 3 Total Owner Earnings equal $41.85M, representing an Owner Cash Margin of 42.0% or $0.09 per share across 450.6M diluted shares.</div>
                     </div>
                 </div>
                 <div class="math-step-item">
                     <div class="math-step-badge">6</div>
                     <div class="math-step-main">
+                        <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
+                        <div class="math-step-body">Starting Net Cash of -$53.0M plus cumulative 3-year cash flow from operations of $108.0M, minus $0.0M common share repurchases (mandated due to negative net cash) and minus cumulative development and maintenance CapEx of $80.0M, results in Ending Year 3 Net Cash of -$25.0M (-$0.06 per share across 450.6M shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">7</div>
+                    <div class="math-step-main">
                         <div class="math-step-label">Intrinsic Fair Value Target & Expected 3-Year Return</div>
-                        <div class="math-step-body">With Year 3 Owner Earnings growing +37.1% YoY over Year 2 ($48.0M vs $35.0M), Amaroq qualifies for the Rapid Compounding tier (g₃ > 15%). Applying a disciplined Weak Moat exit multiple of 10.0x P/OE strictly from the Buffett-Munger Matrix yields a business capitalization of $1.40 per share ($0.140 × 10.0x). Adding Ending Net Cash of $0.213 per share results in an Intrinsic Fair Value Target of $1.61 per share, representing a 3-year annualized return (IRR) of 1.49% per annum from today's $1.54 price, signaling that current market prices already reflect the bulk of operational execution.</div>
+                        <div class="math-step-body">With Year 3 Owner Earnings growing from $37.5M in Year 2 to $41.85M in Year 3, the YoY growth rate g3 is 11.6%. In accordance with the Buffett-Munger 2-Factor Matrix for a single-asset resource producer possessing No Moat (audited ROIC of -5.9%) and compounding growth (g3 > 10%), an exit multiple of 7.0x P/OE is applied: Year 3 OE $0.09/sh × 7.0x = $0.63 per share, plus Ending Net Cash of -$0.06 per share = $0.57 Expected Fair Value Target. From today's market price of $1.55, this target indicates an annualized return (IRR) of -28.4% per annum.</div>
                     </div>
                 </div></div></div>
                 </section>
@@ -1308,8 +1322,153 @@
             <div class="evolution-card active-version-card">
                 <div class="evolution-header">
                     <div class="evolution-title-row">
-                        <span class="evolution-vnum">Version 3</span>
+                        <span class="evolution-vnum">Version 4</span>
                         <span class="evolution-status-text status-active">Live Active</span>
+                        <span class="evolution-date">· 2026-10-13</span>
+                    </div>
+                    <div class="evolution-price">Snapshot Price: <strong>$1.55</strong></div>
+                </div>
+                <div class="evolution-reason">
+                    <span class="reason-label">Trigger / Reason:</span> Full QA re-underwrite
+                </div>
+                <div class="evolution-metrics-text-row">
+                    <span>OE: <strong>-$0.05/sh</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>P/OE: <strong>N/M</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>ROIC: <strong>-5.9%</strong></span>
+                    <span class="meta-sep">·</span>
+                    <span>Moat: <strong>No Moat</strong></span>
+                </div>
+                <div class="evolution-change-text">Amaroq has completed an operational inflection over the past four quarters, transitioning from a pre-revenue exploration vehicle into an active gold producer. Quarterly revenue progressed sequentially from $12.8M in Q3 2025 (2,636 ounces sold) to $10.7M in Q4 2025 (1,949 ounces sold), $18.9M in Q1 2026 (2,970 ounces sold), and reached $37.3M in Q2 2026 from 5,640 ounces sold. This yields a real-time annualized revenue run-rate of $149.2M, propelled by exceptional mined grades averaging approximately 20 g/t at Nalunaq and realized gold prices reaching $4,678 per ounce in the latest quarter.
+
+Operational margins have expanded alongside plant commissioning. Gross profit rose to $25.0M in Q2 2026, delivering an audited gross margin of 67.0%. Cash flow from operations turned positive at $20.4M for the first half of 2026, compared to an operating cash burn of -$13.4M in the prior-year period. Net income for Q2 2026 reached $11.1M, bolstered by operational ramp-up of the Phase 2 flotation circuit aimed at achieving 90% to 95% plant recoveries.
+
+Capital allocation remains strictly captive to mine development and site engineering. The company closed Q2 2026 with $28.5M in liquid cash against $81.4M in total debt, resulting in a net debt balance of -$53M. Capital assets climbed to $298.5M as management advanced processing equipment and underground development. No capital was distributed via common dividends or share repurchases, reflecting tight reinvestment constraints to deliver on full-year 2026 guidance.</div>
+                <details class="archived-accordion">
+                    <summary class="archived-summary">Inspect Thesis Memo (v4)</summary>
+                    <div class="archived-content-body">
+                        
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">1. What the Market is Pricing In</div>
+                    <div><p class="memo-para">At the current market price of $1.55 per share, representing an enterprise value of $751M and diluted equity capitalization of $698M across 450.6M diluted shares, Mr. Market is pricing Amaroq as an unblemished production turnaround. Despite trailing twelve-month normalized Owner Earnings sitting in negative territory at -$0.05 per share (-$20.9M total), the stock trades at elevated implied future multiples because the market is capitalizing an uninterrupted ramp-up of the Nalunaq gold mine in Southern Greenland. Investors are aggressively discounting recent quarterly operational momentum, projecting that annualized revenue run-rates of $149.2M and gross margins near 67.0% will permanently insulate the business from the brutal capital intensity of Arctic resource extraction.</p>
+<p class="memo-para">The skepticism, however, centers on extreme geographic vulnerability and geological grade risk. Operating in remote sub-Arctic Greenland imposes harsh weather shutdowns, reliance on captive diesel power, complex coastal maritime logistics, and elevated sustaining capital requirements. With net debt standing at -$53M (-$0.12 per share) and cash reserves drawn down to $28.5M against heavy ongoing infrastructure commitments, the current quote leaves zero margin of safety for operational hiccups or commodity normalization.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
+                    <div><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Baseline</div>
+                        <div class="math-step-body">Amaroq enters this assessment with trailing normalized Owner Earnings of -$0.05 per share (-$20.9M total), cash of $28.5M, total debt of $81.4M, and net balance sheet debt of -$53M (-$0.12 per share across 450.6M diluted shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Forensic Business Headwinds</div>
+                        <div class="math-step-body">Skeptics emphasize that Nalunaq's narrow-vein high-grade deposit carries severe structural grade volatility, high sustaining capital expenditure, and harsh Arctic operational friction. If realized gold pricing normalizes from cyclical records, or if underground stoping encounters grade dilution toward historical baseline averages, operational costs will remain inflexible due to remote island infrastructure, freight dependencies, and captive camp maintenance.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Skeptic Unit Contraction</div>
+                        <div class="math-step-body">Under an operational disruption and commodity reversion scenario, annualized production falls from the current 22,560-ounce run-rate down to 14,000 ounces sold annually by Year</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Step 4</div>
+                        <div class="math-step-body">Simultaneously, realized unit pricing compresses to $2,200 per ounce, generating contracted annual gross revenue of $30.8M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Reverse Operating Leverage & Cash Degradation</div>
+                        <div class="math-step-body">Fixed site overhead, remote maritime freight logistics, processing circuits, and general administrative overhead demand approximately $26.0M in sticky annual cash operating expenses, while ongoing sustaining CapEx absorbs $4.0M annually. Under this reverse operating leverage, degraded Skeptic Year 3 Owner Earnings sink to -$0.01 per share (-$4.5M total), exhausting liquid cash and forcing dilutive equity financing.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Downside Risk Valuation Floor</div>
+                        <div class="math-step-body">In an operational contraction where the enterprise fails to generate sustainable positive owner cash flow, equity value is constrained to net salvage value. With cumulative cash burn widening net debt to -$76.6M (-$0.17 per share), and assigning a residual liquidation recovery of $0.52 per share to capitalized processing assets, the resulting Downside Risk Valuation Floor settles at $0.35 per share.</div>
+                    </div>
+                </div></div></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">3. How Things Are Going Now</div>
+                    <div><p class="memo-para">Amaroq has completed an operational inflection over the past four quarters, transitioning from a pre-revenue exploration vehicle into an active gold producer. Quarterly revenue progressed sequentially from $12.8M in Q3 2025 (2,636 ounces sold) to $10.7M in Q4 2025 (1,949 ounces sold), $18.9M in Q1 2026 (2,970 ounces sold), and reached $37.3M in Q2 2026 from 5,640 ounces sold. This yields a real-time annualized revenue run-rate of $149.2M, propelled by exceptional mined grades averaging approximately 20 g/t at Nalunaq and realized gold prices reaching $4,678 per ounce in the latest quarter.</p>
+<p class="memo-para">Operational margins have expanded alongside plant commissioning. Gross profit rose to $25.0M in Q2 2026, delivering an audited gross margin of 67.0%. Cash flow from operations turned positive at $20.4M for the first half of 2026, compared to an operating cash burn of -$13.4M in the prior-year period. Net income for Q2 2026 reached $11.1M, bolstered by operational ramp-up of the Phase 2 flotation circuit aimed at achieving 90% to 95% plant recoveries.</p>
+<p class="memo-para">Capital allocation remains strictly captive to mine development and site engineering. The company closed Q2 2026 with $28.5M in liquid cash against $81.4M in total debt, resulting in a net debt balance of -$53M. Capital assets climbed to $298.5M as management advanced processing equipment and underground development. No capital was distributed via common dividends or share repurchases, reflecting tight reinvestment constraints to deliver on full-year 2026 guidance.</p></div>
+                </div>
+                <div class="archived-memo-section">
+                    <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
+                    <div><div class="math-steps-ledger">
+                <div class="math-step-item">
+                    <div class="math-step-badge">1</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Starting Unit Baseline</div>
+                        <div class="math-step-body">Current production volume sold stands at 5,640 ounces in Q2 2026, with an average realized gold monetization yield of $4,678 per ounce sold, establishing an annualized revenue run-rate baseline of $149.2M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">2</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">3-Year Unit Volume Extrapolation</div>
+                        <div class="math-step-body">As the Phase 2 flotation circuit reaches steady-state throughput and underground stoping expands across Nalunaq, production volume progresses from 22,560 annualized ounces in Year 1 to 26,000 ounces in Year 2, and 28,500 ounces in Year</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">3</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Step 3</div>
+                        <div class="math-step-body">Meanwhile, unit monetization normalizes toward an institutional mid-cycle gold price assumption of $3,500 per ounce by Year</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">4</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">3. Projected Year 3 Revenue</div>
+                        <div class="math-step-body">Multiplying projected Year 3 volume of 28,500 ounces sold by normalized unit monetization of $3,500 per ounce yields Projected Year 3 Revenue of $99.75M.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">5</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Cash Cost Structure & Projected Owner Earnings</div>
+                        <div class="math-step-body">Deducting annual cash production costs of $39.9M (guided AISC of approximately $1,400 per ounce), corporate G&A and compliance expenses of $10.5M, exploration maintenance of $3.0M, cash taxes of $2.5M, and maintenance CapEx of $2.0M (with $0.0M SBC), Projected Year 3 Total Owner Earnings equal $41.85M, representing an Owner Cash Margin of 42.0% or $0.09 per share across 450.6M diluted shares.</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">6</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Explicit 3-Year Balance Sheet & Capital Allocation Bridge</div>
+                        <div class="math-step-body">Starting Net Cash of -$53.0M plus cumulative 3-year cash flow from operations of $108.0M, minus $0.0M common share repurchases (mandated due to negative net cash) and minus cumulative development and maintenance CapEx of $80.0M, results in Ending Year 3 Net Cash of -$25.0M (-$0.06 per share across 450.6M shares).</div>
+                    </div>
+                </div>
+                <div class="math-step-item">
+                    <div class="math-step-badge">7</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">Intrinsic Fair Value Target & Expected 3-Year Return</div>
+                        <div class="math-step-body">With Year 3 Owner Earnings growing from $37.5M in Year 2 to $41.85M in Year 3, the YoY growth rate g3 is 11.6%. In accordance with the Buffett-Munger 2-Factor Matrix for a single-asset resource producer possessing No Moat (audited ROIC of -5.9%) and compounding growth (g3 > 10%), an exit multiple of 7.0x P/OE is applied: Year 3 OE $0.09/sh × 7.0x = $0.63 per share, plus Ending Net Cash of -$0.06 per share = $0.57 Expected Fair Value Target. From today's market price of $1.55, this target indicates an annualized return (IRR) of -28.4% per annum.</div>
+                    </div>
+                </div></div></div>
+                </div>
+                
+                    </div>
+                </details>
+            </div>
+            
+            <div class="evolution-card ">
+                <div class="evolution-header">
+                    <div class="evolution-title-row">
+                        <span class="evolution-vnum">Version 3</span>
+                        <span class="evolution-status-text status-archived">Archived</span>
                         <span class="evolution-date">· 2026-10-01</span>
                     </div>
                     <div class="evolution-price">Snapshot Price: <strong>$1.54</strong></div>
@@ -1709,12 +1868,12 @@ The completion and commissioning of the Phase 2 flotation circuit in late June 2
                 <div class="corridor-grid">
                     <div class="corridor-card">
                         <span class="corridor-label">Lower Price Alert Floor</span>
-                        <span class="corridor-value">$0.16</span>
+                        <span class="corridor-value">$0.35</span>
                         <span class="corridor-sub">Triggers downside margin-of-safety review if breached</span>
                     </div>
                     <div class="corridor-card">
                         <span class="corridor-label">Upper Price Alert Ceiling</span>
-                        <span class="corridor-value">$1.77</span>
+                        <span class="corridor-value">$1.78</span>
                         <span class="corridor-sub">Triggers valuation trim / fair value realization review</span>
                     </div>
                     <div class="corridor-card">
@@ -1786,7 +1945,7 @@ On the capital allocation front, management is actively mitigating dilution risk
 
     <!-- Dynamic SVG Chart & Range Switching Script -->
     <script>
-        const chartData = {"1D": [{"date": "12:00 AM", "price": 1.59, "time": "12:00 AM", "full_date": "Oct 13, 2026 12:00 AM"}, {"date": "12:06 AM", "price": 1.6, "time": "12:06 AM", "full_date": "Oct 13, 2026 12:06 AM"}, {"date": "12:10 AM", "price": 1.61, "time": "12:10 AM", "full_date": "Oct 13, 2026 12:10 AM"}, {"date": "12:14 AM", "price": 1.61, "time": "12:14 AM", "full_date": "Oct 13, 2026 12:14 AM"}, {"date": "12:20 AM", "price": 1.58, "time": "12:20 AM", "full_date": "Oct 13, 2026 12:20 AM"}, {"date": "12:30 AM", "price": 1.61, "time": "12:30 AM", "full_date": "Oct 13, 2026 12:30 AM"}, {"date": "12:38 AM", "price": 1.59, "time": "12:38 AM", "full_date": "Oct 13, 2026 12:38 AM"}, {"date": "12:40 AM", "price": 1.6, "time": "12:40 AM", "full_date": "Oct 13, 2026 12:40 AM"}, {"date": "12:44 AM", "price": 1.58, "time": "12:44 AM", "full_date": "Oct 13, 2026 12:44 AM"}, {"date": "12:46 AM", "price": 1.58, "time": "12:46 AM", "full_date": "Oct 13, 2026 12:46 AM"}, {"date": "12:50 AM", "price": 1.6, "time": "12:50 AM", "full_date": "Oct 13, 2026 12:50 AM"}, {"date": "12:52 AM", "price": 1.6, "time": "12:52 AM", "full_date": "Oct 13, 2026 12:52 AM"}, {"date": "12:58 AM", "price": 1.59, "time": "12:58 AM", "full_date": "Oct 13, 2026 12:58 AM"}, {"date": "01:06 AM", "price": 1.6, "time": "01:06 AM", "full_date": "Oct 13, 2026 01:06 AM"}, {"date": "01:16 AM", "price": 1.6, "time": "01:16 AM", "full_date": "Oct 13, 2026 01:16 AM"}, {"date": "01:30 AM", "price": 1.6, "time": "01:30 AM", "full_date": "Oct 13, 2026 01:30 AM"}, {"date": "01:38 AM", "price": 1.6, "time": "01:38 AM", "full_date": "Oct 13, 2026 01:38 AM"}, {"date": "02:02 AM", "price": 1.6, "time": "02:02 AM", "full_date": "Oct 13, 2026 02:02 AM"}, {"date": "02:08 AM", "price": 1.6, "time": "02:08 AM", "full_date": "Oct 13, 2026 02:08 AM"}, {"date": "02:12 AM", "price": 1.59, "time": "02:12 AM", "full_date": "Oct 13, 2026 02:12 AM"}, {"date": "02:34 AM", "price": 1.6, "time": "02:34 AM", "full_date": "Oct 13, 2026 02:34 AM"}, {"date": "02:40 AM", "price": 1.6, "time": "02:40 AM", "full_date": "Oct 13, 2026 02:40 AM"}, {"date": "02:42 AM", "price": 1.6, "time": "02:42 AM", "full_date": "Oct 13, 2026 02:42 AM"}, {"date": "02:44 AM", "price": 1.59, "time": "02:44 AM", "full_date": "Oct 13, 2026 02:44 AM"}, {"date": "02:46 AM", "price": 1.59, "time": "02:46 AM", "full_date": "Oct 13, 2026 02:46 AM"}, {"date": "02:48 AM", "price": 1.59, "time": "02:48 AM", "full_date": "Oct 13, 2026 02:48 AM"}, {"date": "02:50 AM", "price": 1.58, "time": "02:50 AM", "full_date": "Oct 13, 2026 02:50 AM"}, {"date": "02:52 AM", "price": 1.58, "time": "02:52 AM", "full_date": "Oct 13, 2026 02:52 AM"}, {"date": "02:54 AM", "price": 1.6, "time": "02:54 AM", "full_date": "Oct 13, 2026 02:54 AM"}, {"date": "02:58 AM", "price": 1.59, "time": "02:58 AM", "full_date": "Oct 13, 2026 02:58 AM"}, {"date": "03:30 AM", "price": 1.58, "time": "03:30 AM", "full_date": "Oct 13, 2026 03:30 AM"}, {"date": "03:34 AM", "price": 1.59, "time": "03:34 AM", "full_date": "Oct 13, 2026 03:34 AM"}, {"date": "03:46 AM", "price": 1.58, "time": "03:46 AM", "full_date": "Oct 13, 2026 03:46 AM"}, {"date": "04:10 AM", "price": 1.58, "time": "04:10 AM", "full_date": "Oct 13, 2026 04:10 AM"}, {"date": "04:16 AM", "price": 1.59, "time": "04:16 AM", "full_date": "Oct 13, 2026 04:16 AM"}, {"date": "04:24 AM", "price": 1.59, "time": "04:24 AM", "full_date": "Oct 13, 2026 04:24 AM"}, {"date": "04:26 AM", "price": 1.58, "time": "04:26 AM", "full_date": "Oct 13, 2026 04:26 AM"}, {"date": "04:28 AM", "price": 1.59, "time": "04:28 AM", "full_date": "Oct 13, 2026 04:28 AM"}, {"date": "04:32 AM", "price": 1.58, "time": "04:32 AM", "full_date": "Oct 13, 2026 04:32 AM"}, {"date": "04:34 AM", "price": 1.58, "time": "04:34 AM", "full_date": "Oct 13, 2026 04:34 AM"}, {"date": "04:36 AM", "price": 1.6, "time": "04:36 AM", "full_date": "Oct 13, 2026 04:36 AM"}, {"date": "04:46 AM", "price": 1.59, "time": "04:46 AM", "full_date": "Oct 13, 2026 04:46 AM"}, {"date": "04:48 AM", "price": 1.58, "time": "04:48 AM", "full_date": "Oct 13, 2026 04:48 AM"}, {"date": "04:58 AM", "price": 1.59, "time": "04:58 AM", "full_date": "Oct 13, 2026 04:58 AM"}, {"date": "05:00 AM", "price": 1.59, "time": "05:00 AM", "full_date": "Oct 13, 2026 05:00 AM"}, {"date": "05:14 AM", "price": 1.59, "time": "05:14 AM", "full_date": "Oct 13, 2026 05:14 AM"}, {"date": "05:26 AM", "price": 1.58, "time": "05:26 AM", "full_date": "Oct 13, 2026 05:26 AM"}, {"date": "05:32 AM", "price": 1.58, "time": "05:32 AM", "full_date": "Oct 13, 2026 05:32 AM"}, {"date": "05:34 AM", "price": 1.6, "time": "05:34 AM", "full_date": "Oct 13, 2026 05:34 AM"}, {"date": "05:38 AM", "price": 1.58, "time": "05:38 AM", "full_date": "Oct 13, 2026 05:38 AM"}, {"date": "05:44 AM", "price": 1.6, "time": "05:44 AM", "full_date": "Oct 13, 2026 05:44 AM"}, {"date": "05:46 AM", "price": 1.6, "time": "05:46 AM", "full_date": "Oct 13, 2026 05:46 AM"}, {"date": "05:54 AM", "price": 1.6, "time": "05:54 AM", "full_date": "Oct 13, 2026 05:54 AM"}, {"date": "05:58 AM", "price": 1.58, "time": "05:58 AM", "full_date": "Oct 13, 2026 05:58 AM"}, {"date": "06:04 AM", "price": 1.6, "time": "06:04 AM", "full_date": "Oct 13, 2026 06:04 AM"}, {"date": "06:06 AM", "price": 1.59, "time": "06:06 AM", "full_date": "Oct 13, 2026 06:06 AM"}, {"date": "06:14 AM", "price": 1.59, "time": "06:14 AM", "full_date": "Oct 13, 2026 06:14 AM"}, {"date": "06:34 AM", "price": 1.58, "time": "06:34 AM", "full_date": "Oct 13, 2026 06:34 AM"}, {"date": "06:40 AM", "price": 1.6, "time": "06:40 AM", "full_date": "Oct 13, 2026 06:40 AM"}, {"date": "06:48 AM", "price": 1.6, "time": "06:48 AM", "full_date": "Oct 13, 2026 06:48 AM"}, {"date": "06:52 AM", "price": 1.59, "time": "06:52 AM", "full_date": "Oct 13, 2026 06:52 AM"}, {"date": "07:00 AM", "price": 1.59, "time": "07:00 AM", "full_date": "Oct 13, 2026 07:00 AM"}, {"date": "07:02 AM", "price": 1.6, "time": "07:02 AM", "full_date": "Oct 13, 2026 07:02 AM"}, {"date": "07:04 AM", "price": 1.59, "time": "07:04 AM", "full_date": "Oct 13, 2026 07:04 AM"}, {"date": "07:06 AM", "price": 1.59, "time": "07:06 AM", "full_date": "Oct 13, 2026 07:06 AM"}, {"date": "07:16 AM", "price": 1.59, "time": "07:16 AM", "full_date": "Oct 13, 2026 07:16 AM"}, {"date": "07:20 AM", "price": 1.58, "time": "07:20 AM", "full_date": "Oct 13, 2026 07:20 AM"}, {"date": "07:38 AM", "price": 1.59, "time": "07:38 AM", "full_date": "Oct 13, 2026 07:38 AM"}, {"date": "07:40 AM", "price": 1.58, "time": "07:40 AM", "full_date": "Oct 13, 2026 07:40 AM"}, {"date": "07:44 AM", "price": 1.59, "time": "07:44 AM", "full_date": "Oct 13, 2026 07:44 AM"}, {"date": "07:50 AM", "price": 1.59, "time": "07:50 AM", "full_date": "Oct 13, 2026 07:50 AM"}, {"date": "07:54 AM", "price": 1.58, "time": "07:54 AM", "full_date": "Oct 13, 2026 07:54 AM"}, {"date": "07:58 AM", "price": 1.58, "time": "07:58 AM", "full_date": "Oct 13, 2026 07:58 AM"}, {"date": "08:12 AM", "price": 1.58, "time": "08:12 AM", "full_date": "Oct 13, 2026 08:12 AM"}, {"date": "08:16 AM", "price": 1.58, "time": "08:16 AM", "full_date": "Oct 13, 2026 08:16 AM"}, {"date": "08:18 AM", "price": 1.59, "time": "08:18 AM", "full_date": "Oct 13, 2026 08:18 AM"}, {"date": "08:22 AM", "price": 1.59, "time": "08:22 AM", "full_date": "Oct 13, 2026 08:22 AM"}, {"date": "08:24 AM", "price": 1.59, "time": "08:24 AM", "full_date": "Oct 13, 2026 08:24 AM"}, {"date": "08:26 AM", "price": 1.58, "time": "08:26 AM", "full_date": "Oct 13, 2026 08:26 AM"}, {"date": "08:28 AM", "price": 1.58, "time": "08:28 AM", "full_date": "Oct 13, 2026 08:28 AM"}, {"date": "08:30 AM", "price": 1.57, "time": "08:30 AM", "full_date": "Oct 13, 2026 08:30 AM"}], "1M": [{"date": "Sep 21, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Sep 21, 2026 06:30 AM"}, {"date": "Sep 22, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Sep 22, 2026 06:30 AM"}, {"date": "Sep 23, 2026", "price": 1.56, "time": "06:30 AM", "full_date": "Sep 23, 2026 06:30 AM"}, {"date": "Sep 24, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Sep 24, 2026 06:30 AM"}, {"date": "Sep 25, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Sep 25, 2026 06:30 AM"}, {"date": "Sep 28, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Sep 28, 2026 06:30 AM"}, {"date": "Sep 29, 2026", "price": 1.56, "time": "06:30 AM", "full_date": "Sep 29, 2026 06:30 AM"}, {"date": "Sep 30, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Sep 30, 2026 06:30 AM"}, {"date": "Oct 01, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 01, 2026 06:30 AM"}, {"date": "Oct 02, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Oct 02, 2026 06:30 AM"}, {"date": "Oct 05, 2026", "price": 1.53, "time": "06:30 AM", "full_date": "Oct 05, 2026 06:30 AM"}, {"date": "Oct 06, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Oct 06, 2026 06:30 AM"}, {"date": "Oct 07, 2026", "price": 1.61, "time": "06:30 AM", "full_date": "Oct 07, 2026 06:30 AM"}, {"date": "Oct 08, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 08, 2026 06:30 AM"}, {"date": "Oct 09, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Oct 09, 2026 06:30 AM"}, {"date": "Oct 12, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 12, 2026 06:30 AM"}], "1Y": [{"date": "Sep 21, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Sep 21, 2026 06:30 AM"}, {"date": "Sep 22, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Sep 22, 2026 06:30 AM"}, {"date": "Sep 23, 2026", "price": 1.56, "time": "06:30 AM", "full_date": "Sep 23, 2026 06:30 AM"}, {"date": "Sep 24, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Sep 24, 2026 06:30 AM"}, {"date": "Sep 25, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Sep 25, 2026 06:30 AM"}, {"date": "Sep 28, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Sep 28, 2026 06:30 AM"}, {"date": "Sep 29, 2026", "price": 1.56, "time": "06:30 AM", "full_date": "Sep 29, 2026 06:30 AM"}, {"date": "Sep 30, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Sep 30, 2026 06:30 AM"}, {"date": "Oct 01, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 01, 2026 06:30 AM"}, {"date": "Oct 02, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Oct 02, 2026 06:30 AM"}, {"date": "Oct 05, 2026", "price": 1.53, "time": "06:30 AM", "full_date": "Oct 05, 2026 06:30 AM"}, {"date": "Oct 06, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Oct 06, 2026 06:30 AM"}, {"date": "Oct 07, 2026", "price": 1.61, "time": "06:30 AM", "full_date": "Oct 07, 2026 06:30 AM"}, {"date": "Oct 08, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 08, 2026 06:30 AM"}, {"date": "Oct 09, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Oct 09, 2026 06:30 AM"}, {"date": "Oct 12, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 12, 2026 06:30 AM"}], "5Y": [{"date": "Sep 20, 2026", "price": 1.57, "time": "09:00 PM", "full_date": "Sep 20, 2026 09:00 PM"}, {"date": "Sep 27, 2026", "price": 1.54, "time": "09:00 PM", "full_date": "Sep 27, 2026 09:00 PM"}, {"date": "Oct 04, 2026", "price": 1.57, "time": "09:00 PM", "full_date": "Oct 04, 2026 09:00 PM"}, {"date": "Oct 11, 2026", "price": 1.55, "time": "09:00 PM", "full_date": "Oct 11, 2026 09:00 PM"}], "MAX": [{"date": "Sep 21, 2026", "price": 1.58, "time": "06:30 AM", "full_date": "Sep 21, 2026 06:30 AM"}, {"date": "Sep 21, 2026", "price": 1.59, "time": "07:30 AM", "full_date": "Sep 21, 2026 07:30 AM"}, {"date": "Sep 21, 2026", "price": 1.6, "time": "08:30 AM", "full_date": "Sep 21, 2026 08:30 AM"}, {"date": "Sep 21, 2026", "price": 1.58, "time": "09:30 AM", "full_date": "Sep 21, 2026 09:30 AM"}, {"date": "Sep 21, 2026", "price": 1.6, "time": "10:30 AM", "full_date": "Sep 21, 2026 10:30 AM"}, {"date": "Sep 21, 2026", "price": 1.62, "time": "12:30 PM", "full_date": "Sep 21, 2026 12:30 PM"}, {"date": "Sep 22, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Sep 22, 2026 06:30 AM"}, {"date": "Sep 22, 2026", "price": 1.54, "time": "07:30 AM", "full_date": "Sep 22, 2026 07:30 AM"}, {"date": "Sep 22, 2026", "price": 1.58, "time": "11:30 AM", "full_date": "Sep 22, 2026 11:30 AM"}, {"date": "Sep 22, 2026", "price": 1.55, "time": "12:30 PM", "full_date": "Sep 22, 2026 12:30 PM"}, {"date": "Sep 23, 2026", "price": 1.59, "time": "06:30 AM", "full_date": "Sep 23, 2026 06:30 AM"}, {"date": "Sep 23, 2026", "price": 1.56, "time": "07:30 AM", "full_date": "Sep 23, 2026 07:30 AM"}, {"date": "Sep 23, 2026", "price": 1.57, "time": "08:30 AM", "full_date": "Sep 23, 2026 08:30 AM"}, {"date": "Sep 23, 2026", "price": 1.56, "time": "11:30 AM", "full_date": "Sep 23, 2026 11:30 AM"}, {"date": "Sep 24, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Sep 24, 2026 06:30 AM"}, {"date": "Sep 24, 2026", "price": 1.56, "time": "08:30 AM", "full_date": "Sep 24, 2026 08:30 AM"}, {"date": "Sep 25, 2026", "price": 1.6, "time": "06:30 AM", "full_date": "Sep 25, 2026 06:30 AM"}, {"date": "Sep 25, 2026", "price": 1.6, "time": "07:30 AM", "full_date": "Sep 25, 2026 07:30 AM"}, {"date": "Sep 28, 2026", "price": 1.53, "time": "06:30 AM", "full_date": "Sep 28, 2026 06:30 AM"}, {"date": "Sep 28, 2026", "price": 1.55, "time": "07:30 AM", "full_date": "Sep 28, 2026 07:30 AM"}, {"date": "Sep 29, 2026", "price": 1.5, "time": "06:30 AM", "full_date": "Sep 29, 2026 06:30 AM"}, {"date": "Sep 29, 2026", "price": 1.57, "time": "08:30 AM", "full_date": "Sep 29, 2026 08:30 AM"}, {"date": "Sep 29, 2026", "price": 1.53, "time": "11:30 AM", "full_date": "Sep 29, 2026 11:30 AM"}, {"date": "Oct 01, 2026", "price": 1.54, "time": "11:30 AM", "full_date": "Oct 01, 2026 11:30 AM"}, {"date": "Oct 02, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Oct 02, 2026 06:30 AM"}, {"date": "Oct 02, 2026", "price": 1.54, "time": "07:30 AM", "full_date": "Oct 02, 2026 07:30 AM"}, {"date": "Oct 05, 2026", "price": 1.51, "time": "08:30 AM", "full_date": "Oct 05, 2026 08:30 AM"}, {"date": "Oct 05, 2026", "price": 1.52, "time": "09:30 AM", "full_date": "Oct 05, 2026 09:30 AM"}, {"date": "Oct 06, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Oct 06, 2026 06:30 AM"}, {"date": "Oct 06, 2026", "price": 1.63, "time": "09:30 AM", "full_date": "Oct 06, 2026 09:30 AM"}, {"date": "Oct 06, 2026", "price": 1.65, "time": "10:30 AM", "full_date": "Oct 06, 2026 10:30 AM"}, {"date": "Oct 06, 2026", "price": 1.69, "time": "11:30 AM", "full_date": "Oct 06, 2026 11:30 AM"}, {"date": "Oct 06, 2026", "price": 1.63, "time": "12:30 PM", "full_date": "Oct 06, 2026 12:30 PM"}, {"date": "Oct 07, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Oct 07, 2026 06:30 AM"}, {"date": "Oct 07, 2026", "price": 1.63, "time": "07:30 AM", "full_date": "Oct 07, 2026 07:30 AM"}, {"date": "Oct 07, 2026", "price": 1.65, "time": "09:30 AM", "full_date": "Oct 07, 2026 09:30 AM"}, {"date": "Oct 08, 2026", "price": 1.6, "time": "06:30 AM", "full_date": "Oct 08, 2026 06:30 AM"}, {"date": "Oct 08, 2026", "price": 1.67, "time": "08:30 AM", "full_date": "Oct 08, 2026 08:30 AM"}, {"date": "Oct 08, 2026", "price": 1.62, "time": "09:30 AM", "full_date": "Oct 08, 2026 09:30 AM"}, {"date": "Oct 09, 2026", "price": 1.57, "time": "07:30 AM", "full_date": "Oct 09, 2026 07:30 AM"}, {"date": "Oct 09, 2026", "price": 1.57, "time": "09:30 AM", "full_date": "Oct 09, 2026 09:30 AM"}, {"date": "Oct 12, 2026", "price": 1.59, "time": "07:30 AM", "full_date": "Oct 12, 2026 07:30 AM"}, {"date": "Oct 12, 2026", "price": 1.58, "time": "09:30 AM", "full_date": "Oct 12, 2026 09:30 AM"}, {"date": "Oct 12, 2026", "price": 1.55, "time": "01:00 PM", "full_date": "Oct 12, 2026 01:00 PM"}]};
+        const chartData = {"1D": [{"date": "07:12 AM", "price": 1.56, "time": "07:12 AM", "full_date": "Oct 13, 2026 07:12 AM"}, {"date": "01:00 PM", "price": 1.55, "time": "01:00 PM", "full_date": "Oct 13, 2026 01:00 PM"}], "1M": [{"date": "Sep 21, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Sep 21, 2026 06:30 AM"}, {"date": "Sep 22, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Sep 22, 2026 06:30 AM"}, {"date": "Sep 23, 2026", "price": 1.56, "time": "06:30 AM", "full_date": "Sep 23, 2026 06:30 AM"}, {"date": "Sep 24, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Sep 24, 2026 06:30 AM"}, {"date": "Sep 25, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Sep 25, 2026 06:30 AM"}, {"date": "Sep 28, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Sep 28, 2026 06:30 AM"}, {"date": "Sep 29, 2026", "price": 1.56, "time": "06:30 AM", "full_date": "Sep 29, 2026 06:30 AM"}, {"date": "Sep 30, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Sep 30, 2026 06:30 AM"}, {"date": "Oct 01, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 01, 2026 06:30 AM"}, {"date": "Oct 02, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Oct 02, 2026 06:30 AM"}, {"date": "Oct 05, 2026", "price": 1.53, "time": "06:30 AM", "full_date": "Oct 05, 2026 06:30 AM"}, {"date": "Oct 06, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Oct 06, 2026 06:30 AM"}, {"date": "Oct 07, 2026", "price": 1.61, "time": "06:30 AM", "full_date": "Oct 07, 2026 06:30 AM"}, {"date": "Oct 08, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 08, 2026 06:30 AM"}, {"date": "Oct 09, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Oct 09, 2026 06:30 AM"}, {"date": "Oct 12, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 12, 2026 06:30 AM"}, {"date": "Oct 13, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 13, 2026 06:30 AM"}], "1Y": [{"date": "Sep 21, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Sep 21, 2026 06:30 AM"}, {"date": "Sep 22, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Sep 22, 2026 06:30 AM"}, {"date": "Sep 23, 2026", "price": 1.56, "time": "06:30 AM", "full_date": "Sep 23, 2026 06:30 AM"}, {"date": "Sep 24, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Sep 24, 2026 06:30 AM"}, {"date": "Sep 25, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Sep 25, 2026 06:30 AM"}, {"date": "Sep 28, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Sep 28, 2026 06:30 AM"}, {"date": "Sep 29, 2026", "price": 1.56, "time": "06:30 AM", "full_date": "Sep 29, 2026 06:30 AM"}, {"date": "Sep 30, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Sep 30, 2026 06:30 AM"}, {"date": "Oct 01, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 01, 2026 06:30 AM"}, {"date": "Oct 02, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Oct 02, 2026 06:30 AM"}, {"date": "Oct 05, 2026", "price": 1.53, "time": "06:30 AM", "full_date": "Oct 05, 2026 06:30 AM"}, {"date": "Oct 06, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Oct 06, 2026 06:30 AM"}, {"date": "Oct 07, 2026", "price": 1.61, "time": "06:30 AM", "full_date": "Oct 07, 2026 06:30 AM"}, {"date": "Oct 08, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 08, 2026 06:30 AM"}, {"date": "Oct 09, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Oct 09, 2026 06:30 AM"}, {"date": "Oct 12, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 12, 2026 06:30 AM"}, {"date": "Oct 13, 2026", "price": 1.55, "time": "06:30 AM", "full_date": "Oct 13, 2026 06:30 AM"}], "5Y": [{"date": "Sep 20, 2026", "price": 1.57, "time": "09:00 PM", "full_date": "Sep 20, 2026 09:00 PM"}, {"date": "Sep 27, 2026", "price": 1.54, "time": "09:00 PM", "full_date": "Sep 27, 2026 09:00 PM"}, {"date": "Oct 04, 2026", "price": 1.57, "time": "09:00 PM", "full_date": "Oct 04, 2026 09:00 PM"}, {"date": "Oct 11, 2026", "price": 1.55, "time": "09:00 PM", "full_date": "Oct 11, 2026 09:00 PM"}, {"date": "Oct 13, 2026", "price": 1.55, "time": "01:00 PM", "full_date": "Oct 13, 2026 01:00 PM"}], "MAX": [{"date": "Sep 21, 2026", "price": 1.58, "time": "06:30 AM", "full_date": "Sep 21, 2026 06:30 AM"}, {"date": "Sep 21, 2026", "price": 1.59, "time": "07:30 AM", "full_date": "Sep 21, 2026 07:30 AM"}, {"date": "Sep 21, 2026", "price": 1.6, "time": "08:30 AM", "full_date": "Sep 21, 2026 08:30 AM"}, {"date": "Sep 21, 2026", "price": 1.58, "time": "09:30 AM", "full_date": "Sep 21, 2026 09:30 AM"}, {"date": "Sep 21, 2026", "price": 1.6, "time": "10:30 AM", "full_date": "Sep 21, 2026 10:30 AM"}, {"date": "Sep 21, 2026", "price": 1.62, "time": "12:30 PM", "full_date": "Sep 21, 2026 12:30 PM"}, {"date": "Sep 22, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Sep 22, 2026 06:30 AM"}, {"date": "Sep 22, 2026", "price": 1.54, "time": "07:30 AM", "full_date": "Sep 22, 2026 07:30 AM"}, {"date": "Sep 22, 2026", "price": 1.58, "time": "11:30 AM", "full_date": "Sep 22, 2026 11:30 AM"}, {"date": "Sep 22, 2026", "price": 1.55, "time": "12:30 PM", "full_date": "Sep 22, 2026 12:30 PM"}, {"date": "Sep 23, 2026", "price": 1.59, "time": "06:30 AM", "full_date": "Sep 23, 2026 06:30 AM"}, {"date": "Sep 23, 2026", "price": 1.56, "time": "07:30 AM", "full_date": "Sep 23, 2026 07:30 AM"}, {"date": "Sep 23, 2026", "price": 1.57, "time": "08:30 AM", "full_date": "Sep 23, 2026 08:30 AM"}, {"date": "Sep 23, 2026", "price": 1.56, "time": "11:30 AM", "full_date": "Sep 23, 2026 11:30 AM"}, {"date": "Sep 24, 2026", "price": 1.57, "time": "06:30 AM", "full_date": "Sep 24, 2026 06:30 AM"}, {"date": "Sep 24, 2026", "price": 1.56, "time": "08:30 AM", "full_date": "Sep 24, 2026 08:30 AM"}, {"date": "Sep 25, 2026", "price": 1.6, "time": "06:30 AM", "full_date": "Sep 25, 2026 06:30 AM"}, {"date": "Sep 25, 2026", "price": 1.6, "time": "07:30 AM", "full_date": "Sep 25, 2026 07:30 AM"}, {"date": "Sep 28, 2026", "price": 1.53, "time": "06:30 AM", "full_date": "Sep 28, 2026 06:30 AM"}, {"date": "Sep 28, 2026", "price": 1.55, "time": "07:30 AM", "full_date": "Sep 28, 2026 07:30 AM"}, {"date": "Sep 29, 2026", "price": 1.5, "time": "06:30 AM", "full_date": "Sep 29, 2026 06:30 AM"}, {"date": "Sep 29, 2026", "price": 1.57, "time": "08:30 AM", "full_date": "Sep 29, 2026 08:30 AM"}, {"date": "Sep 29, 2026", "price": 1.53, "time": "11:30 AM", "full_date": "Sep 29, 2026 11:30 AM"}, {"date": "Oct 01, 2026", "price": 1.54, "time": "11:30 AM", "full_date": "Oct 01, 2026 11:30 AM"}, {"date": "Oct 02, 2026", "price": 1.54, "time": "06:30 AM", "full_date": "Oct 02, 2026 06:30 AM"}, {"date": "Oct 02, 2026", "price": 1.54, "time": "07:30 AM", "full_date": "Oct 02, 2026 07:30 AM"}, {"date": "Oct 05, 2026", "price": 1.51, "time": "08:30 AM", "full_date": "Oct 05, 2026 08:30 AM"}, {"date": "Oct 05, 2026", "price": 1.52, "time": "09:30 AM", "full_date": "Oct 05, 2026 09:30 AM"}, {"date": "Oct 06, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Oct 06, 2026 06:30 AM"}, {"date": "Oct 06, 2026", "price": 1.63, "time": "09:30 AM", "full_date": "Oct 06, 2026 09:30 AM"}, {"date": "Oct 06, 2026", "price": 1.65, "time": "10:30 AM", "full_date": "Oct 06, 2026 10:30 AM"}, {"date": "Oct 06, 2026", "price": 1.69, "time": "11:30 AM", "full_date": "Oct 06, 2026 11:30 AM"}, {"date": "Oct 06, 2026", "price": 1.63, "time": "12:30 PM", "full_date": "Oct 06, 2026 12:30 PM"}, {"date": "Oct 07, 2026", "price": 1.63, "time": "06:30 AM", "full_date": "Oct 07, 2026 06:30 AM"}, {"date": "Oct 07, 2026", "price": 1.63, "time": "07:30 AM", "full_date": "Oct 07, 2026 07:30 AM"}, {"date": "Oct 07, 2026", "price": 1.65, "time": "09:30 AM", "full_date": "Oct 07, 2026 09:30 AM"}, {"date": "Oct 08, 2026", "price": 1.6, "time": "06:30 AM", "full_date": "Oct 08, 2026 06:30 AM"}, {"date": "Oct 08, 2026", "price": 1.67, "time": "08:30 AM", "full_date": "Oct 08, 2026 08:30 AM"}, {"date": "Oct 08, 2026", "price": 1.62, "time": "09:30 AM", "full_date": "Oct 08, 2026 09:30 AM"}, {"date": "Oct 09, 2026", "price": 1.57, "time": "07:30 AM", "full_date": "Oct 09, 2026 07:30 AM"}, {"date": "Oct 09, 2026", "price": 1.57, "time": "09:30 AM", "full_date": "Oct 09, 2026 09:30 AM"}, {"date": "Oct 12, 2026", "price": 1.59, "time": "07:30 AM", "full_date": "Oct 12, 2026 07:30 AM"}, {"date": "Oct 12, 2026", "price": 1.58, "time": "09:30 AM", "full_date": "Oct 12, 2026 09:30 AM"}, {"date": "Oct 13, 2026", "price": 1.56, "time": "06:30 AM", "full_date": "Oct 13, 2026 06:30 AM"}, {"date": "Oct 13, 2026", "price": 1.55, "time": "01:00 PM", "full_date": "Oct 13, 2026 01:00 PM"}]};
         let activeRange = '1Y';
         const maEnabled = { 5: true, 21: true, 50: true, 200: true };
 
@@ -1893,7 +2052,7 @@ On the capital allocation front, management is actively mitigating dilution risk
                 }
             });
 
-            const targetPrice = 1.61;
+            const targetPrice = 0.57;
             const prices = points.map(p => p.price);
             let minP = Math.min(...prices);
             let maxP = Math.max(...prices);

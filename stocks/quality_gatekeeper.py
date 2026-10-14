@@ -347,7 +347,8 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if cur_p and len(s_vals) >= 3:
             min_s = min(s_vals)
             status_low = str(metadata.get("status_label", "")).lower()
-            if min_s < (cur_p * 0.20) and not any(k in status_low for k in ["speculative", "turnaround", "weak moat", "no moat", "cautious"]):
+            pre_profit = safe_float(metadata.get("owner_earnings_per_share"), 0.0) <= 0
+            if min_s < (cur_p * 0.20) and not pre_profit and not any(k in status_low for k in ["speculative", "turnaround", "weak moat", "no moat", "cautious"]):
                 issues.append(f"Economic Reality Failure: Bear scenario target (${min_s:.2f}) represents an irrational {-((cur_p-min_s)/cur_p*100):.1f}% collapse on a going-concern business.")
 
     # 22. Storyline 1 & Expected Value Harmonization Check
@@ -385,6 +386,32 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     return len(issues) == 0, issues
 
 
+def _run_thesis_qa_audit(v: Dict[str, Any]) -> List[str]:
+    from stocks.thesis_qa import validate_thesis_output, validate_rendered_html, implied_irr_pct, _num
+    issues: List[str] = []
+    if v.get("qa_passed") is not True:
+        issues.append("Live version was not produced by the strict QA-gated pipeline (qa_passed != True).")
+    price = _num(v.get("price_at_version")) or _num(v.get("current_price")) or 0.0
+    fv = _num(v.get("expected_val")) or _num(v.get("fair_value_estimate"))
+    info = {
+        "market_pricing_in": v.get("market_pricing_in"),
+        "why_it_might_be_right": v.get("why_it_might_be_right"),
+        "how_things_are_going_now": v.get("how_things_are_going_now"),
+        "what_if_it_keeps_going_that_way": v.get("what_if_it_keeps_going_that_way"),
+        "fair_value_target": fv,
+        "bear_floor_target": _num(v.get("bear_target")),
+        "bull_upside_target": _num(v.get("bull_target")),
+        "irr_3y_pct": implied_irr_pct(fv or 0, price) if fv else None,
+        "normalized_oe_per_share": v.get("owner_earnings_per_share"),
+        "diluted_shares_mil": v.get("diluted_shares_mil"),
+        "p_oe": v.get("p_oe"),
+        "net_cash_per_share": v.get("net_cash_per_share"),
+    }
+    issues += validate_thesis_output(info, price)
+    issues += validate_rendered_html(v.get("full_html_content") or "")
+    return issues
+
+
 def audit_all_theses_directory() -> Tuple[int, int, List[Dict[str, Any]]]:
     """Audits all thesis files on disk and returns (passed_count, failed_count, failure_details)."""
     thesis_files = sorted(list(THESES_DIR.glob("*.json")))
@@ -403,6 +430,10 @@ def audit_all_theses_directory() -> Tuple[int, int, List[Dict[str, Any]]]:
             v = data[-1]
             html = v.get("full_html_content", "")
             is_valid, issues = validate_dossier_quality(ticker, html, metadata=v)
+            qa_issues = _run_thesis_qa_audit(v)
+            if qa_issues:
+                issues.extend(qa_issues)
+                is_valid = False
             
             # Check metadata fields completeness
             for req_field in ["bear_target", "base_target", "bull_target"]:
@@ -458,6 +489,10 @@ def main():
                 v = data[-1]
                 html = v.get("full_html_content", "")
                 is_valid, issues = validate_dossier_quality(ticker, html, metadata=v)
+                qa_issues = _run_thesis_qa_audit(v)
+                if qa_issues:
+                    issues.extend(qa_issues)
+                    is_valid = False
                 if is_valid:
                     passed_count += 1
                 else:
@@ -486,6 +521,10 @@ def main():
                     if data:
                         v = data[-1]
                         is_valid, issues = validate_dossier_quality(ticker, v.get("full_html_content", ""), metadata=v)
+                        qa_issues = _run_thesis_qa_audit(v)
+                        if qa_issues:
+                            issues.extend(qa_issues)
+                            is_valid = False
                         if not is_valid:
                             failures.append({"ticker": ticker, "issues": issues, "word_count": len(v.get("full_html_content", "").split())})
 
@@ -498,8 +537,7 @@ def main():
                 print(f"\n🚨 [{f['ticker']}] ({f.get('word_count', 0)} words):")
                 for issue in f["issues"]:
                     print(f"    └─ {issue}")
-            if args.strict:
-                sys.exit(1)
+            sys.exit(1)
         else:
             print("✅ TARGET DOSSIER(S) PASSED 100% OF QUALITY PILLARS!")
             sys.exit(0)
@@ -508,16 +546,12 @@ def main():
         total = passed_count + failed_count
         print(f"\n📊 Global Gatekeeper Audit: {passed_count}/{total} PASSED | {failed_count} FLAGGED\n")
         if failures:
-            print("⚠️ QUALITY AUDIT REPORT (Legacy Dossier Warnings):")
+            print("❌ QUALITY AUDIT FAILED:")
             for f in failures:
                 print(f"\n🚨 [{f['ticker']}] ({f.get('word_count', 0)} words):")
                 for issue in f["issues"]:
                     print(f"    └─ {issue}")
-            if args.strict:
-                sys.exit(1)
-            else:
-                print("\nℹ️ Non-strict mode: Existing warnings reported without blocking workflow.")
-                sys.exit(0)
+            sys.exit(1)
         else:
             print("✅ ALL DOSSIERS PASSED 100% OF INSTITUTIONAL QUALITY PILLARS!")
             sys.exit(0)

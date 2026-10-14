@@ -2,6 +2,18 @@
   "ticker": "CMI",
   "openinsider_trades": [
     {
+      "filing_date": "2026-08-25",
+      "trade_date": "2026-08-24",
+      "name": "Newsome Earl",
+      "title": "VP - CIO",
+      "trade_type": "S - Sale",
+      "price": "$572.22",
+      "qty": "-698",
+      "owned": "4,479",
+      "delta_own": "-13%",
+      "value": "-$399,410"
+    },
+    {
       "filing_date": "2026-05-14",
       "trade_date": "2026-05-14",
       "name": "Jackson Donald G",
@@ -408,30 +420,6 @@
       "owned": "20,803",
       "delta_own": "-9%",
       "value": "-$775,052"
-    },
-    {
-      "filing_date": "2024-09-13",
-      "trade_date": "2024-08-23",
-      "name": "Satterthwaite Tony",
-      "title": "SVP",
-      "trade_type": "S - Sale",
-      "price": "$308.23",
-      "qty": "-11,876",
-      "owned": "75,738",
-      "delta_own": "-14%",
-      "value": "-$3,660,537"
-    },
-    {
-      "filing_date": "2024-08-27",
-      "trade_date": "2024-08-23",
-      "name": "Satterthwaite Tony",
-      "title": "SVP",
-      "trade_type": "S - Sale+OE",
-      "price": "$308.24",
-      "qty": "-24,250",
-      "owned": "79,836",
-      "delta_own": "-23%",
-      "value": "-$7,474,875"
     }
   ],
   "dataroma_holders": [
@@ -445,7 +433,7 @@
     },
     {
       "manager": "First Eagle Investment Management",
-      "pct_of_portfolio": "0.64",
+      "pct_of_portfolio": "0.63",
       "recent_activity": "Reduce 30.03%",
       "shares": "536,868",
       "value_usd": "382,900,000",
@@ -462,29 +450,37 @@
   ],
   "researched_writeups": [
     {
-      "title": "\ud83c\udf93MaxDividends Academy Case Study: Cummins Inc (CMI)",
+      "title": "Cummins: The Most Underappreciated AI Bottleneck",
+      "fund": "Substack / Mispricedassets",
+      "date": "Verified Due Diligence",
+      "summary": "In-depth Substack memo detailing Cummins Inc.'s business moat, unit monetization, and margin trajectory.",
+      "url": "https://mispricedassets.substack.com/p/cummins-the-most-underappreciated",
+      "btn_label": "Substack Memo \u2197"
+    },
+    {
+      "title": "Cummins ($CMI) Deep Dive",
+      "fund": "Substack / Jimmysjournal",
+      "date": "Verified Due Diligence",
+      "summary": "In-depth Substack memo detailing Cummins Inc.'s business moat, unit monetization, and margin trajectory.",
+      "url": "https://jimmysjournal.substack.com/p/cummins-cmi-deep-dive",
+      "btn_label": "Substack Memo \u2197"
+    },
+    {
+      "title": "X (formerly Twitter)",
       "fund": "Independent Research",
       "date": "Verified Due Diligence",
-      "summary": "Fundamental equity research study examining Cummins Inc.'s cash generation, market share durability, and valuation.",
-      "url": "https://www.maxdividends.com/p/maxdividends-academy-case-study-cummins",
+      "summary": "During Q3 2025, The London Company Income Equity portfolio returned 5.8% net (6.0% gross), outperforming the Russell 1000 Value Index return of 5.3%. Strong stock selection in tech...",
+      "url": "https://www.buysidedigest.com/letters/cmpg17wgl03xf11aw92zmfw04",
       "btn_label": "Read Source \u2197"
     },
     {
-      "title": "squarespace.com",
-      "fund": "Shareholder Letter PDF",
+      "title": "Thoughts, Readings, &amp; Movements (portfolio &amp; otherwise)",
+      "fund": "Substack / Buybackcapital",
       "date": "Verified Due Diligence",
-      "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Cummins Inc..",
-      "url": "https://static1.squarespace.com/static/6244b745f663ff1a4b367e0d/t/644afeab000804791d06c5f5/1682636459966/Cummins+Inc.+Stock+Pitch.pdf",
-      "btn_label": "Read Source \u2197"
-    },
-    {
-      "title": "columbia.edu",
-      "fund": "Shareholder Letter PDF",
-      "date": "Verified Due Diligence",
-      "summary": "Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for Cummins Inc..",
-      "url": "https://business.columbia.edu/sites/default/files-efs/imce-uploads/Mallory%20Downing-CMI.pdf",
-      "btn_label": "Read Source \u2197"
+      "summary": "In-depth Substack memo detailing Cummins Inc.'s business moat, unit monetization, and margin trajectory.",
+      "url": "https://buybackcapital.substack.com/p/thoughts-readings-and-movements-portfolio",
+      "btn_label": "Substack Memo \u2197"
     }
   ],
-  "updated_at": "2026-08-23 18:39:26"
+  "updated_at": "2026-10-13 12:03:05"
 }

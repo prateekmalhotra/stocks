@@ -2,6 +2,18 @@
   "ticker": "MSCI",
   "openinsider_trades": [
     {
+      "filing_date": "2026-09-04",
+      "trade_date": "2026-09-02",
+      "name": "Taneja Rajat",
+      "title": "Dir",
+      "trade_type": "P - Purchase",
+      "price": "$560.00",
+      "qty": "+1,786",
+      "owned": "5,404",
+      "delta_own": "+49%",
+      "value": "+$1,000,160"
+    },
+    {
       "filing_date": "2026-06-12",
       "trade_date": "2026-06-10",
       "name": "Wiechmann Andrew C.",
@@ -192,18 +204,6 @@
       "owned": "2,121,846",
       "delta_own": "0%",
       "value": "+$1,777,119"
-    },
-    {
-      "filing_date": "2024-08-29",
-      "trade_date": "2024-08-28",
-      "name": "Gutowski Robert J.",
-      "title": "GC",
-      "trade_type": "S - Sale",
-      "price": "$575.00",
-      "qty": "-1,816",
-      "owned": "15,101",
-      "delta_own": "-11%",
-      "value": "-$1,044,200"
     }
   ],
   "dataroma_holders": [
@@ -266,14 +266,6 @@
       "btn_label": "Substack Memo \u2197"
     },
     {
-      "title": "MSCI: Whoever Measures the Market, Owns It",
-      "fund": "Substack / Thierryvonarvy",
-      "date": "Verified Due Diligence",
-      "summary": "In-depth Substack memo detailing MSCI Inc.'s business moat, unit monetization, and margin trajectory.",
-      "url": "https://thierryvonarvy.substack.com/p/msci-whoever-measures-the-market",
-      "btn_label": "Substack Memo \u2197"
-    },
-    {
       "title": "MSCI: A Quality Compounder at Risk\u2014Why I\u2019m Not Joining the Bullish Chorus",
       "fund": "Substack / Compoundandfire",
       "date": "Verified Due Diligence",
@@ -282,13 +274,21 @@
       "btn_label": "Substack Memo \u2197"
     },
     {
-      "title": "MSCI Inc. Quick Scan: A Deep Dive into Investment Potential",
-      "fund": "Substack / Compoundandfire",
+      "title": "\ud83e\udde0 The Best of the Legendary Value Investors Club",
+      "fund": "Substack / Thematicedge",
       "date": "Verified Due Diligence",
       "summary": "In-depth Substack memo detailing MSCI Inc.'s business moat, unit monetization, and margin trajectory.",
-      "url": "https://compoundandfire.substack.com/p/msci-inc-quick-scan-a-deep-dive-into",
+      "url": "https://thematicedge.substack.com/p/the-best-of-the-legendary-value-investors",
+      "btn_label": "Substack Memo \u2197"
+    },
+    {
+      "title": "MSCI: Whoever Measures the Market, Owns It",
+      "fund": "Substack / Thierryvonarvy",
+      "date": "Verified Due Diligence",
+      "summary": "In-depth Substack memo detailing MSCI Inc.'s business moat, unit monetization, and margin trajectory.",
+      "url": "https://thierryvonarvy.substack.com/p/msci-whoever-measures-the-market",
       "btn_label": "Substack Memo \u2197"
     }
   ],
-  "updated_at": "2026-08-28 15:23:23"
+  "updated_at": "2026-10-13 16:18:32"
 }

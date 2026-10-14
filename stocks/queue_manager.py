@@ -85,16 +85,10 @@ def _handle_genesis_task(ticker: str, notes: str):
     except Exception:
         ownership_data = {}
     
-    from stocks.quality_gatekeeper import auto_heal_dossier_and_metadata, validate_dossier_quality
-    html_content, meta = auto_heal_dossier_and_metadata(ticker, html_content, meta)
-    
-    is_valid, quality_issues = validate_dossier_quality(ticker, html_content, metadata=meta)
-    if is_valid:
-        print(f"✅ [QUALITY GATE PASSED] {ticker} passed 100% of institutional quality pillars!", flush=True)
-    else:
-        print(f"ℹ️ [QUALITY GATE AUDIT] {ticker} quality audit notes (auto-healed):", flush=True)
-        for issue in quality_issues:
-            print(f"   └─ {issue}", flush=True)
+    # generate_genesis_thesis only returns theses that passed every strict QA check (else it raises).
+    existing_history = load_thesis_history(ticker)
+    existing_stock = get_stock(ticker)
+    version_num = len(existing_history) + 1
 
     from stocks.gemini_agent import map_to_canonical_moat_label, map_to_canonical_predictability_tier
     canonical_moat = map_to_canonical_moat_label(meta.get("moat_label") or (meta.get("labels")[0] if meta.get("labels") else None) or meta.get("status_label") or "Narrow Moat")
@@ -131,7 +125,7 @@ def _handle_genesis_task(ticker: str, notes: str):
     insider_summary = insider_intel.get("summary", meta.get("insider_summary") or "Audited SEC Form 3 / 20-F / Form 4 filings.")
 
     version_1 = ThesisVersion(
-        version=1,
+        version=version_num,
         date=today_str,
         price_at_version=current_price,
         company_name=company_name,
@@ -188,18 +182,23 @@ def _handle_genesis_task(ticker: str, notes: str):
         why_it_might_be_right=meta.get("why_it_might_be_right", ""),
         how_things_are_going_now=meta.get("how_things_are_going_now", ""),
         what_if_it_keeps_going_that_way=meta.get("what_if_it_keeps_going_that_way", ""),
+        diluted_shares_mil=safe_float(meta.get("diluted_shares_mil"), None),
+        oe_basis=meta.get("oe_basis", ""),
+        qa_passed=bool(meta.get("qa_passed")),
+        qa_attempts=meta.get("qa_attempts", ""),
         full_html_content=html_content
     )
 
     save_thesis_version(ticker, version_1)
 
     # 2. Create Watchlist Stock Record
+    baseline = existing_stock.baseline_price if (existing_stock and existing_stock.baseline_price) else current_price
     stock_record = WatchlistStock(
         ticker=ticker,
         company_name=company_name,
-        baseline_price=current_price,
+        baseline_price=baseline,
         current_price=current_price,
-        return_pct=0.0,
+        return_pct=round((current_price - baseline) / baseline * 100.0, 2) if baseline else 0.0,
         status_label=version_1.status_label,
         moat_label=version_1.moat_label,
         moat_type=version_1.moat_type,
@@ -248,14 +247,14 @@ def _handle_genesis_task(ticker: str, notes: str):
         how_things_are_going_now=version_1.how_things_are_going_now,
         what_if_it_keeps_going_that_way=version_1.what_if_it_keeps_going_that_way,
         last_updated=today_str,
-        total_versions=1,
+        total_versions=version_num,
         report_path=f"reports/{ticker}.html"
     )
     save_stock(stock_record)
     render_all()
 
 
-def _handle_review_task(ticker: str, trigger_reason: str):
+def _handle_review_task(ticker: str, trigger_reason: str, emit_alert: bool = True, render: bool = True):
     """Executes a Living Thesis Review when a price threshold or catalyst is triggered and emits an alert."""
     stock = get_stock(ticker)
     if not stock:
@@ -285,24 +284,8 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         previous_bull_target=stock.bull_target
     )
 
-    from stocks.quality_gatekeeper import auto_heal_dossier_and_metadata, validate_dossier_quality
-    html_content, meta = auto_heal_dossier_and_metadata(ticker, html_content, meta)
-    
-    is_valid, quality_issues = validate_dossier_quality(ticker, html_content, metadata=meta)
-    if is_valid:
-        print(f"✅ [REVIEW QUALITY GATE PASSED] {ticker} passed 100% of institutional quality pillars!", flush=True)
-    else:
-        print(f"ℹ️ [REVIEW QUALITY GATE AUDIT] {ticker} quality audit notes (auto-healed):", flush=True)
-        for issue in quality_issues:
-            print(f"   └─ {issue}", flush=True)
-
-    # Safety guardrail: Ensure normalized Owner Earnings & P/OE remain sound
-    if not meta.get("owner_earnings_per_share") or meta.get("owner_earnings_per_share", 0.0) <= 0:
-        if last_version and last_version.owner_earnings_per_share and last_version.owner_earnings_per_share > 0:
-            meta["owner_earnings_per_share"] = last_version.owner_earnings_per_share
-            meta["owner_earnings_total_mil"] = last_version.owner_earnings_total_mil
-            meta["p_oe"] = current_price / last_version.owner_earnings_per_share if last_version.owner_earnings_per_share > 0 else 0.0
-            meta["owner_yield_pct"] = (last_version.owner_earnings_per_share / current_price) * 100.0 if current_price > 0 else 0.0
+    # review_stock_thesis -> generate_genesis_thesis only returns QA-passed theses (else it raises),
+    # and its verified Owner Earnings are used as-is (never overwritten with stale prior values).
 
     from stocks.gemini_agent import map_to_canonical_moat_label, map_to_canonical_predictability_tier
     canonical_moat = map_to_canonical_moat_label(meta.get("moat_label") or (meta.get("labels")[0] if meta.get("labels") else None) or prev_status or "Narrow Moat")
@@ -380,17 +363,21 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         cyclicality_type=meta.get("cyclicality_type") or getattr(stock, "cyclicality_type", None) or "Moderate Cyclical",
         cycle_stance=meta.get("cycle_stance") or getattr(stock, "cycle_stance", None) or "Mid-Cycle Run-Rate",
         cycle_summary=meta.get("cycle_summary") or getattr(stock, "cycle_summary", None) or "",
-        owner_earnings_per_share=meta.get("owner_earnings_per_share") or getattr(stock, "owner_earnings_per_share", None),
-        owner_earnings_total_mil=meta.get("owner_earnings_total_mil") or getattr(stock, "owner_earnings_total_mil", None),
-        p_oe=meta.get("p_oe") or getattr(stock, "p_oe", None),
-        ev_oe=meta.get("ev_oe") or getattr(stock, "ev_oe", None),
-        owner_yield_pct=meta.get("owner_yield_pct") or getattr(stock, "owner_yield_pct", None),
-        owner_roic_pct=meta.get("owner_roic_pct") or getattr(stock, "owner_roic_pct", None),
-        net_cash_per_share=meta.get("net_cash_per_share") or getattr(stock, "net_cash_per_share", None),
+        owner_earnings_per_share=meta.get("owner_earnings_per_share"),
+        owner_earnings_total_mil=meta.get("owner_earnings_total_mil"),
+        p_oe=meta.get("p_oe"),
+        ev_oe=meta.get("ev_oe"),
+        owner_yield_pct=meta.get("owner_yield_pct"),
+        owner_roic_pct=meta.get("owner_roic_pct"),
+        net_cash_per_share=meta.get("net_cash_per_share"),
         market_pricing_in=meta.get("market_pricing_in", "") or getattr(stock, "market_pricing_in", ""),
         why_it_might_be_right=meta.get("why_it_might_be_right", "") or getattr(stock, "why_it_might_be_right", ""),
         how_things_are_going_now=meta.get("how_things_are_going_now", "") or getattr(stock, "how_things_are_going_now", ""),
         what_if_it_keeps_going_that_way=meta.get("what_if_it_keeps_going_that_way", "") or getattr(stock, "what_if_it_keeps_going_that_way", ""),
+        diluted_shares_mil=safe_float(meta.get("diluted_shares_mil"), None),
+        oe_basis=meta.get("oe_basis", ""),
+        qa_passed=bool(meta.get("qa_passed")),
+        qa_attempts=meta.get("qa_attempts", ""),
         full_html_content=html_content
     )
     save_thesis_version(ticker, new_version)
@@ -466,7 +453,8 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         price_change_pct=price_change_pct,
         report_url=f"reports/{ticker}.html"
     )
-    add_alert(alert_obj)
+    if emit_alert:
+        add_alert(alert_obj)
 
     # 4. If this review was an Earnings Catalyst, reset prior cycle and register new Beat & Retrace Pop Watcher
     if "earnings" in trigger_reason.lower() or "catalyst" in trigger_reason.lower():
@@ -484,7 +472,8 @@ def _handle_review_task(ticker: str, trigger_reason: str):
             print(f"⚠️ Beat & Retrace registration warning: {e}")
 
     # 5. Re-render HTML Dashboard
-    render_all()
+    if render:
+        render_all()
 
 
 def process_task(task: TaskItem):

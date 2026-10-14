@@ -23,10 +23,13 @@ GEMINI_MODELS_LADDER = [
     "gemini-3.1-pro-preview",
     "gemini-3.1-flash-lite",
     "gemini-3-flash-preview",
-    "gemini-flash-latest"
+    "gemini-flash-latest",
+    "gemini-2.5-flash-lite",
 ]
 if DEFAULT_GEMINI_MODEL not in GEMINI_MODELS_LADDER:
     GEMINI_MODELS_LADDER.insert(0, DEFAULT_GEMINI_MODEL)
+
+_SEARCH_QUOTA_EXHAUSTED_MODELS = set()
 
 
 def get_active_model() -> str:
@@ -674,13 +677,17 @@ def call_gemini_with_search(
     if override_model and override_model in GEMINI_MODELS_LADDER:
         models_to_try = [override_model] + [m for m in GEMINI_MODELS_LADDER if m != override_model]
     else:
-        # Prioritize primary 3.8-flash, then 3.7-flash, then 3.6-flash, then 3.5-flash for every new request
         models_to_try = list(GEMINI_MODELS_LADDER)
-        
+
+    if use_search and _SEARCH_QUOTA_EXHAUSTED_MODELS:
+        avail = [m for m in models_to_try if m not in _SEARCH_QUOTA_EXHAUSTED_MODELS]
+        if avail:
+            models_to_try = avail
+
     last_err = None
     for model_name in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
-        max_retries = 1
+        max_retries = 3
         for attempt in range(1, max_retries + 1):
             try:
                 response = session.post(url, json=payload, timeout=75)
@@ -691,7 +698,7 @@ def call_gemini_with_search(
                     texts = [p["text"] for p in parts if "text" in p and not p.get("thought")]
                     if texts:
                         return clean_grounding_artifacts("\n".join(texts))
-                    
+
                     if candidate.get("finishReason") == "RECITATION":
                         fallback_prompt = prompt + "\n\nCRITICAL: Paraphrase all data in your own original analytical words. Do NOT quote verbatim text."
                         payload["contents"] = [{"parts": [{"text": fallback_prompt}]}]
@@ -703,12 +710,15 @@ def call_gemini_with_search(
                             retry_texts = [p["text"] for p in retry_parts if "text" in p and not p.get("thought")]
                             if retry_texts:
                                 return clean_grounding_artifacts("\n".join(retry_texts))
-                                
+
                     return "Analysis completed."
                 elif response.status_code in (500, 502, 503, 504, 429):
                     last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
+                    if response.status_code == 429 and use_search and model_name != "gemini-2.5-flash-lite":
+                        _SEARCH_QUOTA_EXHAUSTED_MODELS.add(model_name)
+                        break
                     if attempt < max_retries:
-                        sleep_s = (1.5 * attempt) + random.uniform(0.5, 1.5)
+                        sleep_s = (3.0 ** attempt) + random.uniform(1.0, 3.0)
                         time.sleep(sleep_s)
                         continue
                     if model_name != models_to_try[-1]:
@@ -716,10 +726,11 @@ def call_gemini_with_search(
                         break
                 else:
                     last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
+                    break
             except (requests.RequestException, Exception) as req_err:
                 last_err = RuntimeError(f"Gemini API network error: {req_err}")
                 if attempt < max_retries:
-                    sleep_s = (1.5 * attempt) + random.uniform(0.5, 1.5)
+                    sleep_s = (2.0 ** attempt) + random.uniform(0.5, 1.5)
                     time.sleep(sleep_s)
                     continue
                 if model_name != models_to_try[-1]:
@@ -2653,24 +2664,14 @@ You MUST search Google and retrieve numbers from the company's ABSOLUTE LATEST r
 
 CURRENCY & FINANCIAL SCALE MANDATE (CRITICAL FOR US & GLOBAL ADRs):
 - All reported financial numbers MUST be strictly in MILLIONS USD ($M USD).
-- For Chinese ADRs (e.g. PDD, BABA, JD, BYD), statements are reported in RMB/CNY. Convert RMB to USD at ~7.15 RMB/USD:
-  * For BABA: TTM Revenue of ~RMB 1,045B = ~$146,150M USD (Annualized Run-Rate = ~$150,500M USD).
-    - Diluted Shares Outstanding = ~2,350.0 Million ADS shares (Note: 1 ADS = 8 Ordinary Shares; ALWAYS report in ADS shares).
-    - Market Cap = ~$280,000M USD (${current_price:.2f} * 2,350M ADS).
-    - Operating Cash Flow = ~RMB 175,000M = ~$24,500M USD.
-    - Depreciation & Amortization = ~RMB 50,000M = ~$7,000M USD.
-    - Maintenance CapEx = ~RMB 45,000M = ~$6,300M USD (do NOT count the RMB 110B+ discretionary peak AI datacenter growth buildout as maintenance CapEx).
-    - Stock-Based Compensation = ~RMB 11,200M = ~$1,560M USD.
-    - Normalized Owner Earnings = ~$16,640M USD (~$7.08/ADS -> ~16.8x P/OE, ~13.5x EV/OE).
-    - Liquid Cash & Short-Term Investments = ~$66,360M USD, Total Debt = ~$37,280M USD -> Net Cash = ~$29,080M USD ($12.37/ADS).
-  * For PDD: Q2 2026 Revenue of RMB 112.36B = $15,715M USD (Annualized Run-Rate = ~$62,860M USD).
-    - Q2 2026 Net Income of RMB 27.2B = $3,804M USD.
-    - Liquid Cash & Short-Term Investments = ~$41,000M USD (over RMB 290 Billion).
-    - Diluted Shares Outstanding = ~1,380.0 Million ADR shares.
-    - Market Cap = ~$119,700M USD (${current_price:.2f} * 1,380M).
-- For Brazilian ADRs (e.g. STNE, NU), convert BRL at ~5.6 BRL/USD.
-- For European/UK/Japanese listings, convert EUR/GBP/JPY to USD.
-- DO NOT report single-digit millions or scaled-down figures for mega-cap enterprises! Verify that Market Cap roughly equals Current Price * Diluted Shares.
+- Foreign filers (RMB, BRL, EUR, GBP, JPY, etc.): convert every figure to USD at the current spot FX rate.
+- ADRs/ADS: report diluted share count in ADR/ADS-EQUIVALENT units (divide ordinary shares by the ADS ratio), because the price ${current_price:.2f} is quoted per ADR/ADS in USD.
+- UK listings quoted in pence (GBX): the price ${current_price:.2f} is already converted to USD per share; report share count in actual ordinary shares (millions).
+- Stock splits: if the company split its stock recently, report the POST-SPLIT diluted share count.
+- HARD CONSISTENCY RULE: market_cap_mil MUST approximately equal ${current_price:.2f} × diluted_shares_mil. If it does not, you have the wrong share basis — fix it before answering.
+- HARD TTM RULE: trailing_revenue_ttm_mil MUST be the sum of the 4 most recent reported quarters (including latest_quarter_revenue_mil), so trailing_revenue_ttm_mil MUST ALWAYS be greater than or equal to latest_quarter_revenue_mil (typically ~3x–4x latest_quarter_revenue_mil). Never use an older full-year 10-K/20-F figure that is smaller than the latest single quarter.
+- If OFFICIAL SEC EDGAR XBRL FACTS are provided below, anchor strictly on those authoritative 10-K/10-Q/20-F XBRL figures (converting any foreign currency like DKK/EUR/GBP/BRL/RMB/JPY to USD at spot FX).
+- If Stock-Based Compensation (sbc_ttm_mil) or One-Off Impairments (one_off_net_mil) are $0 or not separately broken out (common for foreign IFRS filers), report 0.0. If you genuinely cannot find a core statement field, return null for it. NEVER guess or invent a value.
 
 RETRIEVED OPERATIONAL REALITY & SEQUENTIAL RESULTS:
 {reality_facts[:2500]}
@@ -2730,56 +2731,87 @@ Return ONLY a valid JSON object matching this schema:
   "predictability_score": string
 }}
 ```"""
-    raw_audit = call_gemini_direct(
-        prompt=audit_prompt,
-        use_search=True
+    from stocks.thesis_qa import (
+        validate_financial_inputs, cross_check_financials, build_numeric_contract,
+        fetch_sec_edgar_summary, ThesisQAError,
     )
-    audit_data = parse_json_robust(raw_audit) or {}
-    if not audit_data.get("trailing_revenue_ttm_mil") and not audit_data.get("market_cap_mil"):
-        raw_audit = call_gemini_direct(
-            prompt=audit_prompt + "\n\nCRITICAL: Output ONLY valid JSON inside ```json ... ```.",
-            use_search=True
-        )
-        audit_data = parse_json_robust(raw_audit) or audit_data
-    
-    ttm_rev = float(audit_data.get("trailing_revenue_ttm_mil") or 0.0)
+
+    sec_edgar_facts = fetch_sec_edgar_summary(ticker)
+    fin_search_prompt = (
+        f"Search Google for the latest reported 10-K, 20-F, 10-Q, and quarterly earnings release financial figures for "
+        f"{ticker} ({company_name}) trading at ${current_price:.2f} USD (up to {today_str}). "
+        f"Report all figures converted to MILLIONS USD (and ADR/ADS-equivalent post-split diluted shares matching the ${current_price:.2f} share price):\n"
+        f"- Market Capitalization ($M USD) and Diluted Shares Outstanding (Millions)\n"
+        f"- Trailing 12-Month (TTM) Revenue ($M USD, sum of latest 4 quarters) and YoY Revenue Growth %\n"
+        f"- Latest Reported Quarter Revenue ($M USD) and Latest Quarter Gross Margin %\n"
+        f"- Trailing 12-Month Operating Cash Flow (OCF), Net Income, D&A, Capital Expenditures (CapEx), Stock-Based Compensation (SBC), and One-Off Impairments ($M USD)\n"
+        f"- Latest Balance Sheet Cash & Short-Term Investments, Total Debt, and Total Stockholders' Equity ($M USD)\n"
+        f"List each exact figure clearly with its period and filing source."
+    )
+    audit_data: Dict[str, Any] = {}
+    all_fin_search_facts: List[str] = [sec_edgar_facts] if sec_edgar_facts else []
+    input_issues: List[str] = ["not yet extracted"]
+    for extract_attempt in range(1, 4):
+        feedback = ""
+        if extract_attempt == 1:
+            q_prompt = fin_search_prompt
+        else:
+            feedback = (
+                "\n\nPREVIOUS EXTRACTED JSON:\n"
+                + json.dumps(audit_data, indent=2)
+                + "\n\nYOUR PREVIOUS ANSWER FAILED THESE DETERMINISTIC CHECKS — FIX ONLY THE FLAGGED FIELDS AND KEEP ALL VALID FIELDS:\n- "
+                + "\n- ".join(input_issues)
+                + "\nOutput ONLY valid JSON inside ```json ... ```."
+            )
+            q_prompt = (
+                f"Search Google for the exact statutory 10-K/10-Q/20-F figures for {ticker} ({company_name}) at ${current_price:.2f} USD "
+                f"to resolve these specific audit checks:\n- "
+                + "\n- ".join(input_issues)
+                + "\nReport the exact numbers in MILLIONS USD from the primary filing (Consolidated Statement of Cash Flows, Balance Sheet, Income Statement)."
+            )
+        fin_search_facts = call_gemini_direct(prompt=q_prompt, use_search=True)
+        if fin_search_facts:
+            all_fin_search_facts.append(fin_search_facts)
+        grounded_block = "\n\nGROUNDED STATUTORY FILING & SEC EDGAR XBRL RESULTS:\n" + "\n---\n".join(all_fin_search_facts) + "\n"
+        raw_audit = call_gemini_direct(prompt=audit_prompt + grounded_block + feedback, use_search=False)
+        new_audit = parse_json_robust(raw_audit) or {}
+        for k, v in new_audit.items():
+            if v is not None:
+                audit_data[k] = v
+        input_issues = validate_financial_inputs(audit_data, current_price)
+        if not input_issues:
+            recon = "\n---\n".join(all_fin_search_facts)
+            input_issues = cross_check_financials(ticker, company_name, current_price, audit_data, reconciliation_notes=recon)
+        if not input_issues:
+            break
+        print(f"  ⚠️ [Input Gate] Attempt {extract_attempt} rejected: {input_issues}", flush=True)
+    if input_issues:
+        raise ThesisQAError(f"{ticker}: financial inputs failed verification", input_issues)
+
+    ttm_rev = float(audit_data["trailing_revenue_ttm_mil"])
     lq_rev = float(audit_data.get("latest_quarter_revenue_mil") or 0.0)
     lq_gm = float(audit_data.get("latest_quarter_gross_margin_pct") or 0.0)
-    unit_desc = audit_data.get("latest_primary_units_description") or "Active commercial volume units"
-    monet_desc = audit_data.get("latest_unit_monetization_description") or "Unit monetization and take-rate yield"
-    annualized_runrate = lq_rev * 4.0 if lq_rev > 0 else (ttm_rev if ttm_rev > 0 else 1000.0)
+    unit_desc = str(audit_data.get("latest_primary_units_description") or "").strip()
+    monet_desc = str(audit_data.get("latest_unit_monetization_description") or "").strip()
+    annualized_runrate = lq_rev * 4.0 if lq_rev > 0 else ttm_rev
 
     # ---------------------------------------------------------
     # Step 4: Deterministic Python Code Execution (Owner Earnings & Owner ROIC Math)
     # ---------------------------------------------------------
     print(f"  [Step 4/5] Executing deterministic Python calculations for Owner Earnings, Multiples & Owner ROIC...", flush=True)
-    
-    # 1. Mathematically cross-check and reconcile Diluted Shares Outstanding vs Market Cap
-    mcap_rep = float(audit_data.get("market_cap_mil") or 0.0)
-    shares_rep = float(audit_data.get("diluted_shares_mil") or 0.0)
-    
-    if mcap_rep > 1000.0 and shares_rep < 10.0 and current_price > 0:
-        # Prevent unit scaling error where shares were parsed in raw units rather than millions
-        shares = mcap_rep / current_price
-    elif shares_rep > 0 and current_price > 0:
-        shares = shares_rep
-        # If shares * current_price deviates wildly (>60%) from reported market cap, reconcile with market cap
-        if mcap_rep > 0 and abs(shares * current_price - mcap_rep) > (mcap_rep * 0.60):
-            shares = mcap_rep / current_price
-    elif mcap_rep > 0 and current_price > 0:
-        shares = mcap_rep / current_price
-    else:
-        shares = max(1.0, annualized_runrate / max(1.0, current_price * 0.20) if current_price > 0 else 100.0)
 
-    ocf = float(audit_data.get("operating_cash_flow_ttm_mil") or 0.0)
-    net_income = float(audit_data.get("net_income_ttm_mil") or (ocf * 0.75 if ocf > 0 else (ttm_rev * 0.15 if ttm_rev > 0 else annualized_runrate * 0.15)))
-    dna = float(audit_data.get("dna_ttm_mil") or (ttm_rev * 0.03 if ttm_rev > 0 else annualized_runrate * 0.03))
-    capex = float(audit_data.get("capex_ttm_mil") or (ttm_rev * 0.02 if ttm_rev > 0 else annualized_runrate * 0.02))
-    sbc = float(audit_data.get("sbc_ttm_mil") or (ttm_rev * 0.02 if ttm_rev > 0 else annualized_runrate * 0.02))
+    mcap_rep = float(audit_data["market_cap_mil"])
+    shares = float(audit_data["diluted_shares_mil"])  # validated against price × shares ≈ market cap
+
+    ocf = float(audit_data["operating_cash_flow_ttm_mil"])
+    net_income = float(audit_data["net_income_ttm_mil"])
+    dna = float(audit_data["dna_ttm_mil"])
+    capex = float(audit_data["capex_ttm_mil"])
+    sbc = float(audit_data["sbc_ttm_mil"])
     one_offs = float(audit_data.get("one_off_net_mil") or 0.0)
-    cash = float(audit_data.get("cash_mil") or (ttm_rev * 0.25 if ttm_rev > 0 else annualized_runrate * 0.25))
-    debt = float(audit_data.get("debt_mil") or 0.0)
-    equity = float(audit_data.get("equity_mil") or (ttm_rev * 0.60 if ttm_rev > 0 else annualized_runrate * 0.60))
+    cash = float(audit_data["cash_mil"])
+    debt = float(audit_data["debt_mil"])
+    equity = float(audit_data["equity_mil"])
     moat = audit_data.get("economic_moat") or "Narrow Moat"
     rev_growth = float(audit_data.get("revenue_growth_pct") or 0.0)
 
@@ -2799,6 +2831,16 @@ Return ONLY a valid JSON object matching this schema:
     oe_from_ni_norm = (net_income + abs(one_offs)) + dna - maint_capex - sbc
     if oe_total < 0 and oe_from_ni_norm > 0:
         oe_total = oe_from_ni_norm
+
+    # Working-capital / customer-deposit distortion guard (lesson from MELI, fintechs, insurers, marketplaces):
+    # operating cash flow can be inflated by float/deposit inflows that are NOT owner earnings.
+    oe_basis = "OCF - SBC - Maintenance CapEx"
+    if (oe_from_ni_norm > 0 and oe_total > 1.6 * oe_from_ni_norm) or (
+        ttm_rev > 0 and ocf > 0.8 * ttm_rev and oe_total > oe_from_ni_norm + 0.35 * ttm_rev
+    ):
+        print(f"  ⚠️ [OE Guard] OCF-based OE ${oe_total:,.0f}M >> income-based OE ${oe_from_ni_norm:,.0f}M; using conservative income-based OE.", flush=True)
+        oe_total = oe_from_ni_norm
+        oe_basis = "Net Income + D&A - Maintenance CapEx - SBC (OCF inflated by working capital / deposits)"
         
     oe_per_share = oe_total / shares if shares > 0 else 0.0
     
@@ -2855,6 +2897,11 @@ Return ONLY a valid JSON object matching this schema:
     # Step 5: Draft Synthesis of The 4 Core Deep Forensic Sections
     # ---------------------------------------------------------
     print(f"  [Step 5/6] Formulating draft forensic sections with {get_active_model()}...", flush=True)
+    numeric_contract = build_numeric_contract(
+        current_price=current_price, shares=shares, oe_per_share=oe_per_share, oe_total=oe_total,
+        net_cash_per_share=net_cash_per_share, net_cash_total=net_cash_total, p_oe=p_oe,
+        annualized_runrate=annualized_runrate,
+    )
     paragraphs_prompt = f"""Target: {ticker} ({company_name})
 Current Market Price: ${current_price:.2f}
 Diluted Shares: {shares:.1f}M -> Market Cap: ${mcap:,.0f}M | Enterprise Value: ${ev:,.0f}M
@@ -2940,6 +2987,8 @@ EDITORIAL FORMATTING & PRESENTATION MANDATE:
      5. Explicit 3-Year Balance Sheet & Capital Allocation Bridge: Detail Starting Net Cash (${net_cash_total:+,.0f}M) + Cumulative 3Y FCF ($[Cumulative_FCF]M) - Cumulative Buybacks ($[Buybacks]M) - CapEx ($[CapEx_3Y]M) = Ending Year 3 Net Cash $[Ending_Net_Cash]M ($[Ending_Net_Cash_Per_Share]/sh). (If Starting Net Cash is negative, allocate $0.00 to buybacks).
      6. Intrinsic Fair Value Target & Expected 3-Year Return: Calculate projected Year 3 Owner Earnings YoY growth rate (g₃ = [X]% YoY). Select the corresponding 2-Factor Exit Multiple of [M]x P/OE strictly from the {moat} Matrix -> Year 3 OE $[OE_3]/sh × [M]x ($[OE_Cap]) + Ending Net Cash $[Ending_Net_Cash_Per_Share]/sh = $[Target_Price] Expected Fair Value Target. Deliver an expected 3-year annualized return (IRR) of [X]% per annum from today's ${current_price:.2f} price.
 
+{numeric_contract}
+
 Respond STRICTLY in valid JSON matching this schema:
 {{
   "fair_value_target": float,
@@ -2994,6 +3043,12 @@ CRITICAL ANTI-ANCHORING AUDIT RULE:
 SURVEYED 10+ INVESTOR VALUATION MECHANICS:
 {frameworks_facts}
 
+INVESTIGATED HEADWINDS & SKEPTICISM:
+{headwinds_facts[:2500]}
+
+INVESTIGATED OPERATIONAL REALITY & SEQUENTIAL RESULTS:
+{reality_facts[:2500]}
+
 DRAFT SECTIONS SUBMITTED FOR AUDIT:
 [Draft Section 1 - What the Market is Pricing In]:
 {draft_data.get('market_pricing_in', '')}
@@ -3019,6 +3074,8 @@ Act as a skeptical, conservative peer reviewer:
 - PRESENTATION & EDITORIAL AUDIT: Ensure sections are broken into breathable, concise paragraphs (2-3 per narrative section) and numbered steps are on separate lines preceded by double newlines. Reject monolithic run-on text.
 - Deliver the final, perfected 4 sections and structured fields.
 
+{numeric_contract}
+
 Respond STRICTLY in valid JSON matching this schema:
 {{
   "fair_value_target": float,
@@ -3034,7 +3091,7 @@ Respond STRICTLY in valid JSON matching this schema:
 """
     raw_final = call_gemini_direct(
         prompt=audit_critique_prompt,
-        use_search=True
+        use_search=False
     )
     p_data = parse_json_robust(raw_final) or draft_data or {}
     if not p_data.get("market_pricing_in"):
@@ -3075,16 +3132,69 @@ Respond STRICTLY in valid JSON matching this schema:
         "market_pricing_in": p_data.get("market_pricing_in", ""),
         "why_it_might_be_right": p_data.get("why_it_might_be_right", ""),
         "how_things_are_going_now": p_data.get("how_things_are_going_now", ""),
-        "what_if_it_keeps_going_that_way": p_data.get("what_if_it_keeps_going_that_way", "")
+        "what_if_it_keeps_going_that_way": p_data.get("what_if_it_keeps_going_that_way", ""),
+        "ttm_revenue_mil": ttm_rev,
+        "annualized_runrate_mil": annualized_runrate,
+        "reported_market_cap_mil": mcap_rep,
+        "oe_basis": oe_basis,
+        "revenue_growth_yoy_pct": rev_growth,
+        "numeric_contract": numeric_contract,
     }
 
 
+MAX_FULL_RUNS = 3
+MAX_REPAIR_PASSES = 2
+
+
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
-    """Generates an investment thesis via the single-agent forensic valuation pipeline."""
+    """Generates a thesis that has passed every strict QA check, or raises ThesisQAError.
+
+    Loop: full research run -> assemble -> QA. On QA failure, a targeted repair pass fixes the
+    listed defects with the verified inputs held fixed. If repairs are exhausted, a fresh full
+    run is attempted. A thesis that never passes is NOT returned (and therefore never saved).
+    """
+    from stocks.thesis_qa import (ThesisQAError, validate_thesis_output, validate_rendered_html,
+                                  repair_thesis_sections)
+    from stocks.quality_gatekeeper import validate_dossier_quality
+
     ticker_clean = ticker.upper().strip()
-    print(f"\n🏢 [SINGLE-AGENT FORENSIC ENGINE] Generating valuation for {ticker_clean} ({company_name}) at ${current_price:.2f}...", flush=True)
-    
-    info = run_forensic_audit_agent(ticker_clean, company_name, current_price)
+    if not current_price or current_price <= 0:
+        raise ThesisQAError(f"{ticker_clean}: no valid live price", [f"price={current_price}"])
+
+    last_issues: List[str] = []
+    for full_run in range(1, MAX_FULL_RUNS + 1):
+        print(f"\n🏢 [FORENSIC ENGINE] {ticker_clean} ({company_name}) at ${current_price:.2f} — full run {full_run}/{MAX_FULL_RUNS}", flush=True)
+        try:
+            info = run_forensic_audit_agent(ticker_clean, company_name, current_price)
+        except ThesisQAError as e:
+            last_issues = e.issues
+            print(f"  ❌ [QA] Input gate failed: {e.issues}", flush=True)
+            continue
+
+        for repair in range(0, MAX_REPAIR_PASSES + 1):
+            issues = validate_thesis_output(info, current_price)
+            meta, html = _assemble_thesis(ticker_clean, company_name, current_price, info)
+            if not issues:
+                issues = validate_rendered_html(html)
+            if not issues:
+                ok, gk_issues = validate_dossier_quality(ticker_clean, html, metadata=meta)
+                issues = [] if ok else gk_issues
+            if not issues:
+                print(f"  ✅ [QA PASSED] {ticker_clean} passed all checks (run {full_run}, repair {repair}).", flush=True)
+                meta["qa_passed"] = True
+                meta["qa_attempts"] = f"run {full_run}, repair {repair}"
+                return meta, html
+            last_issues = issues
+            print(f"  ❌ [QA] {len(issues)} defect(s): {issues[:6]}", flush=True)
+            if repair < MAX_REPAIR_PASSES:
+                info = repair_thesis_sections(ticker_clean, company_name, current_price, info, issues)
+
+    raise ThesisQAError(f"{ticker_clean}: thesis failed QA after {MAX_FULL_RUNS} full runs", last_issues)
+
+
+def _assemble_thesis(ticker_clean: str, company_name: str, current_price: float, info: Dict[str, Any]) -> Tuple[Dict[str, Any], str]:
+    """Deterministically assembles metadata + HTML from verified agent output (no invented values)."""
+    from stocks.thesis_qa import derive_action_signal, implied_irr_pct
     
     moat_str = info.get("economic_moat", "Narrow Moat")
     moat_lbl = map_to_canonical_moat_label(moat_str)
@@ -3126,42 +3236,18 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     </section>
     """
 
-    # Objective 2-Factor Fundamental Valuation Fallback (strictly independent of current_price)
-    default_mult = lookup_2factor_fundamental_multiple(moat_lbl, info.get("revenue_growth_yoy_pct", 8.0))
-    fundamental_target = round((oe_sh * default_mult) + net_cash_sh, 2)
-    if fundamental_target <= 0:
-        fundamental_target = round(max(oe_sh * 5.0, current_price * 0.40, 0.50), 2)
+    # No invented fallbacks: missing/invalid targets are caught by validate_thesis_output and repaired or rejected.
+    target_3y = round(safe_float(info.get("fair_value_target")), 2)
+    bear_target_val = round(safe_float(info.get("bear_floor_target")), 2)
+    bull_target_val = round(safe_float(info.get("bull_upside_target")), 2)
 
-    raw_fv = safe_float(info.get("fair_value_target"))
-    target_3y = raw_fv if (raw_fv and raw_fv > 0) else round(fundamental_target, 2)
-    
-    raw_bear = safe_float(info.get("bear_floor_target"))
-    bear_target_val = raw_bear if (raw_bear and raw_bear > 0) else round((oe_sh * (default_mult * 0.65)) + (net_cash_sh if net_cash_sh > 0 else net_cash_sh * 1.2), 2)
-    if bear_target_val <= 0:
-        bear_target_val = round(max(min(target_3y * 0.50, current_price * 0.40), 0.10), 2)
-    
-    raw_bull = safe_float(info.get("bull_upside_target"))
-    bull_target_val = raw_bull if (raw_bull and raw_bull > 0) else round((oe_sh * (default_mult * 1.30)) + net_cash_sh, 2)
-    if bull_target_val <= 0:
-        bull_target_val = round(max(target_3y * 1.30, current_price * 0.80, 0.50), 2)
-
-    raw_irr = info.get("irr_3y_pct")
-    if raw_irr is not None and isinstance(raw_irr, (int, float)):
-        irr_3y = float(raw_irr) / 100.0
+    irr_3y = implied_irr_pct(target_3y, current_price) / 100.0 if target_3y > 0 else 0.0
+    action_signal = derive_action_signal(target_3y, current_price, oe_sh)
+    if oe_sh and oe_sh > 0 and p_oe and p_oe > 0:
+        req_g = max(0.0, min(50.0, round(10.0 - owner_yield, 1)))
+        priced_in_str = f"{p_oe:.1f}x P/OE ({owner_yield:.1f}% OY; ~{req_g:.1f}% growth)"
     else:
-        irr_3y = ((target_3y / current_price) ** (1.0 / 3.0) - 1.0) if current_price > 0 else 0.0
-
-    raw_action = str(info.get("action_signal") or "").upper()
-    if raw_action in ["BUY", "HOLD", "CAUTION", "AVOID"]:
-        action_signal = raw_action
-    elif target_3y < current_price * 0.95 or irr_3y < 0.0:
-        action_signal = "AVOID"
-    elif irr_3y >= 0.12 and (moat_lbl in ["Wide Moat", "Narrow Moat"] or target_3y >= current_price * 1.40):
-        action_signal = "BUY"
-    elif irr_3y >= 0.05:
-        action_signal = "HOLD"
-    else:
-        action_signal = "CAUTION"
+        priced_in_str = "N/M (Neg. OE)"
 
     meta = {
         "company_name": company_name,
@@ -3181,6 +3267,8 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "owner_yield_pct": owner_yield,
         "owner_roic_pct": owner_roic,
         "net_cash_per_share": net_cash_sh,
+        "diluted_shares_mil": info.get("diluted_shares_mil"),
+        "oe_basis": info.get("oe_basis", ""),
         "market_pricing_in": info.get("market_pricing_in", ""),
         "why_it_might_be_right": info.get("why_it_might_be_right", ""),
         "how_things_are_going_now": info.get("how_things_are_going_now", ""),
@@ -3196,14 +3284,14 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "story3_target": f"${bull_target_val:.2f}",
         "expected_return_cagr": round(irr_3y * 100.0, 1),
         "irr_3y": round(irr_3y * 100.0, 1),
-        "what_is_priced_in": f"{p_oe:.1f}x P/OE" if (oe_sh and oe_sh > 0 and p_oe and p_oe > 0) else "N/M (Neg. OE)",
+        "what_is_priced_in": priced_in_str,
         "executive_summary": info.get("how_things_are_going_now", "").strip(),
         "upper_alert_threshold": round(max(current_price * 1.15, target_3y), 2),
-        "lower_alert_threshold": round(min(current_price * 0.85, bear_target_val), 2),
+        "lower_alert_threshold": round(min(current_price * 0.85, bear_target_val), 2) if bear_target_val > 0 else round(current_price * 0.85, 2),
         "stories": [
             {
                 "title": "Market Skepticism Pricing",
-                "target": f"${current_price * 0.80:.2f}",
+                "target": f"${bear_target_val:.2f}",
                 "summary": info.get("market_pricing_in", "")[:180]
             },
             {

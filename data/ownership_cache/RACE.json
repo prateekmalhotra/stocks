@@ -2,76 +2,100 @@
   "ticker": "RACE",
   "openinsider_trades": [
     {
-      "filing_date": "2026-02-19",
-      "trade_date": "FY25 Audit / February 2026",
+      "filing_date": "2026-01-06",
+      "trade_date": "FY26 Audit",
       "name": "Piero Ferrari",
-      "title": "Vice Chairman & Founder's Son",
-      "trade_type": "Director Equity Holding (Common & Special Voting Usufruct)",
-      "price": "$412.83",
-      "qty": "18,894,295",
-      "owned": "10.67% (14.69% Voting)",
-      "delta_own": "Founder Legacy Stake",
-      "value": "$7,799,754,539"
+      "title": "Vice Chairman",
+      "trade_type": "Beneficial Ownership (Trust Piero Ferrari)",
+      "price": null,
+      "qty": "18,892,160",
+      "owned": "10% equity, 15.51% voting",
+      "delta_own": "Controlling Stake",
+      "value": null
     },
     {
-      "filing_date": "2026-02-19",
-      "trade_date": "FY25 Audit / February 2026",
+      "filing_date": "2026-01-06",
+      "trade_date": "FY26 Audit",
+      "name": "Exor N.V.",
+      "title": "Largest Shareholder",
+      "trade_type": "Beneficial Ownership (Common Shares)",
+      "price": null,
+      "qty": "37,768,613",
+      "owned": "24.65% equity, 36.48% voting",
+      "delta_own": "Controlling Stake",
+      "value": null
+    },
+    {
+      "filing_date": "2026-01-06",
+      "trade_date": "FY26 Audit",
       "name": "John Elkann",
       "title": "Executive Chairman",
-      "trade_type": "Director Equity Holding",
-      "price": "$412.83",
+      "trade_type": "Beneficial Ownership (Common Shares)",
+      "price": null,
       "qty": "34,740",
-      "owned": "< 1.0%",
-      "delta_own": "Direct Personal Holding (Exor N.V. holds separate controlling stake)",
-      "value": "$14,341,713"
+      "owned": "<0.1%",
+      "delta_own": "Director Equity Holding",
+      "value": null
     },
     {
-      "filing_date": "2026-02-19",
-      "trade_date": "FY25 Audit / February 2026",
+      "filing_date": "2026-01-15",
+      "trade_date": "FY26 Audit",
+      "name": "BlackRock, Inc.",
+      "title": "Institutional Investor",
+      "trade_type": "Beneficial Ownership (Common Shares)",
+      "price": null,
+      "qty": "6,734,854",
+      "owned": "2.62% equity, 3.07% voting",
+      "delta_own": "Institutional Holding",
+      "value": null
+    },
+    {
+      "filing_date": "2026-04-07",
+      "trade_date": "FY25 Audit",
       "name": "Benedetto Vigna",
-      "title": "Chief Executive Officer",
-      "trade_type": "Executive Officer Equity Holding",
-      "price": "$412.83",
-      "qty": "30,204",
-      "owned": "< 1.0%",
-      "delta_own": "Vested Holding",
-      "value": "$12,469,000"
-    },
-    {
-      "filing_date": "2026-02-19",
-      "trade_date": "FY25 Audit / February 2026",
-      "name": "Mike Volpi",
-      "title": "Board Director",
+      "title": "CEO",
       "trade_type": "Director Equity Holding",
-      "price": "$412.83",
-      "qty": "7,560",
-      "owned": "< 1.0%",
-      "delta_own": "Independent Holding",
-      "value": "$3,121,395"
+      "price": null,
+      "qty": null,
+      "owned": null,
+      "delta_own": null,
+      "value": null
     },
     {
-      "filing_date": "2026-02-19",
-      "trade_date": "FY25 Audit / February 2026",
+      "filing_date": "2026-04-07",
+      "trade_date": "FY25 Audit",
       "name": "Delphine Arnault",
-      "title": "Board Director",
+      "title": "Non-Executive Director",
       "trade_type": "Director Equity Holding",
-      "price": "$412.83",
-      "qty": "2,803",
-      "owned": "< 1.0%",
-      "delta_own": "Independent Holding",
-      "value": "$1,157,162"
+      "price": null,
+      "qty": null,
+      "owned": null,
+      "delta_own": null,
+      "value": null
     },
     {
-      "filing_date": "2026-02-19",
-      "trade_date": "FY25 Audit / February 2026",
+      "filing_date": "2026-04-07",
+      "trade_date": "FY25 Audit",
       "name": "Adam Keswick",
-      "title": "Board Director",
+      "title": "Non-Executive Director",
       "trade_type": "Director Equity Holding",
-      "price": "$412.83",
-      "qty": "2,643",
-      "owned": "< 1.0%",
-      "delta_own": "Independent Holding",
-      "value": "$1,091,109"
+      "price": null,
+      "qty": null,
+      "owned": null,
+      "delta_own": null,
+      "value": null
+    },
+    {
+      "filing_date": "2026-04-07",
+      "trade_date": "FY25 Audit",
+      "name": "Eddy Cue",
+      "title": "Non-Executive Director",
+      "trade_type": "Director Equity Holding",
+      "price": null,
+      "qty": null,
+      "owned": null,
+      "delta_own": null,
+      "value": null
     }
   ],
   "dataroma_holders": [
@@ -110,37 +134,29 @@
   ],
   "researched_writeups": [
     {
-      "title": "Dataroma 13F Superinvestor Whale File: RACE",
-      "fund": "Dataroma Superinvestors",
-      "date": "13F Whale Audit",
-      "summary": "Historical accumulation patterns, portfolio concentration, and recent buy/sell activity across premier value hedge funds for Ferrari N.V..",
-      "url": "https://www.dataroma.com/m/stock.php?sym=RACE",
-      "btn_label": "13F Whale File \u2197"
-    },
-    {
-      "title": "SEC EDGAR Official Filings & Regulatory File: RACE",
-      "fund": "SEC EDGAR Official Registry",
-      "date": "Regulatory Archive",
-      "summary": "Official regulatory depository of 10-K/20-F annual reports, 10-Q/6-K quarterlies, and beneficial ownership filings for Ferrari N.V..",
-      "url": "https://www.sec.gov/edgar/browse/?CIK=RACE",
-      "btn_label": "SEC EDGAR \u2197"
-    },
-    {
-      "title": "Substack Investment Research & Deep Dives: RACE",
-      "fund": "Substack Deep Value",
-      "date": "Independent Research",
-      "summary": "Independent research publications, subscriber letters, and thesis breakdowns covering Ferrari N.V..",
-      "url": "https://substack.com/search/RACE%20investment%20thesis",
+      "title": "Deep Dive: Ferrari ($RACE)",
+      "fund": "Substack / Markmancapitalinsight",
+      "date": "Verified Due Diligence",
+      "summary": "In-depth Substack memo detailing Ferrari N.V.'s business moat, unit monetization, and margin trajectory.",
+      "url": "https://markmancapitalinsight.substack.com/p/deep-dive-ferrari-race",
       "btn_label": "Substack Memo \u2197"
     },
     {
-      "title": "OpenInsider Real-Time Form 4 & Insider Ledger: RACE",
-      "fund": "OpenInsider Real-Time",
-      "date": "Insider Audit",
-      "summary": "Live stream of officer, director, and 10% beneficial owner purchases, sales, and option grants for Ferrari N.V..",
-      "url": "http://openinsider.com/search?q=RACE",
-      "btn_label": "OpenInsider \u2197"
+      "title": "The Veblen Monopolist: Why Ferrari (RACE) is a Luxury Ecosystem, Not a Car Company",
+      "fund": "Substack / Fazinace",
+      "date": "Verified Due Diligence",
+      "summary": "In-depth Substack memo detailing Ferrari N.V.'s business moat, unit monetization, and margin trajectory.",
+      "url": "https://fazinace.substack.com/p/the-veblen-monopolist-why-ferrari",
+      "btn_label": "Substack Memo \u2197"
+    },
+    {
+      "title": "Ferrari - The Compounding Tortoise",
+      "fund": "Substack / Thecompoundingtortoise",
+      "date": "Verified Due Diligence",
+      "summary": "In-depth Substack memo detailing Ferrari N.V.'s business moat, unit monetization, and margin trajectory.",
+      "url": "https://thecompoundingtortoise.substack.com/p/ferrari",
+      "btn_label": "Substack Memo \u2197"
     }
   ],
-  "updated_at": "2026-08-28 14:35:50"
+  "updated_at": "2026-10-13 16:53:40"
 }
