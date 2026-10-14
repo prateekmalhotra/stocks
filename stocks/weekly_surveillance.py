@@ -546,7 +546,7 @@ def run_portfolio_surveillance(portfolio_type: str = "defensive", auto_execute: 
     # AUTONOMOUS EXECUTION PASS
     # ---------------------------------------------------------
     executed_actions = []
-    if auto_execute:
+    if auto_execute and holdings:
         portfolio_state, executed_actions = execute_surveillance_decisions(
             portfolio_type=portfolio_type,
             portfolio_state=portfolio_state,

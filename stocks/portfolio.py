@@ -143,8 +143,10 @@ def sync_live_market_data() -> Dict[str, Any]:
             with open(p_file, "r", encoding="utf-8") as f:
                 p_data = json.load(f)
                 
-            base_cap = float(p_data.get("base_capital_usd", 200000.0))
+            base_cap = float(p_data.get("base_capital_usd", 0.0 if not p_data.get("holdings") else 200000.0))
             holdings = p_data.get("holdings", [])
+            if not holdings:
+                continue
             total_val = 0.0
             
             for h in holdings:
@@ -208,6 +210,10 @@ def get_enriched_portfolio(total_capital: Any = 200000.0, portfolio_type: str = 
             total_capital = 200000.0
             
     state = load_portfolio_state(portfolio_type)
+    if not state.get("holdings"):
+        total_capital = float(state.get("base_capital_usd", 0.0))
+    elif "base_capital_usd" in state:
+        total_capital = float(state.get("base_capital_usd", total_capital))
     watchlist_data = {}
     if WATCHLIST_FILE.exists():
         try:
@@ -311,20 +317,18 @@ def get_enriched_portfolio(total_capital: Any = 200000.0, portfolio_type: str = 
     hist_perf = list(state.get("historical_performance", []))
     today_str = datetime.now().strftime("%Y-%m-%d")
     
-    # Ensure clean baseline start at inception
-    if not hist_perf:
+    if not enriched_holdings:
+        hist_perf = []
+    elif not hist_perf:
         hist_perf = [{
             "date": "2026-08-11",
-            "portfolio_value": 200000.00,
+            "portfolio_value": total_capital,
             "owner_earnings_runrate": round(total_owner_earnings_usd, 2),
-            "spy_benchmark": 200000.00
+            "spy_benchmark": total_capital
         }]
     else:
-        # Guarantee inception date starts cleanly at 200,000.00
-        hist_perf[0]["portfolio_value"] = 200000.00
-        hist_perf[0]["spy_benchmark"] = 200000.00
-        
-        # If inception is yesterday (2026-08-11) and starting fresh today (2026-08-12), keep flat baseline at 200k
+        hist_perf[0]["portfolio_value"] = total_capital
+        hist_perf[0]["spy_benchmark"] = total_capital
         if len(hist_perf) > 1 and hist_perf[-1]["date"] == today_str:
             hist_perf[-1] = {
                 "date": today_str,
@@ -395,6 +399,7 @@ def get_ticker_logo_html(ticker: str, size: int = 20) -> str:
 def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: float = 200000.0) -> str:
     """Generates the ultra-clean, spacious, minimalist high-end portfolio UI."""
     p_data = get_enriched_portfolio(total_capital, portfolio_type)
+    total_capital = float(p_data.get("base_capital_usd", 0.0))
     stats = p_data["stats"]
     holdings = p_data["holdings"]
     rebalance_log = p_data["rebalance_log"]
@@ -403,8 +408,8 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     is_defensive = (portfolio_type == "defensive")
     port_title = "Fidelity" if is_defensive else "Wealthsimple"
     cash_item = next((x for x in holdings if x["ticker"] == "USD_CASH"), None)
-    cash_dol = cash_item["allocated_dollars"] if cash_item else total_capital * 0.15
-    cash_desc = f"${cash_dol:,.0f} Treasury (5.0%)"
+    cash_dol = cash_item["allocated_dollars"] if cash_item else 0.0
+    cash_desc = f"${cash_dol:,.0f} Treasury (5.0%)" if cash_item else "$0 Cash Reserve"
     
     # Clean concise names
     CLEAN_NAMES = {
@@ -437,6 +442,14 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     sorted_holdings = equities_sorted + cash_holdings
     
     rows_html = ""
+    if not sorted_holdings:
+        rows_html = """
+        <tr>
+            <td colspan="5" style="padding:32px 16px; text-align:center; color:var(--text-dim); font-family:var(--font-sans); font-size:0.90rem;">
+                No active holdings in portfolio.
+            </td>
+        </tr>
+        """
     for h in sorted_holdings:
         t = h["ticker"]
         w_pct = h["target_weight"] * 100.0
@@ -532,6 +545,8 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
 
     # Rebalance log
     log_rows_html = ""
+    if not rebalance_log:
+        log_rows_html = '<div style="font-size:0.84rem; color:var(--text-dim);">No rebalance actions recorded.</div>'
     for entry in rebalance_log:
         log_rows_html += f"""
         <div style="background:var(--bg-subpanel); border:1px solid var(--border-color); border-radius:8px; padding:14px 18px; display:flex; flex-direction:column; gap:6px;">
@@ -1057,15 +1072,17 @@ def record_daily_market_close_snapshot():
     today_str = datetime.now().strftime("%Y-%m-%d")
     
     for p_type in ["defensive", "aggressive"]:
-        enriched = get_enriched_portfolio(200000.0, p_type)
         state = load_portfolio_state(p_type)
+        if not state.get("holdings"):
+            continue
+        enriched = get_enriched_portfolio(float(state.get("base_capital_usd", 200000.0)), p_type)
         
         hist = list(state.get("historical_performance", []))
         entry = {
             "date": today_str,
             "portfolio_value": enriched["stats"]["total_value_usd"],
             "owner_earnings_runrate": enriched["stats"]["total_owner_earnings_usd"],
-            "spy_benchmark": 200000.0
+            "spy_benchmark": float(state.get("base_capital_usd", 200000.0))
         }
         
         if hist and hist[-1]["date"] == today_str:
