@@ -2562,9 +2562,9 @@ def markdown_to_memo_html(text: str) -> str:
     return normalize_latex_typography(raw_out)
 
 
-def run_forensic_audit_agent(ticker: str, company_name: str, current_price: float) -> Dict[str, Any]:
+def run_forensic_audit_agent(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Dict[str, Any]:
     """Single-agent forensic valuation pipeline:
-    Step 1: Web search audit of latest 10-K / 20-F / 10-Q statutory filings.
+    Step 1: Web search audit of latest 10-K / 20-F / 10-Q statutory filings & live breaking news catalysts.
     Step 2: Deterministic Python execution of Owner Earnings & Owner ROIC math.
     Step 3: Synthesis of the 4 Core Institutional Sections:
             1. What the Market is Pricing In (Story)
@@ -2573,13 +2573,23 @@ def run_forensic_audit_agent(ticker: str, company_name: str, current_price: floa
             4. What If It Keeps Going That Way (Continuation Math in Clean Editorial Steps)
     """
     today_str = datetime.now().strftime("%B %d, %Y")
+    trigger_context = f"\nTRIGGER / REVIEW CONTEXT: {initial_notes}\n" if initial_notes else ""
     
     # ---------------------------------------------------------
-    # Step 1-2: Deep Grounded Investigation of Headwinds, Risks, Reality & Valuation Frameworks
+    # Step 1-2: Deep Grounded Investigation of Breaking News, Headwinds, Reality & Valuation Frameworks
     # ---------------------------------------------------------
-    headwinds_prompt = f"""You are a Senior Short-Seller & Forensic Risk Analyst researching {ticker} ({company_name}) at current market price ${current_price:.2f}.
-TODAY'S CALENDAR DATE: {today_str}
+    news_catalysts_prompt = f"""You are a Senior Event-Driven & Breaking News Analyst investigating {ticker} ({company_name}) trading at ${current_price:.2f}.
+TODAY'S CALENDAR DATE: {today_str}{trigger_context}
+MANDATORY BREAKING NEWS & PRICE-ACTION CATALYST INVESTIGATION:
+Search Google News, Reuters, Bloomberg, SEC Form 8-K / 6-K filings, company press releases, and Wall Street analyst notes from the past 1 to 60 days up to {today_str} for {ticker} ({company_name}):
+1. What specific recent news events, earnings beats/misses, forward guidance changes, product launches, contract wins/losses, regulatory actions, lawsuits, M&A announcements, executive departures, or analyst upgrades/downgrades explain recent stock price movements and why {ticker} is trading at ${current_price:.2f} today?
+2. If the stock recently surged or dropped sharply, what was the exact catalyst cited by financial media and institutional desks, and is it a one-time sentiment reaction or a structural change to unit volumes, pricing power, or cash flow?
+3. Cite exact dates, headlines, figures, and filing/news sources.
 
+Provide a concise, factual briefing of the latest breaking news and price-action catalysts."""
+
+    headwinds_prompt = f"""You are a Senior Short-Seller & Forensic Risk Analyst researching {ticker} ({company_name}) at current market price ${current_price:.2f}.
+TODAY'S CALENDAR DATE: {today_str}{trigger_context}
 LATEST REAL-TIME EARNINGS RELEASES & TRANSCRIPTS MANDATE:
 You MUST search Google and inspect {ticker}'s ABSOLUTE MOST RECENT 3 to 4 CONSECUTIVE EARNINGS CALL TRANSCRIPTS (Prepared Remarks + Analyst Q&A sessions) reported up to {today_str}, latest 10-Q/10-K filings, short reports, and analyst downgrades. If {ticker} reported earnings today or recently, anchor on the fresh report:
 1. What specific operational unit breakdowns and risks are highlighted by short-sellers, skeptics, and sell-side analysts during recent earnings call Q&A?
@@ -2591,8 +2601,7 @@ You MUST search Google and inspect {ticker}'s ABSOLUTE MOST RECENT 3 to 4 CONSEC
 Provide a concise, highly factual briefing of the core skeptical thesis, analyst pushback, and operational unit vulnerabilities."""
 
     reality_prompt = f"""You are a Senior Value Investor & Portfolio Manager auditing {ticker} ({company_name}).
-TODAY'S CALENDAR DATE: {today_str}
-
+TODAY'S CALENDAR DATE: {today_str}{trigger_context}
 MANDATORY REAL-TIME 3-4 CONSECUTIVE QUARTERLY EARNINGS RELEASES & CALL TRANSCRIPTS INGESTION:
 You MUST search Google and inspect {ticker}'s ABSOLUTE MOST RECENT 3 to 4 CONSECUTIVE QUARTERLY EARNINGS RELEASES and EARNINGS CALL TRANSCRIPTS reported up to {today_str}, latest 10-Q/20-F filings, and CEO/CFO conference call remarks. If {ticker} reported earnings today or this quarter, you MUST include today's latest results:
 
@@ -2638,16 +2647,19 @@ Extract:
 
 Provide a concise, dense briefing synthesizing the collective valuation mechanics from at least 10 investor theses."""
 
-    print(f"  [Step 1-2/5] Deep forensic search: Concurrently investigating headwinds, operational reality & 10+ valuation frameworks for {ticker}...", flush=True)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+    print(f"  [Step 1-2/5] Deep forensic search: Concurrently investigating breaking news, headwinds, operational reality & 10+ valuation frameworks for {ticker}...", flush=True)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        fut_news = executor.submit(call_gemini_direct, news_catalysts_prompt, "", True)
         fut_headwinds = executor.submit(call_gemini_direct, headwinds_prompt, "", True)
         fut_reality = executor.submit(call_gemini_direct, reality_prompt, "", True)
         fut_frameworks = executor.submit(call_gemini_direct, frameworks_prompt, "", True)
+        news_facts = fut_news.result()
         headwinds_facts = fut_headwinds.result()
         reality_facts = fut_reality.result()
         frameworks_facts = fut_frameworks.result()
 
     print(f"\n  📋 [Forensic Intelligence Summary for {ticker}]:", flush=True)
+    print(f"  ├─ Breaking News & Price Catalysts: {news_facts[:180].strip()}...", flush=True)
     print(f"  ├─ Bear Headwinds & Unit Risks: {headwinds_facts[:180].strip()}...", flush=True)
     print(f"  ├─ Operational Reality & Units: {reality_facts[:180].strip()}...", flush=True)
     print(f"  └─ 10+ Investor Valuation Mechanics: {frameworks_facts[:180].strip()}...\n", flush=True)
@@ -2919,14 +2931,17 @@ Recent Revenue Growth: {rev_growth:+.1f}% YoY
 - Exact Latest Unit Monetization: {monet_desc}
 - Liquid Cash & Investments: ${cash:,.1f}M | Total Debt: ${debt:,.1f}M -> Net Cash: ${net_cash_total:+,.0f}M (${net_cash_per_share:+.2f}/sh)
 
-=== 2-FACTOR BUFFETT-MUNGER VALUATION MATRIX MANDATE (MOAT × YEAR 3 GROWTH) ===
+=== 2-FACTOR BUFFETT-MUNGER VALUATION MATRIX MANDATE (MOAT × YEAR-3 EXIT RUN-RATE GROWTH) ===
 {matrix_guidance}
 
 CRITICAL ANTI-ANCHORING MANDATE:
-- In Step 6 of Section 4, determine the Exit Multiple [M]x strictly from this 2-Factor Matrix based on your projected Year 3 Owner Earnings YoY growth rate (g₃).
-- NEVER inflate or adjust the multiple to match today's quoted market price (${current_price:.2f}). If a company trades at 60x–80x P/OE, applying a disciplined 2-Factor multiple will correctly show whether it offers adequate margin of safety or faces multiple compression.
+- Do NOT blindly copy or anchor to third-party fair value price targets from Substack, Finchat, or Wall Street analysts.
+- You may ONLY study how other analysts think about the *drivers* and *mechanics* of the business (what metrics matter, how unit economics scale), and then compute your OWN independent bottom-up valuation strictly anchored to the statutory metrics above and the 2-Factor Valuation Matrix rules.
 
 === DEEP FORENSIC INVESTIGATION FINDINGS ===
+[BREAKING NEWS & RECENT PRICE-ACTION CATALYSTS]:
+{news_facts}
+
 [INVESTIGATED HEADWINDS & SKEPTICISM]:
 {headwinds_facts}
 
@@ -2939,9 +2954,9 @@ CRITICAL ANTI-ANCHORING MANDATE:
 
 You are an institutional value investor (in the tradition of Warren Buffett, Charlie Munger, Howard Marks, and Seth Klarman).
 Your goal is to write a rigorous, sober, deeply grounded 4-section investment thesis:
-- Understand what Mr. Market is worried about.
+- Understand what Mr. Market is worried about (or reacting to in recent breaking news / price moves).
 - Perform an independent forward forensic risk assessment of what happens if skeptic headwinds materialize.
-- Clearly describe how the business is actually performing today based on recent quarterly results.
+- Clearly describe how the business is actually performing today based on recent quarterly results and material corporate events.
 - Honestly extrapolate what happens over the next 3 years (The Visible Runway) if things simply continue as they are going now.
   * SOBER CONSERVATISM RULES:
     - Real-Time Baseline Anchor: Always anchor starting numbers to the real-time annualized run rate (${annualized_runrate:,.1f}M) and exact statutory units ({unit_desc}). Do NOT use stale outdated figures.
@@ -2959,8 +2974,8 @@ EDITORIAL FORMATTING & PRESENTATION MANDATE:
 - Do NOT use raw monospace terminal code blocks, and do NOT use emojis.
 
 1. "market_pricing_in" (The Market Skepticism & Disconnect Story):
-   - In simple, plain English, explain the exact skeptical narrative and operational headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price ({p_oe:.1f}x P/OE, {ev_oe:.1f}x EV/OE).
-   - Frame the core investment asymmetry: is the market pricing current earnings as peak/unsustainable despite underlying volume growth, expanding margins, and net cash? Or is it pricing genuine structural terminal decay?
+   - In simple, plain English, explain the exact skeptical narrative, recent breaking news / price-action catalysts, and operational headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price ({p_oe:.1f}x P/OE, {ev_oe:.1f}x EV/OE).
+   - Frame the core investment asymmetry: is the market pricing current earnings as peak/unsustainable (or overreacting to recent news) despite underlying volume growth, expanding margins, and net cash? Or is it pricing genuine structural terminal decay?
    - Break into 2 digestible paragraphs.
 
 2. "why_it_might_be_right" (Forensic Business Headwinds & Downside Cash Floor):
@@ -2973,7 +2988,7 @@ EDITORIAL FORMATTING & PRESENTATION MANDATE:
      5. Downside Risk Valuation Floor: Capitalize degraded $[OE_Skeptic]/sh at a conservative trough multiple (3.5x–7.0x P/OE depending on moat) + ending net cash to derive the Downside Floor Target ($[Bear_Target]/sh).
 
 3. "how_things_are_going_now" (The Operational Reality Story - Sequential 3-4 Quarters):
-   - In simple, plain English, explain how the business is ACTUALLY performing today based on the exact last 3 to 4 quarterly releases.
+   - In simple, plain English, explain how the business is ACTUALLY performing today based on the exact last 3 to 4 quarterly releases and latest material corporate developments.
    - Detail the unvarnished reality: exact active volume units ({unit_desc}), revenue trajectory (${annualized_runrate:,.1f}M run-rate), gross margin progression ({lq_gm:.1f}%), cash flow generation, and capital allocation.
    - Break into 2-3 clean, readable paragraphs.
 
@@ -3042,6 +3057,9 @@ CRITICAL ANTI-ANCHORING AUDIT RULE:
 
 SURVEYED 10+ INVESTOR VALUATION MECHANICS:
 {frameworks_facts}
+
+BREAKING NEWS & RECENT PRICE-ACTION CATALYSTS:
+{news_facts[:2000]}
 
 INVESTIGATED HEADWINDS & SKEPTICISM:
 {headwinds_facts[:2500]}
@@ -3165,7 +3183,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     for full_run in range(1, MAX_FULL_RUNS + 1):
         print(f"\n🏢 [FORENSIC ENGINE] {ticker_clean} ({company_name}) at ${current_price:.2f} — full run {full_run}/{MAX_FULL_RUNS}", flush=True)
         try:
-            info = run_forensic_audit_agent(ticker_clean, company_name, current_price)
+            info = run_forensic_audit_agent(ticker_clean, company_name, current_price, initial_notes=initial_notes)
         except ThesisQAError as e:
             last_issues = e.issues
             print(f"  ❌ [QA] Input gate failed: {e.issues}", flush=True)
@@ -3286,8 +3304,8 @@ def _assemble_thesis(ticker_clean: str, company_name: str, current_price: float,
         "irr_3y": round(irr_3y * 100.0, 1),
         "what_is_priced_in": priced_in_str,
         "executive_summary": info.get("how_things_are_going_now", "").strip(),
-        "upper_alert_threshold": round(max(current_price * 1.15, target_3y), 2),
-        "lower_alert_threshold": round(min(current_price * 0.85, bear_target_val), 2) if bear_target_val > 0 else round(current_price * 0.85, 2),
+        "upper_alert_threshold": round(current_price * 1.10, 2),
+        "lower_alert_threshold": round(current_price * 0.90, 2),
         "stories": [
             {
                 "title": "Market Skepticism Pricing",

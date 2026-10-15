@@ -328,11 +328,26 @@ def check_watchlist_triggers() -> int:
         today_month = datetime.now().strftime("%B %Y").lower()
         today_short_month = datetime.now().strftime("%b %Y").lower()
 
+        from stocks.data_store import load_thesis_history
         reasons = []
         if stock.upper_alert_threshold and current_price >= stock.upper_alert_threshold:
             reasons.append(f"Upper Alert Threshold Breached (${current_price:.2f} >= ${stock.upper_alert_threshold:.2f})")
         if stock.lower_alert_threshold and current_price <= stock.lower_alert_threshold:
             reasons.append(f"Lower Alert Threshold Breached (${current_price:.2f} <= ${stock.lower_alert_threshold:.2f})")
+        if not reasons:
+            try:
+                hist = load_thesis_history(ticker)
+                last_v = hist[-1] if hist else None
+                last_p = float(last_v.price_at_version) if (last_v and last_v.price_at_version) else 0.0
+                if last_p > 0:
+                    move_pct = ((current_price - last_p) / last_p) * 100.0
+                    if abs(move_pct) >= 10.0:
+                        direction = "Surge" if move_pct > 0 else "Drop"
+                        reasons.append(
+                            f"Material Price {direction} ({move_pct:+.1f}% move from last underwritten price ${last_p:.2f} to ${current_price:.2f})"
+                        )
+            except Exception:
+                pass
         
         # Catalyst Date Trigger: Ensure earnings/catalyst reviews execute once the date has arrived/passed.
         # If it is today, execute post-market close (>= 21:00 UTC / 5:00 PM EST) so that after-hours earnings
