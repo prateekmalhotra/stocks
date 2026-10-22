@@ -1,8 +1,8 @@
 {
   "portfolio_type": "defensive",
   "portfolio_label": "Fidelity (Defensive Fortress)",
-  "last_run_date": "2026-10-13",
-  "last_run_timestamp": "2026-10-13T23:34:43.363656",
+  "last_run_date": "2026-10-22",
+  "last_run_timestamp": "2026-10-22T20:57:29.783432",
   "status": "OPTIMAL",
   "status_display": "COUNCIL AUDIT ACTIVE \u2022 ALL HOLDINGS INTACT",
   "action_required": false,
@@ -28,38 +28,38 @@
     "cash_directive": "Market froth (Shiller CAPE 35.5x) warrants expanding cash reserves toward 20.56%.",
     "formula_description": "Senior US Treasury Buffer (20.56%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +20.00% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-10-20",
+  "next_scheduled_run": "2026-10-29",
   "holdings_health": [],
   "top_watchlist_on_radar": [
     {
       "ticker": "KSPI",
       "company_name": "Joint Stock Company Kaspi.kz",
-      "price": 96.07,
+      "price": 93.51,
       "fair_value": 296.88,
-      "mos_pct": 209.02,
-      "expected_irr": 84.7,
-      "kelly_edge": 51.43,
+      "mos_pct": 217.48,
+      "expected_irr": 87.5,
+      "kelly_edge": 51.68,
       "moat_score": 9.6
+    },
+    {
+      "ticker": "META",
+      "company_name": "Meta Platforms, Inc.",
+      "price": 697.52,
+      "fair_value": 1009.78,
+      "mos_pct": 44.77,
+      "expected_irr": 36.5,
+      "kelly_edge": 51.15,
+      "moat_score": 9.7
     },
     {
       "ticker": "ADBE",
       "company_name": "Adobe Inc",
-      "price": 236.28,
+      "price": 255.06,
       "fair_value": 472.06,
-      "mos_pct": 99.79,
-      "expected_irr": 52.5,
-      "kelly_edge": 49.86,
+      "mos_pct": 85.08,
+      "expected_irr": 47.6,
+      "kelly_edge": 48.06,
       "moat_score": 9.5
-    },
-    {
-      "ticker": "PDD",
-      "company_name": "PDD Holdings Inc. (Temu)",
-      "price": 81.96,
-      "fair_value": 182.24,
-      "mos_pct": 122.35,
-      "expected_irr": 70.6,
-      "kelly_edge": 46.58,
-      "moat_score": 9.2
     }
   ],
   "rebalance_proposals": [],
