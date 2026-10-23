@@ -14,11 +14,14 @@ load_dotenv()
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
-DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
+DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-4-argon")
 _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
 GEMINI_MODELS_LADDER = [
+    "gemini-4-argon",
     "gemini-3.8-flash",
+    "gemini-3.7-flash",
     "gemini-3.6-flash",
+    "gemini-3.5-flash",
     "gemini-3.5-flash-lite",
     "gemini-3.1-pro-preview",
     "gemini-3.1-flash-lite",
