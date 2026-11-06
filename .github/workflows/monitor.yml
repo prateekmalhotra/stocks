@@ -27,7 +27,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: "surveillance-engine"
   cancel-in-progress: false
 
 env:
@@ -40,6 +40,7 @@ env:
 jobs:
   surveillance_and_deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 50
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -74,13 +75,14 @@ jobs:
             poetry run python -m stocks.main run
           fi
 
-      - name: Quality Gatekeeper Audit
+      - name: Quality Gatekeeper & Strict QA Audit
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PYTHONUNBUFFERED: "1"
         run: |
           poetry run python -m stocks.quality_gatekeeper
+          poetry run python scripts/qa_audit_all.py
 
       - name: Commit and Push Changes
         run: |
@@ -91,9 +93,18 @@ jobs:
             echo "No changes in data or public reports."
           else
             git commit -m "Auto-update: Living theses & surveillance hub [skip ci]"
+            pushed=0
             for i in 1 2 3 4 5; do
-              git pull --rebase -X theirs origin main && git push origin main && break || sleep 3
+              if git pull --rebase --autostash -X theirs origin main && git push origin main; then
+                pushed=1
+                break
+              fi
+              sleep 4
             done
+            if [ "$pushed" -ne 1 ]; then
+              echo "ERROR: Failed to push changes after 5 attempts."
+              exit 1
+            fi
           fi
 
       - name: Setup GitHub Pages

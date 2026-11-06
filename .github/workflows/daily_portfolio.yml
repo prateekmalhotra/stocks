@@ -14,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: "daily-portfolio"
   cancel-in-progress: false
 
 env:
@@ -24,6 +24,7 @@ env:
 jobs:
   snapshot_and_deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -63,9 +64,18 @@ jobs:
             echo "No portfolio delta to commit."
           else
             git commit -m "Auto-record: Daily 3:00 PM EST dual portfolio snapshot [skip ci]"
+            pushed=0
             for i in 1 2 3 4 5; do
-              git pull --rebase -X theirs origin main && git push origin main && break || sleep 3
+              if git pull --rebase --autostash -X theirs origin main && git push origin main; then
+                pushed=1
+                break
+              fi
+              sleep 4
             done
+            if [ "$pushed" -ne 1 ]; then
+              echo "ERROR: Failed to push daily portfolio snapshot after 5 attempts."
+              exit 1
+            fi
           fi
 
       - name: Setup GitHub Pages

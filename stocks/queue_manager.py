@@ -38,8 +38,9 @@ def safe_float(val: Any, default: float = 0.0) -> float:
 
 
 def enqueue_task(task: TaskItem):
-    """Enqueues a task for execution."""
-    _execute_task(task)
+    """Persists a task into data/queue.json for prioritized, timeboxed execution."""
+    from stocks.data_store import enqueue_task as store_enqueue_task
+    store_enqueue_task(task)
 
 
 def enqueue_genesis(ticker: str, notes: str = ""):
@@ -66,7 +67,7 @@ def enqueue_review(ticker: str, trigger_reason: str):
     enqueue_task(task)
 
 
-def _handle_genesis_task(ticker: str, notes: str):
+def _handle_genesis_task(ticker: str, notes: str, render: bool = True):
     """Executes the Genesis Living Thesis generation for a new stock."""
     from stocks.ownership_intelligence import fetch_and_cache_complete_ownership, parse_trade_value
     
@@ -251,7 +252,8 @@ def _handle_genesis_task(ticker: str, notes: str):
         report_path=f"reports/{ticker}.html"
     )
     save_stock(stock_record)
-    render_all()
+    if render:
+        render_all()
 
 
 def _handle_review_task(ticker: str, trigger_reason: str, emit_alert: bool = True, render: bool = True):
@@ -261,6 +263,9 @@ def _handle_review_task(ticker: str, trigger_reason: str, emit_alert: bool = Tru
         raise ValueError(f"Cannot review {ticker}: Stock not found in watchlist.")
 
     company_name, current_price = fetch_live_stock_info(ticker)
+    # Preserve curated company_name if already canonical and non-empty (prevents truncated Yahoo shortName overwrites)
+    if stock.company_name and company_name.upper().startswith(stock.company_name[:12].upper()) and len(stock.company_name) > len(company_name):
+        company_name = stock.company_name
     history = load_thesis_history(ticker)
     last_version = history[-1] if history else None
     
@@ -283,9 +288,6 @@ def _handle_review_task(ticker: str, trigger_reason: str, emit_alert: bool = Tru
         previous_base_target=stock.base_target,
         previous_bull_target=stock.bull_target
     )
-
-    # review_stock_thesis -> generate_genesis_thesis only returns QA-passed theses (else it raises),
-    # and its verified Owner Earnings are used as-is (never overwritten with stale prior values).
 
     from stocks.gemini_agent import map_to_canonical_moat_label, map_to_canonical_predictability_tier
     canonical_moat = map_to_canonical_moat_label(meta.get("moat_label") or (meta.get("labels")[0] if meta.get("labels") else None) or prev_status or "Narrow Moat")
@@ -382,9 +384,18 @@ def _handle_review_task(ticker: str, trigger_reason: str, emit_alert: bool = Tru
     )
     save_thesis_version(ticker, new_version)
 
+    # Clear price alert cooldown state for this newly underwritten version
+    try:
+        from stocks.tracker import clear_price_alert_state
+        clear_price_alert_state(ticker)
+    except Exception:
+        pass
+
     # 2. Update Watchlist Stock
+    if company_name:
+        stock.company_name = company_name
     stock.current_price = current_price
-    stock.return_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
+    stock.return_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2) if stock.baseline_price else 0.0
     stock.status_label = new_version.status_label
     stock.moat_label = new_version.moat_label
     stock.moat_type = new_version.moat_type
@@ -436,8 +447,9 @@ def _handle_review_task(ticker: str, trigger_reason: str, emit_alert: bool = Tru
     stock.total_versions = new_version_num
     save_stock(stock)
 
-    # 3. Create Alert Item
-    price_change_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
+    # 3. Create Alert Item (compute price_change_pct vs previous thesis version price, not all-time baseline)
+    ref_price = float(last_version.price_at_version) if (last_version and last_version.price_at_version and last_version.price_at_version > 0) else stock.baseline_price
+    price_change_pct = round(((current_price - ref_price) / ref_price) * 100, 2) if ref_price and ref_price > 0 else 0.0
     alert_obj = AlertItem(
         id=f"alert-{ticker.lower()}-{int(datetime.now().timestamp())}",
         ticker=ticker,
@@ -464,7 +476,7 @@ def _handle_review_task(ticker: str, trigger_reason: str, emit_alert: bool = Tru
             register_earnings_pop(
                 ticker=ticker,
                 earnings_date=today_str,
-                pre_earnings_price=stock.baseline_price,
+                pre_earnings_price=ref_price or stock.baseline_price,
                 peak_price=current_price,
                 notes=f"Quarterly Earnings Review ({trigger_reason})"
             )
@@ -476,48 +488,134 @@ def _handle_review_task(ticker: str, trigger_reason: str, emit_alert: bool = Tru
         render_all()
 
 
+def _task_priority_key(task: TaskItem):
+    """Prioritizes new additions & on-demand reviews first, then falling stocks / lower-corridor breaches, then SEC filings, then surges."""
+    t_type = (task.task_type or "").upper()
+    notes = (task.notes or "") + " " + str((task.payload or {}).get("trigger_reason", ""))
+    notes_low = notes.lower()
+    pct_match = re.search(r"([+-]?\d+(?:\.\d+)?)%", notes)
+    pct_val = float(pct_match.group(1)) if pct_match else 0.0
+
+    if t_type in ("ANALYZE_NEW", "GENESIS"):
+        return (0, 0.0)
+    if "manual" in notes_low:
+        return (1, 0.0)
+    if "lower alert threshold" in notes_low:
+        return (2, pct_val)  # Most negative pct_val first
+    if "material price drop" in notes_low:
+        return (3, pct_val)  # Steepest drop first
+    if t_type in ("SEC_8K_TRIGGER", "SEC_FILING_TRIGGER") or "sec " in notes_low:
+        return (4, 0.0)
+    if t_type == "REVIEW" or "catalyst" in notes_low or "earnings" in notes_low:
+        return (5, 0.0)
+    return (6, -abs(pct_val))
+
+
 def process_task(task: TaskItem):
     """Processes a single task item."""
-    _execute_task(task)
+    _execute_task(task, render=True)
 
 
-def process_all_pending_tasks() -> int:
-    """Processes all pending tasks from the data_store queue."""
-    from stocks.data_store import load_queue, save_queue
+def process_all_pending_tasks(max_tasks: int = 8, max_runtime_seconds: int = 2100) -> int:
+    """Processes pending tasks from data/queue.json in priority order within safe batch & runtime limits."""
+    from stocks.data_store import load_queue, save_queue, load_watchlist
     queue = load_queue()
     if not queue:
         return 0
 
-    processed_count = 0
-    remaining_queue = []
-    
-    for task in queue:
-        if task.status in ("PENDING", "IN_PROGRESS"):
+    wl = load_watchlist()
+    now_dt = datetime.now()
+    today_str = now_dt.strftime("%Y-%m-%d")
+    pending: List[TaskItem] = []
+    retained_other: List[TaskItem] = []
+
+    for t in queue:
+        tk = (t.ticker or "").upper().strip()
+        st = wl.get(tk)
+        if t.status in ("PENDING", "IN_PROGRESS"):
+            # Skip automated duplicate reviews if this ticker's thesis was already updated today
+            if (
+                t.task_type not in ("ANALYZE_NEW", "GENESIS")
+                and "manual" not in ((t.notes or "") + " " + str((t.payload or {}).get("trigger_reason", ""))).lower()
+                and st is not None
+                and getattr(st, "last_updated", "") == today_str
+            ):
+                continue
+            t.status = "PENDING"
+            pending.append(t)
+        elif t.status == "FAILED":
+            # Drop stale failed tasks if ticker already covered (for ANALYZE_NEW) or older than 3 days
+            if t.task_type in ("ANALYZE_NEW", "GENESIS") and tk in wl:
+                continue
+            if st is not None and getattr(st, "last_updated", "") == today_str:
+                continue
             try:
-                print(f"🚀 Processing task: {task.task_type} for {task.ticker}...")
-                _execute_task(task)
-                task.status = "COMPLETED"
-                processed_count += 1
-            except Exception as e:
-                print(f"❌ Failed task {task.id}: {e}")
-                task.status = "FAILED"
-                remaining_queue.append(task)
-        else:
-            remaining_queue.append(task)
-            
-    save_queue(remaining_queue)
+                c_dt = datetime.strptime((t.created_at or "")[:10], "%Y-%m-%d")
+                if (now_dt - c_dt).days <= 3:
+                    retained_other.append(t)
+            except Exception:
+                pass
+
+    if not pending:
+        if len(retained_other) != len(queue):
+            save_queue(retained_other)
+        return 0
+
+    pending.sort(key=_task_priority_key)
+    # Deduplicate multiple pending tasks for the same ticker (keep highest-priority one)
+    dedup_pending: List[TaskItem] = []
+    seen_tickers = set()
+    for t in pending:
+        tk = (t.ticker or "").upper().strip()
+        if tk in seen_tickers and t.task_type not in ("ANALYZE_NEW", "GENESIS"):
+            continue
+        seen_tickers.add(tk)
+        dedup_pending.append(t)
+    pending = dedup_pending
+
+    start_ts = time.time()
+    processed_count = 0
+
+    for idx, task in enumerate(pending):
+        elapsed = time.time() - start_ts
+        if (max_tasks > 0 and processed_count >= max_tasks) or (idx > 0 and elapsed >= max_runtime_seconds):
+            unrun = pending[idx:]
+            print(
+                f"⏱️ [Queue Batch Cap] Processed {processed_count} task(s) in {elapsed / 60:.1f}m; "
+                f"deferring {len(unrun)} remaining pending task(s) to next surveillance run."
+            )
+            save_queue(unrun + retained_other)
+            break
+
+        try:
+            print(f"🚀 [{processed_count + 1}/{min(len(pending), max_tasks) if max_tasks > 0 else len(pending)}] Processing task: {task.task_type} for {task.ticker} ({task.notes[:90] if task.notes else ''})...")
+            _execute_task(task, render=False)
+            processed_count += 1
+        except Exception as e:
+            print(f"❌ Failed task {task.id} ({task.ticker}): {e}")
+            task.status = "FAILED"
+            task.error = str(e)[:400]
+            retained_other.append(task)
+
+        # Persist queue progress after every task so completed work is recorded immediately
+        save_queue(pending[idx + 1:] + retained_other)
+    else:
+        save_queue(retained_other)
+
+    if processed_count > 0:
+        render_all()
     return processed_count
 
 
-def _execute_task(task: TaskItem):
+def _execute_task(task: TaskItem, render: bool = True):
     """Internal task dispatcher."""
     try:
         if task.task_type in ("GENESIS", "ANALYZE_NEW"):
             notes = task.payload.get("notes", "") if getattr(task, "payload", None) else getattr(task, "notes", "") or ""
-            _handle_genesis_task(task.ticker, notes)
+            _handle_genesis_task(task.ticker, notes, render=render)
         elif task.task_type in ("REVIEW", "PRICE_TRIGGER", "CATALYST_TRIGGER", "SURVEILLANCE_REVIEW", "SEC_8K_TRIGGER", "SEC_FILING_TRIGGER", "MA_REVERSAL_TRIGGER", "MA_REVERSAL_BREAKOUT", "EARNINGS_RETRACE_TRIGGER"):
             trigger_reason = task.payload.get("trigger_reason", "") if getattr(task, "payload", None) else getattr(task, "notes", "") or "Market Trigger"
-            _handle_review_task(task.ticker, trigger_reason)
+            _handle_review_task(task.ticker, trigger_reason, render=render)
         else:
             print(f"⚠️ Unknown task type: {task.task_type}")
     except Exception as e:

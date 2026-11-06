@@ -18,21 +18,19 @@ DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-4-argon")
 _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
 GEMINI_MODELS_LADDER = [
     "gemini-4-argon",
-    "gemini-3.8-flash",
-    "gemini-3.7-flash",
     "gemini-3.6-flash",
     "gemini-3.5-flash",
     "gemini-3.5-flash-lite",
     "gemini-3.1-pro-preview",
     "gemini-3.1-flash-lite",
     "gemini-3-flash-preview",
-    "gemini-flash-latest",
     "gemini-2.5-flash-lite",
 ]
 if DEFAULT_GEMINI_MODEL not in GEMINI_MODELS_LADDER:
     GEMINI_MODELS_LADDER.insert(0, DEFAULT_GEMINI_MODEL)
 
 _SEARCH_QUOTA_EXHAUSTED_MODELS = set()
+_TIMED_OUT_MODELS = set()
 
 
 def get_active_model() -> str:
@@ -680,7 +678,14 @@ def call_gemini_with_search(
     if override_model and override_model in GEMINI_MODELS_LADDER:
         models_to_try = [override_model] + [m for m in GEMINI_MODELS_LADDER if m != override_model]
     else:
-        models_to_try = list(GEMINI_MODELS_LADDER)
+        active_m = get_active_model()
+        start_idx = GEMINI_MODELS_LADDER.index(active_m) if active_m in GEMINI_MODELS_LADDER else 0
+        models_to_try = GEMINI_MODELS_LADDER[start_idx:] + GEMINI_MODELS_LADDER[:start_idx]
+
+    if _TIMED_OUT_MODELS:
+        non_timed_out = [m for m in models_to_try if m not in _TIMED_OUT_MODELS]
+        if non_timed_out:
+            models_to_try = non_timed_out
 
     if use_search and _SEARCH_QUOTA_EXHAUSTED_MODELS:
         avail = [m for m in models_to_try if m not in _SEARCH_QUOTA_EXHAUSTED_MODELS]
@@ -690,10 +695,10 @@ def call_gemini_with_search(
     last_err = None
     for model_name in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
-        max_retries = 3
+        max_retries = 2
         for attempt in range(1, max_retries + 1):
             try:
-                response = session.post(url, json=payload, timeout=75)
+                response = session.post(url, json=payload, timeout=(10, 45))
                 if response.status_code == 200:
                     res_json = response.json()
                     candidate = res_json.get("candidates", [{}])[0]
@@ -706,7 +711,7 @@ def call_gemini_with_search(
                         fallback_prompt = prompt + "\n\nCRITICAL: Paraphrase all data in your own original analytical words. Do NOT quote verbatim text."
                         payload["contents"] = [{"parts": [{"text": fallback_prompt}]}]
                         payload["generationConfig"]["temperature"] = 0.7
-                        retry_res = session.post(url, json=payload, timeout=60)
+                        retry_res = session.post(url, json=payload, timeout=(10, 45))
                         if retry_res.status_code == 200:
                             retry_json = retry_res.json()
                             retry_parts = retry_json.get("candidates", [{}])[0].get("content", {}).get("parts", [])
@@ -719,9 +724,11 @@ def call_gemini_with_search(
                     last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
                     if response.status_code == 429 and use_search and model_name != "gemini-2.5-flash-lite":
                         _SEARCH_QUOTA_EXHAUSTED_MODELS.add(model_name)
+                        if model_name != models_to_try[-1]:
+                            switch_to_fallback_model(f"HTTP 429 search quota on {model_name}")
                         break
                     if attempt < max_retries:
-                        sleep_s = (3.0 ** attempt) + random.uniform(1.0, 3.0)
+                        sleep_s = (2.5 ** attempt) + random.uniform(0.5, 2.0)
                         time.sleep(sleep_s)
                         continue
                     if model_name != models_to_try[-1]:
@@ -730,6 +737,12 @@ def call_gemini_with_search(
                 else:
                     last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
                     break
+            except requests.Timeout as timeout_err:
+                last_err = RuntimeError(f"Gemini API timeout on {model_name}: {timeout_err}")
+                _TIMED_OUT_MODELS.add(model_name)
+                if model_name != models_to_try[-1]:
+                    switch_to_fallback_model(f"Timeout on {model_name}")
+                break
             except (requests.RequestException, Exception) as req_err:
                 last_err = RuntimeError(f"Gemini API network error: {req_err}")
                 if attempt < max_retries:
@@ -2685,6 +2698,8 @@ CURRENCY & FINANCIAL SCALE MANDATE (CRITICAL FOR US & GLOBAL ADRs):
 - Stock splits: if the company split its stock recently, report the POST-SPLIT diluted share count.
 - HARD CONSISTENCY RULE: market_cap_mil MUST approximately equal ${current_price:.2f} × diluted_shares_mil. If it does not, you have the wrong share basis — fix it before answering.
 - HARD TTM RULE: trailing_revenue_ttm_mil MUST be the sum of the 4 most recent reported quarters (including latest_quarter_revenue_mil), so trailing_revenue_ttm_mil MUST ALWAYS be greater than or equal to latest_quarter_revenue_mil (typically ~3x–4x latest_quarter_revenue_mil). Never use an older full-year 10-K/20-F figure that is smaller than the latest single quarter.
+- SEMI-ANNUAL (H1/H2) EUROPEAN & UK REPORTERS RULE: Many UK/European companies (e.g. LVMH, Vistry, GTT, Amaroq) report 6-month interim (H1/H2) financial statements rather than 3-month quarterly income statements. latest_quarter_revenue_mil MUST strictly represent a SINGLE 3-MONTH QUARTER. If only a 6-month H1/H2 revenue figure is available without a standalone Q2/Q3/Q4 3-month revenue release, divide the 6-month H1/H2 revenue by 2.0. NEVER place a 6-month H1/H2 figure into latest_quarter_revenue_mil!
+- IFRS CASH FLOW CLASSIFICATION RULE (UK / EU / INTERNATIONAL FILERS): Under IFRS (unlike US GAAP), companies frequently classify capitalized development/R&D intangibles in Investing Cash Flows and cash interest paid in Financing Cash Flows. For IFRS filers: (a) capex_ttm_mil MUST equal total tangible PP&E additions PLUS capitalized development/intangible additions from Investing Cash Flows, and (b) deduct cash interest paid (from Financing Cash Flows) from operating_cash_flow_ttm_mil so OCF is strictly post-interest on a US-GAAP-comparable basis.
 - If OFFICIAL SEC EDGAR XBRL FACTS are provided below, anchor strictly on those authoritative 10-K/10-Q/20-F XBRL figures (converting any foreign currency like DKK/EUR/GBP/BRL/RMB/JPY to USD at spot FX).
 - If Stock-Based Compensation (sbc_ttm_mil) or One-Off Impairments (one_off_net_mil) are $0 or not separately broken out (common for foreign IFRS filers), report 0.0. If you genuinely cannot find a core statement field, return null for it. NEVER guess or invent a value.
 
@@ -2695,14 +2710,14 @@ FINANCIAL FIELDS TO EXTRACT (in $M USD):
 - Market Capitalization ($M USD)
 - Diluted Shares Outstanding (Millions)
 - Trailing 12-Month Revenue ($M USD)
-- Latest Reported Quarter Revenue ($M USD)
+- Latest Reported Quarter Revenue ($M USD) [SINGLE 3-month quarter only; divide 6-month H1/H2 by 2.0 if semi-annual reporter]
 - Latest Quarter Gross Margin (%)
 - Exact Latest Primary Unit Volume (e.g. "Active merchant volume and platform transaction density", or "Active buyers / payers")
 - Exact Latest Unit Monetization (e.g. "Online marketing services & transaction take-rate yield")
-- Trailing Operating Cash Flow (OCF) ($M USD) [CRITICAL: Extract from Consolidated Statement of Cash Flows 'Net cash provided by operating activities', NEVER confuse with GAAP Net Income!]
+- Trailing Operating Cash Flow (OCF) ($M USD) [CRITICAL: Extract from Consolidated Statement of Cash Flows 'Net cash provided by operating activities' (after cash interest paid for IFRS filers), NEVER confuse with GAAP Net Income!]
 - Trailing Net Income ($M USD)
 - Trailing Depreciation & Amortization ($M USD)
-- Trailing Capital Expenditures ($M USD)
+- Trailing Capital Expenditures ($M USD) [Include both PP&E CapEx AND capitalized development/R&D intangibles for IFRS filers]
 - Trailing Stock-Based Compensation ($M USD)
 - Trailing One-Off Non-Cash Impairment Write-Offs / Restructuring Charges ($M USD) (e.g. goodwill write-downs, asset impairments)
 - Liquid Cash & Short-Term Investments ($M USD)
@@ -2753,13 +2768,13 @@ Return ONLY a valid JSON object matching this schema:
 
     sec_edgar_facts = fetch_sec_edgar_summary(ticker)
     fin_search_prompt = (
-        f"Search Google for the latest reported 10-K, 20-F, 10-Q, and quarterly earnings release financial figures for "
+        f"Search Google for the latest reported 10-K, 20-F, 10-Q, and quarterly/interim earnings release financial figures for "
         f"{ticker} ({company_name}) trading at ${current_price:.2f} USD (up to {today_str}). "
         f"Report all figures converted to MILLIONS USD (and ADR/ADS-equivalent post-split diluted shares matching the ${current_price:.2f} share price):\n"
         f"- Market Capitalization ($M USD) and Diluted Shares Outstanding (Millions)\n"
-        f"- Trailing 12-Month (TTM) Revenue ($M USD, sum of latest 4 quarters) and YoY Revenue Growth %\n"
-        f"- Latest Reported Quarter Revenue ($M USD) and Latest Quarter Gross Margin %\n"
-        f"- Trailing 12-Month Operating Cash Flow (OCF), Net Income, D&A, Capital Expenditures (CapEx), Stock-Based Compensation (SBC), and One-Off Impairments ($M USD)\n"
+        f"- Trailing 12-Month (TTM) Revenue ($M USD, sum of latest 4 quarters / 2 halves) and YoY Revenue Growth %\n"
+        f"- Latest Single 3-Month Quarter Revenue ($M USD; if semi-annual H1/H2 reporter without standalone Q2/Q3/Q4, divide 6M revenue by 2.0) and Latest Gross Margin %\n"
+        f"- Trailing 12-Month Operating Cash Flow (OCF, post-cash-interest for IFRS filers), Net Income, D&A, Total Capital Expenditures (PP&E + capitalized R&D/intangibles for IFRS filers), Stock-Based Compensation (SBC), and One-Off Impairments ($M USD)\n"
         f"- Latest Balance Sheet Cash & Short-Term Investments, Total Debt, and Total Stockholders' Equity ($M USD)\n"
         f"List each exact figure clearly with its period and filing source."
     )
@@ -2795,7 +2810,7 @@ Return ONLY a valid JSON object matching this schema:
                 audit_data[k] = v
         input_issues = validate_financial_inputs(audit_data, current_price)
         if not input_issues:
-            recon = "\n---\n".join(all_fin_search_facts)
+            recon = "\n---\n".join(all_fin_search_facts) if extract_attempt > 1 else ""
             input_issues = cross_check_financials(ticker, company_name, current_price, audit_data, reconciliation_notes=recon)
         if not input_issues:
             break
@@ -2808,6 +2823,10 @@ Return ONLY a valid JSON object matching this schema:
     lq_gm = float(audit_data.get("latest_quarter_gross_margin_pct") or 0.0)
     unit_desc = str(audit_data.get("latest_primary_units_description") or "").strip()
     monet_desc = str(audit_data.get("latest_unit_monetization_description") or "").strip()
+    rev_growth = float(audit_data.get("revenue_growth_pct") or 0.0)
+    if ttm_rev > 0 and lq_rev > 0.42 * ttm_rev and rev_growth < 60.0:
+        print(f"  ⚠️ [Semi-Annual Guard] latest_quarter_revenue_mil (${lq_rev:,.1f}M) is {lq_rev / ttm_rev * 100:.0f}% of TTM (${ttm_rev:,.1f}M); normalizing 6M interim to 3M quarter (${lq_rev / 2.0:,.1f}M).", flush=True)
+        lq_rev = round(lq_rev / 2.0, 1)
     annualized_runrate = lq_rev * 4.0 if lq_rev > 0 else ttm_rev
 
     # ---------------------------------------------------------
@@ -2828,7 +2847,6 @@ Return ONLY a valid JSON object matching this schema:
     debt = float(audit_data["debt_mil"])
     equity = float(audit_data["equity_mil"])
     moat = audit_data.get("economic_moat") or "Narrow Moat"
-    rev_growth = float(audit_data.get("revenue_growth_pct") or 0.0)
 
     # True Maintenance CapEx Anchor (empirically bounded by D&A for asset-light software/digital platforms):
     maint_capex = min(capex, dna * 1.05) if dna > 0 else min(capex, max(5.0, ttm_rev * 0.03))
@@ -2856,6 +2874,14 @@ Return ONLY a valid JSON object matching this schema:
         print(f"  ⚠️ [OE Guard] OCF-based OE ${oe_total:,.0f}M >> income-based OE ${oe_from_ni_norm:,.0f}M; using conservative income-based OE.", flush=True)
         oe_total = oe_from_ni_norm
         oe_basis = "Net Income + D&A - Maintenance CapEx - SBC (OCF inflated by working capital / deposits)"
+
+    # IFRS / Cash-Burning Unprofitable Issuer Guard (lesson from AML):
+    # If normalized Net Income is negative, full CapEx (including capitalized R&D) cannot be waved away as discretionary growth CapEx.
+    reported_fcf = ocf - capex - sbc
+    if (net_income + abs(one_offs)) < 0 and oe_total > reported_fcf:
+        print(f"  ⚠️ [Cash-Burn / IFRS CapEx Guard] Unprofitable issuer (norm NI < 0); clamping OE from ${oe_total:,.1f}M to post-CapEx FCF ${reported_fcf:,.1f}M.", flush=True)
+        oe_total = reported_fcf
+        oe_basis = "OCF - Total CapEx - SBC (Unprofitable Issuer Full-CapEx Clamp)"
         
     oe_per_share = oe_total / shares if shares > 0 else 0.0
     
@@ -2970,11 +2996,14 @@ Your goal is to write a rigorous, sober, deeply grounded 4-section investment th
 
 Provide EXACTLY 4 sections in simple, elegant, plain English.
 
-EDITORIAL FORMATTING & PRESENTATION MANDATE:
+EDITORIAL FORMATTING, GLOBAL CURRENCY & UNIT CONSISTENCY MANDATE:
 - In narrative sections ("market_pricing_in" and "how_things_are_going_now"), break commentary into 2 to 3 concise, digestible editorial paragraphs separated by double newlines (\n\n). Never write a single giant monolithic wall of text.
 - In quantitative math sections ("why_it_might_be_right" and "what_if_it_keeps_going_that_way"), you MUST format each numbered step on its own separate line preceded by double newlines (e.g. \n\n1. Starting Unit Baseline: ... \n\n2. Next Step: ...). Never write numbered steps inline in a single run-on paragraph.
 - In Section 4, format each of the 6 numbered steps cleanly with its bold title and calculation on its own separate block.
 - Do NOT use raw monospace terminal code blocks, and do NOT use emojis.
+- FOREIGN CURRENCY & ADR/ADS CONSISTENCY RULE: Express all financial figures in USD ($). Whenever you cite any statutory local-currency figure (EUR/€, GBP/£/p, RMB/CNY, BRL/R$, DKK, CAD, KZT, TRY, JPY, CHF), you MUST immediately append the accurate USD equivalent in parentheses, e.g. "€800M (~$896M USD)" or "(-$45M USD)" (NEVER write "$(45M)"). For ADRs/ADSs (e.g. LVMUY 5:1, GSK 1:2, BABA 1:8, TSM 1:5, JD 1:2, PDD 1:4, EDU 1:10), all per-share dividends, cash, and valuations MUST be stated per ADR/ADS in USD matching the ${current_price:.2f} share price (never quote local ordinary-share dividends without converting to per-ADR USD).
+- UNIT PERIODICITY & ARITHMETIC CHECK: Never confuse a single quarter's shipments/TPV with full-year annual shipments/TPV, and never multiply a quarterly metric by 4 twice. Verify that Volume Units × Unit Price/Yield reconciles cleanly to annual revenue (${annualized_runrate:,.1f}M) on the exact same annual basis.
+- EMERGING-MARKET FX & SOVEREIGN RISK MULTIPLE CAP: If the business earns its primary cash flows in a high-interest-rate / depreciating emerging-market currency (e.g. KZT, TRY, BRL, ARS, NGN, EGP, ZAR where local policy rates >= 10%), cap the Year-3 Exit Multiple at <= 12.5x P/OE regardless of nominal local-currency ROIC or growth to reflect structural FX devaluation risk.
 
 1. "market_pricing_in" (The Market Skepticism & Disconnect Story):
    - In simple, plain English, explain the exact skeptical narrative, recent breaking news / price-action catalysts, and operational headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price ({p_oe:.1f}x P/OE, {ev_oe:.1f}x EV/OE).
@@ -3088,6 +3117,10 @@ Act as a skeptical, conservative peer reviewer:
 - Strip out any unearned optimism, corporate spin, or turnaround fantasies.
 - AUDIT AGAINST 3-4 CONSECUTIVE QUARTERS: Verify that Section 3 ("How Things Are Going Now") and Section 4 ("What If It Keeps Going That Way") directly reflect the sequential trend of the LATEST 3-4 CONSECUTIVE QUARTERLY RELEASES and call transcripts (tracking revenue progression, gross/operating margin evolution, volume units ({unit_desc}), and capital allocation). Force-reject any outdated or stale figures.
 - STRICT BAN ON LAZY TOP-DOWN CAGRS: Check Section 4. If it contains generic hand-waving like "assuming a steady 10% CAGR" or "assuming top-line growth slows to X%", REJECT and replace it with explicit bottom-up multiplication across the 3-Year Visible Runway: Volume Units × Unit Yield ➔ Revenue − Cash Expenses ➔ Total Owner Earnings.
+- FOREIGN CURRENCY, ADR RATIO, UNIT PERIODICITY & EM MULTIPLE AUDIT:
+  1. Ensure EVERY local-currency figure (€, £, p, RMB, BRL/R$, DKK, CAD, KZT, TRY, JPY, CHF) includes an accurate (~$X USD) parenthetical (using -$X, NEVER $(X)), and all ADR/ADS per-share dividends/cash match the ${current_price:.2f} ADR/ADS basis.
+  2. Verify quarterly unit shipments/TPV are NEVER mistaken for annual shipments/TPV or annualized twice, and Volume Units × Unit Yield reconciles to annual revenue (${annualized_runrate:,.1f}M).
+  3. If cash flows are earned primarily in high-rate emerging-market currencies (KZT, TRY, BRL, ARS, ZAR, etc.), enforce a strict Year-3 Exit Multiple cap of <= 12.5x P/OE.
 - AUDIT BALANCE SHEET CASH BRIDGE: Ensure Section 4 contains an explicit 3-year cash bridge (Starting Net Cash + 3Y FCF - Buybacks - CapEx = Ending Net Cash). Verify that if Starting Net Cash is negative (${net_cash_total:+,.0f}M < $0), exactly $0.00 is allocated to share buybacks.
 - ENFORCE GROUNDED VALUATION TARGET: Output a single definitive Intrinsic Fair Value Target ("fair_value_target") based on disciplined continuation of "How Things Are Going Now" capitalized strictly using the 2-Factor Matrix ({moat} × g₃).
 - ENFORCE REVERSE OPERATING LEVERAGE: If revenue/units contract, ensure Owner Cash Margin compresses realistically; do not allow fantasy high margins during shrinkage.
@@ -3164,7 +3197,7 @@ Respond STRICTLY in valid JSON matching this schema:
 
 
 MAX_FULL_RUNS = 3
-MAX_REPAIR_PASSES = 2
+MAX_REPAIR_PASSES = 3
 
 
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
@@ -3232,6 +3265,14 @@ def _assemble_thesis(ticker_clean: str, company_name: str, current_price: float,
     owner_yield = info.get("owner_yield_pct", 0.0)
     owner_roic = info.get("owner_roic_pct", 0.0)
     net_cash_sh = info.get("net_cash_per_share", 0.0)
+
+    for _sec_key in ("market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way"):
+        if isinstance(info.get(_sec_key), str):
+            info[_sec_key] = re.sub(
+                r"(:\s*)(?:State exact starting|State starting|Start with exact)\s+",
+                lambda m: m.group(1) + "Starting ",
+                info[_sec_key],
+            )
 
     p1_html = markdown_to_memo_html(info.get("market_pricing_in", ""))
     p2_html = markdown_to_memo_html(info.get("why_it_might_be_right", ""))
@@ -3366,7 +3407,28 @@ def review_stock_thesis(
     )
     metadata["what_was_before"] = previous_thesis_summary
     metadata["what_changes_now"] = metadata.get("executive_summary") or f"Thesis re-evaluated following: {trigger_reason}"
-    metadata["alert_title"] = f"{ticker.upper()}: Valuation Re-evaluated ({metadata.get('status_label', 'Active')})"
+
+    t_up = ticker.upper()
+    action_sig = metadata.get("action_signal", "HOLD")
+    fv_est = metadata.get("fair_value_estimate", f"${current_price:.2f}")
+    tr_low = (trigger_reason or "").lower()
+    pct_match = re.search(r"([+-]?\d+\.\d+%)", trigger_reason or "")
+    pct_str = pct_match.group(1) if pct_match else ""
+    if "lower alert threshold" in tr_low:
+        a_title = f"📉 {t_up}: Lower Corridor Breached (${current_price:.2f}) — Re-Underwritten {action_sig} (FV {fv_est})"
+    elif "upper alert threshold" in tr_low:
+        a_title = f"📈 {t_up}: Upper Corridor Breached (${current_price:.2f}) — Re-Underwritten {action_sig} (FV {fv_est})"
+    elif "material price drop" in tr_low:
+        a_title = f"📉 {t_up}: Drawdown ({pct_str or f'${current_price:.2f}'}) — Re-Underwritten {action_sig} (FV {fv_est})"
+    elif "material price surge" in tr_low:
+        a_title = f"📈 {t_up}: Breakout ({pct_str or f'${current_price:.2f}'}) — Re-Underwritten {action_sig} (FV {fv_est})"
+    elif "sec " in tr_low:
+        a_title = f"🏛️ {t_up}: SEC Filing Review — {action_sig} (FV {fv_est})"
+    elif "catalyst" in tr_low or "earnings" in tr_low:
+        a_title = f"📊 {t_up}: Earnings & Catalyst Review — {action_sig} (FV {fv_est})"
+    else:
+        a_title = f"🔄 {t_up}: Thesis Re-Underwritten — {action_sig} (FV {fv_est})"
+    metadata["alert_title"] = a_title
     return metadata, full_html
 
 # ==============================================================================

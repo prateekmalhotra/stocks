@@ -21,6 +21,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "reddit-scanner"
+  cancel-in-progress: false
+
 env:
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
   NODE_TLS_REJECT_UNAUTHORIZED: "0"
@@ -30,6 +34,7 @@ env:
 jobs:
   reddit_scanner:
     runs-on: ubuntu-latest
+    timeout-minutes: 55
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -69,6 +74,7 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: |
           poetry run python -m stocks.quality_gatekeeper
+          poetry run python scripts/qa_audit_all.py
 
       - name: Commit and Push New Stock Coverage Dossiers
         run: |
@@ -79,9 +85,18 @@ jobs:
             echo "No new stock dossiers to commit."
           else
             git commit -m "Auto-ingest: Friday r/ValueInvesting trending stock additions [skip ci]"
+            pushed=0
             for i in 1 2 3 4 5; do
-              git pull --rebase -X theirs origin main && git push origin main && break || sleep 3
+              if git pull --rebase --autostash -X theirs origin main && git push origin main; then
+                pushed=1
+                break
+              fi
+              sleep 4
             done
+            if [ "$pushed" -ne 1 ]; then
+              echo "ERROR: Failed to push Reddit scanner updates after 5 attempts."
+              exit 1
+            fi
           fi
 
       - name: Setup GitHub Pages

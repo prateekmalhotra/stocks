@@ -153,16 +153,24 @@ def validate_financial_inputs(audit: Dict[str, Any], price: float) -> List[str]:
         )
     if rev == 0 and mcap > 20000:
         issues.append("Revenue reported as $0 for a >$20B company — almost certainly an extraction error.")
+    lq = _num(audit.get("latest_quarter_revenue_mil"))
+    rev_g = _num(audit.get("revenue_growth_pct")) or 0.0
     if rev > 0:
-        if ocf > rev * 3.0:
-            issues.append(f"OCF (${ocf:,.0f}M) exceeds 300% of revenue (${rev:,.0f}M) — units/currency likely wrong.")
+        ocf_cap_mult = 5.0 if rev_g >= 80.0 else 3.0
+        if ocf > rev * ocf_cap_mult:
+            issues.append(f"OCF (${ocf:,.0f}M) exceeds {int(ocf_cap_mult * 100)}% of revenue (${rev:,.0f}M) — units/currency likely wrong.")
         if rev >= 300 and sbc > rev * 0.6:
             issues.append(f"SBC (${sbc:,.0f}M) exceeds 60% of revenue — units likely wrong.")
-    lq = _num(audit.get("latest_quarter_revenue_mil"))
     if lq and rev > 0 and not (0.10 * rev <= lq <= 1.02 * rev):
         issues.append(
             f"Latest quarter revenue (${lq:,.0f}M) is inconsistent with TTM revenue (${rev:,.0f}M); "
             f"a single quarter cannot exceed TTM or be under 10% of it."
+        )
+    elif lq and rev > 0 and lq > 0.42 * rev and rev_g < 60.0:
+        issues.append(
+            f"latest_quarter_revenue_mil (${lq:,.0f}M) is {lq / rev * 100:.0f}% of TTM revenue (${rev:,.0f}M) "
+            f"despite YoY growth of {rev_g:+.1f}% (<60%) — this looks like a 6-month semi-annual (H1/H2) or 9M figure! "
+            f"Report a SINGLE 3-month quarter (divide the 6-month H1/H2 figure by 2.0 if standalone quarterly revenue is not disclosed)."
         )
     return issues
 
@@ -291,22 +299,23 @@ def cross_check_financials(ticker: str, company: str, price: float, audit: Dict[
         f"5. Total Short-Term & Long-Term Debt ($M USD)\n"
         f"List each figure clearly with its filing source."
     )
-    check: Dict[str, Any] = _CROSS_CHECK_JSON_CACHE.get(t_key) or {}
+    check: Dict[str, Any] = ({} if reconciliation_notes else _CROSS_CHECK_JSON_CACHE.get(t_key)) or {}
     if not check:
         for _attempt in range(2):
             try:
                 if t_key not in _CROSS_CHECK_SEARCH_CACHE or _attempt > 0:
                     _CROSS_CHECK_SEARCH_CACHE[t_key] = call_gemini_direct(prompt=search_prompt, use_search=True)
                 raw_search = _CROSS_CHECK_SEARCH_CACHE[t_key]
-                recon_block = f"\n\nADDITIONAL FILING EVIDENCE:\n{reconciliation_notes}\n" if reconciliation_notes else ""
+                recon_block = f"\n\nADDITIONAL FILING EVIDENCE & SCOPE RECONCILIATION:\n{reconciliation_notes}\n" if reconciliation_notes else ""
                 fmt_prompt = (
                     f"From the authoritative SEC EDGAR XBRL facts and independent search findings below for {ticker} ({company}) "
                     f"at ${price:.2f} USD (market cap ~${(audit.get('market_cap_mil') or 0):,.0f}M), "
                     f"extract the 5 statutory figures in MILLIONS USD:\n"
-                    f"- Convert any foreign currency (DKK, EUR, GBP, BRL, RMB, JPY, CAD, ISK) to USD at spot FX.\n"
-                    f"- Share count must match the ${price:.2f} USD price basis.\n"
+                    f"- Convert any foreign currency (DKK, EUR, GBP, BRL, RMB, KZT, JPY, CAD, ISK) to USD at spot FX.\n"
+                    f"- Share count must match the ${price:.2f} USD price basis (ADR/ADS-adjusted if applicable).\n"
                     f"- For 20-F / foreign filers, SEC XBRL only contains annual 20-F entries and omits recent 2026 6-K quarters; "
-                    f"always use the MOST RECENT 2026 TTM (sum of latest 4 quarters) and latest balance sheet figures from the search findings.\n\n"
+                    f"always use the MOST RECENT 2026 TTM (sum of latest 4 quarters, or H1 + prior H2 for semi-annual reporters) and latest balance sheet figures from the search findings.\n"
+                    f"- For fintech/payments/banking issuers (e.g. STNE, KLAR, SOFI, KSPI) or IFRS 16 reporters, distinguish corporate financial cash & debt from non-recourse FIDC/securitized receivables funding, customer deposits, or merchant settlement payables; if ADDITIONAL FILING EVIDENCE clarifies the statutory corporate scope, align cash_mil and debt_mil to that same corporate financial scope.\n\n"
                     f"{sec_summary}\n\n{raw_search}{recon_block}\n\n"
                     f'Return ONLY valid JSON:\n```json\n{{"trailing_revenue_ttm_mil": float, "diluted_shares_mil": float, '
                     f'"operating_cash_flow_ttm_mil": float, "cash_mil": float, "debt_mil": float}}\n```'
@@ -343,7 +352,7 @@ def cross_check_financials(ticker: str, company: str, price: float, audit: Dict[
     if _num(check.get("cash_mil")) is not None and _num(check.get("debt_mil")) is not None:
         compared += 1
         b_nc = _num(check["cash_mil"]) - _num(check["debt_mil"])
-        scale = max(abs(a_nc), abs(b_nc), (_num(audit.get("market_cap_mil")) or 0) * 0.05, 50.0)
+        scale = max(abs(a_nc), abs(b_nc), (_num(audit.get("market_cap_mil")) or 0) * 0.15, 100.0)
         if abs(a_nc - b_nc) > 0.35 * scale:
             issues.append(
                 f"Independent cross-check disagrees on net cash: primary={a_nc:,.0f}M vs check={b_nc:,.0f}M."
@@ -516,6 +525,16 @@ def validate_thesis_output(info: Dict[str, Any], price: float) -> List[str]:
             issues.append("Section 4 step 6 lacks an explicit 'Year 3 OE $A/sh × Mx' calculation.")
         else:
             signed = money_values(step6, per_share_only=True)
+            # Also recognize subtracted / net-debt phrasing where '-' or 'less'/'minus'/'net debt' precedes words before '$X'
+            for m_neg in re.finditer(
+                r"(?:[-−]\s*(?:ending\s+)?[^$\n]{0,35}|\b(?:minus|less|deduct(?:ing)?|net\s+debt(?:\s+of)?)\s+[^$\n]{0,30})"
+                r"\$\s?(\d{1,3}(?:,\d{3})*(?:\.\d+)?)(?!\s*(?:billion|million|trillion|[BMKT](?![a-z])))",
+                step6,
+                re.IGNORECASE,
+            ):
+                neg_v = -float(m_neg.group(1).replace(",", ""))
+                if neg_v not in signed:
+                    signed.append(neg_v)
             nc0 = _num(info.get("net_cash_per_share")) or 0.0
             step5_ps = money_values(steps4.get(5, ""), per_share_only=True)
             candidates = []
@@ -597,7 +616,10 @@ def repair_thesis_sections(ticker: str, company: str, price: float, info: Dict[s
     ]}
     prompt = f"""You wrote the investment thesis JSON below for {ticker} ({company}) at ${price:.2f}.
 A deterministic QA gate rejected it. Fix EVERY listed defect. Keep all analysis, facts, and verified figures;
-change only what is necessary. Recompute any downstream numbers so every equation is arithmetically exact.
+change only what is necessary. Recompute ALL downstream numbers so every equation is arithmetically exact:
+- NEVER write '$-X' or '$(X)'; always write '-$X' (minus sign BEFORE the dollar sign, e.g. '-$4.83/sh').
+- In `what_if_it_keeps_going_that_way` Step 5, explicitly state Ending Year 3 Net Cash (or Net Debt) in BOTH total $M AND per-share '-$C/sh' or '+$C/sh' inside the plausible reachability range from verified starting net cash.
+- In `what_if_it_keeps_going_that_way` Step 6, write the exact equation `Year 3 OE $A/sh × Mx = $B/sh` followed by `$B/sh + $C/sh = $FV` (or `$B/sh + -$C/sh = $FV` for net debt) using the EXACT same per-share ending net cash/debt from Step 5, and ensure `fair_value_target` == `$FV` and `irr_3y_pct` == `round(((FV / {price:.2f}) ** (1/3) - 1) * 100, 1)` in BOTH the JSON fields AND Step 6 prose!
 
 {info.get('numeric_contract', '')}
 

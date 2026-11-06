@@ -19,7 +19,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: "add-stock"
   cancel-in-progress: false
 
 env:
@@ -32,6 +32,7 @@ env:
 jobs:
   add_coverage_and_deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -67,6 +68,7 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: |
           poetry run python -m stocks.quality_gatekeeper --tickers "${{ github.event.inputs.ticker }}" --heal
+          poetry run python scripts/qa_audit_all.py
 
       - name: Commit and Push Changes to Main
         run: |
@@ -77,9 +79,18 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "Initiate coverage for ${{ github.event.inputs.ticker }} via GitHub Actions [skip ci]"
+            pushed=0
             for i in 1 2 3 4 5; do
-              git pull --rebase -X theirs origin main && git push origin main && break || sleep 3
+              if git pull --rebase --autostash -X theirs origin main && git push origin main; then
+                pushed=1
+                break
+              fi
+              sleep 4
             done
+            if [ "$pushed" -ne 1 ]; then
+              echo "ERROR: Failed to push new stock coverage after 5 attempts."
+              exit 1
+            fi
           fi
 
       - name: Setup GitHub Pages

@@ -43,7 +43,7 @@ def cmd_add(tickers: List[str], notes: str = "", force: bool = False):
 
     if enqueued:
         print(f"\n⚡ Processing {len(enqueued)} enqueued stock(s): {', '.join(enqueued)}...")
-        process_all_pending_tasks()
+        process_all_pending_tasks(max_tasks=max(25, len(enqueued)), max_runtime_seconds=3300)
         render_all()
 
 
@@ -92,7 +92,7 @@ def cmd_review(tickers: List[str], reason: str = "Manual On-Demand Review"):
 
     if parsed_tickers:
         print(f"\n⚡ Processing review task(s)...")
-        process_all_pending_tasks()
+        process_all_pending_tasks(max_tasks=max(25, len(parsed_tickers)), max_runtime_seconds=3300)
         render_all()
 
 

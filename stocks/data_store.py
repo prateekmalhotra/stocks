@@ -128,19 +128,41 @@ def load_alerts() -> List[AlertItem]:
         return []
 
 
+def _alert_category(a: AlertItem) -> str:
+    txt = f"{a.title} {a.trigger_reason}".lower()
+    if "quad-ma" in txt or "moving average" in txt:
+        return "MA_REVERSAL"
+    if "beat & retrace" in txt or "pop eroded" in txt:
+        return "BEAT_RETRACE"
+    if "sec " in txt and "price" not in txt and "corridor" not in txt:
+        return "SEC_FILING"
+    return "PRICE_AND_THESIS"
+
+
 def save_alerts(alerts: List[AlertItem]):
     _ensure_dirs()
-    with open(ALERTS_FILE, "w", encoding="utf-8") as f:
-        json.dump([a.model_dump() for a in alerts[:200]], f, indent=2)
+    with _WRITE_LOCK:
+        _atomic_write_json(ALERTS_FILE, [a.model_dump() for a in alerts[:250]])
 
 
 def add_alert(alert: AlertItem):
     _ensure_dirs()
-    alerts = load_alerts()
-    # Deduplicate: remove older alerts for the same ticker if emitted on the same date or identical event
-    deduped = [a for a in alerts if not (a.ticker == alert.ticker and (a.timestamp[:10] == alert.timestamp[:10] or a.trigger_reason == alert.trigger_reason))]
-    deduped.insert(0, alert)  # Newest first
-    save_alerts(deduped)
+    with _WRITE_LOCK:
+        alerts = load_alerts()
+        new_cat = _alert_category(alert)
+        # Deduplicate only identical trigger events or same-day alerts within the SAME category for the ticker
+        deduped = [
+            a for a in alerts
+            if not (
+                a.ticker == alert.ticker
+                and (
+                    a.trigger_reason == alert.trigger_reason
+                    or (a.timestamp[:10] == alert.timestamp[:10] and _alert_category(a) == new_cat)
+                )
+            )
+        ]
+        deduped.insert(0, alert)  # Newest first
+        save_alerts(deduped)
 
 
 # ==================== THESIS HISTORY ====================
@@ -276,17 +298,23 @@ def load_queue() -> List[TaskItem]:
 
 def save_queue(queue: List[TaskItem]):
     _ensure_dirs()
-    with open(QUEUE_FILE, "w", encoding="utf-8") as f:
-        json.dump([t.model_dump() for t in queue], f, indent=2)
+    with _WRITE_LOCK:
+        _atomic_write_json(QUEUE_FILE, [t.model_dump() for t in queue])
 
 
 def enqueue_task(task: TaskItem):
-    queue = load_queue()
-    for existing in queue:
-        if existing.status == "PENDING" and existing.ticker == task.ticker and existing.task_type == task.task_type:
-            return
-    queue.append(task)
-    save_queue(queue)
+    with _WRITE_LOCK:
+        queue = load_queue()
+        for existing in queue:
+            if existing.status == "PENDING" and existing.ticker == task.ticker and existing.task_type == task.task_type:
+                if task.notes:
+                    existing.notes = task.notes
+                if getattr(task, "payload", None):
+                    existing.payload = task.payload
+                save_queue(queue)
+                return
+        queue.append(task)
+        save_queue(queue)
 
 
 def pop_next_pending_task() -> Optional[TaskItem]:

@@ -1,5 +1,1442 @@
 [
   {
+    "id": "alert-stx-1793929620",
+    "ticker": "STX",
+    "timestamp": "2026-11-05 17:47",
+    "title": "\ud83d\udcc9 STX: Lower Corridor Breached ($466.53) \u2014 Re-Underwritten AVOID (FV $265.50)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Lower Alert Threshold Breached ($466.53 <= $612.02; -31.4% vs v5 $680.02)",
+    "what_was_before": "Operationally, across fiscal 2025 and into fiscal 2026 results, Seagate is performing at the crest of an artificial intelligence infrastructure demand wave. In recent 2025/2026 quarterly results, revenue reached $3,629.0M, representing an annualized revenue run-rate of $14,516.0M, driven by 48.5% year-over-year revenue expansion. Gross margins reached 52.3%, up dramatically from cyclical trough levels below 20%, as high incremental margins on Mozaic 3+ Heat-Assisted Magnetic Recording (HAMR) platform shipments flowed directly to the bottom line.\n\nExabyte delivery metrics reported across fiscal 2025 and early fiscal 2026 reflect tight nearline enterprise allocations, with 218 Exabytes (EB) total shipped (195 EB mass capacity nearline/data center) in the latest quarter. Blended pricing realization reached $16.65 per Terabyte, underscoring cyclical pricing power while cloud service provider capacity remains fully committed under build-to-order contracts extending through calendar 2027.\n\nRobust cash flow generation throughout 2025 and 2026 has enabled management to accelerate balance sheet repairs, retiring $1.4B in gross debt over the past four quarters and redeeming the 2028 exchangeable senior notes. However, net balance sheet obligations remain at -$1,861M, or -$8.13 per share. While current 2025/2026 operational execution is pristine, the company faces elevated technology conversion CapEx to qualify 40TB+ and 50TB+ architectures while insiders continue heavy distribution.",
+    "what_changes_now": "Seagate is performing exceptionally well on an operational basis, as evidenced by its blowout fiscal Q1 2027 financial results reported in late October 2026. Revenue surged 61 percent year-over-year to $4.23 billion, pushing the current annualized revenue run-rate to $16,932.0M. This top-line momentum is driven by record exabyte shipments totaling 220 exabytes, with nearline capacity shipments reaching an unprecedented 198 exabytes propelled by the rapid commercial customer ramp of Mozaic 4 (HAMR) platforms.\n\nOperating leverage has reached historic highs across the sequential quarters leading up to Q1 FY27, with non-GAAP gross margins expanding to 57.8 percent and operating margins climbing to 50.7 percent. This superior unit monetization has translated into record cash generation, including $1.69 billion in operating cash flow and $1.50 billion in free cash flow in the latest quarter alone. Management has aggressively utilized this cash windfall to de-lever the balance sheet, reducing gross debt down to $2.35 billion while returning capital via dividends.",
+    "price_at_alert": 466.53,
+    "price_change_pct": -31.39,
+    "report_url": "reports/STX.html"
+  },
+  {
+    "id": "alert-now-1793929467",
+    "ticker": "NOW",
+    "timestamp": "2026-11-05 17:44",
+    "title": "\ud83d\udcc9 NOW: Lower Corridor Breached ($102.36) \u2014 Re-Underwritten BUY (FV $166.27)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Lower Alert Threshold Breached ($102.36 <= $137.69; -33.1% vs v3 $152.99)",
+    "what_was_before": "Operationally, ServiceNow continues to execute at an impressive enterprise scale, generating trailing 12-month revenue of $14,732.0M and reaching an annualized quarterly revenue run-rate of $15,948.0M based on $3,987.0M in latest-quarter revenue. The business is powered by mission-critical digital workflow seat deployments across a sticky enterprise base, with customers generating greater than $5M in annual contract value growing 22% year-over-year to 665 accounts, and $1M-plus ACV accounts expanding to 2,533. Gross renewal rates remain solid at 98.0%, demonstrating the immense friction of displacing ServiceNow's core Configuration Management Database and IT service workflows.\n\nHowever, a forensic examination of the last four consecutive quarters reveals clear margin and contract quality strain. The latest quarter GAAP gross margin settled at 70.7%, while non-GAAP subscription gross margin contracted 250 basis points year-over-year from 83.0% in Q3 2025 to 80.5% in Q2 2026. This margin erosion is driven by the compute overhead of real-time Now Assist generative AI inference on public hyperscalers and the margin-dilutive integration of Armis. Furthermore, management disclosed during earnings Q&A that approximately half of the Q2 revenue outperformance was driven by timing shifts from U.S. Federal on-premise deployments pulled forward from Q3, while the Armis acquisition introduces termination-for-convenience clauses that soften backlog visibility.\n\nCapital allocation reflects massive cash commitments to defensive M&A and employee retention rather than direct shareholder returns. Over the past four quarters, ServiceNow deployed $7.75 billion for Armis and $2.85 billion for Moveworks, shifting the balance sheet from net cash to a net debt position of -$2,871M (-$2.78 per share). While the company repurchased roughly $1.36B of shares over the trailing twelve months, diluted shares ticked up 0.57% to 1,034.0M, confirming that cash buybacks merely neutralize ongoing equity dilution from the $2,230.0M in annual stock-based compensation.",
+    "what_changes_now": "A chronological evaluation of ServiceNow's operating trajectory across the last four reported quarters reveals robust top-line momentum tempered by acquisition-related integration charges and margin dilution. Subscription revenues across Q4 2025, Q1 2026, Q2 2026, and Q3 2026 have continued to expand at a healthy ~20.5% to 24.5% year-over-year rate, with total annual revenue running at a robust $16,424.0M run-rate backed by diluted shares of 1,038.0M. Enterprise customer adoption of the Now Platform and early agentic AI monetization remain fundamentally active, underscored by full-year AI Annual Contract Value (ACV) targets scaling and stellar renewal rates hovering near 98%.\n\nHowever, recent quarterly results highlighted notable operational friction, including GAAP operating margin compression due to Armis integration costs and professional services delivery bundling. While underlying volume units and remaining performance obligations (cRPO reaching $13.65 billion) demonstrate that the core enterprise workflow engine remains deeply entrenched as an indispensable system of action, the heavy reliance on stock-based compensation ($1,450.0M) and optical margin headwinds have weighed heavily on near-term free cash flow conversion. Management's strategic pivot toward bundling implementation expertise is successfully driving customer time-to-value, even if it creates transitory accounting friction.",
+    "price_at_alert": 102.36,
+    "price_change_pct": -33.09,
+    "report_url": "reports/NOW.html"
+  },
+  {
+    "id": "alert-amrq-1793929344",
+    "ticker": "AMRQ",
+    "timestamp": "2026-11-05 17:42",
+    "title": "\ud83d\udd04 AMRQ: Thesis Re-Underwritten \u2014 HOLD (FV $1.60)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "International Corporate Wire (Mon, 02 Nov 2026 07:00:00 +0000): Maarmorilik Project Development Strategy and High-Grade Results from 2026 Exploration Programme",
+    "what_was_before": "Amaroq has completed an operational inflection over the past four quarters, transitioning from a pre-revenue exploration vehicle into an active gold producer. Quarterly revenue progressed sequentially from $12.8M in Q3 2025 (2,636 ounces sold) to $10.7M in Q4 2025 (1,949 ounces sold), $18.9M in Q1 2026 (2,970 ounces sold), and reached $37.3M in Q2 2026 from 5,640 ounces sold. This yields a real-time annualized revenue run-rate of $149.2M, propelled by exceptional mined grades averaging approximately 20 g/t at Nalunaq and realized gold prices reaching $4,678 per ounce in the latest quarter.\n\nOperational margins have expanded alongside plant commissioning. Gross profit rose to $25.0M in Q2 2026, delivering an audited gross margin of 67.0%. Cash flow from operations turned positive at $20.4M for the first half of 2026, compared to an operating cash burn of -$13.4M in the prior-year period. Net income for Q2 2026 reached $11.1M, bolstered by operational ramp-up of the Phase 2 flotation circuit aimed at achieving 90% to 95% plant recoveries.\n\nCapital allocation remains strictly captive to mine development and site engineering. The company closed Q2 2026 with $28.5M in liquid cash against $81.4M in total debt, resulting in a net debt balance of -$53M. Capital assets climbed to $298.5M as management advanced processing equipment and underground development. No capital was distributed via common dividends or share repurchases, reflecting tight reinvestment constraints to deliver on full-year 2026 guidance.",
+    "what_changes_now": "Amaroq Ltd. is currently executing a structural operational pivot, transitioning from a pre-revenue exploration junior into an active commercial producer anchored by the high-grade Nalunaq gold mine in Southern Greenland. Statutory performance demonstrates rapid top-line scaling, with H1 2026 revenue reaching $56.2M (~C$77.5M CAD) backed by 8,610 ounces of gold sold at an average realized price of US$4,696 per ounce. Latest quarterly figures show continuing momentum, highlighted by a Q2 revenue run-rate of $37.3M (~C$51.4M CAD) and strong gross margins hovering at 67.0%, supported by higher-than-expected stope head grades averaging 19.8 to 20 grams per ton and successful commercial commissioning of the Phase 2 flotation circuit which lifted metal recoveries to 90%.\n\nFrom a cash flow and capital allocation standpoint, the business generated $20.4M (~C$28.1M CAD) in operating cash flow during the first half of 2026, marking a pivotal self-funding inflection. The balance sheet remains solid with $29.0M (~C$40.0M CAD) in liquid cash and investments against zero total debt, resulting in a net cash position of +$29.0M (~C$40.0M CAD, +$0.06 per share). Management continues to reinvest operational cash flow into district-scale regional exploration across the Nanortalik Gold Belt and the newly structured Maarmorilik base-metal corridor, while maintaining a disciplined capital allocation stance focused entirely on organic reserve expansion and infrastructure integration rather than equity distributions.",
+    "price_at_alert": 1.37,
+    "price_change_pct": -11.61,
+    "report_url": "reports/AMRQ.html"
+  },
+  {
+    "id": "ma_reversal_WIX_2026_W44",
+    "ticker": "WIX",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: WIX Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($80.52) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $77.06, 21D: $77.27, 50D: $78.02, 200D: $70.51) with +3.2% clearance and +2.5% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $74.70).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 80.52,
+    "price_change_pct": 7.79,
+    "report_url": "reports/WIX.html"
+  },
+  {
+    "id": "ma_reversal_USB_2026_W44",
+    "ticker": "USB",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: USB Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($61.03) has reclaimed 50D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $60.30, 21D: $58.72, 50D: $59.76, 200D: $58.14) with +1.2% clearance and +2.4% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 5D SMA (Previous close: $59.89).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 61.03,
+    "price_change_pct": 1.9,
+    "report_url": "reports/USB.html"
+  },
+  {
+    "id": "ma_reversal_SQ_2026_W44",
+    "ticker": "SQ",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: SQ Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($87.63) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $78.78, 21D: $77.31, 50D: $77.88, 200D: $71.37) with +11.2% clearance and +16.5% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $76.00).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 87.63,
+    "price_change_pct": 15.3,
+    "report_url": "reports/SQ.html"
+  },
+  {
+    "id": "ma_reversal_RACE_2026_W44",
+    "ticker": "RACE",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: RACE Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($432.45) has reclaimed 50D SMA and crossed UP ALL 4 Moving Averages (5D: $409.21, 21D: $396.83, 50D: $402.77, 200D: $370.26) with +5.7% clearance and +9.9% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA (Previous close: $414.77).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 432.45,
+    "price_change_pct": 4.26,
+    "report_url": "reports/RACE.html"
+  },
+  {
+    "id": "ma_reversal_LEN_2026_W44",
+    "ticker": "LEN",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: LEN Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($92.19) has reclaimed 200D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $88.34, 21D: $81.12, 50D: $81.21, 200D: $90.80) with +1.5% clearance and +10.5% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 200D SMA, 5D SMA (Previous close: $86.09).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 92.19,
+    "price_change_pct": 7.09,
+    "report_url": "reports/LEN.html"
+  },
+  {
+    "id": "ma_reversal_JEF_2026_W44",
+    "ticker": "JEF",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: JEF Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($51.17) has reclaimed 200D SMA, 50D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $48.65, 21D: $45.85, 50D: $48.11, 200D: $50.68) with +1.0% clearance and +7.7% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 200D SMA, 50D SMA, 5D SMA (Previous close: $48.56).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 51.17,
+    "price_change_pct": 5.37,
+    "report_url": "reports/JEF.html"
+  },
+  {
+    "id": "ma_reversal_DUOL_2026_W44",
+    "ticker": "DUOL",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: DUOL Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($161.27) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $138.50, 21D: $142.01, 50D: $144.95, 200D: $123.75) with +11.3% clearance and +19.3% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $128.00).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 161.27,
+    "price_change_pct": 25.99,
+    "report_url": "reports/DUOL.html"
+  },
+  {
+    "id": "ma_reversal_DHI_2026_W44",
+    "ticker": "DHI",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: DHI Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($156.99) has reclaimed 200D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $149.54, 21D: $141.91, 50D: $140.95, 200D: $147.51) with +5.0% clearance and +9.8% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 200D SMA, 5D SMA (Previous close: $145.23).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 156.99,
+    "price_change_pct": 8.1,
+    "report_url": "reports/DHI.html"
+  },
+  {
+    "id": "ma_reversal_CPRT_2026_W44",
+    "ticker": "CPRT",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: CPRT Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($32.62) has reclaimed 200D SMA and crossed UP ALL 4 Moving Averages (5D: $31.06, 21D: $28.55, 50D: $29.47, 200D: $32.23) with +1.2% clearance and +12.6% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 200D SMA (Previous close: $31.06).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 32.62,
+    "price_change_pct": 5.02,
+    "report_url": "reports/CPRT.html"
+  },
+  {
+    "id": "ma_reversal_CMG_2026_W44",
+    "ticker": "CMG",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: CMG Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($35.20) has reclaimed 200D SMA, 50D SMA and crossed UP ALL 4 Moving Averages (5D: $32.91, 21D: $30.46, 50D: $32.85, 200D: $33.97) with +3.6% clearance and +22.5% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 200D SMA, 50D SMA (Previous close: $33.26).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 35.2,
+    "price_change_pct": 5.83,
+    "report_url": "reports/CMG.html"
+  },
+  {
+    "id": "ma_reversal_BMY_2026_W44",
+    "ticker": "BMY",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: BMY Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($64.19) has reclaimed 50D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $62.56, 21D: $60.71, 50D: $62.53, 200D: $60.06) with +2.6% clearance and +6.0% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 5D SMA (Previous close: $61.71).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 64.19,
+    "price_change_pct": 4.02,
+    "report_url": "reports/BMY.html"
+  },
+  {
+    "id": "ma_reversal_BEN_2026_W44",
+    "ticker": "BEN",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: BEN Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($33.87) has reclaimed 50D SMA, 21D SMA and crossed UP ALL 4 Moving Averages (5D: $32.44, 21D: $31.67, 50D: $32.66, 200D: $30.35) with +3.7% clearance and +6.7% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA (Previous close: $32.36).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 33.87,
+    "price_change_pct": 4.67,
+    "report_url": "reports/BEN.html"
+  },
+  {
+    "id": "ma_reversal_AMZN_2026_W44",
+    "ticker": "AMZN",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: AMZN Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($266.03) has reclaimed 200D SMA, 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $249.30, 21D: $254.40, 50D: $253.89, 200D: $243.67) with +4.6% clearance and +4.5% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 200D SMA, 50D SMA, 21D SMA, 5D SMA (Previous close: $250.69).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 266.03,
+    "price_change_pct": 6.12,
+    "report_url": "reports/AMZN.html"
+  },
+  {
+    "id": "ma_reversal_ALV_2026_W44",
+    "ticker": "ALV",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: ALV Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($125.68) has reclaimed 200D SMA and crossed UP ALL 4 Moving Averages (5D: $120.45, 21D: $115.88, 50D: $117.06, 200D: $118.17) with +4.3% clearance and +8.8% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 200D SMA (Previous close: $119.36).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 125.68,
+    "price_change_pct": 5.29,
+    "report_url": "reports/ALV.html"
+  },
+  {
+    "id": "ma_reversal_AAPL_2026_W44",
+    "ticker": "AAPL",
+    "timestamp": "2026-11-05 17:37",
+    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: AAPL Crossed UP All 4 Moving Averages",
+    "severity": "Breakout",
+    "labels": [
+      "Technical Reversal",
+      "Quad-MA Breakout",
+      "Major Reclaim"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Technical Trend Reversal: Price ($349.51) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $342.65, 21D: $342.61, 50D: $334.84, 200D: $297.85) with +2.0% clearance and +1.6% 5-day velocity.",
+    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $331.90).",
+    "what_changes_now": "Major institutional regime flip confirmed: Cleared entire moving average stack (5D/21D/50D/200D). Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
+    "price_at_alert": 349.51,
+    "price_change_pct": 5.31,
+    "report_url": "reports/AAPL.html"
+  },
+  {
+    "id": "price_wmt_20261105_173635",
+    "ticker": "WMT",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 WMT: +13.8% Breakout From Underwritten Price ($112.28 -> $127.72)",
+    "severity": "Price Surge",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Surge (+13.8% move from last underwritten price $112.28 to $127.72)",
+    "what_was_before": "Underwritten in v2 at $112.28 with Fair Value $62.52 (Bear $49.56 / Bull $78.50) and alert corridor $49.56\u2013$129.12.",
+    "what_changes_now": "Walmart Inc now trades at $127.72 (+13.8% vs v2; 43.4x P/OE, implied 3Y IRR -21.2% to $62.52). Queued for full forensic re-underwriting.",
+    "price_at_alert": 127.72,
+    "price_change_pct": 13.75,
+    "report_url": "reports/WMT.html"
+  },
+  {
+    "id": "price_vst_20261105_173635",
+    "ticker": "VST",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 VST: -30.5% Drawdown From Underwritten Price ($162.36 -> $112.89)",
+    "severity": "Price Drop",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-30.5% move from last underwritten price $162.36 to $112.89)",
+    "what_was_before": "Underwritten in v4 at $162.36 with Fair Value $128.84 (Bear $98.00 / Bull $195.00) and alert corridor $98.00\u2013$186.71.",
+    "what_changes_now": "Vistra Corp now trades at $112.89 (-30.5% vs v4; 13.1x P/OE, implied 3Y IRR +4.5% to $128.84). Queued for full forensic re-underwriting.",
+    "price_at_alert": 112.89,
+    "price_change_pct": -30.47,
+    "report_url": "reports/VST.html"
+  },
+  {
+    "id": "price_vitl_20261105_173635",
+    "ticker": "VITL",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 VITL: Upper Alert Corridor Breached ($9.52 >= $9.22)",
+    "severity": "Price Surge",
+    "labels": [
+      "Weak Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($9.52 >= $9.22; +13.6% vs v3 $8.38)",
+    "what_was_before": "Underwritten in v3 at $8.38 with Fair Value $7.42 (Bear $4.14 / Bull $10.50) and alert corridor $7.54\u2013$9.22.",
+    "what_changes_now": "Vital Farms, Inc now trades at $9.52 (+13.6% vs v3; N/M (Neg. OE), implied 3Y IRR -8.0% to $7.42). Queued for full forensic re-underwriting.",
+    "price_at_alert": 9.52,
+    "price_change_pct": 13.6,
+    "report_url": "reports/VITL.html"
+  },
+  {
+    "id": "price_upwk_20261105_173635",
+    "ticker": "UPWK",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 UPWK: Upper Alert Corridor Breached ($10.32 >= $9.94)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($10.32 >= $9.94; +19.4% vs v2 $8.64)",
+    "what_was_before": "Underwritten in v2 at $8.64 with Fair Value $8.01 (Bear $4.15 / Bull $11.50) and alert corridor $4.15\u2013$9.94.",
+    "what_changes_now": "Upwork Inc now trades at $10.32 (+19.4% vs v2; 21.0x P/OE, implied 3Y IRR -8.1% to $8.01). Queued for full forensic re-underwriting.",
+    "price_at_alert": 10.32,
+    "price_change_pct": 19.44,
+    "report_url": "reports/UPWK.html"
+  },
+  {
+    "id": "price_tsm_20261105_173635",
+    "ticker": "TSM",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 TSM: -20.7% Drawdown From Underwritten Price ($445.12 -> $353.10)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-20.7% move from last underwritten price $445.12 to $353.10)",
+    "what_was_before": "Underwritten in v4 at $445.12 with Fair Value $397.50 (Bear $246.52 / Bull $490.75) and alert corridor $246.52\u2013$511.89.",
+    "what_changes_now": "Taiwan Semiconductor Manufacturing Company Limited now trades at $353.10 (-20.7% vs v4; 35.4x P/OE, implied 3Y IRR +4.0% to $397.50). Queued for full forensic re-underwriting.",
+    "price_at_alert": 353.1,
+    "price_change_pct": -20.67,
+    "report_url": "reports/TSM.html"
+  },
+  {
+    "id": "price_tpl_20261105_173635",
+    "ticker": "TPL",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 TPL: -26.3% Drawdown From Underwritten Price ($369.13 -> $272.18)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-26.3% move from last underwritten price $369.13 to $272.18)",
+    "what_was_before": "Underwritten in v3 at $369.13 with Fair Value $205.46 (Bear $141.50 / Bull $285.00) and alert corridor $141.50\u2013$424.50.",
+    "what_changes_now": "Texas Pacific Land Corporation now trades at $272.18 (-26.3% vs v3; 35.2x P/OE, implied 3Y IRR -8.9% to $205.46). Queued for full forensic re-underwriting.",
+    "price_at_alert": 272.18,
+    "price_change_pct": -26.26,
+    "report_url": "reports/TPL.html"
+  },
+  {
+    "id": "price_sq_20261105_173635",
+    "ticker": "SQ",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 SQ: +10.8% Breakout From Underwritten Price ($75.85 -> $84.04)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Surge (+10.8% move from last underwritten price $75.85 to $84.04)",
+    "what_was_before": "Underwritten in v6 at $75.85 with Fair Value $59.80 (Bear $18.52 / Bull $92.40) and alert corridor $18.52\u2013$87.23.",
+    "what_changes_now": "Block, Inc. now trades at $84.04 (+10.8% vs v6; 42.5x P/OE, implied 3Y IRR -10.7% to $59.80). Queued for full forensic re-underwriting.",
+    "price_at_alert": 84.04,
+    "price_change_pct": 10.8,
+    "report_url": "reports/SQ.html"
+  },
+  {
+    "id": "price_smrt_20261105_173635",
+    "ticker": "SMRT",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 SMRT: Upper Alert Corridor Breached ($1.61 >= $1.39)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($1.61 >= $1.39; +33.1% vs v2 $1.21)",
+    "what_was_before": "Underwritten in v2 at $1.21 with Fair Value $0.91 (Bear $0.52 / Bull $1.45) and alert corridor $0.52\u2013$1.39.",
+    "what_changes_now": "SmartRent, Inc now trades at $1.61 (+33.1% vs v2; N/M (Neg. OE), implied 3Y IRR -17.3% to $0.91). Queued for full forensic re-underwriting.",
+    "price_at_alert": 1.61,
+    "price_change_pct": 33.06,
+    "report_url": "reports/SMRT.html"
+  },
+  {
+    "id": "price_rklb_20261105_173635",
+    "ticker": "RKLB",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 RKLB: Lower Alert Corridor Breached ($45.99 <= $48.82)",
+    "severity": "Price Drop",
+    "labels": [
+      "Narrow Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Lower Alert Threshold Breached ($45.99 <= $48.82; -15.2% vs v6 $54.24)",
+    "what_was_before": "Underwritten in v6 at $54.24 with Fair Value $3.08 (Bear $2.22 / Bull $18.06) and alert corridor $48.82\u2013$59.66.",
+    "what_changes_now": "Rocket Lab Corporation now trades at $45.99 (-15.2% vs v6; N/M (Neg. OE), implied 3Y IRR -59.4% to $3.08). Queued for full forensic re-underwriting.",
+    "price_at_alert": 45.99,
+    "price_change_pct": -15.21,
+    "report_url": "reports/RKLB.html"
+  },
+  {
+    "id": "price_rddt_20261105_173635",
+    "ticker": "RDDT",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 RDDT: -39.6% Drawdown From Underwritten Price ($155.29 -> $93.81)",
+    "severity": "Price Drop",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-39.6% move from last underwritten price $155.29 to $93.81)",
+    "what_was_before": "Underwritten in v2 at $155.29 with Fair Value $89.87 (Bear $64.50 / Bull $165.00) and alert corridor $64.50\u2013$178.58.",
+    "what_changes_now": "Reddit, Inc. now trades at $93.81 (-39.6% vs v2; 52.7x P/OE, implied 3Y IRR -1.4% to $89.87). Queued for full forensic re-underwriting.",
+    "price_at_alert": 93.81,
+    "price_change_pct": -39.59,
+    "report_url": "reports/RDDT.html"
+  },
+  {
+    "id": "price_quad_20261105_173635",
+    "ticker": "QUAD",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 QUAD: -19.4% Drawdown From Underwritten Price ($9.54 -> $7.69)",
+    "severity": "Price Drop",
+    "labels": [
+      "No Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-19.4% move from last underwritten price $9.54 to $7.69)",
+    "what_was_before": "Underwritten in v3 at $9.54 with Fair Value $2.80 (Bear $1.45 / Bull $4.50) and alert corridor $1.45\u2013$10.97.",
+    "what_changes_now": "Quad Graphics, Inc now trades at $7.69 (-19.4% vs v3; 8.8x P/OE, implied 3Y IRR -28.6% to $2.80). Queued for full forensic re-underwriting.",
+    "price_at_alert": 7.69,
+    "price_change_pct": -19.39,
+    "report_url": "reports/QUAD.html"
+  },
+  {
+    "id": "price_pltr_20261105_173635",
+    "ticker": "PLTR",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 PLTR: Lower Alert Corridor Breached ($154.99 <= $166.90)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Lower Alert Threshold Breached ($154.99 <= $166.90; -16.4% vs v3 $185.44)",
+    "what_was_before": "Underwritten in v3 at $185.44 with Fair Value $61.25 (Bear $38.00 / Bull $105.50) and alert corridor $166.90\u2013$203.98.",
+    "what_changes_now": "Palantir Technologies Inc now trades at $154.99 (-16.4% vs v3; 157.1x P/OE, implied 3Y IRR -26.6% to $61.25). Queued for full forensic re-underwriting.",
+    "price_at_alert": 154.99,
+    "price_change_pct": -16.42,
+    "report_url": "reports/PLTR.html"
+  },
+  {
+    "id": "price_nvr_20261105_173635",
+    "ticker": "NVR",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 NVR: +10.6% Breakout From Underwritten Price ($5797.61 -> $6414.18)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Surge (+10.6% move from last underwritten price $5797.61 to $6414.18)",
+    "what_was_before": "Underwritten in v2 at $5797.61 with Fair Value $4713.53 (Bear $2187.33 / Bull $6850.00) and alert corridor $2187.33\u2013$6667.25.",
+    "what_changes_now": "NVR, Inc now trades at $6414.18 (+10.6% vs v2; 18.5x P/OE, implied 3Y IRR -9.8% to $4713.53). Queued for full forensic re-underwriting.",
+    "price_at_alert": 6414.18,
+    "price_change_pct": 10.63,
+    "report_url": "reports/NVR.html"
+  },
+  {
+    "id": "price_nvda_20261105_173635",
+    "ticker": "NVDA",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 NVDA: -20.5% Drawdown From Underwritten Price ($228.52 -> $181.60)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-20.5% move from last underwritten price $228.52 to $181.60)",
+    "what_was_before": "Underwritten in v5 at $228.52 with Fair Value $198.50 (Bear $132.98 / Bull $285.00) and alert corridor $132.98\u2013$262.80.",
+    "what_changes_now": "NVIDIA Corporation now trades at $181.60 (-20.5% vs v5; 35.6x P/OE, implied 3Y IRR +3.0% to $198.50). Queued for full forensic re-underwriting.",
+    "price_at_alert": 181.6,
+    "price_change_pct": -20.53,
+    "report_url": "reports/NVDA.html"
+  },
+  {
+    "id": "price_nke_20261105_173635",
+    "ticker": "NKE",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 NKE: +12.0% Breakout From Underwritten Price ($35.33 -> $39.56)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Surge (+12.0% move from last underwritten price $35.33 to $39.56)",
+    "what_was_before": "Underwritten in v5 at $35.33 with Fair Value $10.55 (Bear $8.83 / Bull $15.50) and alert corridor $8.83\u2013$40.63.",
+    "what_changes_now": "Nike, Inc now trades at $39.56 (+12.0% vs v5; 41.4x P/OE, implied 3Y IRR -35.6% to $10.55). Queued for full forensic re-underwriting.",
+    "price_at_alert": 39.56,
+    "price_change_pct": 11.97,
+    "report_url": "reports/NKE.html"
+  },
+  {
+    "id": "price_nbis_20261105_173635",
+    "ticker": "NBIS",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 NBIS: Lower Alert Corridor Breached ($120.37 <= $161.73)",
+    "severity": "Price Drop",
+    "labels": [
+      "Narrow Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Lower Alert Threshold Breached ($120.37 <= $161.73; -33.0% vs v5 $179.70)",
+    "what_was_before": "Underwritten in v5 at $179.70 with Fair Value $128.59 (Bear $45.20 / Bull $220.00) and alert corridor $161.73\u2013$197.67.",
+    "what_changes_now": "Nebius Group N.V now trades at $120.37 (-33.0% vs v5; N/M (Neg. OE), implied 3Y IRR +2.2% to $128.59). Queued for full forensic re-underwriting.",
+    "price_at_alert": 120.37,
+    "price_change_pct": -33.02,
+    "report_url": "reports/NBIS.html"
+  },
+  {
+    "id": "price_msci_20261105_173635",
+    "ticker": "MSCI",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 MSCI: Upper Alert Corridor Breached ($655.91 >= $650.86)",
+    "severity": "Price Surge",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($655.91 >= $650.86; +10.9% vs v4 $591.69)",
+    "what_was_before": "Underwritten in v4 at $591.69 with Fair Value $323.72 (Bear $255.00 / Bull $625.00) and alert corridor $532.52\u2013$650.86.",
+    "what_changes_now": "MSCI Inc now trades at $655.91 (+10.9% vs v4; 34.7x P/OE, implied 3Y IRR -21.0% to $323.72). Queued for full forensic re-underwriting.",
+    "price_at_alert": 655.91,
+    "price_change_pct": 10.85,
+    "report_url": "reports/MSCI.html"
+  },
+  {
+    "id": "price_meta_20261105_173635",
+    "ticker": "META",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 META: Lower Alert Corridor Breached ($605.08 <= $627.77)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Lower Alert Threshold Breached ($605.08 <= $627.77; -13.3% vs v3 $697.52)",
+    "what_was_before": "Underwritten in v3 at $697.52 with Fair Value $1009.78 (Bear $168.59 / Bull $1121.48) and alert corridor $627.77\u2013$767.27.",
+    "what_changes_now": "Meta Platforms, Inc. now trades at $605.08 (-13.3% vs v3; 19.5x P/OE, implied 3Y IRR +18.6% to $1009.78). Queued for full forensic re-underwriting.",
+    "price_at_alert": 605.08,
+    "price_change_pct": -13.25,
+    "report_url": "reports/META.html"
+  },
+  {
+    "id": "price_meli_20261105_173635",
+    "ticker": "MELI",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 MELI: -18.4% Drawdown From Underwritten Price ($1876.04 -> $1530.28)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "Material Price Drop (-18.4% move from last underwritten price $1876.04 to $1530.28)",
+    "what_was_before": "Underwritten in v2 at $1876.04 with Fair Value $2068.14 (Bear $850.00 / Bull $2650.00) and alert corridor $850.00\u2013$2157.45.",
+    "what_changes_now": "MercadoLibre, Inc. now trades at $1530.28 (-18.4% vs v2; 42.8x P/OE, implied 3Y IRR +10.6% to $2068.14). Queued for full forensic re-underwriting.",
+    "price_at_alert": 1530.28,
+    "price_change_pct": -18.43,
+    "report_url": "reports/MELI.html"
+  },
+  {
+    "id": "price_mdt_20261105_173635",
+    "ticker": "MDT",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 MDT: Upper Alert Corridor Breached ($104.84 >= $102.05)",
+    "severity": "Price Surge",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($104.84 >= $102.05; +13.0% vs v7 $92.77)",
+    "what_was_before": "Underwritten in v7 at $92.77 with Fair Value $86.65 (Bear $23.36 / Bull $118.50) and alert corridor $83.49\u2013$102.05.",
+    "what_changes_now": "Medtronic plc now trades at $104.84 (+13.0% vs v7; 23.7x P/OE, implied 3Y IRR -6.2% to $86.65). Queued for full forensic re-underwriting.",
+    "price_at_alert": 104.84,
+    "price_change_pct": 13.01,
+    "report_url": "reports/MDT.html"
+  },
+  {
+    "id": "price_mcd_20261105_173635",
+    "ticker": "MCD",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 MCD: Upper Alert Corridor Breached ($278.04 >= $271.18)",
+    "severity": "Price Surge",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($278.04 >= $271.18; +17.9% vs v3 $235.81)",
+    "what_was_before": "Underwritten in v3 at $235.81 with Fair Value $190.24 (Bear $160.00 / Bull $265.00) and alert corridor $160.00\u2013$271.18.",
+    "what_changes_now": "McDonald's Corporation now trades at $278.04 (+17.9% vs v3; 22.5x P/OE, implied 3Y IRR -11.9% to $190.24). Queued for full forensic re-underwriting.",
+    "price_at_alert": 278.04,
+    "price_change_pct": 17.91,
+    "report_url": "reports/MCD.html"
+  },
+  {
+    "id": "price_lulu_20261105_173635",
+    "ticker": "LULU",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 LULU: Upper Alert Corridor Breached ($111.77 >= $108.20)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "Upper Alert Threshold Breached ($111.77 >= $108.20; +18.8% vs v6 $94.09)",
+    "what_was_before": "Underwritten in v6 at $94.09 with Fair Value $107.90 (Bear $47.93 / Bull $142.50) and alert corridor $47.93\u2013$108.20.",
+    "what_changes_now": "Lululemon Athletica Inc. now trades at $111.77 (+18.8% vs v6; 12.8x P/OE, implied 3Y IRR -1.2% to $107.90). Queued for full forensic re-underwriting.",
+    "price_at_alert": 111.77,
+    "price_change_pct": 18.79,
+    "report_url": "reports/LULU.html"
+  },
+  {
+    "id": "price_lgcy_20261105_173635",
+    "ticker": "LGCY",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 LGCY: -15.0% Drawdown From Underwritten Price ($10.36 -> $8.81)",
+    "severity": "Price Drop",
+    "labels": [
+      "Weak Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-15.0% move from last underwritten price $10.36 to $8.81)",
+    "what_was_before": "Underwritten in v4 at $10.36 with Fair Value $5.77 (Bear $1.52 / Bull $8.50) and alert corridor $1.52\u2013$11.91.",
+    "what_changes_now": "Legacy Education Inc. now trades at $8.81 (-15.0% vs v4; 56.1x P/OE, implied 3Y IRR -13.2% to $5.77). Queued for full forensic re-underwriting.",
+    "price_at_alert": 8.81,
+    "price_change_pct": -14.96,
+    "report_url": "reports/LGCY.html"
+  },
+  {
+    "id": "price_len_20261105_173635",
+    "ticker": "LEN",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 LEN: Upper Alert Corridor Breached ($91.59 >= $85.46)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($91.59 >= $85.46; +17.9% vs v5 $77.69)",
+    "what_was_before": "Underwritten in v5 at $77.69 with Fair Value $34.35 (Bear $23.41 / Bull $78.00) and alert corridor $69.92\u2013$85.46.",
+    "what_changes_now": "Lennar Corporation now trades at $91.59 (+17.9% vs v5; 32.7x P/OE, implied 3Y IRR -27.9% to $34.35). Queued for full forensic re-underwriting.",
+    "price_at_alert": 91.59,
+    "price_change_pct": 17.89,
+    "report_url": "reports/LEN.html"
+  },
+  {
+    "id": "price_khc_20261105_173635",
+    "ticker": "KHC",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 KHC: +11.5% Breakout From Underwritten Price ($22.70 -> $25.32)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "Material Price Surge (+11.5% move from last underwritten price $22.70 to $25.32)",
+    "what_was_before": "Underwritten in v4 at $22.70 with Fair Value $23.47 (Bear $14.15 / Bull $29.80) and alert corridor $14.15\u2013$26.10.",
+    "what_changes_now": "The Kraft Heinz Company now trades at $25.32 (+11.5% vs v4; 11.8x P/OE, implied 3Y IRR -2.5% to $23.47). Queued for full forensic re-underwriting.",
+    "price_at_alert": 25.32,
+    "price_change_pct": 11.54,
+    "report_url": "reports/KHC.html"
+  },
+  {
+    "id": "price_hovr_20261105_173635",
+    "ticker": "HOVR",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 HOVR: -18.7% Drawdown From Underwritten Price ($1.39 -> $1.13)",
+    "severity": "Price Drop",
+    "labels": [
+      "No Moat",
+      "Highly Unpredictable"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-18.7% move from last underwritten price $1.39 to $1.13)",
+    "what_was_before": "Underwritten in v5 at $1.39 with Fair Value $0.44 (Bear $0.25 / Bull $1.75) and alert corridor $0.25\u2013$1.60.",
+    "what_changes_now": "New Horizon Aircraft Ltd now trades at $1.13 (-18.7% vs v5; N/M (Neg. OE), implied 3Y IRR -27.0% to $0.44). Queued for full forensic re-underwriting.",
+    "price_at_alert": 1.13,
+    "price_change_pct": -18.71,
+    "report_url": "reports/HOVR.html"
+  },
+  {
+    "id": "price_hood_20261105_173635",
+    "ticker": "HOOD",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 HOOD: Lower Alert Corridor Breached ($78.39 <= $88.13)",
+    "severity": "Price Drop",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Lower Alert Threshold Breached ($78.39 <= $88.13; -19.9% vs v4 $97.92)",
+    "what_was_before": "Underwritten in v4 at $97.92 with Fair Value $76.50 (Bear $55.00 / Bull $120.00) and alert corridor $88.13\u2013$107.71.",
+    "what_changes_now": "Robinhood Markets, Inc now trades at $78.39 (-19.9% vs v4; 44.0x P/OE, implied 3Y IRR -0.8% to $76.50). Queued for full forensic re-underwriting.",
+    "price_at_alert": 78.39,
+    "price_change_pct": -19.94,
+    "report_url": "reports/HOOD.html"
+  },
+  {
+    "id": "price_gtt_20261105_173635",
+    "ticker": "GTT",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 GTT: -15.5% Drawdown From Underwritten Price ($241.52 -> $203.98)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "Material Price Drop (-15.5% move from last underwritten price $241.52 to $203.98)",
+    "what_was_before": "Underwritten in v2 at $241.52 with Fair Value $288.72 (Bear $171.00 / Bull $345.50) and alert corridor $171.00\u2013$288.72.",
+    "what_changes_now": "Gaztransport & Technigaz SA now trades at $203.98 (-15.5% vs v2; 18.4x P/OE, implied 3Y IRR +12.3% to $288.72). Queued for full forensic re-underwriting.",
+    "price_at_alert": 203.98,
+    "price_change_pct": -15.54,
+    "report_url": "reports/GTT.html"
+  },
+  {
+    "id": "price_goog_20261105_173635",
+    "ticker": "GOOG",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 GOOG: -19.4% Drawdown From Underwritten Price ($349.52 -> $281.74)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-19.4% move from last underwritten price $349.52 to $281.74)",
+    "what_was_before": "Underwritten in v2 at $349.52 with Fair Value $322.62 (Bear $219.50 / Bull $398.50) and alert corridor $219.50\u2013$401.95.",
+    "what_changes_now": "Alphabet Inc. now trades at $281.74 (-19.4% vs v2; 26.5x P/OE, implied 3Y IRR +4.6% to $322.62). Queued for full forensic re-underwriting.",
+    "price_at_alert": 281.74,
+    "price_change_pct": -19.39,
+    "report_url": "reports/GOOG.html"
+  },
+  {
+    "id": "price_gct_20261105_173635",
+    "ticker": "GCT",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 GCT: +10.5% Breakout From Underwritten Price ($57.03 -> $63.01)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Material Price Surge (+10.5% move from last underwritten price $57.03 to $63.01)",
+    "what_was_before": "Underwritten in v2 at $57.03 with Fair Value $87.63 (Bear $23.44 / Bull $118.50) and alert corridor $23.44\u2013$87.63.",
+    "what_changes_now": "GigaCloud Technology Inc. now trades at $63.01 (+10.5% vs v2; 15.6x P/OE, implied 3Y IRR +11.6% to $87.63). Queued for full forensic re-underwriting.",
+    "price_at_alert": 63.01,
+    "price_change_pct": 10.49,
+    "report_url": "reports/GCT.html"
+  },
+  {
+    "id": "price_ftnt_20261105_173635",
+    "ticker": "FTNT",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 FTNT: Lower Alert Corridor Breached ($122.51 <= $152.46)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Lower Alert Threshold Breached ($122.51 <= $152.46; -27.7% vs v5 $169.40)",
+    "what_was_before": "Underwritten in v5 at $169.40 with Fair Value $111.37 (Bear $45.50 / Bull $175.00) and alert corridor $152.46\u2013$186.34.",
+    "what_changes_now": "Fortinet, Inc now trades at $122.51 (-27.7% vs v5; 31.8x P/OE, implied 3Y IRR -3.1% to $111.37). Queued for full forensic re-underwriting.",
+    "price_at_alert": 122.51,
+    "price_change_pct": -27.68,
+    "report_url": "reports/FTNT.html"
+  },
+  {
+    "id": "price_fll_20261105_173635",
+    "ticker": "FLL",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 FLL: Lower Alert Corridor Breached ($0.72 <= $0.85)",
+    "severity": "Price Drop",
+    "labels": [
+      "Weak Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Lower Alert Threshold Breached ($0.72 <= $0.85; -23.4% vs v5 $0.94)",
+    "what_was_before": "Underwritten in v5 at $0.94 with Fair Value $0.74 (Bear $0.18 / Bull $1.45) and alert corridor $0.85\u2013$1.03.",
+    "what_changes_now": "Full House Resorts, Inc now trades at $0.72 (-23.4% vs v5; 14.7x P/OE, implied 3Y IRR +0.9% to $0.74). Queued for full forensic re-underwriting.",
+    "price_at_alert": 0.72,
+    "price_change_pct": -23.4,
+    "report_url": "reports/FLL.html"
+  },
+  {
+    "id": "price_fico_20261105_173635",
+    "ticker": "FICO",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 FICO: Lower Alert Corridor Breached ($707.40 <= $719.76)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Lower Alert Threshold Breached ($707.40 <= $719.76; -11.5% vs v4 $799.73)",
+    "what_was_before": "Underwritten in v4 at $799.73 with Fair Value $568.75 (Bear $307.72 / Bull $895.12) and alert corridor $719.76\u2013$879.70.",
+    "what_changes_now": "Fair Isaac Corporation now trades at $707.40 (-11.5% vs v4; 20.0x P/OE, implied 3Y IRR -7.0% to $568.75). Queued for full forensic re-underwriting.",
+    "price_at_alert": 707.4,
+    "price_change_pct": -11.55,
+    "report_url": "reports/FICO.html"
+  },
+  {
+    "id": "price_exel_20261105_173635",
+    "ticker": "EXEL",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 EXEL: Upper Alert Corridor Breached ($68.71 >= $68.19)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($68.71 >= $68.19; +15.9% vs v4 $59.30)",
+    "what_was_before": "Underwritten in v4 at $59.30 with Fair Value $56.45 (Bear $23.41 / Bull $75.00) and alert corridor $23.41\u2013$68.19.",
+    "what_changes_now": "Exelixis, Inc now trades at $68.71 (+15.9% vs v4; 20.5x P/OE, implied 3Y IRR -6.3% to $56.45). Queued for full forensic re-underwriting.",
+    "price_at_alert": 68.71,
+    "price_change_pct": 15.87,
+    "report_url": "reports/EXEL.html"
+  },
+  {
+    "id": "price_dow_20261105_173635",
+    "ticker": "DOW",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 DOW: +12.3% Breakout From Underwritten Price ($28.48 -> $31.98)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Surge (+12.3% move from last underwritten price $28.48 to $31.98)",
+    "what_was_before": "Underwritten in v2 at $28.48 with Fair Value $24.10 (Bear $14.80 / Bull $35.00) and alert corridor $14.80\u2013$32.75.",
+    "what_changes_now": "Dow Inc now trades at $31.98 (+12.3% vs v2; 27.7x P/OE, implied 3Y IRR -9.0% to $24.10). Queued for full forensic re-underwriting.",
+    "price_at_alert": 31.98,
+    "price_change_pct": 12.29,
+    "report_url": "reports/DOW.html"
+  },
+  {
+    "id": "price_dhi_20261105_173635",
+    "ticker": "DHI",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 DHI: Upper Alert Corridor Breached ($157.63 >= $156.71)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($157.63 >= $156.71; +15.7% vs v3 $136.27)",
+    "what_was_before": "Underwritten in v3 at $136.27 with Fair Value $118.53 (Bear $47.93 / Bull $158.00) and alert corridor $47.93\u2013$156.71.",
+    "what_changes_now": "D.R. Horton, Inc now trades at $157.63 (+15.7% vs v3; 14.9x P/OE, implied 3Y IRR -9.1% to $118.53). Queued for full forensic re-underwriting.",
+    "price_at_alert": 157.63,
+    "price_change_pct": 15.67,
+    "report_url": "reports/DHI.html"
+  },
+  {
+    "id": "price_crox_20261105_173635",
+    "ticker": "CROX",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 CROX: +29.4% Breakout From Underwritten Price ($118.19 -> $152.93)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "Material Price Surge (+29.4% move from last underwritten price $118.19 to $152.93)",
+    "what_was_before": "Underwritten in v2 at $118.19 with Fair Value $158.41 (Bear $56.40 / Bull $195.00) and alert corridor $56.40\u2013$158.41.",
+    "what_changes_now": "Crocs, Inc. now trades at $152.93 (+29.4% vs v2; 11.0x P/OE, implied 3Y IRR +1.2% to $158.41). Queued for full forensic re-underwriting.",
+    "price_at_alert": 152.93,
+    "price_change_pct": 29.39,
+    "report_url": "reports/CROX.html"
+  },
+  {
+    "id": "price_crh_20261105_173635",
+    "ticker": "CRH",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 CRH: Upper Alert Corridor Breached ($95.45 >= $92.72)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($95.45 >= $92.72; +18.4% vs v2 $80.63)",
+    "what_was_before": "Underwritten in v2 at $80.63 with Fair Value $76.50 (Bear $55.00 / Bull $105.00) and alert corridor $55.00\u2013$92.72.",
+    "what_changes_now": "CRH PLC now trades at $95.45 (+18.4% vs v2; 37.2x P/OE, implied 3Y IRR -7.1% to $76.50). Queued for full forensic re-underwriting.",
+    "price_at_alert": 95.45,
+    "price_change_pct": 18.38,
+    "report_url": "reports/CRH.html"
+  },
+  {
+    "id": "price_cprt_20261105_173635",
+    "ticker": "CPRT",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 CPRT: Upper Alert Corridor Breached ($32.48 >= $30.66)",
+    "severity": "Price Surge",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "Upper Alert Threshold Breached ($32.48 >= $30.66; +16.5% vs v9 $27.87)",
+    "what_was_before": "Underwritten in v9 at $27.87 with Fair Value $37.39 (Bear $10.03 / Bull $46.50) and alert corridor $25.08\u2013$30.66.",
+    "what_changes_now": "Copart, Inc. now trades at $32.48 (+16.5% vs v9; 23.0x P/OE, implied 3Y IRR +4.8% to $37.39). Queued for full forensic re-underwriting.",
+    "price_at_alert": 32.48,
+    "price_change_pct": 16.54,
+    "report_url": "reports/CPRT.html"
+  },
+  {
+    "id": "price_cmi_20261105_173635",
+    "ticker": "CMI",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 CMI: -15.0% Drawdown From Underwritten Price ($527.84 -> $448.58)",
+    "severity": "Price Drop",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-15.0% move from last underwritten price $527.84 to $448.58)",
+    "what_was_before": "Underwritten in v2 at $527.84 with Fair Value $502.72 (Bear $352.00 / Bull $560.00) and alert corridor $352.00\u2013$607.02.",
+    "what_changes_now": "Cummins Inc now trades at $448.58 (-15.0% vs v2; 17.9x P/OE, implied 3Y IRR +3.9% to $502.72). Queued for full forensic re-underwriting.",
+    "price_at_alert": 448.58,
+    "price_change_pct": -15.02,
+    "report_url": "reports/CMI.html"
+  },
+  {
+    "id": "price_cmg_20261105_173635",
+    "ticker": "CMG",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 CMG: Upper Alert Corridor Breached ($35.40 >= $35.21)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($35.40 >= $35.21; +15.6% vs v3 $30.62)",
+    "what_was_before": "Underwritten in v3 at $30.62 with Fair Value $26.65 (Bear $7.96 / Bull $35.50) and alert corridor $7.96\u2013$35.21.",
+    "what_changes_now": "Chipotle Mexican Grill, Inc now trades at $35.40 (+15.6% vs v3; 26.0x P/OE, implied 3Y IRR -9.0% to $26.65). Queued for full forensic re-underwriting.",
+    "price_at_alert": 35.4,
+    "price_change_pct": 15.61,
+    "report_url": "reports/CMG.html"
+  },
+  {
+    "id": "price_cmcsa_20261105_173635",
+    "ticker": "CMCSA",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 CMCSA: +19.1% Breakout From Underwritten Price ($20.94 -> $24.95)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Material Price Surge (+19.1% move from last underwritten price $20.94 to $24.95)",
+    "what_was_before": "Underwritten in v2 at $20.94 with Fair Value $30.60 (Bear $14.50 / Bull $39.50) and alert corridor $14.50\u2013$30.60.",
+    "what_changes_now": "Comcast Corporation now trades at $24.95 (+19.1% vs v2; 4.7x P/OE, implied 3Y IRR +7.0% to $30.60). Queued for full forensic re-underwriting.",
+    "price_at_alert": 24.95,
+    "price_change_pct": 19.15,
+    "report_url": "reports/CMCSA.html"
+  },
+  {
+    "id": "price_cat_20261105_173635",
+    "ticker": "CAT",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 CAT: Lower Alert Corridor Breached ($553.64 <= $661.95)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Lower Alert Threshold Breached ($553.64 <= $661.95; -24.7% vs v4 $735.50)",
+    "what_was_before": "Underwritten in v4 at $735.50 with Fair Value $341.41 (Bear $239.79 / Bull $1064.90) and alert corridor $661.95\u2013$809.05.",
+    "what_changes_now": "Caterpillar, Inc now trades at $553.64 (-24.7% vs v4; 25.6x P/OE, implied 3Y IRR -14.9% to $341.41). Queued for full forensic re-underwriting.",
+    "price_at_alert": 553.64,
+    "price_change_pct": -24.73,
+    "report_url": "reports/CAT.html"
+  },
+  {
+    "id": "price_byd_20261105_173635",
+    "ticker": "BYD",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 BYD: +10.2% Breakout From Underwritten Price ($69.96 -> $77.07)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Surge (+10.2% move from last underwritten price $69.96 to $77.07)",
+    "what_was_before": "Underwritten in v2 at $69.96 with Fair Value $23.36 (Bear $18.25 / Bull $55.00) and alert corridor $18.25\u2013$80.45.",
+    "what_changes_now": "Boyd Gaming Corporation now trades at $77.07 (+10.2% vs v2; 20.8x P/OE, implied 3Y IRR -32.8% to $23.36). Queued for full forensic re-underwriting.",
+    "price_at_alert": 77.07,
+    "price_change_pct": 10.16,
+    "report_url": "reports/BYD.html"
+  },
+  {
+    "id": "price_bti_20261105_173635",
+    "ticker": "BTI",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 BTI: +12.6% Breakout From Underwritten Price ($56.00 -> $63.08)",
+    "severity": "Price Surge",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Surge (+12.6% move from last underwritten price $56.00 to $63.08)",
+    "what_was_before": "Underwritten in v5 at $56.00 with Fair Value $33.99 (Bear $19.53 / Bull $75.00) and alert corridor $19.53\u2013$64.40.",
+    "what_changes_now": "British American Tobacco p.l.c. now trades at $63.08 (+12.6% vs v5; 15.8x P/OE, implied 3Y IRR -18.6% to $33.99). Queued for full forensic re-underwriting.",
+    "price_at_alert": 63.08,
+    "price_change_pct": 12.64,
+    "report_url": "reports/BTI.html"
+  },
+  {
+    "id": "price_bmy_20261105_173635",
+    "ticker": "BMY",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 BMY: +11.9% Breakout From Underwritten Price ($56.40 -> $63.13)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "Material Price Surge (+11.9% move from last underwritten price $56.40 to $63.13)",
+    "what_was_before": "Underwritten in v2 at $56.40 with Fair Value $69.85 (Bear $38.50 / Bull $85.00) and alert corridor $38.50\u2013$69.85.",
+    "what_changes_now": "Bristol-Myers Squibb Company now trades at $63.13 (+11.9% vs v2; 11.7x P/OE, implied 3Y IRR +3.4% to $69.85). Queued for full forensic re-underwriting.",
+    "price_at_alert": 63.13,
+    "price_change_pct": 11.93,
+    "report_url": "reports/BMY.html"
+  },
+  {
+    "id": "price_bdx_20261105_173635",
+    "ticker": "BDX",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 BDX: +13.7% Breakout From Underwritten Price ($187.81 -> $213.55)",
+    "severity": "Price Surge",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Surge (+13.7% move from last underwritten price $187.81 to $213.55)",
+    "what_was_before": "Underwritten in v2 at $187.81 with Fair Value $142.50 (Bear $108.40 / Bull $175.00) and alert corridor $108.40\u2013$215.98.",
+    "what_changes_now": "Becton, Dickinson and Company now trades at $213.55 (+13.7% vs v2; 22.5x P/OE, implied 3Y IRR -12.6% to $142.50). Queued for full forensic re-underwriting.",
+    "price_at_alert": 213.55,
+    "price_change_pct": 13.71,
+    "report_url": "reports/BDX.html"
+  },
+  {
+    "id": "price_bam_20261105_173635",
+    "ticker": "BAM",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 BAM: Upper Alert Corridor Breached ($52.46 >= $50.94)",
+    "severity": "Price Surge",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Upper Alert Threshold Breached ($52.46 >= $50.94; +18.4% vs v9 $44.30)",
+    "what_was_before": "Underwritten in v9 at $44.30 with Fair Value $24.94 (Bear $18.00 / Bull $48.50) and alert corridor $18.00\u2013$50.94.",
+    "what_changes_now": "Brookfield Asset Management Inc now trades at $52.46 (+18.4% vs v9; 56.8x P/OE, implied 3Y IRR -22.0% to $24.94). Queued for full forensic re-underwriting.",
+    "price_at_alert": 52.46,
+    "price_change_pct": 18.42,
+    "report_url": "reports/BAM.html"
+  },
+  {
+    "id": "price_avgo_20261105_173635",
+    "ticker": "AVGO",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 AVGO: -18.1% Drawdown From Underwritten Price ($355.92 -> $291.53)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-18.1% move from last underwritten price $355.92 to $291.53)",
+    "what_was_before": "Underwritten in v4 at $355.92 with Fair Value $197.71 (Bear $75.50 / Bull $410.00) and alert corridor $75.50\u2013$409.31.",
+    "what_changes_now": "Broadcom Inc now trades at $291.53 (-18.1% vs v4; 46.1x P/OE, implied 3Y IRR -12.1% to $197.71). Queued for full forensic re-underwriting.",
+    "price_at_alert": 291.53,
+    "price_change_pct": -18.09,
+    "report_url": "reports/AVGO.html"
+  },
+  {
+    "id": "price_asts_20261105_173635",
+    "ticker": "ASTS",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 ASTS: Lower Alert Corridor Breached ($30.20 <= $37.02)",
+    "severity": "Price Drop",
+    "labels": [
+      "Narrow Moat",
+      "Highly Unpredictable"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Lower Alert Threshold Breached ($30.20 <= $37.02; -26.6% vs v5 $41.13)",
+    "what_was_before": "Underwritten in v5 at $41.13 with Fair Value $45.42 (Bear $12.85 / Bull $88.50) and alert corridor $37.02\u2013$45.24.",
+    "what_changes_now": "AST SpaceMobile, Inc now trades at $30.20 (-26.6% vs v5; N/M (Neg. OE), implied 3Y IRR +14.6% to $45.42). Queued for full forensic re-underwriting.",
+    "price_at_alert": 30.2,
+    "price_change_pct": -26.57,
+    "report_url": "reports/ASTS.html"
+  },
+  {
+    "id": "price_aso_20261105_173635",
+    "ticker": "ASO",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 ASO: Upper Alert Corridor Breached ($67.81 >= $65.69)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "Upper Alert Threshold Breached ($67.81 >= $65.69; +13.5% vs v5 $59.72)",
+    "what_was_before": "Underwritten in v5 at $59.72 with Fair Value $67.89 (Bear $23.95 / Bull $88.50) and alert corridor $53.75\u2013$65.69.",
+    "what_changes_now": "Academy Sports and Outdoors, Inc. now trades at $67.81 (+13.5% vs v5; 12.6x P/OE, implied 3Y IRR +0.0% to $67.89). Queued for full forensic re-underwriting.",
+    "price_at_alert": 67.81,
+    "price_change_pct": 13.55,
+    "report_url": "reports/ASO.html"
+  },
+  {
+    "id": "price_app_20261105_173635",
+    "ticker": "APP",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 APP: Upper Alert Corridor Breached ($356.10 >= $325.98)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "Upper Alert Threshold Breached ($356.10 >= $325.98; +31.2% vs v2 $271.46)",
+    "what_was_before": "Underwritten in v2 at $271.46 with Fair Value $325.98 (Bear $185.00 / Bull $450.00) and alert corridor $185.00\u2013$325.98.",
+    "what_changes_now": "AppLovin Corporation now trades at $356.10 (+31.2% vs v2; 28.6x P/OE, implied 3Y IRR -2.9% to $325.98). Queued for full forensic re-underwriting.",
+    "price_at_alert": 356.1,
+    "price_change_pct": 31.18,
+    "report_url": "reports/APP.html"
+  },
+  {
+    "id": "price_amd_20261105_173635",
+    "ticker": "AMD",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 AMD: Lower Alert Corridor Breached ($404.40 <= $481.50)",
+    "severity": "Price Drop",
+    "labels": [
+      "Wide Moat",
+      "Moderate Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Lower Alert Threshold Breached ($404.40 <= $481.50; -24.4% vs v6 $535.00)",
+    "what_was_before": "Underwritten in v6 at $535.00 with Fair Value $235.10 (Bear $175.00 / Bull $375.00) and alert corridor $481.50\u2013$588.50.",
+    "what_changes_now": "Advanced Micro Devices, Inc now trades at $404.40 (-24.4% vs v6; 129.3x P/OE, implied 3Y IRR -16.5% to $235.10). Queued for full forensic re-underwriting.",
+    "price_at_alert": 404.4,
+    "price_change_pct": -24.41,
+    "report_url": "reports/AMD.html"
+  },
+  {
+    "id": "price_adm_20261105_173635",
+    "ticker": "ADM",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc9 ADM: -15.7% Drawdown From Underwritten Price ($83.64 -> $70.47)",
+    "severity": "Price Drop",
+    "labels": [
+      "Narrow Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Material Price Drop (-15.7% move from last underwritten price $83.64 to $70.47)",
+    "what_was_before": "Underwritten in v3 at $83.64 with Fair Value $60.09 (Bear $44.48 / Bull $88.50) and alert corridor $44.48\u2013$96.19.",
+    "what_changes_now": "Archer-Daniels-Midland Company now trades at $70.47 (-15.7% vs v3; 22.4x P/OE, implied 3Y IRR -5.2% to $60.09). Queued for full forensic re-underwriting.",
+    "price_at_alert": 70.47,
+    "price_change_pct": -15.75,
+    "report_url": "reports/ADM.html"
+  },
+  {
+    "id": "price_acn_20261105_173635",
+    "ticker": "ACN",
+    "timestamp": "2026-11-05 17:36",
+    "title": "\ud83d\udcc8 ACN: Upper Alert Corridor Breached ($265.16 >= $252.59)",
+    "severity": "Price Surge",
+    "labels": [
+      "Narrow Moat",
+      "High Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "Upper Alert Threshold Breached ($265.16 >= $252.59; +15.5% vs v5 $229.63)",
+    "what_was_before": "Underwritten in v5 at $229.63 with Fair Value $274.51 (Bear $83.30 / Bull $352.00) and alert corridor $206.67\u2013$252.59.",
+    "what_changes_now": "Accenture plc now trades at $265.16 (+15.5% vs v5; 16.9x P/OE, implied 3Y IRR +1.2% to $274.51). Queued for full forensic re-underwriting.",
+    "price_at_alert": 265.16,
+    "price_change_pct": 15.47,
+    "report_url": "reports/ACN.html"
+  },
+  {
+    "id": "alert-kspi-1793928865",
+    "ticker": "KSPI",
+    "timestamp": "2026-11-05 17:34",
+    "title": "\ud83d\udd04 KSPI: Thesis Re-Underwritten \u2014 CAUTION (FV $105.45)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "Emerging-Market KZT/TRY Currency Risk & Consolidated Valuation Multiple Audit",
+    "what_was_before": "Kaspi's actual operational reality through 2025 and entering 2026 shows no signs of operational decay, delivering robust double-digit volume expansion and extraordinary user engagement across all key segments. Annualized revenue run-rate has reached $9,200.0M, supported by a 2025 gross margin of 71.1%. In the core consumer business, engagement continues to deepen rapidly into 2026, with annualized e-commerce purchases per consumer accelerating from 11.6 up to 15.8 purchases. In reported 2025 results, Marketplace constant-currency GMV advanced 15% year-over-year, driven by e-commerce GMV growth of 28% and total payment volume expanding 13% to reach $26B quarterly.\n\nMonetization yields remain exceptionally healthy across 2025 despite selective payments pricing adjustments. The marketplace take-rate expanded by 160 basis points year-over-year to 16.1% (up from 15.8% in Q1 2025), propelled by high-margin value-added merchant services such as advertising and proprietary logistics, which expanded 49% year-over-year. In the Fintech arm, 2025 revenues grew 23% as the average net loan portfolio expanded 18% to $15B, with management deliberately transitioning toward longer-duration, higher-yielding consumer financing products without degrading underlying asset quality heading into 2026.\n\nCash flow generation and balance sheet liquidity remain in pristine condition. Kaspi maintains $2,110.0M in liquid cash and investments against $1,250.0M in debt, providing a net cash buffer of $860M ($4.51 per share). Free cash flow generation continues to convert at elite rates throughout 2025 and into 2026, enabling management to comfortably return capital to shareholders. The board demonstrated its confidence in operational durability across 2025 and 2026 by hiking the quarterly dividend by 18% to KZT1,000 per ADS, backed by a wide competitive moat anchored in a ubiquitous multi-sided Super App ecosystem.",
+    "what_changes_now": "Kaspi.kz is currently performing as a dominant, high-engagement ecosystem, with its Super App strategy driving significant transaction density. As of the latest data, the company maintains an annualized revenue run-rate of $9,200.0M, supported by robust platform activity. The company's performance in 2025 and 2026 will be critical to validating the scalability of its international expansion efforts.\n\nThe company's ability to maintain strong gross margins while scaling its e-commerce and fintech services demonstrates the strength of its underlying unit economics. Capital allocation remains disciplined, with the company continuing to pay dividends while funding its international expansion, including the recent launch of the 'Kasper' AI assistant.",
+    "price_at_alert": 91.58,
+    "price_change_pct": -4.67,
+    "report_url": "reports/KSPI.html"
+  },
+  {
+    "id": "alert-stne-1793928516",
+    "ticker": "STNE",
+    "timestamp": "2026-11-05 17:28",
+    "title": "\ud83d\udcc9 STNE: Lower Corridor Breached ($7.49) \u2014 Re-Underwritten CAUTION (FV $7.77)",
+    "severity": "Weak Moat",
+    "labels": [
+      "Weak Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "Lower Alert Threshold Breached ($7.49 <= $7.50) & Annual TPV / BRL Valuation Audit",
+    "what_was_before": "The audited operational reality of StoneCo reveals a business that is holding ground and expanding monetization despite macroeconomic headwinds. In the latest operating quarter, StoneCo generated $691.6M in revenue, supporting an annualized run-rate of $2,766.6M with gross margins of 43.6%. The company serves 4.8 million active merchants, handling R$142.2 billion in quarterly MSMB total payment volume (TPV), while PIX QR volume surged 44.3% year-over-year to R$30.7 billion. StoneCo has maintained a resilient monetization yield, sustaining a blended MSMB take rate of 2.55% by integrating POS software subscriptions, merchant credit lines, and transactional banking spreads.\n\nOperating performance reflects disciplined absorption of credit provisioning, which compressed gross margins from 44.4% in the prior year to 41.6%-43.6% as management established upfront reserves against 90+ day delinquent loans. However, the credit portfolio expanded to BRL 3.2 billion, delivering 14% sequential revenue growth and confirming functional cross-selling across the active base. Furthermore, retail deposit gathering within Stone's digital banking operations continues to lower wholesale funding costs for the prepayment division.\n\nCapital allocation has prioritized direct shareholder returns. StoneCo completed BRL 3.0 billion in share repurchases over the trailing 12 months and distributed an extraordinary cash dividend of $2.53 per share in May 2026. While these capital returns increased net debt to -$1,733M (-$7.02 per share), the core franchise continues to generate $696.1M in annualized normalized owner cash flow ($2.82 per share), proving that underlying cash generation remains structurally sound.",
+    "what_changes_now": "StoneCo is currently operating in a challenging environment where revenue growth has decelerated, reaching an annualized run-rate of $2,686.0M. The company is managing 4.8 million active clients, but the monetization of these clients is under pressure as the product mix shifts toward lower-margin instant payment solutions. While the company maintains a gross margin of 43.6%, the bottom-line profitability is being heavily impacted by the rising cost of risk associated with its credit portfolio. Looking ahead to 2025 and 2026, analysts expect continued margin pressure as the company balances market share defense with credit risk mitigation, making the path to earnings expansion highly dependent on Selic rate normalization.",
+    "price_at_alert": 7.49,
+    "price_change_pct": -36.58,
+    "report_url": "reports/STNE.html"
+  },
+  {
+    "id": "alert-bvhmf-1793928440",
+    "ticker": "BVHMF",
+    "timestamp": "2026-11-05 17:27",
+    "title": "\ud83d\udd04 BVHMF: Thesis Re-Underwritten \u2014 HOLD (FV $4.85)",
+    "severity": "Weak Moat",
+    "labels": [
+      "Weak Moat",
+      "Low Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "Semi-Annual H1 Run-Rate & UK GBP Housing Unit Economics Audit",
+    "what_was_before": "Operationally, Vistry is undergoing an emergency operational retrenchment to stem cash burn. In H1 2026, residential completions dropped 8.5% year-over-year to 6,304 units, while gross margin was heavily pressured by steep open-market price incentives of 7.1% required to liquidate an unsold inventory backlog. Reported statutory results collapsed into a massive pre-tax loss of \u00a3661.3M, driven by \u00a3578.3M of exceptional charges, including a \u00a3475M goodwill impairment and \u00a373.2M in incremental building safety provisions.\n\nAdjusted operating performance turned negative at -\u00a336.2M during H1 2026, reflecting acute contract cost slippage and fixed-cost underabsorption across the contracting division. In response, CEO Adam Daniels scrapped the previous 20,000-unit annual target, resetting medium-term expectations down to approximately 12,000 units per year while closing 13 of the company's 25 regional divisions. The group's balance sheet has deteriorated sharply, with net debt expanding to -$848M (-$2.67 per share), forcing the cancellation of dividends and the indefinite suspension of share repurchases to conserve liquidity.",
+    "what_changes_now": "Vistry is currently in a state of operational reset, characterized by a significant decline in profitability and a pivot toward a capital-light, partnership-focused model. The latest quarterly data shows an annualized revenue run-rate of $4,428.0M, but this is being achieved against a backdrop of severe margin pressure. 2025 and 2026 results indicate that restructuring costs and impairment charges have severely eroded the capital base.\n\nThe company is actively reducing its operational footprint, cutting regions from 25 to 12, and prioritizing cash generation over volume to address its elevated net debt of -$1.92/share. Performance is currently hampered by the legacy of the Countryside acquisition and the high costs associated with restructuring, with the company relying on banking waivers to manage interest cover covenants through H1 2027.",
+    "price_at_alert": 3.8,
+    "price_change_pct": 14.46,
+    "report_url": "reports/BVHMF.html"
+  },
+  {
+    "id": "alert-aml-1793928337",
+    "ticker": "AML",
+    "timestamp": "2026-11-05 17:25",
+    "title": "\ud83d\udd04 AML: Thesis Re-Underwritten \u2014 AVOID (FV $0.35)",
+    "severity": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Highly Unpredictable"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Forensic IFRS Cash Flow & Capitalized R&D Normalization Audit",
+    "what_was_before": "Operationally, across FY2025 results and entering 2026, Aston Martin is navigating a critical transition period marked by operational divergence between halo hypercar deliveries and underlying core model health. Reported performance reflects an annualized revenue run-rate of $1,900.0M with gross margin registering at 33.1%. While headline revenue and average selling prices (ASP of approximately \u00a3233k per unit) have been supported by deliveries of the \u00a3850,000 Valhalla plug-in hybrid supercar alongside refreshed core sports cars (Vantage, DB12, and Vanquish), core volumes remain under pressure.\n\nWholesale shipments for core sports cars and DBX SUVs experienced notable headwinds in Greater China and North America through FY2025, requiring management to maintain targeted dealer inventory support. Following the late-2024 guidance adjustments, operational execution across FY2025 and into 2026 has prioritized aligning dealer stock with retail demand rather than pushing unabsorbed wholesale volume into channels.\n\nCapital allocation remains strictly constrained by the balance sheet. Aston Martin conducts zero share repurchases and pays no common dividends, with cash generation absorbed by capital expenditure requirements and high cash interest obligations. With net debt standing at -$1,560M (-$1.53 per share), common equity remains heavily exposed to operational and refinancing risks.",
+    "what_changes_now": "Aston Martin is currently in a high-stakes transition phase, characterized by a significant shift in product mix toward high-margin 'Specials' like the Valhalla. In Q3 2026, the company reported 1,431 wholesale units, maintaining an annualized revenue run-rate of $2,021.2M. Gross margins have improved to 37.4%, driven by the richer model mix, though this is heavily dependent on the limited-run hypercar delivery schedule.\n\nOperationally, the company is struggling with the burden of its capital structure. While management has successfully refinanced debt to extend maturities to 2031, the interest expense remains a massive drag on cash flow. The company continues to burn cash, with YTD outflows of -$225.2M, forcing a reliance on asset sales and tight cost control to maintain liquidity of approximately $320M.",
+    "price_at_alert": 0.47,
+    "price_change_pct": -4.08,
+    "report_url": "reports/AML.html"
+  },
+  {
+    "id": "alert-asml-1793927784",
+    "ticker": "ASML",
+    "timestamp": "2026-11-05 17:16",
+    "title": "\ud83d\udcc9 ASML: Drawdown (-19.7%) \u2014 Re-Underwritten HOLD (FV $1583.50)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "Material Price Drop (-19.7%) & Lithography System ASP / Annual Shipment Audit",
+    "what_was_before": "ASML is operating from a position of immense technical strength, evidenced by its most recent quarterly reports under CEO Christophe Fouquet and CFO Roger Dassen. Net sales reached \u20ac9.33 billion in Q2 2026, driven by the shipment of 91 total lithography systems (86 new systems including 1 High-NA EUV, and 5 used systems) and an extraordinary surge in Installed Base Management service sales to \u20ac2.76 billion.\n\nGross margins expanded to a robust 54.0%, supported by a lucrative product mix and strong pricing power on advanced EUV configurations. Management has raised full-year 2026 revenue guidance to between \u20ac43 billion and \u20ac45 billion while planning a 30% capacity expansion for Low-NA EUV systems by 2027 to meet relentless multi-year AI deployment demand across both advanced logic and high-bandwidth memory nodes.",
+    "what_changes_now": "ASML is executing exceptionally well from an operational standpoint, supported by explosive demand for artificial intelligence hardware across both advanced logic and high-performance memory. During the latest reported quarter (Q3 2026), the company shipped 121 total lithography systems comprising 113 new units and 8 used units, driving total net sales to EUR 11,662M (~$12,828.2M USD). Gross margins expanded to an impressive 57.5%, bolstered by an overachievement in Installed Base Management service revenue which reached EUR 3,289M (~$3,617.9M USD) as customers pushed legacy and advanced nodes for maximum productivity.\n\nThis robust operational delivery translates directly into stellar cash generation and shareholder returns. Free cash flow surged to EUR 11.4 billion (~$12.54 billion USD) for the trailing period, largely aided by customer advance down payments for order books stretching out toward 2029 and 2030. Management actively deployed this liquidity, repurchasing EUR 4.1 billion (~$4.51 billion USD) of shares while maintaining a pristine balance sheet holding $14,008.5M in liquid cash against $2,159.3M in total debt, resulting in net cash of +$11,849M (+$30.90/sh).",
+    "price_at_alert": 1356.65,
+    "price_change_pct": -19.68,
+    "report_url": "reports/ASML.html"
+  },
+  {
+    "id": "alert-lvmh-1793927583",
+    "ticker": "LVMH",
+    "timestamp": "2026-11-05 17:13",
+    "title": "\ud83d\udd04 LVMH: Thesis Re-Underwritten \u2014 AVOID (FV $68.20)",
+    "severity": "Wide Moat",
+    "labels": [
+      "Wide Moat",
+      "High Predictability"
+    ],
+    "action_signal": "AVOID",
+    "trigger_reason": "Semi-Annual H1 Run-Rate & Per-ADR (5:1 LVMUY) Valuation Audit",
+    "what_was_before": "In operational reality, LVMH continues to demonstrate structural resilience despite macroeconomic headwinds across Asia. Over the recent sequential quarters (H1 2026 and Q1 2026), organic revenue growth held positive between 1% and 3% (+2% in H1 2026, accelerating to +3% in Q2), supported by resilient performance in Sephora selective retailing and sustained high jewelry demand at Tiffany & Co. and Bvlgari. While reported top-line results absorbed a negative 5% currency translation drag, the group operated at an annualized revenue run-rate of $154,576.0M.\n\nProfitability metrics remain remarkably durable. Gross margin expanded 30 basis points sequentially to 67.1%, and recurring operating margin held firm at 22.5% despite an approximate \u20ac700M foreign exchange headwind. In the core Fashion & Leather Goods division, operating margin remained exceptional at 34.1%, demonstrating that Louis Vuitton and Christian Dior continue to exercise pricing discipline, protecting exclusivity over discounted volume chasing.\n\nCash flow conversion and balance sheet stewardship remain robust. Operating free cash flow reached \u20ac4.1B in H1 2026, supporting balance sheet deleveraging with net financial debt declining by nearly \u20ac2B year-over-year. Management declared an interim dividend of \u20ac5.50 per share while reallocating capital toward prime boutique real estate, demonstrating that the franchise retains significant defensive firepower.",
+    "what_changes_now": "LVMH is currently navigating a normalization cycle across its 6,280+ retail doors and Maisons, generating an annualized revenue run-rate of $80,600.0M (~\u20ac74,500M EUR) with consolidated gross margins holding firm at approximately 66.0%. While the core Fashion and Leather Goods division experienced a 5% organic contraction in Q3 2026 due to macro headwinds in Asia, other pillars such as Selective Retailing (Sephora up 6% to 8% organically) and Watches and Jewelry (Tiffany & Co. up 8% organically) continue to demonstrate cross-border resilience and selective market share gains.\n\nManagement has committed to a disciplined self-help agenda, optimizing operating expenses, cutting marketing and selling expenses during H1 2026, and steadfastly rejecting volume-destructive price discounting to protect long-term brand equity. Cash generation remains solid, with H1 operating free cash flow exceeding $4,400.0M (~\u20ac4,100M EUR) after capital expenditures. This liquidity profile underpins a balance sheet carrying net debt against total obligations, even after accounting for ongoing capital returns and strategic retail network pruning.",
+    "price_at_alert": 93.77,
+    "price_change_pct": 8.81,
+    "report_url": "reports/LVMH.html"
+  },
+  {
     "id": "alert-rrr-1792633404",
     "ticker": "RRR",
     "timestamp": "2026-10-22 01:43",
@@ -3080,378 +4517,5 @@
     "price_at_alert": 61.97,
     "price_change_pct": 0.26,
     "report_url": "reports/PYPL.html"
-  },
-  {
-    "id": "ma_reversal_NVDA_20260827_100438",
-    "ticker": "NVDA",
-    "timestamp": "2026-08-27 10:04",
-    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: NVDA Crossed UP All 4 Moving Averages",
-    "severity": "Breakout",
-    "labels": [
-      "Technical Reversal",
-      "Quad-MA Breakout",
-      "Momentum Confirmation"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "Technical Trend Reversal: Price ($224.64) has reclaimed 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $214.11, 21D: $215.99, 50D: $208.10, 200D: $195.72) with +3.6% 5-day velocity.",
-    "what_was_before": "Consolidating or trading below 21D SMA, 5D SMA (Previous close: $209.66).",
-    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
-    "price_at_alert": 224.64,
-    "price_change_pct": 7.14,
-    "report_url": "reports/NVDA.html"
-  },
-  {
-    "id": "ma_reversal_NOW_20260827_100438",
-    "ticker": "NOW",
-    "timestamp": "2026-08-27 10:04",
-    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: NOW Crossed UP All 4 Moving Averages",
-    "severity": "Breakout",
-    "labels": [
-      "Technical Reversal",
-      "Quad-MA Breakout",
-      "Momentum Confirmation"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "Technical Trend Reversal: Price ($139.10) has reclaimed 5D SMA and crossed UP ALL 4 Moving Averages (5D: $129.69, 21D: $123.18, 50D: $111.11, 200D: $119.42) with +7.2% 5-day velocity.",
-    "what_was_before": "Consolidating or trading below 5D SMA (Previous close: $125.80).",
-    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
-    "price_at_alert": 139.1,
-    "price_change_pct": 10.57,
-    "report_url": "reports/NOW.html"
-  },
-  {
-    "id": "ma_reversal_NBIS_20260827_100438",
-    "ticker": "NBIS",
-    "timestamp": "2026-08-27 10:04",
-    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: NBIS Crossed UP All 4 Moving Averages",
-    "severity": "Breakout",
-    "labels": [
-      "Technical Reversal",
-      "Quad-MA Breakout",
-      "Momentum Confirmation"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "Technical Trend Reversal: Price ($225.10) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $218.21, 21D: $220.74, 50D: $220.94, 200D: $151.36) with +2.3% 5-day velocity.",
-    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $213.93).",
-    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
-    "price_at_alert": 225.1,
-    "price_change_pct": 5.22,
-    "report_url": "reports/NBIS.html"
-  },
-  {
-    "id": "ma_reversal_FTNT_20260827_100438",
-    "ticker": "FTNT",
-    "timestamp": "2026-08-27 10:04",
-    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: FTNT Crossed UP All 4 Moving Averages",
-    "severity": "Breakout",
-    "labels": [
-      "Technical Reversal",
-      "Quad-MA Breakout",
-      "Momentum Confirmation"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "Technical Trend Reversal: Price ($165.03) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $156.35, 21D: $159.20, 50D: $156.85, 200D: $107.65) with +9.4% 5-day velocity.",
-    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $157.54).",
-    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
-    "price_at_alert": 165.03,
-    "price_change_pct": 4.75,
-    "report_url": "reports/FTNT.html"
-  },
-  {
-    "id": "ma_reversal_FLR_20260827_100438",
-    "ticker": "FLR",
-    "timestamp": "2026-08-27 10:04",
-    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: FLR Crossed UP All 4 Moving Averages",
-    "severity": "Breakout",
-    "labels": [
-      "Technical Reversal",
-      "Quad-MA Breakout",
-      "Momentum Confirmation"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "Technical Trend Reversal: Price ($53.26) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $52.05, 21D: $52.13, 50D: $51.62, 200D: $47.52) with +2.1% 5-day velocity.",
-    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $52.03).",
-    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
-    "price_at_alert": 53.26,
-    "price_change_pct": 2.36,
-    "report_url": "reports/FLR.html"
-  },
-  {
-    "id": "ma_reversal_CRM_20260827_100438",
-    "ticker": "CRM",
-    "timestamp": "2026-08-27 10:04",
-    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: CRM Crossed UP All 4 Moving Averages",
-    "severity": "Breakout",
-    "labels": [
-      "Technical Reversal",
-      "Quad-MA Breakout",
-      "Momentum Confirmation"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "Technical Trend Reversal: Price ($248.84) has reclaimed 5D SMA and crossed UP ALL 4 Moving Averages (5D: $215.68, 21D: $198.91, 50D: $178.81, 200D: $200.24) with +21.1% 5-day velocity.",
-    "what_was_before": "Consolidating or trading below 5D SMA (Previous close: $205.62).",
-    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
-    "price_at_alert": 248.84,
-    "price_change_pct": 21.02,
-    "report_url": "reports/CRM.html"
-  },
-  {
-    "id": "ma_reversal_ADM_20260827_100438",
-    "ticker": "ADM",
-    "timestamp": "2026-08-27 10:04",
-    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: ADM Crossed UP All 4 Moving Averages",
-    "severity": "Breakout",
-    "labels": [
-      "Technical Reversal",
-      "Quad-MA Breakout",
-      "Momentum Confirmation"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "Technical Trend Reversal: Price ($80.43) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $79.63, 21D: $79.77, 50D: $80.07, 200D: $71.36) with -1.6% 5-day velocity.",
-    "what_was_before": "Consolidating or trading below 50D SMA, 21D SMA, 5D SMA (Previous close: $80.09).",
-    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
-    "price_at_alert": 80.43,
-    "price_change_pct": 0.42,
-    "report_url": "reports/ADM.html"
-  },
-  {
-    "id": "ma_reversal_ADBE_20260827_100438",
-    "ticker": "ADBE",
-    "timestamp": "2026-08-27 10:04",
-    "title": "\ud83d\ude80 Quad-MA Bullish Reversal: ADBE Crossed UP All 4 Moving Averages",
-    "severity": "Breakout",
-    "labels": [
-      "Technical Reversal",
-      "Quad-MA Breakout",
-      "Momentum Confirmation"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "Technical Trend Reversal: Price ($286.22) has reclaimed 5D SMA and crossed UP ALL 4 Moving Averages (5D: $277.04, 21D: $265.19, 50D: $238.22, 200D: $269.35) with +5.1% 5-day velocity.",
-    "what_was_before": "Consolidating or trading below 5D SMA (Previous close: $273.47).",
-    "what_changes_now": "Technical regime flip confirmed: Complete quad-MA stack cleared with strong upward momentum. Confirms bottoming structure, institutional accumulation, and technical alignment with fundamental margin of safety.",
-    "price_at_alert": 286.22,
-    "price_change_pct": 4.66,
-    "report_url": "reports/ADBE.html"
-  },
-  {
-    "id": "alert-nbis-1787764865",
-    "ticker": "NBIS",
-    "timestamp": "2026-08-26 17:21",
-    "title": "NBIS: Valuation Re-evaluated (Narrow Moat)",
-    "severity": "Narrow Moat",
-    "labels": [
-      "Narrow Moat"
-    ],
-    "action_signal": "AVOID",
-    "trigger_reason": "SEC 6-K Filing (2026-08-26): FORM 6-K [Accession #0001104659-26-101076]",
-    "what_was_before": "In operational reality, Nebius is delivering massive top-line acceleration as demand for high-density AI compute remains severely supply-constrained globally. Operating at an annualized revenue run-rate of $1,000.0M (supported by Q2 2026 revenue of $",
-    "what_changes_now": "Operationally, Nebius is executing a rapid short-term infrastructure scale-up. In Q2 2026, consolidated revenue surged 454% YoY to $582.3M, representing an annualized revenue run-rate of $2,329.2M (and an exit ARR of $3.0B). Gross margins expanded to 77.0%, while Core AI Cloud Adjusted EBITDA margins reached 50.0%, driven by capacity sell-outs and uncommitted Blackwell cluster auctions clearing 15% above previous peak pricing.\n\nThe company has expanded its contracted power pipeline to 5.0 GW, with 800 MW to 1.0 GW on track to be fully connected by year-end 2026. Furthermore, Nebius has secured landmark long-term multi-year enterprise contracts, including a 5-year, ~$3.0B commitment with Meta and key capacity deliveries to Microsoft, expanding customer deferred prepayments to between $5.98B and $9.00B to self-fund roughly 50% to 60% of near-term GPU fleet CapEx.\n\nCapital allocation remains entirely focused on capacity buildout, with $0 dedicated to dividends or share buybacks. To supplement customer prepayments, Nebius recently completed a $5.75B private offering of convertible senior notes alongside ATM equity lines, closing Q2 2026 with $8,042.1M in liquid cash against $8,500.0M in total debt liabilities, yielding a net debt position of $-458M ($-1.68 per share).",
-    "price_at_alert": 215.11,
-    "price_change_pct": -1.83,
-    "report_url": "reports/NBIS.html"
-  },
-  {
-    "id": "alert-khc-1787764184",
-    "ticker": "KHC",
-    "timestamp": "2026-08-26 17:09",
-    "title": "KHC: Valuation Re-evaluated (Narrow Moat)",
-    "severity": "Narrow Moat",
-    "labels": [
-      "Narrow Moat"
-    ],
-    "action_signal": "HOLD",
-    "trigger_reason": "SEC 8-K Filing (2026-08-26): Item 3.01: Notice of Delisting or Failure to Satisfy a Continued Listing Rule; Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001637459-26-000057]",
-    "what_was_before": "",
-    "what_changes_now": "Despite headline GAAP net losses driven by non-cash impairment charges, Kraft Heinz generates stable underlying free cash flow. In Q2 2026, net sales reached $6,262.0M (an annualized run-rate of $25,048.0M) with gross margin at 32.4% (adjusted gross margin at 34.1%). The operating profile exhibits clear category divergence: North America organic sales contracted -2.7% YoY due to center-store volume softness, while Emerging Markets delivered double-digit top-line momentum (+10.4% YoY) and Away-From-Home channels preserved positive volume trajectories.\n\nUnder CEO Steve Cahillane, corporate strategy has pivoted away from immediate structural separation to prioritize operational execution and brand equity restoration. Strategic commercial reinvestment was scaled to ~$700M in 2026, targeted at digital supply chain automation, packaging reformulations, and R&D across Taste Elevation pillars (Heinz, Philadelphia, Kraft Mac & Cheese). Category tracking indicates brand market share stability improved to 35% in early 2026, with Taste Elevation platforms maintaining or expanding retail share across 87% of core product lines.\n\nCash generation remains solid, with six-month operating cash flow of $2,100.0M and free cash flow of $1,700.0M, reflecting cash conversion exceeding 115%. While share repurchases remain paused to direct surplus cash toward balance sheet deleveraging, the $0.40 quarterly dividend ($1.60 per share annualized; ~$1,898.0M annual cash requirement) remains fully funded by recurring cash flow.",
-    "price_at_alert": 24.57,
-    "price_change_pct": -3.95,
-    "report_url": "reports/KHC.html"
-  },
-  {
-    "id": "alert-gsk-1787763602",
-    "ticker": "GSK",
-    "timestamp": "2026-08-26 17:00",
-    "title": "GSK: Valuation Re-evaluated (Wide Moat)",
-    "severity": "Wide Moat",
-    "labels": [
-      "Wide Moat"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "SEC 6-K Filing (2026-08-26): DIRECTOR/PDMR SHAREHOLDING [Accession #0001654954-26-007877]",
-    "what_was_before": "GSK's real-time commercial operations demonstrate robust near-term execution led by Specialty Medicines, offsetting mature segment drag. The business operates at an annualized run-rate of $44,601.3M in revenue with a reported gross margin of 78.5%. O",
-    "what_changes_now": "Despite widespread market skepticism, GSK's operational results across the last four consecutive quarters (Q3 2025 through Q2 2026) demonstrate robust fundamental momentum. In Q2 2026, total sales reached \u00a38.41B ($11.15B), reflecting +5% YoY growth at constant exchange rates (CER) and establishing a current real-time annualized run-rate of $44,600.0M. Gross margins expanded 250 basis points YoY to 74.0%, propelled by a favorable mix shift toward high-margin Specialty Medicines (+14% CER) and Vaccines (+8% CER), which now represent over 68% of total group turnover. Core operating margin remained firm at 33.3%.\n\nOperational volume units across core franchises show high-yield patient adoption. In Specialty Medicines, HIV long-acting regimens Cabenuva (+33% CER) and Apretude (+39% CER) achieved record conversions, holding a 77% switch capture rate among US patients moving off daily oral therapy. Oncology anchors Jemperli (+40% CER) and specialized respiratory asset Nucala (+19% CER) continue to gain market share in primary endometrial cancer and severe eosinophilic asthma/EGPA. While US Medicare Part D redesign pressured General Medicines (-9% CER), Vaccines demonstrated resilience as international Shingrix expansion (+8% CER) and Australian government tender wins for Arexvy offset US ACIP policy headwinds.\n\nCapital allocation has been executed with disciplined agility. GSK fully completed its \u00a32.0B share buyback program while maintaining positive operating cash generation (\u00a34.3B in H1 2026). On July 15, 2026, management closed the \u00a37.1B ($9.0B) cash acquisition of Nuvalent, acquiring high-selectivity ROS1/ALK targeted oncology candidates to secure post-2027 revenue. Concurrently, management launched its 'Accelerate Growth' program, targeting \u00a31.9B in annual structural cost savings by 2029 (\u00a32.1B cash cost) to fund 20+ Phase III clinical trial starts in 2026 without sacrificing operational profitability.",
-    "price_at_alert": 51.69,
-    "price_change_pct": -1.37,
-    "report_url": "reports/GSK.html"
-  },
-  {
-    "id": "alert-bti-1787763029",
-    "ticker": "BTI",
-    "timestamp": "2026-08-26 16:50",
-    "title": "BTI: Valuation Re-evaluated (Wide Moat)",
-    "severity": "Wide Moat",
-    "labels": [
-      "Wide Moat"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "SEC 6-K Filing (2026-08-26): PRESS RELEASE [Accession #0000950157-26-000955]",
-    "what_was_before": "British American Tobacco is currently delivering mixed sequential operational performance across its dual-engine portfolio. The legacy combustible engine generates steady short-term cash flow through pricing realization (+6.8% price/mix yield) offsetting global stick volume declines (-4.7% YoY). In APMEA, operating profit contracted sharply (-16.5% YoY), impacted by market disruption in Bangladesh and Australia. Gross margins hold at 59.1% on an annualized revenue run-rate of $64,880.0M ($16,220.0M in the latest quarter).\n\nIn Smokeless and New Categories, consumer reach expanded to 35.0 million active users. Modern Oral (Velo/Velo Plus) delivered strong momentum with 7.9 billion pouches shipped in H1 2026 (+52.5% YoY volume growth), and U.S. Vapour (Vuse) achieved 15.6% reported revenue growth behind expanded value share (55.9%). However, Heated Tobacco (glo) continues to lag, contracting -12% YoY due to aggressive competitive pressure from IQOS in Europe and Asia.\n\nTrailing free cash flow generation remains healthy, supporting H1 2026 operational cash conversion above 95% and funding a \u00a31.3B annual buyback program alongside steady dividend distributions. Net debt remains elevated at $40,950M ($-18.98/share), keeping leverage near the top of management's target corridor.",
-    "what_changes_now": "Despite public equity skepticism, British American Tobacco's real-time operational engine is delivering disciplined, cash-generative performance. The company is generating a current annualized revenue run-rate of $63,648.0M with gross margins expanding to 66.5% and adjusted operating margins holding firm at ~43.7%\u201344.0%. Group constant-currency revenue expanded +2.9%, anchored by a strong 8.5% revenue surge in the US market as multi-category commercial deployment gains structural momentum.\n\nOperational volume units demonstrate a business undergoing a deliberate portfolio transformation rather than terminal decay. BTI currently serves 35.0 Million active Smokeless product consumers (across Vuse, glo, and Velo) alongside 465 Billion annualized cigarette units. The Smokeless portfolio now represents 19.8% of group revenue, led by Modern Oral (Velo), which surged +65.9% in H1 2026 and captured ~90% of US category value growth via Velo Plus. Concurrently, heightened FDA and state-level enforcement against unauthorized Chinese disposable vapes has allowed Vuse to regain market share and return to double-digit growth in legal channels.\n\nFrom a financial and capital allocation standpoint, free cash flow rebounded strongly following the non-recurrence of upfront Canadian litigation settlement payments. Operating cash conversion remains trackable above 95%, fully supporting the \u00a31.3 billion annual share buyback program while steadily de-leveraging net balance sheet debt toward management's target corridor of 2.0x\u20132.5x net debt/EBITDA by year-end.",
-    "price_at_alert": 57.58,
-    "price_change_pct": 2.44,
-    "report_url": "reports/BTI.html"
-  },
-  {
-    "id": "alert-baba-1787762130",
-    "ticker": "BABA",
-    "timestamp": "2026-08-26 16:35",
-    "title": "BABA: Valuation Re-evaluated (Narrow Moat)",
-    "severity": "Narrow Moat",
-    "labels": [
-      "Narrow Moat"
-    ],
-    "action_signal": "AVOID",
-    "trigger_reason": "SEC 6-K Filing (2026-08-26): FORM 6-K [Accession #0001104659-26-101020]",
-    "what_was_before": "Despite headline cash burn concerns, Alibaba's underlying operating engine demonstrates clear momentum in segment monetization and enterprise AI adoption across sequential quarters. Consolidated trailing 12-month revenue reached $146,148.0 million, with the latest quarter generating $37,615.8 million (up 9% YoY), establishing a current annualized run-rate of $150,463.2 million at a gross margin of 38.2%. The structural reorganization into four distinct business groups (Alibaba E-commerce Group, AI Cloud and Compute Services, AI Labs and Applications, and All Other) clarifies capital deployment.\n\nAI Cloud & Compute Services experienced rapid top-line acceleration, with external commercialization revenue expanding 45% YoY in the latest quarter (a 22-quarter high). AI-related product revenue achieved its 12th consecutive quarter of triple-digit growth, reaching an annualized run-rate of $7.3 billion (RMB 49.5 billion) and accounting for 35% of external cloud revenue, while Model-as-a-Service (MaaS) ARR surpassed RMB 16 billion. Operational leverage within Cloud Intelligence expanded segment Adjusted EBITA margins to 12.0% (RMB 5.63 billion EBITA).\n\nConcurrently, China Quick Commerce revenue surged 45% YoY to RMB 53.3 billion as order density improved unit economics, and International Digital Commerce (AIDC) narrowed operational losses. While aggressive AI hardware outlays (RMB 67.7 billion quarterly CapEx) drove quarterly FCF to -$6.58 billion (-RMB 44.7 billion), Alibaba maintains liquidity with cash and short-term investments of $66,363.6 million offset by $40,860.0 million in total debt, preserving net cash of $25,504 million ($10.56 per share).",
-    "what_changes_now": "Operationally, Alibaba presents two sharply diverging trajectories across its business units in the latest consecutive quarterly releases (Q2\u2013Q4 FY2026 through Q1 FY2027 / June 2026 quarter). On one hand, AI Cloud and Compute Services are demonstrating robust top-line momentum. External Cloud revenue growth accelerated to +45% YoY to RMB 48.44B ($7.14B) in the June 2026 quarter, driven by 12 consecutive quarters of triple-digit growth in AI-related products, which now operate at an annualized run-rate exceeding RMB 49.5B ($7.3B). Cloud EBITA margins expanded to 12.0%, supported by active enterprise compute instances and proprietary T-Head processor deployments.\n\nOn the other hand, the domestic commerce engine is bearing severe financial strain to defend transaction density across 1.0B active consumers and ~10M active merchants. Core Customer Management Revenue contracted 7% YoY (or +1% on a like-for-like basis) as Alibaba subsidized merchants and funded new business development programs to combat Douyin and PDD. Quick Commerce (Taobao Instant Commerce & Freshippo) surged +45% YoY to RMB 53.30B, but promotional campaigns and logistics subsidies continue to dilute consolidated profitability, holding gross margins at 34.0%.\n\nCapital allocation has shifted decisively toward capital expenditures and liquidity preservation. Driven by server procurement and hyperscale data center construction, quarterly CapEx surged 75% YoY to RMB 67.68B ($9.98B), driving quarterly consolidated Free Cash Flow into a negative RMB 44.67B (-$6.58B) outflow. Management effectively paused open-market share repurchases ($162M spent in Q1 FY27 vs. $4.1B quarterly historically) and issued an HK$80B ($10.2B) ordinary share placement at HK$112.70 per share (~3.6% dilution) to fund its 3-year RMB 380B AI buildout program.",
-    "price_at_alert": 120.42,
-    "price_change_pct": 0.9,
-    "report_url": "reports/BABA.html"
-  },
-  {
-    "id": "alert-anf-1787760565",
-    "ticker": "ANF",
-    "timestamp": "2026-08-26 16:09",
-    "title": "ANF: Valuation Re-evaluated (Weak Moat)",
-    "severity": "Weak Moat",
-    "labels": [
-      "Weak Moat"
-    ],
-    "action_signal": "CAUTION",
-    "trigger_reason": "SEC 8-K Filing (2026-08-26): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001018840-26-000041]",
-    "what_was_before": "In operational reality, Abercrombie & Fitch is executing well above historical cyclical baselines. Real-time operations reflect an annualized revenue run-rate of $1,000.0M, driven by active commercial volume units maintaining high full-price realizat",
-    "what_changes_now": "Despite market skepticism regarding peak margins, Abercrombie & Fitch's real-time operational execution remains robust across its multi-brand portfolio. Over the last four consecutive quarters (Q3 FY25 through Q2 FY26), net sales progressed sequentially from $1,290.6M to $1,670.0M, $1,113.8M, and $1,266.7M, marking 15 consecutive quarters of top-line growth and establishing a real-time annualized revenue run-rate of $5,066.8M. Performance across banners is led by the core Abercrombie brand (+8.0% net sales growth, +4% comps in Q2 FY26), offsetting softer comp trends (-3%) at Hollister, while APAC sales surged +19% YoY.\n\nGross margin execution remains structurally strong at 65.5%, supported by disciplined inventory control (flat YoY at cost) and low clearance activity. While Q2 GAAP operating margin hit 19.9% due to the $100M IEEPA tariff refund, underlying core operating margin was healthy at ~12.0%. The company operates a clean balance sheet with zero funded debt and $638.0M in net cash ($14.48/share). Management has aggressively allocated capital to share repurchases, deploying $282M (~3.2M shares, or 7% of beginning shares) in 1H FY26 alone and raising full-year buyback targets to at least $500M. Combined with high audited ROIC (65.7%), management continues to optimize store footprint density across 750+ omnichannel retail stores.",
-    "price_at_alert": 153.23,
-    "price_change_pct": 40.57,
-    "report_url": "reports/ANF.html"
-  },
-  {
-    "id": "alert-tsm-1787674189",
-    "ticker": "TSM",
-    "timestamp": "2026-08-25 16:09",
-    "title": "TSM: Valuation Re-evaluated (Wide Moat)",
-    "severity": "Wide Moat",
-    "labels": [
-      "Wide Moat"
-    ],
-    "action_signal": "HOLD",
-    "trigger_reason": "SEC 6-K Filing (2026-08-25): 6-K [Accession #0001046179-26-000545]",
-    "what_was_before": "TSM's current operational execution remains exceptional across leading-edge fabrication nodes. In the latest quarter, TSM generated $40,200.0M in revenue (an annualized run-rate of $160,800.0M) with gross margin reaching an industry-leading 67.7%. To",
-    "what_changes_now": "In stark contrast to short-seller skepticism, TSMC's operational performance across the past four consecutive quarters demonstrates accelerating competitive dominance and immense pricing power. Quarterly revenue expanded sequentially from $33.10B in Q3 2025 to $33.73B in Q4 2025, $35.90B in Q1 2026, and hit an all-time high of $40.20B in Q2 2026 (+33.7% YoY), translating to a current annualized run-rate of $160,800.0M. Gross margin reached a record 67.7% in Q2 2026, while operating margin surged to 60.3% and net profit margin expanded to 55.6%.\n\nOperational volume units hit approximately 4,210k 12-inch equivalent wafers in Q2 2026, with advanced technologies (<=7nm) accounting for 77% of total wafer revenue. High-Performance Computing (HPC) now represents 66% of overall sales, propelled by demand for leading-edge N3 (30% mix) and N5 (33% mix) nodes as well as CoWoS advanced packaging. Early N2 shipments contributed 3% of revenue in Q2 2026, establishing an initial foothold ahead of full mass production in H2 2026.\n\nBalance sheet cash generation remains exceptional, with Q2 2026 operating cash flow reaching NT$783.4B (~$24.8B). Total liquid cash and investments stand at $111,329.0M against $32,500.0M in total debt, yielding a rock-solid net cash position of $+78,829M ($+15.20/share). Executive management raised full-year 2026 revenue growth guidance to slightly above 40% YoY and upgraded long-term gross margin targets to '56% and higher', confirming that customer demand for leading-edge silicon remains insatiable.",
-    "price_at_alert": 415.19,
-    "price_change_pct": -0.9,
-    "report_url": "reports/TSM.html"
-  },
-  {
-    "id": "alert-quad-1787673049",
-    "ticker": "QUAD",
-    "timestamp": "2026-08-25 15:50",
-    "title": "QUAD: Valuation Re-evaluated (Weak Moat)",
-    "severity": "Weak Moat",
-    "labels": [
-      "Weak Moat"
-    ],
-    "action_signal": "CAUTION",
-    "trigger_reason": "SEC 8-K Filing (2026-08-25): Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001481792-26-000143]",
-    "what_was_before": "Quad's operational reality across recent quarters reveals a business struggling to generate organic growth despite management's strategic emphasis on its Marketing Experience pivot. Annualized run-rate revenue stands at $2,310.0M based on quarterly r",
-    "what_changes_now": "Despite market skepticism, Quad's recent quarterly trajectory across Q3 2025 ($605.5M sales, $50M Adj EBITDA), Q4 2025 ($630.6M sales, $52M Adj EBITDA; FY2025 net sales $2.4B), Q1 2026 ($581.0M sales, $45M Adj EBITDA, $0.25 Adj EPS), and Q2 2026 ($577.5M sales, $42M Adj EBITDA, $0.24 Adj EPS) demonstrates operational resilience in its pivot toward an integrated Marketing Experience (MX) provider. In Q2 2026, net sales grew +1.0% YoY to $577.5M, establishing an annualized run-rate of $2,310.0M. Top-line expansion was primarily driven by higher paper pass-through sales and logistics services, which offset core organic publication volume attrition (~2.0%).\n\nOperationally, QUAD is actively executing a product mix shift toward higher-margin Targeted Print (direct mail, packaging, and in-store signage) and Agency & Media Solutions (Rise, Betty, Favorite Child), which expanded to over 22% of total net sales. Gross margin held at 21.0% in Q2 2026, while Adjusted EBITDA reached $42.0M (7.3% margin). Strategic growth capital is focused on high-yielding packaging expansion, including the construction of a new 100,000 sq. ft. packaging facility in Salt Lake City, Utah, scheduled to become operational in Q4 2026 to capture regional CPG and retail demand.\n\nFrom a capital allocation standpoint, management reaffirmed full-year 2026 guidance ($175M\u2013$215M Adjusted EBITDA, $40M\u2013$60M Free Cash Flow, $55M\u2013$65M CapEx). Net debt stood at $394.1M as of June 30, 2026 (up seasonally from $308.0M at FY2025 year-end but down from $448.0M at Q2 2025). Shareholders received $13.0M in H1 2026 via $10.0M in cash dividends ($0.10/share quarterly) and $3.0M in share buybacks (0.4M shares repurchased in 2026, totaling 7.9M shares or 14.1% of outstanding stock since 2022).",
-    "price_at_alert": 10.12,
-    "price_change_pct": -1.84,
-    "report_url": "reports/QUAD.html"
-  },
-  {
-    "id": "alert-pdd-1787672038",
-    "ticker": "PDD",
-    "timestamp": "2026-08-25 15:33",
-    "title": "PDD: Valuation Re-evaluated (Narrow Moat)",
-    "severity": "Narrow Moat",
-    "labels": [
-      "Narrow Moat"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "SEC 6-K Filing (2026-08-25): FORM 6-K [Accession #0001104659-26-100534]",
-    "what_was_before": "In reality, PDD Holdings continues to operate an exceptionally efficient e-commerce engine, generating $15,715.0M in quarterly revenue ($62,860.0M annualized run-rate) with gross margins remaining robust at 57.3% and an audited Owner ROIC exceeding 1,000%. The domestic platform maintains a seller base of 16.8 million active merchants and buyer engagement frequency near ~70+ orders/year. While top-line revenue growth has moderated to 8% YoY, the business generated RMB 25.7 billion in operating cash flow in the latest quarter alone.\n\nManagement is deliberately trading near-term profit maximization for long-term platform defensibility. Through its 'RMB 100-Billion Merchant Support Initiative', PDD is waiving transaction fees, granting merchant refunds, and lowering fulfillment fees for rural agricultural sellers to cement its cost-leadership position against domestic competitors. Globally, Temu is rapidly scaling its semi-managed model\u2014onboarding local sellers holding regional warehouse inventory\u2014to preempt tariff headwinds and expand average order values (AOV).\n\nCapital allocation remains focused on internal balance sheet strength. Management holds $63,832.0M in net liquid cash ($46.26 per share) with zero long-term debt. While the absence of share repurchases or cash dividends creates friction with short-term market participants, the organic cash generation of the underlying marketplace platform remains structurally sound and highly cash-generative.",
-    "what_changes_now": "PDD Holdings continues to operate a massive, highly cash-generative e-commerce engine. In the latest Q2 2026 earnings release (quarter ended June 30, 2026), total revenue rose 8.05% YoY to RMB 112.4 billion ($16.6 billion), establishing a real-time annualized run-rate of $62,857.6M. Blended gross margin stabilized at 60.5%, supported by high-margin ad monetization alongside expanding transaction services. Non-GAAP operating profit rose 5% YoY to RMB 29.1 billion ($4.3 billion), demonstrating underlying platform resilience despite heavy R&D reinvestment.\n\nSequential segment trends reveal a deliberate strategic shift: Online Marketing Services (OMS) revenue grew 3.0% YoY to RMB 57.6 billion, while Transaction Services revenue surged 13.0% YoY to RMB 54.7 billion. This reflects robust transaction volume growth across Temu's international footprint and domestic payment processing, balanced by tactical fee waivers granted to domestic merchants under the RMB 100 Billion Support Program. While management noted that its first-party brand initiative has progressed slower than expected and EU customs changes create near-term friction, cross-border volume continues to expand. Regulatory clouds also cleared following the resolution of SAMR platform inquiries in early 2026.\n\nBalance sheet mechanics remain exceptional. PDD ended Q2 2026 with over RMB 630 billion ($63.8 billion net / $46.26 per share) in cash, cash equivalents, and liquid debt securities with zero funded debt. Net cash generated from operating activities reached RMB 25.7 billion in Q2 2026 alone, up from RMB 21.6 billion a year earlier. While management maintains a zero-buyback and zero-dividend policy to prioritize platform supply chain infrastructure, the core platform generates $18.8 billion in normalized annual Owner Earnings.",
-    "price_at_alert": 87.34,
-    "price_change_pct": -1.18,
-    "report_url": "reports/PDD.html"
-  },
-  {
-    "id": "alert-elf-1787612626",
-    "ticker": "ELF",
-    "timestamp": "2026-08-24 23:03",
-    "title": "ELF: Valuation Re-evaluated (Narrow Moat)",
-    "severity": "Narrow Moat",
-    "labels": [
-      "Narrow Moat"
-    ],
-    "action_signal": "AVOID",
-    "trigger_reason": "SEC 8-K Filing (2026-08-24): Item 5.07; Item 9.01: Financial Statements and Exhibits [Accession #0001600033-26-000044]",
-    "what_was_before": "In operational reality, e.l.f. Beauty continues to report high top-line growth figures, generating $479.4M in latest quarterly net sales, representing an annualized run-rate of $1,917.5M (+35.5% YoY growth). The company has achieved 30 consecutive qu",
-    "what_changes_now": "e.l.f. Beauty's reported financial results display strong headline expansion, reaching a real-time annualized revenue run-rate of $1,917.6M based on $479.4M in Q1 FY27 revenue (+36.0% YoY). However, a forensic operational audit reveals that this top-line surge is heavily skewed by the inorganic consolidation of Rhode, which contributed $160M in net sales during Q1 alone ($113M in Q4 FY26). In contrast, core namesake e.l.f. organic unit volumes contracted by 3% YoY, following a 5-point volume drop in Q4 FY26, driven by consumer resistance to cumulative price increases.\n\nGross margin printed at an extraordinary 83.2% in Q1 FY27, but this figure was temporarily boosted by an approximately 1,050 basis point ($50.0M\u2013$58.5M) non-recurring cash windfall from Supreme Court-mandated IEEPA tariff refunds. Stripping out these duty refunds reveals an underlying normalized core gross margin of ~72.5%. Management explicitly noted on the earnings call that the entirety of these tariff refunds will be spent on selective price rollbacks and retail promotional allowances to shore up declining core unit volumes.\n\nOperating overhead remains exceptionally high, with GAAP SG&A hitting 58.5% of net sales ($280.3M) in Q1 FY27, fueled by variable marketing spend (24%\u201331% of sales) and $19.7M in quarterly SBC. Net debt stands at $-490M ($-8.20 per share), reflecting the capital structure burden of acquisition financing.",
-    "price_at_alert": 105.95,
-    "price_change_pct": 3.93,
-    "report_url": "reports/ELF.html"
-  },
-  {
-    "id": "alert-duol-1787612424",
-    "ticker": "DUOL",
-    "timestamp": "2026-08-24 23:00",
-    "title": "DUOL: Valuation Re-evaluated (Narrow Moat)",
-    "severity": "Narrow Moat",
-    "labels": [
-      "Narrow Moat"
-    ],
-    "action_signal": "AVOID",
-    "trigger_reason": "SEC 8-K Filing (2026-08-19): Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update) [Accession #0001628280-26-057818]",
-    "what_was_before": "Duolingo is currently operating at a $1,000.0M annualized revenue run-rate (on pace for ~$1.207B in FY2026), driven by sustained top-of-funnel active user expansion reaching 58.7M Daily Active Users (DAUs, +23% YoY) and 140.6M Monthly Active Users (M",
-    "what_changes_now": "Operational engagement across Duolingo's platform remains robust on top-line volume metrics. Daily Active Users (DAUs) expanded to 58.7 million in Q2 2026 (+23% YoY), while Monthly Active Users (MAUs) reached 140.6 million (+10% YoY). Paid subscribers grew 17% YoY to 12.7 million, maintaining paid user conversion at approximately 9.0% of total MAUs. Product engagement mechanics, such as the June 'Streak Revival' event that reactivated over 15 million learners, continue to support daily user retention.\n\nFrom a financial trajectory perspective, quarterly revenue has sequentially progressed over the last four reporting periods: $271.7M in Q3 2025, $282.9M in Q4 2025, $292.0M in Q1 2026, and $298.5M in Q2 2026 (+18.3% YoY), establishing a current annualized revenue run-rate of $1,193.8M. Latest gross margin stood at 72.6%. The business model continues to benefit from efficient organic customer acquisition, maintaining Sales & Marketing expense at ~13.4% of GAAP revenue.\n\nCash flow generation is supported by upfront annual subscription billing, yielding $226.4M in GAAP Free Cash Flow during H1 2026. The balance sheet remains clean with $1,313.9M in liquid cash and zero debt ($26.26/sh). Management has allocated capital toward share repurchases under a $400M authorization, deploying $70.3M in Q2 2026 to buy back 695k shares, partially neutralizing dilution from Stock-Based Compensation ($135.6M run-rate).",
-    "price_at_alert": 146.84,
-    "price_change_pct": 0.49,
-    "report_url": "reports/DUOL.html"
-  },
-  {
-    "id": "alert-cprt-1787612197",
-    "ticker": "CPRT",
-    "timestamp": "2026-08-24 22:56",
-    "title": "CPRT: Valuation Re-evaluated (Wide Moat)",
-    "severity": "Wide Moat",
-    "labels": [
-      "Wide Moat"
-    ],
-    "action_signal": "CAUTION",
-    "trigger_reason": "SEC 8-K Filing (2026-08-18): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-354640]",
-    "what_was_before": "Despite short-term volume noise and tough winter catastrophe comparisons, Copart's core operational reality demonstrates robust underlying earning power and unyielding market leadership. In Q3 FY26 (ended April 30, 2026), consolidated revenue reached $1,237.1M (+2.1% YoY), translating to an annualized run-rate of $4,948.3M. While global unit volume contracted 2.4% YoY due to consumer auto policy retrenchment and higher deductibles, global Average Selling Prices (ASPs) expanded +4.6% YoY (with U.S. insurance ASPs up +4.1% to record levels), proving that Copart's global buyer network continues to yield unmatched recovery returns for consignors.\n\nOperational margins remain industry-leading, supported by Copart's proprietary real estate footprint. Q3 FY26 Gross Margin expanded 71 basis points YoY to 46.3% ($572.6M), while U.S. gross margin reached 48.3%. Operating margin stood at a formidable 37.5% ($464.3M operating income). This profitability is anchored by structural total loss frequency trends, which hit an all-time record of 23.6% in early 2026. Non-insurance channels are expanding rapidly, highlighted by Purple Wave heavy equipment GTV compounding at over 25% LTM and international volumes rising +5.9% YoY (revenue +14.1% YoY).\n\nCapital allocation has shifted aggressively toward return of capital and balance sheet optimization. Year-to-date through Q3 FY26, Copart deployed $1.63 billion to repurchase 43.4 million common shares, reducing diluted share count by 3.6% YoY to 942.8 million. With $4.2 billion in liquid cash and zero debt, returning CEO Jay Adair has signaled renewed focus on deploying excess cash toward global growth pillars, commercial whole car channels, and technology services while slowing land acquisition CapEx, ensuring that Copart's physical storage moat remains virtually unassailable.",
-    "what_changes_now": "Copart\u2019s real-time operational engine demonstrates underlying resilience despite localized domestic insurance volume drag. Operating across 250+ physical locations in 11 countries, the platform continues to process over 4.0 million annual global vehicle auction transactions connecting 1.0 million registered buyers across 250+ physical locations in 11 countries. The latest quarter generated $1,237.4M in revenue ($4,949.6M annualized run-rate) with gross margins holding firm at 46.3% and operating margins remaining strong at 37.4%.\n\nWhile U.S. insurance volumes experienced a 4.2% YoY decline due to cyclical consumer policy retrenchment, international unit volumes expanded 5.9% YoY, non-insurance commercial consignment via BluCar rose over 4%, and heavy equipment platform Purple Wave surged over 25% in trailing gross transaction value. Crucially, total loss frequency reached an all-time record of 23.6%, demonstrating that increasing vehicle technological complexity continues to push insurers toward declaring vehicles total losses.\n\nCash flow generation remains robust, with nine-month operating cash flow reaching $1,246.95M and free cash flow expanding 12% YoY to $988.35M. Management has executed an aggressive capital return pivot, deploying over $1.63 billion to repurchase 43.4 million shares while maintaining a pristine fortress balance sheet with $4,200M in net cash ($+4.45/share) and zero funded bank debt.",
-    "price_at_alert": 33.26,
-    "price_change_pct": -1.6,
-    "report_url": "reports/CPRT.html"
-  },
-  {
-    "id": "alert-bti-1787611673",
-    "ticker": "BTI",
-    "timestamp": "2026-08-24 22:47",
-    "title": "BTI: Valuation Re-evaluated (Narrow Moat)",
-    "severity": "Narrow Moat",
-    "labels": [
-      "Narrow Moat"
-    ],
-    "action_signal": "AVOID",
-    "trigger_reason": "SEC 6-K Filing (2026-08-18): REPORT OF FOREIGN PRIVATE ISSUER [Accession #0000950157-26-000920]",
-    "what_was_before": "Despite intense skepticism regarding legacy combustibles, BAT's real-time operational execution demonstrates steady cash generation and accelerating margin expansion in modern oral nicotine. Total smokeless active consumers expanded to 35.0 million in the recent period, adding 0.9 million users year-to-date. Modern oral leadership via Velo and Velo Plus achieved constant-currency revenue growth of +65.9%, driving top-market volume share to 39.2%. While total group revenue run-rate sits at $32,440.0M with reported gross margins of 82.7%, non-combustible products now represent 19.8% of total group revenue.\n\nCrucially, unit economics in New Categories are inflecting positively rather than remaining a perpetual cash drag. Contribution margin for New Categories expanded 330 basis points YoY to 13.8%, generating over \u00a3269 million in contribution profit and proving that smokeless delivery scales efficiently toward parity with legacy products. Free cash flow generation recovered sharply, driven by an operating cash conversion ratio exceeding 95%.\n\nCapital allocation remains disciplined and focused on balance sheet fortification alongside capital return. The company is actively executing a \u00a31.3 billion share buyback program while maintaining a progressive dividend yielding nearly 6.5%. Adjusted Net Debt to EBITDA sits at ~2.48x, with management using strong cash flows and productivity savings from the 'Fit to Win' program (\u00a3700M run-rate savings targeted by 2028) to steadily pay down debt toward its 2.0x\u20132.5x target range.",
-    "what_changes_now": "British American Tobacco is currently delivering mixed sequential operational performance across its dual-engine portfolio. The legacy combustible engine generates steady short-term cash flow through pricing realization (+6.8% price/mix yield) offsetting global stick volume declines (-4.7% YoY). In APMEA, operating profit contracted sharply (-16.5% YoY), impacted by market disruption in Bangladesh and Australia. Gross margins hold at 59.1% on an annualized revenue run-rate of $64,880.0M ($16,220.0M in the latest quarter).\n\nIn Smokeless and New Categories, consumer reach expanded to 35.0 million active users. Modern Oral (Velo/Velo Plus) delivered strong momentum with 7.9 billion pouches shipped in H1 2026 (+52.5% YoY volume growth), and U.S. Vapour (Vuse) achieved 15.6% reported revenue growth behind expanded value share (55.9%). However, Heated Tobacco (glo) continues to lag, contracting -12% YoY due to aggressive competitive pressure from IQOS in Europe and Asia.\n\nTrailing free cash flow generation remains healthy, supporting H1 2026 operational cash conversion above 95% and funding a \u00a31.3B annual buyback program alongside steady dividend distributions. Net debt remains elevated at $40,950M ($-18.98/share), keeping leverage near the top of management's target corridor.",
-    "price_at_alert": 56.71,
-    "price_change_pct": 0.89,
-    "report_url": "reports/BTI.html"
   }
 ]

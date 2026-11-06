@@ -117,7 +117,7 @@ def fetch_company_recent_filings(cik: str) -> Optional[Dict[str, Any]]:
 def check_sec_filing_triggers() -> int:
     """Surveillance pass: checks SEC EDGAR for new material 8-K, 10-Q, or 10-K filings.
     Enqueues tasks for any newly discovered filings not in cache."""
-    from stocks.queue_manager import enqueue_task
+    from stocks.data_store import enqueue_task
     from stocks.models import TaskItem
 
     watchlist = load_watchlist()

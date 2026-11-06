@@ -15,8 +15,7 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 
 from stocks.models import AlertItem, TaskItem, WatchlistStock
-from stocks.data_store import load_watchlist, load_alerts, add_alert, DATA_DIR
-from stocks.queue_manager import enqueue_task
+from stocks.data_store import load_watchlist, load_alerts, add_alert, enqueue_task, DATA_DIR
 from stocks.tracker import fetch_all_chart_ranges_cached
 
 REGIMES_FILE = DATA_DIR / "ma_regimes.json"

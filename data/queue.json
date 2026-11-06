@@ -1,12 +1,892 @@
 [
   {
-    "id": "genesis_MCD_20260829_022932",
-    "task_type": "ANALYZE_NEW",
-    "ticker": "MCD",
-    "notes": "",
+    "id": "trigger_FTNT_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "FTNT",
+    "notes": "Lower Alert Threshold Breached ($122.51 <= $152.46; -27.7% vs v5 $169.40)",
     "payload": {},
-    "created_at": "2026-08-29 02:29:32",
-    "status": "FAILED",
+    "created_at": "2026-11-05T17:36:35.242876",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_ASTS_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "ASTS",
+    "notes": "Lower Alert Threshold Breached ($30.20 <= $37.02; -26.6% vs v5 $41.13)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.144404",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_CAT_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "CAT",
+    "notes": "Lower Alert Threshold Breached ($553.64 <= $661.95; -24.7% vs v4 $735.50)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.179372",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_AMD_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "AMD",
+    "notes": "Lower Alert Threshold Breached ($404.40 <= $481.50; -24.4% vs v6 $535.00)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.121039",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_FLL_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "FLL",
+    "notes": "Lower Alert Threshold Breached ($0.72 <= $0.85; -23.4% vs v5 $0.94)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.237662",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_HOOD_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "HOOD",
+    "notes": "Lower Alert Threshold Breached ($78.39 <= $88.13; -19.9% vs v4 $97.92)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.262615",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_PLTR_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "PLTR",
+    "notes": "Lower Alert Threshold Breached ($154.99 <= $166.90; -16.4% vs v3 $185.44)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.348887",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_RKLB_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "RKLB",
+    "notes": "Lower Alert Threshold Breached ($45.99 <= $48.82; -15.2% vs v6 $54.24)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.365635",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_META_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "META",
+    "notes": "Lower Alert Threshold Breached ($605.08 <= $627.77; -13.3% vs v3 $697.52)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.309444",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_FICO_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "FICO",
+    "notes": "Lower Alert Threshold Breached ($707.40 <= $719.76; -11.5% vs v4 $799.73)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.232359",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_RDDT_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "RDDT",
+    "notes": "Material Price Drop (-39.6% move from last underwritten price $155.29 to $93.81)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.360347",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_VST_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "VST",
+    "notes": "Material Price Drop (-30.5% move from last underwritten price $162.36 to $112.89)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.410775",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_TPL_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "TPL",
+    "notes": "Material Price Drop (-26.3% move from last underwritten price $369.13 to $272.18)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.388032",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_TSM_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "TSM",
+    "notes": "Material Price Drop (-20.7% move from last underwritten price $445.12 to $353.10)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.393486",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_NVDA_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "NVDA",
+    "notes": "Material Price Drop (-20.5% move from last underwritten price $228.52 to $181.60)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.336550",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_GOOG_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "GOOG",
+    "notes": "Material Price Drop (-19.4% move from last underwritten price $349.52 to $281.74)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.252499",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_QUAD_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "QUAD",
+    "notes": "Material Price Drop (-19.4% move from last underwritten price $9.54 to $7.69)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.354532",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_HOVR_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "HOVR",
+    "notes": "Material Price Drop (-18.7% move from last underwritten price $1.39 to $1.13)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.267499",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_MELI_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "MELI",
+    "notes": "Material Price Drop (-18.4% move from last underwritten price $1876.04 to $1530.28)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.304360",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_AVGO_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "AVGO",
+    "notes": "Material Price Drop (-18.1% move from last underwritten price $355.92 to $291.53)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.149501",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_ADM_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "ADM",
+    "notes": "Material Price Drop (-15.7% move from last underwritten price $83.64 to $70.47)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.114387",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_GTT_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "GTT",
+    "notes": "Material Price Drop (-15.5% move from last underwritten price $241.52 to $203.98)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.257387",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_CMI_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "CMI",
+    "notes": "Material Price Drop (-15.0% move from last underwritten price $527.84 to $448.58)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.193569",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_LGCY_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "LGCY",
+    "notes": "Material Price Drop (-15.0% move from last underwritten price $10.36 to $8.81)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.283631",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_AAPL_000032019326000026_20261105_173635",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "AAPL",
+    "notes": "SEC 8-K Filing (2026-11-02): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0000320193-26-000024]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.846816",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_ALV_000119312526429588_20261105_173637",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "ALV",
+    "notes": "SEC 8-K Filing (2026-10-23): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-429404]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:37.060257",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_AMZN_000101872426000040_20261105_173637",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "AMZN",
+    "notes": "SEC 10-Q Filing (2026-10-30): 10-Q [Accession #0001018724-26-000040]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:37.648502",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_APP_000175100826000069_20261105_173638",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "APP",
+    "notes": "SEC 8-K Filing (2026-11-04): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 5.07; Item 9.01: Financial Statements and Exhibits [Accession #0001751008-26-000068]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:38.439184",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_BDX_000162828026070511_20261105_173640",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "BDX",
+    "notes": "SEC 8-K Filing (2026-11-05): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001628280-26-070511]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:40.502331",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_BMBL_000183004326000123_20261105_173641",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "BMBL",
+    "notes": "SEC 10-Q Filing (2026-11-04): 10-Q [Accession #0001830043-26-000123]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:41.068285",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_BMY_000001427226000024_20261105_173641",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "BMY",
+    "notes": "SEC 10-Q Filing (2026-10-29): 10-Q [Accession #0000014272-26-000024]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:41.367211",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_BYD_000143774926033786_20261105_173641",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "BYD",
+    "notes": "SEC 8-K Filing (2026-10-22): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001437749-26-033268]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:41.967964",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_CELH_000134176626000062_20261105_173642",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "CELH",
+    "notes": "SEC 8-K Filing (2026-11-05): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001341766-26-000059]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:42.662578",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_CMCSA_000162828026066863_20261105_173642",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "CMCSA",
+    "notes": "SEC 8-K Filing (2026-10-22): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001628280-26-066783]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:42.960047",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_CMG_000105809026000104_20261105_173643",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "CMG",
+    "notes": "SEC 8-K Filing (2026-10-28): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001058090-26-000103]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:43.540472",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_CPNG_000183458426000086_20261105_173644",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "CPNG",
+    "notes": "SEC 8-K Filing (2026-11-03): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001834584-26-000084]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:44.124435",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_CRH_000119312526446496_20261105_173644",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "CRH",
+    "notes": "SEC 10-Q Filing (2026-10-29): 10-Q [Accession #0000849395-26-000013]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:44.745568",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_CVS_000006480326000108_20261105_173645",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "CVS",
+    "notes": "SEC 8-K Filing (2026-11-04): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0000064803-26-000107]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:45.674491",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_DECK_000162828026068116_20261105_173645",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "DECK",
+    "notes": "SEC 8-K Filing (2026-10-22): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0000910521-26-000028]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:45.996022",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_DOW_000175178826000160_20261105_173646",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "DOW",
+    "notes": "SEC 8-K Filing (2026-10-22): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001751788-26-000155]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:46.884795",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_DUOL_000162828026069692_20261105_173647",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "DUOL",
+    "notes": "SEC 8-K Filing (2026-11-03): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001628280-26-069474]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:47.173926",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_ELF_000160003326000050_20261105_173647",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "ELF",
+    "notes": "SEC 8-K Filing (2026-11-04): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001600033-26-000048]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:47.751591",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_EXEL_000093976726000116_20261105_173648",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "EXEL",
+    "notes": "SEC 8-K Filing (2026-10-29): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0000939767-26-000114]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:48.444792",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_FLUT_000163532726000059_20261105_173650",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "FLUT",
+    "notes": "SEC 8-K Filing (2026-11-04): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-446166]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:50.252957",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_GCT_000162828026070475_20261105_173650",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "GCT",
+    "notes": "SEC 10-Q Filing (2026-11-05): 10-Q [Accession #0001628280-26-070475]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:50.907177",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_GSK_000165495426009181_20261105_173651",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "GSK",
+    "notes": "SEC 6-K Filing (2026-10-28): 3RD QUARTER RESULTS [Accession #0001654954-26-009181]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:51.495802",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_KEY_000009157626000023_20261105_173653",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "KEY",
+    "notes": "SEC 8-K Filing (2026-11-02): Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-443714]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:53.345166",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_KHC_000163745926000081_20261105_173653",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "KHC",
+    "notes": "SEC 8-K Filing (2026-11-04): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001637459-26-000078]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:53.650834",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_LEN_000119312526437818_20261105_173654",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "LEN",
+    "notes": "SEC 8-K Filing (2026-10-29): Item 1.01: Entry into a Material Definitive Agreement (M&A / Commercial Contract); Item 2.03; Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-437818]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:54.740095",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_LHX_000020205826000089_20261105_173655",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "LHX",
+    "notes": "SEC 8-K Filing (2026-11-05): Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0000202058-26-000089]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:55.544740",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_LNC_000005955826000072_20261105_173656",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "LNC",
+    "notes": "SEC 8-K Filing (2026-11-05): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0000059558-26-000070]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:56.135256",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_LULU_000139718726000135_20261105_173656",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "LULU",
+    "notes": "SEC 8-K Filing (2026-10-22): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001397187-26-000135]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:56.538517",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_MCD_000006390826000080_20261105_173656",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "MCD",
+    "notes": "SEC 8-K Filing (2026-11-04): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0000063908-26-000080]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:56.858728",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_MSFT_000119312526448357_20261105_173658",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "MSFT",
+    "notes": "SEC 8-K Filing (2026-11-04): Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-447173]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:58.684338",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_MTCH_000089110326000163_20261105_173658",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "MTCH",
+    "notes": "SEC 8-K Filing (2026-11-02): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0000891103-26-000161]",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:58.995209",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_NVR_000090616326000104_20261105_173702",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "NVR",
+    "notes": "SEC 8-K Filing (2026-10-22): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0000906163-26-000099]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:02.524837",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_ODFL_000087892726000033_20261105_173702",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "ODFL",
+    "notes": "SEC 8-K Filing (2026-10-22): Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0000878927-26-000029]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:02.928345",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_OGN_000110465926120423_20261105_173703",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "OGN",
+    "notes": "SEC 10-Q Filing (2026-10-30): 10-Q [Accession #0001821825-26-000004]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:03.205591",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_PFE_000007800326000132_20261105_173704",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "PFE",
+    "notes": "SEC 8-K Filing (2026-11-03): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0000078003-26-000125]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:04.094216",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_PYPL_000163391726000088_20261105_173704",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "PYPL",
+    "notes": "SEC 8-K Filing (2026-10-27): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001633917-26-000086]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:04.755533",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_RRR_000165365326000017_20261105_173706",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "RRR",
+    "notes": "SEC 8-K Filing (2026-11-03): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-445298]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:06.634398",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_SMRT_000119312526446254_20261105_173706",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "SMRT",
+    "notes": "SEC 8-K Filing (2026-11-04): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-446250]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:06.957469",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_SOFI_000181887426000070_20261105_173707",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "SOFI",
+    "notes": "SEC 8-K Filing (2026-10-27): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001818874-26-000065]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:07.268229",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_UBER_000154315126000041_20261105_173709",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "UBER",
+    "notes": "SEC 8-K Filing (2026-11-04): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 9.01: Financial Statements and Exhibits [Accession #0001543151-26-000039]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:09.784787",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_UNH_000073176626000266_20261105_173710",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "UNH",
+    "notes": "SEC 10-Q Filing (2026-11-03): 10-Q [Accession #0000731766-26-000266]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:10.084200",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_UPWK_000162747526000055_20261105_173710",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "UPWK",
+    "notes": "SEC 8-K Filing (2026-11-02): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 9.01: Financial Statements and Exhibits [Accession #0001627475-26-000053]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:10.374703",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_USB_000003610426000058_20261105_173710",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "USB",
+    "notes": "SEC 10-Q Filing (2026-11-05): 10-Q [Accession #0000036104-26-000058]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:10.706259",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_V_000140316126000134_20261105_173711",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "V",
+    "notes": "SEC 10-K Filing (2026-11-05): 10-K [Accession #0001403161-26-000134]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:11.008144",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_VITL_000119312526444419_20261105_173711",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "VITL",
+    "notes": "SEC 8-K Filing (2026-11-03): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-444348]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:11.322831",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_WDAY_000110465926118496_20261105_173712",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "WDAY",
+    "notes": "SEC 8-K Filing (2026-10-23): Item 1.01: Entry into a Material Definitive Agreement (M&A / Commercial Contract); Item 2.03; Item 9.01: Financial Statements and Exhibits [Accession #0001104659-26-118496]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:12.563034",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_WPC_000102537826000132_20261105_173713",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "WPC",
+    "notes": "SEC 8-K Filing (2026-10-27): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 9.01: Financial Statements and Exhibits [Accession #0001025378-26-000129]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:13.470686",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_XPO_000116600326000092_20261105_173713",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "XPO",
+    "notes": "SEC 8-K Filing (2026-10-29): Item 2.02: Results of Operations and Financial Condition (Official Earnings Release); Item 9.01: Financial Statements and Exhibits [Accession #0001104659-26-119828]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:13.781382",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "sec_ZG_000161764026000069_20261105_173714",
+    "task_type": "SEC_8K_TRIGGER",
+    "ticker": "ZG",
+    "notes": "SEC 8-K Filing (2026-10-28): Item 1.01: Entry into a Material Definitive Agreement (M&A / Commercial Contract) [Accession #0001617640-26-000063]",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:14.091951",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_CROX_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "CROX",
+    "notes": "Material Price Surge (+29.4% move from last underwritten price $118.19 to $152.93)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.208443",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_BAM_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "BAM",
+    "notes": "Upper Alert Threshold Breached ($52.46 >= $50.94; +18.4% vs v9 $44.30)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.154643",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_CPRT_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "CPRT",
+    "notes": "Upper Alert Threshold Breached ($32.48 >= $30.66; +16.5% vs v9 $27.87)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.198871",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_DHI_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "DHI",
+    "notes": "Upper Alert Threshold Breached ($157.63 >= $156.71; +15.7% vs v3 $136.27)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.213452",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_ACN_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "ACN",
+    "notes": "Upper Alert Threshold Breached ($265.16 >= $252.59; +15.5% vs v5 $229.63)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.106857",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_WMT_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "WMT",
+    "notes": "Material Price Surge (+13.8% move from last underwritten price $112.28 to $127.72)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.416873",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_ASO_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "ASO",
+    "notes": "Upper Alert Threshold Breached ($67.81 >= $65.69; +13.5% vs v5 $59.72)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.139172",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_MDT_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "MDT",
+    "notes": "Upper Alert Threshold Breached ($104.84 >= $102.05; +13.0% vs v7 $92.77)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.299342",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_BTI_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "BTI",
+    "notes": "Material Price Surge (+12.6% move from last underwritten price $56.00 to $63.08)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.169894",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_NKE_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "NKE",
+    "notes": "Material Price Surge (+12.0% move from last underwritten price $35.33 to $39.56)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.325480",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_ma_SQ_2026_W44",
+    "task_type": "MA_REVERSAL_TRIGGER",
+    "ticker": "SQ",
+    "notes": "Technical Trend Reversal: Price ($87.63) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $78.78, 21D: $77.31, 50D: $77.88, 200D: $71.37) with +11.2% clearance and +16.5% 5-day velocity.",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:26.199821",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_MSCI_20261105_173635",
+    "task_type": "PRICE_TRIGGER",
+    "ticker": "MSCI",
+    "notes": "Upper Alert Threshold Breached ($655.91 >= $650.86; +10.9% vs v4 $591.69)",
+    "payload": {},
+    "created_at": "2026-11-05T17:36:35.314613",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_ma_RACE_2026_W44",
+    "task_type": "MA_REVERSAL_TRIGGER",
+    "ticker": "RACE",
+    "notes": "Technical Trend Reversal: Price ($432.45) has reclaimed 50D SMA and crossed UP ALL 4 Moving Averages (5D: $409.21, 21D: $396.83, 50D: $402.77, 200D: $370.26) with +5.7% clearance and +9.9% 5-day velocity.",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:25.788111",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_ma_BEN_2026_W44",
+    "task_type": "MA_REVERSAL_TRIGGER",
+    "ticker": "BEN",
+    "notes": "Technical Trend Reversal: Price ($33.87) has reclaimed 50D SMA, 21D SMA and crossed UP ALL 4 Moving Averages (5D: $32.44, 21D: $31.67, 50D: $32.66, 200D: $30.35) with +3.7% clearance and +6.7% 5-day velocity.",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:20.165124",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_ma_WIX_2026_W44",
+    "task_type": "MA_REVERSAL_TRIGGER",
+    "ticker": "WIX",
+    "notes": "Technical Trend Reversal: Price ($80.52) has reclaimed 50D SMA, 21D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $77.06, 21D: $77.27, 50D: $78.02, 200D: $70.51) with +3.2% clearance and +2.5% 5-day velocity.",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:28.167757",
+    "status": "PENDING",
+    "error": null
+  },
+  {
+    "id": "trigger_ma_JEF_2026_W44",
+    "task_type": "MA_REVERSAL_TRIGGER",
+    "ticker": "JEF",
+    "notes": "Technical Trend Reversal: Price ($51.17) has reclaimed 200D SMA, 50D SMA, 5D SMA and crossed UP ALL 4 Moving Averages (5D: $48.65, 21D: $45.85, 50D: $48.11, 200D: $50.68) with +1.0% clearance and +7.7% 5-day velocity.",
+    "payload": {},
+    "created_at": "2026-11-05T17:37:21.892609",
+    "status": "PENDING",
     "error": null
   }
 ]

@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: "weekly-surveillance-defensive"
   cancel-in-progress: false
 
 env:
@@ -22,6 +22,7 @@ env:
 jobs:
   weekly_surveillance_defensive:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -61,9 +62,18 @@ jobs:
             echo "No changes from Thursday surveillance."
           else
             git commit -m "Thursday Noon Surveillance: Defensive Fortress Council Audit & Execution [skip ci]"
+            pushed=0
             for i in 1 2 3 4 5; do
-              git pull --rebase -X theirs origin main && git push origin main && break || sleep 3
+              if git pull --rebase --autostash -X theirs origin main && git push origin main; then
+                pushed=1
+                break
+              fi
+              sleep 4
             done
+            if [ "$pushed" -ne 1 ]; then
+              echo "ERROR: Failed to push defensive surveillance updates after 5 attempts."
+              exit 1
+            fi
           fi
 
       - name: Setup GitHub Pages
