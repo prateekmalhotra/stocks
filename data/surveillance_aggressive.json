@@ -1,8 +1,8 @@
 {
   "portfolio_type": "aggressive",
   "portfolio_label": "Wealthsimple (Aggressive Alpha)",
-  "last_run_date": "2026-11-18",
-  "last_run_timestamp": "2026-11-18T22:46:41.468685",
+  "last_run_date": "2026-11-25",
+  "last_run_timestamp": "2026-11-25T23:54:51.079072",
   "status": "OPTIMAL",
   "status_display": "COUNCIL AUDIT ACTIVE \u2022 ALL HOLDINGS INTACT",
   "action_required": false,
@@ -28,37 +28,37 @@
     "cash_directive": "Market froth (Shiller CAPE 35.5x) warrants expanding cash reserves toward 18.56%.",
     "formula_description": "Tactical Strike Reserve (18.56%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +20.00% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-11-25",
+  "next_scheduled_run": "2026-12-02",
   "holdings_health": [],
   "top_watchlist_on_radar": [
     {
       "ticker": "META",
       "company_name": "Meta Platforms, Inc.",
-      "price": 616.38,
+      "price": 609.89,
       "fair_value": 1009.78,
-      "mos_pct": 63.82,
-      "expected_irr": 42.9,
-      "kelly_edge": 55.02,
+      "mos_pct": 65.57,
+      "expected_irr": 43.5,
+      "kelly_edge": 55.32,
       "moat_score": 9.7
     },
     {
       "ticker": "ADBE",
       "company_name": "Adobe Inc",
-      "price": 226.2,
+      "price": 232.83,
       "fair_value": 472.06,
-      "mos_pct": 108.69,
-      "expected_irr": 55.4,
-      "kelly_edge": 50.8,
+      "mos_pct": 102.75,
+      "expected_irr": 53.4,
+      "kelly_edge": 50.19,
       "moat_score": 9.5
     },
     {
       "ticker": "PDD",
       "company_name": "PDD Holdings Inc. (Temu)",
-      "price": 77.45,
+      "price": 87.42,
       "fair_value": 182.24,
-      "mos_pct": 135.3,
-      "expected_irr": 74.9,
-      "kelly_edge": 48.05,
+      "mos_pct": 108.46,
+      "expected_irr": 66.0,
+      "kelly_edge": 44.79,
       "moat_score": 9.2
     }
   ],
